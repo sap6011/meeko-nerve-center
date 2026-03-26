@@ -128,7 +128,7 @@ def run():
     if blocked_c > 0:
         lines.append(
             f"  I want my {blocked_c} blocked channel{'s' if blocked_c!=1 else ''} unblocked. "
-            f"ANTHROPIC_API_KEY"
+            f"os.getenv("ANTHROPIC_API_KEY")"
             f"GUMROAD_ACCESS_TOKEN so 6 queued products go live. "
             f"Twitter API so 88+ posts stop waiting."
         )

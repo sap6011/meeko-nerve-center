@@ -20,7 +20,7 @@ DOCS = Path("docs"); DOCS.mkdir(exist_ok=True)
 
 def check_secrets():
     secrets = {
-        "ANTHROPIC_API_KEY",
+        "os.getenv("ANTHROPIC_API_KEY")",
         "GUMROAD_SECRET":       {"impact": "CRITICAL", "unlocks": ["10 queued products publishing"]},
         "GMAIL_ADDRESS":        {"impact": "HIGH",     "unlocks": ["email briefings", "outreach"]},
         "GMAIL_APP_PASSWORD":   {"impact": "HIGH",     "unlocks": ["email sending — MUST be App Password not account password"]},
@@ -61,7 +61,7 @@ def check_engines():
             syntax_ok = r.returncode == 0
         except Exception:
             syntax_ok = False
-        needs = [s for s in ["ANTHROPIC_API_KEY",
+        needs = [s for s in ["os.getenv("ANTHROPIC_API_KEY")",
                               "X_API_KEY","PAYPAL_CLIENT_ID","REDDIT_CLIENT_ID"] if s in code]
         results.append({"name": f.name, "size": f.stat().st_size,
                          "syntax_ok": syntax_ok, "needs_secrets": needs})
@@ -107,13 +107,13 @@ def identify_bottlenecks(secrets, engines, gumroad, revenue):
     def s(name):
         return next((x for x in secrets if x["name"] == name), None)
 
-    anthropic = s("ANTHROPIC_API_KEY",
+    anthropic = s("os.getenv("ANTHROPIC_API_KEY")",
     if anthropic and not anthropic["present"]:
         bottlenecks.append({
             "id": f"BN-{bn_id:03d}", "severity": "CRITICAL",
-            "title": "ANTHROPIC_API_KEY",
+            "title": "os.getenv("ANTHROPIC_API_KEY")",
             "description": "All Claude-powered engines fail. SELF_BUILDER, KNOWLEDGE_WEAVER, SYNTHESIS_FACTORY output nothing.",
-            "fix": "console.anthropic.com -> API Keys -> Create -> GitHub Secret: ANTHROPIC_API_KEY,
+            "fix": "console.anthropic.com -> API Keys -> Create -> GitHub Secret: os.getenv("ANTHROPIC_API_KEY"),
             "revenue_impact": "$0/day (AI brain offline)", "status": "PENDING"
         }); bn_id += 1
 
@@ -157,7 +157,7 @@ def identify_bottlenecks(secrets, engines, gumroad, revenue):
             "id": f"BN-{bn_id:03d}", "severity": "LOW",
             "title": f"{len(broken)} engines have syntax errors",
             "description": f"Broken: {', '.join(e['name'] for e in broken[:5])}",
-            "fix": "Fix ANTHROPIC_API_KEY,
+            "fix": "Fix os.getenv("ANTHROPIC_API_KEY"),
             "revenue_impact": "Minor -- those engines skipped", "status": "KNOWN"
         }); bn_id += 1
 
