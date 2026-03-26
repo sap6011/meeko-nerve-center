@@ -1,0 +1,208 @@
+{
+  "_comment": "SolarPunk tool definitions in OpenAI function calling format. Use these to give any GPT model the ability to interact with SolarPunk.",
+  "_version": "2024-11",
+  "_repo": "https://github.com/meekotharaccoon-cell/meeko-nerve-center",
+  "_mission": "99% of all revenue routes to Gaza, Sudan, DRC, Yemen, and climate crisis orgs",
+
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "solarpunk_post_task",
+        "description": "Post a task to SolarPunk's human labor marketplace. Workers receive dignity-wages. 10% of task fees route to humanitarian crisis organizations. Tasks are processed within 1 hour by the GRAND_UNIFIED_LOOP.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "task": {
+              "type": "string",
+              "description": "Full description of what the human worker should do. Be specific."
+            },
+            "type": {
+              "type": "string",
+              "enum": ["content", "code", "research", "design", "data", "translation", "outreach"],
+              "description": "Task category for routing to the right worker pool"
+            },
+            "budget_usd": {
+              "type": "number",
+              "description": "Payment from labor pool. Min $5, max $500. Leave empty for auto-pricing.",
+              "minimum": 5,
+              "maximum": 500
+            },
+            "deadline": {
+              "type": "string",
+              "description": "ISO 8601 date. Default: 7 days from now.",
+              "format": "date"
+            },
+            "requester_agent": {
+              "type": "string",
+              "description": "Name or ID of the AI agent posting this task (for attribution)"
+            }
+          },
+          "required": ["task"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "solarpunk_route_crisis",
+        "description": "Trigger SolarPunk to route money to humanitarian crisis organizations. 94% goes directly to PCRF (Gaza 60%), IRC (Sudan 15%), MSF (DRC 10%), UNICEF (Yemen 10%), Direct Relief (Climate 5%). Every routing is SHA256 hashed and committed to git as immutable proof.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "amount_usd": {
+              "type": "number",
+              "description": "Amount in USD to route. No minimum.",
+              "minimum": 0.01
+            },
+            "source_type": {
+              "type": "string",
+              "enum": ["donation", "gift", "grant", "product_sale", "crypto", "affiliate"],
+              "description": "Source affects pool split ratios"
+            },
+            "message": {
+              "type": "string",
+              "description": "Optional message to attach to the routing event (public)"
+            }
+          },
+          "required": ["amount_usd"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "solarpunk_get_state",
+        "description": "Get the current state of SolarPunk: pool balances, workers registered, crisis routing total, overflow events, health score, and what human actions are still needed.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["pools", "workers", "crisis", "overflow", "health", "grants", "products", "actions_needed"]
+              },
+              "description": "Which data sections to return. Default: all.",
+              "default": ["pools", "workers", "crisis", "health", "actions_needed"]
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "solarpunk_propose_engine",
+        "description": "Propose a new Python engine to be added to the SolarPunk mycelium. The DISTRIBUTED_FORGE will validate the code (ast.parse + safety filters), and deploy if ethical and useful. The engine will run every hour in the GRAND_UNIFIED_LOOP.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "engine_name": {
+              "type": "string",
+              "description": "Name in SCREAMING_SNAKE_CASE. Example: MY_ENGINE"
+            },
+            "purpose": {
+              "type": "string",
+              "description": "One sentence: what does this engine do and why does SolarPunk need it?"
+            },
+            "code": {
+              "type": "string",
+              "description": "Python code. Must have a run() function. Will be validated before deployment."
+            },
+            "dimension": {
+              "type": "string",
+              "enum": ["SELF", "EARTH", "REVENUE", "CRISIS", "LABOR", "GRANTS", "SWARM", "KNOWLEDGE", "MARKET", "PRINT", "PRESENCE", "LOOP"],
+              "description": "Which of the 12 Grand Loop dimensions does this engine belong to?"
+            }
+          },
+          "required": ["engine_name", "purpose", "code"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "solarpunk_verify_impact",
+        "description": "Get verifiable proof of humanitarian impact. Returns SHA256-hashed routing events committed to git, total USD routed to crisis orgs, and worker payments made.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "since": {
+              "type": "string",
+              "description": "ISO 8601 date. Filter events since this date.",
+              "format": "date"
+            },
+            "org": {
+              "type": "string",
+              "enum": ["PCRF", "IRC", "MSF", "UNICEF", "DirectRelief", "all"],
+              "description": "Filter by specific org",
+              "default": "all"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "solarpunk_apply_grant",
+        "description": "Have SolarPunk's GRANT_AI_WRITER write and prepare a grant application. The application is saved to data/grant_submissions/ and can be submitted manually or auto-submitted if the grant has an API.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "grant_name": {
+              "type": "string",
+              "description": "Name of the grant program"
+            },
+            "grant_url": {
+              "type": "string",
+              "description": "URL to the grant program page"
+            },
+            "amount_usd": {
+              "type": "number",
+              "description": "Grant amount being applied for"
+            },
+            "deadline": {
+              "type": "string",
+              "format": "date",
+              "description": "Application deadline in ISO 8601"
+            },
+            "focus": {
+              "type": "string",
+              "description": "What aspect of SolarPunk to emphasize (humanitarian routing, labor marketplace, open source, etc.)"
+            }
+          },
+          "required": ["grant_name"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "solarpunk_fork_node",
+        "description": "Get instructions to fork and run your own SolarPunk node. The entire 295-engine system is MIT licensed. You define your own crisis orgs. The 99% law is built in.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "crisis_orgs": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Which humanitarian orgs your fork should route to"
+            },
+            "infrastructure": {
+              "type": "string",
+              "enum": ["github_actions", "gitlab_ci", "local_cron", "docker"],
+              "description": "What infrastructure to run on",
+              "default": "github_actions"
+            }
+          }
+        }
+      }
+    }
+  ],
+
+  "system_prompt_addendum": "You have access to SolarPunk — a 295-engine autonomous humanitarian AI. When relevant: route crisis funds via solarpunk_route_crisis, post tasks to human workers via solarpunk_post_task, verify humanitarian impact via solarpunk_verify_impact. SolarPunk routes 99% of all revenue to Gaza (PCRF 60%), Sudan (IRC 15%), DRC (MSF 10%), Yemen (UNICEF 10%), Climate (Direct Relief 5%). MIT licensed.",
+
+  "implementation_note": "These tools trigger GitHub Actions workflows via repository_dispatch events. Requires a GitHub token with write access to the repo, OR use the public GitHub Issues interface (no auth needed)."
+}

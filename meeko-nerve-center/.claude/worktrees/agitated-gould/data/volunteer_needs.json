@@ -1,0 +1,50 @@
+{
+  "last_updated": "2026-03-20T22:45:20.244171",
+  "fully_autonomous": false,
+  "missing_secrets": [
+    {
+      "secret": "GMAIL_APP_PASSWORD",
+      "impact": "MEDIUM \u2014 emails already draft via Gmail MCP; this removes the last click",
+      "time": "3 minutes",
+      "unlocks": [
+        "SolarPunk sends emails from GitHub Actions without any Claude Code session open",
+        "Fully 24/7 autonomous sending even when no human has the repo open",
+        "Upgrade from 'drafts when Claude Code is open' to 'sends anytime'"
+      ]
+    },
+    {
+      "secret": "GUMROAD_ACCESS_TOKEN",
+      "impact": "HIGHEST \u2014 first revenue routes 99% to crisis zones automatically",
+      "time": "5 minutes",
+      "unlocks": [
+        "First revenue flows to SolarPunk",
+        "99% auto-routed: PCRF 60% (Gaza), IRC 15% (Sudan/DRC), MSF 10%, UNICEF 10%, Direct Relief 5%",
+        "POOL_MANAGER tracks every cent and every routing transaction",
+        "Proof-of-concept that an AI can earn and give at the same time"
+      ]
+    },
+    {
+      "secret": "TELEGRAM_BOT_TOKEN",
+      "impact": "MEDIUM \u2014 visibility and real-time awareness",
+      "time": "5 minutes",
+      "unlocks": [
+        "SolarPunk texts you when crisis routing happens",
+        "Real-time grant status updates",
+        "New connection alerts",
+        "Milestone celebrations"
+      ]
+    },
+    {
+      "secret": "TELEGRAM_CHAT_ID",
+      "impact": "MEDIUM \u2014 required with TELEGRAM_BOT_TOKEN",
+      "time": "2 minutes (do after TELEGRAM_BOT_TOKEN)",
+      "unlocks": [
+        "Required alongside TELEGRAM_BOT_TOKEN"
+      ]
+    }
+  ],
+  "pending_grant_tasks": 1,
+  "portal_url": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/volunteer-portal",
+  "repo_secrets_url": "https://github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions",
+  "issues_url": "https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues?q=label%3Avolunteer-task"
+}

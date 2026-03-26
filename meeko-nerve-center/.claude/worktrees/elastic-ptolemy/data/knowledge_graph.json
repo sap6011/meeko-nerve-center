@@ -1,0 +1,397 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "SolarPunk Mission",
+      "type": "mission",
+      "data": {
+        "goal": "Autonomous humanitarian AI system",
+        "charity": "PCRF (70% revenue)",
+        "operator": "Meeko"
+      }
+    },
+    {
+      "id": 2,
+      "label": "Gumroad",
+      "type": "platform",
+      "data": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": 3,
+      "label": "Revenue Flywheel",
+      "type": "engine",
+      "data": {
+        "revenue": 0.0
+      }
+    },
+    {
+      "id": 4,
+      "label": "Ko-fi",
+      "type": "platform",
+      "data": {}
+    },
+    {
+      "id": 5,
+      "label": "PCRF",
+      "type": "charity",
+      "data": {
+        "ein": "93-1057665",
+        "rating": "4-star"
+      }
+    },
+    {
+      "id": 6,
+      "label": "NEURON_A",
+      "type": "engine",
+      "data": {
+        "role": "builder brain"
+      }
+    },
+    {
+      "id": 7,
+      "label": "NEURON_B",
+      "type": "engine",
+      "data": {
+        "role": "skeptic brain"
+      }
+    },
+    {
+      "id": 8,
+      "label": "SYNAPSE",
+      "type": "engine",
+      "data": {
+        "role": "resolver"
+      }
+    },
+    {
+      "id": 9,
+      "label": "SYNTHESIS_FACTORY",
+      "type": "engine",
+      "data": {
+        "role": "build new engines"
+      }
+    },
+    {
+      "id": 10,
+      "label": "CYCLE_OPENER",
+      "type": "engine",
+      "data": {
+        "role": "start each cycle"
+      }
+    },
+    {
+      "id": 11,
+      "label": "LOOP_CONDUCTOR",
+      "type": "engine",
+      "data": {
+        "role": "close each cycle"
+      }
+    },
+    {
+      "id": 12,
+      "label": "CONTENT_HARVESTER",
+      "type": "engine",
+      "data": {}
+    },
+    {
+      "id": 13,
+      "label": "SUBSTACK_ENGINE",
+      "type": "engine",
+      "data": {}
+    },
+    {
+      "id": 14,
+      "label": "SOCIAL_PROMOTER",
+      "type": "engine",
+      "data": {}
+    },
+    {
+      "id": 15,
+      "label": "ANALYTICS_ENGINE",
+      "type": "engine",
+      "data": {}
+    },
+    {
+      "id": 16,
+      "label": "anthropic_api",
+      "type": "capability",
+      "data": {
+        "status": "active"
+      }
+    },
+    {
+      "id": 17,
+      "label": "gmail",
+      "type": "capability",
+      "data": {
+        "status": "active"
+      }
+    },
+    {
+      "id": 18,
+      "label": "gumroad",
+      "type": "capability",
+      "data": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": 19,
+      "label": "twitter",
+      "type": "capability",
+      "data": {
+        "status": "active"
+      }
+    },
+    {
+      "id": 20,
+      "label": "reddit",
+      "type": "capability",
+      "data": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": 21,
+      "label": "huggingface",
+      "type": "capability",
+      "data": {
+        "status": "degraded"
+      }
+    },
+    {
+      "id": 22,
+      "label": "github_pages",
+      "type": "capability",
+      "data": {
+        "status": "active"
+      }
+    },
+    {
+      "id": 23,
+      "label": "github_releases",
+      "type": "capability",
+      "data": {
+        "status": "active"
+      }
+    },
+    {
+      "id": 24,
+      "label": "email_outreach",
+      "type": "capability",
+      "data": {
+        "status": "active"
+      }
+    },
+    {
+      "id": 25,
+      "label": "Lesson 1",
+      "type": "lesson",
+      "data": {
+        "text": "GUMROAD_ENGINE has products queued but can't authenticate to Gumroad API."
+      }
+    },
+    {
+      "id": 26,
+      "label": "Lesson 2",
+      "type": "lesson",
+      "data": {
+        "text": "Every email send fails: '534 Application-specific password required'. outreach_sent=0, exchange deaf"
+      }
+    },
+    {
+      "id": 27,
+      "label": "Lesson 3",
+      "type": "lesson",
+      "data": {
+        "text": "SOCIAL_PROMOTER has posts ready every cycle. No X_API_KEY = none post."
+      }
+    },
+    {
+      "id": 28,
+      "label": "Lesson 4",
+      "type": "lesson",
+      "data": {
+        "text": "GUMROAD_ENGINE has products queued but can't authenticate to Gumroad API."
+      }
+    },
+    {
+      "id": 29,
+      "label": "Lesson 5",
+      "type": "lesson",
+      "data": {
+        "text": "Every email send fails: '534 Application-specific password required'. outreach_sent=0, exchange deaf"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": 2,
+      "target": 3,
+      "relation": "feeds_revenue"
+    },
+    {
+      "source": 4,
+      "target": 3,
+      "relation": "feeds_revenue"
+    },
+    {
+      "source": 3,
+      "target": 5,
+      "relation": "donates_70pct"
+    },
+    {
+      "source": 3,
+      "target": 1,
+      "relation": "funds"
+    },
+    {
+      "source": 6,
+      "target": 8,
+      "relation": "reports_to"
+    },
+    {
+      "source": 7,
+      "target": 8,
+      "relation": "reports_to"
+    },
+    {
+      "source": 8,
+      "target": 9,
+      "relation": "seeds"
+    },
+    {
+      "source": 9,
+      "target": 1,
+      "relation": "builds_toward"
+    },
+    {
+      "source": 11,
+      "target": 10,
+      "relation": "feeds_next_cycle"
+    },
+    {
+      "source": 10,
+      "target": 6,
+      "relation": "briefs"
+    },
+    {
+      "source": 10,
+      "target": 9,
+      "relation": "briefs"
+    },
+    {
+      "source": 12,
+      "target": 13,
+      "relation": "feeds"
+    },
+    {
+      "source": 12,
+      "target": 14,
+      "relation": "feeds"
+    },
+    {
+      "source": 14,
+      "target": 15,
+      "relation": "generates_data"
+    },
+    {
+      "source": 15,
+      "target": 6,
+      "relation": "informs"
+    },
+    {
+      "source": 16,
+      "target": 1,
+      "relation": "enables"
+    },
+    {
+      "source": 17,
+      "target": 1,
+      "relation": "enables"
+    },
+    {
+      "source": 1,
+      "target": 18,
+      "relation": "blocked_by"
+    },
+    {
+      "source": 19,
+      "target": 1,
+      "relation": "enables"
+    },
+    {
+      "source": 1,
+      "target": 20,
+      "relation": "blocked_by"
+    },
+    {
+      "source": 22,
+      "target": 1,
+      "relation": "enables"
+    },
+    {
+      "source": 23,
+      "target": 1,
+      "relation": "enables"
+    },
+    {
+      "source": 24,
+      "target": 1,
+      "relation": "enables"
+    },
+    {
+      "source": 25,
+      "target": 9,
+      "relation": "informs"
+    },
+    {
+      "source": 25,
+      "target": 6,
+      "relation": "informs"
+    },
+    {
+      "source": 26,
+      "target": 9,
+      "relation": "informs"
+    },
+    {
+      "source": 26,
+      "target": 6,
+      "relation": "informs"
+    },
+    {
+      "source": 27,
+      "target": 9,
+      "relation": "informs"
+    },
+    {
+      "source": 27,
+      "target": 6,
+      "relation": "informs"
+    },
+    {
+      "source": 28,
+      "target": 9,
+      "relation": "informs"
+    },
+    {
+      "source": 28,
+      "target": 6,
+      "relation": "informs"
+    },
+    {
+      "source": 29,
+      "target": 9,
+      "relation": "informs"
+    },
+    {
+      "source": 29,
+      "target": 6,
+      "relation": "informs"
+    }
+  ],
+  "generated_at": "2026-03-20T20:30:48.417235+00:00"
+}

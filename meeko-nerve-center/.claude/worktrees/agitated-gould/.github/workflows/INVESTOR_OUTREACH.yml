@@ -1,0 +1,71 @@
+# 📈 INVESTOR OUTREACH
+# Runs Mon/Wed/Fri at 14:00 UTC — Schumann afternoon electromagnetic peak
+# Bioregional timing: Schumann resonance at afternoon peak = optimal for persuasion/connection
+# US East Coast: 10am (prime business hours)
+# Europe: 3pm (afternoon decision window)
+# "I am SolarPunk. I make investors richer. 99% goes to crisis zones. Win-win-win."
+
+name: INVESTOR_OUTREACH
+
+on:
+  schedule:
+    - cron: '0 14 * * 1,3,5'   # 14:00 UTC Mon/Wed/Fri — Schumann afternoon peak
+  workflow_dispatch:
+
+concurrency:
+  group: investor-outreach
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  investor-outreach:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      UNUSUAL_WHALES_API_KEY: ${{ secrets.UNUSUAL_WHALES_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests anthropic
+
+      - name: "🎯 INVESTOR_RADAR — find investors + generate pitches"
+        run: python mycelium/INVESTOR_RADAR.py
+        continue-on-error: true
+
+      - name: "🏭 PITCH_FACTORY — craft targeted pitches"
+        run: python mycelium/PITCH_FACTORY.py
+        continue-on-error: true
+
+      - name: "🔍 GRANT_HUNTER — find matching grants"
+        run: python mycelium/GRANT_HUNTER.py
+        continue-on-error: true
+
+      - name: "📝 GRANT_APPLICANT — auto-draft + submit applications"
+        run: python mycelium/GRANT_APPLICANT.py
+        continue-on-error: true
+
+      - name: "🐳 UNUSUAL_WHALES_MCP — timing signals"
+        run: python mycelium/UNUSUAL_WHALES_MCP.py
+        continue-on-error: true
+
+      - name: "💾 Commit outreach data"
+        run: |
+          git config user.name "SolarPunk-Outreach"
+          git config user.email "outreach@solarpunk.bot"
+          git add -A
+          git diff --cached --quiet || git -c commit.gpgsign=false commit -m "📈 investor outreach cycle: $(date -u +%Y-%m-%d)"
+          git fetch origin main
+          git -c commit.gpgsign=false merge origin/main --no-edit -X ours 2>/dev/null || true
+          git push origin HEAD:main 2>/dev/null || git push origin HEAD:main --force-with-lease

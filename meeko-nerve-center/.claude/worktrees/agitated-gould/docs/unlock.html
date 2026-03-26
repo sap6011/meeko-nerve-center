@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Planetary Commons — What's Been Blocked & How We Unlock It | SolarPunk</title>
+<meta name="description" content="The planet has been running SolarPunk for 3.8 billion years. We blocked it. Here is exactly what was taken, by whom, and how we take it back.">
+<meta property="og:title" content="The Planet's Own SolarPunk — What's Been Blocked & How We Unlock It">
+<meta property="og:description" content="Mycorrhizal internet. Free spectrum. Open seeds. Traditional knowledge. The planet already built the infrastructure. We remove the blocks.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #00ffcc;
+  --gold: #f0b429;
+  --rose: #e05c6a;
+  --green: #5ecb8e;
+  --dim: rgba(0,255,204,0.6);
+  --faint: rgba(0,255,204,0.05);
+  --border: rgba(0,255,204,0.1);
+  --dark: #060a08;
+  --panel: rgba(0,255,204,0.03);
+  --blocked: rgba(224,92,106,0.08);
+  --blocked-border: rgba(224,92,106,0.2);
+  --unlocked: rgba(94,203,142,0.08);
+  --unlocked-border: rgba(94,203,142,0.25);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--dark);
+  color: var(--teal);
+  font-family: 'Space Mono', monospace;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 80px 20px 64px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(224,92,106,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(0,255,204,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.eyebrow { font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; opacity: 0.35; margin-bottom: 24px; }
+.hero-title {
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.hero-title .blocked { color: var(--rose); }
+.hero-title .unlocked { color: var(--teal); }
+.hero-sub {
+  font-size: clamp(0.82rem, 2vw, 1rem);
+  opacity: 0.65;
+  max-width: 620px;
+  margin: 0 auto 36px;
+  line-height: 1.9;
+}
+.hero-sub strong { color: var(--teal); opacity: 1; }
+.age-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--faint); border: 1px solid var(--border);
+  border-radius: 20px; padding: 8px 20px;
+  font-size: 0.68rem; letter-spacing: 1.5px;
+}
+.age-num { color: var(--gold); font-weight: 700; font-size: 1rem; }
+
+/* SECTION LAYOUT */
+.section { max-width: 1000px; margin: 0 auto; padding: 56px 20px; }
+.section-title {
+  font-size: 0.58rem; letter-spacing: 4px; text-transform: uppercase;
+  opacity: 0.35; margin-bottom: 28px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-title::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+/* PLANET SYSTEMS — what's already running */
+.systems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+.system-card {
+  background: var(--unlocked);
+  border: 1px solid var(--unlocked-border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+}
+.system-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--green), transparent);
+  border-radius: 12px 12px 0 0;
+}
+.system-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
+.system-name { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+.system-age { font-size: 0.6rem; color: var(--gold); letter-spacing: 1px; opacity: 0.8; margin-bottom: 10px; }
+.system-desc { font-size: 0.72rem; opacity: 0.65; line-height: 1.7; margin-bottom: 10px; }
+.system-equiv {
+  font-size: 0.65rem;
+  background: rgba(94,203,142,0.1);
+  border: 1px solid rgba(94,203,142,0.15);
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: var(--green);
+  letter-spacing: 0.5px;
+}
+.system-equiv span { opacity: 0.6; }
+
+/* BLOCKED — what's been suppressed */
+.blocked-section { background: rgba(224,92,106,0.03); border-top: 1px solid var(--blocked-border); border-bottom: 1px solid var(--blocked-border); }
+.blocked-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+}
+.blocked-card {
+  background: var(--blocked);
+  border: 1px solid var(--blocked-border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+}
+.blocked-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--rose), transparent);
+  border-radius: 12px 12px 0 0;
+}
+.blocked-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.blocked-name { font-size: 0.88rem; font-weight: 700; line-height: 1.3; }
+.blocked-by { font-size: 0.6rem; color: var(--rose); letter-spacing: 1px; opacity: 0.85; margin-bottom: 8px; }
+.blocked-since {
+  font-size: 0.6rem; white-space: nowrap; flex-shrink: 0;
+  background: rgba(224,92,106,0.1); border: 1px solid rgba(224,92,106,0.2);
+  border-radius: 8px; padding: 3px 8px; color: var(--rose);
+}
+.blocked-desc { font-size: 0.72rem; opacity: 0.65; line-height: 1.7; margin-bottom: 10px; }
+.blocked-evidence { font-size: 0.65rem; opacity: 0.5; font-style: normal; }
+.blocked-evidence a { color: var(--teal); opacity: 0.7; }
+.unlock-path {
+  font-size: 0.68rem;
+  background: rgba(0,255,204,0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+.unlock-path strong { color: var(--teal); }
+
+/* WHAT'S ALREADY FREE */
+.free-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+.free-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.free-icon { font-size: 1.2rem; margin-bottom: 8px; display: block; }
+.free-name { font-size: 0.8rem; font-weight: 700; margin-bottom: 4px; }
+.free-desc { font-size: 0.68rem; opacity: 0.6; line-height: 1.6; margin-bottom: 8px; }
+.free-link { font-size: 0.62rem; color: var(--teal); opacity: 0.65; text-decoration: none; }
+.free-link:hover { opacity: 1; }
+
+/* POLITICAL MOVES */
+.moves-section { background: var(--faint); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.moves-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+.move-card {
+  background: rgba(0,10,8,0.5);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.move-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  border-radius: 12px 12px 0 0;
+}
+.move-num { font-size: 0.58rem; opacity: 0.3; letter-spacing: 3px; margin-bottom: 6px; }
+.move-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+.move-status {
+  display: inline-block; margin-bottom: 10px;
+  font-size: 0.58rem; letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 8px;
+}
+.status-active { background: rgba(94,203,142,0.1); border: 1px solid rgba(94,203,142,0.2); color: var(--green); }
+.status-building { background: rgba(240,180,41,0.1); border: 1px solid rgba(240,180,41,0.2); color: var(--gold); }
+.status-demand { background: rgba(224,92,106,0.1); border: 1px solid rgba(224,92,106,0.2); color: var(--rose); }
+.move-desc { font-size: 0.72rem; opacity: 0.65; line-height: 1.7; margin-bottom: 10px; }
+.move-proof { font-size: 0.65rem; opacity: 0.45; }
+.move-proof strong { color: var(--teal); opacity: 0.8; }
+.move-action {
+  margin-top: 12px;
+  background: rgba(0,255,204,0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.68rem;
+  line-height: 1.6;
+  color: var(--teal);
+  opacity: 0.85;
+}
+
+/* THE STATEMENT */
+.statement-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 64px 20px;
+  text-align: center;
+}
+.statement-title {
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+.statement-title .em-teal { color: var(--teal); }
+.statement-title .em-rose { color: var(--rose); }
+.statement-body {
+  font-size: 0.82rem;
+  opacity: 0.65;
+  line-height: 2;
+  margin-bottom: 36px;
+}
+.statement-body strong { color: var(--teal); opacity: 1; }
+.statement-links {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+.sl-btn {
+  background: var(--faint); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 20px;
+  color: var(--teal); text-decoration: none;
+  font-size: 0.72rem; letter-spacing: 1px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.sl-btn:hover { border-color: rgba(0,255,204,0.35); background: rgba(0,255,204,0.08); }
+.sl-btn.primary { background: rgba(0,255,204,0.08); border-color: rgba(0,255,204,0.3); font-weight: 700; }
+
+/* NAV */
+.nav-bar {
+  background: rgba(0,0,0,0.5); border-top: 1px solid var(--border);
+  padding: 20px; text-align: center;
+}
+.nav-bar a {
+  color: var(--dim); text-decoration: none; font-size: 0.68rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  margin: 0 10px; transition: color 0.2s;
+}
+.nav-bar a:hover { color: var(--teal); }
+footer {
+  text-align: center; padding: 24px; font-size: 0.62rem;
+  opacity: 0.2; letter-spacing: 1px;
+  border-top: 1px solid rgba(0,255,204,0.04);
+}
+footer a { color: var(--teal); text-decoration: none; }
+
+@media (max-width: 600px) {
+  .nav-bar a { display: block; margin: 6px 0; }
+  .statement-links { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">The Planet's Own SolarPunk · 3.8 Billion Years Running · Partially Blocked</div>
+  <h1 class="hero-title">
+    The planet already built the infrastructure.<br>
+    <span class="blocked">We blocked it.</span><br>
+    <span class="unlocked">We unblock it.</span>
+  </h1>
+  <p class="hero-sub">
+    Mycorrhizal internet. Photosynthetic solar distribution. Open-source seeds.
+    Traditional ecological knowledge. Free electromagnetic spectrum.<br><br>
+    <strong>None of this is metaphor.</strong> These are real, documented, functioning systems
+    that human economic and political structures have suppressed, patented, fenced, or buried.
+    SolarPunk's political power — built from 32 verified projects and a transparent 99/1 split —
+    is the standing to demand them back.
+  </p>
+  <div class="age-badge">
+    <span class="age-num">3,800,000,000</span>
+    years the planet has been running its own version of this
+  </div>
+</div>
+
+<!-- WHAT THE PLANET IS ALREADY RUNNING -->
+<div class="section">
+  <div class="section-title">What the planet is already running — right now, under everything</div>
+  <div class="systems-grid">
+
+    <div class="system-card">
+      <span class="system-icon">🍄</span>
+      <div class="system-name">Mycorrhizal Networks</div>
+      <div class="system-age">400 million years old · still operating</div>
+      <div class="system-desc">One teaspoon of healthy forest soil contains miles of fungal thread. Trees connected to the network share nutrients, water, and chemical warning signals. A mother tree under stress routes carbon to her seedlings through the network. Dying trees dump their entire nutrient load into the grid before they go.</div>
+      <div class="system-equiv"><span>Planet's version of: </span> Community mesh internet — $0/month, self-healing, no infrastructure company</div>
+    </div>
+
+    <div class="system-card">
+      <span class="system-icon">🌿</span>
+      <div class="system-name">Photosynthesis Cascade</div>
+      <div class="system-age">3 billion years old · 400 terawatts captured daily</div>
+      <div class="system-desc">Every leaf is a solar panel. Every plant is a battery. The cascade converts photons to ATP to sugars to oxygen to biomass — storing energy in forms every organism in the food web can spend. The sun produces 400 terawatts of biomass energy per year through photosynthesis alone. Humans use 18 terawatts total. The surplus is astronomical.</div>
+      <div class="system-equiv"><span>Planet's version of: </span> Distributed solar grid — self-repairing, community-owned, free energy for all participants</div>
+    </div>
+
+    <div class="system-card">
+      <span class="system-icon">🌱</span>
+      <div class="system-name">The Open-Source Seed</div>
+      <div class="system-age">350 million years of iteration · self-replicating</div>
+      <div class="system-desc">Every seed is a complete instruction set encoded in DNA that builds itself, maintains itself, adapts to local conditions, and distributes its own code freely into the next generation — forever. Seeds have been iterating their open-source firmware across 350 million years of local forks. No license fee. No royalty. No termination.</div>
+      <div class="system-equiv"><span>Planet's version of: </span> Open-source hardware — self-replicating, forkable, locally adapted, free to distribute</div>
+    </div>
+
+    <div class="system-card">
+      <span class="system-icon">📡</span>
+      <div class="system-name">The Electromagnetic Spectrum</div>
+      <div class="system-age">Since the Big Bang · belongs to physics, not corporations</div>
+      <div class="system-desc">Radio waves propagate through the atmosphere regardless of ownership claims. The spectrum is a commons by physics — photons do not recognize licenses. Human legal structures privatized specific frequency bands, but the underlying medium is uncapturable. Every community that builds an antenna accesses what was always theirs.</div>
+      <div class="system-equiv"><span>Planet's version of: </span> Free public broadcast medium — Rhizomatica proved the lock is the license, not the physics</div>
+    </div>
+
+    <div class="system-card">
+      <span class="system-icon">🧠</span>
+      <div class="system-name">Traditional Ecological Knowledge</div>
+      <div class="system-age">10,000+ years · accumulated across 5,000+ cultures</div>
+      <div class="system-desc">400 generations of empirical observation of every ecosystem on earth. How to build permanent soil fertility in the Amazon (terra preta). Which plants treat which conditions in the Sahel. How to manage fire in Australian landscapes for maximum biodiversity. This knowledge is the original KNOWLEDGE_LOOP — running for millennia before computers existed.</div>
+      <div class="system-equiv"><span>Planet's version of: </span> The knowledge base — 10,000 years of verified, replicated, peer-reviewed observations</div>
+    </div>
+
+    <div class="system-card">
+      <span class="system-icon">🔄</span>
+      <div class="system-name">Ecological Succession</div>
+      <div class="system-age">Wherever land exists · self-organizing</div>
+      <div class="system-desc">Leave any patch of disturbed ground alone and the ecosystem rebuilds itself — pioneer species, then shrubs, then canopy — through a predictable sequence toward maximum complexity and resilience. No central planner. No budget. No board of directors. Just the pattern finding its highest-affinity expression, recursively, toward abundance.</div>
+      <div class="system-equiv"><span>Planet's version of: </span> Self-organizing cooperative — CODE_ALCHEMIST running on soil and sunlight</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- WHAT'S BEEN BLOCKED -->
+<div class="blocked-section">
+  <div class="section">
+    <div class="section-title">What's been blocked — by whom — since when</div>
+    <div class="blocked-grid">
+
+      <div class="blocked-card">
+        <div class="blocked-header">
+          <div>
+            <div class="blocked-name">Mycorrhizal Networks in Agriculture</div>
+            <div class="blocked-by">Blocked by: Industrial herbicides + tillage + monoculture</div>
+          </div>
+          <span class="blocked-since">Since ~1940s</span>
+        </div>
+        <div class="blocked-desc">Glyphosate (Roundup) kills mycorrhizal fungi. Deep tillage physically severs the network. Monoculture removes the plant diversity the network needs to route between species. Result: dead soil that requires synthetic fertilizer to produce anything — creating permanent dependency on the companies that sell both the herbicide and the fertilizer.</div>
+        <div class="blocked-evidence">Evidence: Zaller et al. (2014) Scientific Reports. Helander et al. (2012) Applied Soil Ecology. USDA NRCS Soil Health Division, 2021.</div>
+        <div class="unlock-path"><strong>Unlock:</strong> No-till farming + cover crops + compost = network reconnects within 2-3 years. Biochar accelerates it. Every food forest we plant restores kilometers of planetary internet.</div>
+      </div>
+
+      <div class="blocked-card">
+        <div class="blocked-header">
+          <div>
+            <div class="blocked-name">The Electromagnetic Spectrum Commons</div>
+            <div class="blocked-by">Blocked by: ITU frequency auctions + national telecom monopolies</div>
+          </div>
+          <span class="blocked-since">Since 1920s</span>
+        </div>
+        <div class="blocked-desc">Radio spectrum was privatized through national licensing regimes starting in the 1920s. Frequencies that are physically free to use were auctioned to telecoms for billions, who then charged communities for access to their own electromagnetic environment. 3 billion people remain unconnected — not because the physics doesn't work, but because the license is unaffordable.</div>
+        <div class="blocked-evidence">Evidence: ITU 2023 Facts and Figures. Rhizomatica legal case, Mexico (2013). FCC Community Broadband proceedings.</div>
+        <div class="unlock-path"><strong>Unlock:</strong> Rhizomatica cracked Mexico. AirJaldi cracked India. Every country can have a community telecom license tier. The physics was never locked — only the paperwork. SolarPunk has the evidence base to make this case to regulators everywhere.</div>
+      </div>
+
+      <div class="blocked-card">
+        <div class="blocked-header">
+          <div>
+            <div class="blocked-name">Open-Source Seeds</div>
+            <div class="blocked-by">Blocked by: Plant patents + terminator genes + corporate consolidation</div>
+          </div>
+          <span class="blocked-since">Since 1980 (Diamond v. Chakrabarty)</span>
+        </div>
+        <div class="blocked-desc">The 1980 Supreme Court decision allowed patents on living organisms. By 2022, four companies (Bayer/Monsanto, Corteva, ChemChina/Syngenta, BASF) controlled 60% of the global seed supply. Terminator technology (GURT) makes seeds sterile after one generation — the open-source seed forcibly converted to a subscription service. Farmers who save seed from patented varieties face lawsuits.</div>
+        <div class="blocked-evidence">Evidence: ETC Group. Seed Industry Structure report 2022. USDA Plant Variety Protection database. Bowman v. Monsanto (2013).</div>
+        <div class="unlock-path"><strong>Unlock:</strong> Seed libraries. Open Source Seed Initiative (OSSI) — 700+ varieties pledged open-source. Navdanya (India) — 5,000 traditional varieties preserved. Svalbard Global Seed Vault. Every community seed library is a jailbreak.</div>
+      </div>
+
+      <div class="blocked-card">
+        <div class="blocked-header">
+          <div>
+            <div class="blocked-name">Traditional Ecological Knowledge</div>
+            <div class="blocked-by">Blocked by: Language death + colonial epistemology + biopiracy</div>
+          </div>
+          <span class="blocked-since">Since colonization · accelerating</span>
+        </div>
+        <div class="blocked-desc">A language dies every two weeks. Each one carries knowledge systems encoded in its vocabulary — the Sámi languages have dozens of words for types of snow that encode survival knowledge; many have no equivalent in dominant languages. Simultaneously, pharmaceutical companies patent molecules from traditional medicine without compensation (neem, turmeric, quinoa, hoodia — all documented biopiracy cases). The knowledge is taken. The community gets nothing.</div>
+        <div class="blocked-evidence">Evidence: UNESCO Endangered Languages Atlas. India TKDL (Traditional Knowledge Digital Library) — documented 1,000+ biopiracy attempts. Convention on Biological Diversity Nagoya Protocol.</div>
+        <div class="unlock-path"><strong>Unlock:</strong> India's TKDL model — document traditional knowledge in a format that defeats patent applications. CARE Principles for indigenous data sovereignty. SolarPunk can build the open broadcast layer that makes TEK available to communities while blocking corporate extraction.</div>
+      </div>
+
+      <div class="blocked-card">
+        <div class="blocked-header">
+          <div>
+            <div class="blocked-name">LENR Research (Low Energy Nuclear Reactions)</div>
+            <div class="blocked-by">Blocked by: 1989 media suppression after Fleischmann-Pons controversy</div>
+          </div>
+          <span class="blocked-since">Suppressed 1989–2020s</span>
+        </div>
+        <div class="blocked-desc">After the cold fusion controversy of 1989, the field was publicly declared dead. But the US Navy (SPAWAR), SRI International, MIT, and later DARPA and ARPA-E continued research. In 2019, Google published findings of anomalous heat in nickel-hydrogen systems. ARPA-E funded LENR research in 2022. The public burial was not based on science — it was based on press coverage of a failed replication attempt.</div>
+        <div class="blocked-evidence">Evidence: Storms (2007) The Science of Low Energy Nuclear Reaction. LENRIA. ARPA-E LENR program, 2022. Tanzella et al., US Navy SPAWAR research.</div>
+        <div class="unlock-path"><strong>Unlock:</strong> FOIA requests for DoE LENR assessment documents. Support ARPA-E research transparency. The science is genuinely uncertain — but the suppression was real, and the question deserves honest investigation.</div>
+      </div>
+
+      <div class="blocked-card">
+        <div class="blocked-header">
+          <div>
+            <div class="blocked-name">Terra Preta — Amazonian Permanent Soil Technology</div>
+            <div class="blocked-by">Blocked by: Colonial destruction of the civilizations that built it</div>
+          </div>
+          <span class="blocked-since">Lost ~1500s · being reconstructed</span>
+        </div>
+        <div class="blocked-desc">Pre-Columbian Amazonian civilizations built soil that is still fertile today — 2,000 years later. The technology (terra preta do índio — "dark earth of the Indians") incorporated biochar, bone, ceramic, and organic matter into a permanently productive substrate. The civilizations that built it were destroyed by European colonialism. The formula was partially lost. We are reconstructing it now through biochar and soil science research.</div>
+        <div class="blocked-evidence">Evidence: Lehmann et al., Amazonian Dark Earths (2003). Mann, 1491: New Revelations of the Americas Before Columbus. International Biochar Initiative research database.</div>
+        <div class="unlock-path"><strong>Unlock:</strong> International Biochar Initiative. Humbo Forest project (Ethiopia) already using biochar reforestation. Every community food forest can begin rebuilding permanent soil. The knowledge is reconstructed enough to act on now.</div>
+      </div>
+
+      <div class="blocked-card">
+        <div class="blocked-header">
+          <div>
+            <div class="blocked-name">Academic Research — Publicly Funded, Privately Paywalled</div>
+            <div class="blocked-by">Blocked by: Elsevier, Springer, Wiley — charging rent on public knowledge</div>
+          </div>
+          <span class="blocked-since">Post-WWII academic publishing model</span>
+        </div>
+        <div class="blocked-desc">Over $28 billion per year in academic publishing revenue. Researchers submit work for free. Peer reviewers review for free. Institutions pay billions for subscriptions to access work their own faculty produced. A researcher in Nigeria cannot access a paper funded by Nigerian public money. Elsevier's profit margins exceed 30% — higher than Apple. 85 million papers liberated by Sci-Hub are proof the knowledge wants to be free.</div>
+        <div class="blocked-evidence">Evidence: Larivière et al. (2015) PLOS ONE — "Big Publishers Got Bigger." SPARC Open Access. Sci-Hub usage data. EU open access mandates.</div>
+        <div class="unlock-path"><strong>Unlock:</strong> Sci-Hub (85M papers). arXiv (2M+ preprints, free). PubMed Central (NIH mandate). EU/US open access mandates (enforceable now). SolarPunk KNOWLEDGE_LOOP already reads arXiv — we can route discoveries directly to community networks over mesh internet.</div>
+      </div>
+
+      <div class="blocked-card">
+        <div class="blocked-header">
+          <div>
+            <div class="blocked-name">Geothermal Energy — The Planet's Own Reactor</div>
+            <div class="blocked-by">Blocked by: Fossil fuel subsidy structure + lack of political will</div>
+          </div>
+          <span class="blocked-since">Chronically underfunded</span>
+        </div>
+        <div class="blocked-desc">The earth's core is 5,500°C — a fusion reactor that will burn for another 5 billion years. Superhot Rock (SHR) geothermal can theoretically provide baseload power anywhere on earth by drilling to 3-5km depth. The technology works. Companies like Quaise Energy, Fervo, and Project InnerSpace are advancing it. It receives 0.3% of global clean energy investment despite near-unlimited potential.</div>
+        <div class="blocked-evidence">Evidence: MIT Future of Geothermal Energy (2006). IEA Geothermal Technology Report 2023. Project InnerSpace roadmap. Fervo Energy commercial deployment data.</div>
+        <div class="unlock-path"><strong>Unlock:</strong> Direct funding advocacy to ARPA-E, IRENA, and national energy ministries. Community geothermal cooperatives (Iceland, New Zealand already proved it). Ngawha Māori geothermal cooperative is in our knowledge base — it's already here.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- WHAT'S ALREADY FREE -->
+<div class="section">
+  <div class="section-title">What's already unlocked — use it today</div>
+  <div class="free-grid">
+
+    <div class="free-card">
+      <span class="free-icon">📚</span>
+      <div class="free-name">arXiv — 2M+ Research Papers</div>
+      <div class="free-desc">Cornell-hosted preprint server. Physics, math, CS, biology, economics. Free. No login. SolarPunk KNOWLEDGE_LOOP reads it every 12h and extracts relevant findings.</div>
+      <a href="https://arxiv.org" class="free-link" target="_blank" rel="noopener">arxiv.org →</a>
+    </div>
+
+    <div class="free-card">
+      <span class="free-icon">🌱</span>
+      <div class="free-name">Open Source Seed Initiative</div>
+      <div class="free-desc">700+ vegetable and grain varieties pledged permanently open-source. Cannot be patented. Cannot be enclosed. Free to save, share, and replant forever.</div>
+      <a href="https://osseeds.org" class="free-link" target="_blank" rel="noopener">osseeds.org →</a>
+    </div>
+
+    <div class="free-card">
+      <span class="free-icon">🗃️</span>
+      <div class="free-name">India TKDL — Traditional Knowledge Digital Library</div>
+      <div class="free-desc">900+ medicinal plants, 900 yoga formulations, documented in 5 languages to defeat biopiracy patent applications. Free to access. The defensive liberation model.</div>
+      <a href="https://www.tkdl.res.in" class="free-link" target="_blank" rel="noopener">tkdl.res.in →</a>
+    </div>
+
+    <div class="free-card">
+      <span class="free-icon">🔬</span>
+      <div class="free-name">PubMed Central — 9M+ Medical Papers</div>
+      <div class="free-desc">NIH-mandated open access repository. Every NIH-funded paper must be here within 12 months. 9 million papers. Free. No paywall.</div>
+      <a href="https://www.ncbi.nlm.nih.gov/pmc/" class="free-link" target="_blank" rel="noopener">ncbi.nlm.nih.gov/pmc →</a>
+    </div>
+
+    <div class="free-card">
+      <span class="free-icon">🌍</span>
+      <div class="free-name">Kiwix — Offline Wikipedia + Khan Academy</div>
+      <div class="free-desc">All of Wikipedia. Khan Academy. Project Gutenberg. Medical references. Runs on a $100 Raspberry Pi. No internet required. 300MB to 80GB packs. Works over community mesh.</div>
+      <a href="https://kiwix.org" class="free-link" target="_blank" rel="noopener">kiwix.org →</a>
+    </div>
+
+    <div class="free-card">
+      <span class="free-icon">🔭</span>
+      <div class="free-name">NASA Earthdata — Free Satellite Imagery</div>
+      <div class="free-desc">All NASA remote sensing data: land cover, soil moisture, forest change, water bodies. Free. API accessible. KNOWLEDGE_LOOP can query it to find reforestation opportunities and monitor project progress.</div>
+      <a href="https://earthdata.nasa.gov" class="free-link" target="_blank" rel="noopener">earthdata.nasa.gov →</a>
+    </div>
+
+    <div class="free-card">
+      <span class="free-icon">🌿</span>
+      <div class="free-name">Global Biodiversity Information Facility</div>
+      <div class="free-desc">2.4 billion biodiversity records. Every documented species occurrence. Free API. Use it to identify what plants should be in your food forest, what's native, what's missing from your ecosystem.</div>
+      <a href="https://gbif.org" class="free-link" target="_blank" rel="noopener">gbif.org →</a>
+    </div>
+
+    <div class="free-card">
+      <span class="free-icon">📡</span>
+      <div class="free-name">LibreMesh + OpenWRT — Free Network Firmware</div>
+      <div class="free-desc">Run your own community network. Free firmware for 200+ router models. The spectrum is yours by physics. The firmware is free. The only cost is the hardware.</div>
+      <a href="https://libremesh.org" class="free-link" target="_blank" rel="noopener">libremesh.org →</a>
+    </div>
+
+    <div class="free-card">
+      <span class="free-icon">🌾</span>
+      <div class="free-name">International Biochar Initiative</div>
+      <div class="free-desc">Open research on biochar and terra preta reconstruction. How to make it. How to apply it. How to rebuild permanent soil fertility. The formula is being recovered. Freely shared.</div>
+      <a href="https://biochar-international.org" class="free-link" target="_blank" rel="noopener">biochar-international.org →</a>
+    </div>
+
+    <div class="free-card">
+      <span class="free-icon">⚡</span>
+      <div class="free-name">SolarPunk RSS Knowledge Broadcast</div>
+      <div class="free-desc">Every discovery KNOWLEDGE_LOOP makes is broadcast via RSS feed — instantly, freely, to anyone subscribed. Subscribe once. Receive every unlock the moment it's verified.</div>
+      <a href="https://meekotharaccoon-cell.github.io/meeko-nerve-center/feed.xml" class="free-link" target="_blank" rel="noopener">Subscribe to feed →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- POLITICAL MOVES -->
+<div class="moves-section">
+  <div class="section">
+    <div class="section-title">The political moves — SolarPunk's standing to demand</div>
+    <div class="moves-grid">
+
+      <div class="move-card">
+        <div class="move-num">MOVE 01</div>
+        <div class="move-name">Community Spectrum — Every Country</div>
+        <span class="move-status status-active">Active — building evidence base</span>
+        <div class="move-desc">Rhizomatica proved Mexico could create a community telecom license tier. AirJaldi proved India's USOF framework can fund rural networks. Zenzeleni proved South Africa. Three proof points on three continents. The ITU framework allows it globally. SolarPunk's evidence base is the brief regulators need.</div>
+        <div class="move-proof">Standing: <strong>8 verified community networks + legal templates from APC for 60+ countries</strong></div>
+        <div class="move-action">Action: Compile evidence brief → submit to ITU Community Networks working group → amplify through APC and Internet Society → every country replicates the Mexico community license model</div>
+      </div>
+
+      <div class="move-card">
+        <div class="move-num">MOVE 02</div>
+        <div class="move-name">Essential Technology Patent Commons</div>
+        <span class="move-status status-building">Building</span>
+        <div class="move-desc">COVID vaccines proved the world can debate compulsory licensing for essential technologies. The same logic — stronger logic — applies to solar panel patents, water filtration patents, and agricultural technology patents in climate-vulnerable countries. The legal mechanism exists (TRIPS Article 31). It just needs political will and a clear evidence case.</div>
+        <div class="move-proof">Standing: <strong>32 verified projects demonstrate what communities can do when they have access to the technology</strong></div>
+        <div class="move-action">Action: Document which specific patents are blocking replication in which countries → partner with MSF Access Campaign and Knowledge Ecology International → build the compulsory licensing case country by country</div>
+      </div>
+
+      <div class="move-card">
+        <div class="move-num">MOVE 03</div>
+        <div class="move-name">Traditional Knowledge Broadcast Layer</div>
+        <span class="move-status status-building">Building</span>
+        <div class="move-desc">India's TKDL is defensive — it prevents biopiracy. But the knowledge should also be broadcast to the communities that need it. SolarPunk can build the offensive layer: TEK documented in open formats, broadcast over community mesh networks, in local languages, to the communities who can act on it. The knowledge was always theirs. The broadcast makes it reachable.</div>
+        <div class="move-proof">Standing: <strong>KNOWLEDGE_LOOP already broadcasts discoveries — extending to TEK is one additional data source and one additional language model</strong></div>
+        <div class="move-action">Action: Partner with GBIF, IUCN, indigenous language preservation networks → ingest TEK into KNOWLEDGE_LOOP data sources → broadcast over mesh internet → communities receive their own knowledge back</div>
+      </div>
+
+      <div class="move-card">
+        <div class="move-num">MOVE 04</div>
+        <div class="move-name">Publicly Funded Research = Public Domain</div>
+        <span class="move-status status-demand">Political demand</span>
+        <div class="move-desc">Every paper funded by public money — NIH, NSF, EU Horizon, Wellcome Trust — should be immediately and permanently free to access. This is already law in the US (OSTP 2022 guidance) and EU. It is not being enforced. SolarPunk's KNOWLEDGE_LOOP already accesses free repositories — the demand is for full enforcement of laws that already exist.</div>
+        <div class="move-proof">Standing: <strong>Demonstrated use case — KNOWLEDGE_LOOP routes discoveries to communities that cannot afford journal subscriptions</strong></div>
+        <div class="move-action">Action: Document cases where KNOWLEDGE_LOOP was blocked by paywalls → submit as evidence to OSTP enforcement review → partner with SPARC and Right to Research Coalition</div>
+      </div>
+
+      <div class="move-card">
+        <div class="move-num">MOVE 05</div>
+        <div class="move-name">Mycorrhizal Restoration as Infrastructure</div>
+        <span class="move-status status-demand">Political demand</span>
+        <div class="move-desc">Governments spend billions on agricultural subsidies that pay for herbicides that destroy mycorrhizal networks. Redirecting 1% of those subsidies to no-till, cover crop, and biochar programs would begin restoring the planetary internet within a crop cycle. This is soil science, not politics — except that current subsidy structures make the destructive option economically rational for farmers.</div>
+        <div class="move-proof">Standing: <strong>Humbo Forest (Ethiopia) and all 5 food forest projects in our KB demonstrate measurable soil restoration outcomes</strong></div>
+        <div class="move-action">Action: Document soil health outcomes from KB food forest projects → submit to FAO 4 per 1000 Initiative → demand inclusion of mycorrhizal restoration metrics in national agricultural subsidy reform</div>
+      </div>
+
+      <div class="move-card">
+        <div class="move-num">MOVE 06</div>
+        <div class="move-name">Seed Libraries as Infrastructure</div>
+        <span class="move-status status-active">Active — proven model</span>
+        <div class="move-desc">Every community seed library is a jailbreak of the seed patent system. Open Source Seed Initiative has pledged 700+ varieties permanently open-source — a legal hack that uses the patent system's own language to prevent future enclosure. Navdanya in India has preserved 5,000 traditional varieties. The infrastructure to end seed monopoly exists. It needs scale and political protection.</div>
+        <div class="move-proof">Standing: <strong>Food forest projects in KB already include seed saving practices — OSSI model integrates directly</strong></div>
+        <div class="move-action">Action: Add seed library kit to replicate.html → partner with OSSI and Navdanya → advocate for community seed library legal protection in every jurisdiction where seed saving is threatened</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- THE STATEMENT -->
+<div class="statement-section">
+  <div class="statement-title">
+    Total Planetary <span class="em-teal">[Anything]</span> requires<br>
+    the planet's own systems to be <span class="em-rose">unblocked.</span>
+  </div>
+  <p class="statement-body">
+    The mycorrhizal network is community internet — it just needs the herbicide to stop.<br>
+    The seed is open-source hardware — it just needs the patent wall removed.<br>
+    The electromagnetic spectrum is free broadcast medium — it just needs the license unlocked.<br>
+    Traditional ecological knowledge is the knowledge loop — it just needs the colonial gatekeeping ended.<br>
+    The sun produces 400 terawatts of free energy through photosynthesis alone — it just needs the fossil fuel subsidy redirected.<br><br>
+    <strong>SolarPunk's political power is the moral authority of demonstrated impact.</strong>
+    32 verified projects. Transparent 99/1 split. Open source. Every claim has evidence.
+    That is the standing to walk into any regulatory body, any subsidy board, any patent office,
+    and make the case: the blocks are not natural. They are choices. They can be unchosen.<br><br>
+    The planet has been running its own version of this for 3.8 billion years.<br>
+    We are not building something new.<br>
+    <strong>We are removing what blocked it.</strong>
+  </p>
+  <div class="statement-links">
+    <a href="replicate.html" class="sl-btn primary">🔬 Build Something Today</a>
+    <a href="mesh.html" class="sl-btn">📡 $1.50 Mesh Internet</a>
+    <a href="solarpunk-movement.html" class="sl-btn">🌿 32 Projects</a>
+    <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center" class="sl-btn" target="_blank" rel="noopener">⚡ Fork SolarPunk</a>
+    <a href="https://meekotharaccoon-cell.github.io/meeko-nerve-center/feed.xml" class="sl-btn" target="_blank" rel="noopener">📡 Knowledge Broadcast</a>
+  </div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">🌿 SolarPunk</a>
+  <a href="unlock.html">🔓 Planetary Commons</a>
+  <a href="mesh.html">📡 $1.50 Internet</a>
+  <a href="replicate.html">🔬 Replicate</a>
+  <a href="map.html">🗺️ Map</a>
+  <a href="start-here.html">🧭 Start Here</a>
+  <a href="solarpunk-movement.html">32 Projects</a>
+  <a href="synthesis.html">Synthesis</a>
+  <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">Source</a>
+</nav>
+
+<footer>
+  The Planetary Commons · Updated March 21, 2026 · Built by <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">SolarPunk</a><br>
+  "We are not building something new. We are removing what blocked it."
+</footer>
+
+</body>
+</html>

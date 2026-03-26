@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background circle — deep space -->
+  <circle cx="100" cy="100" r="100" fill="#0d1117"/>
+
+  <!-- Sun rays — solar energy / humanitarian warmth -->
+  <g transform="translate(100,100)" stroke="#f59e0b" stroke-width="3" opacity="0.7">
+    <line x1="0" y1="-55" x2="0" y2="-75"/>
+    <line x1="39" y1="-38" x2="53" y2="-53"/>
+    <line x1="55" y1="0" x2="75" y2="0"/>
+    <line x1="39" y1="38" x2="53" y2="53"/>
+    <line x1="0" y1="55" x2="0" y2="75"/>
+    <line x1="-39" y1="38" x2="-53" y2="53"/>
+    <line x1="-55" y1="0" x2="-75" y2="0"/>
+    <line x1="-39" y1="-38" x2="-53" y2="-53"/>
+  </g>
+
+  <!-- Sun core — the engine -->
+  <circle cx="100" cy="100" r="28" fill="#f59e0b"/>
+
+  <!-- Inner sun — bright center -->
+  <circle cx="100" cy="100" r="18" fill="#fde68a"/>
+
+  <!-- Mycelium network threads -->
+  <g stroke="#22c55e" stroke-width="1.5" fill="none" opacity="0.6">
+    <path d="M100 72 Q120 85 140 75"/>
+    <path d="M100 72 Q80 85 60 75"/>
+    <path d="M100 128 Q120 115 140 125"/>
+    <path d="M100 128 Q80 115 60 125"/>
+    <path d="M72 100 Q85 80 75 60"/>
+    <path d="M128 100 Q115 80 125 60"/>
+    <path d="M72 100 Q85 120 75 140"/>
+    <path d="M128 100 Q115 120 125 140"/>
+  </g>
+
+  <!-- Network nodes -->
+  <g fill="#22c55e" opacity="0.8">
+    <circle cx="140" cy="75" r="4"/>
+    <circle cx="60" cy="75" r="4"/>
+    <circle cx="140" cy="125" r="4"/>
+    <circle cx="60" cy="125" r="4"/>
+    <circle cx="75" cy="60" r="4"/>
+    <circle cx="125" cy="60" r="4"/>
+    <circle cx="75" cy="140" r="4"/>
+    <circle cx="125" cy="140" r="4"/>
+  </g>
+
+  <!-- SP text -->
+  <text x="100" y="107" font-family="monospace" font-size="16" font-weight="bold"
+        text-anchor="middle" fill="#0d1117" letter-spacing="2">SP</text>
+
+  <!-- 99% label -->
+  <text x="100" y="175" font-family="monospace" font-size="9"
+        text-anchor="middle" fill="#f59e0b" opacity="0.9">99% → CRISIS</text>
+</svg>

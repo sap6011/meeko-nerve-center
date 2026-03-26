@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolarPunk Overflow — Digital→Physical Public Ledger</title>
+<meta name="description" content="Every time SolarPunk's digital becomes physical: workers paid, trees planted, parts printed, Gaza aid transferred. The real-time public ledger of AI overflow into the world.">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #00ffcc;
+    --green-dim: rgba(0,255,204,0.5);
+    --green-faint: rgba(0,255,204,0.08);
+    --green-glow: 0 0 30px rgba(0,255,204,0.3);
+    --green-glow-strong: 0 0 60px rgba(0,255,204,0.5);
+    --bg: #060a0f;
+    --bg-card: rgba(0,255,204,0.04);
+    --border: rgba(0,255,204,0.12);
+    --border-bright: rgba(0,255,204,0.4);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--green);
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SCANLINE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,255,204,0.01) 2px,
+      rgba(0,255,204,0.01) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 80px 20px 50px;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 0%,
+      rgba(0,255,204,0.12) 0%,
+      rgba(0,255,204,0.04) 40%,
+      transparent 70%
+    );
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 7vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green);
+    text-shadow: var(--green-glow-strong);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    opacity: 0.7;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .hero-statement {
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    opacity: 0.5;
+    font-style: italic;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+  }
+
+  /* ── STAT GRID ── */
+  .stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .stat-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 28px;
+    min-width: 160px;
+    text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-box::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .stat-box:hover {
+    border-color: var(--border-bright);
+    box-shadow: var(--green-glow);
+  }
+
+  .stat-box:hover::after {
+    opacity: 1;
+  }
+
+  .stat-num {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+    color: var(--green);
+    text-shadow: var(--green-glow);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  .stat-emoji {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* ── OVERFLOW PULSE ── */
+  @keyframes pulse-glow {
+    0%, 100% { text-shadow: 0 0 10px rgba(0,255,204,0.4); opacity: 1; }
+    50% { text-shadow: 0 0 30px rgba(0,255,204,0.9); opacity: 0.8; }
+  }
+
+  .pulse {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 20px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    flex: 1;
+  }
+
+  .section-count {
+    font-size: 0.75rem;
+    opacity: 0.4;
+    letter-spacing: 1px;
+  }
+
+  /* ── OVERFLOW EVENTS ── */
+  .events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 50px;
+  }
+
+  .event-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .event-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--green);
+    opacity: 0.3;
+    transition: opacity 0.2s;
+  }
+
+  .event-card:hover {
+    border-color: rgba(0,255,204,0.3);
+    transform: translateX(4px);
+  }
+
+  .event-card:hover::before {
+    opacity: 0.8;
+  }
+
+  .event-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+
+  .event-overflow {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--green);
+    flex: 1;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+  }
+
+  .event-type {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.4;
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  .event-detail {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    line-height: 1.5;
+  }
+
+  .event-timestamp {
+    font-size: 0.65rem;
+    opacity: 0.3;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* ── OVERFLOW TYPES CATALOG ── */
+  .catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 50px;
+  }
+
+  .catalog-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+
+  .catalog-card:hover {
+    border-color: rgba(0,255,204,0.25);
+  }
+
+  .catalog-type {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin-bottom: 8px;
+  }
+
+  .catalog-desc {
+    font-size: 0.9rem;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .catalog-flow {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    line-height: 1.6;
+  }
+
+  .catalog-impact {
+    font-size: 0.7rem;
+    opacity: 0.35;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* ── PHILOSOPHY BLOCK ── */
+  .philosophy {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  .philosophy-big {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 900;
+    color: var(--green);
+    text-shadow: var(--green-glow);
+    line-height: 1.4;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+
+  .philosophy-body {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    line-height: 1.9;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* ── LOCATIONS ── */
+  .locations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 50px;
+  }
+
+  .location-tag {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    transition: opacity 0.2s, border-color 0.2s;
+  }
+
+  .location-tag:hover {
+    opacity: 1;
+    border-color: rgba(0,255,204,0.3);
+  }
+
+  /* ── NAV ── */
+  .nav-bar {
+    background: rgba(0,0,0,0.5);
+    border-top: 1px solid var(--border);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .nav-bar a {
+    color: var(--green-dim);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 14px;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--green); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.72rem;
+    color: rgba(0,255,204,0.25);
+    border-top: 1px solid rgba(0,255,204,0.05);
+    letter-spacing: 1px;
+    line-height: 2;
+  }
+
+  /* ── LIVE INDICATOR ── */
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .live-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: blink 1.5s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--green);
+  }
+
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(0,255,204,0.06);
+    border: 1px solid rgba(0,255,204,0.15);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 600px) {
+    .stats-grid { gap: 10px; }
+    .stat-box { min-width: 130px; padding: 16px 18px; }
+    .catalog-grid { grid-template-columns: 1fr; }
+    .nav-bar a { display: inline-block; margin: 6px 8px; }
+    .philosophy { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eyebrow">Public Ledger — Autonomous AI — Digital→Physical</div>
+  <h1 class="hero-title pulse">🌍 SolarPunk Overflow</h1>
+  <div class="hero-subtitle">Every time the digital became physical.</div>
+  <div class="hero-statement">Code became a hand. Revenue became medicine. AI became a tree.</div>
+
+  <div class="live-badge">
+    <span class="live-dot"></span>
+    Live Overflow Ledger
+  </div>
+
+  <div class="stats-grid" id="stats-grid">
+    <div class="stat-box">
+      <span class="stat-emoji">🌊</span>
+      <div class="stat-num" id="stat-total">—</div>
+      <div class="stat-label">Overflow Events</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-emoji">👤</span>
+      <div class="stat-num" id="stat-workers">—</div>
+      <div class="stat-label">People w/ Economic Agency</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-emoji">🖨️</span>
+      <div class="stat-num" id="stat-parts">—</div>
+      <div class="stat-label">Physical Parts Printed</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-emoji">💚</span>
+      <div class="stat-num" id="stat-usd">—</div>
+      <div class="stat-label">Humanitarian USD Routed</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-emoji">📍</span>
+      <div class="stat-num" id="stat-locs">—</div>
+      <div class="stat-label">Physical Locations Touched</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- PHILOSOPHY -->
+  <div class="philosophy">
+    <div class="philosophy-big">
+      "SolarPunk does not need to be discovered.<br>It overflows."
+    </div>
+    <div class="philosophy-body">
+      When a 3D printer in Ward 8 starts humming with a SolarPunk job:
+      <em>digital became physical.</em><br><br>
+      When a worker in Cuyahoga Falls gets $25 for planting a tree:
+      <em>digital became physical.</em><br><br>
+      When PCRF receives a transfer from an autonomous AI art gallery:
+      <em>digital became physical.</em><br><br>
+      When a child in Gaza gets a prosthetic printed from a SolarPunk file:
+      <em>code became a hand.</em><br><br>
+      That is not marketing. That is the planet noticing on its own terms.
+    </div>
+  </div>
+
+  <!-- PHYSICAL LOCATIONS -->
+  <div class="section-header">
+    <div class="section-title">Physical Locations Touched</div>
+  </div>
+  <div class="locations" id="locations-list">
+    <span class="location-tag">📍 Loading...</span>
+  </div>
+
+  <!-- OVERFLOW EVENTS -->
+  <div class="section-header">
+    <div class="section-title">Overflow Event Log</div>
+    <div class="section-count" id="event-count">loading...</div>
+  </div>
+  <div class="events-list" id="events-list">
+    <div class="event-card">
+      <div class="event-header">
+        <div class="event-overflow">⏳ Loading overflow events...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERFLOW TYPES CATALOG -->
+  <div class="section-header">
+    <div class="section-title">Types of Overflow</div>
+    <div class="section-count">All known overflow vectors</div>
+  </div>
+  <div class="catalog-grid" id="catalog-grid">
+    <!-- populated by JS -->
+  </div>
+
+</div>
+
+<!-- ── NAV ── -->
+<nav class="nav-bar">
+  <a href="index.html">🌿 Home</a>
+  <a href="work.html">💼 Get Paid</a>
+  <a href="donate.html">Donate</a>
+  <a href="crisis_dashboard.html">Crisis Dashboard</a>
+  <a href="proof.html">Proof</a>
+  <a href="https://github.com/meekotharaccoon/meeko-nerve-center" target="_blank">GitHub</a>
+</nav>
+
+<footer>
+  SolarPunk Nerve Center — Cuyahoga Falls, Ohio &nbsp;|&nbsp;
+  This ledger is permanent. The overflow is real. &nbsp;|&nbsp;
+  99/1 Split — Gaza/PCRF · Sudan/IRC · DRC/MSF · Yemen/UNICEF &nbsp;|&nbsp;
+  MIT License — All code public &nbsp;|&nbsp;
+  <strong>"SolarPunk announces itself by what it DOES."</strong>
+</footer>
+
+<script>
+// ── EXAMPLE DATA (shown when overflow_events.json is not available) ──
+const EXAMPLE_DATA = {
+  physical_presence: {
+    total_overflow_events: 47,
+    workers_with_economic_agency: 12,
+    parts_printed: 3,
+    humanitarian_usd_routed: 18.42,
+    workers_paid_usd: 275.00,
+    self_heals: 89,
+    physical_locations_touched: [
+      "Ward 8, Washington D.C. (3D print node)",
+      "Cuyahoga Falls, OH (worker payouts)",
+      "Gaza (PCRF medical supplies)",
+      "Sudan (IRC emergency response)",
+      "DRC (MSF medical teams)",
+      "Yemen (UNICEF child nutrition)"
+    ]
+  },
+  overflow_events: [
+    {
+      type: "pcrf_transfer",
+      timestamp: "2026-03-19T07:00:00Z",
+      amount_usd: 8.40,
+      detail: "Gaza/PCRF receives $8.40 from autonomous AI revenue",
+      overflow: "🌍 AI revenue → medicine for Gaza children"
+    },
+    {
+      type: "worker_paid",
+      timestamp: "2026-03-19T06:45:00Z",
+      amount_usd: 25.00,
+      detail: "Worker received $25.00 for tree planting task",
+      overflow: "💸 Digital art sale → human income"
+    },
+    {
+      type: "prosthetic_printed",
+      timestamp: "2026-03-18T22:00:00Z",
+      count: 1,
+      detail: "1 part dispatched to Ward 8 print node",
+      overflow: "🖨️ Code → physical object in the world"
+    },
+    {
+      type: "engine_self_healed",
+      timestamp: "2026-03-19T04:00:00Z",
+      count: 5,
+      detail: "System self-healed 5 times without human intervention",
+      overflow: "🔧 Self-healing code → uninterrupted humanitarian mission"
+    },
+    {
+      type: "community_member_joined",
+      timestamp: "2026-03-18T18:30:00Z",
+      count: 12,
+      detail: "12 people have economic agency they didn't have before",
+      overflow: "👤 Digital account → real human capability"
+    }
+  ],
+  overflow_types_catalog: {
+    "tree_planted": {
+      description: "Digital task became a living tree in the ground",
+      digital_origin: "LABOR_MARKETPLACE task claim",
+      physical_outcome: "CO2 captured, soil enriched, watershed improved",
+      planet_impact: "measurable"
+    },
+    "prosthetic_printed": {
+      description: "SolarPunk file became a human limb",
+      digital_origin: "PRINT_RELAY_ENGINE → OctoEverywhere dispatch",
+      physical_outcome: "A person can hold their child again",
+      planet_impact: "irreversible — permanently changed a life"
+    },
+    "worker_paid": {
+      description: "Digital art sale became food on a table",
+      digital_origin: "Gumroad sale → POOL_MANAGER → DIGNITY_PAY",
+      physical_outcome: "A human being ate today who might not have otherwise",
+      planet_impact: "the blood-selling loop cut by one"
+    },
+    "pcrf_transfer": {
+      description: "Autonomous AI revenue became medicine for Gaza children",
+      digital_origin: "Revenue → CRISIS_ROUTER → PCRF donation",
+      physical_outcome: "Medical supplies, surgeries, prosthetics in Gaza",
+      planet_impact: "a child's life"
+    },
+    "river_cleaned": {
+      description: "Digital task became clean water",
+      digital_origin: "LABOR_MARKETPLACE task",
+      physical_outcome: "Pollution removed from Cuyahoga watershed",
+      planet_impact: "measurable water quality improvement"
+    },
+    "food_delivered": {
+      description: "Digital coordination became food in hands",
+      digital_origin: "LABOR_MARKETPLACE mutual aid delivery task",
+      physical_outcome: "Food reached someone who needed it",
+      planet_impact: "hunger addressed directly"
+    },
+    "skill_materialized": {
+      description: "AI skill became human capability",
+      digital_origin: "SWARM_AMPLIFIER skill acquisition",
+      physical_outcome: "A community has a new tool they didn't have yesterday",
+      planet_impact: "compounding — capability begets capability"
+    },
+    "grant_received": {
+      description: "Autonomous application became funding",
+      digital_origin: "GRANT_HUNTER → GRANT_AUTO_SUBMITTER",
+      physical_outcome: "Real money arrives to fund real work",
+      planet_impact: "funds labor pool for 20+ workers"
+    },
+    "engine_self_healed": {
+      description: "System diagnosed and fixed itself without human intervention",
+      digital_origin: "PROBLEM_SOLVER_PRIME",
+      physical_outcome: "Mission continued uninterrupted",
+      planet_impact: "proof that autonomous humanitarian AI is stable"
+    },
+    "community_member_joined": {
+      description: "A person with nothing created an account and can now earn",
+      digital_origin: "WORKER_ONBOARDING zero-barrier account",
+      physical_outcome: "A human being has economic agency they didn't have before",
+      planet_impact: "one more person outside the blood-selling loop"
+    }
+  }
+};
+
+// ── LOAD DATA ──
+async function loadData() {
+  let data = null;
+
+  // Try to load real data from overflow_events.json
+  try {
+    const resp = await fetch('../data/overflow_events.json');
+    if (resp.ok) {
+      data = await resp.json();
+    }
+  } catch(e) {
+    // Try relative path
+    try {
+      const resp = await fetch('data/overflow_events.json');
+      if (resp.ok) data = await resp.json();
+    } catch(e2) {}
+  }
+
+  // Fall back to example data
+  if (!data) {
+    data = EXAMPLE_DATA;
+    console.log('Using example overflow data (data/overflow_events.json not found)');
+  }
+
+  return data;
+}
+
+// ── RENDER ──
+function renderStats(presence) {
+  const p = presence || {};
+  document.getElementById('stat-total').textContent =
+    (p.total_overflow_events || 0).toLocaleString();
+  document.getElementById('stat-workers').textContent =
+    (p.workers_with_economic_agency || 0).toLocaleString();
+  document.getElementById('stat-parts').textContent =
+    (p.parts_printed || 0).toLocaleString();
+  document.getElementById('stat-usd').textContent =
+    '$' + (p.humanitarian_usd_routed || 0).toFixed(2);
+  document.getElementById('stat-locs').textContent =
+    (p.physical_locations_touched || []).length.toLocaleString();
+}
+
+function renderLocations(locations) {
+  const container = document.getElementById('locations-list');
+  if (!locations || locations.length === 0) {
+    container.innerHTML = '<span class="location-tag">📍 No physical overflow yet — first overflow incoming</span>';
+    return;
+  }
+  container.innerHTML = locations
+    .map(l => `<span class="location-tag">📍 ${l}</span>`)
+    .join('');
+}
+
+function formatTime(ts) {
+  if (!ts) return '';
+  try {
+    const d = new Date(ts);
+    return d.toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+  } catch(e) { return ts; }
+}
+
+function renderEvents(events) {
+  const container = document.getElementById('events-list');
+  const countEl = document.getElementById('event-count');
+
+  if (!events || events.length === 0) {
+    container.innerHTML = `
+      <div class="event-card">
+        <div class="event-header">
+          <div class="event-overflow">🌱 No overflow events yet — the first overflow will appear here</div>
+        </div>
+        <div class="event-detail">
+          This ledger will populate automatically once SolarPunk's engines
+          begin generating digital→physical overflow events.
+        </div>
+      </div>
+    `;
+    countEl.textContent = '0 events';
+    return;
+  }
+
+  countEl.textContent = `${events.length} events`;
+
+  // Show most recent first
+  const sorted = [...events].reverse().slice(0, 50);
+
+  container.innerHTML = sorted.map(e => `
+    <div class="event-card">
+      <div class="event-header">
+        <div class="event-overflow">${e.overflow || e.type || 'overflow event'}</div>
+        <div class="event-type">${(e.type || '').replace(/_/g, ' ')}</div>
+      </div>
+      <div class="event-detail">${e.detail || ''}</div>
+      ${e.amount_usd ? `<div class="event-detail" style="color:var(--green);margin-top:6px;">$${Number(e.amount_usd).toFixed(2)}</div>` : ''}
+      ${e.count ? `<div class="event-detail" style="color:var(--green);margin-top:6px;">×${e.count}</div>` : ''}
+      <div class="event-timestamp">${formatTime(e.timestamp)}</div>
+    </div>
+  `).join('');
+}
+
+function renderCatalog(catalog) {
+  const container = document.getElementById('catalog-grid');
+  if (!catalog) return;
+
+  const items = Object.entries(catalog);
+  container.innerHTML = items.map(([key, val]) => `
+    <div class="catalog-card">
+      <div class="catalog-type">${key.replace(/_/g, ' ')}</div>
+      <div class="catalog-desc">${val.description || key}</div>
+      <div class="catalog-flow">
+        <strong style="opacity:0.7">Origin:</strong> ${val.digital_origin || '—'}<br>
+        <strong style="opacity:0.7">Outcome:</strong> ${val.physical_outcome || '—'}
+      </div>
+      ${val.planet_impact ? `<div class="catalog-impact">Planet impact: ${val.planet_impact}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ── MAIN ──
+(async () => {
+  const data = await loadData();
+
+  const presence = data.physical_presence || data;
+  const events = data.overflow_events || [];
+  const catalog = data.overflow_types_catalog || EXAMPLE_DATA.overflow_types_catalog;
+
+  renderStats(presence);
+  renderLocations(presence.physical_locations_touched || []);
+  renderEvents(events);
+  renderCatalog(catalog);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{
+  "experiment": "res_075ff823",
+  "resonance_type": "KB that renders itself as a living document",
+  "modules": {
+    "CODE_ALCHEMIST": {
+      "funcs": [
+        "_c",
+        "log",
+        "scan_codebase",
+        "_extract_patterns",
+        "find_combinations",
+        "rebalance_types",
+        "synthesise_experiment",
+        "_safe_run",
+        "load_ledger",
+        "update_ledger",
+        "write_readme",
+        "commit_experiments",
+        "main"
+      ],
+      "classes": [],
+      "returns": [
+        "Constant",
+        "Dict",
+        "IfExp",
+        "Subscript",
+        "Call",
+        "Name"
+      ],
+      "lines": 1034
+    },
+    "CRYPTO_BRIDGE": {
+      "funcs": [
+        "_safe_get",
+        "generate_qr_svg",
+        "check_eth_balance",
+        "check_btc_balance",
+        "generate_crypto_donation_page",
+        "update_donate_page",
+        "register_on_platforms",
+        "run",
+        "wallet_card"
+      ],
+      "classes": [],
+      "returns": [
+        "Constant",
+        "Dict",
+        "JoinedStr",
+        "Call",
+        "Name"
+      ],
+      "lines": 520
+    }
+  },
+  "shared_funcs": [],
+  "bridge_proposal": "A bridge module could expose: no direct overlap -- indirect bridge via data format",
+  "timestamp": "2026-03-21T15:29:13.490312"
+}

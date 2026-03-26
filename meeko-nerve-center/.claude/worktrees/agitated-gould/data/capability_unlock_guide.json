@@ -1,0 +1,573 @@
+{
+  "generated_at": "2026-03-21T10:36:42.914640+00:00",
+  "message": "These free APIs cost $0 and unlock major capabilities. Each takes 1-3 minutes to set up. Priority: GROQ first (fastest AI), then HuggingFace (free models), then Brave Search (free web search).",
+  "top_3_priorities": [
+    {
+      "priority_rank": 1,
+      "secret_name": "HUGGINGFACE_TOKEN",
+      "service": "HuggingFace (1000s of free models)",
+      "signup_url": "https://huggingface.co/settings/tokens",
+      "engines_unlocked": [
+        "KNOWLEDGE_MINER",
+        "SYNTHESIS_FACTORY",
+        "SWARM_AMPLIFIER"
+      ],
+      "free_tier": "Unlimited public model inference (rate limited)",
+      "time_to_setup": "1 minute",
+      "why_important": "Access to 500k+ models, no cost.",
+      "how_to_add": "1. Go to https://huggingface.co/settings/tokens\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: HUGGINGFACE_TOKEN = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 2,
+      "secret_name": "BRAVE_SEARCH_API_KEY",
+      "service": "Brave Search API (2000 free/month)",
+      "signup_url": "https://brave.com/search/api/",
+      "engines_unlocked": [
+        "DEEP_RESEARCHER",
+        "NEWS_HARVESTER",
+        "SCAVENGER_WEB"
+      ],
+      "free_tier": "2000 queries/month free",
+      "time_to_setup": "3 minutes",
+      "why_important": "Privacy-respecting web search. No Google dependency.",
+      "how_to_add": "1. Go to https://brave.com/search/api/\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: BRAVE_SEARCH_API_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 3,
+      "secret_name": "TAVILY_API_KEY",
+      "service": "Tavily Search (1000 free/month)",
+      "signup_url": "https://tavily.com",
+      "engines_unlocked": [
+        "DEEP_RESEARCHER",
+        "SCAVENGER_WEB"
+      ],
+      "free_tier": "1000 searches/month free",
+      "time_to_setup": "2 minutes",
+      "why_important": "AI-optimized search results for research engines.",
+      "how_to_add": "1. Go to https://tavily.com\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: TAVILY_API_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    }
+  ],
+  "all_unlocks": [
+    {
+      "priority_rank": 1,
+      "secret_name": "HUGGINGFACE_TOKEN",
+      "service": "HuggingFace (1000s of free models)",
+      "signup_url": "https://huggingface.co/settings/tokens",
+      "engines_unlocked": [
+        "KNOWLEDGE_MINER",
+        "SYNTHESIS_FACTORY",
+        "SWARM_AMPLIFIER"
+      ],
+      "free_tier": "Unlimited public model inference (rate limited)",
+      "time_to_setup": "1 minute",
+      "why_important": "Access to 500k+ models, no cost.",
+      "how_to_add": "1. Go to https://huggingface.co/settings/tokens\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: HUGGINGFACE_TOKEN = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 2,
+      "secret_name": "BRAVE_SEARCH_API_KEY",
+      "service": "Brave Search API (2000 free/month)",
+      "signup_url": "https://brave.com/search/api/",
+      "engines_unlocked": [
+        "DEEP_RESEARCHER",
+        "NEWS_HARVESTER",
+        "SCAVENGER_WEB"
+      ],
+      "free_tier": "2000 queries/month free",
+      "time_to_setup": "3 minutes",
+      "why_important": "Privacy-respecting web search. No Google dependency.",
+      "how_to_add": "1. Go to https://brave.com/search/api/\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: BRAVE_SEARCH_API_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 3,
+      "secret_name": "TAVILY_API_KEY",
+      "service": "Tavily Search (1000 free/month)",
+      "signup_url": "https://tavily.com",
+      "engines_unlocked": [
+        "DEEP_RESEARCHER",
+        "SCAVENGER_WEB"
+      ],
+      "free_tier": "1000 searches/month free",
+      "time_to_setup": "2 minutes",
+      "why_important": "AI-optimized search results for research engines.",
+      "how_to_add": "1. Go to https://tavily.com\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: TAVILY_API_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 4,
+      "secret_name": "OPENROUTER_API_KEY",
+      "service": "OpenRouter (access to 100+ models, some free)",
+      "signup_url": "https://openrouter.ai/keys",
+      "engines_unlocked": [
+        "SYNAPSE",
+        "NEURON_B",
+        "SYNTHESIS_FACTORY"
+      ],
+      "free_tier": "Several free models (Llama, Mistral, etc.)",
+      "time_to_setup": "2 minutes",
+      "why_important": "Backup AI when Anthropic credits run low. Several free models.",
+      "how_to_add": "1. Go to https://openrouter.ai/keys\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: OPENROUTER_API_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 5,
+      "secret_name": "TOGETHER_API_KEY",
+      "service": "Together AI ($1 free credit, cheap after)",
+      "signup_url": "https://api.together.xyz",
+      "engines_unlocked": [
+        "SYNTHESIS_FACTORY",
+        "NEURON_B"
+      ],
+      "free_tier": "$1 free credit on signup",
+      "time_to_setup": "2 minutes",
+      "why_important": "Fast, cheap open-source models. $1 = ~1000 completions.",
+      "how_to_add": "1. Go to https://api.together.xyz\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: TOGETHER_API_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 6,
+      "secret_name": "MISTRAL_API_KEY",
+      "service": "Mistral AI (free tier)",
+      "signup_url": "https://console.mistral.ai/api-keys/",
+      "engines_unlocked": [
+        "SYNTHESIS_FACTORY",
+        "GRANT_WRITER"
+      ],
+      "free_tier": "Free experimental access",
+      "time_to_setup": "2 minutes",
+      "why_important": "European AI. Good for multilingual. GDPR compliant.",
+      "how_to_add": "1. Go to https://console.mistral.ai/api-keys/\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: MISTRAL_API_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 7,
+      "secret_name": "COHERE_API_KEY",
+      "service": "Cohere (free trial \u2014 embeddings + generation)",
+      "signup_url": "https://dashboard.cohere.com/api-keys",
+      "engines_unlocked": [
+        "KNOWLEDGE_SYNTHESIZER",
+        "KNOWLEDGE_MINER"
+      ],
+      "free_tier": "Free trial with rate limits",
+      "time_to_setup": "2 minutes",
+      "why_important": "Best embeddings for semantic search. Free for experimentation.",
+      "how_to_add": "1. Go to https://dashboard.cohere.com/api-keys\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: COHERE_API_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 8,
+      "secret_name": "NEWSAPI_KEY",
+      "service": "NewsAPI.org (developer free tier)",
+      "signup_url": "https://newsapi.org/register",
+      "engines_unlocked": [
+        "NEWS_HARVESTER",
+        "CALENDAR_BRAIN"
+      ],
+      "free_tier": "100 requests/day free (developer plan)",
+      "time_to_setup": "1 minute",
+      "why_important": "Real news headlines for content generation.",
+      "how_to_add": "1. Go to https://newsapi.org/register\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: NEWSAPI_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 9,
+      "secret_name": "EXA_API_KEY",
+      "service": "Exa.ai Search (1000 free/month)",
+      "signup_url": "https://exa.ai/api",
+      "engines_unlocked": [
+        "DEEP_RESEARCHER",
+        "SCAVENGER_WEB"
+      ],
+      "free_tier": "1000 searches/month free",
+      "time_to_setup": "2 minutes",
+      "why_important": "Neural web search. Better than keyword search for AI research.",
+      "how_to_add": "1. Go to https://exa.ai/api\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: EXA_API_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 10,
+      "secret_name": "REPLICATE_API_TOKEN",
+      "service": "Replicate (run ML models, some free)",
+      "signup_url": "https://replicate.com/account/api-tokens",
+      "engines_unlocked": [
+        "PRODUCT_REGISTRY",
+        "VALUE_GENERATOR"
+      ],
+      "free_tier": "$5 free credit on signup",
+      "time_to_setup": "2 minutes",
+      "why_important": "Run image generation, audio, video models. Gaza art automation.",
+      "how_to_add": "1. Go to https://replicate.com/account/api-tokens\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: REPLICATE_API_TOKEN = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 11,
+      "secret_name": "STABILITY_API_KEY",
+      "service": "Stability AI (image generation)",
+      "signup_url": "https://platform.stability.ai/account/keys",
+      "engines_unlocked": [
+        "PRODUCT_REGISTRY",
+        "VALUE_GENERATOR"
+      ],
+      "free_tier": "Free credits on signup",
+      "time_to_setup": "2 minutes",
+      "why_important": "AI art generation for Gaza Rose Gallery products.",
+      "how_to_add": "1. Go to https://platform.stability.ai/account/keys\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: STABILITY_API_KEY = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    },
+    {
+      "priority_rank": 12,
+      "secret_name": "DOPPLER_TOKEN",
+      "service": "Doppler Secrets Manager (free tier)",
+      "signup_url": "https://dashboard.doppler.com/workplace/projects",
+      "engines_unlocked": [
+        "SECRET_BOOTSTRAP",
+        "CAPABILITY_BROKER"
+      ],
+      "free_tier": "Free for open-source projects",
+      "time_to_setup": "10 minutes",
+      "why_important": "Auto-syncs secrets to GitHub Actions. The 'secrets come to you' solution.",
+      "how_to_add": "1. Go to https://dashboard.doppler.com/workplace/projects\n2. Sign up (free, no card)\n3. Copy your API key\n4. Go to github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions\n5. Add secret: DOPPLER_TOKEN = <your key>\n6. SolarPunk auto-detects it on next cycle"
+    }
+  ],
+  "zero_auth_apis": [
+    {
+      "name": "HuggingFace Inference API (public models)",
+      "url": "https://huggingface.co/api/models",
+      "category": "ai",
+      "engines": [
+        "KNOWLEDGE_MINER",
+        "SYNTHESIS_FACTORY"
+      ]
+    },
+    {
+      "name": "Ollama (local)",
+      "url": "http://localhost:11434/api/generate",
+      "category": "ai_local",
+      "engines": [
+        "SYNAPSE",
+        "NEURON_A"
+      ]
+    },
+    {
+      "name": "DuckDuckGo Instant Answer API",
+      "url": "https://api.duckduckgo.com/?q=test&format=json",
+      "category": "search",
+      "engines": [
+        "DEEP_RESEARCHER",
+        "NEWS_HARVESTER"
+      ]
+    },
+    {
+      "name": "Hacker News API",
+      "url": "https://hacker-news.firebaseio.com/v0/topstories.json",
+      "category": "news",
+      "engines": [
+        "NEWS_HARVESTER"
+      ]
+    },
+    {
+      "name": "Reddit JSON API",
+      "url": "https://www.reddit.com/r/artificial.json",
+      "category": "social",
+      "engines": [
+        "NEWS_HARVESTER",
+        "SOCIAL_ECHO"
+      ]
+    },
+    {
+      "name": "DEV.to API",
+      "url": "https://dev.to/api/articles?tag=ai",
+      "category": "tech_news",
+      "engines": [
+        "NEWS_HARVESTER",
+        "CONTENT_FORGE"
+      ]
+    },
+    {
+      "name": "Wikipedia REST API",
+      "url": "https://en.wikipedia.org/api/rest_v1/page/summary/AI",
+      "category": "knowledge",
+      "engines": [
+        "KNOWLEDGE_SYNTHESIZER",
+        "ARCHIVE_BRAIN"
+      ]
+    },
+    {
+      "name": "Open Library (Internet Archive)",
+      "url": "https://openlibrary.org/search.json?q=ai",
+      "category": "knowledge",
+      "engines": [
+        "KNOWLEDGE_SYNTHESIZER"
+      ]
+    },
+    {
+      "name": "arXiv API",
+      "url": "https://export.arxiv.org/api/query?search_query=ai+autonomous",
+      "category": "research",
+      "engines": [
+        "DEEP_RESEARCHER",
+        "KNOWLEDGE_MINER"
+      ]
+    },
+    {
+      "name": "Semantic Scholar API",
+      "url": "https://api.semanticscholar.org/graph/v1/paper/search?query=ai+agents",
+      "category": "research",
+      "engines": [
+        "DEEP_RESEARCHER"
+      ]
+    },
+    {
+      "name": "OpenAlex (academic knowledge graph)",
+      "url": "https://api.openalex.org/works?search=autonomous+ai",
+      "category": "research",
+      "engines": [
+        "KNOWLEDGE_SYNTHESIZER"
+      ]
+    },
+    {
+      "name": "CoinGecko (free tier)",
+      "url": "https://api.coingecko.com/api/v3/global",
+      "category": "crypto",
+      "engines": [
+        "CRYPTO_WATCHER",
+        "REVENUE_FLYWHEEL"
+      ]
+    },
+    {
+      "name": "Open Exchange Rates (USD base)",
+      "url": "https://open.er-api.com/v6/latest/USD",
+      "category": "finance",
+      "engines": [
+        "FINANCIAL_MAPPER"
+      ]
+    },
+    {
+      "name": "Yahoo Finance (via unofficial)",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL",
+      "category": "finance",
+      "engines": [
+        "FINANCIAL_MAPPER"
+      ]
+    },
+    {
+      "name": "GitHub REST API (public, no auth)",
+      "url": "https://api.github.com/repos/anthropics/anthropic-sdk-python",
+      "category": "code",
+      "engines": [
+        "REPO_SPIDER",
+        "SWARM_AMPLIFIER"
+      ]
+    },
+    {
+      "name": "npm Registry",
+      "url": "https://registry.npmjs.org/react",
+      "category": "packages",
+      "engines": [
+        "CAPABILITY_SCANNER"
+      ]
+    },
+    {
+      "name": "PyPI API",
+      "url": "https://pypi.org/pypi/anthropic/json",
+      "category": "packages",
+      "engines": [
+        "CAPABILITY_SCANNER"
+      ]
+    },
+    {
+      "name": "Nominatim / OpenStreetMap",
+      "url": "https://nominatim.openstreetmap.org/search?q=gaza&format=json",
+      "category": "geo",
+      "engines": [
+        "LABOR_DISPATCH_ENGINE"
+      ]
+    },
+    {
+      "name": "ReliefWeb API (UN humanitarian data)",
+      "url": "https://api.reliefweb.int/v1/disasters?appname=solarpunk",
+      "category": "humanitarian",
+      "engines": [
+        "GRANT_HUNTER",
+        "INVESTOR_RADAR"
+      ]
+    },
+    {
+      "name": "ACLED (conflict data, free for research)",
+      "url": "https://acleddata.com/api/acled/read",
+      "category": "conflict_data",
+      "engines": [
+        "INVESTOR_RADAR"
+      ]
+    },
+    {
+      "name": "Artsy API (public)",
+      "url": "https://api.artsy.net/api/artworks?q=abstract",
+      "category": "art",
+      "engines": [
+        "PRODUCT_REGISTRY"
+      ]
+    },
+    {
+      "name": "Met Museum Open Access API",
+      "url": "https://collectionapi.metmuseum.org/public/collection/v1/search?q=art",
+      "category": "art",
+      "engines": [
+        "PRODUCT_REGISTRY"
+      ]
+    },
+    {
+      "name": "Wikimedia Commons API",
+      "url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=search&srsearch=Palestinian+art",
+      "category": "art",
+      "engines": [
+        "PRODUCT_REGISTRY"
+      ]
+    },
+    {
+      "name": "IP Geolocation (free)",
+      "url": "https://ipapi.co/json/",
+      "category": "utility",
+      "engines": [
+        "SECURITY_SENTRY"
+      ]
+    },
+    {
+      "name": "Time Zones API",
+      "url": "https://worldtimeapi.org/api/timezone/UTC",
+      "category": "utility",
+      "engines": [
+        "CALENDAR_BRAIN"
+      ]
+    },
+    {
+      "name": "Public Holidays API",
+      "url": "https://date.nager.at/api/v3/PublicHolidays/2026/US",
+      "category": "utility",
+      "engines": [
+        "CALENDAR_BRAIN"
+      ]
+    }
+  ],
+  "free_mcps": [
+    {
+      "name": "mcp-server-fetch",
+      "package": "@modelcontextprotocol/server-fetch",
+      "capabilities": [
+        "web_fetch",
+        "http_requests"
+      ],
+      "notes": "Fetch any URL. No auth."
+    },
+    {
+      "name": "mcp-server-filesystem",
+      "package": "@modelcontextprotocol/server-filesystem",
+      "capabilities": [
+        "read_files",
+        "write_files",
+        "list_dirs"
+      ],
+      "notes": "File system access. Free."
+    },
+    {
+      "name": "mcp-server-git",
+      "package": "@modelcontextprotocol/server-git",
+      "capabilities": [
+        "git_operations",
+        "repo_management"
+      ],
+      "notes": "Git operations. No auth needed."
+    },
+    {
+      "name": "mcp-server-memory",
+      "package": "@modelcontextprotocol/server-memory",
+      "capabilities": [
+        "knowledge_graph",
+        "persistent_memory"
+      ],
+      "notes": "Knowledge graph memory. No auth."
+    },
+    {
+      "name": "mcp-server-sqlite",
+      "package": "@modelcontextprotocol/server-sqlite",
+      "capabilities": [
+        "sql_queries",
+        "database"
+      ],
+      "notes": "SQLite database. No auth."
+    },
+    {
+      "name": "mcp-server-brave-search",
+      "package": "@modelcontextprotocol/server-brave-search",
+      "capabilities": [
+        "web_search"
+      ],
+      "notes": "Needs free Brave Search API key."
+    },
+    {
+      "name": "mcp-server-puppeteer",
+      "package": "@modelcontextprotocol/server-puppeteer",
+      "capabilities": [
+        "web_scraping",
+        "screenshots",
+        "automation"
+      ],
+      "notes": "Browser automation. No auth."
+    },
+    {
+      "name": "mcp-server-github",
+      "package": "@modelcontextprotocol/server-github",
+      "capabilities": [
+        "github_api",
+        "repo_management"
+      ],
+      "notes": "GitHub API. Needs GITHUB_TOKEN (already have)."
+    },
+    {
+      "name": "mcp-atlas-search",
+      "package": "mcp-atlas-search",
+      "capabilities": [
+        "mongodb_atlas_search"
+      ],
+      "notes": "MongoDB Atlas free tier."
+    },
+    {
+      "name": "mcp-server-youtube-transcript",
+      "package": "mcp-youtube-transcript",
+      "capabilities": [
+        "youtube_transcripts"
+      ],
+      "notes": "YouTube transcript extraction. No auth."
+    },
+    {
+      "name": "mcp-server-arxiv",
+      "package": "mcp-arxiv",
+      "capabilities": [
+        "paper_search",
+        "academic_research"
+      ],
+      "notes": "arXiv paper search. No auth."
+    },
+    {
+      "name": "mcp-server-wikipedia",
+      "package": "mcp-wikipedia",
+      "capabilities": [
+        "wikipedia_search",
+        "knowledge"
+      ],
+      "notes": "Wikipedia access. No auth."
+    },
+    {
+      "name": "mcp-hackernews",
+      "package": "mcp-hackernews",
+      "capabilities": [
+        "tech_news",
+        "community_signals"
+      ],
+      "notes": "Hacker News. No auth."
+    },
+    {
+      "name": "mcp-server-reddit",
+      "package": "mcp-reddit",
+      "capabilities": [
+        "reddit_posts",
+        "community_signals"
+      ],
+      "notes": "Reddit public API. No auth."
+    }
+  ],
+  "already_configured": [
+    "GROQ_API_KEY"
+  ]
+}

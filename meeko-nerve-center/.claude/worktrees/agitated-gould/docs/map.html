@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolarPunk World Map — 24 Live Projects</title>
+<meta name="description" content="24 verified SolarPunk projects on one map. Click any pin to see what it is, how it works, and how to replicate it.">
+<meta property="og:title" content="SolarPunk World Map — 24 Live Projects, 6 Continents">
+<meta property="og:description" content="Not theory. 24 verified, active, replicable SolarPunk projects mapped worldwide. Click any pin.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose:#c8756b; --gold:#d4a45a; --olive:#3d5a3e; --green:#5a9e6f;
+  --blue:#4a8fa8; --solar:#f0b429; --dark:#070908; --panel:#0f1110;
+  --card:#161914; --border:rgba(90,158,111,0.15); --text:#e0ddd5;
+  --muted:rgba(224,221,213,0.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--text);font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;opacity:0.5}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.8rem 2rem;background:rgba(7,9,8,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-brand{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--rose);text-decoration:none;letter-spacing:.05em}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{font-family:'Space Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+
+/* HERO */
+.hero{position:relative;z-index:1;padding:6rem 2rem 2rem;text-align:center}
+.eyebrow{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;display:block}
+h1{font-size:clamp(2rem,6vw,4rem);font-weight:300;line-height:1.15;margin-bottom:.8rem}
+h1 em{color:var(--solar);font-style:italic}
+.hero-sub{font-size:1rem;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.05em}
+
+/* FILTER PILLS */
+.filters{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;padding:1.5rem 2rem}
+.filter-pill{background:var(--card);border:1px solid var(--border);border-radius:100px;padding:.3rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);cursor:pointer;transition:all .2s}
+.filter-pill:hover,.filter-pill.active{border-color:var(--green);color:var(--green);background:rgba(90,158,111,.08)}
+.filter-pill[data-cat="all"].active{border-color:var(--solar);color:var(--solar);background:rgba(240,180,41,.08)}
+
+/* MAP CONTAINER */
+.map-wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 1rem 1rem}
+.map-stage{position:relative;width:100%;background:var(--panel);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.map-stage svg{display:block;width:100%;height:auto}
+
+/* SVG MAP LAND */
+.land{fill:#1a2419;stroke:#263525;stroke-width:0.5}
+.graticule{fill:none;stroke:rgba(90,158,111,.06);stroke-width:0.3}
+.ocean{fill:#0d1310}
+
+/* PINS */
+.pin-group{cursor:pointer}
+.pin-pulse{
+  animation:pinpulse 2.4s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes pinpulse{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.7;transform:scale(1.6)}}
+.pin-dot{transition:r .15s}
+.pin-group:hover .pin-dot{r:7}
+.pin-label{
+  font-family:'Space Mono',monospace;font-size:6px;fill:var(--text);
+  pointer-events:none;opacity:0;transition:opacity .2s;
+  text-shadow:0 0 8px rgba(7,9,8,.9);
+}
+.pin-group:hover .pin-label{opacity:1}
+
+/* Category colours */
+.cat-indigenous_solar .pin-dot,.cat-indigenous_energy .pin-dot{fill:#f0b429}
+.cat-indigenous_solar .pin-pulse,.cat-indigenous_energy .pin-pulse{fill:#f0b429}
+.cat-community_energy_cooperative .pin-dot{fill:#5a9e6f}
+.cat-community_energy_cooperative .pin-pulse{fill:#5a9e6f}
+.cat-community_land_trust .pin-dot{fill:#c8756b}
+.cat-community_land_trust .pin-pulse{fill:#c8756b}
+.cat-food_forest .pin-dot{fill:#7cb87e}
+.cat-food_forest .pin-pulse{fill:#7cb87e}
+.cat-worker_cooperative .pin-dot{fill:#d4a45a}
+.cat-worker_cooperative .pin-pulse{fill:#d4a45a}
+.cat-community_mesh_internet .pin-dot{fill:#4a8fa8}
+.cat-community_mesh_internet .pin-pulse{fill:#4a8fa8}
+.cat-biochar_reforestation .pin-dot{fill:#6b9b5a}
+.cat-biochar_reforestation .pin-pulse{fill:#6b9b5a}
+.cat-community_solar_mena,.cat-emergency_solar{}.cat-community_solar_mena .pin-dot,.cat-emergency_solar .pin-dot{fill:#e8a04a}
+.cat-community_solar_mena .pin-pulse,.cat-emergency_solar .pin-pulse{fill:#e8a04a}
+.cat-repair_economy .pin-dot{fill:#a87cbf}
+.cat-repair_economy .pin-pulse{fill:#a87cbf}
+.cat-community_currency .pin-dot{fill:#bf9a5a}
+.cat-community_currency .pin-pulse{fill:#bf9a5a}
+.cat-island_microgrid .pin-dot{fill:#4abfa8}
+.cat-island_microgrid .pin-pulse{fill:#4abfa8}
+.cat-solar_home_systems .pin-dot{fill:#c8c05a}
+.cat-solar_home_systems .pin-pulse{fill:#c8c05a}
+.cat-community_solar .pin-dot{fill:#8fbf5a}
+.cat-community_solar .pin-pulse{fill:#8fbf5a}
+
+/* POPUP */
+.popup-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(7,9,8,.75);backdrop-filter:blur(6px);padding:1rem;align-items:center;justify-content:center}
+.popup-overlay.open{display:flex}
+.popup{background:var(--card);border:1px solid rgba(90,158,111,.3);border-radius:16px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;padding:2rem;position:relative;animation:popIn .25s ease}
+@keyframes popIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+.popup-close{position:absolute;top:1rem;right:1rem;background:var(--panel);border:1px solid var(--border);color:var(--muted);width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;line-height:1;transition:border-color .2s,color .2s}
+.popup-close:hover{border-color:var(--rose);color:var(--rose)}
+.popup-tag{font-family:'Space Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.15em;color:var(--green);margin-bottom:.4rem}
+.popup-name{font-size:1.5rem;font-weight:600;margin-bottom:.2rem;line-height:1.25}
+.popup-loc{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);margin-bottom:1rem}
+.popup-desc{font-size:1rem;color:var(--text);line-height:1.75;margin-bottom:1.2rem}
+.popup-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:.6rem;margin-bottom:1.2rem}
+.pm{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:.6rem;text-align:center}
+.pm-val{font-family:'Space Mono',monospace;font-size:1rem;font-weight:700;color:var(--solar);display:block}
+.pm-label{font-family:'Space Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);display:block;margin-top:.15rem}
+.popup-steps{margin-bottom:1.2rem}
+.popup-steps-label{font-family:'Space Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:.5rem}
+.popup-steps ol{padding-left:1.2rem}
+.popup-steps li{font-size:.9rem;color:var(--text);margin-bottom:.3rem;line-height:1.6}
+.popup-actions{display:flex;gap:.6rem;flex-wrap:wrap}
+.popup-btn{flex:1;min-width:120px;padding:.65rem 1rem;border-radius:8px;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;text-align:center;transition:all .2s;border:none;cursor:pointer}
+.popup-btn-primary{background:var(--green);color:var(--dark)}
+.popup-btn-primary:hover{background:#6ab882}
+.popup-btn-secondary{background:transparent;border:1px solid var(--border);color:var(--text)}
+.popup-btn-secondary:hover{border-color:var(--green);color:var(--green)}
+
+/* LEGEND */
+.legend{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;padding:1rem 2rem 2rem;max-width:900px;margin:0 auto}
+.leg-item{display:flex;align-items:center;gap:.4rem;font-family:'Space Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* STATS BAR */
+.stats-bar{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:0;justify-content:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:0 0 3rem}
+.stat-item{flex:1;min-width:120px;padding:1.2rem;text-align:center;border-right:1px solid var(--border)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Space Mono',monospace;font-size:1.8rem;font-weight:700;color:var(--solar);display:block}
+.stat-label{font-family:'Space Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);display:block;margin-top:.2rem}
+
+/* CTA */
+.cta-wrap{position:relative;z-index:1;text-align:center;padding:3rem 2rem;border-top:1px solid var(--border)}
+.cta-wrap h2{font-size:clamp(1.6rem,4vw,3rem);font-weight:300;margin-bottom:.8rem}
+.cta-wrap h2 em{color:var(--solar);font-style:italic}
+.cta-wrap p{color:var(--muted);max-width:500px;margin:0 auto 2rem;font-size:1rem}
+.cta-links{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+.cta-btn{padding:.85rem 1.8rem;border-radius:10px;font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.cta-primary{background:var(--green);color:var(--dark)}
+.cta-primary:hover{background:#6ab882}
+.cta-secondary{background:transparent;border:1px solid var(--border);color:var(--text)}
+.cta-secondary:hover{border-color:var(--green);color:var(--green)}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1rem}
+.footer-brand{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.1em}
+.footer-links{display:flex;gap:1.5rem;list-style:none;flex-wrap:wrap;justify-content:center}
+.footer-links a{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--muted);text-decoration:none}
+.footer-links a:hover{color:var(--green)}
+
+@media(max-width:600px){.popup{padding:1.5rem}.stats-bar{flex-direction:column}.stat-item{border-right:none;border-bottom:1px solid var(--border)}.stat-item:last-child{border-bottom:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">🌹 Gaza Rose × SolarPunk</a>
+  <ul class="nav-links">
+    <li><a href="start-here.html">Start Here</a></li>
+    <li><a href="solarpunk-movement.html">24 Projects</a></li>
+    <li><a href="synthesis.html">Synthesis</a></li>
+    <li><a href="index.html">Gallery →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="eyebrow">✦ 24 Verified Projects · 6 Continents · All Replicable</span>
+  <h1>SolarPunk<br><em>world map</em></h1>
+  <p class="hero-sub">Click any pin · Real projects · Real replication steps</p>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num">24</span><span class="stat-label">Live Projects</span></div>
+  <div class="stat-item"><span class="stat-num">6</span><span class="stat-label">Continents</span></div>
+  <div class="stat-item"><span class="stat-num">1M+</span><span class="stat-label">Households</span></div>
+  <div class="stat-item"><span class="stat-num">12</span><span class="stat-label">Synthesis Models</span></div>
+  <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label">Replicable</span></div>
+</div>
+
+<!-- CATEGORY FILTERS -->
+<div class="filters">
+  <div class="filter-pill active" data-cat="all" onclick="filterPins('all',this)">All</div>
+  <div class="filter-pill" data-cat="indigenous" onclick="filterPins('indigenous',this)">☀️ Indigenous Solar</div>
+  <div class="filter-pill" data-cat="energy_coop" onclick="filterPins('energy_coop',this)">⚡ Energy Co-ops</div>
+  <div class="filter-pill" data-cat="food" onclick="filterPins('food',this)">🌱 Food + Land</div>
+  <div class="filter-pill" data-cat="digital" onclick="filterPins('digital',this)">📡 Digital Commons</div>
+  <div class="filter-pill" data-cat="repair" onclick="filterPins('repair',this)">🔧 Repair + Currency</div>
+  <div class="filter-pill" data-cat="island" onclick="filterPins('island',this)">🏝️ Islands</div>
+  <div class="filter-pill" data-cat="mena" onclick="filterPins('mena',this)">🇵🇸 MENA</div>
+</div>
+
+<!-- MAP -->
+<div class="map-wrap">
+  <div class="map-stage">
+    <!-- Natural Earth simplified world SVG at 1200x600 viewBox -->
+    <svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" id="world-map">
+      <!-- Ocean background -->
+      <rect width="1200" height="600" class="ocean"/>
+
+      <!-- Graticule grid lines -->
+      <g class="graticule">
+        <!-- Latitude lines every 30° -->
+        <line x1="0" y1="100" x2="1200" y2="100"/>
+        <line x1="0" y1="200" x2="1200" y2="200"/>
+        <line x1="0" y1="300" x2="1200" y2="300"/>
+        <line x1="0" y1="400" x2="1200" y2="400"/>
+        <line x1="0" y1="500" x2="1200" y2="500"/>
+        <!-- Longitude lines every 30° -->
+        <line x1="100" y1="0" x2="100" y2="600"/>
+        <line x1="200" y1="0" x2="200" y2="600"/>
+        <line x1="300" y1="0" x2="300" y2="600"/>
+        <line x1="400" y1="0" x2="400" y2="600"/>
+        <line x1="500" y1="0" x2="500" y2="600"/>
+        <line x1="600" y1="0" x2="600" y2="600"/>
+        <line x1="700" y1="0" x2="700" y2="600"/>
+        <line x1="800" y1="0" x2="800" y2="600"/>
+        <line x1="900" y1="0" x2="900" y2="600"/>
+        <line x1="1000" y1="0" x2="1000" y2="600"/>
+        <line x1="1100" y1="0" x2="1100" y2="600"/>
+      </g>
+
+      <!-- Simplified continent shapes (equirectangular projection, 0°lon=600px, 0°lat=300px, scale 3.33px/°) -->
+      <!-- North America -->
+      <path class="land" d="M100,80 L200,70 L270,85 L290,110 L275,140 L240,155 L210,175 L195,210 L175,250 L155,290 L145,330 L130,310 L110,280 L90,250 L80,220 L85,180 L95,150 L100,120 Z"/>
+      <!-- Central America + Caribbean -->
+      <path class="land" d="M175,250 L210,260 L230,275 L225,295 L200,300 L180,285 Z"/>
+      <!-- South America -->
+      <path class="land" d="M210,275 L260,270 L300,280 L330,310 L345,355 L340,400 L320,440 L295,470 L270,480 L250,465 L230,430 L215,390 L205,350 L205,320 L210,295 Z"/>
+      <!-- Greenland -->
+      <path class="land" d="M270,30 L330,25 L360,45 L350,70 L310,80 L275,65 Z"/>
+      <!-- Europe -->
+      <path class="land" d="M520,80 L580,75 L620,90 L640,115 L625,140 L600,155 L570,160 L545,150 L525,130 L515,105 Z"/>
+      <!-- Scandinavia -->
+      <path class="land" d="M555,55 L590,50 L610,65 L600,90 L575,95 L558,80 Z"/>
+      <!-- UK -->
+      <path class="land" d="M505,95 L520,88 L525,105 L512,115 Z"/>
+      <!-- Africa -->
+      <path class="land" d="M560,165 L620,155 L660,165 L690,195 L700,240 L695,290 L680,340 L665,380 L645,410 L615,420 L585,415 L560,395 L540,360 L530,320 L530,275 L535,235 L545,200 Z"/>
+      <!-- Madagascar -->
+      <path class="land" d="M695,320 L710,310 L720,335 L710,360 L695,355 Z"/>
+      <!-- Russia / Northern Asia -->
+      <path class="land" d="M630,40 L800,30 L950,45 L1020,70 L1000,100 L940,110 L850,100 L760,90 L680,85 L640,70 Z"/>
+      <!-- Middle East -->
+      <path class="land" d="M640,155 L700,150 L740,165 L745,195 L720,210 L685,205 L660,190 Z"/>
+      <!-- South / Southeast Asia -->
+      <path class="land" d="M720,145 L810,135 L860,150 L890,175 L880,210 L840,225 L800,215 L760,210 L730,195 L715,175 Z"/>
+      <!-- India subcontinent -->
+      <path class="land" d="M740,185 L790,180 L810,195 L810,225 L790,255 L765,265 L745,250 L735,225 L733,200 Z"/>
+      <!-- Southeast Asia peninsulas -->
+      <path class="land" d="M840,195 L880,185 L910,200 L915,225 L900,240 L875,235 L850,225 Z"/>
+      <!-- Indonesia/Philippines (dots) -->
+      <ellipse class="land" cx="920" cy="270" rx="25" ry="15"/>
+      <ellipse class="land" cx="960" cy="265" rx="18" ry="12"/>
+      <ellipse class="land" cx="895" cy="300" rx="20" ry="10"/>
+      <!-- Japan/Korea -->
+      <ellipse class="land" cx="975" cy="140" rx="18" ry="30"/>
+      <ellipse class="land" cx="960" cy="120" rx="10" ry="15"/>
+      <!-- China / East Asia -->
+      <path class="land" d="M830,90 L960,80 L990,100 L980,140 L940,155 L890,150 L840,140 L815,120 Z"/>
+      <!-- Australia -->
+      <path class="land" d="M880,355 L980,340 L1040,360 L1060,400 L1040,440 L990,460 L940,455 L900,435 L875,400 L870,370 Z"/>
+      <!-- New Zealand -->
+      <ellipse class="land" cx="1075" cy="450" rx="12" ry="25"/>
+      <!-- Pacific Islands -->
+      <circle class="land" cx="1100" cy="340" r="4"/>
+      <circle class="land" cx="1060" cy="310" r="3"/>
+      <circle class="land" cx="1130" cy="360" r="3"/>
+      <!-- Antarctica hint -->
+      <path class="land" d="M200,580 L500,575 L800,575 L1100,580 L1100,600 L200,600 Z" style="fill:#151f14"/>
+    </svg>
+
+    <!-- PROJECT PINS — overlaid absolutely -->
+    <svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100%" id="pins-layer">
+    <!--
+      Equirectangular: x = (lon + 180) * (1200/360) = (lon+180)*3.333
+                       y = (90 - lat) * (600/180) = (90-lat)*3.333
+    -->
+
+    <!-- ══ NORTH AMERICA ══ -->
+    <!-- Solar North Haida Gwaii: lat=54.0, lon=-132.1 → x=160, y=120 -->
+    <g class="pin-group cat-indigenous_solar" data-id="haida-gwaii" onclick="openPopup('haida-gwaii')">
+      <circle cx="160" cy="120" r="12" class="pin-pulse" opacity="0.25"/>
+      <circle cx="160" cy="120" r="5" class="pin-dot"/>
+      <text x="166" y="116" class="pin-label">Solar North</text>
+    </g>
+
+    <!-- Mino Giizis Saskatchewan: lat=49.5, lon=-104.5 → x=252, y=135 -->
+    <g class="pin-group cat-indigenous_solar" data-id="mino-giizis" onclick="openPopup('mino-giizis')">
+      <circle cx="252" cy="135" r="12" class="pin-pulse" opacity="0.25"/>
+      <circle cx="252" cy="135" r="5" class="pin-dot"/>
+      <text x="258" y="131" class="pin-label">Mino Giizis</text>
+    </g>
+
+    <!-- Northern Cheyenne Montana: lat=45.5, lon=-106.6 → x=245, y=148 -->
+    <g class="pin-group cat-indigenous_solar" data-id="northern-cheyenne" onclick="openPopup('northern-cheyenne')">
+      <circle cx="245" cy="152" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="245" cy="152" r="4" class="pin-dot"/>
+      <text x="251" y="148" class="pin-label">N.Cheyenne</text>
+    </g>
+
+    <!-- NYC CLTs: lat=40.7, lon=-74.0 → x=353, y=165 -->
+    <g class="pin-group cat-community_land_trust" data-id="nyc-clts" onclick="openPopup('nyc-clts')">
+      <circle cx="353" cy="165" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="353" cy="165" r="4" class="pin-dot"/>
+      <text x="359" y="161" class="pin-label">NYC CLTs</text>
+    </g>
+
+    <!-- Denver Food Forests: lat=39.7, lon=-104.9 → x=251, y=168 -->
+    <g class="pin-group cat-food_forest" data-id="denver-food-forests" onclick="openPopup('denver-food-forests')">
+      <circle cx="251" cy="170" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="251" cy="170" r="4" class="pin-dot"/>
+      <text x="257" y="166" class="pin-label">Denver FF</text>
+    </g>
+
+    <!-- Chicago Worker Coops: lat=41.9, lon=-87.6 → x=307, y=163 -->
+    <g class="pin-group cat-worker_cooperative" data-id="chicago-coops" onclick="openPopup('chicago-coops')">
+      <circle cx="307" cy="163" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="307" cy="163" r="4" class="pin-dot"/>
+      <text x="313" y="159" class="pin-label">Chicago Co-ops</text>
+    </g>
+
+    <!-- ══ SOUTH AMERICA ══ -->
+    <!-- Kara Solar Ecuador Amazon: lat=-2.5, lon=-76.5 → x=345, y=308 -->
+    <g class="pin-group cat-indigenous_solar" data-id="kara-solar" onclick="openPopup('kara-solar')">
+      <circle cx="345" cy="308" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="345" cy="308" r="4" class="pin-dot"/>
+      <text x="351" y="304" class="pin-label">Kara Solar</text>
+    </g>
+
+    <!-- ══ EUROPE ══ -->
+    <!-- Edinburgh Solar Co-op: lat=55.9, lon=-3.2 → x=590, y=113 -->
+    <g class="pin-group cat-community_energy_cooperative" data-id="edinburgh-solar" onclick="openPopup('edinburgh-solar')">
+      <circle cx="590" cy="113" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="590" cy="113" r="4" class="pin-dot"/>
+      <text x="596" y="109" class="pin-label">Edinburgh</text>
+    </g>
+
+    <!-- REScoop Brussels: lat=50.9, lon=4.4 → x=615, y=133 -->
+    <g class="pin-group cat-community_energy_cooperative" data-id="rescoop" onclick="openPopup('rescoop')">
+      <circle cx="615" cy="133" r="13" class="pin-pulse" opacity="0.25"/>
+      <circle cx="615" cy="133" r="6" class="pin-dot"/>
+      <text x="621" y="129" class="pin-label">REScoop.eu</text>
+    </g>
+
+    <!-- German Energiewende: lat=51.2, lon=10.5 → x=635, y=133 -->
+    <g class="pin-group cat-community_energy_cooperative" data-id="german-coops" onclick="openPopup('german-coops')">
+      <circle cx="638" cy="128" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="638" cy="128" r="4" class="pin-dot"/>
+      <text x="644" y="124" class="pin-label">DE 900 Co-ops</text>
+    </g>
+
+    <!-- Repair Café Amsterdam: lat=52.4, lon=4.9 → x=616, y=130 -->
+    <g class="pin-group cat-repair_economy" data-id="repair-cafe" onclick="openPopup('repair-cafe')">
+      <circle cx="608" cy="122" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="608" cy="122" r="4" class="pin-dot"/>
+      <text x="614" y="118" class="pin-label">Repair Café</text>
+    </g>
+
+    <!-- Brixton Pound London: lat=51.4, lon=-0.1 → x=600, y=133 -->
+    <g class="pin-group cat-community_currency" data-id="brixton-pound" onclick="openPopup('brixton-pound')">
+      <circle cx="596" cy="130" r="10" class="pin-pulse" opacity="0.25"/>
+      <circle cx="596" cy="130" r="4" class="pin-dot"/>
+      <text x="583" y="126" class="pin-label" text-anchor="end">Brixton £</text>
+    </g>
+
+    <!-- ══ AFRICA ══ -->
+    <!-- Zenzeleni South Africa: lat=-31.7, lon=29.1 → x=697, y=406 -->
+    <g class="pin-group cat-community_mesh_internet" data-id="zenzeleni" onclick="openPopup('zenzeleni')">
+      <circle cx="697" cy="406" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="697" cy="406" r="5" class="pin-dot"/>
+      <text x="703" y="402" class="pin-label">Zenzeleni</text>
+    </g>
+
+    <!-- iNethi Cape Town: lat=-33.9, lon=18.4 → x=661, y=413 -->
+    <g class="pin-group cat-community_mesh_internet" data-id="inethi" onclick="openPopup('inethi')">
+      <circle cx="661" cy="413" r="10" class="pin-pulse" opacity="0.25"/>
+      <circle cx="661" cy="413" r="4" class="pin-dot"/>
+      <text x="648" y="409" class="pin-label" text-anchor="end">iNethi</text>
+    </g>
+
+    <!-- Humbo Ethiopia: lat=6.8, lon=37.8 → x=726, y=277 -->
+    <g class="pin-group cat-biochar_reforestation" data-id="humbo-forest" onclick="openPopup('humbo-forest')">
+      <circle cx="726" cy="277" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="726" cy="277" r="5" class="pin-dot"/>
+      <text x="732" y="273" class="pin-label">Humbo Forest</text>
+    </g>
+
+    <!-- BBOXX Kenya/Rwanda: lat=-1.3, lon=36.8 → x=723, y=304 -->
+    <g class="pin-group cat-solar_home_systems" data-id="bboxx" onclick="openPopup('bboxx')">
+      <circle cx="723" cy="308" r="12" class="pin-pulse" opacity="0.25"/>
+      <circle cx="723" cy="308" r="5" class="pin-dot"/>
+      <text x="729" y="304" class="pin-label">BBOXX</text>
+    </g>
+
+    <!-- ══ MENA / PALESTINE ══ -->
+    <!-- PENGON Ramallah: lat=31.9, lon=35.2 → x=717, y=233 -->
+    <g class="pin-group cat-community_solar_mena" data-id="pengon" onclick="openPopup('pengon')">
+      <circle cx="717" cy="233" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="717" cy="233" r="5" class="pin-dot"/>
+      <text x="723" y="229" class="pin-label">PENGON</text>
+    </g>
+
+    <!-- SunBox Gaza: lat=31.5, lon=34.5 → x=715, y=235 -->
+    <g class="pin-group cat-emergency_solar" data-id="sunbox-gaza" onclick="openPopup('sunbox-gaza')">
+      <circle cx="711" cy="240" r="12" class="pin-pulse" opacity="0.25" style="animation-delay:.4s"/>
+      <circle cx="711" cy="240" r="5" class="pin-dot" style="fill:#e05a5a"/>
+      <text x="698" y="236" class="pin-label" text-anchor="end">Gaza Solar</text>
+    </g>
+
+    <!-- Noor Atlas Morocco: lat=32.0, lon=-6.0 → x=580, y=233 -->
+    <g class="pin-group cat-community_solar" data-id="noor-atlas" onclick="openPopup('noor-atlas')">
+      <circle cx="580" cy="233" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="580" cy="233" r="5" class="pin-dot"/>
+      <text x="586" y="229" class="pin-label">Noor Atlas</text>
+    </g>
+
+    <!-- ══ OCEANIA / PACIFIC ══ -->
+    <!-- Cook Islands: lat=-21.2, lon=-159.8 → x=66, y=371 -->
+    <g class="pin-group cat-island_microgrid" data-id="cook-islands" onclick="openPopup('cook-islands')">
+      <circle cx="66" cy="371" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="66" cy="371" r="5" class="pin-dot"/>
+      <text x="72" y="367" class="pin-label">Cook Is.</text>
+    </g>
+
+    <!-- Vanuatu: lat=-15.4, lon=166.9 → x=1056, y=351 -->
+    <g class="pin-group cat-island_microgrid" data-id="vanuatu" onclick="openPopup('vanuatu')">
+      <circle cx="1056" cy="351" r="10" class="pin-pulse" opacity="0.25"/>
+      <circle cx="1056" cy="351" r="4" class="pin-dot"/>
+      <text x="1062" y="347" class="pin-label">Vanuatu</text>
+    </g>
+
+    <!-- Ngawha New Zealand: lat=-35.6, lon=173.8 → x=1079, y=419 -->
+    <g class="pin-group cat-indigenous_energy" data-id="ngawha" onclick="openPopup('ngawha')">
+      <circle cx="1079" cy="419" r="11" class="pin-pulse" opacity="0.25"/>
+      <circle cx="1079" cy="419" r="5" class="pin-dot"/>
+      <text x="1085" y="415" class="pin-label">Ngawha</text>
+    </g>
+
+    <!-- Enspiral Wellington NZ: lat=-41.3, lon=174.8 → x=1083, y=437 -->
+    <g class="pin-group cat-worker_cooperative" data-id="enspiral" onclick="openPopup('enspiral')">
+      <circle cx="1083" cy="440" r="10" class="pin-pulse" opacity="0.25"/>
+      <circle cx="1083" cy="440" r="4" class="pin-dot"/>
+      <text x="1089" y="436" class="pin-label">Enspiral</text>
+    </g>
+
+    </svg>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#f0b429"></div>Indigenous Solar / Energy</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#5a9e6f"></div>Energy Co-operative</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#c8756b"></div>Community Land Trust</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#7cb87e"></div>Food Forest</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#d4a45a"></div>Worker Cooperative</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#4a8fa8"></div>Community Mesh Internet</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#6b9b5a"></div>Biochar / Reforestation</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#e8a04a"></div>Community Solar / MENA</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#a87cbf"></div>Repair Economy</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#bf9a5a"></div>Community Currency</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#4abfa8"></div>Island Microgrid</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#c8c05a"></div>Pay-as-you-go Solar</div>
+</div>
+
+<!-- POPUP OVERLAY -->
+<div class="popup-overlay" id="popup-overlay" onclick="closePopupOnOverlay(event)">
+  <div class="popup" id="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div id="popup-content"></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-wrap">
+  <h2>Every dot is<br><em>replicable</em></h2>
+  <p>Full step-by-step instructions, verified sources, and contacts for every project on this map.</p>
+  <div class="cta-links">
+    <a href="start-here.html" class="cta-btn cta-primary">🧭 Find Your Model</a>
+    <a href="solarpunk-movement.html" class="cta-btn cta-secondary">🌿 All 24 Projects</a>
+    <a href="synthesis.html" class="cta-btn cta-secondary">🧬 12 Synthesis Models</a>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-brand">🌿 SolarPunk World Map · Gaza Rose Nerve Center</span>
+  <ul class="footer-links">
+    <li><a href="index.html">Gallery</a></li>
+    <li><a href="start-here.html">Start Here</a></li>
+    <li><a href="solarpunk-movement.html">24 Projects</a></li>
+    <li><a href="synthesis.html">Synthesis</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+</footer>
+
+<script>
+// ── Project data for popups ──────────────────────────────────────────────────
+const PROJECTS = {
+  'haida-gwaii': {
+    tag: 'Indigenous Solar · Canada',
+    name: 'Solar North — Tll Yahda Energy',
+    loc: '📍 Masset, Haida Gwaii, British Columbia',
+    desc: 'Indigenous-owned and operated 2MW solar plant + microgrid. Flipped on December 5, 2025. Path to 100% diesel-free energy by 2030 for Haida Nation.',
+    metrics: [['2 MW','Capacity'],['350K L','Diesel/Year Replaced'],['2030','Diesel-Free Target'],['20 yr','CEPA Agreement']],
+    steps: ['Form a band council energy authority with authority to sign PPAs','Negotiate a Community Electricity Purchase Agreement with BC Hydro or equivalent','Apply for Indigenous Clean Energy grants (INAC/DOE Tribal Energy Program)','Procure solar + battery storage — start with 500kW pilot','Hire 75%+ Indigenous labour hours in all construction contracts'],
+    links: [['Full Project Details','solarpunk-movement.html#indigenous-solar'],['Indigenized Energy','https://indigenizedenergy.org']],
+    cat: 'all indigenous'
+  },
+  'mino-giizis': {
+    tag: 'Indigenous Solar · Canada',
+    name: 'Mino Giizis — Good Sun (100MW)',
+    loc: '📍 Lajord, Saskatchewan',
+    desc: 'Four First Nations hold 50/50 equity in a 100MW solar farm. Not a benefit agreement — ownership. Mino Giizis means "good sun." Powers 30,000 homes.',
+    metrics: [['100 MW','Capacity'],['30K','Homes Powered'],['50/50','Nations + Neoen equity'],['25 yr','SaskPower PPA']],
+    steps: ['Find private renewable developer willing to do true equity partnership','Structure as Limited Partnership — Nations hold 50% equity from day one','Negotiate 25-year PPA with provincial utility','Require 75% Indigenous labour hours in all construction contracts','Apply to Canada\'s Indigenous Loan Guarantee Program for financing'],
+    links: [['Full Project Details','solarpunk-movement.html#indigenous-solar'],['Neoen Canada','https://canada.neoen.com/mino-giizis-solar/']],
+    cat: 'all indigenous'
+  },
+  'northern-cheyenne': {
+    tag: 'Indigenous Solar · USA',
+    name: 'Northern Cheyenne Solar',
+    loc: '📍 Montana, USA',
+    desc: 'Northern Cheyenne Nation building tribal-owned solar on their reservation. Part of the DOE Tribal Energy Program expanding Indigenous energy sovereignty across the US.',
+    metrics: [['Tribal','Owned'],['DOE','Funded'],['MT','Reservation'],['100%','Community Benefit']],
+    steps: ['Contact DOE Tribal Energy Program — they have dedicated funding and technical assistance','Form a tribal energy authority or enterprise','Identify tribal land suitable for solar (avoid sacred sites, consult community)','Apply for DOE Tribal Energy Loan Guarantee Program','Partner with a solar developer for engineering — retain ownership of the asset'],
+    links: [['Full Project Details','solarpunk-movement.html#indigenous-solar'],['DOE Tribal Energy','https://www.energy.gov/indianenergy/']],
+    cat: 'all indigenous'
+  },
+  'nyc-clts': {
+    tag: 'Community Land Trust · USA',
+    name: 'NYC Community Land Trusts',
+    loc: '📍 New York City, USA',
+    desc: '20 active Community Land Trusts across NYC permanently removing land from speculation. Homes stay affordable in perpetuity — residents own equity but not market land value.',
+    metrics: [['20','Active CLTs'],['Permanent','Affordability'],['Tripartite','Board (resident/community/public)'],['$0','Land Cost (removed from market)']],
+    steps: ['Form CLT with tripartite board: 1/3 residents, 1/3 community, 1/3 public interest','Apply to Grounded Solutions Network for CLT formation technical assistance','Acquire first property through municipal land bank, donation, or purchase','Use CLT ground lease model — residents own the house, CLT owns the land','Apply to LIHTC and HOME Investment Partnerships for affordable housing financing'],
+    links: [['Full Project Details','solarpunk-movement.html#community-land'],['Grounded Solutions','https://groundedsolutions.org']],
+    cat: 'all food'
+  },
+  'denver-food-forests': {
+    tag: 'Urban Food Forest · USA',
+    name: 'Denver Urban Food Forests',
+    loc: '📍 Denver, Colorado, USA',
+    desc: '20 food forest sites across Denver with 100+ species producing food permanently. Community members harvest freely. Land managed by Denver Urban Gardens.',
+    metrics: [['20','Sites'],['100+','Species'],['Free','Public Harvest'],['Permanent','Infrastructure']],
+    steps: ['Contact your city\'s parks department about food forest permits','Map available land: rights-of-way, vacant lots, park edges, school grounds','Apply for free trees from urban forestry programs — most cities give them away','Contact Denver Urban Gardens (dug.org) for free design consultation','Plant guild-style: canopy tree + nitrogen-fixer + ground cover + bulb layer'],
+    links: [['Full Project Details','solarpunk-movement.html#food-forests'],['Denver Urban Gardens','https://dug.org']],
+    cat: 'all food'
+  },
+  'chicago-coops': {
+    tag: 'Worker Cooperative · USA',
+    name: 'Chicago Worker Cooperatives',
+    loc: '📍 Chicago, Illinois, USA',
+    desc: 'City of Chicago\'s $2M cooperative development fund supporting worker-owned businesses. Part of the national movement to democratize ownership of work.',
+    metrics: [['$2M','City Grant'],['Democratic','Ownership'],['Equal','Voting Rights'],['USFWC','Member']],
+    steps: ['Use USFWC legal templates to form worker cooperative (free download)','Apply to CDFI cooperative development funds for startup capital','Apply to your city\'s cooperative development grant program','Find a cooperative developer for governance design','First worker-members buy in at low share price — sweat equity counts'],
+    links: [['Full Project Details','solarpunk-movement.html#coops'],['USFWC','https://usfwc.org']],
+    cat: 'all repair'
+  },
+  'kara-solar': {
+    tag: 'Indigenous Solar · Amazon',
+    name: 'Kara Solar — Achuar Solar Canoes',
+    loc: '📍 Achuar Territory, Ecuadorian Amazon',
+    desc: 'Solar-electric canoes for the Achuar Indigenous Nation. No roads — rivers are the highways. 45 solar canoes replaced gasoline engines. 40,000 litres of gasoline eliminated per year.',
+    metrics: [['45','Solar Canoes'],['40K L','Gas Replaced/Year'],['60','Communities'],['80%','Cost Reduction']],
+    steps: ['Identify boat-dependent communities on rivers, lakes, or coastlines','Convert outboard: 5kW electric motor + 5kWh LiFePO4 battery + 200W solar = ~50km range','Conversion cost: $4,000-8,000 — 3-4 year payback on gasoline savings','Train community boat builders to do the conversion','Contact Kara Solar for partnership at karasolar.com'],
+    links: [['Full Project Details','solarpunk-movement.html#pacific'],['Kara Solar','https://karasolar.com']],
+    cat: 'all indigenous'
+  },
+  'edinburgh-solar': {
+    tag: 'Energy Cooperative · Scotland',
+    name: 'Edinburgh Community Solar Co-op',
+    loc: '📍 Edinburgh, Scotland, UK',
+    desc: '450-member energy cooperative owns 750kW of solar on local school rooftops. Members earn 5% annual dividend. Profits fund more community energy projects.',
+    metrics: [['450','Members'],['750 kW','Capacity'],['5%','Annual Dividend'],['200','Homes Powered']],
+    steps: ['Register as Community Benefit Society (CBS) using Cooperatives UK templates','Identify publicly-owned rooftops — lease them for £1/year','Issue community shares: minimum £250, 3-5% return','Apply to Community Energy Scotland for development grant','Sign Power Purchase Agreement with school at 10% below grid rate'],
+    links: [['Full Project Details','solarpunk-movement.html#europe'],['Community Energy Scotland','https://communityenergyscotland.org.uk']],
+    cat: 'all energy_coop'
+  },
+  'rescoop': {
+    tag: 'Energy Co-op Federation · Europe',
+    name: 'REScoop.eu — 1,500 Co-ops, 23 Countries',
+    loc: '📍 Brussels, Belgium (23 European countries)',
+    desc: 'Federation of 1,500 community energy cooperatives across Europe. 1.2 million citizen-members. 2.5GW of renewable capacity. Free formation guides for every EU country.',
+    metrics: [['1,500','Co-ops'],['1.2M','Members'],['2.5 GW','Capacity'],['23','Countries']],
+    steps: ['Visit rescoop.eu — free formation guides for every EU country','EU Energy Community Directive gives citizens the legal right to form energy communities','Apply for European Regional Development Fund (ERDF) grants for community energy','REScoop runs annual conference and online training — strong peer network'],
+    links: [['REScoop.eu','https://rescoop.eu'],['Full Project Details','solarpunk-movement.html#europe']],
+    cat: 'all energy_coop'
+  },
+  'german-coops': {
+    tag: 'Energy Co-ops · Germany',
+    name: 'German Energiewende — 900 Citizen Co-ops',
+    loc: '📍 Germany — nationwide',
+    desc: '900+ citizen energy cooperatives own 4.7GW of renewable energy — 13% of Germany\'s renewable capacity. Average co-op: 220 members. Model for citizen ownership of the energy transition.',
+    metrics: [['900+','Co-ops'],['200K','Citizens'],['4.7 GW','Capacity'],['13%','of DE Renewables']],
+    steps: ['German form: eG (eingetragene Genossenschaft) — use DGRV templates at dgrv.de','Citizen investment: €500-5,000 minimum, 3-5% annual return','Focus on community assets: local wind, rooftop solar on public buildings, biogas','Feed-in tariff + PPA = guaranteed revenue for 20 years'],
+    links: [['DGRV','https://dgrv.de'],['Full Project Details','solarpunk-movement.html#europe']],
+    cat: 'all energy_coop'
+  },
+  'repair-cafe': {
+    tag: 'Repair Economy · Global',
+    name: 'Repair Café Foundation',
+    loc: '📍 Amsterdam, Netherlands (36 countries)',
+    desc: '2,500 community repair workshops worldwide. Volunteer fixers repair electronics, clothing, furniture for free. 70% success rate. 500K items saved from landfill per year. Anyone can start one.',
+    metrics: [['2,500','Locations'],['36','Countries'],['500K','Items/Year Saved'],['70%','Repair Success']],
+    steps: ['Register at repaircafe.org — free starter kit with all guides and templates','Find a venue: library, community centre, church hall — ask for free use','Recruit volunteer fixers in 5+ skill areas','Tools: soldering iron ($30), multimeter ($20), basic hand tools','Apply for small local council grant ($500-2000) for tools'],
+    links: [['Repair Café Foundation','https://repaircafe.org'],['Full Project Details','solarpunk-movement.html#europe']],
+    cat: 'all repair'
+  },
+  'brixton-pound': {
+    tag: 'Community Currency · UK',
+    name: 'Brixton Pound',
+    loc: '📍 Brixton, London, UK',
+    desc: 'Local currency that only works in Brixton businesses. 250 shops accept B£. Creates 1.7x local economic multiplier vs. 40p for national chains. Printable, digital, and B-Pay mobile versions.',
+    metrics: [['250','Businesses'],['£100K','In Circulation'],['1.7x','Local Multiplier'],['2009','Founded']],
+    steps: ['Register a Community Interest Company (CIC) for currency governance','Use Bristol Pound open-source software stack (free to license)','Print local currency notes with tamper-proof paper','Recruit 20 anchor businesses — give each 50 B£ to start spending','Apply to New Economics Foundation for community currency development support'],
+    links: [['Brixton Pound','https://brixtonpound.org'],['Full Project Details','solarpunk-movement.html#europe']],
+    cat: 'all repair'
+  },
+  'zenzeleni': {
+    tag: 'Community Mesh Internet · South Africa',
+    name: 'Zenzeleni Networks',
+    loc: '📍 Mankosi, Eastern Cape, South Africa',
+    desc: "Africa's first community-owned ISP. Rural Eastern Cape village runs its own mesh internet cooperative. 90% cheaper than commercial telecoms. Model active in 6 African countries.",
+    metrics: [['2,500','Households'],['90%','Cheaper'],['$1.50','Per Month'],['6','Countries Replicating']],
+    steps: ['Register a cooperative under local law — minimum 7 founding members','Buy secondhand WiFi routers ($50-150 each) for mesh nodes','Apply for community telecom license (contact APC for your country)','Install solar panels on mesh nodes for off-grid resilience','Charge members $1-3/month — covers hardware and expansion','Contact zenzeleni.net for replication playbook'],
+    links: [['Zenzeleni Networks','https://zenzeleni.net'],['Full Project Details','solarpunk-movement.html#africa']],
+    cat: 'all digital'
+  },
+  'guifi-net': {
+    tag: 'Community Mesh · Spain',
+    name: 'Guifi.net — 42,000-Node Network',
+    loc: '📍 Catalonia, Spain',
+    desc: 'The largest community-owned telecoms network in the world. 42,000 nodes. Zero cost for contributing members. Procomuns license: use it, extend it, give back.',
+    metrics: [['42,000','Nodes'],['3','Countries'],['2004','Since'],['Free','For contributors']],
+    steps: ['Register as cooperative','Adopt Wireless Commons License','Start with 10 node owners','Flash LibreMesh firmware — free','Add solar to remote nodes'],
+    links: [['Guifi.net','https://guifi.net'],['Replicate','replicate.html']],
+    cat: 'all digital',
+    coords: [41.9, 2.25]
+  },
+  'altermundi': {
+    tag: 'Community Mesh · Argentina',
+    name: 'AlterMundi — Rural Networks',
+    loc: '📍 Córdoba, Argentina',
+    desc: 'LibreMesh firmware used by 100+ communities in 40 countries. $2/month. Solar nodes extend to off-grid farmsteads. Email redes@altermundi.net for free guide.',
+    metrics: [['100+','Communities'],['40','Countries'],['$2','Per month'],['LibreMesh','Open-source firmware']],
+    steps: ['Download LibreMesh','Form 5+ household assembly','Flash routers ($30-150)','Install solar','Email redes@altermundi.net'],
+    links: [['AlterMundi','https://altermundi.net'],['LibreMesh','https://libremesh.org']],
+    cat: 'all digital',
+    coords: [-31.4, -64.2]
+  },
+  'rhizomatica': {
+    tag: 'Indigenous Cellular · Mexico',
+    name: 'Rhizomatica / TIC',
+    loc: '📍 Sierra Juárez, Oaxaca, Mexico',
+    desc: '75 indigenous communities own their cellular networks for $1.50/month. 95% cheaper than commercial. First indigenous spectrum licenses in Mexico. Solar base stations.',
+    metrics: [['$1.50','Per month'],['75','Communities'],['95%','Cheaper'],['2013','Since']],
+    steps: ['Form telecom cooperative','Apply for community spectrum license','Install OpenBTS ($3,000-8,000)','Add 200W solar + 100Ah battery','Email info@rhizomatica.org'],
+    links: [['Rhizomatica','https://rhizomatica.org'],['Replicate','replicate.html']],
+    cat: 'all digital indigenous',
+    coords: [17.1, -96.7]
+  },
+  'air-jaldi': {
+    tag: 'Rural WiFi · India',
+    name: 'AirJaldi — Mountain WiFi',
+    loc: '📍 Himachal Pradesh, India',
+    desc: '200+ Himalayan villages. 250,000 people online at $3/month. Directional antennas bridge 40-80km mountain passes. Solar relay stations. 7 states.',
+    metrics: [['250K','People'],['$3','Per month'],['200+','Villages'],['80km','Max link distance']],
+    steps: ['Survey with Google Earth','Use Ubiquiti for long links','Solar power relay stations','Form rural cooperative','Contact info@jaldi.org.in'],
+    links: [['AirJaldi','https://airjaldi.com'],['Replicate','replicate.html']],
+    cat: 'all digital',
+    coords: [32.2, 76.3]
+  },
+  'fantsuam': {
+    tag: 'Community ISP · Nigeria',
+    name: 'Fantsuam Foundation',
+    loc: '📍 Kafanchan, Kaduna State, Nigeria',
+    desc: "Nigeria's first rural ISP. 100% solar. 5,000+ women trained in ICT. The network funds the training. Zero fossil fuel dependency since 2005.",
+    metrics: [['5,000','Women trained'],['20','Communities'],['100%','Solar'],['2005','Since']],
+    steps: ['Register as NGO','Install 3-5kW solar first','Set up tower + LibreRouter mesh','Apply for national ISP license','Pair internet with training'],
+    links: [['Fantsuam','https://fantsuam.net'],['APC','https://apc.org']],
+    cat: 'all digital',
+    coords: [9.58, 8.29]
+  },
+  'kopernik': {
+    tag: 'Solar Home Systems · Indonesia',
+    name: 'Kopernik — Last Mile Solar',
+    loc: '📍 Indonesia + East Timor',
+    desc: '240,000 solar units to isolated communities via women entrepreneurs. 1.2M+ people reached. Women ARE the distribution network.',
+    metrics: [['240K','Solar units'],['1.2M','People reached'],['3','Countries'],['Women','Led']],
+    steps: ['Map off-grid communities','Recruit women distributors','Source solar wholesale','Offer PAYG mobile money credit','Contact kopernik.info/partner'],
+    links: [['Kopernik','https://kopernik.info']],
+    cat: 'all solar',
+    coords: [-8.34, 115.09]
+  },
+  'nyc-mesh': {
+    tag: 'Community Mesh · USA',
+    name: 'NYC Mesh',
+    loc: '📍 New York City, USA',
+    desc: '1,400 nodes across all 5 boroughs. Free if you cannot pay. $20/month if you can. Survived Hurricane Sandy. Solidarity pricing: ability to pay never determines access.',
+    metrics: [['1,400','Nodes'],['$0','If you need it'],['500+','Buildings'],['2014','Since']],
+    steps: ['Form nonprofit','Install supernodes on tall buildings','Ethernet from rooftop to apartments','Adopt solidarity pricing','Copy docs.nycmesh.net openly'],
+    links: [['NYC Mesh','https://nycmesh.net'],['Docs','https://docs.nycmesh.net']],
+    cat: 'all digital',
+    coords: [40.7128, -74.006]
+  },
+  'inethi': {
+    tag: 'Community Network · South Africa',
+    name: 'iNethi — Cape Town Community Network',
+    loc: '📍 Hangberg, Cape Town, South Africa',
+    desc: 'Community-built mesh network in Cape Town township. Includes local content servers so residents access education and health info without internet bills. Open-source stack.',
+    metrics: [['800','Households'],['3','Local Content Servers'],['Free','Local Education Access'],['Open','Source Stack']],
+    steps: ['Use LibreRouter or Raspberry Pi as mesh nodes — open-source firmware','Set up local content server (Raspberry Pi + SSD, ~$100) for offline content','Load with Khan Academy, Wikipedia, local health guides via Kiwix','Build community governance: elected tech committee, monthly meetings','Apply to Internet Society Community Networks program for seed funding'],
+    links: [['iNethi','https://inethi.org.za'],['Full Project Details','solarpunk-movement.html#africa']],
+    cat: 'all digital'
+  },
+  'humbo-forest': {
+    tag: 'Biochar + Reforestation · Ethiopia',
+    name: 'Humbo Community Forest',
+    loc: '📍 Humbo, SNNPR, Ethiopia',
+    desc: '2,728 hectares restored through Farmer-Managed Natural Regeneration. 6,000 households earn carbon credits ($300K+ total). Wildlife returned. UN Development Award winner.',
+    metrics: [['2,728','Hectares Restored'],['6,000','Households'],['$300K+','Carbon Revenue'],['2006','Founded']],
+    steps: ['Map degraded land with native tree stumps — FMNR works on stumps, not bare soil','Form a community forest cooperative with elected ranger committees','Register with Gold Standard or Verra VCS for carbon credits','Train community members to protect and prune regenerating shoots','Sell verified credits at $5-15/tonne — ~10 tonnes/hectare restored','Contact fmnrhub.com.au for free global replication support'],
+    links: [['FMNR Hub','https://fmnrhub.com.au'],['Full Project Details','solarpunk-movement.html#africa']],
+    cat: 'all food'
+  },
+  'bboxx': {
+    tag: 'Pay-as-you-go Solar · East Africa',
+    name: 'BBOXX Off-Grid Solar',
+    loc: '📍 Kenya, Rwanda, DRC + 8 countries',
+    desc: 'Pay-as-you-go solar home systems for 350,000 off-grid households. $0.30/day — less than a candle. Pay for 18-36 months, then you own it outright.',
+    metrics: [['350K','Customers'],['11','Countries'],['$0.30','Per Day'],['100%','Off-Grid']],
+    steps: ['Solar home system: 30-80W panel + LiFePO4 battery + LED lights — $100-200','PAYG model via mobile money (M-Pesa, MTN MoMo) — customer pays daily until ownership','Use Angaza or Solaris platform for PAYG management ($0.05/customer/month)','Train local solar agents for last-mile sales — commission-based','Apply to IFC PAYG Solar Lending Facility for working capital'],
+    links: [['GOGLA','https://gogla.org'],['Full Project Details','solarpunk-movement.html#africa']],
+    cat: 'all indigenous'
+  },
+  'pengon': {
+    tag: 'Palestinian Environmental Network',
+    name: 'PENGON — Palestinian Environmental NGO Network',
+    loc: '📍 Ramallah, Palestine (West Bank + Gaza)',
+    desc: 'Network of 29 Palestinian environmental organizations coordinating community solar, water harvesting, and ecological restoration under occupation. 120 communities served.',
+    metrics: [['29','Member NGOs'],['400','Solar Installations'],['120','Communities'],['Since','2000']],
+    steps: ['Under occupation: prioritize off-grid solar — no grid dependence means no control over power','Partner with PENGON for technical training: pengon.net','Apply for EU Neighborhood funding and UNDP Palestine grants','Rainwater harvesting cisterns: 50,000-liter concrete cisterns serve a family for years','Documentation is resistance: photograph every installation for international solidarity'],
+    links: [['PENGON','https://pengon.net'],['Full Project Details','solarpunk-movement.html#mena']],
+    cat: 'all mena'
+  },
+  'sunbox-gaza': {
+    tag: 'Emergency Solar · Gaza, Palestine',
+    name: 'SunBox — Solar for Gaza Hospitals',
+    loc: '📍 Gaza Strip, Palestine',
+    desc: 'When Israeli forces cut grid power, solar kept ICUs, dialysis machines, and surgical theaters running. 12 hospitals powered. 800kW installed under siege. SolarPunk as survival technology.',
+    metrics: [['12','Hospitals Powered'],['800 kW','Installed'],['50K','Lives Depending on Power'],['Active','Under Siege']],
+    steps: ['Conflict/disaster: prioritize hospital + water pump solar first','Portable solar kits (2-5kW): deployable in hours, no permit needed','LiFePO4 batteries — safer in conflict zones than lead-acid','Train local technicians before crisis — solar skills are life-saving infrastructure','Donate via UNRWA or Islamic Relief for verified Gaza solar campaigns'],
+    links: [['UNRWA','https://unrwa.org'],['Full Project Details','solarpunk-movement.html#mena']],
+    cat: 'all mena'
+  },
+  'noor-atlas': {
+    tag: 'Community Solar · Morocco',
+    name: 'Noor Atlas — 8,000 Villages Electrified',
+    loc: '📍 Atlas Mountains, Morocco',
+    desc: "Morocco's rural electrification program powered 8,000 villages with solar home systems and mini-grids. 400,000 households. 60% cheaper than diesel. Now exporting to 12 African nations.",
+    metrics: [['8,000','Villages'],['400K','Households'],['580 MW','Capacity'],['60%','Cheaper than Diesel']],
+    steps: ['Solar home systems: 50-200W panel + battery + LED lights = $200-400 per household','Work with national utility to create off-grid rural electrification authority','Apply to World Bank ESMAP for funding','Train 1 community tech per 50 homes for maintenance','Fee-for-service: $3-8/month per household covers expansion'],
+    links: [['IRENA Morocco','https://irena.org'],['Full Project Details','solarpunk-movement.html#mena']],
+    cat: 'all mena'
+  },
+  'cook-islands': {
+    tag: 'Island Microgrid · Pacific',
+    name: 'Cook Islands — 95% Solar + Wind',
+    loc: '📍 15 Islands, South Pacific',
+    desc: 'Small Pacific island nation at 95% renewable energy on Rarotonga. Saving $8M/year that previously went to imported diesel. Model for every Pacific island nation.',
+    metrics: [['95%','Renewable (Rarotonga)'],['$8M','Annual Savings'],['12','Islands with Solar/Wind'],['2027','100% Target']],
+    steps: ['Islands under 5,000 people: 100% solar+storage is cost-competitive with diesel TODAY','Apply to ADB Pacific Energy program and New Zealand Aid for Pacific island funding','Use IRENA island renewable energy toolkit at irena.org/islands','Community cooperative owns the assets — municipality offtakes power'],
+    links: [['IRENA Islands','https://irena.org/islands'],['Full Project Details','solarpunk-movement.html#pacific']],
+    cat: 'all island'
+  },
+  'vanuatu': {
+    tag: 'Island Microgrid · Pacific',
+    name: 'Vanuatu Rural Solar Microgrids',
+    loc: '📍 Vanuatu — outer islands',
+    desc: '150 villages, 8,000 households electrified with solar microgrids. Zero diesel. Cyclone-rated hardware. Community-managed fee collection. UN Sustainable Energy for All champion.',
+    metrics: [['150','Villages'],['8,000','Households'],['0','Diesel Used'],['3,500 kW','Installed']],
+    steps: ['Cyclone zones: use IEC-rated solar panels (200km/h), concrete anchor foundations','Community energy agent: trusted local person collects monthly fees and reports to cooperative','Prepaid solar meters (SteamaCo or Angaza) prevent non-payment issues','Apply to World Bank Universal Energy Access program','Contact Pacific Community (SPC) in Noumea for Pacific solar technical support'],
+    links: [['IRENA Vanuatu','https://irena.org'],['Full Project Details','solarpunk-movement.html#pacific']],
+    cat: 'all island'
+  },
+  'ngawha': {
+    tag: 'Indigenous Geothermal · New Zealand',
+    name: 'Ngawha — Māori-Owned Power Station',
+    loc: '📍 Northland, New Zealand',
+    desc: '100% Māori-owned geothermal power station on ancestral Ngāti Rangi land. 25MW powers 17,000 homes. $15M NZD annual revenue funds tribal education, health, and development.',
+    metrics: [['25 MW','Capacity'],['17,000','Homes Powered'],['$15M NZD','Annual Revenue'],['100%','Māori-Owned']],
+    steps: ['Geothermal applies where volcanic/tectonic activity exists — map hot springs first','For Indigenous communities: Treaty settlements often include energy rights — assert them','Apply to NZ Green Investment Fund and Crown Infrastructure Partners','Structure as tribal authority company — profits within iwi governance','Revenue split: 40% tribal distributions, 30% reinvestment, 20% education, 10% reserve'],
+    links: [['Ngawha Generation','https://ngawha.co.nz'],['Full Project Details','solarpunk-movement.html#pacific']],
+    cat: 'all indigenous'
+  },
+  'enspiral': {
+    tag: 'Worker-Directed Ventures · New Zealand',
+    name: 'Enspiral Network',
+    loc: '📍 Wellington, New Zealand (global distributed)',
+    desc: 'Network of worker-directed ventures sharing revenue, governance, and infrastructure. Created Loomio (open-source decision-making, 2M+ users) and Cobudget. Model for distributed cooperative economy.',
+    metrics: [['15','Member Ventures'],['300','Contributors Global'],['$5M NZD','Annual Revenue'],['Open','Source Handbook']],
+    steps: ['Read Enspiral Handbook — fully open-source at handbook.enspiral.com','Start with 5-10 people who trust each other and share values','Use Loomio for all decisions (free for open-source groups): loomio.com','Contribute 5-20% of revenue to collective pool','Use Cobudget for democratic collective fund allocation','Annual retreat for in-person alignment — worth the cost'],
+    links: [['Enspiral','https://enspiral.com'],['Loomio','https://loomio.com'],['Full Project Details','solarpunk-movement.html#pacific']],
+    cat: 'all repair'
+  }
+};
+
+// ── Filter system ─────────────────────────────────────────────────────────────
+const CAT_MAP = {
+  'all': 'all',
+  'indigenous': 'indigenous',
+  'energy_coop': 'energy_coop',
+  'food': 'food',
+  'digital': 'digital',
+  'repair': 'repair',
+  'island': 'island',
+  'mena': 'mena'
+};
+
+function filterPins(cat, el) {
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.pin-group').forEach(pin => {
+    const pinCat = pin.getAttribute('data-id');
+    const proj = PROJECTS[pinCat];
+    if (!proj) return;
+    if (cat === 'all' || proj.cat.includes(cat)) {
+      pin.style.opacity = '1';
+      pin.style.pointerEvents = 'auto';
+    } else {
+      pin.style.opacity = '0.15';
+      pin.style.pointerEvents = 'none';
+    }
+  });
+}
+
+// ── Popup ─────────────────────────────────────────────────────────────────────
+function openPopup(id) {
+  const p = PROJECTS[id];
+  if (!p) return;
+
+  const metrics = p.metrics.map(([v,l]) =>
+    `<div class="pm"><span class="pm-val">${v}</span><span class="pm-label">${l}</span></div>`
+  ).join('');
+
+  const steps = p.steps.map(s => `<li>${s}</li>`).join('');
+
+  const links = p.links.map(([label, href]) => {
+    const isExt = href.startsWith('http');
+    return `<a href="${href}" class="popup-btn popup-btn-${isExt ? 'secondary' : 'primary'}" ${isExt ? 'target="_blank" rel="noopener"' : ''}>${label} →</a>`;
+  }).join('');
+
+  document.getElementById('popup-content').innerHTML = `
+    <p class="popup-tag">${p.tag}</p>
+    <h2 class="popup-name">${p.name}</h2>
+    <p class="popup-loc">${p.loc}</p>
+    <p class="popup-desc">${p.desc}</p>
+    <div class="popup-metrics">${metrics}</div>
+    <div class="popup-steps">
+      <p class="popup-steps-label">How to replicate</p>
+      <ol>${steps}</ol>
+    </div>
+    <div class="popup-actions">${links}</div>
+  `;
+
+  document.getElementById('popup-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePopup() {
+  document.getElementById('popup-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closePopupOnOverlay(e) {
+  if (e.target === document.getElementById('popup-overlay')) closePopup();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+</script>
+</body>
+</html>

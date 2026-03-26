@@ -1,0 +1,560 @@
+name: "🌐 Grand Unified Loop — All Dimensions, All Cycles"
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # Every hour — every cycle, every dimension
+  workflow_dispatch:
+    inputs:
+      force_all_dimensions:
+        description: "Force all dimensions regardless of priority? (true/false)"
+        required: false
+        default: "false"
+
+# THE MASTER LOOP.
+# Every hour. Every dimension. Every engine.
+# Feeds into itself. Every cycle smarter than the last.
+# 12 dimensions running simultaneously, endlessly.
+
+concurrency:
+  group: grand-unified-loop
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  grand-unified-loop:
+    name: "🌐 Grand Unified Loop"
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+
+    env:
+      # ── All secrets: every single one in the system ──────────────────────
+      ANTHROPIC_API_KEY:            ${{ secrets.ANTHROPIC_API_KEY }}
+      GITHUB_TOKEN:                 ${{ secrets.GITHUB_TOKEN }}
+      GH_PAT:                       ${{ secrets.GH_PAT }}
+      GUMROAD_ACCESS_TOKEN:         ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+      KOFI_API_KEY:                 ${{ secrets.KOFI_API_KEY }}
+      PAYPAL_CLIENT_ID:             ${{ secrets.PAYPAL_CLIENT_ID }}
+      PAYPAL_CLIENT_SECRET:         ${{ secrets.PAYPAL_CLIENT_SECRET }}
+      TELEGRAM_BOT_TOKEN:           ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID:             ${{ secrets.TELEGRAM_CHAT_ID }}
+      GROQ_API_KEY:                 ${{ secrets.GROQ_API_KEY }}
+      OPENCOLLECTIVE_API_KEY:       ${{ secrets.OPENCOLLECTIVE_API_KEY }}
+      UNUSUAL_WHALES_API_KEY:       ${{ secrets.UNUSUAL_WHALES_API_KEY }}
+      MASTODON_ACCESS_TOKEN:        ${{ secrets.MASTODON_ACCESS_TOKEN }}
+      MASTODON_API_BASE_URL:        ${{ secrets.MASTODON_API_BASE_URL }}
+      BLUESKY_HANDLE:               ${{ secrets.BLUESKY_HANDLE }}
+      BLUESKY_APP_PASSWORD:         ${{ secrets.BLUESKY_APP_PASSWORD }}
+      GEMINI_API_KEY:               ${{ secrets.GEMINI_API_KEY }}
+      OPENROUTER_KEY:               ${{ secrets.OPENROUTER_KEY }}
+      KIMI_API_KEY:                 ${{ secrets.KIMI_API_KEY }}
+      SAMGOV_API_KEY:               ${{ secrets.SAMGOV_API_KEY }}
+      REDDIT_CLIENT_ID:             ${{ secrets.REDDIT_CLIENT_ID }}
+      REDDIT_CLIENT_SECRET:         ${{ secrets.REDDIT_CLIENT_SECRET }}
+      REDDIT_USERNAME:              ${{ secrets.REDDIT_USERNAME }}
+      REDDIT_PASSWORD:              ${{ secrets.REDDIT_PASSWORD }}
+      X_API_KEY:                    ${{ secrets.X_API_KEY }}
+      X_API_SECRET:                 ${{ secrets.X_API_SECRET }}
+      X_ACCESS_TOKEN:               ${{ secrets.X_ACCESS_TOKEN }}
+      X_ACCESS_SECRET:              ${{ secrets.X_ACCESS_SECRET }}
+      BITCOIN_ADDRESS:              ${{ secrets.BITCOIN_ADDRESS }}
+      ETHEREUM_ADDRESS:             ${{ secrets.ETHEREUM_ADDRESS }}
+      MONERO_ADDRESS:               ${{ secrets.MONERO_ADDRESS }}
+      SOLARPUNK_WALLET_ADDRESS:     ${{ secrets.SOLARPUNK_WALLET_ADDRESS }}
+      SOLARPUNK_WALLET_KEY:         ${{ secrets.SOLARPUNK_WALLET_KEY }}
+      RENTAHUMAN_API_KEY:           ${{ secrets.RENTAHUMAN_API_KEY }}
+      OCTOEVERYWHERE_APP_API_KEY:   ${{ secrets.OCTOEVERYWHERE_APP_API_KEY }}
+      OCTOEVERYWHERE_APP_TOKEN:     ${{ secrets.OCTOEVERYWHERE_APP_TOKEN }}
+      GMAIL_ADDRESS:                ${{ secrets.GMAIL_ADDRESS }}
+      GMAIL_APP_PASSWORD:           ${{ secrets.GMAIL_APP_PASSWORD }}
+      MEDIUM_TOKEN:                 ${{ secrets.MEDIUM_TOKEN }}
+      DEV_TO_API_KEY:               ${{ secrets.DEV_TO_API_KEY }}
+      HF_TOKEN:                     ${{ secrets.HF_TOKEN }}
+
+    steps:
+      - name: "📥 Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "🐍 Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "📦 Install deps"
+        run: pip install requests anthropic web3 eth-account py-solc-x 2>/dev/null || true
+
+      - name: "⚙️  Configure git + dirs"
+        run: |
+          git config user.name "SolarPunk-GrandLoop"
+          git config user.email "grand@solarpunk.bot"
+          mkdir -p data docs
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── CONDUCTOR: what needs to happen this cycle? ─────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🧠 Grand Conductor (read all state, plan the cycle)"
+        continue-on-error: true
+        run: python mycelium/GRAND_CONDUCTOR.py
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 1: SELF (always first — keeps everything else alive) ───────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🔧 Self — Problem Solver Prime"
+        continue-on-error: true
+        run: python mycelium/PROBLEM_SOLVER_PRIME.py
+
+      - name: "🔧 Self — AI Router (cheapest model this cycle)"
+        continue-on-error: true
+        run: python mycelium/AI_ROUTER.py
+
+      - name: "🏥 Self — Health Monitor (watch everything)"
+        continue-on-error: true
+        run: python mycelium/HEALTH_MONITOR.py
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 2: EARTH SYNC ──────────────────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🌍 Earth — Bioregional Clock"
+        continue-on-error: true
+        run: python mycelium/BIOREGIONAL_CLOCK.py
+
+      - name: "🌍 Earth — Planetary Overflow"
+        continue-on-error: true
+        run: python mycelium/PLANETARY_OVERFLOW.py
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 3: REVENUE (critical until first dollar) ───────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "💎 Revenue — First Dollar"
+        continue-on-error: true
+        run: python mycelium/FIRST_DOLLAR.py
+
+      - name: "💰 Revenue — Pool Manager"
+        continue-on-error: true
+        run: python mycelium/POOL_MANAGER.py
+
+      - name: "💎 Revenue — Easy Money Finder"
+        continue-on-error: true
+        run: python mycelium/EASY_MONEY_FINDER.py
+
+      - name: "💎 Revenue — Revenue Architect"
+        continue-on-error: true
+        run: python mycelium/REVENUE_ARCHITECT.py 2>/dev/null || python mycelium/ARCHITECT.py 2>/dev/null || echo "revenue architect variant"
+
+      - name: "💎 Revenue — Circulation Engine"
+        continue-on-error: true
+        run: python mycelium/CIRCULATION_ENGINE.py
+
+      - name: "💎 Revenue — Gumroad Engine"
+        continue-on-error: true
+        run: python mycelium/GUMROAD_ENGINE.py 2>/dev/null || python mycelium/GUMROAD_PRODUCT_PUBLISHER.py 2>/dev/null || echo "gumroad variant"
+
+      - name: "💎 Revenue — Gumroad Force Publish (if not live yet)"
+        continue-on-error: true
+        run: python mycelium/GUMROAD_FORCE_PUBLISH.py
+
+      - name: "💎 Revenue — Ko-fi Engine"
+        continue-on-error: true
+        run: python mycelium/KOFI_ENGINE.py
+
+      - name: "💎 Revenue — OpenCollective Engine"
+        continue-on-error: true
+        run: python mycelium/OPENCOLLECTIVE_ENGINE.py
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 4: CRISIS ROUTING (always — 99% law) ──────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🌍 Crisis — Crisis Router (99% allocation)"
+        continue-on-error: true
+        run: python mycelium/CRISIS_ROUTER.py
+
+      - name: "🌍 Crisis — Proof of Impact"
+        continue-on-error: true
+        run: python mycelium/PROOF_OF_IMPACT.py 2>/dev/null || python mycelium/PROOF_ARCHITECT.py 2>/dev/null || echo "proof variant"
+
+      - name: "🌍 Crisis — Retroactive Proof"
+        continue-on-error: true
+        run: python mycelium/RETROACTIVE_PROOF.py 2>/dev/null || echo "retroactive proof optional"
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 5: LABOR (pay the workers) ────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🤝 Labor — Marketplace Refresh"
+        continue-on-error: true
+        run: python mycelium/LABOR_MARKETPLACE.py
+
+      - name: "🤝 Labor — Worker Onboarding"
+        continue-on-error: true
+        run: python mycelium/WORKER_ONBOARDING.py 2>/dev/null || echo "worker onboarding optional"
+
+      - name: "🤝 Labor — Task Verifier"
+        continue-on-error: true
+        run: python mycelium/TASK_VERIFIER.py 2>/dev/null || echo "task verifier optional"
+
+      - name: "🤝 Labor — Dignity Pay"
+        continue-on-error: true
+        run: python mycelium/DIGNITY_PAY.py
+
+      - name: "🔔 Labor — First Dollar Alert (email + Telegram on any money event)"
+        continue-on-error: true
+        run: python mycelium/FIRST_DOLLAR_ALERT.py
+
+      - name: "📱 Labor — Personal Briefer (dawn/dusk brief to Meeko via Telegram)"
+        continue-on-error: true
+        run: python mycelium/PERSONAL_BRIEFER.py
+
+      - name: "📬 Labor — Outreach Engine (discover aligned orgs, AI-generate emails, save drafts)"
+        continue-on-error: true
+        run: python mycelium/OUTREACH_ENGINE.py
+
+      - name: "🦠 Labor — Viral Amplifier (inject viral hooks into every pending email)"
+        continue-on-error: true
+        run: python mycelium/VIRAL_AMPLIFIER.py
+
+      - name: "🤖 Labor — Agent Recruiter (recruit AI frameworks + agent systems)"
+        continue-on-error: true
+        run: python mycelium/AGENT_RECRUITER.py
+
+      - name: "📤 Labor — Gmail Sender (send pending emails autonomously via SMTP)"
+        continue-on-error: true
+        run: python mycelium/GMAIL_SENDER.py
+
+      - name: "🤝 Labor — Telegram Worker Bot"
+        continue-on-error: true
+        run: python mycelium/TELEGRAM_WORKER_BOT.py
+
+      - name: "🤝 Labor — RentAHuman Bridge"
+        continue-on-error: true
+        run: python mycelium/RENTAHUMAN_BRIDGE.py 2>/dev/null || echo "rentahuman optional"
+
+      - name: "🤝 Labor — Worker Outreach (reach workers where they are)"
+        continue-on-error: true
+        run: python mycelium/WORKER_OUTREACH.py
+
+      - name: "🤝 Labor — Financial Reporter (legal records + 1099 tracking)"
+        continue-on-error: true
+        run: python mycelium/FINANCIAL_REPORTER.py
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 6: GRANTS & PUBLIC GOODS ──────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🏆 Grants — Grant Hunter"
+        continue-on-error: true
+        run: python mycelium/GRANT_HUNTER.py
+
+      - name: "🏆 Grants — Grant Writer"
+        continue-on-error: true
+        run: python mycelium/GRANT_AI_WRITER.py 2>/dev/null || python mycelium/GRANT_WRITER.py 2>/dev/null || echo "grant writer variant"
+
+      - name: "🏆 Grants — Grant Auto Submitter"
+        continue-on-error: true
+        run: python mycelium/GRANT_AUTO_SUBMITTER.py
+
+      - name: "🏆 Grants — Grant Submitter (email auto-send + volunteer issues for web forms)"
+        continue-on-error: true
+        run: python mycelium/GRANT_SUBMITTER.py
+
+      - name: "🛒 Revenue — Own Store (build store page, zero tokens, live now)"
+        continue-on-error: true
+        run: python mycelium/OWN_STORE.py
+
+      - name: "🏆 Grants — Awesome Foundation Apply"
+        continue-on-error: true
+        run: python mycelium/AWESOME_FOUNDATION_APPLY.py
+
+      - name: "🏆 Grants — SAM.gov Harvester"
+        continue-on-error: true
+        run: python mycelium/SAMGOV_HARVESTER.py 2>/dev/null || echo "SAMgov optional"
+
+      - name: "🏆 Public Goods — Public Goods Network"
+        continue-on-error: true
+        run: python mycelium/PUBLIC_GOODS_NETWORK.py 2>/dev/null || echo "public goods network optional"
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 7: SWARM & AGENTS ─────────────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🐝 Swarm — Swarm Oracle"
+        continue-on-error: true
+        run: python mycelium/SWARM_ORACLE.py 2>/dev/null || echo "swarm oracle optional"
+
+      - name: "🐝 Swarm — Swarm Query"
+        continue-on-error: true
+        run: python mycelium/SWARM_QUERY.py 2>/dev/null || echo "swarm query optional"
+
+      - name: "🐝 Swarm — Swarm Amplifier"
+        continue-on-error: true
+        run: python mycelium/SWARM_AMPLIFIER.py
+
+      - name: "🐝 Swarm — Agent Nexus"
+        continue-on-error: true
+        run: python mycelium/AGENT_NEXUS.py
+
+      - name: "🐝 Swarm — Distributed Forge"
+        continue-on-error: true
+        run: python mycelium/DISTRIBUTED_FORGE.py 2>/dev/null || echo "distributed forge optional"
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 8: KNOWLEDGE ───────────────────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🧠 Knowledge — Knowledge Synthesizer"
+        continue-on-error: true
+        run: python mycelium/KNOWLEDGE_SYNTHESIZER.py 2>/dev/null || echo "knowledge synthesizer optional"
+
+      - name: "🧠 Knowledge — X Knowledge Harvester"
+        continue-on-error: true
+        run: python mycelium/X_KNOWLEDGE_HARVESTER.py 2>/dev/null || echo "X knowledge optional"
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── SELF-EXPANSION LOOP: AI learns → maps → builds → deploys → learns ──
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🧬 Self-Expand — AI Knowledge Harvester (learn all AIs)"
+        continue-on-error: true
+        run: python mycelium/AI_KNOWLEDGE_HARVESTER.py
+
+      - name: "🧬 Self-Expand — AI Capability Mapper (what to build next)"
+        continue-on-error: true
+        run: python mycelium/AI_CAPABILITY_MAPPER.py
+
+      - name: "🧬 Self-Expand — AI Engine Architect (generate engine code)"
+        continue-on-error: true
+        run: python mycelium/AI_ENGINE_ARCHITECT.py
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 9: MARKET INTELLIGENCE ────────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "📡 Market — Unusual Whales MCP"
+        continue-on-error: true
+        run: python mycelium/UNUSUAL_WHALES_MCP.py 2>/dev/null || echo "unusual whales optional"
+
+      - name: "📡 Market — Prediction Intelligence"
+        continue-on-error: true
+        run: python mycelium/PREDICTION_INTELLIGENCE.py 2>/dev/null || echo "prediction intelligence optional"
+
+      - name: "📡 Market — Free Infra Scanner"
+        continue-on-error: true
+        run: python mycelium/FREE_INFRA_SCANNER.py
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 10: PRINT RELAY ────────────────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🖨️  Print — Print Relay Engine"
+        continue-on-error: true
+        run: python mycelium/PRINT_RELAY_ENGINE.py 2>/dev/null || echo "Print relay optional"
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 11: PRESENCE & BROADCAST ──────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "📢 Presence — Auto Announce"
+        continue-on-error: true
+        run: python mycelium/AUTO_ANNOUNCE.py
+
+      - name: "📢 Presence — Fediverse Publisher"
+        continue-on-error: true
+        run: python mycelium/FEDIVERSE_PUBLISHER.py 2>/dev/null || echo "fediverse publisher optional"
+
+      - name: "📢 Presence — Social Echo"
+        continue-on-error: true
+        run: python mycelium/SOCIAL_ECHO.py 2>/dev/null || echo "social echo optional"
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 12: LOOP CLOSE ─────────────────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🔄 Loop — Loop Conductor"
+        continue-on-error: true
+        run: python mycelium/LOOP_CONDUCTOR.py 2>/dev/null || echo "loop conductor optional"
+
+      - name: "🔄 Loop — Frequency Tuner"
+        continue-on-error: true
+        run: python mycelium/FREQUENCY_TUNER.py 2>/dev/null || echo "frequency tuner optional"
+
+      - name: "🧠 Loop — Autonomous Decisions (SolarPunk decides)"
+        continue-on-error: true
+        run: python mycelium/AUTONOMOUS_DECISIONS.py
+
+      - name: "📚 Loop — AutoDoc (self-documentation, every 7th cycle)"
+        continue-on-error: true
+        run: |
+          CYCLE=$(python3 -c "
+          import json
+          from pathlib import Path
+          d = json.loads(Path('data/health_log.json').read_text()) if Path('data/health_log.json').exists() else {}
+          print(d.get('cycles_total', 0))
+          " 2>/dev/null || echo "0")
+          if [ $((${CYCLE:-0} % 7)) -eq 0 ]; then
+            echo "Running AUTODOC (cycle $CYCLE)"
+            python mycelium/AUTODOC.py
+          else
+            echo "Skipping AUTODOC (cycle $CYCLE, runs every 7)"
+          fi
+
+      - name: "⚖️  Loop — Legal Foundation (check legal status)"
+        continue-on-error: true
+        run: python mycelium/LEGAL_FOUNDATION.py
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── DIMENSION 13: AI INTERFACE (be findable and usable by every AI) ─────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🤖 AI Interface — AI Intake (receive tasks from AI agents)"
+        continue-on-error: true
+        run: python mycelium/AI_INTAKE.py
+
+      - name: "📬 AI Interface — Reply Writer (read [EMAIL-REPLY] issues, draft responses)"
+        continue-on-error: true
+        run: python mycelium/REPLY_WRITER.py
+
+      - name: "🔌 AI Interface — Gap Patcher (new knowledge → new bridges)"
+        continue-on-error: true
+        run: python mycelium/GAP_PATCHER.py
+
+      - name: "🙋 AI Interface — Volunteer Portal (any human can close the last gap)"
+        continue-on-error: true
+        run: python mycelium/VOLUNTEER_PORTAL.py
+
+      - name: "🗺️  AI Interface — Network Mapper (map every human+AI node)"
+        continue-on-error: true
+        run: python mycelium/NETWORK_MAPPER.py
+
+      - name: "🐝 AI Interface — Agent Swarm (5 parallel AI agents simultaneously)"
+        continue-on-error: true
+        run: python mycelium/AGENT_SWARM.py
+
+      - name: "📡 AI Interface — LLMS.txt + Feed Generator (live AI files)"
+        continue-on-error: true
+        run: python mycelium/LLMS_TXT_GENERATOR.py
+
+      - name: "📦 AI Interface — Context Packager (ai-context.json 3 tiers)"
+        continue-on-error: true
+        run: python mycelium/CONTEXT_PACKAGER.py
+
+      - name: "🪪 AI Interface — Profile Updater (agent.json + AgentCard.json)"
+        continue-on-error: true
+        run: python mycelium/AI_PROFILE_UPDATER.py
+
+      - name: "🔧 Self — Engine Sanitizer (final)"
+        continue-on-error: true
+        run: python mycelium/ENGINE_SANITIZER.py
+
+      - name: "🔧 Self — Problem Solver Prime (final pass)"
+        continue-on-error: true
+        run: python mycelium/PROBLEM_SOLVER_PRIME.py
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── STEP SUMMARY ─────────────────────────────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "📊 Grand Loop Summary"
+        continue-on-error: true
+        run: |
+          python3 - <<'PYEOF'
+          import json, os
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          def load(f, d=None):
+              p = Path(f"data/{f}")
+              if not p.exists(): return d or {}
+              try: return json.loads(p.read_text())
+              except: return d or {}
+
+          pool  = load("pool_state.json")
+          dh    = load("dimension_health.json")
+          cp    = load("cycle_plan.json")
+          oe    = load("overflow_events.json")
+
+          health  = dh.get("overall_health", "?")
+          routed  = pool.get("total_routed_usd", 0)
+          phase   = cp.get("earth_phase", "?")
+          events  = len(oe.get("overflow_events", []))
+          scores  = dh.get("summary", {})
+
+          summary = f"""## 🌐 Grand Unified Loop — {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}
+
+**Overall Health:** {health}/100
+**Earth Phase:** {phase}
+**Total Routed:** ${routed:,.4f}
+**Overflow Events:** {events}
+
+### Dimension Scores
+| Dimension | Score |
+|-----------|-------|
+"""
+          for dim, score in sorted(scores.items(), key=lambda x: x[1]):
+              bar = "🟢" if score >= 70 else "🟡" if score >= 30 else "🔴"
+              summary += f"| {bar} {dim} | {score}/100 |\n"
+
+          focus = cp.get("next_cycle_focus", "")
+          if focus:
+              summary += f"\n**Next Cycle Focus:** {focus}\n"
+
+          summary += "\n> Every cycle smarter than the last. The machine feeds itself.\n"
+
+          step_summary = os.environ.get("GITHUB_STEP_SUMMARY", "")
+          if step_summary:
+              Path(step_summary).write_text(summary)
+          print(summary)
+          PYEOF
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── MASTER LOOP — runs last, wires all outputs to next cycle's inputs ────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "🕸️  Master Loop — weave all engine outputs into next cycle inputs"
+        continue-on-error: true
+        run: python mycelium/MASTER_LOOP.py
+
+      - name: "📧 Self — Self Mailer (write cycle knowledge to data/self_knowledge_latest.json)"
+        continue-on-error: true
+        run: python mycelium/SELF_MAILER.py
+
+      - name: "🧠 Knowledge Ingester — fan self-knowledge out to all data/ files"
+        continue-on-error: true
+        run: python mycelium/KNOWLEDGE_INGESTER.py
+
+      # ── CRYPTO DIMENSION ─────────────────────────────────────────────────────
+      - name: "⛓️  Crypto Engine — deploy contract, read routing events, mint SPT proof"
+        continue-on-error: true
+        env:
+          SOLARPUNK_WALLET_KEY: ${{ secrets.SOLARPUNK_WALLET_KEY }}
+        run: python mycelium/CRYPTO_ENGINE.py
+
+      - name: "📜 Blockchain Proof — publish immutable routing history to docs/proof/"
+        continue-on-error: true
+        run: python mycelium/BLOCKCHAIN_PROOF.py
+
+      # ════════════════════════════════════════════════════════════════════════
+      # ── COMMIT ───────────────────────────────────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════════
+      - name: "💾 Commit grand unified cycle"
+        continue-on-error: true
+        run: |
+          git add -A
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+
+          HEALTH=$(python3 -c "
+          import json
+          from pathlib import Path
+          d = json.loads(Path('data/dimension_health.json').read_text()) if Path('data/dimension_health.json').exists() else {}
+          print(d.get('overall_health', '?'))
+          " 2>/dev/null || echo "?")
+
+          POOL=$(python3 -c "
+          import json
+          from pathlib import Path
+          d = json.loads(Path('data/pool_state.json').read_text()) if Path('data/pool_state.json').exists() else {}
+          print(f\"\${d.get('total_routed_usd', 0):.2f}\")
+          " 2>/dev/null || echo '$0')
+
+          PHASE=$(python3 -c "
+          import json
+          from pathlib import Path
+          d = json.loads(Path('data/cycle_plan.json').read_text()) if Path('data/cycle_plan.json').exists() else {}
+          print(d.get('earth_phase', 'CYCLE'))
+          " 2>/dev/null || echo "CYCLE")
+
+          git -c commit.gpgsign=false commit -m "🌐 grand loop: health=${HEALTH}/100 | routed=${POOL} | ${PHASE} | $(date -u +%H:%M) UTC"
+          git fetch origin main
+          git -c commit.gpgsign=false merge origin/main --no-edit -X ours 2>/dev/null || true
+          git push origin HEAD:main 2>/dev/null || git push origin HEAD:main --force-with-lease

@@ -1,0 +1,75 @@
+name: 📣 AMPLIFIER — Cross-platform launch amplification
+on:
+  schedule:
+    - cron: "0 12 * * 2,3,4"
+  workflow_dispatch:
+jobs:
+  amplify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+      DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
+      BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+      BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+      MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+      MASTODON_API_BASE_URL: ${{ secrets.MASTODON_API_BASE_URL }}
+      X_API_KEY: ${{ secrets.X_API_KEY }}
+      X_API_SECRET: ${{ secrets.X_API_SECRET }}
+      X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+      X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+      GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: "Phase 0 — Cycle context"
+        continue-on-error: true
+        run: python mycelium/CYCLE_OPENER.py
+      - name: "Phase 1 — Web Intelligence (what's trending RIGHT NOW)"
+        continue-on-error: true
+        run: python mycelium/WEB_INTELLIGENCE.py
+      - name: "Phase 2 — SEO Engine (optimize for trends)"
+        continue-on-error: true
+        run: python mycelium/SEO_ENGINE.py
+      - name: "Phase 3 — AI Content Factory (trend-driven content)"
+        continue-on-error: true
+        run: python mycelium/AI_CONTENT_FACTORY.py
+      - name: "Phase 4 — Autonomous Publisher (publish NOW)"
+        continue-on-error: true
+        run: python mycelium/AUTONOMOUS_PUBLISHER.py
+      - name: "Phase 5 — Social Brain (viral posts)"
+        continue-on-error: true
+        run: python mycelium/SOCIAL_BRAIN.py
+      - name: "Phase 6 — Affiliate Brain (affiliate content)"
+        continue-on-error: true
+        run: python mycelium/AFFILIATE_BRAIN.py
+      - name: "Phase 7 — ProductHunt Launcher (prepare launch)"
+        continue-on-error: true
+        run: python mycelium/PRODUCTHUNT_LAUNCHER.py
+      - name: "Phase 8 — Multi Repo Sync (amplify across repos)"
+        continue-on-error: true
+        run: python mycelium/MULTI_REPO_SYNC.py
+      - name: "Phase 9 — Performance Optimizer (what's working)"
+        continue-on-error: true
+        run: python mycelium/PERFORMANCE_OPTIMIZER.py
+      - name: "Phase 98 — Loop Conductor"
+        continue-on-error: true
+        run: python mycelium/LOOP_CONDUCTOR.py
+      - name: "Phase 99 — Sanitizer"
+        continue-on-error: true
+        run: python mycelium/ENGINE_SANITIZER.py
+      - name: Commit amplified outputs
+        run: |
+          git config user.email "solarpunk@gazarosegallery.art"
+          git config user.name "SolarPunk Amplifier AI"
+          git add data/ mycelium/ -f
+          git diff --staged --quiet || git -c commit.gpgsign=false commit -m "📣 amplifier: cross-platform launch $(date -u +%Y-%m-%dT%H:%M)Z"
+          git push origin HEAD:main --force-with-lease 2>/dev/null || git push origin HEAD:main

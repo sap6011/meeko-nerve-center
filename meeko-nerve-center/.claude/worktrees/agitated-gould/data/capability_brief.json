@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-03-21T14:51:18.955808+00:00",
+  "brief": "CAPABILITY BRIEF \u2014 2026-03-21 14:51 UTC\nActive secrets: 8 | Missing: 11 | Engines ready: 43\n\nPRIORITY ACTIONS (unlock more revenue):\n  [CRITICAL] gumroad.com \u2192 Settings \u2192 Advanced \u2192 Access Token \u2192 add as GUMROAD_ACCESS_TOKEN\n         Unlocks: GUMROAD_ENGINE, GUMROAD_PRODUCT_PUBLISHER, GUMROAD_AUTO_QUEUE\n  [CRITICAL] Register at octoeverywhere.com \u2192 Settings \u2192 Apps \u2192 Create App \u2192 copy API key\n         Unlocks: PRINT_RELAY_ENGINE, print_relay_dispatcher\n  [CRITICAL] Same OctoEverywhere App creation flow \u2014 copy App Token\n         Unlocks: PRINT_RELAY_ENGINE\n  [HIGH] Register at rentahuman.ai \u2192 Settings \u2192 API Keys \u2192 Create Key\n         Unlocks: LABOR_DISPATCH_ENGINE, labor_broker, humanitarian_missions\n  [HIGH] Create SolarPunk DAO wallet \u2192 copy wallet address\n         Unlocks: LABOR_DISPATCH_ENGINE, labor_broker, gaza_emergency_response",
+  "actions": [
+    {
+      "priority": "CRITICAL",
+      "action": "gumroad.com \u2192 Settings \u2192 Advanced \u2192 Access Token \u2192 add as GUMROAD_ACCESS_TOKEN",
+      "unlocks": [
+        "GUMROAD_ENGINE",
+        "GUMROAD_PRODUCT_PUBLISHER",
+        "GUMROAD_AUTO_QUEUE"
+      ],
+      "impact": "CRITICAL \u2014 18 products queued, $0 published"
+    },
+    {
+      "priority": "CRITICAL",
+      "action": "Register at octoeverywhere.com \u2192 Settings \u2192 Apps \u2192 Create App \u2192 copy API key",
+      "unlocks": [
+        "PRINT_RELAY_ENGINE",
+        "print_relay_dispatcher"
+      ],
+      "impact": "CRITICAL \u2014 Gaza medical 3D print dispatch via OctoEverywhere mesh"
+    },
+    {
+      "priority": "CRITICAL",
+      "action": "Same OctoEverywhere App creation flow \u2014 copy App Token",
+      "unlocks": [
+        "PRINT_RELAY_ENGINE"
+      ],
+      "impact": "CRITICAL \u2014 required alongside OCTOEVERYWHERE_APP_API_KEY"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Register at rentahuman.ai \u2192 Settings \u2192 API Keys \u2192 Create Key",
+      "unlocks": [
+        "LABOR_DISPATCH_ENGINE",
+        "labor_broker",
+        "humanitarian_missions"
+      ],
+      "impact": "HIGH \u2014 physical world task dispatch: river monitoring, print dropoffs, aid transit"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Create SolarPunk DAO wallet \u2192 copy wallet address",
+      "unlocks": [
+        "LABOR_DISPATCH_ENGINE",
+        "labor_broker",
+        "gaza_emergency_response"
+      ],
+      "impact": "HIGH \u2014 $SOLARPUNK credit escrow for bounty payout"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "aistudio.google.com \u2192 API Keys \u2192 free tier",
+      "unlocks": [
+        "GEMINI_BRIDGE"
+      ],
+      "impact": "MEDIUM \u2014 free Google AI fallback"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "developer.twitter.com \u2192 App \u2192 Keys & Tokens",
+      "unlocks": [
+        "AGENT_TWEET_WRITER"
+      ],
+      "impact": "MEDIUM \u2014 Twitter/X posting"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Add Bluesky handle as BLUESKY_HANDLE secret",
+      "unlocks": [
+        "BLUESKY_ENGINE"
+      ],
+      "impact": "LOW-MEDIUM \u2014 free social network"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "bsky.app \u2192 Settings \u2192 App Passwords",
+      "unlocks": [
+        "BLUESKY_ENGINE"
+      ],
+      "impact": "LOW-MEDIUM"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "mastodon.social \u2192 Settings \u2192 Development \u2192 New Application",
+      "unlocks": [
+        "MASTODON_ENGINE"
+      ],
+      "impact": "LOW-MEDIUM \u2014 free social network"
+    }
+  ]
+}

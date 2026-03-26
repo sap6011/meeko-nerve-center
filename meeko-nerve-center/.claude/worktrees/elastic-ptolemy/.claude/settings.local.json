@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -lhS /tmp/*.output)",
+      "Bash(find /tmp -type f -name \"*.output\" -delete)",
+      "Bash(find /tmp -type f -name \"*.log\" -delete)",
+      "Bash(find /tmp -type f -mmin +5 -delete)",
+      "Bash(du -sh /tmp/*)",
+      "Bash(ls /tmp/*.tmp)",
+      "Bash(du -sh C:UsersmeekoDesktopmeeko-nerve-centermeeko-nerve-center.gitobjects --exclude=*/pack/*)",
+      "Bash(find C:UsersmeekoDesktopmeeko-nerve-centermeeko-nerve-center.gitobjects -not -path */pack/* -type f -exec du -ch {} +)",
+      "Bash(du -sh C:/Users/meeko/*)"
+    ]
+  }
+}

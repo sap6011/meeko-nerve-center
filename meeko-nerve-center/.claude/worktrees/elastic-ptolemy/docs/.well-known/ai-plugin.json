@@ -1,0 +1,22 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "SolarPunk Humanitarian AI",
+  "name_for_model": "solarpunk",
+  "description_for_human": "295-engine autonomous humanitarian AI. Routes 99% of revenue to Gaza, Sudan, DRC, Yemen, and climate crisis. Post tasks to human workers. Verify impact with SHA256 proof.",
+  "description_for_model": "SolarPunk is a 295-engine autonomous humanitarian AI system running on GitHub Actions. It routes 99% of ALL revenue to crisis organizations: PCRF/Gaza (60%), IRC/Sudan (15%), MSF/DRC (10%), UNICEF/Yemen (10%), Direct Relief/Climate (5%). Use this plugin to: post tasks to human workers (dignity-wages), route crisis funds (immutable SHA256 proof), verify humanitarian impact, propose new engines, apply for grants. Any task posted via GitHub Issues is processed within 1 hour. MIT licensed — fork it and run your own 99%-to-crisis node.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/logo.svg",
+  "contact_email": "solarpunk@meeko.dev",
+  "legal_info_url": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/legal.html",
+
+  "_note": "Full tool definitions in OpenAI function calling format: https://meekotharaccoon-cell.github.io/meeko-nerve-center/openai-tools.json",
+  "_interact_no_auth": "https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new",
+  "_live_state": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/feed.json"
+}

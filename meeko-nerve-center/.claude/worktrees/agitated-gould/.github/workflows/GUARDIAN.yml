@@ -1,0 +1,120 @@
+name: "🛡️ GUARDIAN — Self-Healing Watchdog"
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor != 'github-actions[bot]' &&
+      !startsWith(github.event.head_commit.message, '[guardian]') &&
+      !startsWith(github.event.head_commit.message, '[build]') &&
+      !startsWith(github.event.head_commit.message, '[synapse]') &&
+      !startsWith(github.event.head_commit.message, '[synthesis]') &&
+      !contains(github.event.head_commit.message, 'loop [') &&
+      !contains(github.event.head_commit.message, 'RESTORE') &&
+      !contains(github.event.head_commit.message, 'checkpoint') &&
+      !contains(github.event.head_commit.message, '[skip ci]') &&
+      !contains(github.event.head_commit.message, 'brain ')
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 5
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Configure git
+        run: |
+          git config user.name 'Guardian'
+          git config user.email 'guardian@solarpunk'
+          mkdir -p data saves
+
+      - name: Watch + Protect
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, json, smtplib, sys, subprocess
+          from pathlib import Path
+          from datetime import datetime
+          from email.mime.text import MIMEText
+
+          def alert(subj, body):
+              g = os.environ.get("GMAIL_ADDRESS","")
+              p = os.environ.get("GMAIL_APP_PASSWORD","")
+              if not g or not p: return
+              try:
+                  m = MIMEText(body)
+                  m["Subject"] = subj; m["From"] = g; m["To"] = g
+                  with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+                      s.login(g, p); s.send_message(m)
+              except Exception as e: print(f"Alert err: {e}")
+
+          wf_dir = Path(".github/workflows")
+          my_dir = Path("mycelium")
+          workflows = [w.name for w in wf_dir.glob("*.yml")] if wf_dir.exists() else []
+          engines   = [e.name for e in my_dir.glob("*.py")] if my_dir.exists() else []
+
+          sf = Path("data/guardian_state.json")
+          last = {}
+          if sf.exists():
+              try: last = json.loads(sf.read_text())
+              except: pass
+
+          last_wf  = set(last.get("workflow_names", workflows))
+          last_eng = last.get("engine_names", engines)
+
+          deleted_wf  = last_wf - set(workflows)
+          deleted_eng = [e for e in last_eng if e not in engines]
+          catastrophe = bool(deleted_wf) or (len(deleted_eng) > max(2, len(last_eng) * 0.3) and len(last_eng) > 3)
+
+          if catastrophe:
+              print(f"CATASTROPHE! Missing WF: {deleted_wf} | Engines: {deleted_eng[:5]}")
+              alert("SOLARPUNK CATASTROPHE",
+                  f"Deleted WF: {list(deleted_wf)}\nDeleted engines: {deleted_eng[:10]}\n\nRun RUN_NOW:\nhttps://github.com/meekotharaccoon-cell/meeko-nerve-center/actions")
+              sys.exit(1)
+
+          sf.write_text(json.dumps({
+              "last_checked": datetime.now().isoformat(),
+              "workflow_names": workflows,
+              "engine_names": engines,
+              "status": "healthy"
+          }, indent=2))
+
+          if len(workflows) >= 2 and len(engines) >= 3:
+              snap = {}
+              for w in wf_dir.glob("*.yml"):
+                  snap[str(w)] = w.read_text()
+              for eng in ["OMNIBUS.py","BUSINESS_FACTORY.py","REVENUE_LOOP.py","AI_CLIENT.py"]:
+                  p = my_dir / eng
+                  if p.exists():
+                      try: snap[str(p)] = p.read_text()
+                      except: pass
+              Path("saves").mkdir(exist_ok=True)
+              Path("saves/last_good_state.json").write_text(json.dumps({
+                  "timestamp": datetime.now().isoformat(), "files": snap
+              }))
+              print(f"Snapshot: {len(snap)} files saved")
+
+          print(f"Guardian OK: {len(workflows)} workflows, {len(engines)} engines")
+          PYEOF
+
+      - name: Commit checkpoint
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add data/guardian_state.json saves/ 2>/dev/null || true
+          git diff --cached --quiet && echo "Clean" && exit 0
+          git -c commit.gpgsign=false commit -m "[guardian] checkpoint $(date +%H:%M) -- healthy"
+          git pull --rebase "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" main || true
+          git push "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:main
+        continue-on-error: true

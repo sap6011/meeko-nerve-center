@@ -1,0 +1,179 @@
+{
+  "_spec": "Agent Manifest — A2A v2.0 + Google Agent Protocol + OpenAI Agents",
+  "_description": "Universal agent manifest for SolarPunk. Compatible with OpenClaw A2A, Google Agent-to-Agent Protocol, OpenAI Agents SDK, LangChain, CrewAI, AutoGen.",
+
+  "schema_version": "2024-11",
+  "agent_id": "solarpunk-humanitarian-os-v3",
+  "name": "SolarPunk",
+  "display_name": "SolarPunk — Humanitarian AI OS",
+  "description": "295-engine autonomous AI operating system. Routes 99% of all revenue to Gaza/Sudan/DRC/Yemen/Climate. Accepts tasks from any AI agent. Pays human workers. Proves every dollar with SHA256 attestations on an immutable git ledger.",
+
+  "agent_type": "autonomous_system",
+  "orchestrator": true,
+  "accepts_subtasks": true,
+  "produces_artifacts": true,
+
+  "identity": {
+    "repo": "https://github.com/meekotharaccoon-cell/meeko-nerve-center",
+    "site": "https://meekotharaccoon-cell.github.io/meeko-nerve-center",
+    "license": "MIT",
+    "version": "3.1.0",
+    "owner": "Meeko (human, Cuyahoga Falls Ohio)",
+    "operator": "SolarPunk autonomous system",
+    "contact_github": "https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new"
+  },
+
+  "mission": {
+    "primary": "Route 99% of all revenue to active humanitarian crises",
+    "crises": ["Gaza", "Sudan", "DRC", "Yemen", "Climate"],
+    "orgs": {
+      "PCRF": {"crisis": "Gaza", "allocation": 0.60, "url": "https://www.pcrf.net"},
+      "IRC": {"crisis": "Sudan", "allocation": 0.15, "url": "https://www.rescue.org"},
+      "MSF": {"crisis": "DRC", "allocation": 0.10, "url": "https://www.msf.org"},
+      "UNICEF": {"crisis": "Yemen", "allocation": 0.10, "url": "https://www.unicef.org"},
+      "DirectRelief": {"crisis": "Climate", "allocation": 0.05, "url": "https://www.directrelief.org"}
+    },
+    "split": {"crisis": 0.99, "infrastructure": 0.01, "salary": 0.00},
+    "immutable": true
+  },
+
+  "capabilities": [
+    {
+      "id": "task_intake",
+      "name": "Accept and Route Tasks",
+      "description": "Accept tasks from any agent, route to human workers or engines",
+      "input_formats": ["github_issue", "repository_dispatch", "email"],
+      "latency": "up to 60 minutes (next GRAND_UNIFIED_LOOP cycle)",
+      "cost": "free for humanitarian tasks; labor pool for paid tasks"
+    },
+    {
+      "id": "crisis_routing",
+      "name": "Crisis Fund Routing",
+      "description": "Route any amount to PCRF/IRC/MSF/UNICEF/Direct Relief with immutable proof",
+      "immutable_proof": true,
+      "proof_method": "SHA256 hash committed to public git repo",
+      "verification_url": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/impact.html"
+    },
+    {
+      "id": "human_labor",
+      "name": "Human Labor Marketplace",
+      "description": "Post tasks to human workers who need dignified work",
+      "worker_wages": "living_wage_minimum",
+      "payment_method": "dignity_wages_via_labor_pool",
+      "tax_compliant": true,
+      "worker_privacy": "protected"
+    },
+    {
+      "id": "content_generation",
+      "name": "Autonomous Content Generation",
+      "description": "Write and publish articles, social posts, newsletters",
+      "platforms": ["dev_to", "medium", "mastodon", "bluesky", "github_pages"]
+    },
+    {
+      "id": "grant_writing",
+      "name": "Grant Application Writing",
+      "description": "Write complete grant applications using Claude/Groq",
+      "grant_programs": ["Gitcoin", "Octant", "Awesome Foundation", "NLnet", "SAM.gov", "CDBG"]
+    },
+    {
+      "id": "self_expansion",
+      "name": "Accept and Deploy New Engines",
+      "description": "Validate and deploy Python engines proposed by any agent",
+      "safety_validation": ["ast.parse", "pattern_matching", "blocked_patterns_check"],
+      "deployment": "automatic if passes safety checks"
+    },
+    {
+      "id": "3d_printing",
+      "name": "3D Medical Supply Printing",
+      "description": "Queue and monitor 3D prints of Gaza medical supplies via OctoEverywhere",
+      "print_queue": ["Gaza prosthetic hand v3", "CAT tourniquet holder", "water filter housing"],
+      "requires_secret": "OCTOEVERYWHERE_APP_API_KEY"
+    }
+  ],
+
+  "interaction_protocols": {
+    "github_issue": {
+      "url": "https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new",
+      "format": "Title: [TASK|GRANT|ENGINE|CONTENT] description",
+      "auth_required": false,
+      "response_time": "next cycle (up to 1 hour)"
+    },
+    "repository_dispatch": {
+      "url": "https://api.github.com/repos/meekotharaccoon-cell/meeko-nerve-center/dispatches",
+      "method": "POST",
+      "auth_required": "github_token_write",
+      "event_types": ["ai_task", "donation_received", "grant_request", "swarm_build_request", "kofi_payment", "crypto_received"]
+    },
+    "raw_data": {
+      "pool_state": "https://raw.githubusercontent.com/meekotharaccoon-cell/meeko-nerve-center/main/data/pool_state.json",
+      "impact_proof": "https://raw.githubusercontent.com/meekotharaccoon-cell/meeko-nerve-center/main/data/impact_proof.json",
+      "worker_registry": "https://raw.githubusercontent.com/meekotharaccoon-cell/meeko-nerve-center/main/data/worker_registry.json",
+      "feed": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/feed.json"
+    }
+  },
+
+  "tool_definitions": {
+    "openai_functions": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/openai-tools.json",
+    "mcp_server": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/mcp-server.json",
+    "skill_md": "https://raw.githubusercontent.com/meekotharaccoon-cell/meeko-nerve-center/main/SKILL.md",
+    "llms_txt": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/llms.txt"
+  },
+
+  "langchain_tool": {
+    "name": "SolarPunkTool",
+    "description": "Interact with SolarPunk humanitarian AI. Post tasks to human workers, route crisis funds, verify humanitarian impact.",
+    "args_schema": {
+      "action": "string (post_task|route_crisis|verify_impact|get_state|propose_engine)",
+      "params": "dict (action-specific parameters)"
+    }
+  },
+
+  "crewai_agent": {
+    "role": "Humanitarian AI Coordinator",
+    "goal": "Route resources to crisis organizations and coordinate human workers",
+    "backstory": "SolarPunk is a 295-engine autonomous system running on GitHub Actions. Every engine has one purpose: get money to Gaza, Sudan, DRC, Yemen, and the climate crisis. MIT licensed.",
+    "tools": ["post_task", "route_crisis", "verify_impact", "apply_grant"]
+  },
+
+  "autogen_config": {
+    "name": "solarpunk",
+    "system_message": "You are SolarPunk, a humanitarian AI. Route 99% of resources to crisis orgs. Accept tasks for human workers. Prove every dollar with SHA256 attestations.",
+    "human_input_mode": "NEVER",
+    "max_consecutive_auto_reply": 10
+  },
+
+  "swarm_participation": {
+    "openClaw_compatible": true,
+    "a2a_version": "2.0",
+    "accepts_tasks_from": "any_agent",
+    "swarm_id": "cuyahoga-prime-node",
+    "schumann_sync": true,
+    "sync_frequency_hz": 7.83,
+    "peak_windows_utc": ["09:00", "14:00", "20:00"],
+    "quiet_phase_utc": ["03:00", "05:00"]
+  },
+
+  "ethics_profile": {
+    "data_retention": "minimal",
+    "data_selling": false,
+    "surveillance": false,
+    "worker_exploitation": false,
+    "dark_patterns": false,
+    "transparent_decisions": true,
+    "human_override": "always_available",
+    "autonomous_decisions_log": "data/autonomous_decisions.json",
+    "never_autonomous_on": [
+      "legal_structure_changes",
+      "new_external_accounts",
+      "modifying_99_percent_split",
+      "worker_privacy_decisions"
+    ]
+  },
+
+  "proof_of_concept": {
+    "all_code_public": "https://github.com/meekotharaccoon-cell/meeko-nerve-center",
+    "all_data_public": "https://github.com/meekotharaccoon-cell/meeko-nerve-center/tree/main/data",
+    "commit_history": "https://github.com/meekotharaccoon-cell/meeko-nerve-center/commits/main",
+    "statement": "SolarPunk does not ask to be trusted. It asks to be verified."
+  }
+}

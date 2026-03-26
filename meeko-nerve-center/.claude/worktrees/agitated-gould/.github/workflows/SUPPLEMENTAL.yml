@@ -1,0 +1,373 @@
+name: SUPPLEMENTAL_ENGINES
+on:
+  schedule:
+    - cron: '0 10 * * *'   # 10:00 UTC daily
+    - cron: '0 22 * * *'   # 22:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  supplemental:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      UNUSUAL_WHALES_API_KEY: ${{ secrets.UNUSUAL_WHALES_API_KEY }}
+      GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+      GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+      X_API_KEY: ${{ secrets.X_API_KEY }}
+      X_API_SECRET: ${{ secrets.X_API_SECRET }}
+      X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+      X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      BITCOIN_ADDRESS: ${{ secrets.BITCOIN_ADDRESS }}
+      ETHEREUM_ADDRESS: ${{ secrets.ETHEREUM_ADDRESS }}
+      SOLARPUNK_WALLET_ADDRESS: ${{ secrets.SOLARPUNK_WALLET_ADDRESS }}
+      MONERO_ADDRESS: ${{ secrets.MONERO_ADDRESS }}
+      OPENCOLLECTIVE_API_KEY: ${{ secrets.OPENCOLLECTIVE_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Dependencies
+        run: pip install requests 2>/dev/null || true
+      - name: Configure git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "SolarPunk-Supplemental"
+
+      # ═══════════════════════════════════════════════════════
+      # LOOP OPEN — read last cycle state
+      # ═══════════════════════════════════════════════════════
+      - name: "🌅 CYCLE_OPENER — read last cycle → write cycle_brief"
+        run: python3 mycelium/CYCLE_OPENER.py || echo "CYCLE_OPENER error"
+        continue-on-error: true
+
+      - name: "🌍 BIOREGIONAL_CLOCK"
+        run: python mycelium/BIOREGIONAL_CLOCK.py
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # BLOCK A — AI INFRASTRUCTURE
+      # ═══════════════════════════════════════════════════════
+      - name: "🧠 A1: AI_CLIENT — unified AI brain (GROQ→Anthropic→OpenRouter→HF)"
+        run: python3 mycelium/AI_CLIENT.py || echo "AI_CLIENT error"
+        continue-on-error: true
+
+      - name: "📡 A2: CAPABILITY_SCANNER — audit what engines can actually do"
+        run: python3 mycelium/CAPABILITY_SCANNER.py || echo "CAPABILITY_SCANNER error"
+        continue-on-error: true
+
+      - name: "🔗 A3: CHAIN_ORCHESTRATOR — chain multi-engine pipelines"
+        run: python3 mycelium/CHAIN_ORCHESTRATOR.py || echo "CHAIN_ORCHESTRATOR error"
+        continue-on-error: true
+
+      - name: "🌐 A4: SWARM_COORDINATOR — spin up repair swarms from audit"
+        run: python3 mycelium/SWARM_COORDINATOR.py || echo "SWARM_COORDINATOR error"
+        continue-on-error: true
+
+      - name: "🗺️ A5: SYSTEM_MAPPER — visualize swarm topology"
+        run: python3 mycelium/SYSTEM_MAPPER.py || echo "SYSTEM_MAPPER error"
+        continue-on-error: true
+
+      - name: "🔬 A6: DEEP_RESEARCHER — find knowledge gaps and queue research"
+        run: python3 mycelium/DEEP_RESEARCHER.py || echo "DEEP_RESEARCHER error"
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # BLOCK B — EMAIL & COMMUNICATIONS
+      # ═══════════════════════════════════════════════════════
+      - name: "📬 B1: GMAIL_INTAKE — read inbox, route emails"
+        run: python3 mycelium/GMAIL_INTAKE.py || echo "GMAIL_INTAKE error"
+        continue-on-error: true
+
+      - name: "📧 B2: EMAIL_BRAIN — full Gmail cortex, route/triage"
+        run: python3 mycelium/EMAIL_BRAIN.py || echo "EMAIL_BRAIN error"
+        continue-on-error: true
+
+      - name: "📤 B3: EMAIL_OUTREACH — Gmail outreach campaigns"
+        run: python3 mycelium/EMAIL_OUTREACH.py || echo "EMAIL_OUTREACH error"
+        continue-on-error: true
+
+      - name: "🔔 B4: GMAIL_NOTIFIER — send system alerts via Gmail"
+        run: python3 mycelium/GMAIL_NOTIFIER.py || echo "GMAIL_NOTIFIER error"
+        continue-on-error: true
+
+      - name: "📰 B5: NEWS_HARVESTER — harvest news digests from Gmail"
+        run: python3 mycelium/NEWS_HARVESTER.py || echo "NEWS_HARVESTER error"
+        continue-on-error: true
+
+      - name: "📅 B6: CALENDAR_BRAIN — appointments to ICS to Google Calendar"
+        run: python3 mycelium/CALENDAR_BRAIN.py || echo "CALENDAR_BRAIN error"
+        continue-on-error: true
+
+      - name: "📱 B7: TELEGRAM_BRIDGE — status broadcast to Telegram"
+        run: python3 mycelium/TELEGRAM_BRIDGE.py || echo "TELEGRAM_BRIDGE error"
+        continue-on-error: true
+
+      - name: "🔗 B8: CONNECTION_FORGE — email Meeko platform wiring guides"
+        run: python3 mycelium/CONNECTION_FORGE.py || echo "CONNECTION_FORGE error"
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # BLOCK C — REVENUE ENGINES
+      # ═══════════════════════════════════════════════════════
+      - name: "💰 C1: REVENUE_LOOP — end-to-end revenue pipeline v5"
+        run: python3 mycelium/REVENUE_LOOP.py || echo "REVENUE_LOOP error"
+        continue-on-error: true
+
+      - name: "💵 C2: REVENUE_ENGINE — multi-stream revenue orchestrator"
+        run: python3 mycelium/REVENUE_ENGINE.py || echo "REVENUE_ENGINE error"
+        continue-on-error: true
+
+      - name: "📊 C3: REVENUE_MONITOR — market liquidity + affiliate tracking"
+        run: python3 mycelium/REVENUE_MONITOR.py || echo "REVENUE_MONITOR error"
+        continue-on-error: true
+
+      - name: "♻️ C4: REVENUE_RECYCLER — redistribute revenue to system nodes"
+        run: python3 mycelium/REVENUE_RECYCLER.py || echo "REVENUE_RECYCLER error"
+        continue-on-error: true
+
+      - name: "📈 C5: revenue_aggregator — aggregate all fuel sources"
+        run: python3 mycelium/revenue_aggregator.py || echo "revenue_aggregator error"
+        continue-on-error: true
+
+      - name: "⚡ C6: QUICK_REVENUE — fast revenue opportunities"
+        run: python3 mycelium/QUICK_REVENUE.py || echo "QUICK_REVENUE error"
+        continue-on-error: true
+
+      - name: "🏭 C7: BUSINESS_FACTORY — generate new business ideas"
+        run: python3 mycelium/BUSINESS_FACTORY.py || echo "BUSINESS_FACTORY error"
+        continue-on-error: true
+
+      - name: "💎 C8: VALUE_GENERATOR — create value from knowledge graph"
+        run: python3 mycelium/VALUE_GENERATOR.py || echo "VALUE_GENERATOR error"
+        continue-on-error: true
+
+      - name: "💱 C9: ECONOMY_CHAIN — economy model + cost tracking"
+        run: python3 mycelium/ECONOMY_CHAIN.py || echo "ECONOMY_CHAIN error"
+        continue-on-error: true
+
+      - name: "💹 C10: CRYPTO_WATCHER — market intelligence, propose trades"
+        run: python3 mycelium/CRYPTO_WATCHER.py || echo "CRYPTO_WATCHER error"
+        continue-on-error: true
+
+      - name: "🗺️ C11: FINANCIAL_MAPPER — track sales and costs"
+        run: python3 mycelium/FINANCIAL_MAPPER.py || echo "FINANCIAL_MAPPER error"
+        continue-on-error: true
+
+      - name: "🔍 C12: scout_bot — scout high-yield bounties"
+        run: python3 mycelium/scout_bot.py || echo "scout_bot error"
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # BLOCK D — PUBLISHING & SOCIAL
+      # ═══════════════════════════════════════════════════════
+      - name: "🌐 D1: WEB_PUBLISHER — publish pending products to web"
+        run: python3 mycelium/WEB_PUBLISHER.py || echo "WEB_PUBLISHER error"
+        continue-on-error: true
+
+      - name: "📣 D2: SOCIAL_ECHO — echo insights to social platforms"
+        run: python3 mycelium/SOCIAL_ECHO.py || echo "SOCIAL_ECHO error"
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # BLOCK E — SYSTEM HEALTH & MAINTENANCE
+      # ═══════════════════════════════════════════════════════
+      - name: "🔄 E1: EVOLUTION_VIEWER — generate evolution report"
+        run: python3 mycelium/EVOLUTION_VIEWER.py || echo "EVOLUTION_VIEWER error"
+        continue-on-error: true
+
+      - name: "🛡️ E2: SECURITY_SENTRY — audit code for risky patterns"
+        run: python3 mycelium/SECURITY_SENTRY.py || echo "SECURITY_SENTRY error"
+        continue-on-error: true
+
+      - name: "🏥 E3: AUTO_HEALER — heal and sync system state"
+        run: python3 mycelium/AUTO_HEALER.py || echo "AUTO_HEALER error"
+        continue-on-error: true
+
+      - name: "🗑️ E4: DUPLICATE_DELETER — remove duplicate files"
+        run: python3 mycelium/DUPLICATE_DELETER.py || echo "DUPLICATE_DELETER error"
+        continue-on-error: true
+
+      - name: "🗑️ E5: DUPLICATE_STRIKER — Gmail duplicate email cleaner"
+        run: python3 mycelium/DUPLICATE_STRIKER.py || echo "DUPLICATE_STRIKER error"
+        continue-on-error: true
+
+      - name: "🔧 E6: UPGRADE_ENGINE — check logs for API failures, queue fixes"
+        run: python3 mycelium/UPGRADE_ENGINE.py || echo "UPGRADE_ENGINE error"
+        continue-on-error: true
+
+      - name: "📦 E7: archivist — archive system state snapshots"
+        run: python3 mycelium/archivist.py || echo "archivist error"
+        continue-on-error: true
+
+      - name: "📋 E8: daily_pulse — daily system summary"
+        run: python3 mycelium/daily_pulse.py || echo "daily_pulse error"
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # OPENCLAW BLOCK — A2A + Skills + Physical World
+      # ═══════════════════════════════════════════════════════
+      - name: "🕸️ A2A_BRIDGE — register node + discover peers"
+        run: python3 mycelium/A2A_BRIDGE.py || echo "A2A_BRIDGE error"
+        continue-on-error: true
+
+      - name: "🎯 OPENCLAW_SKILL_SYNC — pull skills from swarm"
+        run: python3 mycelium/OPENCLAW_SKILL_SYNC.py || echo "OPENCLAW_SKILL_SYNC error"
+        continue-on-error: true
+
+      - name: "📦 SKILL_PACKAGER — package engines as shareable skills"
+        run: python3 mycelium/SKILL_PACKAGER.py || echo "SKILL_PACKAGER error"
+        continue-on-error: true
+
+      - name: "🖨️ PRINT_RELAY_ENGINE — Gaza humanitarian 3D prints"
+        run: python3 mycelium/PRINT_RELAY_ENGINE.py || echo "PRINT_RELAY_ENGINE error"
+        continue-on-error: true
+
+      - name: "👷 LABOR_DISPATCH_ENGINE — physical world task dispatch"
+        run: python3 mycelium/LABOR_DISPATCH_ENGINE.py || echo "LABOR_DISPATCH_ENGINE error"
+        continue-on-error: true
+
+      - name: "🌿 swarm_healer — apply gap-patches from OpenClaw"
+        run: python scripts/openclaw_bridge/swarm_healer.py || echo "swarm_healer error"
+        continue-on-error: true
+
+      - name: "✍️ GRANT_WRITER — research + draft grant applications"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 mycelium/GRANT_WRITER.py || echo "GRANT_WRITER error"
+        continue-on-error: true
+
+      - name: "🚨 gaza_emergency_response — CRITICAL humanitarian supply bypass"
+        env:
+          OCTOEVERYWHERE_APP_API_KEY: ${{ secrets.OCTOEVERYWHERE_APP_API_KEY }}
+          RENTAHUMAN_API_KEY: ${{ secrets.RENTAHUMAN_API_KEY }}
+          SOLARPUNK_WALLET_ADDRESS: ${{ secrets.SOLARPUNK_WALLET_ADDRESS }}
+        run: python scripts/openclaw_bridge/labor_dispatch/gaza_emergency_response.py || echo "gaza_emergency error"
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # BLOCK 6: REVENUE WITHOUT CAPITAL
+      # ═══════════════════════════════════════════════════════
+
+      - name: "🎯 INVESTOR_RADAR — find investors + generate pitches"
+        run: python3 mycelium/INVESTOR_RADAR.py || echo "INVESTOR_RADAR error"
+        continue-on-error: true
+
+      - name: "💝 DONATION_ROUTER — monitor + update donation channels"
+        run: python3 mycelium/DONATION_ROUTER.py || echo "DONATION_ROUTER error"
+        continue-on-error: true
+
+      - name: "🔗 AFFILIATE_MACHINE — catalog passive income programs"
+        run: python3 mycelium/AFFILIATE_MACHINE.py || echo "AFFILIATE_MACHINE error"
+        continue-on-error: true
+
+      - name: "🔐 SECRET_BOOTSTRAP — priority API key unlock guide"
+        run: python3 mycelium/SECRET_BOOTSTRAP.py || echo "SECRET_BOOTSTRAP error"
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # BLOCK 7: SWARM + KNOWLEDGE MINING
+      # ═══════════════════════════════════════════════════════
+
+      - name: "🕸️ SWARM_AMPLIFIER — connect to OpenClaw agent network"
+        run: python3 mycelium/SWARM_AMPLIFIER.py || echo "SWARM_AMPLIFIER error"
+        continue-on-error: true
+
+      - name: "⭐ STARRED_REPO_MINER — mine high-value public repos"
+        run: python3 mycelium/STARRED_REPO_MINER.py || echo "STARRED_REPO_MINER error"
+        continue-on-error: true
+
+      - name: "🔌 FREE_API_CONNECTOR — call zero-auth APIs: arXiv/HN/ReliefWeb/Met/OpenAlex"
+        run: python3 mycelium/FREE_API_CONNECTOR.py || echo "FREE_API_CONNECTOR error"
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # BLOCK 8: PROOF + TRUST + CRYPTO
+      # ═══════════════════════════════════════════════════════
+
+      - name: "📋 PROOF_ARCHITECT — build irrefutable investment proof from 6 angles"
+        run: python3 mycelium/PROOF_ARCHITECT.py || echo "PROOF_ARCHITECT error"
+        continue-on-error: true
+
+      - name: "🌍 EVERYONE_WINS_ENGINE — 11-stakeholder proof matrix"
+        run: python3 mycelium/EVERYONE_WINS_ENGINE.py || echo "EVERYONE_WINS_ENGINE error"
+        continue-on-error: true
+
+      - name: "₿ CRYPTO_TREASURY — multi-chain crypto routing + balance check"
+        run: python3 mycelium/CRYPTO_TREASURY.py || echo "CRYPTO_TREASURY error"
+        continue-on-error: true
+
+      - name: "🤝 OPENCOLLECTIVE_ENGINE — sponsors + donation infrastructure"
+        run: python3 mycelium/OPENCOLLECTIVE_ENGINE.py || echo "OPENCOLLECTIVE_ENGINE error"
+        continue-on-error: true
+
+      - name: "🆓 FREE_ALTERNATIVE_FINDER — map every missing secret to free backup"
+        run: python3 mycelium/FREE_ALTERNATIVE_FINDER.py || echo "FREE_ALTERNATIVE_FINDER error"
+        continue-on-error: true
+
+      - name: "🏃 SELF_SETUP_AUTOPILOT — do the tasks autonomously"
+        run: |
+          mkdir -p data/grant_applications
+          python3 mycelium/SELF_SETUP_AUTOPILOT.py || echo "SELF_SETUP_AUTOPILOT error"
+        continue-on-error: true
+
+      - name: "📝 GRANT_AUTO_SUBMITTER — prepare + submit all grant applications"
+        run: |
+          mkdir -p data/grant_applications
+          python3 mycelium/GRANT_AUTO_SUBMITTER.py || echo "GRANT_AUTO_SUBMITTER error"
+        continue-on-error: true
+
+      - name: "💯 CRISIS_ROUTER"
+        run: python mycelium/CRISIS_ROUTER.py
+        continue-on-error: true
+
+      - name: "🎵 FREQUENCY_TUNER"
+        run: python mycelium/FREQUENCY_TUNER.py
+        continue-on-error: true
+
+      - name: "📡 X_KNOWLEDGE_HARVESTER"
+        run: python mycelium/X_KNOWLEDGE_HARVESTER.py
+        continue-on-error: true
+
+      - name: "🐳 UNUSUAL_WHALES_MCP"
+        run: python mycelium/UNUSUAL_WHALES_MCP.py
+        continue-on-error: true
+
+      - name: "🔓 FREE_INFRA_SCANNER"
+        run: python mycelium/FREE_INFRA_SCANNER.py
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # LOOP CLOSE — synthesize cycle results
+      # ═══════════════════════════════════════════════════════
+      - name: "🔄 LOOP_CONDUCTOR — synthesize cycle → write loop_state"
+        run: python3 mycelium/LOOP_CONDUCTOR.py || echo "LOOP_CONDUCTOR error"
+        continue-on-error: true
+
+      # ═══════════════════════════════════════════════════════
+      # SWEEP: sanitize before commit
+      # ═══════════════════════════════════════════════════════
+      - name: "🧹 ENGINE_SANITIZER — clean before commit"
+        run: python3 mycelium/ENGINE_SANITIZER.py || echo "ENGINE_SANITIZER error"
+        continue-on-error: true
+
+      - name: Commit Supplemental Outputs
+        run: |
+          git add mycelium/ data/ docs/ logs/ 2>/dev/null || git add -A
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -c commit.gpgsign=false -m "SUPPLEMENTAL: engines cycle $(date +'%Y-%m-%d %H:%M')" 2>/dev/null || \
+          git -c commit.gpgsign=false commit -m "SUPPLEMENTAL: engines cycle $(date +'%Y-%m-%d %H:%M')"
+          git pull --rebase origin main 2>/dev/null || true
+          git push origin main 2>/dev/null || git push origin HEAD:main --force-with-lease

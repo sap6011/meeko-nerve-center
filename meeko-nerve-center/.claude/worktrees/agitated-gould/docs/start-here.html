@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Here — Which SolarPunk Model Fits You?</title>
+<meta name="description" content="Answer 3 questions and find your SolarPunk starting point. 24 verified models, matched to your context, community, and resources.">
+<meta property="og:title" content="Start Here — Which SolarPunk Model Fits You?">
+<meta property="og:description" content="Answer 3 questions. Get your matched SolarPunk model with exact replication steps, who to call, and how to fund it.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose: #c8756b;
+  --gold: #d4a45a;
+  --olive: #3d5a3e;
+  --green: #5a9e6f;
+  --blue: #4a8fa8;
+  --solar: #f0b429;
+  --cream: #f5ede3;
+  --dark: #0a0c0a;
+  --panel: #111410;
+  --card: #161914;
+  --border: rgba(90,158,111,0.15);
+  --text: #e0ddd5;
+  --muted: rgba(224,221,213,0.5);
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; opacity: 0.5;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .8rem 2rem;
+  background: rgba(10,12,10,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand { font-family: 'Space Mono', monospace; font-size: .7rem; color: var(--rose); text-decoration: none; letter-spacing: .05em; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { font-family: 'Space Mono', monospace; font-size: .6rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--green); }
+
+/* HERO */
+.hero {
+  position: relative; z-index: 1;
+  min-height: 60vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 8rem 2rem 4rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.eyebrow {
+  font-family: 'Space Mono', monospace; font-size: .65rem;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--green);
+  margin-bottom: 1.5rem;
+}
+h1 { font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.5rem; }
+h1 em { color: var(--solar); font-style: italic; }
+.hero-sub { font-size: 1.2rem; color: var(--muted); max-width: 600px; margin: 0 auto 2.5rem; }
+
+/* QUIZ CONTAINER */
+.quiz-wrap {
+  position: relative; z-index: 1;
+  max-width: 800px; margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+}
+
+/* STEP */
+.step {
+  display: none;
+  animation: fadeIn .4s ease;
+}
+.step.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+.step-label {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  text-transform: uppercase; letter-spacing: .2em; color: var(--muted);
+  margin-bottom: .5rem;
+}
+.step-question {
+  font-size: clamp(1.4rem, 4vw, 2.2rem); font-weight: 300;
+  line-height: 1.3; margin-bottom: 2rem;
+}
+.step-question em { color: var(--green); font-style: italic; }
+
+/* OPTION CARDS */
+.options {
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.opt {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .2s, transform .15s, background .2s;
+  position: relative;
+}
+.opt:hover {
+  border-color: var(--green);
+  transform: translateY(-2px);
+  background: rgba(90,158,111,0.07);
+}
+.opt.selected {
+  border-color: var(--solar);
+  background: rgba(240,180,41,0.07);
+}
+.opt-emoji { font-size: 2rem; display: block; margin-bottom: .7rem; }
+.opt-title { font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: .3rem; }
+.opt-sub { font-size: .85rem; color: var(--muted); font-family: 'Space Mono', monospace; line-height: 1.5; }
+
+/* PROGRESS */
+.progress-bar {
+  height: 3px; background: var(--border);
+  border-radius: 2px; margin-bottom: 2.5rem; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--green), var(--solar));
+  border-radius: 2px; transition: width .4s ease;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  display: none;
+  background: none; border: 1px solid var(--border);
+  color: var(--muted); font-family: 'Space Mono', monospace;
+  font-size: .6rem; letter-spacing: .1em; text-transform: uppercase;
+  padding: .5rem 1rem; border-radius: 6px; cursor: pointer;
+  margin-bottom: 2rem; transition: border-color .2s, color .2s;
+}
+.back-btn:hover { border-color: var(--green); color: var(--green); }
+.back-btn.visible { display: inline-block; }
+
+/* RESULT */
+.result { display: none; animation: fadeIn .5s ease; }
+.result.active { display: block; }
+
+.result-header {
+  background: linear-gradient(135deg, rgba(90,158,111,0.12), rgba(240,180,41,0.08));
+  border: 1px solid rgba(90,158,111,0.3);
+  border-radius: 16px; padding: 2.5rem;
+  margin-bottom: 2rem; text-align: center;
+}
+.result-match-label {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  text-transform: uppercase; letter-spacing: .2em; color: var(--green); margin-bottom: .8rem;
+}
+.result-title { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 600; margin-bottom: .6rem; }
+.result-title em { color: var(--solar); font-style: italic; }
+.result-confidence {
+  font-family: 'Space Mono', monospace; font-size: .65rem;
+  color: var(--muted); letter-spacing: .1em; text-transform: uppercase;
+}
+
+.result-body {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem;
+}
+.result-section-label {
+  font-family: 'Space Mono', monospace; font-size: .55rem;
+  text-transform: uppercase; letter-spacing: .15em; color: var(--muted); margin-bottom: .6rem;
+}
+.result-desc { font-size: 1.1rem; color: var(--text); margin-bottom: 1.5rem; line-height: 1.8; }
+
+.steps-list { list-style: none; counter-reset: step; padding: 0; }
+.steps-list li {
+  counter-increment: step; position: relative;
+  padding: .6rem 0 .6rem 2.5rem; font-size: 1rem;
+  border-bottom: 1px solid var(--border); color: var(--text);
+}
+.steps-list li:last-child { border-bottom: none; }
+.steps-list li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: .65rem;
+  width: 1.5rem; height: 1.5rem;
+  background: rgba(240,180,41,0.12); border-radius: 50%;
+  font-family: 'Space Mono', monospace; font-size: .55rem; color: var(--solar);
+  display: flex; align-items: center; justify-content: center; text-align: center;
+}
+
+.orgs-grid { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .8rem; }
+.org-tag {
+  background: rgba(90,158,111,0.1); border: 1px solid rgba(90,158,111,0.2);
+  border-radius: 100px; padding: .25rem .8rem;
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  color: var(--green); letter-spacing: .05em;
+}
+
+.also-look {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;
+}
+.also-look h3 { font-size: 1rem; margin-bottom: 1rem; color: var(--gold); }
+.also-links { display: flex; flex-wrap: wrap; gap: .5rem; }
+.also-link {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: .5rem 1rem;
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  color: var(--text); text-decoration: none; letter-spacing: .05em;
+  transition: border-color .2s, color .2s;
+}
+.also-link:hover { border-color: var(--green); color: var(--green); }
+
+.result-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+.action-btn {
+  flex: 1; min-width: 180px; padding: 1rem 1.5rem;
+  border-radius: 10px; font-family: 'Space Mono', monospace; font-size: .7rem;
+  letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
+  text-align: center; cursor: pointer; transition: all .2s; border: none;
+}
+.action-primary { background: var(--green); color: var(--dark); }
+.action-primary:hover { background: #6ab882; }
+.action-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.action-secondary:hover { border-color: var(--green); color: var(--green); }
+
+.restart-btn {
+  display: block; margin: 2rem auto 0; text-align: center;
+  background: none; border: none; color: var(--muted);
+  font-family: 'Space Mono', monospace; font-size: .65rem;
+  letter-spacing: .12em; text-transform: uppercase; cursor: pointer;
+  text-decoration: underline;
+}
+.restart-btn:hover { color: var(--green); }
+
+/* GLOBAL MODELS GRID — at bottom */
+.all-models {
+  position: relative; z-index: 1;
+  padding: 4rem 2rem;
+  border-top: 1px solid var(--border);
+  background: var(--panel);
+}
+.all-models-inner { max-width: 1100px; margin: 0 auto; }
+.section-label-sm {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  text-transform: uppercase; letter-spacing: .25em; color: var(--green); margin-bottom: 1rem;
+}
+.all-models h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; margin-bottom: 2.5rem; }
+.all-models h2 em { color: var(--solar); font-style: italic; }
+.models-grid {
+  display: grid; gap: .8rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.model-chip {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1rem 1.2rem;
+  text-decoration: none; display: block;
+  transition: border-color .2s, transform .15s;
+}
+.model-chip:hover { border-color: var(--green); transform: translateY(-2px); }
+.model-chip-emoji { font-size: 1.5rem; display: block; margin-bottom: .4rem; }
+.model-chip-name { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
+.model-chip-where { font-family: 'Space Mono', monospace; font-size: .6rem; color: var(--muted); }
+
+/* FOOTER */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 2rem; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+}
+.footer-brand { font-family: 'Space Mono', monospace; font-size: .65rem; color: var(--muted); letter-spacing: .1em; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; justify-content: center; }
+.footer-links a { font-family: 'Space Mono', monospace; font-size: .6rem; color: var(--muted); text-decoration: none; }
+.footer-links a:hover { color: var(--green); }
+
+@media (max-width: 600px) {
+  .options { grid-template-columns: 1fr; }
+  .result-actions { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">🌹 Gaza Rose × SolarPunk</a>
+  <ul class="nav-links">
+    <li><a href="solarpunk-movement.html">24 Projects</a></li>
+    <li><a href="synthesis.html">Synthesis</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="index.html">Gallery →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="eyebrow">✦ Matched to Your Context · Not Theory · Real Projects</p>
+  <h1>Which model<br><em>fits you?</em></h1>
+  <p class="hero-sub">3 questions. 24 verified SolarPunk models. Your matched starting point — with exact steps, who to call, and how to fund it.</p>
+</section>
+
+<!-- QUIZ -->
+<div class="quiz-wrap">
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress" style="width: 0%"></div>
+  </div>
+
+  <button class="back-btn" id="back-btn" onclick="goBack()">← Back</button>
+
+  <!-- STEP 1: Context -->
+  <div class="step active" id="step-1">
+    <p class="step-label">Question 1 of 3</p>
+    <h2 class="step-question">What's your community's<br><em>biggest challenge?</em></h2>
+    <div class="options">
+      <div class="opt" onclick="selectOption(1, 'energy', this)">
+        <span class="opt-emoji">⚡</span>
+        <div class="opt-title">Energy access or cost</div>
+        <div class="opt-sub">Unreliable power, diesel dependency, high bills, or no grid at all</div>
+      </div>
+      <div class="opt" onclick="selectOption(1, 'food', this)">
+        <span class="opt-emoji">🌱</span>
+        <div class="opt-title">Food security or land</div>
+        <div class="opt-sub">Food deserts, high food costs, land ownership, soil degradation</div>
+      </div>
+      <div class="opt" onclick="selectOption(1, 'economy', this)">
+        <span class="opt-emoji">💰</span>
+        <div class="opt-title">Economic exclusion</div>
+        <div class="opt-sub">Jobs leaving, money leaking out, no local ownership, debt</div>
+      </div>
+      <div class="opt" onclick="selectOption(1, 'internet', this)">
+        <span class="opt-emoji">📡</span>
+        <div class="opt-title">Digital disconnection</div>
+        <div class="opt-sub">No broadband, expensive ISPs, surveillance, lack of digital tools</div>
+      </div>
+      <div class="opt" onclick="selectOption(1, 'climate', this)">
+        <span class="opt-emoji">🌍</span>
+        <div class="opt-title">Climate / land degradation</div>
+        <div class="opt-sub">Deforestation, soil loss, flooding, carbon emissions, displacement</div>
+      </div>
+      <div class="opt" onclick="selectOption(1, 'housing', this)">
+        <span class="opt-emoji">🏠</span>
+        <div class="opt-title">Housing insecurity</div>
+        <div class="opt-sub">Gentrification, unaffordable rent, displacement, no community ownership</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Scale -->
+  <div class="step" id="step-2">
+    <p class="step-label">Question 2 of 3</p>
+    <h2 class="step-question">What's your<br><em>starting scale?</em></h2>
+    <div class="options">
+      <div class="opt" onclick="selectOption(2, 'small', this)">
+        <span class="opt-emoji">🤲</span>
+        <div class="opt-title">Just me + a few people</div>
+        <div class="opt-sub">5–15 people ready to act. Limited budget. Start small, prove it.</div>
+      </div>
+      <div class="opt" onclick="selectOption(2, 'neighbourhood', this)">
+        <span class="opt-emoji">🏘️</span>
+        <div class="opt-title">Neighbourhood or village</div>
+        <div class="opt-sub">50–500 people. Some institutional support. Real infrastructure possible.</div>
+      </div>
+      <div class="opt" onclick="selectOption(2, 'city', this)">
+        <span class="opt-emoji">🏙️</span>
+        <div class="opt-title">City or region</div>
+        <div class="opt-sub">Policy levers, municipal budget, larger coalitions. 1,000+ people.</div>
+      </div>
+      <div class="opt" onclick="selectOption(2, 'island', this)">
+        <span class="opt-emoji">🏝️</span>
+        <div class="opt-title">Island or remote community</div>
+        <div class="opt-sub">Isolated. Diesel-dependent. River or ocean access. Off-grid first.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: Resources -->
+  <div class="step" id="step-3">
+    <p class="step-label">Question 3 of 3</p>
+    <h2 class="step-question">What resources do you<br><em>have right now?</em></h2>
+    <div class="options">
+      <div class="opt" onclick="selectOption(3, 'none', this)">
+        <span class="opt-emoji">💪</span>
+        <div class="opt-title">Time and people</div>
+        <div class="opt-sub">No money. Lots of will. Need the model that costs almost nothing to start.</div>
+      </div>
+      <div class="opt" onclick="selectOption(3, 'small_budget', this)">
+        <span class="opt-emoji">💵</span>
+        <div class="opt-title">Small budget ($100–$5K)</div>
+        <div class="opt-sub">Enough to buy tools, hold events, prototype one component.</div>
+      </div>
+      <div class="opt" onclick="selectOption(3, 'grant_ready', this)">
+        <span class="opt-emoji">📋</span>
+        <div class="opt-title">Grant-ready ($10K–$500K)</div>
+        <div class="opt-sub">Organisation exists. Can apply. Have a track record or fiscal sponsor.</div>
+      </div>
+      <div class="opt" onclick="selectOption(3, 'land', this)">
+        <span class="opt-emoji">🌿</span>
+        <div class="opt-title">Land or buildings</div>
+        <div class="opt-sub">Access to rooftops, land, or buildings — the physical substrate.</div>
+      </div>
+      <div class="opt" onclick="selectOption(3, 'indigenous_rights', this)">
+        <span class="opt-emoji">🪶</span>
+        <div class="opt-title">Indigenous land rights or treaty</div>
+        <div class="opt-sub">Tribal authority, treaty settlement, or Indigenous governance structure.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result" id="result"></div>
+
+</div><!-- /.quiz-wrap -->
+
+<!-- ALL MODELS GRID -->
+<section class="all-models">
+  <div class="all-models-inner">
+    <p class="section-label-sm">All 24 verified models</p>
+    <h2>Browse<br><em>everything</em></h2>
+    <div class="models-grid">
+      <a href="solarpunk-movement.html#indigenous-solar" class="model-chip">
+        <span class="model-chip-emoji">☀️</span>
+        <div class="model-chip-name">Solar North — Haida Gwaii</div>
+        <div class="model-chip-where">Canada · Indigenous-owned 2MW microgrid</div>
+      </a>
+      <a href="solarpunk-movement.html#indigenous-solar" class="model-chip">
+        <span class="model-chip-emoji">🌞</span>
+        <div class="model-chip-name">Mino Giizis — 100MW Anishinabek Solar</div>
+        <div class="model-chip-where">Canada · 50/50 equity, 4 Nations, 30,000 homes</div>
+      </a>
+      <a href="solarpunk-movement.html#community-land" class="model-chip">
+        <span class="model-chip-emoji">🏠</span>
+        <div class="model-chip-name">NYC Community Land Trusts</div>
+        <div class="model-chip-where">USA · 20 CLTs, permanently affordable housing</div>
+      </a>
+      <a href="solarpunk-movement.html#food-forests" class="model-chip">
+        <span class="model-chip-emoji">🌳</span>
+        <div class="model-chip-name">Denver Urban Food Forests</div>
+        <div class="model-chip-where">USA · 20 sites, 100+ species, free harvest</div>
+      </a>
+      <a href="solarpunk-movement.html#coops" class="model-chip">
+        <span class="model-chip-emoji">🤝</span>
+        <div class="model-chip-name">Chicago Worker Cooperatives</div>
+        <div class="model-chip-where">USA · $2M grant, democratic workplaces</div>
+      </a>
+      <a href="solarpunk-movement.html#africa" class="model-chip">
+        <span class="model-chip-emoji">📡</span>
+        <div class="model-chip-name">Zenzeleni Networks</div>
+        <div class="model-chip-where">South Africa · Community-owned ISP, $1.50/month</div>
+      </a>
+      <a href="solarpunk-movement.html#africa" class="model-chip">
+        <span class="model-chip-emoji">🌲</span>
+        <div class="model-chip-name">Humbo Community Forest</div>
+        <div class="model-chip-where">Ethiopia · 2,728 ha restored, $300K+ carbon revenue</div>
+      </a>
+      <a href="solarpunk-movement.html#africa" class="model-chip">
+        <span class="model-chip-emoji">☀️</span>
+        <div class="model-chip-name">BBOXX Off-Grid Solar</div>
+        <div class="model-chip-where">Kenya/Rwanda · 350K customers, $0.30/day</div>
+      </a>
+      <a href="solarpunk-movement.html#mena" class="model-chip">
+        <span class="model-chip-emoji">🇵🇸</span>
+        <div class="model-chip-name">SunBox — Gaza Hospital Solar</div>
+        <div class="model-chip-where">Palestine · 12 hospitals powered under siege</div>
+      </a>
+      <a href="solarpunk-movement.html#mena" class="model-chip">
+        <span class="model-chip-emoji">🌄</span>
+        <div class="model-chip-name">Noor Atlas — Morocco</div>
+        <div class="model-chip-where">Morocco · 8,000 villages, 400K households</div>
+      </a>
+      <a href="solarpunk-movement.html#europe" class="model-chip">
+        <span class="model-chip-emoji">⚡</span>
+        <div class="model-chip-name">Edinburgh Community Solar Co-op</div>
+        <div class="model-chip-where">Scotland · 450 members, 5% annual dividend</div>
+      </a>
+      <a href="solarpunk-movement.html#europe" class="model-chip">
+        <span class="model-chip-emoji">🌐</span>
+        <div class="model-chip-name">REScoop.eu</div>
+        <div class="model-chip-where">Europe · 1,500 co-ops, 1.2M members, 2.5GW</div>
+      </a>
+      <a href="solarpunk-movement.html#europe" class="model-chip">
+        <span class="model-chip-emoji">🔧</span>
+        <div class="model-chip-name">Repair Café Foundation</div>
+        <div class="model-chip-where">36 countries · 2,500 locations, free repairs</div>
+      </a>
+      <a href="solarpunk-movement.html#europe" class="model-chip">
+        <span class="model-chip-emoji">💷</span>
+        <div class="model-chip-name">Brixton Pound</div>
+        <div class="model-chip-where">UK · Local currency, 250 businesses, 1.7x multiplier</div>
+      </a>
+      <a href="solarpunk-movement.html#europe" class="model-chip">
+        <span class="model-chip-emoji">🏭</span>
+        <div class="model-chip-name">German Energiewende Co-ops</div>
+        <div class="model-chip-where">Germany · 900 co-ops, 4.7GW, 200K citizens</div>
+      </a>
+      <a href="solarpunk-movement.html#pacific" class="model-chip">
+        <span class="model-chip-emoji">🏝️</span>
+        <div class="model-chip-name">Cook Islands — 95% Renewable</div>
+        <div class="model-chip-where">Pacific · 15 islands, $8M/year savings</div>
+      </a>
+      <a href="solarpunk-movement.html#pacific" class="model-chip">
+        <span class="model-chip-emoji">🌋</span>
+        <div class="model-chip-name">Ngawha Māori Geothermal</div>
+        <div class="model-chip-where">New Zealand · 25MW, 17K homes, 100% Māori-owned</div>
+      </a>
+      <a href="solarpunk-movement.html#pacific" class="model-chip">
+        <span class="model-chip-emoji">🚣</span>
+        <div class="model-chip-name">Kara Solar — Achuar Amazon</div>
+        <div class="model-chip-where">Ecuador · 45 solar canoes, 60 communities</div>
+      </a>
+      <a href="solarpunk-movement.html#pacific" class="model-chip">
+        <span class="model-chip-emoji">🤝</span>
+        <div class="model-chip-name">Enspiral Network</div>
+        <div class="model-chip-where">NZ/Global · Worker-directed ventures, Loomio, Cobudget</div>
+      </a>
+      <a href="synthesis.html" class="model-chip" style="border-color: rgba(240,180,41,0.25); background: rgba(240,180,41,0.04);">
+        <span class="model-chip-emoji">🧬</span>
+        <div class="model-chip-name">+ 12 Synthesis Models</div>
+        <div class="model-chip-where">Novel combinations — CLT+Solar, Mesh+Solar, PAYG Co-op...</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">🌿 SolarPunk Start Here · Gaza Rose Nerve Center</span>
+  <ul class="footer-links">
+    <li><a href="index.html">Gallery</a></li>
+    <li><a href="solarpunk-movement.html">24 Projects</a></li>
+    <li><a href="synthesis.html">Synthesis</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+</footer>
+
+<script>
+// ── Quiz state ──────────────────────────────────────────────────────────────
+const answers = { challenge: null, scale: null, resources: null };
+let currentStep = 1;
+
+// ── Result database ─────────────────────────────────────────────────────────
+const RESULTS = {
+  // Energy + small + none/small_budget
+  'energy_small_none':        { title: 'Repair Café + Time Bank', emoji: '🔧⏰', confidence: 'HIGHEST — zero capital required', desc: 'Before anything else: start a Repair Café. It costs nothing. You learn what people need. You build trust. That trust is the foundation for the energy cooperative you build next.', steps: ['Register at repaircafe.org — free starter kit today', 'Find a venue: library, church hall, community centre — ask for free use', 'Recruit 5 volunteer fixers across 5 skill areas (electronics, textiles, bikes...)', 'Run first event in 4 weeks — expect 20-30 visitors', 'Add a time bank at month 3 using hOurworld (free software)', 'Use community trust you build to co-found an energy cooperative in year 2'], orgs: ['Repair Café Foundation', 'TimeBanks USA', 'hOurworld'], also: [{name:'Community Solar Co-op', href:'solarpunk-movement.html#europe'},{name:'Edinburgh Model', href:'solarpunk-movement.html#europe'}] },
+  'energy_small_small_budget': { title: 'Community Solar Co-op', emoji: '☀️🤝', confidence: 'HIGH', desc: 'With 5-15 people and a small budget you can form a cooperative, lease a rooftop, and issue community shares. The Edinburgh model (450 members, 5% dividend) started exactly here.', steps: ['Register as cooperative under your state/country law — use REScoop.eu templates', 'Identify public rooftops: school, library, community hall — lease for $1/year', 'Issue community shares: minimum $250, 3-5% annual return', 'Apply to community energy development grant for first $10K', 'Sign Power Purchase Agreement with the building at 10% below grid rate', 'Use Sharenergy or Ethex platform to handle share compliance'], orgs: ['REScoop.eu', 'Community Energy England', 'Cooperatives UK'], also: [{name:'German Energiewende', href:'solarpunk-movement.html#europe'},{name:'Edinburgh Co-op', href:'solarpunk-movement.html#europe'}] },
+  'energy_neighbourhood_grant_ready': { title: 'REScoop Community Energy Cooperative', emoji: '⚡🌐', confidence: 'VERY HIGH — 1,500 proven examples', desc: 'At neighbourhood scale with grant-ready capacity, you can build a real energy cooperative. REScoop.eu has a free formation guide for every European country. NRECA for the US.', steps: ['Download your country formation guide at rescoop.eu', 'Recruit 50-100 founding members — minimum to cover legal and hardware costs', 'Apply for ERDF community energy grant (EU) or Clean Energy States Alliance (US)', 'Identify 3-5 community rooftops for your first solar array (500kW-1MW)', 'Issue cooperative shares to raise equity — 200 members at $1,500 avg = $300K', 'Power Purchase Agreement with rooftop owner + grid connection application'], orgs: ['REScoop.eu', 'NRECA', 'Community Energy England'], also: [{name:'German 900 Co-ops', href:'solarpunk-movement.html#europe'},{name:'Cook Islands Model', href:'solarpunk-movement.html#pacific'}] },
+  'energy_island_none':       { title: 'Island Solar Microgrid Cooperative', emoji: '🏝️🔋', confidence: 'HIGHEST — Cook Islands is the proof', desc: 'Islands under 5,000 people: 100% solar+storage is cheaper than diesel TODAY. Cook Islands is at 95%. Vanuatu is electrifying 150 villages. The model is proven. You contact IRENA and ADB, and they fund it.', steps: ['Contact IRENA Island Energy program (irena.org/islands) — they have island-specific toolkits', 'Apply to Asian Development Bank Pacific Energy program for Pacific islands', 'For Caribbean: apply to CARICOM Renewable Energy program', 'Use hybrid inverters (Victron or SMA) for solar + wind + diesel backup', 'Community cooperative owns assets — municipality offtakes power', 'Start with highest diesel-cost location — most compelling business case'], orgs: ['IRENA', 'Asian Development Bank', 'CARICOM'], also: [{name:'Cook Islands 95%', href:'solarpunk-movement.html#pacific'},{name:'Vanuatu Microgrids', href:'solarpunk-movement.html#pacific'}] },
+  'energy_island_indigenous_rights': { title: 'Indigenous-Owned Solar Microgrid', emoji: '🪶☀️', confidence: 'HIGHEST — Solar North + Mino Giizis are the proof', desc: 'Indigenous land rights + solar = permanent energy sovereignty. The Haida Nation flipped on their 2MW microgrid December 2025. Four Anishinabek Nations hold 50/50 equity in 100MW. You have the rights. Build the plant.', steps: ['Form a band council or tribal authority energy subsidiary with legal authority to sign PPAs', 'Negotiate a Community Electricity Purchase Agreement with provincial/state grid operator', 'Apply for Indigenous Clean Energy grants (Canada: INAC; US: DOE Tribal Energy Program)', 'Procure solar + battery storage — start with 500kW pilot if 2MW feels big', 'Hire 75%+ Indigenous labour hours — documented and required in all contracts', 'Apply to Indigenous Loan Guarantee Program for project financing'], orgs: ['Indigenized Energy', 'Indigenous Clean Energy (ICE)', 'DOE Tribal Energy Program'], also: [{name:'Solar North Haida Gwaii', href:'solarpunk-movement.html#indigenous-solar'},{name:'Mino Giizis 100MW', href:'solarpunk-movement.html#indigenous-solar'}] },
+
+  'food_small_none':          { title: 'Community Food Forest (No Money Start)', emoji: '🌳🤲', confidence: 'HIGHEST — Denver has 20, all started this way', desc: 'A food forest starts with a shovel and permission to plant on public land. Denver Urban Gardens runs 20 of them. The startup cost for one site is under $500. The trees grow forever.', steps: ['Contact your city\'s parks department — ask about "food forest" or "urban orchard" permits', 'Map available land: rights-of-way, vacant lots, park edges, school grounds', 'Apply for free trees from urban forestry programs — most cities give them away', 'Contact Denver Urban Gardens (dug.org) for free food forest design consultation', 'Plant guild-style: canopy tree + nitrogen-fixer + ground cover + bulb layer', 'Hold a community planting day — the first event builds the stewardship group'], orgs: ['Denver Urban Gardens', 'Beacon Food Forest', 'Agroforestry Research Trust'], also: [{name:'Denver 20 Food Forests', href:'solarpunk-movement.html#food-forests'},{name:'Worker Co-op to manage it', href:'solarpunk-movement.html#coops'}] },
+  'food_neighbourhood_grant_ready': { title: 'Worker-Owned Food Forest Co-op', emoji: '🌳🤝', confidence: 'HIGH', desc: 'A worker cooperative managing a community food forest is a permanent food system. Workers own the enterprise. The community owns the land. CSA shares fund operations. The perennial system grows food with decreasing labour over time.', steps: ['Establish food forest on CLT or municipal land with 99-year stewardship agreement', 'Form worker cooperative of 5-15 founding members (USFWC has legal templates)', 'Sign harvest rights agreement between land trust and cooperative', 'Launch CSA (Community Supported Agriculture) shares — pre-sold at planting season', 'Apply to USDA Community Food Projects Competitive Grant (up to $400K)', 'Patronage dividend: workers receive surplus based on labour hours contributed'], orgs: ['USFWC', 'Denver Urban Gardens', 'Grounded Solutions Network'], also: [{name:'NYC Community Land Trusts', href:'solarpunk-movement.html#community-land'},{name:'Chicago Worker Co-ops', href:'solarpunk-movement.html#coops'}] },
+  'food_neighbourhood_land':  { title: 'Humbo FMNR + Food Forest Carbon Stack', emoji: '🌲🔥💰', confidence: 'HIGH — Humbo Ethiopia proved it', desc: 'If you have degraded land with existing tree stumps, Farmer-Managed Natural Regeneration is the fastest, cheapest restoration method. Add food forest species in year 2. Add a biochar kiln in year 3. Sell carbon credits from day one.', steps: ['Map land for native tree stumps — FMNR works on stumps, not bare soil', 'Register with Gold Standard or Verra VCS for carbon credits ($5-15/tonne)', 'Protect regenerating shoots — this is the entire first-year job', 'In year 2: plant food forest species in understory (fruit trees, perennials)', 'In year 3: build biochar kiln from 2 steel barrels ($100) — permanent soil benefit', 'Contact FMNR Hub (fmnrhub.com.au) for free global replication support'], orgs: ['FMNR Hub', 'World Vision', 'Gold Standard', 'World Bank BioCarbon Fund'], also: [{name:'Humbo Ethiopia', href:'solarpunk-movement.html#africa'},{name:'Biochar Synthesis', href:'synthesis.html'}] },
+
+  'economy_small_none':       { title: 'Repair Café + Local Currency', emoji: '🔧💷', confidence: 'HIGHEST — zero capital, proven in 36 countries', desc: 'A Repair Café is the gateway to local economic sovereignty. It costs nothing. It demonstrates circular economy principles. It builds the community relationships needed to launch a local currency in year 2.', steps: ['Register at repaircafe.org today — free starter kit', 'Run first event in 4 weeks — library or community centre venue', 'Collect email addresses of every person who comes', 'At month 6: survey them about local currency interest', 'At year 1: launch community currency using Brixton Pound open-source stack', 'Use the repair café as the anchor business for local currency adoption'], orgs: ['Repair Café Foundation', 'Brixton Pound', 'Community Currency Alliance'], also: [{name:'Brixton Pound model', href:'solarpunk-movement.html#europe'},{name:'Circular Economy Synthesis', href:'synthesis.html'}] },
+  'economy_neighbourhood_grant_ready': { title: 'Worker Cooperative Hub', emoji: '🤝🏭', confidence: 'VERY HIGH', desc: 'At neighbourhood scale with grant capacity, a worker cooperative can own and operate something real: a solar array, a food enterprise, a repair hub, a broadband network. Democratic ownership is the economic model.', steps: ['Use USFWC (US) or Cooperatives UK legal templates for cooperative formation', 'Identify a specific enterprise: solar operation, food production, broadband, repairs', 'Apply for CDFI cooperative development funding (US) or Co-op Development Scotland (UK)', 'Hire a cooperative developer for governance design — worth the cost', 'First worker-members buy in at a low share price (sweat equity counts)', 'Join your national cooperative federation for peer support and lobbying'], orgs: ['USFWC', 'Cooperatives UK', 'CDFI Fund', 'REScoop.eu'], also: [{name:'Chicago Worker Co-ops', href:'solarpunk-movement.html#coops'},{name:'Enspiral Network', href:'solarpunk-movement.html#pacific'}] },
+  'economy_small_small_budget': { title: 'Community Currency + Time Bank', emoji: '💷⏰', confidence: 'HIGH', desc: 'A local currency keeps money in your community. The Brixton Pound generates a 1.7x local economic multiplier — every pound spent locally does 1.7x the economic work of a pound spent at a chain. Brixton started with under £5,000.', steps: ['Register a Community Interest Company (CIC) or cooperative for currency governance', 'Use Bristol Pound open-source software stack (free to license)', 'Print local currency notes — partner with a local printer, tamper-proof paper', 'Recruit 20 anchor businesses — give each £50 in local currency to spend', 'Launch time bank simultaneously using Community Weaver software (free)', 'Apply to New Economics Foundation for community currency development support'], orgs: ['Brixton Pound', 'Community Currency Alliance', 'New Economics Foundation'], also: [{name:'Brixton Pound', href:'solarpunk-movement.html#europe'},{name:'Enspiral co-governance', href:'solarpunk-movement.html#pacific'}] },
+
+  'internet_small_none':      { title: 'Community Mesh Internet (Zero Budget Start)', emoji: '📡🤲', confidence: 'HIGH — Zenzeleni started this way', desc: 'A mesh network node costs $150. A solar kit for it costs $300. You can start with one node on one rooftop and grow from there. Zenzeleni Networks (South Africa) did this with no outside funding. Now 2,500 households pay $1.50/month.', steps: ['Join NYC Mesh or your local mesh network community — learn the tech first', 'Buy one LibreRouter or TP-Link mesh node ($50-150) — install on highest rooftop you can access', 'Add 50W solar panel + 100Ah battery for off-grid resilience ($300)', 'Map line-of-sight to neighbouring rooftops — this determines your expansion path', 'Register a cooperative under local law once you have 7+ participants', 'Apply to Internet Society Community Networks grant once you have a basic network'], orgs: ['Zenzeleni Networks', 'APC', 'Internet Society', 'NYC Mesh'], also: [{name:'iNethi Cape Town', href:'solarpunk-movement.html#africa'},{name:'Solar+Mesh Synthesis', href:'synthesis.html'}] },
+  'internet_neighbourhood_grant_ready': { title: 'Solar-Powered Community ISP', emoji: '📡☀️🤝', confidence: 'HIGH', desc: 'Community-owned broadband cooperative + solar power = digital and energy sovereignty. Zenzeleni runs 2,500 households at $1.50/month. iNethi runs local content servers so education is free even without internet. You can run both.', steps: ['Register telecom cooperative AND energy cooperative (can be same legal entity)', 'Apply to USDA ReConnect Program (up to $25M for rural broadband) or equivalent', 'Source used fiber or directional antenna equipment — significant cost savings', 'Deploy solar on each mesh node for off-grid resilience', 'Set up local content server (Raspberry Pi + external SSD) — offline Wikipedia, health guides', 'Partner with a local ISP for backhaul — negotiate community pricing'], orgs: ['APC', 'Internet Society', 'NYC Mesh', 'USDA ReConnect'], also: [{name:'Zenzeleni Networks', href:'solarpunk-movement.html#africa'},{name:'iNethi Cape Town', href:'solarpunk-movement.html#africa'}] },
+
+  'climate_small_none':       { title: 'FMNR Community Reforestation', emoji: '🌲🤲', confidence: 'HIGHEST — lowest cost restoration method on Earth', desc: 'Farmer-Managed Natural Regeneration costs almost nothing. You protect and prune what is already trying to grow. Humbo Ethiopia restored 2,728 hectares this way. Start with the land closest to you.', steps: ['Find degraded land with tree stumps — this is where FMNR works', 'Contact FMNR Hub (fmnrhub.com.au) for free training materials', 'Identify 5-10 committed community members as forest stewards', 'Mark and protect regenerating shoots — fence off grazing if needed', 'Register with a carbon standard in year 2 when you have baseline data', 'Share your progress publicly — documentation brings funders to you'], orgs: ['FMNR Hub', 'World Vision', 'Gold Standard'], also: [{name:'Humbo Ethiopia', href:'solarpunk-movement.html#africa'},{name:'Food Forest + Carbon Stack', href:'synthesis.html'}] },
+  'climate_neighbourhood_land': { title: 'FMNR + Biochar + Food Forest Triple Stack', emoji: '🌲🔥🌿', confidence: 'VERY HIGH', desc: 'Land + community + this method = carbon sequestered, food produced, income generated. The Humbo model earns $300K in carbon credits from restored land. Add food forest and biochar and you have three income streams from one ecosystem.', steps: ['Map all degraded land with tree stumps in your area', 'Register with Gold Standard (fmnrhub.com.au guides you through the process)', 'Plant food forest species in understory: fruit trees, perennials, nitrogen-fixers', 'Build biochar kiln from 2 steel barrels ($100) in year 3', 'Carbon revenue split: 40% farmers, 30% cooperative, 20% expansion, 10% reserve', 'Apply to World Bank BioCarbon Fund for additional capital and technical support'], orgs: ['FMNR Hub', 'World Vision', 'World Bank BioCarbon Fund', 'Gold Standard'], also: [{name:'Humbo Forest', href:'solarpunk-movement.html#africa'},{name:'Carbon + Food Synthesis', href:'synthesis.html'}] },
+
+  'housing_neighbourhood_grant_ready': { title: 'Community Land Trust + Solar Co-op', emoji: '🏠☀️', confidence: 'VERY HIGH — NYC has 20 CLTs', desc: 'A Community Land Trust removes land from the speculative market permanently. Add community solar on CLT rooftops and residents own both the land governance AND the energy production. Neither can ever be taken away.', steps: ['Form CLT with tripartite board: residents + community + public interest', 'Apply to Grounded Solutions Network for CLT formation technical assistance', 'Acquire first property through municipal land bank, donation, or purchase', 'Add Energy Working Group to install solar cooperative on CLT properties', 'Apply for LIHTC + ITC (combined affordable housing + solar tax credits)', 'Join National CLT Network for peer support, lobbying, and knowledge sharing'], orgs: ['Grounded Solutions Network', 'National CLT Network', 'Clean Energy States Alliance'], also: [{name:'NYC Community Land Trusts', href:'solarpunk-movement.html#community-land'},{name:'CLT + Solar Synthesis', href:'synthesis.html'}] },
+  'housing_small_none':       { title: 'Tenant Organizing + Time Bank', emoji: '🏠⏰', confidence: 'HIGH', desc: 'You cannot build a land trust alone with no money. But you can organize. Every CLT started with tenants who organized first. A time bank builds the mutual aid infrastructure you need before you can take on bigger structures.', steps: ['Form a tenant association — no legal requirements, just regular meetings', 'Launch a time bank using hOurworld (free) — exchange skills to meet immediate needs', 'Document all housing issues — displacement, conditions, rent increases', 'Connect with your local CLT if one exists, or contact Grounded Solutions Network', 'Apply for your city\'s anti-displacement fund once you have an organized base', 'The time bank becomes the operational backbone of the CLT when you form one'], orgs: ['Grounded Solutions Network', 'National CLT Network', 'hOurworld'], also: [{name:'NYC CLT model', href:'solarpunk-movement.html#community-land'},{name:'Worker Co-op + CLT', href:'synthesis.html'}] },
+
+  // Default fallbacks
+  'default': { title: 'REScoop Community Energy Cooperative', emoji: '⚡🤝', confidence: 'HIGH — 1,500 examples across 23 countries', desc: 'When in doubt, start with energy. Energy touches everything. A community energy cooperative gives your community sovereignty over one of the most fundamental resources.', steps: ['Visit rescoop.eu for your country\'s formation guide (free)', 'Recruit 20 founding members minimum', 'Identify one community rooftop for your first installation', 'Apply for community energy development grant', 'Issue cooperative shares to your community', 'Sign a Power Purchase Agreement with the building you install on'], orgs: ['REScoop.eu', 'Community Energy England', 'NRECA'], also: [{name:'Edinburgh Solar Co-op', href:'solarpunk-movement.html#europe'},{name:'German 900 Co-ops', href:'solarpunk-movement.html#europe'}] }
+};
+
+function getResultKey() {
+  const c = answers.challenge;
+  const s = answers.scale;
+  const r = answers.resources;
+  // Try specific match
+  const key = `${c}_${s}_${r}`;
+  if (RESULTS[key]) return key;
+  // Try challenge + scale
+  const key2 = `${c}_${s}_grant_ready`;
+  if (RESULTS[key2]) return key2;
+  const key3 = `${c}_${s}_small_budget`;
+  if (RESULTS[key3]) return key3;
+  const key4 = `${c}_${s}_none`;
+  if (RESULTS[key4]) return key4;
+  // Try challenge only
+  const key5 = `${c}_small_none`;
+  if (RESULTS[key5]) return key5;
+  return 'default';
+}
+
+function selectOption(step, value, el) {
+  // Highlight selection
+  el.closest('.options').querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+
+  // Store answer
+  if (step === 1) answers.challenge = value;
+  else if (step === 2) answers.scale = value;
+  else if (step === 3) answers.resources = value;
+
+  // Brief delay then advance
+  setTimeout(() => {
+    if (step < 3) {
+      showStep(step + 1);
+    } else {
+      showResult();
+    }
+  }, 280);
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const stepEl = document.getElementById(`step-${n}`);
+  if (stepEl) stepEl.classList.add('active');
+  currentStep = n;
+  document.getElementById('progress').style.width = `${(n - 1) / 3 * 100}%`;
+  document.getElementById('back-btn').classList.toggle('visible', n > 1);
+}
+
+function goBack() {
+  if (currentStep > 1) showStep(currentStep - 1);
+}
+
+function showResult() {
+  document.getElementById('progress').style.width = '100%';
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('back-btn').classList.remove('visible');
+
+  const key = getResultKey();
+  const r = RESULTS[key] || RESULTS['default'];
+
+  const alsoLinks = (r.also || []).map(l =>
+    `<a href="${l.href}" class="also-link">${l.name} →</a>`
+  ).join('');
+
+  const orgTags = (r.orgs || []).map(o =>
+    `<span class="org-tag">${o}</span>`
+  ).join('');
+
+  const stepItems = (r.steps || []).map(s => `<li>${s}</li>`).join('');
+
+  document.getElementById('result').innerHTML = `
+    <div class="result-header">
+      <p class="result-match-label">Your matched model</p>
+      <div style="font-size: 2.5rem; margin-bottom: .5rem">${r.emoji}</div>
+      <h2 class="result-title"><em>${r.title}</em></h2>
+      <p class="result-confidence">Synthesis confidence: ${r.confidence}</p>
+    </div>
+
+    <div class="result-body">
+      <p class="result-section-label">Why this fits you</p>
+      <p class="result-desc">${r.desc}</p>
+
+      <p class="result-section-label">Your 6 steps</p>
+      <ol class="steps-list">${stepItems}</ol>
+    </div>
+
+    <div class="also-look">
+      <h3>Also look at</h3>
+      <div class="also-links">${alsoLinks}</div>
+    </div>
+
+    <div class="result-body">
+      <p class="result-section-label">Who to contact first</p>
+      <div class="orgs-grid">${orgTags}</div>
+    </div>
+
+    <div class="result-actions">
+      <a href="solarpunk-movement.html" class="action-btn action-primary">🌿 See all 24 projects</a>
+      <a href="synthesis.html" class="action-btn action-secondary">🧬 View synthesis models</a>
+      <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues" class="action-btn action-secondary" target="_blank">📌 Submit yours</a>
+    </div>
+
+    <button class="restart-btn" onclick="restart()">Start over with different answers</button>
+  `;
+
+  document.getElementById('result').classList.add('active');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function restart() {
+  answers.challenge = null;
+  answers.scale = null;
+  answers.resources = null;
+  document.getElementById('result').classList.remove('active');
+  document.getElementById('result').innerHTML = '';
+  // Deselect all
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  showStep(1);
+  document.querySelector('.quiz-wrap').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0e14">
+<title>Get Paid Today — SolarPunk Labor Marketplace</title>
+<meta name="description" content="No ID. No bank. No experience. Just show up. Tap screen, claim task, do it, show proof, get paid in under 10 minutes.">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0a0e14;
+    color: #00ffcc;
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  .top-nav {
+    background: rgba(0,0,0,0.5);
+    border-bottom: 1px solid rgba(0,255,204,0.1);
+    padding: 14px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .top-nav a {
+    color: rgba(0,255,204,0.6);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border: 1px solid rgba(0,255,204,0.15);
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .top-nav a:hover, .top-nav a.active {
+    color: #00ffcc;
+    border-color: rgba(0,255,204,0.5);
+    background: rgba(0,255,204,0.05);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 70px 20px 60px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,255,204,0.1) 0%, transparent 70%);
+    border-bottom: 1px solid rgba(0,255,204,0.1);
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(0,255,204,0.5);
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-size: clamp(2.8rem, 10vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #00ffcc;
+    text-shadow: 0 0 50px rgba(0,255,204,0.5);
+    margin-bottom: 18px;
+    line-height: 1.05;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 3vw, 1.35rem);
+    color: rgba(0,255,204,0.8);
+    max-width: 560px;
+    margin: 0 auto 36px;
+    letter-spacing: 1px;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: #00ffcc;
+    color: #0a0e14;
+    font-family: 'Courier New', monospace;
+    font-weight: 900;
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 38px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .hero-cta:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,255,204,0.3);
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 20px;
+  }
+  .section-title {
+    font-size: clamp(1.2rem, 4vw, 1.7rem);
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #00ffcc;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  /* ── 3-STEP ── */
+  .steps {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .step {
+    flex: 1;
+    min-width: 220px;
+    max-width: 260px;
+    background: rgba(0,255,204,0.04);
+    border: 1px solid rgba(0,255,204,0.15);
+    border-radius: 14px;
+    padding: 30px 22px;
+    text-align: center;
+    position: relative;
+  }
+  .step-number {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #00ffcc;
+    text-shadow: 0 0 30px rgba(0,255,204,0.6);
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+  .step-title {
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #00ffcc;
+    margin-bottom: 10px;
+  }
+  .step-body {
+    font-size: 0.85rem;
+    color: rgba(0,255,204,0.65);
+    line-height: 1.6;
+  }
+  .step-connector {
+    display: flex;
+    align-items: center;
+    color: rgba(0,255,204,0.3);
+    font-size: 1.5rem;
+    padding-top: 10px;
+    flex-shrink: 0;
+  }
+  @media (max-width: 680px) {
+    .steps { flex-direction: column; align-items: center; }
+    .step-connector { transform: rotate(90deg); }
+  }
+
+  /* ── CATEGORY CARDS GRID ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .cat-card {
+    background: rgba(0,255,204,0.03);
+    border: 1px solid rgba(0,255,204,0.12);
+    border-radius: 14px;
+    padding: 24px 20px;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+  .cat-card:hover {
+    border-color: rgba(0,255,204,0.5);
+    background: rgba(0,255,204,0.07);
+    transform: translateY(-3px);
+  }
+  .cat-emoji {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .cat-name {
+    font-size: 1.05rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #00ffcc;
+    margin-bottom: 6px;
+  }
+  .cat-pay {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #00ffcc;
+    text-shadow: 0 0 10px rgba(0,255,204,0.4);
+    margin-bottom: 8px;
+  }
+  .cat-desc {
+    font-size: 0.8rem;
+    color: rgba(0,255,204,0.6);
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .cat-time {
+    font-size: 0.75rem;
+    color: rgba(0,255,204,0.4);
+    letter-spacing: 1px;
+  }
+  .cat-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #00ffcc;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,255,204,0.4);
+    padding-bottom: 2px;
+  }
+
+  /* ── PAYMENT CARDS ── */
+  .pay-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .pay-card {
+    background: rgba(0,255,204,0.03);
+    border: 1px solid rgba(0,255,204,0.1);
+    border-radius: 10px;
+    padding: 18px 16px;
+    transition: border-color 0.2s;
+  }
+  .pay-card:hover {
+    border-color: rgba(0,255,204,0.4);
+  }
+  .pay-name {
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: #00ffcc;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .pay-req {
+    font-size: 0.75rem;
+    color: rgba(0,255,204,0.5);
+    margin-bottom: 4px;
+  }
+  .pay-speed {
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: rgba(0,255,204,0.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .pay-speed.instant { color: #00ffcc; }
+
+  /* ── ANTI-POVERTY STATEMENT ── */
+  .poverty-card {
+    background: rgba(0,255,204,0.04);
+    border: 2px solid rgba(0,255,204,0.4);
+    border-radius: 16px;
+    padding: 40px 32px;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .poverty-text {
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    line-height: 1.9;
+    color: rgba(0,255,204,0.85);
+  }
+  .poverty-text .old-loop {
+    display: inline-block;
+    background: rgba(255,50,50,0.08);
+    border: 1px solid rgba(255,100,100,0.2);
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin: 14px 0;
+    color: rgba(255,180,180,0.7);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+  .poverty-text .new-loop {
+    display: inline-block;
+    background: rgba(0,255,204,0.06);
+    border: 1px solid rgba(0,255,204,0.3);
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin: 14px 0;
+    color: #00ffcc;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+  .poverty-bold {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 900;
+    color: #00ffcc;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    display: block;
+  }
+
+  /* ── SIGNUP FORM ── */
+  .signup-section {
+    background: rgba(0,255,204,0.03);
+    border: 1px solid rgba(0,255,204,0.15);
+    border-radius: 16px;
+    padding: 40px 32px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .signup-title {
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #00ffcc;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .signup-sub {
+    font-size: 0.82rem;
+    color: rgba(0,255,204,0.5);
+    text-align: center;
+    margin-bottom: 28px;
+    letter-spacing: 1px;
+  }
+  .form-group {
+    margin-bottom: 18px;
+  }
+  .form-label {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(0,255,204,0.6);
+    margin-bottom: 7px;
+  }
+  .form-input, .form-select {
+    width: 100%;
+    background: rgba(0,255,204,0.05);
+    border: 1px solid rgba(0,255,204,0.2);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #00ffcc;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-input:focus, .form-select:focus {
+    border-color: rgba(0,255,204,0.6);
+    background: rgba(0,255,204,0.07);
+  }
+  .form-input::placeholder {
+    color: rgba(0,255,204,0.25);
+    font-size: 0.82rem;
+  }
+  .form-select option {
+    background: #0a0e14;
+    color: #00ffcc;
+  }
+  .form-btn {
+    width: 100%;
+    background: #00ffcc;
+    color: #0a0e14;
+    font-family: 'Courier New', monospace;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+  }
+  .form-btn:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,255,204,0.3);
+  }
+  .privacy-note {
+    font-size: 0.72rem;
+    color: rgba(0,255,204,0.35);
+    text-align: center;
+    margin-top: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(0,255,204,0.08);
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.78rem;
+    color: rgba(0,255,204,0.3);
+    letter-spacing: 1px;
+  }
+  footer a {
+    color: rgba(0,255,204,0.5);
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  footer a:hover { color: #00ffcc; }
+
+  @media (max-width: 480px) {
+    .hero { padding: 50px 16px 45px; }
+    .section { padding: 44px 16px; }
+    .poverty-card { padding: 28px 18px; }
+    .signup-section { padding: 28px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="index.html">Home</a>
+  <a href="work.html" class="active">💼 Get Paid</a>
+  <a href="jobs.html">Browse Jobs</a>
+  <a href="donate.html">Donate</a>
+  <a href="crisis_dashboard.html">Crisis Dashboard</a>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eyebrow">SolarPunk Labor Marketplace — Zero Barrier to Entry</div>
+  <h1 class="hero-title">Get Paid Today</h1>
+  <p class="hero-sub">No ID. No bank. No experience. Just show up.</p>
+  <a href="#signup" class="hero-cta">Create My Account — It's Free</a>
+</div>
+
+<!-- ── 3 STEPS ── -->
+<div class="section">
+  <div class="section-title">How It Works</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-title">Make an Account</div>
+      <div class="step-body">
+        Takes 2 minutes. Any name works — nickname, first name, or anonymous.
+        Any contact: phone, email, or nothing at all.
+        No ID. No bank. No verification.
+      </div>
+    </div>
+    <div class="step-connector">→</div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-title">Pick a Job</div>
+      <div class="step-body">
+        Browse what's available near you or work fully remote from anywhere.
+        Plant trees. Label data. Verify work. Deliver supplies.
+        $2 to $200 per task.
+      </div>
+    </div>
+    <div class="step-connector">→</div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-title">Do It + Show Proof</div>
+      <div class="step-body">
+        Take a photo or submit a completion code.
+        AI reviews it in under 5 minutes.
+        Money hits your account in under 10 minutes. Every time.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TASK CATEGORY CARDS ── -->
+<div class="section" style="padding-top: 0;">
+  <div class="section-title">What Kind of Work?</div>
+  <div class="cards-grid">
+
+    <div class="cat-card">
+      <span class="cat-emoji">🌱</span>
+      <div class="cat-name">Environmental</div>
+      <div class="cat-pay">$20 – $60</div>
+      <div class="cat-desc">Plant trees, clean waterways, remove invasive species. Real hands-on impact for your community.</div>
+      <div class="cat-time">⏱ About 1 hour</div>
+      <a href="jobs.html#environmental" class="cat-link">See Jobs →</a>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-emoji">🤝</span>
+      <div class="cat-name">Community</div>
+      <div class="cat-pay">$15 – $60</div>
+      <div class="cat-desc">Wellness checks on isolated neighbors, food bank volunteering, mutual aid delivery.</div>
+      <div class="cat-time">⏱ 20 – 120 minutes</div>
+      <a href="jobs.html#community" class="cat-link">See Jobs →</a>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-emoji">💻</span>
+      <div class="cat-name">Digital</div>
+      <div class="cat-pay">$5 – $40</div>
+      <div class="cat-desc">Data labeling, community surveys, translation. Done from any phone or computer, anywhere in the world.</div>
+      <div class="cat-time">⏱ 15 – 30 minutes, from anywhere</div>
+      <a href="jobs.html#digital" class="cat-link">See Jobs →</a>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-emoji">✅</span>
+      <div class="cat-name">Verify Work</div>
+      <div class="cat-pay">$2 – $5</div>
+      <div class="cat-desc">Review proof photos from other workers. 3 quick questions. 3 minutes per task. Do up to 20 a day.</div>
+      <div class="cat-time">⏱ 3 minutes, from anywhere</div>
+      <a href="jobs.html#verification" class="cat-link">See Jobs →</a>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-emoji">🎨</span>
+      <div class="cat-name">Creative</div>
+      <div class="cat-pay">$15 – $200</div>
+      <div class="cat-desc">Art for the Gaza Rose Gallery, photography, writing. Submit your work, keep your credit. Flexible schedule.</div>
+      <div class="cat-time">⏱ Flexible</div>
+      <a href="jobs.html#creative" class="cat-link">See Jobs →</a>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-emoji">📦</span>
+      <div class="cat-name">Delivery</div>
+      <div class="cat-pay">$20 – $100</div>
+      <div class="cat-desc">Local mutual aid transport: pick up supplies from a hub and bring them to people who need them.</div>
+      <div class="cat-time">⏱ 45 – 90 minutes</div>
+      <a href="jobs.html#delivery" class="cat-link">See Jobs →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── PAYMENT METHODS ── -->
+<div class="section" style="padding-top: 0;">
+  <div class="section-title">Get Paid Your Way — No Bank Needed</div>
+  <div class="pay-grid">
+
+    <div class="pay-card">
+      <div class="pay-name">📱 CashApp</div>
+      <div class="pay-req">Phone number only</div>
+      <div class="pay-speed instant">Instant</div>
+    </div>
+
+    <div class="pay-card">
+      <div class="pay-name">💙 Venmo</div>
+      <div class="pay-req">Phone number or email</div>
+      <div class="pay-speed instant">Instant</div>
+    </div>
+
+    <div class="pay-card">
+      <div class="pay-name">🅿️ PayPal</div>
+      <div class="pay-req">Email address only</div>
+      <div class="pay-speed instant">Instant</div>
+    </div>
+
+    <div class="pay-card">
+      <div class="pay-name">🌿 SolarPunk Credit</div>
+      <div class="pay-req">Nothing needed — auto-created</div>
+      <div class="pay-speed instant">Instant · Never Expires</div>
+    </div>
+
+    <div class="pay-card">
+      <div class="pay-name">🔵 USDC Crypto</div>
+      <div class="pay-req">Email address only</div>
+      <div class="pay-speed">Fast · Always = $1</div>
+    </div>
+
+    <div class="pay-card">
+      <div class="pay-name">🏦 Zelle</div>
+      <div class="pay-req">Phone number or email</div>
+      <div class="pay-speed instant">Instant</div>
+    </div>
+
+  </div>
+  <p style="text-align:center;font-size:0.8rem;color:rgba(0,255,204,0.4);margin-top:18px;letter-spacing:1px;">
+    SolarPunk covers all platform fees from our 1% infrastructure budget.<br>
+    You always receive the full stated amount. No deductions. Ever.
+  </p>
+</div>
+
+<!-- ── ANTI-POVERTY STATEMENT ── -->
+<div class="section" style="padding-top: 0;">
+  <div class="poverty-card">
+    <div class="poverty-text">
+      "We built this because people shouldn't have to sell their blood to eat."
+      <br><br>
+      <span style="font-size:0.85rem;color:rgba(0,255,204,0.5);letter-spacing:2px;text-transform:uppercase;">The Old Loop:</span><br>
+      <span class="old-loop">sell blood → $50 → buy food → need money → sell blood → repeat</span>
+      <br>
+      <span style="font-size:0.85rem;color:rgba(0,255,204,0.7);letter-spacing:2px;text-transform:uppercase;">The SolarPunk Loop:</span><br>
+      <span class="new-loop">pick a task → do it → show proof → get paid in under 10 minutes</span>
+      <br>
+      <span class="poverty-bold">Anyone. Any income. Any situation. Start now.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── SIGN UP ── -->
+<div class="section" id="signup" style="padding-top: 0;">
+  <div class="signup-section">
+    <div class="signup-title">Create My Account</div>
+    <div class="signup-sub">Nothing is required. Fill in what you have. That's enough.</div>
+
+    <form id="workerForm" onsubmit="submitForm(event)">
+      <div class="form-group">
+        <label class="form-label" for="worker-name">What should we call you?</label>
+        <input class="form-input" type="text" id="worker-name" name="name"
+          placeholder="Any name works — nickname, first name, anonymous">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="worker-contact">How can we contact you?</label>
+        <input class="form-input" type="text" id="worker-contact" name="contact"
+          placeholder="Email, phone, CashApp tag — whatever you have">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="worker-location">Where are you? (optional)</label>
+        <input class="form-input" type="text" id="worker-location" name="location"
+          placeholder="City, zip code, or skip">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="worker-payment">How do you want to get paid?</label>
+        <select class="form-select" id="worker-payment" name="payment">
+          <option value="">— Choose (anything works) —</option>
+          <option value="cashapp">CashApp</option>
+          <option value="venmo">Venmo</option>
+          <option value="paypal">PayPal</option>
+          <option value="solarpunk_credit">SolarPunk Credit (no setup needed)</option>
+          <option value="usdc">USDC Crypto</option>
+          <option value="zelle">Zelle</option>
+          <option value="other">Other — we'll figure it out</option>
+        </select>
+      </div>
+
+      <button type="submit" class="form-btn">Create My Account — It's Free</button>
+    </form>
+
+    <p class="privacy-note">
+      We don't verify, judge, or sell your info. Any name is fine. Any contact is fine.<br>
+      You can change or delete everything anytime. Built for you, not surveillance.
+    </p>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div style="margin-bottom:14px;">
+    <a href="jobs.html">Browse Jobs</a>
+    <a href="donate.html">Donate</a>
+    <a href="crisis_dashboard.html">Crisis Dashboard</a>
+    <a href="index.html">Home</a>
+  </div>
+  SolarPunk Nerve Center — "The blood-selling loop ends here." — MIT License — All code public
+</footer>
+
+<script>
+function submitForm(e) {
+  e.preventDefault();
+  const name     = document.getElementById('worker-name').value || 'Anonymous';
+  const contact  = document.getElementById('worker-contact').value || 'not provided';
+  const location = document.getElementById('worker-location').value || 'not provided';
+  const payment  = document.getElementById('worker-payment').value || 'solarpunk_credit';
+
+  const body = encodeURIComponent(
+    `**New Worker Account Request**\n\n` +
+    `- **Name:** ${name}\n` +
+    `- **Contact:** ${contact}\n` +
+    `- **Location:** ${location}\n` +
+    `- **Payment Method:** ${payment}\n\n` +
+    `*Submitted via work.html — process via WORKER_ONBOARDING.py*`
+  );
+
+  const url = `https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=${encodeURIComponent('New Worker Account: ' + name)}&body=${body}&labels=worker-onboarding`;
+  window.open(url, '_blank');
+}
+</script>
+
+</body>
+</html>

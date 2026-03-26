@@ -1,0 +1,276 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-03-20T22:24:35.544550+00:00",
+  "pcrf_routing_note": "PCRF (Palestine Children's Relief Fund, EIN: 11-3320278) does NOT accept crypto directly. All cryptocurrency is held in the SolarPunk treasury and converted to USD monthly. The converted USD is then donated via pcrf.net/donate. Every conversion is documented here with: date, crypto amount, exchange rate, USD received, transaction ID.",
+  "split": {
+    "humanitarian_pct": 99,
+    "infra_pct": 1,
+    "humanitarian_recipient": "PCRF",
+    "pcrf_donate_url": "https://www.pcrf.net/donate",
+    "pcrf_ein": "11-3320278"
+  },
+  "wallets": {
+    "BTC": {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "network": "Bitcoin Mainnet",
+      "icon": "₿",
+      "color": "#f7931a",
+      "description": "The original. Accepted via Coinbase Commerce and BTCPay Server.",
+      "free_infra": [
+        "Coinbase Commerce (free tier)",
+        "BTCPay Server (self-hosted, free)"
+      ],
+      "configured": false,
+      "address": "Configure BITCOIN_ADDRESS secret in GitHub repo settings",
+      "raw_address": null,
+      "qr_url": "",
+      "balance": {
+        "balance": 0.0,
+        "error": "address not configured"
+      },
+      "routing": null,
+      "env_var": "BITCOIN_ADDRESS"
+    },
+    "LN": {
+      "symbol": "LN",
+      "name": "Bitcoin Lightning",
+      "network": "Lightning Network",
+      "icon": "⚡",
+      "color": "#f9c62b",
+      "description": "Instant micropayments via Strike.me or LNURL.",
+      "free_infra": [
+        "Strike.me",
+        "Phoenix Wallet"
+      ],
+      "configured": false,
+      "address": "Configure LIGHTNING_ADDRESS secret in GitHub repo settings",
+      "raw_address": null,
+      "qr_url": "",
+      "balance": {
+        "balance": 0.0,
+        "error": "address not configured"
+      },
+      "routing": null,
+      "env_var": "LIGHTNING_ADDRESS"
+    },
+    "ETH": {
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "network": "Ethereum Mainnet",
+      "icon": "Ξ",
+      "color": "#627eea",
+      "description": "ETH and all ERC-20 tokens. Accepted via Coinbase Commerce.",
+      "free_infra": [
+        "Coinbase Commerce (free tier)",
+        "NOWPayments (free tier, 50 tx/mo)"
+      ],
+      "configured": false,
+      "address": "Configure ETHEREUM_ADDRESS secret in GitHub repo settings",
+      "raw_address": null,
+      "qr_url": "",
+      "balance": {
+        "balance": 0.0,
+        "error": "address not configured"
+      },
+      "routing": null,
+      "env_var": "ETHEREUM_ADDRESS"
+    },
+    "SOL": {
+      "symbol": "SOL",
+      "name": "Solana",
+      "network": "Solana Mainnet",
+      "icon": "◎",
+      "color": "#9945ff",
+      "description": "Fast and low-fee. Accepted via NOWPayments.",
+      "free_infra": [
+        "NOWPayments (free tier)",
+        "Solana public RPC"
+      ],
+      "configured": false,
+      "address": "Configure SOLARPUNK_WALLET_ADDRESS secret in GitHub repo settings",
+      "raw_address": null,
+      "qr_url": "",
+      "balance": {
+        "balance": 0.0,
+        "error": "address not configured"
+      },
+      "routing": null,
+      "env_var": "SOLARPUNK_WALLET_ADDRESS"
+    },
+    "USDC": {
+      "symbol": "USDC",
+      "name": "USD Coin",
+      "network": "Ethereum / Solana / Base / Polygon",
+      "icon": "$",
+      "color": "#2775ca",
+      "description": "Stablecoin on multiple chains. Accepted via Coinbase Commerce.",
+      "free_infra": [
+        "Coinbase Commerce (free tier)",
+        "NOWPayments"
+      ],
+      "configured": false,
+      "address": "Configure USDC_ADDRESS secret in GitHub repo settings",
+      "raw_address": null,
+      "qr_url": "",
+      "balance": {
+        "balance": 0.0,
+        "error": "address not configured"
+      },
+      "routing": null,
+      "env_var": "USDC_ADDRESS"
+    },
+    "USDT": {
+      "symbol": "USDT",
+      "name": "Tether",
+      "network": "Ethereum / Tron / Solana",
+      "icon": "₮",
+      "color": "#26a17b",
+      "description": "Largest stablecoin by market cap. Accepted via NOWPayments.",
+      "free_infra": [
+        "NOWPayments (free tier, 50 tx/mo)"
+      ],
+      "configured": false,
+      "address": "Configure USDT_ADDRESS secret in GitHub repo settings",
+      "raw_address": null,
+      "qr_url": "",
+      "balance": {
+        "balance": 0.0,
+        "error": "address not configured"
+      },
+      "routing": null,
+      "env_var": "USDT_ADDRESS"
+    },
+    "XMR": {
+      "symbol": "XMR",
+      "name": "Monero",
+      "network": "Monero Mainnet",
+      "icon": "ɱ",
+      "color": "#ff6600",
+      "description": "Privacy coin. Accepted via NOWPayments auto-convert.",
+      "free_infra": [
+        "NOWPayments (free tier)"
+      ],
+      "configured": false,
+      "address": "Configure MONERO_ADDRESS secret in GitHub repo settings",
+      "raw_address": null,
+      "qr_url": "",
+      "balance": {
+        "balance": 0.0,
+        "error": "address not configured"
+      },
+      "routing": null,
+      "env_var": "MONERO_ADDRESS"
+    },
+    "XTZ": {
+      "symbol": "XTZ",
+      "name": "Tezos",
+      "network": "Tezos Mainnet",
+      "icon": "ꜩ",
+      "color": "#2c7df7",
+      "description": "NFT-friendly chain — used for Gaza Rose Gallery NFTs.",
+      "free_infra": [
+        "objkt.com",
+        "NOWPayments"
+      ],
+      "configured": false,
+      "address": "Configure TEZOS_ADDRESS secret in GitHub repo settings",
+      "raw_address": null,
+      "qr_url": "",
+      "balance": {
+        "balance": 0.0,
+        "error": "address not configured"
+      },
+      "routing": null,
+      "env_var": "TEZOS_ADDRESS"
+    },
+    "DOGE": {
+      "symbol": "DOGE",
+      "name": "Dogecoin",
+      "network": "Dogecoin Mainnet",
+      "icon": "Ð",
+      "color": "#c2a633",
+      "description": "Community coin. Much humanitarian. Very impact.",
+      "free_infra": [
+        "NOWPayments (free tier)"
+      ],
+      "configured": false,
+      "address": "Configure DOGECOIN_ADDRESS secret in GitHub repo settings",
+      "raw_address": null,
+      "qr_url": "",
+      "balance": {
+        "balance": 0.0,
+        "error": "address not configured"
+      },
+      "routing": null,
+      "env_var": "DOGECOIN_ADDRESS"
+    }
+  },
+  "services": [
+    {
+      "name": "Coinbase Commerce",
+      "url": "https://commerce.coinbase.com",
+      "tier": "free",
+      "coins": [
+        "BTC",
+        "ETH",
+        "USDC",
+        "DAI",
+        "LTC"
+      ],
+      "setup": "Create account → Add product → Embed checkout widget in HTML",
+      "api_key_required": true,
+      "api_key_env": "COINBASE_COMMERCE_KEY",
+      "tx_limit": "unlimited",
+      "fees": "1% per transaction"
+    },
+    {
+      "name": "NOWPayments",
+      "url": "https://nowpayments.io",
+      "tier": "free (50 tx/month on free plan)",
+      "coins": [
+        "100+ cryptocurrencies"
+      ],
+      "setup": "Create account → Generate API key → Use REST API or hosted page",
+      "api_key_required": true,
+      "api_key_env": "NOWPAYMENTS_API_KEY",
+      "tx_limit": "50/month free, then paid",
+      "fees": "0.5% per transaction"
+    },
+    {
+      "name": "BTCPay Server",
+      "url": "https://btcpayserver.org",
+      "tier": "free (self-hosted)",
+      "coins": [
+        "BTC",
+        "Lightning Network"
+      ],
+      "setup": "Self-host on any VPS ($5/mo) or use free instance at btcpay.techsailor.com",
+      "api_key_required": false,
+      "api_key_env": null,
+      "tx_limit": "unlimited",
+      "fees": "0% (self-hosted)"
+    },
+    {
+      "name": "Strike.me",
+      "url": "https://strike.me",
+      "tier": "free",
+      "coins": [
+        "Bitcoin Lightning Network"
+      ],
+      "setup": "Create account → Get Lightning address (name@strike.me) → Share anywhere",
+      "api_key_required": false,
+      "api_key_env": null,
+      "tx_limit": "unlimited",
+      "fees": "0% to 1%"
+    }
+  ],
+  "summary": {
+    "total_coins_supported": 9,
+    "configured_wallets": 0,
+    "unconfigured_wallets": 9,
+    "setup_instructions": "Add wallet address secrets to GitHub repo: BITCOIN_ADDRESS, ETHEREUM_ADDRESS, SOLARPUNK_WALLET_ADDRESS, MONERO_ADDRESS, DOGECOIN_ADDRESS, TEZOS_ADDRESS, USDC_ADDRESS, USDT_ADDRESS, LIGHTNING_ADDRESS"
+  },
+  "conversion_log": [],
+  "conversion_log_note": "Entries added manually or by DONATION_ROUTER.py after each monthly conversion"
+}

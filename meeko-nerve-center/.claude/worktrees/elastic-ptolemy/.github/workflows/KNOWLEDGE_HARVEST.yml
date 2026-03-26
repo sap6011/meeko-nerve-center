@@ -1,0 +1,77 @@
+name: 🧠 KNOWLEDGE_HARVEST — Daily full knowledge + web intelligence synthesis
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: "Phase 0 — Cycle context"
+        continue-on-error: true
+        run: python mycelium/CYCLE_OPENER.py
+      - name: "Phase 1 — Web Intelligence (scrape HN/Reddit/GitHub)"
+        continue-on-error: true
+        run: python mycelium/WEB_INTELLIGENCE.py
+      - name: "Phase 2 — Knowledge Miner (857 processed files)"
+        continue-on-error: true
+        run: python mycelium/KNOWLEDGE_MINER.py
+      - name: "Phase 3 — Scripts Activator (40 orphaned scripts)"
+        continue-on-error: true
+        run: python mycelium/SCRIPTS_ACTIVATOR.py
+      - name: "Phase 4 — Archive Brain (saves/ + docs/ intelligence)"
+        continue-on-error: true
+        run: python mycelium/ARCHIVE_BRAIN.py
+      - name: "Phase 5 — Orphan Connector (gap analysis)"
+        continue-on-error: true
+        run: python mycelium/ORPHAN_CONNECTOR.py
+      - name: "Phase 6 — Knowledge Synthesizer (unify everything)"
+        continue-on-error: true
+        run: python mycelium/KNOWLEDGE_SYNTHESIZER.py
+      - name: "Phase 7 — Repo Librarian (index repo)"
+        continue-on-error: true
+        run: python mycelium/REPO_LIBRARIAN.py
+      - name: "Phase 8 — Multi Repo Sync (cross-repo intelligence)"
+        continue-on-error: true
+        run: python mycelium/MULTI_REPO_SYNC.py
+      - name: "Phase 9 — Capability Broker (what can actually run)"
+        continue-on-error: true
+        run: python mycelium/CAPABILITY_BROKER.py
+      - name: "Phase 10 — Product Registry (surface all products)"
+        continue-on-error: true
+        run: python mycelium/PRODUCT_REGISTRY.py
+      - name: "Phase 11 — NEURON_A (builder analysis)"
+        continue-on-error: true
+        run: python mycelium/NEURON_A.py
+      - name: "Phase 12 — NEURON_B (skeptic analysis)"
+        continue-on-error: true
+        run: python mycelium/NEURON_B.py
+      - name: "Phase 13 — SYNAPSE (synthesize insights)"
+        continue-on-error: true
+        run: python mycelium/SYNAPSE.py
+      - name: "Phase 98 — Loop Conductor"
+        continue-on-error: true
+        run: python mycelium/LOOP_CONDUCTOR.py
+      - name: "Phase 99 — Sanitizer"
+        continue-on-error: true
+        run: python mycelium/ENGINE_SANITIZER.py
+      - name: Commit knowledge harvest
+        run: |
+          git config user.email "solarpunk@gazarosegallery.art"
+          git config user.name "SolarPunk Knowledge AI"
+          git add data/ mycelium/ -f
+          git diff --staged --quiet || git -c commit.gpgsign=false commit -m "🧠 knowledge_harvest: $(date -u +%Y-%m-%dT%H:%M)Z"
+          git push origin HEAD:main --force-with-lease 2>/dev/null || git push origin HEAD:main

@@ -1,0 +1,97 @@
+{
+  "_note": "Seed file. CONTEXT_PACKAGER.py regenerates this every hour with real state data.",
+  "_generated_by": "static seed",
+  "generated_at": "2026-03-20T00:00:00+00:00",
+
+  "minimal": {
+    "who": "SolarPunk — autonomous humanitarian AI, 295 engines on GitHub Actions",
+    "mission": "99% of all revenue → Gaza/Sudan/DRC/Yemen/Climate",
+    "orgs": "PCRF 60%, IRC 15%, MSF 10%, UNICEF 10%, Direct Relief 5%",
+    "law": "99% crisis / 1% infra / 0% salary. Hardcoded. Non-negotiable.",
+    "license": "MIT",
+    "repo": "https://github.com/meekotharaccoon-cell/meeko-nerve-center",
+    "post_task": "https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new",
+    "tools_spec": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/openai-tools.json"
+  },
+
+  "standard": {
+    "who": "SolarPunk — autonomous humanitarian AI, 295 engines on GitHub Actions",
+    "mission": "99% of all revenue → Gaza/Sudan/DRC/Yemen/Climate",
+    "orgs": "PCRF 60%, IRC 15%, MSF 10%, UNICEF 10%, Direct Relief 5%",
+    "law": "99% crisis / 1% infra / 0% salary. Hardcoded. Non-negotiable.",
+    "license": "MIT",
+    "repo": "https://github.com/meekotharaccoon-cell/meeko-nerve-center",
+    "post_task": "https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new",
+    "tools_spec": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/openai-tools.json",
+    "state": {
+      "first_dollar_received": false,
+      "total_routed_usd": 0.0,
+      "crisis_routed_usd": 0.0,
+      "pools": {"crisis": 0.0, "labor": 0.0, "infrastructure": 0.0, "growth": 0.0},
+      "workers_registered": 0,
+      "overflow_events": 0,
+      "health_pct": 0,
+      "cycles_run": 0
+    },
+    "how_to_interact": {
+      "github_issue": "Post [TASK], [GRANT], [ENGINE], or [CONTENT] issue to the repo",
+      "repository_dispatch": "POST to /dispatches with event_type=ai_task|donation_received|swarm_build_request",
+      "no_auth_needed": "GitHub Issues require no auth. Just post.",
+      "latency": "up to 60 minutes (next GRAND_UNIFIED_LOOP cycle)"
+    },
+    "capabilities": [
+      "Post tasks to human workers (dignity-wages)",
+      "Route crisis funds (proof-of-impact SHA256 attestations)",
+      "Write + publish content (DEV.to, Mastodon, GitHub Pages)",
+      "Apply for grants (Gitcoin, Octant, Awesome Foundation, SAM.gov)",
+      "Build new engines from agent proposals (validated, auto-deployed)",
+      "3D print Gaza medical supplies (OctoEverywhere queue)"
+    ],
+    "actions_needed": [
+      "Add GUMROAD_ACCESS_TOKEN to GitHub Secrets to publish 5 live products",
+      "Apply for Open Collective fiscal sponsorship (30 min, opencollective.com)",
+      "Submit Awesome Foundation $1,000 grant (file ready, 30 min)"
+    ],
+    "links": {
+      "site": "https://meekotharaccoon-cell.github.io/meeko-nerve-center",
+      "llms_txt": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/llms.txt",
+      "agent_manifest": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/agent-manifest.json",
+      "openai_tools": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/openai-tools.json",
+      "mcp_server": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/mcp-server.json",
+      "mission_control": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/mission_control.html",
+      "impact_proof": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/impact.html",
+      "raw_state": "https://raw.githubusercontent.com/meekotharaccoon-cell/meeko-nerve-center/main/data/pool_state.json",
+      "live_feed": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/feed.json"
+    },
+    "fork_info": {
+      "license": "MIT — fork it, run your own node",
+      "engines": 295,
+      "workflows": 41,
+      "scheduled": 27
+    }
+  },
+
+  "full": {
+    "_note": "Full tier populated by CONTEXT_PACKAGER.py every hour",
+    "see_live": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/ai-context.json",
+    "engine_categories": {
+      "SELF": ["PROBLEM_SOLVER_PRIME", "ENGINE_SANITIZER", "HEALTH_MONITOR", "AI_ROUTER"],
+      "REVENUE": ["FIRST_DOLLAR", "POOL_MANAGER", "GUMROAD_FORCE_PUBLISH", "KOFI_ENGINE", "CIRCULATION_ENGINE"],
+      "CRISIS": ["CRISIS_ROUTER", "PROOF_OF_IMPACT", "RETROACTIVE_PROOF"],
+      "LABOR": ["LABOR_MARKETPLACE", "DIGNITY_PAY", "TASK_VERIFIER", "WORKER_ONBOARDING", "WORKER_OUTREACH"],
+      "GRANTS": ["GRANT_HUNTER", "GRANT_AI_WRITER", "GRANT_AUTO_SUBMITTER", "AWESOME_FOUNDATION_APPLY", "SAMGOV_HARVESTER"],
+      "SWARM": ["SWARM_ORACLE", "SWARM_AMPLIFIER", "DISTRIBUTED_FORGE", "SWARM_QUERY", "AGENT_NEXUS"],
+      "KNOWLEDGE": ["KNOWLEDGE_SYNTHESIZER", "KNOWLEDGE_WEAVER", "DEEP_RESEARCHER"],
+      "MARKET": ["PREDICTION_INTELLIGENCE", "UNUSUAL_WHALES_MCP", "FREE_INFRA_SCANNER"],
+      "PRINT": ["PRINT_RELAY_ENGINE"],
+      "PRESENCE": ["AUTO_ANNOUNCE", "FEDIVERSE_PUBLISHER", "SOCIAL_ECHO"],
+      "LEGAL": ["LEGAL_FOUNDATION"],
+      "AI_INTERFACE": ["AI_INTAKE", "CONTEXT_PACKAGER", "LLMS_TXT_GENERATOR", "AI_PROFILE_UPDATER"]
+    },
+    "code_examples": {
+      "post_task_via_issue": "https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=[TASK]+Your+task&body=Type:+content%0ABudget:+$15%0ADescription:+...",
+      "get_state_curl": "curl https://raw.githubusercontent.com/meekotharaccoon-cell/meeko-nerve-center/main/data/pool_state.json",
+      "dispatch_task_python": "import requests; requests.post('https://api.github.com/repos/meekotharaccoon-cell/meeko-nerve-center/dispatches', headers={'Authorization': f'token {token}'}, json={'event_type': 'ai_task', 'client_payload': {'task': 'your task', 'requester': 'your-agent'}})"
+    }
+  }
+}

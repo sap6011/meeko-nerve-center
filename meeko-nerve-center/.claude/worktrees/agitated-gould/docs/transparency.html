@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Transparency — SolarPunk</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#0a0a0a;color:#e5e5e5;padding:20px}
+.container{max-width:900px;margin:0 auto}
+h1{font-size:1.8rem;margin-bottom:0.3rem}
+.subtitle{color:#888;margin-bottom:2rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+.stat{background:#111;border:1px solid #222;border-radius:8px;padding:1.5rem}
+.stat-value{font-size:2rem;font-weight:700;color:#22c55e}
+.stat-label{font-size:0.8rem;color:#888;text-transform:uppercase;letter-spacing:0.05em;margin-top:0.3rem}
+.card{background:#111;border:1px solid #222;border-radius:8px;margin-bottom:1.5rem;overflow:hidden}
+.card-header{padding:1rem 1.5rem;background:#1a1a1a;font-weight:600;font-size:0.9rem;color:#aaa}
+table{width:100%;border-collapse:collapse}
+td,th{padding:0.75rem 1.5rem;text-align:left;border-bottom:1px solid #1a1a1a;font-size:0.9rem}
+th{color:#888;font-weight:500;text-transform:uppercase;font-size:0.75rem;letter-spacing:0.05em}
+tr:last-child td{border-bottom:none}
+.pledge{background:#111522;border:1px solid #1e40af;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;color:#93c5fd}
+.pledge strong{color:#60a5fa}
+footer{margin-top:2rem;color:#555;font-size:0.8rem;text-align:center}
+a{color:#22c55e;text-decoration:none}
+.zero-note{color:#888;font-size:0.85rem;margin-top:0.5rem}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Financial Transparency</h1>
+<p class="subtitle">Every dollar that enters SolarPunk is tracked here. Publicly. Forever.</p>
+
+<div class="pledge">
+  <strong>The 99% Pledge</strong><br>
+  SolarPunk commits by design: 99% of all revenue routes to verified humanitarian organizations.
+  This is hardcoded in the system. Zero salaries. Zero hidden fees.
+  <br><br>
+  Verification: <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/blob/main/data/pool_state.json">data/pool_state.json</a>
+  &bull; <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/blob/main/data/proof_ledger.json">data/proof_ledger.json</a>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value">$0.00</div>
+    <div class="stat-label">Total Revenue Ever</div>
+    <p class="zero-note">System launched March 2026. Revenue pending Gumroad token setup.</p>
+  </div>
+  <div class="stat">
+    <div class="stat-value">$0.00</div>
+    <div class="stat-label">To Crisis Orgs</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">$0.00</div>
+    <div class="stat-label">To Workers</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">99%</div>
+    <div class="stat-label">Humanitarian %</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">Crisis Organization Allocations</div>
+  <table>
+    <thead><tr><th>Organization</th><th>Amount Allocated</th></tr></thead>
+    <tbody><tr><td colspan='2' style='color:#888;text-align:center'>No transfers yet — awaiting first revenue</td></tr></tbody>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-header">Pool Balances (Live)</div>
+  <table>
+    <thead><tr><th>Pool</th><th>Current Balance</th></tr></thead>
+    <tbody><tr><td>crisis</td><td>$0.00</td></tr>
+<tr><td>labor</td><td>$0.00</td></tr>
+<tr><td>infrastructure</td><td>$0.00</td></tr>
+<tr><td>growth</td><td>$0.00</td></tr>
+</tbody>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-header">Worker Payments — 1099 Compliance</div>
+  <table>
+    <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Total workers</td><td>0</td></tr>
+      <tr><td>Total paid YTD (2026)</td><td>$0.00</td></tr>
+      <tr><td>Workers needing 1099</td><td>0</td></tr>
+      <tr><td>Workers approaching $600 threshold</td><td>0</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-header">Revenue Sources</div>
+  <table>
+    <thead><tr><th>Source</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td colspan='2' style='color:#888;text-align:center'>No revenue yet — Gumroad products being set up</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  <p>
+    Last updated: 2026-03-20 05:38 UTC &bull;
+    <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">GitHub (all data public)</a> &bull;
+    <a href="status.html">System Status</a> &bull;
+    <a href="legal/privacy_policy.html">Privacy Policy</a>
+  </p>
+  <p style="margin-top:0.5rem">Every dollar is accounted for, on GitHub, forever.</p>
+</footer>
+</div>
+</body>
+</html>

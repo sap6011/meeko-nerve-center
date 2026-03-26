@@ -1,0 +1,202 @@
+{
+  "generated_at": "2026-03-21T12:38:21.723727+00:00",
+  "mission": {
+    "goal": "Autonomous humanitarian art + knowledge system",
+    "charity": "Palestine Children's Relief Fund (PCRF)",
+    "charity_ein": "93-1057665",
+    "revenue_split": "70% PCRF / 30% Meeko"
+  },
+  "system_state": {
+    "health_score": 56,
+    "total_engines": 115,
+    "total_loops": 7,
+    "revenue_usd": 0.0,
+    "last_cycle": {
+      "number": 51,
+      "summary": "8 engines ran successfully, 81 produced no output. Revenue: $0.00. Top action: [UNLOCK] gumroad.com \u2192 Settings \u2192 Advanced \u2192 Access Token \u2192 add as GUMROAD_ACCESS_TOKEN",
+      "succeeded": 8,
+      "failed": 81
+    }
+  },
+  "capabilities": {
+    "active": [
+      "anthropic_api",
+      "gmail",
+      "twitter",
+      "github_pages",
+      "github_releases",
+      "email_outreach"
+    ],
+    "blocked": [
+      "gumroad",
+      "reddit"
+    ],
+    "degraded": [
+      "huggingface"
+    ]
+  },
+  "lessons": [
+    {
+      "text": "GUMROAD_ENGINE has products queued but can't authenticate to Gumroad API.",
+      "priority": "high",
+      "added": "2026-03-21T10:50:46.703472+00:00"
+    },
+    {
+      "text": "Every email send fails: '534 Application-specific password required'. outreach_sent=0, exchange deaf.",
+      "priority": "high",
+      "added": "2026-03-21T10:50:46.703478+00:00"
+    },
+    {
+      "text": "Broken: LEGACY_SIFTED_engine_simple.py, LEGACY_SIFTED_humanitarian_revenue_engine.py",
+      "priority": "high",
+      "added": "2026-03-21T10:50:46.703481+00:00"
+    },
+    {
+      "text": "GUMROAD_ENGINE has products queued but can't authenticate to Gumroad API.",
+      "priority": "high",
+      "added": "2026-03-21T10:37:30.144356+00:00"
+    },
+    {
+      "text": "Every email send fails: '534 Application-specific password required'. outreach_sent=0, exchange deaf.",
+      "priority": "high",
+      "added": "2026-03-21T10:37:30.144364+00:00"
+    },
+    {
+      "text": "Broken: LEGACY_SIFTED_engine_simple.py, LEGACY_SIFTED_humanitarian_revenue_engine.py",
+      "priority": "high",
+      "added": "2026-03-21T10:37:30.144366+00:00"
+    },
+    {
+      "text": "GUMROAD_ENGINE has products queued but can't authenticate to Gumroad API.",
+      "priority": "high",
+      "added": "2026-03-21T09:27:02.818927+00:00"
+    },
+    {
+      "text": "Every email send fails: '534 Application-specific password required'. outreach_sent=0, exchange deaf.",
+      "priority": "high",
+      "added": "2026-03-21T09:27:02.818934+00:00"
+    },
+    {
+      "text": "SOCIAL_PROMOTER has posts ready every cycle. No X_API_KEY = none post.",
+      "priority": "high",
+      "added": "2026-03-21T09:27:02.818936+00:00"
+    },
+    {
+      "text": "GUMROAD_ENGINE has products queued but can't authenticate to Gumroad API.",
+      "priority": "high",
+      "added": "2026-03-21T08:55:33.718337+00:00"
+    }
+  ],
+  "bottlenecks": [
+    {
+      "id": "BN-001",
+      "severity": "CRITICAL",
+      "title": "GUMROAD_SECRET missing -- 10 products can't publish",
+      "description": "GUMROAD_ENGINE has products queued but can't authenticate to Gumroad API.",
+      "fix": "gumroad.com -> avatar -> Settings -> Advanced -> Generate Token -> GitHub Secret: GUMROAD_SECRET",
+      "revenue_impact": "$10/sale blocked",
+      "status": "PENDING"
+    },
+    {
+      "id": "BN-002",
+      "severity": "HIGH",
+      "title": "Gmail 534 error -- App Password wrong or expired",
+      "description": "Every email send fails: '534 Application-specific password required'. outreach_sent=0, exchange deaf.",
+      "fix": "Google Account -> Security -> 2-Step Verification -> App Passwords -> Generate for Mail -> update GMAIL_APP_PASSWORD secret",
+      "revenue_impact": "Zero email outreach, exchange tasks undeliverable, digests silent",
+      "status": "BROKEN"
+    },
+    {
+      "id": "BN-003",
+      "severity": "LOW",
+      "title": "2 engines have syntax errors",
+      "description": "Broken: LEGACY_SIFTED_engine_simple.py, LEGACY_SIFTED_humanitarian_revenue_engine.py",
+      "fix": "Fix syntax errors; set ANTHROPIC_API_KEY to enable AI auto-patching via AUTO_HEALER",
+      "revenue_impact": "Minor -- those engines skipped",
+      "status": "KNOWN"
+    }
+  ],
+  "builder_thesis": "Ko-fi + GitHub Sponsors = first dollars at zero spend",
+  "skeptic_thesis": "",
+  "priority_build": "AFFILIATE_TRACKER.py - passive income while you sleep",
+  "opportunities": [
+    {
+      "name": "Gaza Rose Gallery Etsy SEO",
+      "type": "revenue",
+      "effort": "low",
+      "impact": "high",
+      "action": "Generate 10 AI-optimized product descriptions with SEO keywords",
+      "estimated_value": "$50-200/month"
+    },
+    {
+      "name": "GitHub Sponsors",
+      "type": "revenue",
+      "effort": "low",
+      "impact": "medium",
+      "action": "Enable at github.com/sponsors/meekotharaccoon-cell",
+      "estimated_value": "$20-100/month"
+    },
+    {
+      "name": "SolarPunk Newsletter on Substack",
+      "type": "growth",
+      "effort": "low",
+      "impact": "high",
+      "action": "Write first issue: I built a self-running AI agent for free",
+      "estimated_value": "audience + future paid"
+    }
+  ],
+  "contacts": {},
+  "grants": {},
+  "revenue_streams": {},
+  "harvest_patterns": [
+    {
+      "source": "zookeeper.py",
+      "pattern": "Zookeeper transport module for kombu.\n\nZookeeper based transport. This transport uses the built-in kazoo Zookeeper\nbased queue implementation.\n\n**References**\n\n- https://zookeeper.apache.org/doc/curre"
+    },
+    {
+      "source": "zetazeros.py",
+      "pattern": "The function zetazero(n) computes the n-th nontrivial zero of zeta(s).\n\nThe general strategy is to locate a block of Gram intervals B where we\nknow exactly the number of zeros contained and which of t"
+    },
+    {
+      "source": "zig.py",
+      "pattern": "pygments.lexers.zig\n    ~~~~~~~~~~~~~~~~~~~\n\n    Lexers for Zig.\n\n    :copyright: Copyright 2006-2025 by the Pygments team, see AUTHORS.\n    :license: BSD, see LICENSE for details."
+    },
+    {
+      "source": "zipp.py",
+      "pattern": "Given a path with elements separated by\n    posixpath.sep, generate all parents of that path.\n\n    >>> list(_parents('b/d'))\n    ['b']\n    >>> list(_parents('/b/d/'))\n    ['/b']\n    >>> list(_parents("
+    },
+    {
+      "source": "zero.py",
+      "pattern": "\"Zero\" preset, with nothing enabled. Useful for manual configuring of simple\nmodes. For example, to parse bold/italic only."
+    },
+    {
+      "source": "zero_shot_object_detection.py",
+      "pattern": "Additional inference parameters for Zero Shot Object Detection"
+    },
+    {
+      "source": "zenburn.py",
+      "pattern": "pygments.styles.zenburn\n    ~~~~~~~~~~~~~~~~~~~~~~~\n\n    Low contrast color scheme Zenburn.\n\n    See: https://kippura.org/zenburnpage/\n         https://github.com/jnurmine/Zenburn\n\n    :copyright: Cop"
+    },
+    {
+      "source": "zetac.py",
+      "pattern": "Compute the Taylor series for zeta(x) - 1 around x = 0."
+    },
+    {
+      "source": "zero_shot_image_classification.py",
+      "pattern": "Additional inference parameters for Zero Shot Image Classification"
+    },
+    {
+      "source": "zeta.py",
+      "pattern": "Returns [xd0,xd1,...,xdr], [yd0,yd1,...ydr] where\n\n    xdk = D^k     ( 1/a^s     +  1/(a+1)^s      +  ...  +  1/(a+n)^s     )\n    ydk = D^k conj( 1/a^(1-s) +  1/(a+1)^(1-s)  +  ...  +  1/(a+n)^(1-s) )"
+    }
+  ],
+  "analytics": {
+    "total_posts": 0,
+    "top_performing": [],
+    "growth_rate": 0
+  },
+  "graph_summary": {
+    "nodes": 29,
+    "edges": 33
+  }
+}

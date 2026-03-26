@@ -1,0 +1,60 @@
+{
+  "run_id": "23094569687",
+  "health_score": 71,
+  "stats": {
+    "engines_total": 115,
+    "data_files": 152,
+    "revenue": 0.0,
+    "cycles": 0,
+    "synth_built": 0,
+    "prev_score": 66,
+    "next_upgrade": 20,
+    "next_upgrade_name": "Claude Pro"
+  },
+  "synthesis": {
+    "health_score": 40,
+    "synthesis": "400 Client Error: Bad Request for url: https://api.anthropic.com/v1/messages",
+    "top_actions": []
+  },
+  "generated_at": "2026-03-14T19:18:38.372379+00:00",
+  "total_loops_completed": 6,
+  "last_loop": "2026-03-18T13:25:12.727536",
+  "health_status": "GROWING",
+  "health_checked_at": "2026-03-20T19:40:14.432341+00:00",
+  "blockers": [
+    "\ud83d\udd34 CRITICAL: API error: 400 \u2014 All AI features disabled",
+    "\u26a0\ufe0f Revenue: 1 secret(s) missing \u2192 -10 pts potential",
+    "\u26a0\ufe0f Social: 2 secret(s) missing \u2192 -5 pts potential",
+    "\ud83d\udcb0 No revenue yet \u2014 shop needs human promotion",
+    "\u26a0\ufe0f Social velocity low: 10/100 \u2014 post more consistently"
+  ],
+  "next_fixes": [
+    "Go to anthropic.com/console \u2192 API Keys \u2192 Create new key \u2192 Add as os.environ.get(_ak, ) to GitHub Secrets",
+    "Add GUMROAD_ACCESS_TOKEN: gumroad.com \u2192 Settings \u2192 Advanced \u2192 Access Token",
+    "Add X_ACCESS_TOKEN: developer.twitter.com \u2192 App \u2192 Keys & Tokens"
+  ],
+  "velocity_score": 10,
+  "abundance_score": 30,
+  "entity_score": 25,
+  "compliance_alerts": 3,
+  "milestones": [
+    {
+      "ts": "2026-03-19T07:47:12.028330+00:00",
+      "score": 66,
+      "note": "Health improved 52\u219266"
+    },
+    {
+      "ts": "2026-03-20T07:46:39.017578+00:00",
+      "score": 66,
+      "note": "Health improved 56\u219266"
+    },
+    {
+      "ts": "2026-03-20T19:40:14.432349+00:00",
+      "score": 66,
+      "note": "Health improved 56\u219266"
+    }
+  ],
+  "last_loop_completed": "2026-03-20T22:23:18.978146+00:00",
+  "last_business_built": "SolarPunk AI Tools Mega Pack \u2014 Mar 2026",
+  "last_live_url": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/ai-tools-mega-pack-mar-2026/"
+}

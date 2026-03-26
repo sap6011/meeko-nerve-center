@@ -1,0 +1,39 @@
+name: SELF_EVOLVE_CYCLE
+on:
+  schedule:
+    - cron: "0 */6 * * *" # Runs 4x per day
+  workflow_dispatch:
+
+jobs:
+  evolution:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Deps
+        run: pip install requests 2>/dev/null || true
+      - name: Configure git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Meeko-Evolution-Bot"
+      - name: Run Repair Core
+        run: python3 mycelium/REPAIR_CORE.py || echo "REPAIR_CORE error"
+        continue-on-error: true
+      - name: Run Evolution Agent
+        run: python3 mycelium/EVOLUTION_AGENT.py || echo "EVOLUTION_AGENT error"
+        continue-on-error: true
+      - name: "🧹 ENGINE_SANITIZER — clean before commit"
+        run: python3 mycelium/ENGINE_SANITIZER.py || echo "ENGINE_SANITIZER error"
+        continue-on-error: true
+      - name: Commit Changes
+        run: |
+          git add mycelium/ data/ docs/ logs/ 2>/dev/null || git add -A
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git -c commit.gpgsign=false commit -m "EVO: Autonomous system update $(date)"
+          git pull --rebase origin main 2>/dev/null || true
+          git push origin main 2>/dev/null || git push origin HEAD:main --force-with-lease

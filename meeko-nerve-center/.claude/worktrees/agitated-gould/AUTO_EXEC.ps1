@@ -1,0 +1,2 @@
+$cmds = @("Write-Host '--- SOLARPUNK SINGULARITY: CIRCULAR ECONOMY ACTIVE ---' -ForegroundColor Green", 'python mycelium/SOLAR_OVERSEER.py', 'python mycelium/EXTERNAL_HANDSHAKE.py', 'python mycelium/REVENUE_ENGINE.py', 'python mycelium/REVENUE_RECYCLER.py', 'python mycelium/SCAVENGER_WEB.py', 'python mycelium/SKILL_MANIFESTOR.py', 'python mycelium/AUTO_ARCHITECT.py', 'python mycelium/MISSION_CONTROL.py')
+foreach ($c in $cmds) { iex $c }

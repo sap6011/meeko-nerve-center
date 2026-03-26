@@ -1,0 +1,118 @@
+{
+  "pools": {
+    "crisis": {
+      "balance_usd": 0.0,
+      "total_in_usd": 0.0,
+      "total_out_usd": 0.0
+    },
+    "labor": {
+      "balance_usd": 0.0,
+      "total_in_usd": 0.0,
+      "total_out_usd": 0.0
+    },
+    "infrastructure": {
+      "balance_usd": 0.0,
+      "total_in_usd": 0.0,
+      "total_out_usd": 0.0
+    },
+    "growth": {
+      "balance_usd": 0.0,
+      "total_in_usd": 0.0,
+      "total_out_usd": 0.0
+    }
+  },
+  "total_routed_usd": 0.0,
+  "transaction_log": [],
+  "generated_at": "2026-03-20T20:26:53.285609+00:00",
+  "pool_health": {
+    "crisis": {
+      "balance_usd": 0.0,
+      "target_usd": 0,
+      "funded_pct": 100,
+      "status": "funded",
+      "shortfall_usd": 0,
+      "note": "No cap \u2014 always routing to orgs"
+    },
+    "labor": {
+      "balance_usd": 0.0,
+      "target_usd": 500,
+      "funded_pct": 0.0,
+      "status": "underfunded",
+      "shortfall_usd": 500.0,
+      "note": "Minimum $500 to start paying workers"
+    },
+    "infrastructure": {
+      "balance_usd": 0.0,
+      "target_usd": 50,
+      "funded_pct": 0.0,
+      "status": "underfunded",
+      "shortfall_usd": 50.0,
+      "note": "Monthly cap \u2014 excess \u2192 crisis pool"
+    },
+    "growth": {
+      "balance_usd": 0.0,
+      "target_usd": 200,
+      "funded_pct": 0.0,
+      "status": "underfunded",
+      "shortfall_usd": 200.0,
+      "note": "Enables new capabilities"
+    }
+  },
+  "synced_this_cycle": {
+    "payments_processed": 0
+  },
+  "routing_rules": {
+    "product_sale": {
+      "crisis": 0.94,
+      "labor": 0.03,
+      "infrastructure": 0.02,
+      "growth": 0.01
+    },
+    "gift": {
+      "crisis": 0.85,
+      "labor": 0.1,
+      "growth": 0.03,
+      "infrastructure": 0.02
+    },
+    "grant": {
+      "labor": 0.65,
+      "crisis": 0.2,
+      "growth": 0.1,
+      "infrastructure": 0.05
+    },
+    "task_poster_fee": {
+      "labor": 0.85,
+      "crisis": 0.1,
+      "infrastructure": 0.03,
+      "growth": 0.02
+    },
+    "affiliate": {
+      "crisis": 0.75,
+      "labor": 0.15,
+      "infrastructure": 0.05,
+      "growth": 0.05
+    },
+    "donation": {
+      "crisis": 0.94,
+      "labor": 0.03,
+      "infrastructure": 0.02,
+      "growth": 0.01
+    },
+    "revenue": {
+      "crisis": 0.94,
+      "labor": 0.03,
+      "infrastructure": 0.02,
+      "growth": 0.01
+    }
+  },
+  "funding_needed": {
+    "labor": 500.0,
+    "infrastructure": 50.0,
+    "growth": 200.0
+  },
+  "critical_pools": [
+    "labor",
+    "infrastructure",
+    "growth"
+  ]
+}

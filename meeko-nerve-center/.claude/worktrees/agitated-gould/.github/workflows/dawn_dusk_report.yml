@@ -1,0 +1,77 @@
+name: "Dawn and Dusk Briefing"
+
+# Meeko gets a real situation report twice a day.
+# Real numbers. Real pool balances. Real human actions needed.
+# No hardcoded zeros. No fake data. Just truth.
+
+on:
+  schedule:
+    - cron: '0 10 * * *'   # 06:00 EST (dawn)
+    - cron: '0 22 * * *'   # 18:00 EST (dusk)
+  workflow_dispatch:
+
+concurrency:
+  group: dawn-dusk-briefing
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  briefing:
+    name: "Dawn/Dusk Briefing"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      GMAIL_ADDRESS:       ${{ secrets.GMAIL_ADDRESS }}
+      GMAIL_APP_PASSWORD:  ${{ secrets.GMAIL_APP_PASSWORD }}
+      ANTHROPIC_API_KEY:   ${{ secrets.ANTHROPIC_API_KEY }}
+      GITHUB_TOKEN:        ${{ secrets.GITHUB_TOKEN }}
+      GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+      TELEGRAM_BOT_TOKEN:  ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID:    ${{ secrets.TELEGRAM_CHAT_ID }}
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install deps"
+        run: pip install requests 2>/dev/null || true
+
+      - name: "Setup"
+        run: |
+          git config user.name "SolarPunk-Briefing"
+          git config user.email "briefing@solarpunk.bot"
+          mkdir -p data docs
+
+      - name: "Dawn/Dusk Briefing (real numbers, email to Meeko)"
+        continue-on-error: true
+        run: python mycelium/DAWN_DUSK_BRIEFING.py
+
+      - name: "First Dollar Alert (check milestones)"
+        continue-on-error: true
+        run: python mycelium/FIRST_DOLLAR_ALERT.py
+
+      - name: "Commit briefing log"
+        continue-on-error: true
+        run: |
+          git add data/dawn_dusk_log.json data/alert_state.json 2>/dev/null || true
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+          PHASE=$(python3 -c "
+          from datetime import datetime, timezone
+          h = datetime.now(timezone.utc).hour
+          print('DAWN' if h < 15 else 'DUSK')
+          " 2>/dev/null || echo "CYCLE")
+          git -c commit.gpgsign=false commit -m "briefing: ${PHASE} report sent $(date -u +%H:%M)Z"
+          git fetch origin main
+          git -c commit.gpgsign=false merge origin/main --no-edit -X ours 2>/dev/null || true
+          git push origin HEAD:main 2>/dev/null || git push origin HEAD:main --force-with-lease

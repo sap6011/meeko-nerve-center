@@ -1,0 +1,71 @@
+name: 💥 CONTENT_BLAST — 3x/day autonomous publishing
+on:
+  schedule:
+    - cron: "0 8,14,20 * * *"
+  workflow_dispatch:
+jobs:
+  blast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+      DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
+      MEDIUM_TOKEN: ${{ secrets.MEDIUM_TOKEN }}
+      GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+      NEWSLETTER_LIST: ${{ secrets.NEWSLETTER_LIST }}
+      BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+      BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+      MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+      MASTODON_API_BASE_URL: ${{ secrets.MASTODON_API_BASE_URL }}
+      X_API_KEY: ${{ secrets.X_API_KEY }}
+      X_API_SECRET: ${{ secrets.X_API_SECRET }}
+      X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+      X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+      GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: "Phase 0 — Cycle context"
+        continue-on-error: true
+        run: python mycelium/CYCLE_OPENER.py
+      - name: "Phase 1 — Content harvest"
+        continue-on-error: true
+        run: python mycelium/CONTENT_HARVESTER.py
+      - name: "Phase 2 — SEO Engine"
+        continue-on-error: true
+        run: python mycelium/SEO_ENGINE.py
+      - name: "Phase 3 — AI Content Factory"
+        continue-on-error: true
+        run: python mycelium/AI_CONTENT_FACTORY.py
+      - name: "Phase 4 — Autonomous Publisher"
+        continue-on-error: true
+        run: python mycelium/AUTONOMOUS_PUBLISHER.py
+      - name: "Phase 5 — Social Brain"
+        continue-on-error: true
+        run: python mycelium/SOCIAL_BRAIN.py
+      - name: "Phase 6 — Newsletter Automator"
+        continue-on-error: true
+        run: python mycelium/NEWSLETTER_AUTOMATOR.py
+      - name: "Phase 7 — Performance Optimizer"
+        continue-on-error: true
+        run: python mycelium/PERFORMANCE_OPTIMIZER.py
+      - name: "Phase 98 — Loop Conductor"
+        continue-on-error: true
+        run: python mycelium/LOOP_CONDUCTOR.py
+      - name: "Phase 99 — Sanitizer"
+        continue-on-error: true
+        run: python mycelium/ENGINE_SANITIZER.py
+      - name: Commit outputs
+        run: |
+          git config user.email "solarpunk@gazarosegallery.art"
+          git config user.name "SolarPunk Content AI"
+          git add data/ mycelium/ -f
+          git diff --staged --quiet || git -c commit.gpgsign=false commit -m "💥 content_blast: AI wrote + published $(date -u +%H:%M) UTC"
+          git push origin HEAD:main --force-with-lease 2>/dev/null || git push origin HEAD:main

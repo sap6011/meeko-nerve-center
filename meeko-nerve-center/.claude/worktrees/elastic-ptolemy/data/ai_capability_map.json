@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-03-20T22:18:19.788686+00:00",
+  "existing_engine_count": 313,
+  "knowledge_entries": 15,
+  "opportunities": [
+    {
+      "rank": 5,
+      "engine_name": "MCP_CLIENT",
+      "dimension": "SWARM",
+      "priority": "MEDIUM",
+      "why": "SolarPunk has an MCP server (docs/mcp-server.json) but doesn't USE other MCP servers. MCP clients can connect to GitHub MCP, Brave Search MCP, and others for free capabilities.",
+      "ai_used": "MCP protocol (no AI cost)",
+      "what_it_does": "Connect to GitHub MCP server to manage issues programmatically. Connect to Brave Search MCP for web research. Connect to filesystem MCP for structured data access.",
+      "required_secrets": [
+        "GITHUB_TOKEN"
+      ],
+      "estimated_cost_per_run": "$0.00",
+      "code_stub": "# Use mcp Python SDK: pip install mcp"
+    },
+    {
+      "rank": 6,
+      "engine_name": "AI_WEB_SCRAPER",
+      "dimension": "KNOWLEDGE",
+      "priority": "MEDIUM",
+      "why": "New AI capabilities are released weekly. SolarPunk needs to automatically discover new APIs, new free tiers, new models, and new tools it could use.",
+      "ai_used": "None (just HTTP requests + parsing)",
+      "what_it_does": "Scrape Anthropic changelog, OpenAI changelog, HuggingFace new models, OpenRouter new free models. Write discoveries to data/new_ai_capabilities.json. Trigger engine proposals for promising new capabilities.",
+      "required_secrets": [],
+      "estimated_cost_per_run": "$0.00",
+      "code_stub": "\ndef run():\n    import requests, json\n    from pathlib import Path\n    DATA = Path(\"data\"); DATA.mkdir(exist_ok=True)\n    discoveries = []\n    # Check OpenRouter for new free models\n    r = requests.get(\"https://openrouter.ai/api/v1/models\", timeout=10)\n    if r.status_code == 200:\n        models = r.json().get(\"data\", [])\n        free = [m for m in models if str(m.get(\"pricing\", {}).get(\"prompt\", \"1\")) == \"0\"]\n        for m in free[:5]:\n            discoveries.append({\"type\": \"free_model\", \"id\": m[\"id\"], \"name\": m.get(\"name\", \"\")})\n    # Check HuggingFace trending\n    r = requests.get(\"https://huggingface.co/api/models?sort=trending&limit=5\", timeout=10)\n    if r.status_code == 200:\n        for m in r.json():\n            discoveries.append({\"type\": \"hf_trending\", \"id\": m.get(\"id\"), \"downloads\": m.get(\"downloads\", 0)})\n    (DATA / \"new_ai_capabilities.json\").write_text(json.dumps({\"discoveries\": discoveries, \"count\": len(discoveries)}, indent=2))\n    print(f\"Found {len(discoveries)} new AI capabilities\")\n"
+    }
+  ],
+  "total_opportunities": 2,
+  "top_priority": "MCP_CLIENT",
+  "description": "Ranked list of engines SolarPunk should build to leverage all available AI capabilities"
+}

@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -lhS /tmp/*.output)",
+      "Bash(find /tmp -type f -name \"*.output\" -delete)",
+      "Bash(find /tmp -type f -name \"*.log\" -delete)",
+      "Bash(find /tmp -type f -mmin +5 -delete)",
+      "Bash(du -sh /tmp/*)",
+      "Bash(ls /tmp/*.tmp)",
+      "Bash(du -sh C:UsersmeekoDesktopmeeko-nerve-centermeeko-nerve-center.gitobjects --exclude=*/pack/*)",
+      "Bash(find C:UsersmeekoDesktopmeeko-nerve-centermeeko-nerve-center.gitobjects -not -path */pack/* -type f -exec du -ch {} +)",
+      "Bash(du -sh C:/Users/meeko/*)",
+      "Bash(gh pr:*)",
+      "Bash(echo \"# SolarPunk Digital Alchemy Lab:*)",
+      "Bash(\"C:\\\\Users\\\\meeko\\\\Desktop\\\\meeko-nerve-center\\\\meeko-nerve-center\\\\.claude\\\\worktrees\\\\agitated-gould\\\\mycelium\\\\experiments\\\\README.md\")",
+      "Bash(python mycelium/CODE_ALCHEMIST.py)",
+      "Bash(ls \"C:\\\\Users\\\\meeko\\\\Desktop\\\\meeko-nerve-center\\\\meeko-nerve-center\\\\.claude\\\\worktrees\\\\agitated-gould\\\\mycelium\\\\experiments\"\" 2>/dev/null && echo \"---\" && tail -20 \"C:Usersmeeko.claudeprojectsC--Users-meeko-Desktop-meeko-nerve-center-meeko-nerve-center--claude-worktrees-agitated-gould8cd7979d-08bf-473f-be0d-38f44f76a06btool-resultsbow200rof.txt \")",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(f\"\"  {e[''''type'''']:10s} {e[''''parent_a'''']:30s} + {e[''''parent_b'''']:30s} -> {e[''''exp_id'''']}\"\"\\) for e in d[''''experiments'''']]\")",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f''''Total experiments: {d[\"\"total_created\"\"]}''''\\); [print\\(f''''  {e[\"\"name\"\"]} \\({e[\"\"type\"\"]}\\) — {e[\"\"status\"\"]}''''\\) for e in d.get\\(''''experiments'''',[]\\)]\")",
+      "Bash(python -c \":*)",
+      "Bash(python mycelium/experiments/chi_fce39a35.py)",
+      "Bash(python -c \"import json; d=json.load\\(open\\(''data/solarpunk_synthesis.json''\\)\\); print\\(type\\(d\\)\\); print\\(str\\(d\\)[:400]\\)\")",
+      "Bash(python mycelium/experiments/mut_0d41f79a.py)",
+      "Bash(python -c \"import json; d=json.load\\(open\\(''data/knowledge_gaps.json''\\)\\); print\\(type\\(d\\)\\); print\\(str\\(d\\)[:300]\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\(''data/knowledge_gaps.json'', encoding=''utf-8''\\)\\); print\\(type\\(d\\)\\); print\\(str\\(d\\)[:300]\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\(''data/knowledge_gaps.json'',encoding=''utf-8''\\)\\); print\\(''OK -'', list\\(d.keys\\(\\)\\)[:4]\\)\")",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f''''PR #{d[number] if number in d else 102}: {d[title]} — {d[state]} \\({len\\(d[commits]\\)} commits\\)''''\\)\")",
+      "mcp__Desktop_Commander__read_file",
+      "Bash(python expand_kb.py)",
+      "Bash(python -c \"import json; kb=json.load\\(open\\(''data/solarpunk_knowledge.json'',encoding=''utf-8''\\)\\); print\\(type\\(kb.get\\(''key_organizations''\\)\\)\\)\")",
+      "Bash(python update_pages.py)"
+    ]
+  }
+}

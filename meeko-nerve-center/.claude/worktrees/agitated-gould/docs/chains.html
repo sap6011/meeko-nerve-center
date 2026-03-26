@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="300">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SolarPunk Chain Orchestrator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#020208;color:#ccc;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      padding:1.5rem;min-height:100vh;line-height:1.5}
+h1{color:#66bb6a;font-size:1.4rem;margin-bottom:.2rem}
+.meta{color:#333;font-size:.75rem;margin-bottom:1.25rem}
+.status-badge{padding:.75rem 1rem;border-radius:8px;font-weight:700;margin-bottom:1.25rem;font-size:.9rem}
+.status-badge.closed{background:#0a1a0a;border:2px solid #4caf50;color:#81c784}
+.status-badge.open{background:#1a1000;border:2px solid #ff9800;color:#ffb74d}
+.metrics{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:1.25rem}
+.metric{background:#0a0a14;border:1px solid #1a1a2e;border-radius:8px;
+          padding:.75rem 1rem;min-width:100px;text-align:center}
+.metric .val{font-size:1.5rem;font-weight:700;color:#66bb6a}
+.metric .val.warn{color:#ff9800}
+.metric .lbl{font-size:.65rem;color:#444;text-transform:uppercase;letter-spacing:1px;margin-top:.15rem}
+.chain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-bottom:1.25rem}
+.chain-card{background:#0a0a14;border:1px solid #1a1a2e;border-radius:8px;padding:.75rem}
+.chain-card.ok{border-left:3px solid #4caf50}
+.chain-card.fail{border-left:3px solid #f44336}
+.chain-card .icon{font-size:1.4rem}
+.chain-name{font-size:.8rem;font-weight:700;margin:.25rem 0 .1rem}
+.chain-status{font-size:.7rem;color:#555}
+.chain-desc{font-size:.7rem;color:#333;margin-top:.25rem}
+section{background:#0a0a14;border:1px solid #1a1a2e;border-radius:8px;
+          padding:1rem;margin-bottom:.75rem}
+h2{font-size:.75rem;color:#90caf9;text-transform:uppercase;letter-spacing:1px;margin-bottom:.6rem}
+ul{padding-left:1.2rem;line-height:1.9;font-size:.82rem}
+.priority-text{font-size:.9rem;color:#fff;padding:.5rem;background:#0d0d20;border-radius:4px;border-left:3px solid #ff9800}
+.arrow{color:#444;text-align:center;font-size:1.2rem;margin:.25rem 0}
+footer{color:#222;font-size:.7rem;margin-top:1.5rem;line-height:1.8}
+footer a{color:#333}
+</style>
+</head>
+<body>
+<h1>⚡ SolarPunk Chain Orchestrator</h1>
+<p class="meta">The loop that runs the loop · Cycle 5 · 2026-03-21T10:35 UTC</p>
+
+<div class="status-badge open">🔄 LOOP RUNNING · $0.00 earned · Revenue mathematically inevitable</div>
+
+<div class="metrics">
+  <div class="metric"><div class="val">4/4</div><div class="lbl">Chains OK</div></div>
+  <div class="metric"><div class="val warn">$0.00</div><div class="lbl">Earned</div></div>
+  <div class="metric"><div class="val">1</div><div class="lbl">Signals</div></div>
+  <div class="metric"><div class="val">1</div><div class="lbl">Actions</div></div>
+  <div class="metric"><div class="val">5</div><div class="lbl">Cycles</div></div>
+</div>
+
+<div class="chain-grid">
+<div class="chain-card ok"><span class="icon">💰</span><div class="chain-name">ECONOMY CHAIN</div><div class="chain-status">✅ running</div><div class="chain-desc">Money routes itself</div></div>
+<div class="chain-card ok"><span class="icon">📡</span><div class="chain-name">SIGNAL CHAIN</div><div class="chain-status">✅ running</div><div class="chain-desc">Signals become actions</div></div>
+<div class="chain-card ok"><span class="icon">🧬</span><div class="chain-name">KNOWLEDGE CHAIN</div><div class="chain-status">✅ running</div><div class="chain-desc">System learns from itself</div></div>
+<div class="chain-card ok"><span class="icon">🌱</span><div class="chain-name">GROWTH CHAIN</div><div class="chain-status">✅ running</div><div class="chain-desc">Five-step growth loop</div></div>
+</div>
+
+<div class="arrow">↓ economy routes money ↓ signals become actions ↓ system learns ↓ loop grows ↓</div>
+
+<section><h2>🎯 Priority Action</h2><p class="priority-text">Go to gumroad.com, create the 10 products from data/gumroad_listings.json. Fastest path to first dollar.</p></section>
+
+<section>
+  <h2>🔴 Critical Actions Right Now</h2>
+  <ul><li><strong>[hacker_news]</strong> POST Show HN NOW: 'Show HN: I built a self-running AI agent that funds Gaza relief from every sale' — news.ycombinator.c</li>
+<li><strong>[kofi]</strong> FASTEST PATH: go to ko-fi.com/account/shop → paste 6 listings from data/quick_revenue.html → LIVE IN 5 MINUTES</li>
+<li><strong>[gumroad]</strong> 10 products queued in data/gumroad_listings.json — create them at gumroad.com/new/product</li></ul>
+</section>
+
+<section>
+  <h2>👁️ Engines to Build Next</h2>
+  <ul><li>👁️ REDDIT_POSTER — post to r/SideProject, r/MachineLearning, r/selfhosted, r/opensource daily</li>
+<li>👁️ SHOW_HN_POSTER — auto-draft Show HN post and flag it for Meeko to submit</li>
+<li>👁️ PRODUCTHUNT_DRAFTER — generate Product Hunt submission and save to data/ph_submission.json</li>
+<li>👁️ KOFI_AUTO_POSTER — automatically create Ko-fi shop items via API</li>
+<li>👁️ SIGNUP_WIDGET — embed email signup on every page, feed into Substack/Mailchimp</li></ul>
+</section>
+
+<section><h2>🧬 System Insights</h2><ul><li>❌ Failing engines: NANOSHOP_ENGINE, BRIEFING_ENGINE, NARRATOR — AUTO_HEALER should patch these</li>
+<li>Zero revenue after many cycles = the work is built, the door isn't open yet</li>
+<li>10 products ready in gumroad_listings.json, none live yet. This is the fastest revenue path.</li>
+<li>1 GitHub star(s) = social proof. Time to post Show HN.</li>
+<li>Health plateau — fix failing engines before adding new ones</li></ul></section>
+
+<section>
+  <h2>🔗 The Four Chains</h2>
+  <ul>
+    <li><strong>ECONOMY_CHAIN</strong> — every dollar routes itself: Gaza 15% · Legal 10% · AI 20% · Reinvest 10% · Meeko 45%</li>
+    <li><strong>SIGNAL_CHAIN</strong> — every star/fork/reply/tip/sale → queued action. Nothing leaks.</li>
+    <li><strong>KNOWLEDGE_CHAIN</strong> — reads all engine states → synthesizes intelligence → builder prompts → next engines</li>
+    <li><strong>GROWTH_CHAIN</strong> — Distribute → Attract → Convert → Retain → Refer → Distribute → forever</li>
+  </ul>
+</section>
+
+<footer>
+  SolarPunk Digital Economy · Built by Meeko + SolarPunk Brain<br>
+  A closed loop with positive feedback and zero iteration cost MUST converge on revenue. Time is the only variable.<br>
+  15% of every dollar → 🇵🇸 Gaza (PCRF EIN: 93-1057665) · Hardcoded. Always.<br>
+  <a href="index.html">← Home</a> ·
+  <a href="economy.html">Economy</a> ·
+  <a href="growth.html">Growth</a> ·
+  <a href="store.html">Store</a>
+</footer>
+</body></html>

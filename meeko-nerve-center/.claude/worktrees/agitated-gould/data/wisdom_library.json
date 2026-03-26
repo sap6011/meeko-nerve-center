@@ -1,0 +1,2430 @@
+{
+  "updated_at": "2026-03-21T10:36:32.761906+00:00",
+  "total_skills": 387,
+  "external_skills": 25,
+  "local_engines": 362,
+  "skills": {
+    "1password": {
+      "name": "1password",
+      "meta_name": "1password",
+      "description": "Set up and use 1Password CLI (op). Use when installing the CLI, enabling desktop app integration, signing in (single or multi-account), or reading/injecting/running secrets via op.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:35:56.002466+00:00",
+      "path": ".pi/skills/1password/SKILL.md",
+      "size_bytes": 2622
+    },
+    "apple-notes": {
+      "name": "apple-notes",
+      "meta_name": "apple-notes",
+      "description": "Manage Apple Notes via the `memo` CLI on macOS (create, view, edit, delete, search, move, and export notes). Use when a user asks OpenClaw to add a note, list notes, search notes, or manage note folders.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:35:56.657889+00:00",
+      "path": ".pi/skills/apple-notes/SKILL.md",
+      "size_bytes": 2087
+    },
+    "bear-notes": {
+      "name": "bear-notes",
+      "meta_name": "bear-notes",
+      "description": "Create, search, and manage Bear notes via grizzly CLI.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:35:58.089923+00:00",
+      "path": ".pi/skills/bear-notes/SKILL.md",
+      "size_bytes": 2643
+    },
+    "blogwatcher": {
+      "name": "blogwatcher",
+      "meta_name": "blogwatcher",
+      "description": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:35:58.828858+00:00",
+      "path": ".pi/skills/blogwatcher/SKILL.md",
+      "size_bytes": 1412
+    },
+    "canvas": {
+      "name": "canvas",
+      "meta_name": "canvas",
+      "description": "",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:01.609197+00:00",
+      "path": ".pi/skills/canvas/SKILL.md",
+      "size_bytes": 5229
+    },
+    "clawhub": {
+      "name": "clawhub",
+      "meta_name": "clawhub",
+      "description": "Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:02.294078+00:00",
+      "path": ".pi/skills/clawhub/SKILL.md",
+      "size_bytes": 1613
+    },
+    "gh-issues": {
+      "name": "gh-issues",
+      "meta_name": "gh-issues",
+      "description": "\"Fetch GitHub issues, spawn sub-agents to implement fixes and open PRs, then monitor and address PR review comments. Usage: /gh-issues [owner/repo] [--label bug] [--limit 5] [--milestone v1.0] [--assignee @me] [--fork user/repo] [--watch] [--interval 5] [--reviews-only] [--cron] [--dry-run] [--model glm-5] [--notify-channel -1002381931352]\"",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:05.686663+00:00",
+      "path": ".pi/skills/gh-issues/SKILL.md",
+      "size_bytes": 34096
+    },
+    "gifgrep": {
+      "name": "gifgrep",
+      "meta_name": "gifgrep",
+      "description": "Search GIF providers with CLI/TUI, download results, and extract stills/sheets.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:06.386129+00:00",
+      "path": ".pi/skills/gifgrep/SKILL.md",
+      "size_bytes": 2176
+    },
+    "github": {
+      "name": "github",
+      "meta_name": "github",
+      "description": "\"GitHub operations via `gh` CLI: issues, PRs, CI runs, code review, API queries. Use when: (1) checking PR status or CI, (2) creating/commenting on issues, (3) listing/filtering PRs or issues, (4) viewing run logs. NOT for: complex web UI interactions requiring manual browser flows (use browser tooling when available), bulk operations across many repos (script with gh api), or when gh auth is not configured.\"",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:07.067799+00:00",
+      "path": ".pi/skills/github/SKILL.md",
+      "size_bytes": 4105
+    },
+    "gog": {
+      "name": "gog",
+      "meta_name": "gog",
+      "description": "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:07.800133+00:00",
+      "path": ".pi/skills/gog/SKILL.md",
+      "size_bytes": 4569
+    },
+    "goplaces": {
+      "name": "goplaces",
+      "meta_name": "goplaces",
+      "description": "Query Google Places API (New) via the goplaces CLI for text search, place details, resolve, and reviews. Use for human-friendly place lookup or JSON output for scripts.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:08.488389+00:00",
+      "path": ".pi/skills/goplaces/SKILL.md",
+      "size_bytes": 1533
+    },
+    "healthcheck": {
+      "name": "healthcheck",
+      "meta_name": "healthcheck",
+      "description": "Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:09.169786+00:00",
+      "path": ".pi/skills/healthcheck/SKILL.md",
+      "size_bytes": 10504
+    },
+    "himalaya": {
+      "name": "himalaya",
+      "meta_name": "himalaya",
+      "description": "\"CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIME Meta Language).\"",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:09.855635+00:00",
+      "path": ".pi/skills/himalaya/SKILL.md",
+      "size_bytes": 4613
+    },
+    "model-usage": {
+      "name": "model-usage",
+      "meta_name": "model-usage",
+      "description": "Use CodexBar CLI local cost usage to summarize per-model usage for Codex or Claude, including the current (most recent) model or a full model breakdown. Trigger when asked for model-level usage/cost data from codexbar, or when you need a scriptable per-model summary from codexbar cost JSON.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:11.986095+00:00",
+      "path": ".pi/skills/model-usage/SKILL.md",
+      "size_bytes": 2250
+    },
+    "notion": {
+      "name": "notion",
+      "meta_name": "notion",
+      "description": "Notion API for creating and managing pages, databases, and blocks.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:14.197672+00:00",
+      "path": ".pi/skills/notion/SKILL.md",
+      "size_bytes": 5370
+    },
+    "openai-image-gen": {
+      "name": "openai-image-gen",
+      "meta_name": "openai-image-gen",
+      "description": "Batch-generate images via OpenAI Images API. Random prompt sampler + `index.html` gallery.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:15.588533+00:00",
+      "path": ".pi/skills/openai-image-gen/SKILL.md",
+      "size_bytes": 3341
+    },
+    "openai-whisper-api": {
+      "name": "openai-whisper-api",
+      "meta_name": "openai-whisper-api",
+      "description": "Transcribe audio via OpenAI Audio Transcriptions API (Whisper).",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:16.376679+00:00",
+      "path": ".pi/skills/openai-whisper-api/SKILL.md",
+      "size_bytes": 1151
+    },
+    "openai-whisper": {
+      "name": "openai-whisper",
+      "meta_name": "openai-whisper",
+      "description": "Local speech-to-text with the Whisper CLI (no API key).",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:17.094919+00:00",
+      "path": ".pi/skills/openai-whisper/SKILL.md",
+      "size_bytes": 909
+    },
+    "session-logs": {
+      "name": "session-logs",
+      "meta_name": "session-logs",
+      "description": "Search and analyze your own session logs (older/parent conversations) using jq.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:21.131069+00:00",
+      "path": ".pi/skills/session-logs/SKILL.md",
+      "size_bytes": 3426
+    },
+    "spotify-player": {
+      "name": "spotify-player",
+      "meta_name": "spotify-player",
+      "description": "Terminal Spotify playback/search via spogo (preferred) or spotify_player.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:25.460200+00:00",
+      "path": ".pi/skills/spotify-player/SKILL.md",
+      "size_bytes": 1683
+    },
+    "summarize": {
+      "name": "summarize",
+      "meta_name": "summarize",
+      "description": "Summarize or extract text/transcripts from URLs, podcasts, and local files (great fallback for \u201ctranscribe this YouTube/video\u201d).",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:26.133979+00:00",
+      "path": ".pi/skills/summarize/SKILL.md",
+      "size_bytes": 2205
+    },
+    "things-mac": {
+      "name": "things-mac",
+      "meta_name": "things-mac",
+      "description": "Manage Things 3 via the `things` CLI on macOS (add/update projects+todos via URL scheme; read/search/list from the local Things database). Use when a user asks OpenClaw to add a task to Things, list inbox/today/upcoming, search tasks, or inspect projects/areas/tags.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:26.781136+00:00",
+      "path": ".pi/skills/things-mac/SKILL.md",
+      "size_bytes": 3549
+    },
+    "tmux": {
+      "name": "tmux",
+      "meta_name": "tmux",
+      "description": "Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:27.443101+00:00",
+      "path": ".pi/skills/tmux/SKILL.md",
+      "size_bytes": 3468
+    },
+    "a2a_bridge": {
+      "name": "a2a_bridge",
+      "source": "mycelium-engine",
+      "path": "mycelium/A2A_BRIDGE.py",
+      "is_local_engine": true
+    },
+    "affiliate_brain": {
+      "name": "affiliate_brain",
+      "source": "mycelium-engine",
+      "path": "mycelium/AFFILIATE_BRAIN.py",
+      "is_local_engine": true
+    },
+    "affiliate_maximizer": {
+      "name": "affiliate_maximizer",
+      "source": "mycelium-engine",
+      "path": "mycelium/AFFILIATE_MAXIMIZER.py",
+      "is_local_engine": true
+    },
+    "agent_gumroad_builder": {
+      "name": "agent_gumroad_builder",
+      "source": "mycelium-engine",
+      "path": "mycelium/AGENT_GUMROAD_BUILDER.py",
+      "is_local_engine": true
+    },
+    "agent_link_verifier": {
+      "name": "agent_link_verifier",
+      "source": "mycelium-engine",
+      "path": "mycelium/AGENT_LINK_VERIFIER.py",
+      "is_local_engine": true
+    },
+    "agent_tweet_writer": {
+      "name": "agent_tweet_writer",
+      "source": "mycelium-engine",
+      "path": "mycelium/AGENT_TWEET_WRITER.py",
+      "is_local_engine": true
+    },
+    "ai_client": {
+      "name": "ai_client",
+      "source": "mycelium-engine",
+      "path": "mycelium/AI_CLIENT.py",
+      "is_local_engine": true
+    },
+    "ai_content_factory": {
+      "name": "ai_content_factory",
+      "source": "mycelium-engine",
+      "path": "mycelium/AI_CONTENT_FACTORY.py",
+      "is_local_engine": true
+    },
+    "ai_watcher": {
+      "name": "ai_watcher",
+      "source": "mycelium-engine",
+      "path": "mycelium/AI_WATCHER.py",
+      "is_local_engine": true
+    },
+    "analytics_engine": {
+      "name": "analytics_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/ANALYTICS_ENGINE.py",
+      "is_local_engine": true
+    },
+    "architect": {
+      "name": "architect",
+      "source": "mycelium-engine",
+      "path": "mycelium/ARCHITECT.py",
+      "is_local_engine": true
+    },
+    "archive_brain": {
+      "name": "archive_brain",
+      "source": "mycelium-engine",
+      "path": "mycelium/ARCHIVE_BRAIN.py",
+      "is_local_engine": true
+    },
+    "art_catalog": {
+      "name": "art_catalog",
+      "source": "mycelium-engine",
+      "path": "mycelium/ART_CATALOG.py",
+      "is_local_engine": true
+    },
+    "art_generator": {
+      "name": "art_generator",
+      "source": "mycelium-engine",
+      "path": "mycelium/ART_GENERATOR.py",
+      "is_local_engine": true
+    },
+    "autonomous_publisher": {
+      "name": "autonomous_publisher",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTONOMOUS_PUBLISHER.py",
+      "is_local_engine": true
+    },
+    "autonomous_tester": {
+      "name": "autonomous_tester",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTONOMOUS_TESTER.py",
+      "is_local_engine": true
+    },
+    "autonomy_proof": {
+      "name": "autonomy_proof",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTONOMY_PROOF.py",
+      "is_local_engine": true
+    },
+    "auto_architect": {
+      "name": "auto_architect",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTO_ARCHITECT.py",
+      "is_local_engine": true
+    },
+    "auto_deploy_engine": {
+      "name": "auto_deploy_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTO_DEPLOY_ENGINE.py",
+      "is_local_engine": true
+    },
+    "auto_docs": {
+      "name": "auto_docs",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTO_DOCS.py",
+      "is_local_engine": true
+    },
+    "auto_healer": {
+      "name": "auto_healer",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTO_HEALER.py",
+      "is_local_engine": true
+    },
+    "auto_runner": {
+      "name": "auto_runner",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTO_RUNNER.py",
+      "is_local_engine": true
+    },
+    "big_brain_oracle": {
+      "name": "big_brain_oracle",
+      "source": "mycelium-engine",
+      "path": "mycelium/BIG_BRAIN_ORACLE.py",
+      "is_local_engine": true
+    },
+    "bluesky_engine": {
+      "name": "bluesky_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/BLUESKY_ENGINE.py",
+      "is_local_engine": true
+    },
+    "bottleneck_scanner": {
+      "name": "bottleneck_scanner",
+      "source": "mycelium-engine",
+      "path": "mycelium/BOTTLENECK_SCANNER.py",
+      "is_local_engine": true
+    },
+    "brand_legal": {
+      "name": "brand_legal",
+      "source": "mycelium-engine",
+      "path": "mycelium/BRAND_LEGAL.py",
+      "is_local_engine": true
+    },
+    "brave_bridge": {
+      "name": "brave_bridge",
+      "source": "mycelium-engine",
+      "path": "mycelium/BRAVE_BRIDGE.py",
+      "is_local_engine": true
+    },
+    "brave_browser_engine": {
+      "name": "brave_browser_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/BRAVE_BROWSER_ENGINE.py",
+      "is_local_engine": true
+    },
+    "bridge_builder": {
+      "name": "bridge_builder",
+      "source": "mycelium-engine",
+      "path": "mycelium/BRIDGE_BUILDER.py",
+      "is_local_engine": true
+    },
+    "briefing_engine": {
+      "name": "briefing_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/BRIEFING_ENGINE.py",
+      "is_local_engine": true
+    },
+    "business_factory": {
+      "name": "business_factory",
+      "source": "mycelium-engine",
+      "path": "mycelium/BUSINESS_FACTORY.py",
+      "is_local_engine": true
+    },
+    "calendar_brain": {
+      "name": "calendar_brain",
+      "source": "mycelium-engine",
+      "path": "mycelium/CALENDAR_BRAIN.py",
+      "is_local_engine": true
+    },
+    "capability_broker": {
+      "name": "capability_broker",
+      "source": "mycelium-engine",
+      "path": "mycelium/CAPABILITY_BROKER.py",
+      "is_local_engine": true
+    },
+    "capability_scanner": {
+      "name": "capability_scanner",
+      "source": "mycelium-engine",
+      "path": "mycelium/CAPABILITY_SCANNER.py",
+      "is_local_engine": true
+    },
+    "capacity_booster": {
+      "name": "capacity_booster",
+      "source": "mycelium-engine",
+      "path": "mycelium/CAPACITY_BOOSTER.py",
+      "is_local_engine": true
+    },
+    "chain_orchestrator": {
+      "name": "chain_orchestrator",
+      "source": "mycelium-engine",
+      "path": "mycelium/CHAIN_ORCHESTRATOR.py",
+      "is_local_engine": true
+    },
+    "chain_utils": {
+      "name": "chain_utils",
+      "source": "mycelium-engine",
+      "path": "mycelium/CHAIN_UTILS.py",
+      "is_local_engine": true
+    },
+    "civic_grant_rush": {
+      "name": "civic_grant_rush",
+      "source": "mycelium-engine",
+      "path": "mycelium/CIVIC_GRANT_RUSH.py",
+      "is_local_engine": true
+    },
+    "claude_bridge": {
+      "name": "claude_bridge",
+      "source": "mycelium-engine",
+      "path": "mycelium/CLAUDE_BRIDGE.py",
+      "is_local_engine": true
+    },
+    "claude_engine": {
+      "name": "claude_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/CLAUDE_ENGINE.py",
+      "is_local_engine": true
+    },
+    "code_collater": {
+      "name": "code_collater",
+      "source": "mycelium-engine",
+      "path": "mycelium/CODE_COLLATER.py",
+      "is_local_engine": true
+    },
+    "command_center": {
+      "name": "command_center",
+      "source": "mycelium-engine",
+      "path": "mycelium/COMMAND_CENTER.py",
+      "is_local_engine": true
+    },
+    "connection_forge": {
+      "name": "connection_forge",
+      "source": "mycelium-engine",
+      "path": "mycelium/CONNECTION_FORGE.py",
+      "is_local_engine": true
+    },
+    "content_harvester": {
+      "name": "content_harvester",
+      "source": "mycelium-engine",
+      "path": "mycelium/CONTENT_HARVESTER.py",
+      "is_local_engine": true
+    },
+    "contributor_registry": {
+      "name": "contributor_registry",
+      "source": "mycelium-engine",
+      "path": "mycelium/CONTRIBUTOR_REGISTRY.py",
+      "is_local_engine": true
+    },
+    "cross_pollinator": {
+      "name": "cross_pollinator",
+      "source": "mycelium-engine",
+      "path": "mycelium/CROSS_POLLINATOR.py",
+      "is_local_engine": true
+    },
+    "crypto_watcher": {
+      "name": "crypto_watcher",
+      "source": "mycelium-engine",
+      "path": "mycelium/CRYPTO_WATCHER.py",
+      "is_local_engine": true
+    },
+    "cycle_memory": {
+      "name": "cycle_memory",
+      "source": "mycelium-engine",
+      "path": "mycelium/CYCLE_MEMORY.py",
+      "is_local_engine": true
+    },
+    "cycle_opener": {
+      "name": "cycle_opener",
+      "source": "mycelium-engine",
+      "path": "mycelium/CYCLE_OPENER.py",
+      "is_local_engine": true
+    },
+    "deep_researcher": {
+      "name": "deep_researcher",
+      "source": "mycelium-engine",
+      "path": "mycelium/DEEP_RESEARCHER.py",
+      "is_local_engine": true
+    },
+    "desktop_agent": {
+      "name": "desktop_agent",
+      "source": "mycelium-engine",
+      "path": "mycelium/DESKTOP_AGENT.py",
+      "is_local_engine": true
+    },
+    "desktop_blueprint_scanner": {
+      "name": "desktop_blueprint_scanner",
+      "source": "mycelium-engine",
+      "path": "mycelium/DESKTOP_BLUEPRINT_SCANNER.py",
+      "is_local_engine": true
+    },
+    "desktop_daemon": {
+      "name": "desktop_daemon",
+      "source": "mycelium-engine",
+      "path": "mycelium/DESKTOP_DAEMON.py",
+      "is_local_engine": true
+    },
+    "desktop_harvester": {
+      "name": "desktop_harvester",
+      "source": "mycelium-engine",
+      "path": "mycelium/DESKTOP_HARVESTER.py",
+      "is_local_engine": true
+    },
+    "desktop_orchestrator": {
+      "name": "desktop_orchestrator",
+      "source": "mycelium-engine",
+      "path": "mycelium/DESKTOP_ORCHESTRATOR.py",
+      "is_local_engine": true
+    },
+    "dev_to_publisher": {
+      "name": "dev_to_publisher",
+      "source": "mycelium-engine",
+      "path": "mycelium/DEV_TO_PUBLISHER.py",
+      "is_local_engine": true
+    },
+    "dispatch_handler": {
+      "name": "dispatch_handler",
+      "source": "mycelium-engine",
+      "path": "mycelium/DISPATCH_HANDLER.py",
+      "is_local_engine": true
+    },
+    "duel_engine": {
+      "name": "duel_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/DUEL_ENGINE.py",
+      "is_local_engine": true
+    },
+    "duplicate_deleter": {
+      "name": "duplicate_deleter",
+      "source": "mycelium-engine",
+      "path": "mycelium/DUPLICATE_DELETER.py",
+      "is_local_engine": true
+    },
+    "duplicate_striker": {
+      "name": "duplicate_striker",
+      "source": "mycelium-engine",
+      "path": "mycelium/DUPLICATE_STRIKER.py",
+      "is_local_engine": true
+    },
+    "economy_chain": {
+      "name": "economy_chain",
+      "source": "mycelium-engine",
+      "path": "mycelium/ECONOMY_CHAIN.py",
+      "is_local_engine": true
+    },
+    "email_agent_exchange": {
+      "name": "email_agent_exchange",
+      "source": "mycelium-engine",
+      "path": "mycelium/EMAIL_AGENT_EXCHANGE.py",
+      "is_local_engine": true
+    },
+    "email_brain": {
+      "name": "email_brain",
+      "source": "mycelium-engine",
+      "path": "mycelium/EMAIL_BRAIN.py",
+      "is_local_engine": true
+    },
+    "email_outreach": {
+      "name": "email_outreach",
+      "source": "mycelium-engine",
+      "path": "mycelium/EMAIL_OUTREACH.py",
+      "is_local_engine": true
+    },
+    "engine_integrity": {
+      "name": "engine_integrity",
+      "source": "mycelium-engine",
+      "path": "mycelium/ENGINE_INTEGRITY.py",
+      "is_local_engine": true
+    },
+    "engine_sanitizer": {
+      "name": "engine_sanitizer",
+      "source": "mycelium-engine",
+      "path": "mycelium/ENGINE_SANITIZER.py",
+      "is_local_engine": true
+    },
+    "etsy_seo_engine": {
+      "name": "etsy_seo_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/ETSY_SEO_ENGINE.py",
+      "is_local_engine": true
+    },
+    "evolution_agent": {
+      "name": "evolution_agent",
+      "source": "mycelium-engine",
+      "path": "mycelium/EVOLUTION_AGENT.py",
+      "is_local_engine": true
+    },
+    "evolution_viewer": {
+      "name": "evolution_viewer",
+      "source": "mycelium-engine",
+      "path": "mycelium/EVOLUTION_VIEWER.py",
+      "is_local_engine": true
+    },
+    "external_handshake": {
+      "name": "external_handshake",
+      "source": "mycelium-engine",
+      "path": "mycelium/EXTERNAL_HANDSHAKE.py",
+      "is_local_engine": true
+    },
+    "external_sentry": {
+      "name": "external_sentry",
+      "source": "mycelium-engine",
+      "path": "mycelium/EXTERNAL_SENTRY.py",
+      "is_local_engine": true
+    },
+    "financial_mapper": {
+      "name": "financial_mapper",
+      "source": "mycelium-engine",
+      "path": "mycelium/FINANCIAL_MAPPER.py",
+      "is_local_engine": true
+    },
+    "first_contact": {
+      "name": "first_contact",
+      "source": "mycelium-engine",
+      "path": "mycelium/FIRST_CONTACT.py",
+      "is_local_engine": true
+    },
+    "first_sale_notifier": {
+      "name": "first_sale_notifier",
+      "source": "mycelium-engine",
+      "path": "mycelium/FIRST_SALE_NOTIFIER.py",
+      "is_local_engine": true
+    },
+    "fork_scanner": {
+      "name": "fork_scanner",
+      "source": "mycelium-engine",
+      "path": "mycelium/FORK_SCANNER.py",
+      "is_local_engine": true
+    },
+    "free_api_engine": {
+      "name": "free_api_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/FREE_API_ENGINE.py",
+      "is_local_engine": true
+    },
+    "gemini_bridge": {
+      "name": "gemini_bridge",
+      "source": "mycelium-engine",
+      "path": "mycelium/GEMINI_BRIDGE.py",
+      "is_local_engine": true
+    },
+    "generated_skills": {
+      "name": "generated_skills",
+      "source": "mycelium-engine",
+      "path": "mycelium/GENERATED_SKILLS.py",
+      "is_local_engine": true
+    },
+    "getscreen_bridge": {
+      "name": "getscreen_bridge",
+      "source": "mycelium-engine",
+      "path": "mycelium/GETSCREEN_BRIDGE.py",
+      "is_local_engine": true
+    },
+    "github_poster": {
+      "name": "github_poster",
+      "source": "mycelium-engine",
+      "path": "mycelium/GITHUB_POSTER.py",
+      "is_local_engine": true
+    },
+    "github_releases_publisher": {
+      "name": "github_releases_publisher",
+      "source": "mycelium-engine",
+      "path": "mycelium/GITHUB_RELEASES_PUBLISHER.py",
+      "is_local_engine": true
+    },
+    "github_sponsors_engine": {
+      "name": "github_sponsors_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/GITHUB_SPONSORS_ENGINE.py",
+      "is_local_engine": true
+    },
+    "gmail_intake": {
+      "name": "gmail_intake",
+      "source": "mycelium-engine",
+      "path": "mycelium/GMAIL_INTAKE.py",
+      "is_local_engine": true
+    },
+    "gmail_notifier": {
+      "name": "gmail_notifier",
+      "source": "mycelium-engine",
+      "path": "mycelium/GMAIL_NOTIFIER.py",
+      "is_local_engine": true
+    },
+    "grant_ai_writer": {
+      "name": "grant_ai_writer",
+      "source": "mycelium-engine",
+      "path": "mycelium/GRANT_AI_WRITER.py",
+      "is_local_engine": true
+    },
+    "grant_applicant": {
+      "name": "grant_applicant",
+      "source": "mycelium-engine",
+      "path": "mycelium/GRANT_APPLICANT.py",
+      "is_local_engine": true
+    },
+    "grant_hunter": {
+      "name": "grant_hunter",
+      "source": "mycelium-engine",
+      "path": "mycelium/GRANT_HUNTER.py",
+      "is_local_engine": true
+    },
+    "grant_writer": {
+      "name": "grant_writer",
+      "source": "mycelium-engine",
+      "path": "mycelium/GRANT_WRITER.py",
+      "is_local_engine": true
+    },
+    "growth_chain": {
+      "name": "growth_chain",
+      "source": "mycelium-engine",
+      "path": "mycelium/GROWTH_CHAIN.py",
+      "is_local_engine": true
+    },
+    "guardian": {
+      "name": "guardian",
+      "source": "mycelium-engine",
+      "path": "mycelium/GUARDIAN.py",
+      "is_local_engine": true
+    },
+    "guardian_gatekeeper": {
+      "name": "guardian_gatekeeper",
+      "source": "mycelium-engine",
+      "path": "mycelium/GUARDIAN_GATEKEEPER.py",
+      "is_local_engine": true
+    },
+    "gumroad_auto_launch": {
+      "name": "gumroad_auto_launch",
+      "source": "mycelium-engine",
+      "path": "mycelium/GUMROAD_AUTO_LAUNCH.py",
+      "is_local_engine": true
+    },
+    "gumroad_auto_queue": {
+      "name": "gumroad_auto_queue",
+      "source": "mycelium-engine",
+      "path": "mycelium/GUMROAD_AUTO_QUEUE.py",
+      "is_local_engine": true
+    },
+    "gumroad_engine": {
+      "name": "gumroad_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/GUMROAD_ENGINE.py",
+      "is_local_engine": true
+    },
+    "gumroad_product_publisher": {
+      "name": "gumroad_product_publisher",
+      "source": "mycelium-engine",
+      "path": "mycelium/GUMROAD_PRODUCT_PUBLISHER.py",
+      "is_local_engine": true
+    },
+    "health_booster": {
+      "name": "health_booster",
+      "source": "mycelium-engine",
+      "path": "mycelium/HEALTH_BOOSTER.py",
+      "is_local_engine": true
+    },
+    "human_connector": {
+      "name": "human_connector",
+      "source": "mycelium-engine",
+      "path": "mycelium/HUMAN_CONNECTOR.py",
+      "is_local_engine": true
+    },
+    "human_payout": {
+      "name": "human_payout",
+      "source": "mycelium-engine",
+      "path": "mycelium/HUMAN_PAYOUT.py",
+      "is_local_engine": true
+    },
+    "income_architect": {
+      "name": "income_architect",
+      "source": "mycelium-engine",
+      "path": "mycelium/INCOME_ARCHITECT.py",
+      "is_local_engine": true
+    },
+    "issue_sync": {
+      "name": "issue_sync",
+      "source": "mycelium-engine",
+      "path": "mycelium/ISSUE_SYNC.py",
+      "is_local_engine": true
+    },
+    "knowledge_bridge": {
+      "name": "knowledge_bridge",
+      "source": "mycelium-engine",
+      "path": "mycelium/KNOWLEDGE_BRIDGE.py",
+      "is_local_engine": true
+    },
+    "knowledge_chain": {
+      "name": "knowledge_chain",
+      "source": "mycelium-engine",
+      "path": "mycelium/KNOWLEDGE_CHAIN.py",
+      "is_local_engine": true
+    },
+    "knowledge_miner": {
+      "name": "knowledge_miner",
+      "source": "mycelium-engine",
+      "path": "mycelium/KNOWLEDGE_MINER.py",
+      "is_local_engine": true
+    },
+    "knowledge_synthesizer": {
+      "name": "knowledge_synthesizer",
+      "source": "mycelium-engine",
+      "path": "mycelium/KNOWLEDGE_SYNTHESIZER.py",
+      "is_local_engine": true
+    },
+    "knowledge_weaver": {
+      "name": "knowledge_weaver",
+      "source": "mycelium-engine",
+      "path": "mycelium/KNOWLEDGE_WEAVER.py",
+      "is_local_engine": true
+    },
+    "kofi_engine": {
+      "name": "kofi_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/KOFI_ENGINE.py",
+      "is_local_engine": true
+    },
+    "kofi_payment_tracker": {
+      "name": "kofi_payment_tracker",
+      "source": "mycelium-engine",
+      "path": "mycelium/KOFI_PAYMENT_TRACKER.py",
+      "is_local_engine": true
+    },
+    "labor_dispatch_engine": {
+      "name": "labor_dispatch_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/LABOR_DISPATCH_ENGINE.py",
+      "is_local_engine": true
+    },
+    "landing_deployer": {
+      "name": "landing_deployer",
+      "source": "mycelium-engine",
+      "path": "mycelium/LANDING_DEPLOYER.py",
+      "is_local_engine": true
+    },
+    "legacy_integrator": {
+      "name": "legacy_integrator",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_INTEGRATOR.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_promoter_agent": {
+      "name": "legacy_sifted_promoter_agent",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_PROMOTER_AGENT.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted__configure_medusa": {
+      "name": "legacy_sifted__configure_medusa",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED__configure_medusa.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_agency_orchestrator": {
+      "name": "legacy_sifted_agency_orchestrator",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_agency_orchestrator.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_amazon_content_machine": {
+      "name": "legacy_sifted_amazon_content_machine",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_amazon_content_machine.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_amazon_tag_manager": {
+      "name": "legacy_sifted_amazon_tag_manager",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_amazon_tag_manager.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_api_integrations": {
+      "name": "legacy_sifted_api_integrations",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_api_integrations.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_auto_content_system": {
+      "name": "legacy_sifted_auto_content_system",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_auto_content_system.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_auto_monetizer": {
+      "name": "legacy_sifted_auto_monetizer",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_auto_monetizer.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_blockchain_tracker": {
+      "name": "legacy_sifted_blockchain_tracker",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_blockchain_tracker.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_continue_agent_task": {
+      "name": "legacy_sifted_continue_agent_task",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_continue_agent_task.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_create_links": {
+      "name": "legacy_sifted_create_links",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_create_links.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_crisis_response_ai": {
+      "name": "legacy_sifted_crisis_response_ai",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_crisis_response_ai.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_distribution_engine": {
+      "name": "legacy_sifted_distribution_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_distribution_engine.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_email_sequences": {
+      "name": "legacy_sifted_email_sequences",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_email_sequences.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_engine_simple": {
+      "name": "legacy_sifted_engine_simple",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_engine_simple.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_fix_dates": {
+      "name": "legacy_sifted_fix_dates",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_fix_dates.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_full_autonomous_deploy": {
+      "name": "legacy_sifted_full_autonomous_deploy",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_full_autonomous_deploy.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_get_crypto_wallets": {
+      "name": "legacy_sifted_get_crypto_wallets",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_get_crypto_wallets.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_humanitarian_orchestrator": {
+      "name": "legacy_sifted_humanitarian_orchestrator",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_humanitarian_orchestrator.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_humanitarian_revenue": {
+      "name": "legacy_sifted_humanitarian_revenue",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_humanitarian_revenue.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_humanitarian_revenue_engine": {
+      "name": "legacy_sifted_humanitarian_revenue_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_humanitarian_revenue_engine.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_main": {
+      "name": "legacy_sifted_main",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_main.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_meeko_agent": {
+      "name": "legacy_sifted_meeko_agent",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_meeko_agent.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_money_tracker": {
+      "name": "legacy_sifted_money_tracker",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_money_tracker.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_orchestrator": {
+      "name": "legacy_sifted_orchestrator",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_orchestrator.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_pinterest_bot": {
+      "name": "legacy_sifted_pinterest_bot",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_pinterest_bot.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_pod_bulk_uploader": {
+      "name": "legacy_sifted_pod_bulk_uploader",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_pod_bulk_uploader.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_prescan": {
+      "name": "legacy_sifted_prescan",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_prescan.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_prescan_v2": {
+      "name": "legacy_sifted_prescan_v2",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_prescan_v2.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_prescan_v2_1": {
+      "name": "legacy_sifted_prescan_v2_1",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_prescan_v2_1.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_real_content_generator": {
+      "name": "legacy_sifted_real_content_generator",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_real_content_generator.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_reddit_bot": {
+      "name": "legacy_sifted_reddit_bot",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_reddit_bot.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_self_heal": {
+      "name": "legacy_sifted_self_heal",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_self_heal.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_send_crypto_donations": {
+      "name": "legacy_sifted_send_crypto_donations",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_send_crypto_donations.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_simple_orchestrator": {
+      "name": "legacy_sifted_simple_orchestrator",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_simple_orchestrator.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_social_bot": {
+      "name": "legacy_sifted_social_bot",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_social_bot.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_social_media_bot": {
+      "name": "legacy_sifted_social_media_bot",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_social_media_bot.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_ultimate_ai_self": {
+      "name": "legacy_sifted_ultimate_ai_self",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_ultimate_ai_self.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_ultimate_ai_self_1": {
+      "name": "legacy_sifted_ultimate_ai_self_1",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_ultimate_ai_self_1.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_visualize_ai_system": {
+      "name": "legacy_sifted_visualize_ai_system",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_visualize_ai_system.py",
+      "is_local_engine": true
+    },
+    "legacy_sifted_working_generator": {
+      "name": "legacy_sifted_working_generator",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGACY_SIFTED_working_generator.py",
+      "is_local_engine": true
+    },
+    "lf_fixer": {
+      "name": "lf_fixer",
+      "source": "mycelium-engine",
+      "path": "mycelium/LF_FIXER.py",
+      "is_local_engine": true
+    },
+    "link_page": {
+      "name": "link_page",
+      "source": "mycelium-engine",
+      "path": "mycelium/LINK_PAGE.py",
+      "is_local_engine": true
+    },
+    "loop_conductor": {
+      "name": "loop_conductor",
+      "source": "mycelium-engine",
+      "path": "mycelium/LOOP_CONDUCTOR.py",
+      "is_local_engine": true
+    },
+    "lumen_sync": {
+      "name": "lumen_sync",
+      "source": "mycelium-engine",
+      "path": "mycelium/LUMEN_SYNC.py",
+      "is_local_engine": true
+    },
+    "mastodon_engine": {
+      "name": "mastodon_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/MASTODON_ENGINE.py",
+      "is_local_engine": true
+    },
+    "memory_palace": {
+      "name": "memory_palace",
+      "source": "mycelium-engine",
+      "path": "mycelium/MEMORY_PALACE.py",
+      "is_local_engine": true
+    },
+    "mission_control": {
+      "name": "mission_control",
+      "source": "mycelium-engine",
+      "path": "mycelium/MISSION_CONTROL.py",
+      "is_local_engine": true
+    },
+    "multi_repo_sync": {
+      "name": "multi_repo_sync",
+      "source": "mycelium-engine",
+      "path": "mycelium/MULTI_REPO_SYNC.py",
+      "is_local_engine": true
+    },
+    "nanoshop_engine": {
+      "name": "nanoshop_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/NANOSHOP_ENGINE.py",
+      "is_local_engine": true
+    },
+    "nano_agent": {
+      "name": "nano_agent",
+      "source": "mycelium-engine",
+      "path": "mycelium/NANO_AGENT.py",
+      "is_local_engine": true
+    },
+    "narrator": {
+      "name": "narrator",
+      "source": "mycelium-engine",
+      "path": "mycelium/NARRATOR.py",
+      "is_local_engine": true
+    },
+    "network_sentry": {
+      "name": "network_sentry",
+      "source": "mycelium-engine",
+      "path": "mycelium/NETWORK_SENTRY.py",
+      "is_local_engine": true
+    },
+    "neural_preference": {
+      "name": "neural_preference",
+      "source": "mycelium-engine",
+      "path": "mycelium/NEURAL_PREFERENCE.py",
+      "is_local_engine": true
+    },
+    "neural_weaver": {
+      "name": "neural_weaver",
+      "source": "mycelium-engine",
+      "path": "mycelium/NEURAL_WEAVER.py",
+      "is_local_engine": true
+    },
+    "neuron_a": {
+      "name": "neuron_a",
+      "source": "mycelium-engine",
+      "path": "mycelium/NEURON_A.py",
+      "is_local_engine": true
+    },
+    "neuron_b": {
+      "name": "neuron_b",
+      "source": "mycelium-engine",
+      "path": "mycelium/NEURON_B.py",
+      "is_local_engine": true
+    },
+    "newsletter_automator": {
+      "name": "newsletter_automator",
+      "source": "mycelium-engine",
+      "path": "mycelium/NEWSLETTER_AUTOMATOR.py",
+      "is_local_engine": true
+    },
+    "newsletter_engine": {
+      "name": "newsletter_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/NEWSLETTER_ENGINE.py",
+      "is_local_engine": true
+    },
+    "news_harvester": {
+      "name": "news_harvester",
+      "source": "mycelium-engine",
+      "path": "mycelium/NEWS_HARVESTER.py",
+      "is_local_engine": true
+    },
+    "nightly_digest": {
+      "name": "nightly_digest",
+      "source": "mycelium-engine",
+      "path": "mycelium/NIGHTLY_DIGEST.py",
+      "is_local_engine": true
+    },
+    "offline_brain": {
+      "name": "offline_brain",
+      "source": "mycelium-engine",
+      "path": "mycelium/OFFLINE_BRAIN.py",
+      "is_local_engine": true
+    },
+    "ollama_bridge": {
+      "name": "ollama_bridge",
+      "source": "mycelium-engine",
+      "path": "mycelium/OLLAMA_BRIDGE.py",
+      "is_local_engine": true
+    },
+    "omnibus": {
+      "name": "omnibus",
+      "source": "mycelium-engine",
+      "path": "mycelium/OMNIBUS.py",
+      "is_local_engine": true
+    },
+    "openclaw_skill_sync": {
+      "name": "openclaw_skill_sync",
+      "source": "mycelium-engine",
+      "path": "mycelium/OPENCLAW_SKILL_SYNC.py",
+      "is_local_engine": true
+    },
+    "orphan_connector": {
+      "name": "orphan_connector",
+      "source": "mycelium-engine",
+      "path": "mycelium/ORPHAN_CONNECTOR.py",
+      "is_local_engine": true
+    },
+    "passive_income_architect": {
+      "name": "passive_income_architect",
+      "source": "mycelium-engine",
+      "path": "mycelium/PASSIVE_INCOME_ARCHITECT.py",
+      "is_local_engine": true
+    },
+    "paypal_payout": {
+      "name": "paypal_payout",
+      "source": "mycelium-engine",
+      "path": "mycelium/PAYPAL_PAYOUT.py",
+      "is_local_engine": true
+    },
+    "pdf_generator": {
+      "name": "pdf_generator",
+      "source": "mycelium-engine",
+      "path": "mycelium/PDF_GENERATOR.py",
+      "is_local_engine": true
+    },
+    "performance_optimizer": {
+      "name": "performance_optimizer",
+      "source": "mycelium-engine",
+      "path": "mycelium/PERFORMANCE_OPTIMIZER.py",
+      "is_local_engine": true
+    },
+    "plugin_registry": {
+      "name": "plugin_registry",
+      "source": "mycelium-engine",
+      "path": "mycelium/PLUGIN_REGISTRY.py",
+      "is_local_engine": true
+    },
+    "print_relay_engine": {
+      "name": "print_relay_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/PRINT_RELAY_ENGINE.py",
+      "is_local_engine": true
+    },
+    "producthunt_launcher": {
+      "name": "producthunt_launcher",
+      "source": "mycelium-engine",
+      "path": "mycelium/PRODUCTHUNT_LAUNCHER.py",
+      "is_local_engine": true
+    },
+    "product_delivery_engine": {
+      "name": "product_delivery_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/PRODUCT_DELIVERY_ENGINE.py",
+      "is_local_engine": true
+    },
+    "product_registry": {
+      "name": "product_registry",
+      "source": "mycelium-engine",
+      "path": "mycelium/PRODUCT_REGISTRY.py",
+      "is_local_engine": true
+    },
+    "proof_ledger": {
+      "name": "proof_ledger",
+      "source": "mycelium-engine",
+      "path": "mycelium/PROOF_LEDGER.py",
+      "is_local_engine": true
+    },
+    "quick_revenue": {
+      "name": "quick_revenue",
+      "source": "mycelium-engine",
+      "path": "mycelium/QUICK_REVENUE.py",
+      "is_local_engine": true
+    },
+    "readme_generator": {
+      "name": "readme_generator",
+      "source": "mycelium-engine",
+      "path": "mycelium/README_GENERATOR.py",
+      "is_local_engine": true
+    },
+    "real_life_manifesto": {
+      "name": "real_life_manifesto",
+      "source": "mycelium-engine",
+      "path": "mycelium/REAL_LIFE_MANIFESTO.py",
+      "is_local_engine": true
+    },
+    "recursive_prompter": {
+      "name": "recursive_prompter",
+      "source": "mycelium-engine",
+      "path": "mycelium/RECURSIVE_PROMPTER.py",
+      "is_local_engine": true
+    },
+    "redundancy_mgr": {
+      "name": "redundancy_mgr",
+      "source": "mycelium-engine",
+      "path": "mycelium/REDUNDANCY_MGR.py",
+      "is_local_engine": true
+    },
+    "repair_core": {
+      "name": "repair_core",
+      "source": "mycelium-engine",
+      "path": "mycelium/REPAIR_CORE.py",
+      "is_local_engine": true
+    },
+    "repo_librarian": {
+      "name": "repo_librarian",
+      "source": "mycelium-engine",
+      "path": "mycelium/REPO_LIBRARIAN.py",
+      "is_local_engine": true
+    },
+    "repo_spider": {
+      "name": "repo_spider",
+      "source": "mycelium-engine",
+      "path": "mycelium/REPO_SPIDER.py",
+      "is_local_engine": true
+    },
+    "resonance_converter": {
+      "name": "resonance_converter",
+      "source": "mycelium-engine",
+      "path": "mycelium/RESONANCE_CONVERTER.py",
+      "is_local_engine": true
+    },
+    "resonance_engine": {
+      "name": "resonance_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/RESONANCE_ENGINE.py",
+      "is_local_engine": true
+    },
+    "revenue_audit": {
+      "name": "revenue_audit",
+      "source": "mycelium-engine",
+      "path": "mycelium/REVENUE_AUDIT.py",
+      "is_local_engine": true
+    },
+    "revenue_engine": {
+      "name": "revenue_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/REVENUE_ENGINE.py",
+      "is_local_engine": true
+    },
+    "revenue_flywheel": {
+      "name": "revenue_flywheel",
+      "source": "mycelium-engine",
+      "path": "mycelium/REVENUE_FLYWHEEL.py",
+      "is_local_engine": true
+    },
+    "revenue_intelligence": {
+      "name": "revenue_intelligence",
+      "source": "mycelium-engine",
+      "path": "mycelium/REVENUE_INTELLIGENCE.py",
+      "is_local_engine": true
+    },
+    "revenue_loop": {
+      "name": "revenue_loop",
+      "source": "mycelium-engine",
+      "path": "mycelium/REVENUE_LOOP.py",
+      "is_local_engine": true
+    },
+    "revenue_monitor": {
+      "name": "revenue_monitor",
+      "source": "mycelium-engine",
+      "path": "mycelium/REVENUE_MONITOR.py",
+      "is_local_engine": true
+    },
+    "revenue_optimizer": {
+      "name": "revenue_optimizer",
+      "source": "mycelium-engine",
+      "path": "mycelium/REVENUE_OPTIMIZER.py",
+      "is_local_engine": true
+    },
+    "revenue_recycler": {
+      "name": "revenue_recycler",
+      "source": "mycelium-engine",
+      "path": "mycelium/REVENUE_RECYCLER.py",
+      "is_local_engine": true
+    },
+    "rss_publisher": {
+      "name": "rss_publisher",
+      "source": "mycelium-engine",
+      "path": "mycelium/RSS_PUBLISHER.py",
+      "is_local_engine": true
+    },
+    "scam_shield": {
+      "name": "scam_shield",
+      "source": "mycelium-engine",
+      "path": "mycelium/SCAM_SHIELD.py",
+      "is_local_engine": true
+    },
+    "scavenger_web": {
+      "name": "scavenger_web",
+      "source": "mycelium-engine",
+      "path": "mycelium/SCAVENGER_WEB.py",
+      "is_local_engine": true
+    },
+    "scripts_activator": {
+      "name": "scripts_activator",
+      "source": "mycelium-engine",
+      "path": "mycelium/SCRIPTS_ACTIVATOR.py",
+      "is_local_engine": true
+    },
+    "secrets_checker": {
+      "name": "secrets_checker",
+      "source": "mycelium-engine",
+      "path": "mycelium/SECRETS_CHECKER.py",
+      "is_local_engine": true
+    },
+    "secret_loader": {
+      "name": "secret_loader",
+      "source": "mycelium-engine",
+      "path": "mycelium/SECRET_LOADER.py",
+      "is_local_engine": true
+    },
+    "security_sentry": {
+      "name": "security_sentry",
+      "source": "mycelium-engine",
+      "path": "mycelium/SECURITY_SENTRY.py",
+      "is_local_engine": true
+    },
+    "self_builder": {
+      "name": "self_builder",
+      "source": "mycelium-engine",
+      "path": "mycelium/SELF_BUILDER.py",
+      "is_local_engine": true
+    },
+    "self_portrait": {
+      "name": "self_portrait",
+      "source": "mycelium-engine",
+      "path": "mycelium/SELF_PORTRAIT.py",
+      "is_local_engine": true
+    },
+    "seo_engine": {
+      "name": "seo_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/SEO_ENGINE.py",
+      "is_local_engine": true
+    },
+    "signal_chain": {
+      "name": "signal_chain",
+      "source": "mycelium-engine",
+      "path": "mycelium/SIGNAL_CHAIN.py",
+      "is_local_engine": true
+    },
+    "skill_manifestor": {
+      "name": "skill_manifestor",
+      "source": "mycelium-engine",
+      "path": "mycelium/SKILL_MANIFESTOR.py",
+      "is_local_engine": true
+    },
+    "skill_packager": {
+      "name": "skill_packager",
+      "source": "mycelium-engine",
+      "path": "mycelium/SKILL_PACKAGER.py",
+      "is_local_engine": true
+    },
+    "social_brain": {
+      "name": "social_brain",
+      "source": "mycelium-engine",
+      "path": "mycelium/SOCIAL_BRAIN.py",
+      "is_local_engine": true
+    },
+    "social_dashboard": {
+      "name": "social_dashboard",
+      "source": "mycelium-engine",
+      "path": "mycelium/SOCIAL_DASHBOARD.py",
+      "is_local_engine": true
+    },
+    "social_echo": {
+      "name": "social_echo",
+      "source": "mycelium-engine",
+      "path": "mycelium/SOCIAL_ECHO.py",
+      "is_local_engine": true
+    },
+    "social_promoter": {
+      "name": "social_promoter",
+      "source": "mycelium-engine",
+      "path": "mycelium/SOCIAL_PROMOTER.py",
+      "is_local_engine": true
+    },
+    "solarpunk_cli": {
+      "name": "solarpunk_cli",
+      "source": "mycelium-engine",
+      "path": "mycelium/SOLARPUNK_CLI.py",
+      "is_local_engine": true
+    },
+    "solarpunk_legal": {
+      "name": "solarpunk_legal",
+      "source": "mycelium-engine",
+      "path": "mycelium/SOLARPUNK_LEGAL.py",
+      "is_local_engine": true
+    },
+    "solar_overseer": {
+      "name": "solar_overseer",
+      "source": "mycelium-engine",
+      "path": "mycelium/SOLAR_OVERSEER.py",
+      "is_local_engine": true
+    },
+    "sovereign_core": {
+      "name": "sovereign_core",
+      "source": "mycelium-engine",
+      "path": "mycelium/SOVEREIGN_CORE.py",
+      "is_local_engine": true
+    },
+    "spore_server": {
+      "name": "spore_server",
+      "source": "mycelium-engine",
+      "path": "mycelium/SPORE_SERVER.py",
+      "is_local_engine": true
+    },
+    "storefront_builder": {
+      "name": "storefront_builder",
+      "source": "mycelium-engine",
+      "path": "mycelium/STOREFRONT_BUILDER.py",
+      "is_local_engine": true
+    },
+    "store_builder": {
+      "name": "store_builder",
+      "source": "mycelium-engine",
+      "path": "mycelium/STORE_BUILDER.py",
+      "is_local_engine": true
+    },
+    "substack_engine": {
+      "name": "substack_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/SUBSTACK_ENGINE.py",
+      "is_local_engine": true
+    },
+    "swarm_coordinator": {
+      "name": "swarm_coordinator",
+      "source": "mycelium-engine",
+      "path": "mycelium/SWARM_COORDINATOR.py",
+      "is_local_engine": true
+    },
+    "swarm_toolbox": {
+      "name": "swarm_toolbox",
+      "source": "mycelium-engine",
+      "path": "mycelium/SWARM_TOOLBOX.py",
+      "is_local_engine": true
+    },
+    "synapse": {
+      "name": "synapse",
+      "source": "mycelium-engine",
+      "path": "mycelium/SYNAPSE.py",
+      "is_local_engine": true
+    },
+    "synapse_builder": {
+      "name": "synapse_builder",
+      "source": "mycelium-engine",
+      "path": "mycelium/SYNAPSE_BUILDER.py",
+      "is_local_engine": true
+    },
+    "synergy_forge": {
+      "name": "synergy_forge",
+      "source": "mycelium-engine",
+      "path": "mycelium/SYNERGY_FORGE.py",
+      "is_local_engine": true
+    },
+    "synergy_scout": {
+      "name": "synergy_scout",
+      "source": "mycelium-engine",
+      "path": "mycelium/SYNERGY_SCOUT.py",
+      "is_local_engine": true
+    },
+    "synthesis_factory": {
+      "name": "synthesis_factory",
+      "source": "mycelium-engine",
+      "path": "mycelium/SYNTHESIS_FACTORY.py",
+      "is_local_engine": true
+    },
+    "system_condenser": {
+      "name": "system_condenser",
+      "source": "mycelium-engine",
+      "path": "mycelium/SYSTEM_CONDENSER.py",
+      "is_local_engine": true
+    },
+    "system_mapper": {
+      "name": "system_mapper",
+      "source": "mycelium-engine",
+      "path": "mycelium/SYSTEM_MAPPER.py",
+      "is_local_engine": true
+    },
+    "system_sifter": {
+      "name": "system_sifter",
+      "source": "mycelium-engine",
+      "path": "mycelium/SYSTEM_SIFTER.py",
+      "is_local_engine": true
+    },
+    "task_atomizer": {
+      "name": "task_atomizer",
+      "source": "mycelium-engine",
+      "path": "mycelium/TASK_ATOMIZER.py",
+      "is_local_engine": true
+    },
+    "telegram_bridge": {
+      "name": "telegram_bridge",
+      "source": "mycelium-engine",
+      "path": "mycelium/TELEGRAM_BRIDGE.py",
+      "is_local_engine": true
+    },
+    "trifecta_core": {
+      "name": "trifecta_core",
+      "source": "mycelium-engine",
+      "path": "mycelium/TRIFECTA_CORE.py",
+      "is_local_engine": true
+    },
+    "upgrade_engine": {
+      "name": "upgrade_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/UPGRADE_ENGINE.py",
+      "is_local_engine": true
+    },
+    "validate_auth": {
+      "name": "validate_auth",
+      "source": "mycelium-engine",
+      "path": "mycelium/VALIDATE_AUTH.py",
+      "is_local_engine": true
+    },
+    "value_generator": {
+      "name": "value_generator",
+      "source": "mycelium-engine",
+      "path": "mycelium/VALUE_GENERATOR.py",
+      "is_local_engine": true
+    },
+    "virality_engine": {
+      "name": "virality_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/VIRALITY_ENGINE.py",
+      "is_local_engine": true
+    },
+    "wake_on_lan": {
+      "name": "wake_on_lan",
+      "source": "mycelium-engine",
+      "path": "mycelium/WAKE_ON_LAN.py",
+      "is_local_engine": true
+    },
+    "web_intelligence": {
+      "name": "web_intelligence",
+      "source": "mycelium-engine",
+      "path": "mycelium/WEB_INTELLIGENCE.py",
+      "is_local_engine": true
+    },
+    "web_publisher": {
+      "name": "web_publisher",
+      "source": "mycelium-engine",
+      "path": "mycelium/WEB_PUBLISHER.py",
+      "is_local_engine": true
+    },
+    "ai_council": {
+      "name": "ai_council",
+      "source": "mycelium-engine",
+      "path": "mycelium/ai_council.py",
+      "is_local_engine": true
+    },
+    "archivist": {
+      "name": "archivist",
+      "source": "mycelium-engine",
+      "path": "mycelium/archivist.py",
+      "is_local_engine": true
+    },
+    "compliance_monitor": {
+      "name": "compliance_monitor",
+      "source": "mycelium-engine",
+      "path": "mycelium/compliance_monitor.py",
+      "is_local_engine": true
+    },
+    "cross_poster": {
+      "name": "cross_poster",
+      "source": "mycelium-engine",
+      "path": "mycelium/cross_poster.py",
+      "is_local_engine": true
+    },
+    "daily_pulse": {
+      "name": "daily_pulse",
+      "source": "mycelium-engine",
+      "path": "mycelium/daily_pulse.py",
+      "is_local_engine": true
+    },
+    "grant_generator": {
+      "name": "grant_generator",
+      "source": "mycelium-engine",
+      "path": "mycelium/grant_generator.py",
+      "is_local_engine": true
+    },
+    "hibernation_protocol": {
+      "name": "hibernation_protocol",
+      "source": "mycelium-engine",
+      "path": "mycelium/hibernation_protocol.py",
+      "is_local_engine": true
+    },
+    "knowledge_dispatch": {
+      "name": "knowledge_dispatch",
+      "source": "mycelium-engine",
+      "path": "mycelium/knowledge_dispatch.py",
+      "is_local_engine": true
+    },
+    "ledger_engine": {
+      "name": "ledger_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/ledger_engine.py",
+      "is_local_engine": true
+    },
+    "mirror_node": {
+      "name": "mirror_node",
+      "source": "mycelium-engine",
+      "path": "mycelium/mirror_node.py",
+      "is_local_engine": true
+    },
+    "monetization_tracker": {
+      "name": "monetization_tracker",
+      "source": "mycelium-engine",
+      "path": "mycelium/monetization_tracker.py",
+      "is_local_engine": true
+    },
+    "mutual_aid_ledger": {
+      "name": "mutual_aid_ledger",
+      "source": "mycelium-engine",
+      "path": "mycelium/mutual_aid_ledger.py",
+      "is_local_engine": true
+    },
+    "omnibrain_report": {
+      "name": "omnibrain_report",
+      "source": "mycelium-engine",
+      "path": "mycelium/omnibrain_report.py",
+      "is_local_engine": true
+    },
+    "open_broadcaster": {
+      "name": "open_broadcaster",
+      "source": "mycelium-engine",
+      "path": "mycelium/open_broadcaster.py",
+      "is_local_engine": true
+    },
+    "revenue_aggregator": {
+      "name": "revenue_aggregator",
+      "source": "mycelium-engine",
+      "path": "mycelium/revenue_aggregator.py",
+      "is_local_engine": true
+    },
+    "scout_bot": {
+      "name": "scout_bot",
+      "source": "mycelium-engine",
+      "path": "mycelium/scout_bot.py",
+      "is_local_engine": true
+    },
+    "signal_tracker": {
+      "name": "signal_tracker",
+      "source": "mycelium-engine",
+      "path": "mycelium/signal_tracker.py",
+      "is_local_engine": true
+    },
+    "social_velocity": {
+      "name": "social_velocity",
+      "source": "mycelium-engine",
+      "path": "mycelium/social_velocity.py",
+      "is_local_engine": true
+    },
+    "stealth_protocol": {
+      "name": "stealth_protocol",
+      "source": "mycelium-engine",
+      "path": "mycelium/stealth_protocol.py",
+      "is_local_engine": true
+    },
+    "summarizer": {
+      "name": "summarizer",
+      "source": "mycelium-engine",
+      "path": "mycelium/summarizer.py",
+      "is_local_engine": true
+    },
+    "swarm_scout": {
+      "name": "swarm_scout",
+      "source": "mycelium-engine",
+      "path": "mycelium/swarm_scout.py",
+      "is_local_engine": true
+    },
+    "voice-call": {
+      "name": "voice-call",
+      "meta_name": "voice-call",
+      "description": "Start voice calls via the OpenClaw voice-call plugin.",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:29.463658+00:00",
+      "path": ".pi/skills/voice-call/SKILL.md",
+      "size_bytes": 1156
+    },
+    "wacli": {
+      "name": "wacli",
+      "meta_name": "wacli",
+      "description": "Send WhatsApp messages to other people or search/sync WhatsApp history via the wacli CLI (not for normal user chats).",
+      "version": "",
+      "source": "openclaw-official",
+      "installed_at": "2026-03-21T10:36:30.154697+00:00",
+      "path": ".pi/skills/wacli/SKILL.md",
+      "size_bytes": 2380
+    },
+    "affiliate_machine": {
+      "name": "affiliate_machine",
+      "source": "mycelium-engine",
+      "path": "mycelium/AFFILIATE_MACHINE.py",
+      "is_local_engine": true
+    },
+    "crypto_treasury": {
+      "name": "crypto_treasury",
+      "source": "mycelium-engine",
+      "path": "mycelium/CRYPTO_TREASURY.py",
+      "is_local_engine": true
+    },
+    "donation_router": {
+      "name": "donation_router",
+      "source": "mycelium-engine",
+      "path": "mycelium/DONATION_ROUTER.py",
+      "is_local_engine": true
+    },
+    "everyone_wins_engine": {
+      "name": "everyone_wins_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/EVERYONE_WINS_ENGINE.py",
+      "is_local_engine": true
+    },
+    "free_alternative_finder": {
+      "name": "free_alternative_finder",
+      "source": "mycelium-engine",
+      "path": "mycelium/FREE_ALTERNATIVE_FINDER.py",
+      "is_local_engine": true
+    },
+    "free_api_connector": {
+      "name": "free_api_connector",
+      "source": "mycelium-engine",
+      "path": "mycelium/FREE_API_CONNECTOR.py",
+      "is_local_engine": true
+    },
+    "grant_auto_submitter": {
+      "name": "grant_auto_submitter",
+      "source": "mycelium-engine",
+      "path": "mycelium/GRANT_AUTO_SUBMITTER.py",
+      "is_local_engine": true
+    },
+    "investor_radar": {
+      "name": "investor_radar",
+      "source": "mycelium-engine",
+      "path": "mycelium/INVESTOR_RADAR.py",
+      "is_local_engine": true
+    },
+    "opencollective_engine": {
+      "name": "opencollective_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/OPENCOLLECTIVE_ENGINE.py",
+      "is_local_engine": true
+    },
+    "pitch_factory": {
+      "name": "pitch_factory",
+      "source": "mycelium-engine",
+      "path": "mycelium/PITCH_FACTORY.py",
+      "is_local_engine": true
+    },
+    "proof_architect": {
+      "name": "proof_architect",
+      "source": "mycelium-engine",
+      "path": "mycelium/PROOF_ARCHITECT.py",
+      "is_local_engine": true
+    },
+    "secret_bootstrap": {
+      "name": "secret_bootstrap",
+      "source": "mycelium-engine",
+      "path": "mycelium/SECRET_BOOTSTRAP.py",
+      "is_local_engine": true
+    },
+    "self_setup_autopilot": {
+      "name": "self_setup_autopilot",
+      "source": "mycelium-engine",
+      "path": "mycelium/SELF_SETUP_AUTOPILOT.py",
+      "is_local_engine": true
+    },
+    "starred_repo_miner": {
+      "name": "starred_repo_miner",
+      "source": "mycelium-engine",
+      "path": "mycelium/STARRED_REPO_MINER.py",
+      "is_local_engine": true
+    },
+    "swarm_amplifier": {
+      "name": "swarm_amplifier",
+      "source": "mycelium-engine",
+      "path": "mycelium/SWARM_AMPLIFIER.py",
+      "is_local_engine": true
+    },
+    "agent_nexus": {
+      "name": "agent_nexus",
+      "source": "mycelium-engine",
+      "path": "mycelium/AGENT_NEXUS.py",
+      "is_local_engine": true
+    },
+    "arxiv_harvester": {
+      "name": "arxiv_harvester",
+      "source": "mycelium-engine",
+      "path": "mycelium/ARXIV_HARVESTER.py",
+      "is_local_engine": true
+    },
+    "bioregional_clock": {
+      "name": "bioregional_clock",
+      "source": "mycelium-engine",
+      "path": "mycelium/BIOREGIONAL_CLOCK.py",
+      "is_local_engine": true
+    },
+    "crisis_router": {
+      "name": "crisis_router",
+      "source": "mycelium-engine",
+      "path": "mycelium/CRISIS_ROUTER.py",
+      "is_local_engine": true
+    },
+    "fediverse_publisher": {
+      "name": "fediverse_publisher",
+      "source": "mycelium-engine",
+      "path": "mycelium/FEDIVERSE_PUBLISHER.py",
+      "is_local_engine": true
+    },
+    "free_infra_scanner": {
+      "name": "free_infra_scanner",
+      "source": "mycelium-engine",
+      "path": "mycelium/FREE_INFRA_SCANNER.py",
+      "is_local_engine": true
+    },
+    "frequency_tuner": {
+      "name": "frequency_tuner",
+      "source": "mycelium-engine",
+      "path": "mycelium/FREQUENCY_TUNER.py",
+      "is_local_engine": true
+    },
+    "groq_engine": {
+      "name": "groq_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/GROQ_ENGINE.py",
+      "is_local_engine": true
+    },
+    "ipfs_storage": {
+      "name": "ipfs_storage",
+      "source": "mycelium-engine",
+      "path": "mycelium/IPFS_STORAGE.py",
+      "is_local_engine": true
+    },
+    "opencollective_campaigner": {
+      "name": "opencollective_campaigner",
+      "source": "mycelium-engine",
+      "path": "mycelium/OPENCOLLECTIVE_CAMPAIGNER.py",
+      "is_local_engine": true
+    },
+    "self_builder_prime": {
+      "name": "self_builder_prime",
+      "source": "mycelium-engine",
+      "path": "mycelium/SELF_BUILDER_PRIME.py",
+      "is_local_engine": true
+    },
+    "unusual_whales_mcp": {
+      "name": "unusual_whales_mcp",
+      "source": "mycelium-engine",
+      "path": "mycelium/UNUSUAL_WHALES_MCP.py",
+      "is_local_engine": true
+    },
+    "x_knowledge_harvester": {
+      "name": "x_knowledge_harvester",
+      "source": "mycelium-engine",
+      "path": "mycelium/X_KNOWLEDGE_HARVESTER.py",
+      "is_local_engine": true
+    },
+    "auto_announce": {
+      "name": "auto_announce",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTO_ANNOUNCE.py",
+      "is_local_engine": true
+    },
+    "circulation_engine": {
+      "name": "circulation_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/CIRCULATION_ENGINE.py",
+      "is_local_engine": true
+    },
+    "dignity_pay": {
+      "name": "dignity_pay",
+      "source": "mycelium-engine",
+      "path": "mycelium/DIGNITY_PAY.py",
+      "is_local_engine": true
+    },
+    "distributed_forge": {
+      "name": "distributed_forge",
+      "source": "mycelium-engine",
+      "path": "mycelium/DISTRIBUTED_FORGE.py",
+      "is_local_engine": true
+    },
+    "easy_money_finder": {
+      "name": "easy_money_finder",
+      "source": "mycelium-engine",
+      "path": "mycelium/EASY_MONEY_FINDER.py",
+      "is_local_engine": true
+    },
+    "infrastructure_fee": {
+      "name": "infrastructure_fee",
+      "source": "mycelium-engine",
+      "path": "mycelium/INFRASTRUCTURE_FEE.py",
+      "is_local_engine": true
+    },
+    "labor_marketplace": {
+      "name": "labor_marketplace",
+      "source": "mycelium-engine",
+      "path": "mycelium/LABOR_MARKETPLACE.py",
+      "is_local_engine": true
+    },
+    "planetary_overflow": {
+      "name": "planetary_overflow",
+      "source": "mycelium-engine",
+      "path": "mycelium/PLANETARY_OVERFLOW.py",
+      "is_local_engine": true
+    },
+    "pool_manager": {
+      "name": "pool_manager",
+      "source": "mycelium-engine",
+      "path": "mycelium/POOL_MANAGER.py",
+      "is_local_engine": true
+    },
+    "problem_solver_prime": {
+      "name": "problem_solver_prime",
+      "source": "mycelium-engine",
+      "path": "mycelium/PROBLEM_SOLVER_PRIME.py",
+      "is_local_engine": true
+    },
+    "proof_of_impact": {
+      "name": "proof_of_impact",
+      "source": "mycelium-engine",
+      "path": "mycelium/PROOF_OF_IMPACT.py",
+      "is_local_engine": true
+    },
+    "public_goods_network": {
+      "name": "public_goods_network",
+      "source": "mycelium-engine",
+      "path": "mycelium/PUBLIC_GOODS_NETWORK.py",
+      "is_local_engine": true
+    },
+    "retroactive_proof": {
+      "name": "retroactive_proof",
+      "source": "mycelium-engine",
+      "path": "mycelium/RETROACTIVE_PROOF.py",
+      "is_local_engine": true
+    },
+    "revenue_architect": {
+      "name": "revenue_architect",
+      "source": "mycelium-engine",
+      "path": "mycelium/REVENUE_ARCHITECT.py",
+      "is_local_engine": true
+    },
+    "swarm_oracle": {
+      "name": "swarm_oracle",
+      "source": "mycelium-engine",
+      "path": "mycelium/SWARM_ORACLE.py",
+      "is_local_engine": true
+    },
+    "swarm_query": {
+      "name": "swarm_query",
+      "source": "mycelium-engine",
+      "path": "mycelium/SWARM_QUERY.py",
+      "is_local_engine": true
+    },
+    "task_verifier": {
+      "name": "task_verifier",
+      "source": "mycelium-engine",
+      "path": "mycelium/TASK_VERIFIER.py",
+      "is_local_engine": true
+    },
+    "worker_onboarding": {
+      "name": "worker_onboarding",
+      "source": "mycelium-engine",
+      "path": "mycelium/WORKER_ONBOARDING.py",
+      "is_local_engine": true
+    },
+    "abundance_protocol": {
+      "name": "abundance_protocol",
+      "source": "mycelium-engine",
+      "path": "mycelium/ABUNDANCE_PROTOCOL.py",
+      "is_local_engine": true
+    },
+    "ai_router": {
+      "name": "ai_router",
+      "source": "mycelium-engine",
+      "path": "mycelium/AI_ROUTER.py",
+      "is_local_engine": true
+    },
+    "autodoc": {
+      "name": "autodoc",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTODOC.py",
+      "is_local_engine": true
+    },
+    "autonomous_decisions": {
+      "name": "autonomous_decisions",
+      "source": "mycelium-engine",
+      "path": "mycelium/AUTONOMOUS_DECISIONS.py",
+      "is_local_engine": true
+    },
+    "awesome_foundation_apply": {
+      "name": "awesome_foundation_apply",
+      "source": "mycelium-engine",
+      "path": "mycelium/AWESOME_FOUNDATION_APPLY.py",
+      "is_local_engine": true
+    },
+    "crypto_bridge": {
+      "name": "crypto_bridge",
+      "source": "mycelium-engine",
+      "path": "mycelium/CRYPTO_BRIDGE.py",
+      "is_local_engine": true
+    },
+    "dawn_dusk_briefing": {
+      "name": "dawn_dusk_briefing",
+      "source": "mycelium-engine",
+      "path": "mycelium/DAWN_DUSK_BRIEFING.py",
+      "is_local_engine": true
+    },
+    "financial_reporter": {
+      "name": "financial_reporter",
+      "source": "mycelium-engine",
+      "path": "mycelium/FINANCIAL_REPORTER.py",
+      "is_local_engine": true
+    },
+    "first_dollar": {
+      "name": "first_dollar",
+      "source": "mycelium-engine",
+      "path": "mycelium/FIRST_DOLLAR.py",
+      "is_local_engine": true
+    },
+    "first_dollar_alert": {
+      "name": "first_dollar_alert",
+      "source": "mycelium-engine",
+      "path": "mycelium/FIRST_DOLLAR_ALERT.py",
+      "is_local_engine": true
+    },
+    "grand_conductor": {
+      "name": "grand_conductor",
+      "source": "mycelium-engine",
+      "path": "mycelium/GRAND_CONDUCTOR.py",
+      "is_local_engine": true
+    },
+    "gumroad_force_publish": {
+      "name": "gumroad_force_publish",
+      "source": "mycelium-engine",
+      "path": "mycelium/GUMROAD_FORCE_PUBLISH.py",
+      "is_local_engine": true
+    },
+    "health_monitor": {
+      "name": "health_monitor",
+      "source": "mycelium-engine",
+      "path": "mycelium/HEALTH_MONITOR.py",
+      "is_local_engine": true
+    },
+    "legal_foundation": {
+      "name": "legal_foundation",
+      "source": "mycelium-engine",
+      "path": "mycelium/LEGAL_FOUNDATION.py",
+      "is_local_engine": true
+    },
+    "micro_grant_engine": {
+      "name": "micro_grant_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/MICRO_GRANT_ENGINE.py",
+      "is_local_engine": true
+    },
+    "overflow_router": {
+      "name": "overflow_router",
+      "source": "mycelium-engine",
+      "path": "mycelium/OVERFLOW_ROUTER.py",
+      "is_local_engine": true
+    },
+    "prediction_intelligence": {
+      "name": "prediction_intelligence",
+      "source": "mycelium-engine",
+      "path": "mycelium/PREDICTION_INTELLIGENCE.py",
+      "is_local_engine": true
+    },
+    "rentahuman_bridge": {
+      "name": "rentahuman_bridge",
+      "source": "mycelium-engine",
+      "path": "mycelium/RENTAHUMAN_BRIDGE.py",
+      "is_local_engine": true
+    },
+    "samgov_harvester": {
+      "name": "samgov_harvester",
+      "source": "mycelium-engine",
+      "path": "mycelium/SAMGOV_HARVESTER.py",
+      "is_local_engine": true
+    },
+    "seed_capital": {
+      "name": "seed_capital",
+      "source": "mycelium-engine",
+      "path": "mycelium/SEED_CAPITAL.py",
+      "is_local_engine": true
+    },
+    "telegram_worker_bot": {
+      "name": "telegram_worker_bot",
+      "source": "mycelium-engine",
+      "path": "mycelium/TELEGRAM_WORKER_BOT.py",
+      "is_local_engine": true
+    },
+    "worker_outreach": {
+      "name": "worker_outreach",
+      "source": "mycelium-engine",
+      "path": "mycelium/WORKER_OUTREACH.py",
+      "is_local_engine": true
+    },
+    "ai_capability_mapper": {
+      "name": "ai_capability_mapper",
+      "source": "mycelium-engine",
+      "path": "mycelium/AI_CAPABILITY_MAPPER.py",
+      "is_local_engine": true
+    },
+    "ai_engine_architect": {
+      "name": "ai_engine_architect",
+      "source": "mycelium-engine",
+      "path": "mycelium/AI_ENGINE_ARCHITECT.py",
+      "is_local_engine": true
+    },
+    "ai_intake": {
+      "name": "ai_intake",
+      "source": "mycelium-engine",
+      "path": "mycelium/AI_INTAKE.py",
+      "is_local_engine": true
+    },
+    "ai_knowledge_harvester": {
+      "name": "ai_knowledge_harvester",
+      "source": "mycelium-engine",
+      "path": "mycelium/AI_KNOWLEDGE_HARVESTER.py",
+      "is_local_engine": true
+    },
+    "ai_profile_updater": {
+      "name": "ai_profile_updater",
+      "source": "mycelium-engine",
+      "path": "mycelium/AI_PROFILE_UPDATER.py",
+      "is_local_engine": true
+    },
+    "context_packager": {
+      "name": "context_packager",
+      "source": "mycelium-engine",
+      "path": "mycelium/CONTEXT_PACKAGER.py",
+      "is_local_engine": true
+    },
+    "llms_txt_generator": {
+      "name": "llms_txt_generator",
+      "source": "mycelium-engine",
+      "path": "mycelium/LLMS_TXT_GENERATOR.py",
+      "is_local_engine": true
+    },
+    "outreach_engine": {
+      "name": "outreach_engine",
+      "source": "mycelium-engine",
+      "path": "mycelium/OUTREACH_ENGINE.py",
+      "is_local_engine": true
+    },
+    "personal_briefer": {
+      "name": "personal_briefer",
+      "source": "mycelium-engine",
+      "path": "mycelium/PERSONAL_BRIEFER.py",
+      "is_local_engine": true
+    },
+    "gmail_client": {
+      "name": "gmail_client",
+      "source": "mycelium-engine",
+      "path": "mycelium/GMAIL_CLIENT.py",
+      "is_local_engine": true
+    },
+    "gmail_reader": {
+      "name": "gmail_reader",
+      "source": "mycelium-engine",
+      "path": "mycelium/GMAIL_READER.py",
+      "is_local_engine": true
+    },
+    "reply_writer": {
+      "name": "reply_writer",
+      "source": "mycelium-engine",
+      "path": "mycelium/REPLY_WRITER.py",
+      "is_local_engine": true
+    },
+    "gap_patcher": {
+      "name": "gap_patcher",
+      "source": "mycelium-engine",
+      "path": "mycelium/GAP_PATCHER.py",
+      "is_local_engine": true
+    },
+    "gmail_sender": {
+      "name": "gmail_sender",
+      "source": "mycelium-engine",
+      "path": "mycelium/GMAIL_SENDER.py",
+      "is_local_engine": true
+    },
+    "grant_submitter": {
+      "name": "grant_submitter",
+      "source": "mycelium-engine",
+      "path": "mycelium/GRANT_SUBMITTER.py",
+      "is_local_engine": true
+    },
+    "master_loop": {
+      "name": "master_loop",
+      "source": "mycelium-engine",
+      "path": "mycelium/MASTER_LOOP.py",
+      "is_local_engine": true
+    },
+    "volunteer_portal": {
+      "name": "volunteer_portal",
+      "source": "mycelium-engine",
+      "path": "mycelium/VOLUNTEER_PORTAL.py",
+      "is_local_engine": true
+    },
+    "agent_recruiter": {
+      "name": "agent_recruiter",
+      "source": "mycelium-engine",
+      "path": "mycelium/AGENT_RECRUITER.py",
+      "is_local_engine": true
+    },
+    "agent_swarm": {
+      "name": "agent_swarm",
+      "source": "mycelium-engine",
+      "path": "mycelium/AGENT_SWARM.py",
+      "is_local_engine": true
+    },
+    "knowledge_ingester": {
+      "name": "knowledge_ingester",
+      "source": "mycelium-engine",
+      "path": "mycelium/KNOWLEDGE_INGESTER.py",
+      "is_local_engine": true
+    },
+    "network_mapper": {
+      "name": "network_mapper",
+      "source": "mycelium-engine",
+      "path": "mycelium/NETWORK_MAPPER.py",
+      "is_local_engine": true
+    },
+    "own_store": {
+      "name": "own_store",
+      "source": "mycelium-engine",
+      "path": "mycelium/OWN_STORE.py",
+      "is_local_engine": true
+    },
+    "self_mailer": {
+      "name": "self_mailer",
+      "source": "mycelium-engine",
+      "path": "mycelium/SELF_MAILER.py",
+      "is_local_engine": true
+    },
+    "viral_amplifier": {
+      "name": "viral_amplifier",
+      "source": "mycelium-engine",
+      "path": "mycelium/VIRAL_AMPLIFIER.py",
+      "is_local_engine": true
+    }
+  }
+}

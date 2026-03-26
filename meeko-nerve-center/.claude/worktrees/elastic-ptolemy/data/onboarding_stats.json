@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-03-20T19:02:00.538922+00:00",
+  "total_workers": 0,
+  "trust_distribution": {},
+  "system_status": "ready",
+  "barrier_to_entry": "ZERO",
+  "required_information": "NONE",
+  "trust_levels": {
+    "0": {
+      "name": "anonymous",
+      "label": "Anonymous",
+      "info_needed": [],
+      "max_task_pay": 10,
+      "task_access": [
+        "digital",
+        "verification"
+      ],
+      "description": "No info at all. Digital + verification tasks only."
+    },
+    "1": {
+      "name": "email_only",
+      "label": "Connected",
+      "info_needed": [
+        "contact"
+      ],
+      "max_task_pay": 30,
+      "task_access": [
+        "digital",
+        "verification",
+        "creative"
+      ],
+      "description": "Email or any contact method. Unlocks creative tasks."
+    },
+    "2": {
+      "name": "contact_plus",
+      "label": "Trusted",
+      "info_needed": [
+        "contact",
+        "payment_method"
+      ],
+      "max_task_pay": 75,
+      "task_access": [
+        "digital",
+        "verification",
+        "creative",
+        "community"
+      ],
+      "description": "Contact + payment method set up. Community tasks unlocked."
+    },
+    "3": {
+      "name": "located",
+      "label": "Community Member",
+      "info_needed": [
+        "contact",
+        "payment_method",
+        "location"
+      ],
+      "max_task_pay": 200,
+      "task_access": [
+        "all"
+      ],
+      "description": "Location shared. All tasks available. Priority queue."
+    },
+    "4": {
+      "name": "reputation",
+      "label": "SolarPunk Worker",
+      "info_needed": [
+        "contact",
+        "payment_method",
+        "location"
+      ],
+      "min_tasks_completed": 5,
+      "max_task_pay": 500,
+      "task_access": [
+        "all",
+        "task_poster"
+      ],
+      "description": "5+ completed tasks. High-value tasks. Can post tasks for others."
+    }
+  },
+  "onboarding_time": "under 5 minutes",
+  "first_payment_time": "under 1 hour from account creation",
+  "privacy_promise": "No ID verification. No income verification. No background checks. No surveillance. Any name. Any contact. Complete anonymity supported. We verify the WORK, not the person."
+}

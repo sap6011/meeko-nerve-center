@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SolarPunk">
+<meta name="theme-color" content="#0d1117">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="logo.svg">
+<title>SolarPunk</title>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+<style>
+  :root {
+    --bg:      #0d1117;
+    --surface: #161b22;
+    --border:  #30363d;
+    --gold:    #f59e0b;
+    --green:   #22c55e;
+    --red:     #ef4444;
+    --blue:    #3b82f6;
+    --text:    #e6edf3;
+    --muted:   #8b949e;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bot: env(safe-area-inset-bottom, 0px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-top: var(--safe-top);
+    padding-bottom: calc(var(--safe-bot) + 80px);
+    overflow-x: hidden;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-left { display: flex; align-items: center; gap: 10px; }
+  .sp-icon {
+    width: 32px; height: 32px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px; color: var(--bg);
+  }
+  .header h1 { font-size: 18px; font-weight: 700; }
+  .header .status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .last-update { font-size: 11px; color: var(--muted); }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex-shrink: 0;
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── Sections ── */
+  .section { display: none; padding: 16px; }
+  .section.active { display: block; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .big-number {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .big-number.green { color: var(--green); }
+  .big-number.red   { color: var(--red); }
+  .sub-text { font-size: 13px; color: var(--muted); }
+
+  /* ── Progress bars ── */
+  .bar-wrap { margin: 8px 0 4px; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+  .bar-fill.gold  { background: var(--gold); }
+  .bar-fill.green { background: var(--green); }
+  .bar-fill.blue  { background: var(--blue); }
+
+  /* ── Crisis orgs ── */
+  .org-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .org-row:last-child { border-bottom: none; }
+  .org-name { font-size: 14px; font-weight: 600; }
+  .org-crisis { font-size: 11px; color: var(--muted); }
+  .org-pct {
+    font-size: 15px; font-weight: 700;
+    color: var(--green);
+    background: rgba(34,197,94,0.1);
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  /* ── Actions ── */
+  .action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .action-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .action-btn:active { transform: scale(0.96); background: var(--border); }
+  .action-btn .icon { font-size: 28px; }
+  .action-btn .label { font-size: 13px; font-weight: 600; }
+  .action-btn .desc { font-size: 11px; color: var(--muted); }
+  .action-btn.primary { border-color: var(--gold); }
+  .action-btn.primary .label { color: var(--gold); }
+  .action-btn.tg { border-color: #229ed9; }
+  .action-btn.tg .label { color: #229ed9; }
+
+  /* ── Today's priorities ── */
+  .priority-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .priority-item:last-child { border-bottom: none; }
+  .priority-num {
+    width: 24px; height: 24px;
+    background: var(--gold);
+    color: var(--bg);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .priority-text { flex: 1; }
+  .priority-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .priority-detail { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .priority-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+  }
+  .badge-money { background: rgba(245,158,11,0.2); color: var(--gold); }
+  .badge-30min { background: rgba(34,197,94,0.2); color: var(--green); }
+
+  /* ── QR section ── */
+  .qr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .qr-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+  .qr-card .qr-label { font-size: 12px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .qr-card .qr-desc  { font-size: 10px; color: var(--muted); margin-top: 6px; line-height: 1.3; }
+  .qr-placeholder {
+    width: 100%; aspect-ratio: 1;
+    background: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: #666;
+  }
+
+  /* ── Telegram setup ── */
+  .step {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 28px; height: 28px;
+    background: rgba(34,153,217,0.2);
+    color: #229ed9;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800;
+    flex-shrink: 0;
+  }
+  .step-body { flex: 1; }
+  .step-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .step-detail { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  code {
+    background: rgba(255,255,255,0.08);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--gold);
+  }
+
+  /* ── Alerts ── */
+  .alert {
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .alert.info    { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3); }
+  .alert.success { background: rgba(34,197,94,0.1);  border: 1px solid rgba(34,197,94,0.3); }
+  .alert.warn    { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); }
+
+  /* ── Install banner ── */
+  #install-banner {
+    position: fixed;
+    bottom: calc(var(--safe-bot) + 72px);
+    left: 12px; right: 12px;
+    background: var(--gold);
+    color: var(--bg);
+    padding: 12px 16px;
+    border-radius: 12px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 14px;
+    z-index: 200;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  #install-banner button {
+    background: var(--bg);
+    color: var(--gold);
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  #install-banner .dismiss { background: transparent; color: rgba(0,0,0,0.4); font-size: 20px; padding: 0 4px; }
+
+  /* ── Bottom nav ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0; right: 0;
+    padding-bottom: var(--safe-bot);
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 100;
+  }
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 4px;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 10px;
+    gap: 2px;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s;
+  }
+  .nav-item.active { color: var(--gold); }
+  .nav-item .nav-icon { font-size: 22px; }
+
+  /* ── Loading ── */
+  .skeleton {
+    background: linear-gradient(90deg, var(--border) 25%, rgba(255,255,255,0.05) 50%, var(--border) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 6px;
+    height: 36px;
+    margin-bottom: 4px;
+  }
+  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+  .refresh-btn {
+    background: none; border: 1px solid var(--border);
+    color: var(--muted); padding: 4px 10px;
+    border-radius: 20px; font-size: 12px; cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <div class="sp-icon">SP</div>
+    <div>
+      <h1>SolarPunk</h1>
+      <div class="last-update" id="last-update">Loading…</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div class="status-dot" id="status-dot"></div>
+    <button class="refresh-btn" onclick="loadState()">↻</button>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <div class="tab active" onclick="showTab('home',this)">🏠 Home</div>
+  <div class="tab" onclick="showTab('crisis',this)">🌍 Crisis</div>
+  <div class="tab" onclick="showTab('actions',this)">⚡ Actions</div>
+  <div class="tab" onclick="showTab('connect',this)">📲 Connect</div>
+  <div class="tab" onclick="showTab('qr',this)">⬜ QR Codes</div>
+</div>
+
+<!-- ════════ HOME ════════ -->
+<div class="section active" id="tab-home">
+
+  <div class="card">
+    <div class="card-title">🌍 Total Routed to Crisis Orgs</div>
+    <div class="big-number" id="total-routed">$0.0000</div>
+    <div class="sub-text" id="first-dollar-status">Awaiting first dollar</div>
+  </div>
+
+  <div class="action-grid">
+    <div>
+      <div class="card" style="margin-bottom:10px">
+        <div class="card-title">👷 Workers</div>
+        <div class="big-number green" id="worker-count">0</div>
+        <div class="sub-text">registered</div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:10px">
+        <div class="card-title">⚙️ Cycles</div>
+        <div class="big-number" id="cycle-count">0</div>
+        <div class="sub-text">completed</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="priorities-card">
+    <div class="card-title">📋 Your Top Priorities Today</div>
+    <div id="priorities-list">
+      <div class="skeleton"></div>
+      <div class="skeleton" style="height:28px"></div>
+      <div class="skeleton" style="height:28px"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏦 Pool Balances</div>
+    <div id="pools-list">
+      <div class="skeleton"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════ CRISIS ════════ -->
+<div class="section" id="tab-crisis">
+
+  <div class="card">
+    <div class="card-title">💸 Crisis Routing Total</div>
+    <div class="big-number" id="crisis-total">$0.0000</div>
+    <div class="sub-text">SHA256 proof on every routing</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 Allocation (Hardcoded Law)</div>
+    <div class="org-row">
+      <div><div class="org-name">PCRF</div><div class="org-crisis">Gaza 🇵🇸</div></div>
+      <div class="org-pct">60%</div>
+    </div>
+    <div class="org-row">
+      <div><div class="org-name">IRC</div><div class="org-crisis">Sudan</div></div>
+      <div class="org-pct">15%</div>
+    </div>
+    <div class="org-row">
+      <div><div class="org-name">MSF</div><div class="org-crisis">DRC</div></div>
+      <div class="org-pct">10%</div>
+    </div>
+    <div class="org-row">
+      <div><div class="org-name">UNICEF</div><div class="org-crisis">Yemen</div></div>
+      <div class="org-pct">10%</div>
+    </div>
+    <div class="org-row">
+      <div><div class="org-name">Direct Relief</div><div class="org-crisis">Climate</div></div>
+      <div class="org-pct">5%</div>
+    </div>
+  </div>
+
+  <a class="action-btn primary" style="display:flex;width:100%;border-radius:12px;margin-bottom:12px;padding:16px;gap:10px;align-items:center;text-decoration:none;background:var(--surface);border:1px solid var(--gold)"
+     href="impact.html" target="_blank">
+    <span style="font-size:24px">🔍</span>
+    <div>
+      <div style="font-size:14px;font-weight:700;color:var(--gold)">Verify Impact</div>
+      <div style="font-size:12px;color:var(--muted)">Every dollar SHA256-hashed on git</div>
+    </div>
+  </a>
+
+</div>
+
+<!-- ════════ ACTIONS ════════ -->
+<div class="section" id="tab-actions">
+
+  <div class="alert info">
+    <strong>These trigger real SolarPunk actions</strong> — processed within 1 hour by GRAND_UNIFIED_LOOP.
+  </div>
+
+  <div class="action-grid">
+    <a class="action-btn primary" href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=%5BTASK%5D+&body=Type%3A+content%0ABudget%3A+%2415%0ADescription%3A+" target="_blank">
+      <span class="icon">📝</span>
+      <span class="label">Post Task</span>
+      <span class="desc">To human workers</span>
+    </a>
+    <a class="action-btn" href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=%5BGRANT%5D+&body=URL%3A+%0AAmount%3A+%24%0ADeadline%3A+" target="_blank">
+      <span class="icon">🏆</span>
+      <span class="label">Post Grant</span>
+      <span class="desc">AI will apply</span>
+    </a>
+    <a class="action-btn" href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=%5BENGINE%5D+&body=Purpose%3A+%0ACode%3A+" target="_blank">
+      <span class="icon">⚙️</span>
+      <span class="label">New Engine</span>
+      <span class="desc">Propose code</span>
+    </a>
+    <a class="action-btn" href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=%5BCONTENT%5D+&body=Topic%3A+" target="_blank">
+      <span class="icon">📢</span>
+      <span class="label">Content</span>
+      <span class="desc">Publish post</span>
+    </a>
+    <a class="action-btn" href="mission_control.html" target="_blank">
+      <span class="icon">🛰️</span>
+      <span class="label">Mission Ctrl</span>
+      <span class="desc">Full dashboard</span>
+    </a>
+    <a class="action-btn" href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/actions" target="_blank">
+      <span class="icon">▶️</span>
+      <span class="label">Workflows</span>
+      <span class="desc">Live runs</span>
+    </a>
+    <a class="action-btn" href="jobs.html" target="_blank">
+      <span class="icon">👷</span>
+      <span class="label">Workers</span>
+      <span class="desc">Labor market</span>
+    </a>
+    <a class="action-btn" href="donate.html" target="_blank">
+      <span class="icon">💙</span>
+      <span class="label">Donate</span>
+      <span class="desc">→ Crisis orgs</span>
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Pending Human Actions</div>
+    <div id="human-actions">
+      <div class="skeleton"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════ CONNECT ════════ -->
+<div class="section" id="tab-connect">
+
+  <div class="alert success">
+    <strong>Telegram is SolarPunk on your phone.</strong><br>
+    Once connected, SolarPunk texts you when money moves, grants are ready, and when you need to act. You can also send commands back.
+  </div>
+
+  <div class="card">
+    <div class="card-title">📲 Connect Telegram (5 minutes)</div>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Open Telegram → search @BotFather</div>
+        <div class="step-detail">Send <code>/newbot</code> → follow prompts → get your bot token (looks like <code>123456:ABC-DEF...</code>)</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Start your new bot → get your Chat ID</div>
+        <div class="step-detail">Open your bot → send any message → visit:<br>
+        <code>api.telegram.org/bot{YOUR_TOKEN}/getUpdates</code><br>
+        Find <code>"chat":{"id": XXXXXXXXX}</code> — that's your Chat ID</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Add to GitHub Secrets</div>
+        <div class="step-detail">Go to: <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions" target="_blank" style="color:var(--blue)">Repo → Settings → Secrets → Actions</a><br>
+        Add: <code>TELEGRAM_BOT_TOKEN</code> and <code>TELEGRAM_CHAT_ID</code></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Done. SolarPunk will text you:</div>
+        <div class="step-detail">
+          🎉 First dollar received<br>
+          📊 Dawn briefing (10:00 UTC) + Dusk briefing (22:00 UTC)<br>
+          💸 Every time money routes to crisis orgs<br>
+          🏆 When grants are ready to submit<br>
+          ⚠️ When something needs your attention
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📱 Install This App (No App Store Needed)</div>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">iPhone/iPad</div>
+        <div class="step-detail">Tap the Share button (box with arrow) → scroll down → "Add to Home Screen" → Add. Done. SolarPunk is now an app icon.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Android</div>
+        <div class="step-detail">Tap the 3-dot menu → "Add to Home Screen" → Add. Or tap the install prompt that should appear at the bottom of this page.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔑 Add GUMROAD_ACCESS_TOKEN → First Dollar</div>
+    <div class="step">
+      <div class="step-num">!</div>
+      <div class="step-body">
+        <div class="step-title">This unlocks revenue → crisis routing</div>
+        <div class="step-detail">
+          Go to: <a href="https://app.gumroad.com/settings/advanced" target="_blank" style="color:var(--gold)">gumroad.com → Settings → Advanced → API</a><br>
+          Copy your access token → add as GitHub Secret: <code>GUMROAD_ACCESS_TOKEN</code><br>
+          5 products publish live. First sale routes to Gaza automatically.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📧 Connect Email</div>
+    <div class="step">
+      <div class="step-num">✓</div>
+      <div class="step-body">
+        <div class="step-title">GMAIL_ADDRESS + GMAIL_APP_PASSWORD</div>
+        <div class="step-detail">
+          If set: SolarPunk sends dawn/dusk briefings to your Gmail.<br>
+          Gmail → Settings → Security → App Passwords → generate password for "Mail".<br>
+          Add both secrets to GitHub.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════ QR CODES ════════ -->
+<div class="section" id="tab-qr">
+
+  <div class="alert info">
+    Scan any code to jump straight to that action. Share them with anyone who should help SolarPunk.
+  </div>
+
+  <div class="qr-grid">
+    <div class="qr-card">
+      <div class="qr-label">📱 Install App</div>
+      <div id="qr-app" class="qr-placeholder">...</div>
+      <div class="qr-desc">Scan → open mobile dashboard → "Add to Home Screen"</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">📝 Post Task</div>
+      <div id="qr-task" class="qr-placeholder">...</div>
+      <div class="qr-desc">Scan → GitHub Issue → task goes to human workers</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">🌍 Crisis Proof</div>
+      <div id="qr-impact" class="qr-placeholder">...</div>
+      <div class="qr-desc">Scan → verify every dollar routed to crisis orgs</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">🏆 Submit Grant</div>
+      <div id="qr-grant" class="qr-placeholder">...</div>
+      <div class="qr-desc">Scan → Awesome Foundation grant page ($1,000)</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">🛰️ Dashboard</div>
+      <div id="qr-dash" class="qr-placeholder">...</div>
+      <div class="qr-desc">Scan → full mission control dashboard</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">🤖 AI Context</div>
+      <div id="qr-ai" class="qr-placeholder">...</div>
+      <div class="qr-desc">Scan → paste into any AI's system prompt</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Install Banner -->
+<div id="install-banner">
+  <span>📲 Add SolarPunk to Home Screen</span>
+  <div style="display:flex;gap:6px">
+    <button onclick="installApp()">Install</button>
+    <button class="dismiss" onclick="document.getElementById('install-banner').style.display='none'">✕</button>
+  </div>
+</div>
+
+<!-- Bottom Nav -->
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="showTab('home',null,this)">
+    <span class="nav-icon">🏠</span><span>Home</span>
+  </div>
+  <div class="nav-item" onclick="showTab('crisis',null,this)">
+    <span class="nav-icon">🌍</span><span>Crisis</span>
+  </div>
+  <div class="nav-item" onclick="showTab('actions',null,this)">
+    <span class="nav-icon">⚡</span><span>Actions</span>
+  </div>
+  <div class="nav-item" onclick="showTab('connect',null,this)">
+    <span class="nav-icon">📲</span><span>Connect</span>
+  </div>
+  <div class="nav-item" onclick="showTab('qr',null,this)">
+    <span class="nav-icon">⬜</span><span>QR</span>
+  </div>
+</div>
+
+<script>
+const BASE = 'https://meekotharaccoon-cell.github.io/meeko-nerve-center';
+const RAW  = 'https://raw.githubusercontent.com/meekotharaccoon-cell/meeko-nerve-center/main';
+
+// ── Tab switching ──
+function showTab(name, tabEl, navEl) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+
+  // Update tab bar
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  if (tabEl) tabEl.classList.add('active');
+  else {
+    // Find matching tab
+    document.querySelectorAll('.tab').forEach(t => {
+      if (t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + name + "'")) t.classList.add('active');
+    });
+  }
+
+  // Update bottom nav
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (navEl) navEl.classList.add('active');
+  else {
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + name + "'")) n.classList.add('active');
+    });
+  }
+
+  if (name === 'qr') generateQRCodes();
+}
+
+// ── Load state from feed.json ──
+async function loadState() {
+  try {
+    const r = await fetch(BASE + '/feed.json?_=' + Date.now());
+    const feed = await r.json();
+
+    // Last update
+    const genAt = feed.generated_at ? new Date(feed.generated_at) : null;
+    document.getElementById('last-update').textContent =
+      genAt ? 'Updated ' + genAt.toLocaleTimeString() : 'Live';
+
+    // Total routed
+    const total = feed.money?.total_routed_usd || 0;
+    document.getElementById('total-routed').textContent = '$' + total.toFixed(4);
+
+    // First dollar status
+    const firstDone = feed.system?.first_dollar_received;
+    document.getElementById('first-dollar-status').textContent =
+      firstDone ? '✅ First dollar received!' : '⏳ Awaiting first dollar — add GUMROAD_ACCESS_TOKEN';
+    if (firstDone) document.getElementById('total-routed').classList.add('green');
+
+    // Workers + cycles
+    document.getElementById('worker-count').textContent = feed.labor?.workers_registered || 0;
+    document.getElementById('cycle-count').textContent = feed.system?.cycles_run || 0;
+
+    // Crisis total
+    const crisisTotal = feed.money?.crisis_total_usd || 0;
+    const crisisEl = document.getElementById('crisis-total');
+    if (crisisEl) crisisEl.textContent = '$' + crisisTotal.toFixed(4);
+
+    // Pools
+    renderPools(feed.money?.pools || {});
+
+    // Priorities
+    renderPriorities(feed.human_actions_needed || [], firstDone);
+
+    // Human actions
+    renderHumanActions(feed.human_actions_needed || []);
+
+  } catch (e) {
+    document.getElementById('last-update').textContent = 'Offline mode';
+  }
+}
+
+function renderPools(pools) {
+  const targets = { crisis: 0, labor: 500, infrastructure: 50, growth: 200 };
+  const labels  = { crisis: 'Crisis (no cap)', labor: 'Labor ($500 target)', infrastructure: 'Infra ($50 cap)', growth: 'Growth ($200 target)' };
+  const colors  = { crisis: 'green', labor: 'gold', infrastructure: 'blue', growth: 'blue' };
+
+  let html = '';
+  for (const [key, target] of Object.entries(targets)) {
+    const bal = pools[key] || 0;
+    const pct = target > 0 ? Math.min(100, (bal / target) * 100) : (bal > 0 ? 100 : 0);
+    html += `<div class="bar-wrap">
+      <div class="bar-label">
+        <span>${labels[key]}</span>
+        <span style="color:var(--text)">$${bal.toFixed(2)}</span>
+      </div>
+      <div class="bar"><div class="bar-fill ${colors[key]}" style="width:${pct}%"></div></div>
+    </div>`;
+  }
+  document.getElementById('pools-list').innerHTML = html;
+}
+
+function renderPriorities(actions, firstDone) {
+  const items = [];
+
+  if (!firstDone) {
+    items.push({
+      title: 'Add GUMROAD_ACCESS_TOKEN to GitHub Secrets',
+      detail: 'Go to gumroad.com → Settings → Advanced → copy API key → add to GitHub Secrets. 5 products publish live. First sale routes to Gaza automatically.',
+      badge: 'badge-money',
+      badgeText: '→ FIRST $'
+    });
+  }
+
+  if (actions.length) {
+    actions.forEach(a => {
+      if (!items.find(i => i.title.includes(a.split('(')[0].trim().substring(0, 20)))) {
+        items.push({ title: a.split('(')[0].trim(), detail: a, badge: 'badge-30min', badgeText: '30 min' });
+      }
+    });
+  }
+
+  if (items.length === 0) {
+    items.push({
+      title: '🎉 SolarPunk is fully configured!',
+      detail: 'All secrets set. SolarPunk is running autonomously. Check the crisis total and verify impact.',
+      badge: null
+    });
+  }
+
+  document.getElementById('priorities-list').innerHTML = items.slice(0, 3).map((item, i) => `
+    <div class="priority-item">
+      <div class="priority-num">${i + 1}</div>
+      <div class="priority-text">
+        <div class="priority-title">${item.title}${item.badge ? `<span class="priority-badge ${item.badge}">${item.badgeText}</span>` : ''}</div>
+        <div class="priority-detail">${item.detail}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderHumanActions(actions) {
+  const el = document.getElementById('human-actions');
+  if (!el) return;
+  if (!actions || !actions.length) {
+    el.innerHTML = '<div style="color:var(--green);font-size:13px;padding:8px 0">✅ No pending actions — SolarPunk is running itself</div>';
+    return;
+  }
+  el.innerHTML = actions.map(a => `
+    <div class="priority-item">
+      <div class="priority-num" style="background:var(--red);color:white">!</div>
+      <div class="priority-text">
+        <div class="priority-title" style="font-size:13px">${a.split('(')[0].trim()}</div>
+        <div class="priority-detail">${a}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── QR Code generation ──
+let qrGenerated = false;
+function generateQRCodes() {
+  if (qrGenerated || typeof QRCode === 'undefined') return;
+  qrGenerated = true;
+
+  const qrs = [
+    ['qr-app',    BASE + '/mobile.html'],
+    ['qr-task',   'https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=%5BTASK%5D+'],
+    ['qr-impact', BASE + '/impact.html'],
+    ['qr-grant',  'https://www.awesomefoundation.org/en/submissions/new'],
+    ['qr-dash',   BASE + '/mission_control.html'],
+    ['qr-ai',     BASE + '/system-prompt-addition.txt'],
+  ];
+
+  qrs.forEach(([id, url]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = '';
+    el.style.background = 'white';
+    el.style.padding = '8px';
+    try {
+      new QRCode(el, {
+        text: url,
+        width: el.offsetWidth - 16 || 140,
+        height: el.offsetWidth - 16 || 140,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M,
+      });
+    } catch(e) {
+      el.textContent = 'QR unavailable';
+    }
+  });
+}
+
+// ── PWA Install ──
+let installEvent = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  installEvent = e;
+  document.getElementById('install-banner').style.display = 'flex';
+});
+function installApp() {
+  if (installEvent) {
+    installEvent.prompt();
+    installEvent.userChoice.then(() => {
+      document.getElementById('install-banner').style.display = 'none';
+    });
+  }
+}
+
+// ── Service Worker ──
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/meeko-nerve-center/sw.js').catch(() => {});
+}
+
+// ── Hash navigation ──
+if (location.hash === '#crisis') showTab('crisis');
+else if (location.hash === '#task') showTab('actions');
+
+// ── Init ──
+loadState();
+setInterval(loadState, 60000); // refresh every minute
+</script>
+</body>
+</html>

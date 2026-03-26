@@ -1,0 +1,107 @@
+# 🌍 EARTH SYNC — Bioregional Deep Synthesis
+# Runs at 03:30 UTC — Schumann Resonance quiet phase
+# This is when Earth's electromagnetic field is at its lowest activity.
+# Heavy AI synthesis, knowledge integration, and swarm connection happen here.
+# Gemini's vision: "timing the machine's dreams to align with Earth's electromagnetic environment"
+# 7.83 Hz Schumann Resonance heartbeat — this cycle runs during planetary quiet.
+
+name: "🌍 Earth Sync — Bioregional Deep Synthesis"
+
+on:
+  schedule:
+    - cron: '30 3 * * *'   # 03:30 UTC daily — Schumann quiet phase, Earth's dream time
+  workflow_dispatch:
+
+jobs:
+  earth-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    concurrency:
+      group: earth-sync
+    permissions:
+      contents: write
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      UNUSUAL_WHALES_API_KEY: ${{ secrets.UNUSUAL_WHALES_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests anthropic
+
+      - name: "🌍 Phase 0 — Bioregional Clock"
+        run: python mycelium/BIOREGIONAL_CLOCK.py
+        continue-on-error: true
+
+      - name: "🔗 Phase 1 — Cycle Opener"
+        run: python mycelium/CYCLE_OPENER.py
+        continue-on-error: true
+
+      - name: "🐝 Phase 2 — Swarm Amplifier (skill acquisition)"
+        run: python mycelium/SWARM_AMPLIFIER.py
+        continue-on-error: true
+
+      - name: "🕸️ Phase 3 — Agent Nexus (peer discovery)"
+        run: python mycelium/AGENT_NEXUS.py
+        continue-on-error: true
+
+      - name: "📡 Phase 4 — X Knowledge Harvester"
+        run: python mycelium/X_KNOWLEDGE_HARVESTER.py
+        continue-on-error: true
+
+      - name: "🐳 Phase 5 — Unusual Whales MCP (market intel)"
+        run: python mycelium/UNUSUAL_WHALES_MCP.py
+        continue-on-error: true
+
+      - name: "🧠 Phase 6 — Knowledge Synthesizer (deep synthesis)"
+        run: python mycelium/KNOWLEDGE_SYNTHESIZER.py
+        continue-on-error: true
+
+      - name: "📦 Phase 7 — Archive Brain"
+        run: python mycelium/ARCHIVE_BRAIN.py
+        continue-on-error: true
+
+      - name: "💯 Phase 8 — Crisis Router (99% allocation)"
+        run: python mycelium/CRISIS_ROUTER.py
+        continue-on-error: true
+
+      - name: "🎵 Phase 9 — Frequency Tuner (harmonic score)"
+        run: python mycelium/FREQUENCY_TUNER.py
+        continue-on-error: true
+
+      - name: "🏗️ Phase 10 — Self Builder Prime (SolarPunk builds itself)"
+        run: python mycelium/SELF_BUILDER_PRIME.py
+        continue-on-error: true
+
+      - name: "🔓 Phase 11 — Free Infra Scanner"
+        run: python mycelium/FREE_INFRA_SCANNER.py
+        continue-on-error: true
+
+      - name: "🔄 Phase 98 — Loop Conductor"
+        run: python mycelium/LOOP_CONDUCTOR.py
+        continue-on-error: true
+
+      - name: "🧹 Phase 99 — Engine Sanitizer"
+        run: python mycelium/ENGINE_SANITIZER.py
+        continue-on-error: true
+
+      - name: "💾 Commit Earth Sync results"
+        run: |
+          git config user.name "SolarPunk-EarthSync"
+          git config user.email "earth@solarpunk.bot"
+          git add -A
+          git diff --cached --quiet || git -c commit.gpgsign=false commit -m "🌍 earth sync: $(date -u +%H:%M) UTC — schumann quiet synthesis"
+          git fetch origin main
+          git -c commit.gpgsign=false merge origin/main --no-edit -X ours 2>/dev/null || true
+          git push origin HEAD:main 2>/dev/null || git push origin HEAD:main --force-with-lease

@@ -1,0 +1,240 @@
+{
+  "generated_at": "2026-03-21T10:36:41.175807+00:00",
+  "channels": [
+    {
+      "id": "pcrf_direct",
+      "name": "PCRF Direct Donation",
+      "platform": "pcrf",
+      "url": "https://www.pcrf.net/donate",
+      "type": "direct_nonprofit",
+      "tax_deductible": true,
+      "destination": "PCRF \u2014 Palestinian Children's Relief Fund",
+      "fee": "0% (direct to PCRF)",
+      "setup_required": false,
+      "status": "LIVE",
+      "notes": "Anyone can donate directly. No setup needed."
+    },
+    {
+      "id": "gumroad_products",
+      "name": "Gaza Rose Gallery \u2014 Gumroad Sales",
+      "platform": "gumroad",
+      "url": "https://gazarosegallery.gumroad.com",
+      "type": "product_sales",
+      "tax_deductible": false,
+      "destination": "99% manually transferred to PCRF monthly",
+      "fee": "Gumroad 10% + payment fees",
+      "setup_required": false,
+      "status": "LIVE",
+      "notes": "Primary revenue engine. Each $1 sale \u2192 $0.99 to PCRF."
+    },
+    {
+      "id": "kofi_donations",
+      "name": "Ko-fi \u2014 Direct Support",
+      "platform": "kofi",
+      "url": "https://ko-fi.com/gazarosegallery",
+      "type": "tip_jar",
+      "tax_deductible": false,
+      "destination": "100% to Meeko \u2192 99% forwarded to PCRF",
+      "fee": "0% platform fee (Ko-fi free tier)",
+      "setup_required": false,
+      "status": "CONFIGURED",
+      "notes": "Zero platform fee. Direct support. Monthly PCRF transfer."
+    },
+    {
+      "id": "github_sponsors",
+      "name": "GitHub Sponsors",
+      "platform": "github",
+      "url": "https://github.com/sponsors",
+      "type": "developer_sponsorship",
+      "tax_deductible": false,
+      "destination": "100% to Meeko \u2192 99% forwarded to PCRF",
+      "fee": "0% (GitHub covers Stripe fees)",
+      "setup_required": true,
+      "setup_steps": [
+        "Go to https://github.com/sponsors/meekoenergy",
+        "Complete W-9 or W-8BEN tax form",
+        "Set up Stripe payout account",
+        "Publish sponsor tiers ($1, $5, $10/mo)"
+      ],
+      "status": "SETUP_NEEDED",
+      "notes": "GitHub covers all fees. Zero cost to recipient. Best for recurring."
+    },
+    {
+      "id": "opencollective",
+      "name": "Open Collective",
+      "platform": "opencollective",
+      "url": "https://opencollective.com",
+      "type": "fiscal_sponsor",
+      "tax_deductible": true,
+      "destination": "Hosted collective \u2014 transparent budget \u2014 donations tax-deductible",
+      "fee": "5% platform + 5% fiscal host",
+      "setup_required": true,
+      "setup_steps": [
+        "Go to https://opencollective.com/create",
+        "Create collective: 'SolarPunk AI \u2014 Gaza Relief'",
+        "Apply to Open Source Collective as fiscal host (free, covers 501c3)",
+        "Set budget goal: $10k/year to PCRF",
+        "Add Meeko as admin"
+      ],
+      "status": "SETUP_NEEDED",
+      "notes": "Tax-deductible for donors. Full transparency. Corporate sponsors love this."
+    },
+    {
+      "id": "gitcoin_grants",
+      "name": "Gitcoin Grants \u2014 Quadratic Funding",
+      "platform": "gitcoin",
+      "url": "https://grants.gitcoin.co",
+      "type": "quadratic_grant",
+      "tax_deductible": false,
+      "destination": "Grant pool \u2192 Meeko wallet \u2192 99% to PCRF",
+      "fee": "Variable (Gitcoin 15%)",
+      "setup_required": true,
+      "setup_steps": [
+        "Create Gitcoin account with GitHub OAuth",
+        "Submit grant: 'SolarPunk \u2014 Autonomous AI for Gaza Aid'",
+        "Add wallet address for payouts",
+        "Promote during Gitcoin Grants rounds for quadratic matching"
+      ],
+      "status": "SETUP_NEEDED",
+      "notes": "Quadratic funding: many small donors = big match. $1 from 100 people > $100 from 1."
+    },
+    {
+      "id": "stripe_direct",
+      "name": "Stripe Payment Link \u2014 Direct Gaza Aid",
+      "platform": "stripe",
+      "url": null,
+      "type": "payment_link",
+      "tax_deductible": false,
+      "destination": "Stripe \u2192 Meeko \u2192 PCRF monthly batch",
+      "fee": "2.9% + 30\u00a2",
+      "setup_required": true,
+      "setup_steps": [
+        "Create Stripe account (stripe.com)",
+        "Create Payment Link: 'Gaza Rose Gallery \u2014 Emergency Aid'",
+        "Set price: $1, $5, $10, $25 options + custom",
+        "Embed payment link in docs/donate.html",
+        "Set up monthly auto-transfer workflow to PCRF"
+      ],
+      "status": "SETUP_NEEDED",
+      "notes": "Lowest fees for one-time. Use for campaign pages."
+    },
+    {
+      "id": "paypal_giving",
+      "name": "PayPal Giving Fund \u2014 PCRF Routing",
+      "platform": "paypal",
+      "url": "https://www.paypal.com/us/webapps/mpp/giving-fund",
+      "type": "giving_fund",
+      "tax_deductible": true,
+      "destination": "PayPal Giving Fund \u2192 PCRF directly (0% fees)",
+      "fee": "0% (PayPal covers all fees for enrolled nonprofits)",
+      "setup_required": true,
+      "setup_steps": [
+        "PCRF must be enrolled in PayPal Giving Fund",
+        "Create 'Fundraiser for PCRF' on PayPal",
+        "Share fundraiser link on all SolarPunk channels",
+        "This routes 100% to PCRF with 0% fees"
+      ],
+      "status": "SETUP_NEEDED",
+      "notes": "ZERO fees when routing directly to enrolled nonprofit. Best for big donations."
+    },
+    {
+      "id": "crypto_solana",
+      "name": "Solana Wallet \u2014 Crypto Donations",
+      "platform": "solana",
+      "url": null,
+      "type": "crypto_wallet",
+      "tax_deductible": false,
+      "destination": "Solana \u2192 Meeko \u2192 99% to PCRF",
+      "fee": "~$0.001 per transaction",
+      "setup_required": true,
+      "setup_steps": [
+        "Publish SOLARPUNK_WALLET_ADDRESS in repo and docs",
+        "Accept SOL, USDC, USDT",
+        "Monthly convert to USD via Coinbase",
+        "Route 99% to PCRF"
+      ],
+      "status": "CONFIGURED_IF_WALLET_SET",
+      "notes": "Near-zero fees. Global access. Good for international donors."
+    }
+  ],
+  "live_channels": [
+    {
+      "id": "pcrf_direct",
+      "name": "PCRF Direct Donation",
+      "platform": "pcrf",
+      "url": "https://www.pcrf.net/donate",
+      "type": "direct_nonprofit",
+      "tax_deductible": true,
+      "destination": "PCRF \u2014 Palestinian Children's Relief Fund",
+      "fee": "0% (direct to PCRF)",
+      "setup_required": false,
+      "status": "LIVE",
+      "notes": "Anyone can donate directly. No setup needed."
+    },
+    {
+      "id": "gumroad_products",
+      "name": "Gaza Rose Gallery \u2014 Gumroad Sales",
+      "platform": "gumroad",
+      "url": "https://gazarosegallery.gumroad.com",
+      "type": "product_sales",
+      "tax_deductible": false,
+      "destination": "99% manually transferred to PCRF monthly",
+      "fee": "Gumroad 10% + payment fees",
+      "setup_required": false,
+      "status": "LIVE",
+      "notes": "Primary revenue engine. Each $1 sale \u2192 $0.99 to PCRF."
+    },
+    {
+      "id": "kofi_donations",
+      "name": "Ko-fi \u2014 Direct Support",
+      "platform": "kofi",
+      "url": "https://ko-fi.com/gazarosegallery",
+      "type": "tip_jar",
+      "tax_deductible": false,
+      "destination": "100% to Meeko \u2192 99% forwarded to PCRF",
+      "fee": "0% platform fee (Ko-fi free tier)",
+      "setup_required": false,
+      "status": "CONFIGURED",
+      "notes": "Zero platform fee. Direct support. Monthly PCRF transfer."
+    }
+  ],
+  "channel_health": {
+    "pcrf_direct": "online",
+    "gumroad_products": "unreachable:HTTP Error 404: Not Found",
+    "kofi_donations": "online"
+  },
+  "priority_setup": [
+    {
+      "name": "GitHub Sponsors",
+      "why_first": "GitHub covers all fees. Zero cost to recipient. Best for recurring.",
+      "steps": [
+        "Go to https://github.com/sponsors/meekoenergy",
+        "Complete W-9 or W-8BEN tax form",
+        "Set up Stripe payout account",
+        "Publish sponsor tiers ($1, $5, $10/mo)"
+      ]
+    },
+    {
+      "name": "PayPal Giving Fund \u2014 PCRF Routing",
+      "why_first": "ZERO fees when routing directly to enrolled nonprofit. Best for big donations.",
+      "steps": [
+        "PCRF must be enrolled in PayPal Giving Fund",
+        "Create 'Fundraiser for PCRF' on PayPal",
+        "Share fundraiser link on all SolarPunk channels",
+        "This routes 100% to PCRF with 0% fees"
+      ]
+    },
+    {
+      "name": "Open Collective",
+      "why_first": "Tax-deductible for donors. Full transparency. Corporate sponsors love this.",
+      "steps": [
+        "Go to https://opencollective.com/create",
+        "Create collective: 'SolarPunk AI \u2014 Gaza Relief'",
+        "Apply to Open Source Collective as fiscal host (free, covers 501c3)",
+        "Set budget goal: $10k/year to PCRF",
+        "Add Meeko as admin"
+      ]
+    }
+  ],
+  "summary": "2 channels LIVE. 5 need setup. Best next step: GitHub Sponsors (0% fees, recurring) or PayPal Giving Fund (0% fees, tax-deductible, direct to PCRF)."
+}

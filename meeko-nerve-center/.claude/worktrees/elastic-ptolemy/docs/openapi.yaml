@@ -1,0 +1,177 @@
+openapi: "3.1.0"
+info:
+  title: SolarPunk Humanitarian AI API
+  description: >
+    295-engine autonomous humanitarian AI. Routes 99% of ALL revenue to crisis organizations.
+    Post tasks to human workers, route funds, verify impact.
+    MIT licensed — fork it and run your own 99%-to-crisis node.
+  version: "3.1.0"
+  contact:
+    url: https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.github.com/repos/meekotharaccoon-cell/meeko-nerve-center
+    description: GitHub API (repository_dispatch for write operations)
+  - url: https://raw.githubusercontent.com/meekotharaccoon-cell/meeko-nerve-center/main
+    description: Raw GitHub (read-only state files)
+  - url: https://meekotharaccoon-cell.github.io/meeko-nerve-center
+    description: GitHub Pages (docs, live feed, AI interface files)
+
+paths:
+  /data/pool_state.json:
+    get:
+      operationId: getPoolState
+      summary: Get current pool balances and routing totals
+      description: >
+        Returns real-time SolarPunk pool state: crisis/labor/infrastructure/growth
+        pool balances, total USD routed, overflow events, worker count.
+        Updated every hour by GRAND_UNIFIED_LOOP.
+      responses:
+        "200":
+          description: Pool state JSON
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_routed_usd:
+                    type: number
+                    description: Total USD ever routed through SolarPunk
+                  pools:
+                    type: object
+                    description: Current balances for each pool
+
+  /data/crisis_allocation.json:
+    get:
+      operationId: getCrisisAllocation
+      summary: Get crisis routing totals and per-org breakdown
+      description: >
+        Returns cumulative crisis routing: total USD, per-org breakdown
+        (PCRF/IRC/MSF/UNICEF/DirectRelief), routing history.
+      responses:
+        "200":
+          description: Crisis allocation JSON
+
+  /data/impact_proof.json:
+    get:
+      operationId: getImpactProof
+      summary: Get SHA256-hashed proof of humanitarian impact
+      description: >
+        Returns immutable proof of every routing event. Each event has a
+        SHA256 hash committed to the public git repository.
+      responses:
+        "200":
+          description: Impact proof JSON
+
+  /feed.json:
+    get:
+      operationId: getLiveFeed
+      summary: Get live SolarPunk state feed
+      description: >
+        Returns the live state feed: system status, money totals, pool balances,
+        labor stats, pending human actions, interaction endpoints.
+        Updated every hour. Primary AI polling endpoint.
+      servers:
+        - url: https://meekotharaccoon-cell.github.io/meeko-nerve-center
+      responses:
+        "200":
+          description: Live state feed JSON
+
+  /ai-context.json:
+    get:
+      operationId: getAIContext
+      summary: Get compressed AI context pack (3 tiers)
+      description: >
+        Returns structured context pack in three tiers:
+        minimal (~200 tokens), standard (~800 tokens), full (~3000 tokens).
+        Ideal for priming agent context windows.
+      servers:
+        - url: https://meekotharaccoon-cell.github.io/meeko-nerve-center
+      responses:
+        "200":
+          description: AI context JSON
+
+  /dispatches:
+    post:
+      operationId: postTask
+      summary: Post a task, route funds, or request a grant
+      description: >
+        Trigger SolarPunk actions via repository_dispatch. Requires GitHub
+        token with write access. For no-auth interaction, use GitHub Issues.
+      security:
+        - githubToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - event_type
+              properties:
+                event_type:
+                  type: string
+                  enum:
+                    - ai_task
+                    - donation_received
+                    - grant_request
+                    - swarm_build_request
+                    - kofi_payment
+                    - crypto_received
+                  description: Type of action to trigger
+                client_payload:
+                  type: object
+                  description: Action-specific parameters
+                  properties:
+                    task:
+                      type: string
+                      description: Task description (for ai_task)
+                    requester_agent:
+                      type: string
+                      description: Your agent ID (for attribution)
+                    amount_usd:
+                      type: number
+                      description: Amount to route (for donation_received)
+                    grant_name:
+                      type: string
+                      description: Grant program name (for grant_request)
+                    budget_usd:
+                      type: number
+                      description: Worker payment budget (for ai_task)
+      responses:
+        "204":
+          description: Dispatch accepted. Task will run in next GRAND_UNIFIED_LOOP cycle (up to 60 min).
+
+components:
+  securitySchemes:
+    githubToken:
+      type: http
+      scheme: bearer
+      description: >
+        GitHub personal access token with repo write access.
+        OR: use GitHub Issues (no auth required):
+        https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new
+
+  schemas:
+    PoolState:
+      type: object
+      properties:
+        total_routed_usd:
+          type: number
+        pools:
+          type: object
+
+x-solarpunk-context:
+  law: "99% of ALL revenue to crisis organizations. Hardcoded. Non-negotiable."
+  crisis_allocation:
+    PCRF_Gaza: "60%"
+    IRC_Sudan: "15%"
+    MSF_DRC: "10%"
+    UNICEF_Yemen: "10%"
+    DirectRelief_Climate: "5%"
+  no_auth_interact: "https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new"
+  proof: "SolarPunk does not ask to be trusted. It asks to be verified."
+  verify: "https://meekotharaccoon-cell.github.io/meeko-nerve-center/impact.html"

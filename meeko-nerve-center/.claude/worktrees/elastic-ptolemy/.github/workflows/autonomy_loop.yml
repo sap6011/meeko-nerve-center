@@ -1,0 +1,35 @@
+name: Nanobot Prime Autonomy Loop
+# DISABLED — the sed command below was corrupting every Python file on every push:
+#   sed -i 's/ANTHROPIC_API_KEY/os.getenv("ANTHROPIC_API_KEY")/g'
+# This replaced variable names on the LEFT side of assignments, creating:
+#   os.getenv("ANTHROPIC_API_KEY") = os.environ.get(_ak, "")  ← invalid Python
+# PROBLEM_SOLVER_PRIME.py and ENGINE_SANITIZER.py now handle real corruption correctly.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type CONFIRM to re-enable (caution: was corrupting all .py files)"
+        required: true
+
+jobs:
+  self_heal:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.confirm == 'CONFIRM' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Shell permissions only (safe)
+        run: |
+          find . -name "*.sh" -exec chmod +x {} +
+          echo "Shell permissions updated. Python files NOT touched."
+
+      - name: Sync
+        run: |
+          git config --global user.name 'SIA-Nanobot-Prime'
+          git config --global user.email 'nanobots@solarpunk.prime'
+          git add .
+          git -c commit.gpgsign=false commit -m "SIA: Nanobot Self-Heal [safe mode]" || exit 0
+          git push origin main --force-with-lease

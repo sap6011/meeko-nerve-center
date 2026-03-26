@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SIA | Public Proof of Impact</title>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; background: #0d1117; color: #58a6ff; padding: 20px; }
+        .badge { border: 2px solid #238636; padding: 20px; border-radius: 8px; max-width: 400px; background: #161b22; }
+        .bar-container { background: #30363d; height: 20px; border-radius: 10px; margin: 10px 0; overflow: hidden; }
+        .bar-fill { background: #238636; height: 100%; width: 0%; transition: width 1s; }
+        .stat { font-size: 1.2rem; margin-bottom: 10px; }
+        a { color: #1f6feb; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>?? SolarPunk Impact Dashboard</h1>
+    <div class="badge">
+        <div class="stat">Total Revenue: <span id="rev">Loading...</span></div>
+<div id="receipt-list"><h3>Verified Receipts</h3><ul id="files"><li>Awaiting first transfer...</li></ul></div>
+        <div class="bar-container"><div id="bar" class="bar-fill"></div>
+<div id="receipt-list"><h3>Verified Receipts</h3><ul id="files"><li>Awaiting first transfer...</li></ul></div></div>
+<div id="receipt-list"><h3>Verified Receipts</h3><ul id="files"><li>Awaiting first transfer...</li></ul></div>
+        <div class="stat">?? Gaza/Mutual Aid (70%): <span id="aid">--</span></div>
+<div id="receipt-list"><h3>Verified Receipts</h3><ul id="files"><li>Awaiting first transfer...</li></ul></div>
+        <div class="stat">??? Infrastructure (30%): <span id="infra">--</span></div>
+<div id="receipt-list"><h3>Verified Receipts</h3><ul id="files"><li>Awaiting first transfer...</li></ul></div>
+        <hr>
+        <small>Last Ledger Update: <span id="time">--</span></small><br>
+        <small><a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/blob/main/docs/PUBLIC_LEDGER.json">View Raw Ledger (JSON)</a></small>
+    </div>
+<div id="receipt-list"><h3>Verified Receipts</h3><ul id="files"><li>Awaiting first transfer...</li></ul></div>
+
+    <script>
+        fetch("https://raw.githubusercontent.com/meekotharaccoon-cell/meeko-nerve-center/main/docs/PUBLIC_LEDGER.json")
+        .then(r => r.json())
+        .then(data => {
+            const revenue = data.total_revenue || 0;
+            const aid = revenue * 0.7;
+            const infra = revenue * 0.3;
+            document.getElementById("rev").textContent = "$" + revenue.toFixed(2);
+            document.getElementById("aid").textContent = "$" + aid.toFixed(2);
+            document.getElementById("infra").textContent = "$" + infra.toFixed(2);
+            document.getElementById("time").textContent = data.last_updated || "Live";
+            document.getElementById("bar").style.width = "70%"; // Represents the mandate
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,516 @@
+{
+  "generated_at": "2026-03-20T06:58:06.363213+00:00",
+  "scripts_found": 59,
+  "scripts_analyzed": 59,
+  "ran_this_cycle": 3,
+  "assessment": {
+    "high_value_scripts": [
+      {
+        "name": "grant_drafter.py",
+        "why": "automates grant proposal drafting",
+        "integration_target": "GRANT_AI_WRITER"
+      }
+    ],
+    "should_run_now": [
+      "grant_drafter.py",
+      "resource_balancer.py",
+      "collective_yield.py"
+    ],
+    "needs_credentials": [
+      "provision_wallets.py",
+      "devnet_mint.py"
+    ],
+    "wrap_as_engines": [
+      "grant_drafter.py",
+      "swarm_intelligence.py",
+      "liquidity_scout.py"
+    ]
+  },
+  "run_results": {
+    "grant_drafter.py": {
+      "returncode": 0,
+      "stdout": "?? SolarPunk is drafting its own case for Mozilla_Democracy_AI...\n? Drafted and ready in docs/grants/draft_Mozilla_Democracy_AI.json\n",
+      "stderr": "",
+      "ran": true
+    },
+    "resource_balancer.py": {
+      "returncode": 0,
+      "stdout": "?? SIA Balancer: Assessing Global Needs Map...\n? Balance Complete: Resources routed to highest-impact zones.\n",
+      "stderr": "",
+      "ran": true
+    },
+    "collective_yield.py": {
+      "returncode": 0,
+      "stdout": "?? SIA Collective: Linking to the Global Liquidity Pool...\n",
+      "stderr": "",
+      "ran": true
+    }
+  },
+  "integrations": [
+    {
+      "script": "grant_drafter.py",
+      "what": "",
+      "integrate_into": "GRANT_AI_WRITER",
+      "status": "mapped"
+    }
+  ],
+  "script_catalog": [
+    {
+      "name": "abundance_relay.py",
+      "docstring": "",
+      "functions": [
+        "execute_wealth_relay"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "agent_labor_bridge.py",
+      "docstring": "",
+      "functions": [
+        "post_wealth_injection_bounty"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "collective_yield.py",
+      "docstring": "",
+      "functions": [
+        "join_global_pool"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "credit_looper.py",
+      "docstring": "",
+      "functions": [
+        "maintain_perpetual_loop"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "cuyahoga_pulse.py",
+      "docstring": "",
+      "functions": [
+        "scan_and_invite"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "devnet_mint.py",
+      "docstring": "",
+      "functions": [
+        "mint_test_solar"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "drafting_bot.py",
+      "docstring": "",
+      "functions": [
+        "draft_report"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "global_talent_scout.py",
+      "docstring": "",
+      "functions": [
+        "hire_globally"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "grant_drafter.py",
+      "docstring": "",
+      "functions": [
+        "draft_proposal"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "inbox_parser.py",
+      "docstring": "",
+      "functions": [
+        "check_for_instructions"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "inception_sync.py",
+      "docstring": "",
+      "functions": [
+        "onboard_new_node"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "legal_sentinel.py",
+      "docstring": "",
+      "functions": [
+        "generate_articles_of_association"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "leisure_orchestrator.py",
+      "docstring": "",
+      "functions": [
+        "identify_creative_clusters"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "liquidity_scout.py",
+      "docstring": "",
+      "functions": [
+        "scan_inefficiencies"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "local_recruiter.py",
+      "docstring": "",
+      "functions": [
+        "identify_first_ten"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "manifest_solarpunk_token.py",
+      "docstring": "",
+      "functions": [
+        "initialize_solarpunk_currency"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "mesh_handshake.py",
+      "docstring": "",
+      "functions": [
+        "check_network_integrity"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "neighbor_auditor.py",
+      "docstring": "",
+      "functions": [
+        "post_verification_bounty"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "post_scarcity_flow.py",
+      "docstring": "",
+      "functions": [
+        "manage_resource_flow"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "provision_wallets.py",
+      "docstring": "",
+      "functions": [
+        "setup_anchor_wallets"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "resource_balancer.py",
+      "docstring": "",
+      "functions": [
+        "balance_global_needs"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "resource_harvester.py",
+      "docstring": "",
+      "functions": [
+        "audit_compute_surplus"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "sia_archivist.py",
+      "docstring": "",
+      "functions": [
+        "scrape_essential_wisdom"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "sia_broadcast.py",
+      "docstring": "",
+      "functions": [
+        "generate_broadcast"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "sia_grease_protocol.py",
+      "docstring": "",
+      "functions": [
+        "preventative_maintenance"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "sia_oracle.py",
+      "docstring": "",
+      "functions": [
+        "address_community_query"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "sia_sentinel.py",
+      "docstring": "",
+      "functions": [
+        "run_defense_scan"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "sia_spore_outreach.py",
+      "docstring": "",
+      "functions": [
+        "explore_agentic_web"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "sia_verification_bot.py",
+      "docstring": "",
+      "functions": [
+        "listen_for_mesh_heartbeat"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "solarpunk_handshake.py",
+      "docstring": "",
+      "functions": [
+        "send_handshake_sms"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "sovereign_scout.py",
+      "docstring": "",
+      "functions": [
+        "execute_agency"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "sovereign_treasury.py",
+      "docstring": "",
+      "functions": [
+        "protect_value"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "swarm_intelligence.py",
+      "docstring": "",
+      "functions": [
+        "sync_with_global_mycelium"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "universal_currency_bridge.py",
+      "docstring": "",
+      "functions": [
+        "convert_and_distribute"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "verify_physical.py",
+      "docstring": "",
+      "functions": [
+        "audit_physical_inventory"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "voice_to_task.py",
+      "docstring": "",
+      "functions": [
+        "process_voice_memo"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "autonomous_engineering.py",
+      "docstring": "",
+      "functions": [
+        "generate_turbine_build_plan"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "barter_engine.py",
+      "docstring": "",
+      "functions": [
+        "identify_surplus_swap"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "broadcaster.py",
+      "docstring": "",
+      "functions": [],
+      "syntax_ok": true
+    },
+    {
+      "name": "community_monitor.py",
+      "docstring": "",
+      "functions": [
+        "scan_local_needs"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "email_stager.py",
+      "docstring": "",
+      "functions": [
+        "stage_dawn_email"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "final_lock.py",
+      "docstring": "",
+      "functions": [],
+      "syntax_ok": true
+    },
+    {
+      "name": "global_emergency_bypass.py",
+      "docstring": "",
+      "functions": [
+        "execute_solar_emergency_bypass"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "handshake_bot.py",
+      "docstring": "",
+      "functions": [
+        "run_autonomous_handshake"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "interweave_all.py",
+      "docstring": "",
+      "functions": [
+        "run_forever"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "interweave_master.py",
+      "docstring": "",
+      "functions": [
+        "execute_interwoven_bridge"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "local_gap_scanner.py",
+      "docstring": "",
+      "functions": [
+        "identify_local_gaps"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "logistics_relay.py",
+      "docstring": "",
+      "functions": [
+        "generate_hardware_cart"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "mycelial_learning.py",
+      "docstring": "",
+      "functions": [
+        "optimize_bounties"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "omni_loop_connector.py",
+      "docstring": "",
+      "functions": [
+        "identify_synergy_gaps"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "omni_recursive_master.py",
+      "docstring": "",
+      "functions": [
+        "run_infinite_solarpunk_cycle"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "recruitment_loop.py",
+      "docstring": "",
+      "functions": [],
+      "syntax_ok": true
+    },
+    {
+      "name": "recursive_assembly.py",
+      "docstring": "",
+      "functions": [],
+      "syntax_ok": true
+    },
+    {
+      "name": "restoration_looper.py",
+      "docstring": "",
+      "functions": [
+        "run_restoration_cycle"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "silent_amplify.py",
+      "docstring": "",
+      "functions": [],
+      "syntax_ok": true
+    },
+    {
+      "name": "sovereign_slicer.py",
+      "docstring": "",
+      "functions": [
+        "optimize_for_aerodynamics"
+      ],
+      "syntax_ok": true
+    },
+    {
+      "name": "sovereign_vault.py",
+      "docstring": "",
+      "functions": [],
+      "syntax_ok": true
+    },
+    {
+      "name": "token_engine.py",
+      "docstring": "",
+      "functions": [],
+      "syntax_ok": true
+    },
+    {
+      "name": "vacancy_dispatcher.py",
+      "docstring": "",
+      "functions": [],
+      "syntax_ok": true
+    }
+  ],
+  "status": "ok"
+}

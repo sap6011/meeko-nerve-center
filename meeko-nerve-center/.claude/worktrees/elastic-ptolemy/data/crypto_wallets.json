@@ -1,0 +1,151 @@
+{
+  "generated_at": "2026-03-20T22:24:35.545195+00:00",
+  "routing_note": "PCRF (Palestine Children's Relief Fund, EIN: 11-3320278) does NOT accept crypto directly. All cryptocurrency is held in the SolarPunk treasury and converted to USD monthly. The converted USD is then donated via pcrf.net/donate. Every conversion is documented here with: date, crypto amount, exchange rate, USD received, transaction ID.",
+  "split_pct": {
+    "humanitarian": 99,
+    "infra": 1
+  },
+  "wallets": {
+    "BTC": {
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "network": "Bitcoin Mainnet",
+      "icon": "₿",
+      "color": "#f7931a",
+      "description": "The original. Accepted via Coinbase Commerce and BTCPay Server.",
+      "configured": false,
+      "address": "Configure BITCOIN_ADDRESS secret in GitHub repo settings",
+      "qr_url": "",
+      "env_var_needed": "BITCOIN_ADDRESS",
+      "free_infra": [
+        "Coinbase Commerce (free tier)",
+        "BTCPay Server (self-hosted, free)"
+      ]
+    },
+    "LN": {
+      "name": "Bitcoin Lightning",
+      "symbol": "LN",
+      "network": "Lightning Network",
+      "icon": "⚡",
+      "color": "#f9c62b",
+      "description": "Instant micropayments via Strike.me or LNURL.",
+      "configured": false,
+      "address": "Configure LIGHTNING_ADDRESS secret in GitHub repo settings",
+      "qr_url": "",
+      "env_var_needed": "LIGHTNING_ADDRESS",
+      "free_infra": [
+        "Strike.me",
+        "Phoenix Wallet"
+      ]
+    },
+    "ETH": {
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "network": "Ethereum Mainnet",
+      "icon": "Ξ",
+      "color": "#627eea",
+      "description": "ETH and all ERC-20 tokens. Accepted via Coinbase Commerce.",
+      "configured": false,
+      "address": "Configure ETHEREUM_ADDRESS secret in GitHub repo settings",
+      "qr_url": "",
+      "env_var_needed": "ETHEREUM_ADDRESS",
+      "free_infra": [
+        "Coinbase Commerce (free tier)",
+        "NOWPayments (free tier, 50 tx/mo)"
+      ]
+    },
+    "SOL": {
+      "name": "Solana",
+      "symbol": "SOL",
+      "network": "Solana Mainnet",
+      "icon": "◎",
+      "color": "#9945ff",
+      "description": "Fast and low-fee. Accepted via NOWPayments.",
+      "configured": false,
+      "address": "Configure SOLARPUNK_WALLET_ADDRESS secret in GitHub repo settings",
+      "qr_url": "",
+      "env_var_needed": "SOLARPUNK_WALLET_ADDRESS",
+      "free_infra": [
+        "NOWPayments (free tier)",
+        "Solana public RPC"
+      ]
+    },
+    "USDC": {
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "network": "Ethereum / Solana / Base / Polygon",
+      "icon": "$",
+      "color": "#2775ca",
+      "description": "Stablecoin on multiple chains. Accepted via Coinbase Commerce.",
+      "configured": false,
+      "address": "Configure USDC_ADDRESS secret in GitHub repo settings",
+      "qr_url": "",
+      "env_var_needed": "USDC_ADDRESS",
+      "free_infra": [
+        "Coinbase Commerce (free tier)",
+        "NOWPayments"
+      ]
+    },
+    "USDT": {
+      "name": "Tether",
+      "symbol": "USDT",
+      "network": "Ethereum / Tron / Solana",
+      "icon": "₮",
+      "color": "#26a17b",
+      "description": "Largest stablecoin by market cap. Accepted via NOWPayments.",
+      "configured": false,
+      "address": "Configure USDT_ADDRESS secret in GitHub repo settings",
+      "qr_url": "",
+      "env_var_needed": "USDT_ADDRESS",
+      "free_infra": [
+        "NOWPayments (free tier, 50 tx/mo)"
+      ]
+    },
+    "XMR": {
+      "name": "Monero",
+      "symbol": "XMR",
+      "network": "Monero Mainnet",
+      "icon": "ɱ",
+      "color": "#ff6600",
+      "description": "Privacy coin. Accepted via NOWPayments auto-convert.",
+      "configured": false,
+      "address": "Configure MONERO_ADDRESS secret in GitHub repo settings",
+      "qr_url": "",
+      "env_var_needed": "MONERO_ADDRESS",
+      "free_infra": [
+        "NOWPayments (free tier)"
+      ]
+    },
+    "XTZ": {
+      "name": "Tezos",
+      "symbol": "XTZ",
+      "network": "Tezos Mainnet",
+      "icon": "ꜩ",
+      "color": "#2c7df7",
+      "description": "NFT-friendly chain — used for Gaza Rose Gallery NFTs.",
+      "configured": false,
+      "address": "Configure TEZOS_ADDRESS secret in GitHub repo settings",
+      "qr_url": "",
+      "env_var_needed": "TEZOS_ADDRESS",
+      "free_infra": [
+        "objkt.com",
+        "NOWPayments"
+      ]
+    },
+    "DOGE": {
+      "name": "Dogecoin",
+      "symbol": "DOGE",
+      "network": "Dogecoin Mainnet",
+      "icon": "Ð",
+      "color": "#c2a633",
+      "description": "Community coin. Much humanitarian. Very impact.",
+      "configured": false,
+      "address": "Configure DOGECOIN_ADDRESS secret in GitHub repo settings",
+      "qr_url": "",
+      "env_var_needed": "DOGECOIN_ADDRESS",
+      "free_infra": [
+        "NOWPayments (free tier)"
+      ]
+    }
+  }
+}

@@ -1,0 +1,170 @@
+name: SolarPunk OMNIBRAIN v10
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+    - cron: '0 12 * * *'
+    - cron: '0 18 * * *'
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Why triggering manually'
+        default: 'debug'
+        required: false
+
+permissions:
+  contents: write
+
+env:
+  PYTHONPATH: mycelium
+  ANTHROPIC_API_KEY:       ${{ secrets.ANTHROPIC_API_KEY }}
+  GROQ_API_KEY:            ${{ secrets.GROQ_API_KEY }}
+  GMAIL_ADDRESS:           ${{ secrets.GMAIL_ADDRESS }}
+  GMAIL_APP_PASSWORD:      ${{ secrets.GMAIL_APP_PASSWORD }}
+  GITHUB_TOKEN:            ${{ secrets.GITHUB_TOKEN }}
+  GUMROAD_SECRET:          ${{ secrets.GUMROAD_SECRET }}
+  GUMROAD_ID:              ${{ secrets.GUMROAD_ID }}
+  GUMROAD_NAME:            ${{ secrets.GUMROAD_NAME }}
+  HF_TOKEN:                ${{ secrets.HF_TOKEN }}
+  KOFI_USERNAME:           ${{ secrets.KOFI_USERNAME }}
+  KOFI_VERIFICATION_TOKEN: ${{ secrets.KOFI_VERIFICATION_TOKEN }}
+  X_API_KEY:               ${{ secrets.X_API_KEY }}
+  X_API_SECRET:            ${{ secrets.X_API_SECRET }}
+  X_ACCESS_TOKEN:          ${{ secrets.X_ACCESS_TOKEN }}
+  X_ACCESS_TOKEN_SECRET:   ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+  REDDIT_CLIENT_ID:        ${{ secrets.REDDIT_CLIENT_ID }}
+  REDDIT_CLIENT_SECRET:    ${{ secrets.REDDIT_CLIENT_SECRET }}
+  REDDIT_USERNAME:         ${{ secrets.REDDIT_USERNAME }}
+  REDDIT_PASSWORD:         ${{ secrets.REDDIT_PASSWORD }}
+  PAYPAL_CLIENT_ID:        ${{ secrets.PAYPAL_CLIENT_ID }}
+  PAYPAL_CLIENT_SECRET:    ${{ secrets.PAYPAL_CLIENT_SECRET }}
+  OPENROUTER_KEY:          ${{ secrets.OPENROUTER_KEY }}
+  SERPAPI_KEY:             ${{ secrets.SERPAPI_KEY }}
+  DEVTO_API_KEY:           ${{ secrets.DEVTO_API_KEY }}
+  STRIKE_API_KEY:          ${{ secrets.STRIKE_API_KEY }}
+  BLUESKY_IDENTIFIER:      ${{ secrets.BLUESKY_IDENTIFIER }}
+  BLUESKY_APP_PASSWORD:    ${{ secrets.BLUESKY_APP_PASSWORD }}
+  MEEKO_AFFILIATE_LINK:    autonomoushum-20
+
+jobs:
+  brain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests python-dateutil imapclient tweepy praw beautifulsoup4 feedparser anthropic groq
+
+      - name: Restore brain state
+        uses: actions/cache@v4
+        with:
+          path: data/
+          key: brain-${{ github.run_number }}
+          restore-keys: brain-
+
+      - run: mkdir -p docs
+
+      - name: Validate secrets (live API tests — tells you exactly what's wrong)
+        run: |
+          python3 << 'PYEOF'
+          import os, smtplib, urllib.request, urllib.parse, json
+
+          def check(name, required=True):
+              v = os.environ.get(name, '').strip()
+              tag = 'REQUIRED' if required else 'optional'
+              if v:
+                  print(f'  OK  {name}: present ({len(v)} chars) [{tag}]')
+              else:
+                  print(f'  {"MISSING" if required else "skip"} {name} [{tag}]')
+              return v
+
+          print('=== Secrets presence ===')
+          anthropic  = check('ANTHROPIC_API_KEY', True)
+          groq_key   = check('GROQ_API_KEY', False)
+          gmail_addr = check('GMAIL_ADDRESS', True)
+          gmail_pw   = check('GMAIL_APP_PASSWORD', True)
+          gumroad    = check('GUMROAD_SECRET', True)
+          check('GITHUB_TOKEN', True)
+          check('DEVTO_API_KEY', False)
+          check('SERPAPI_KEY', False)
+          check('STRIKE_API_KEY', False)
+
+          print()
+          print('=== Live API validation ===')
+
+          # --- GROQ ---
+          if groq_key:
+              try:
+                  req = urllib.request.Request('https://api.groq.com/openai/v1/models')
+                  req.add_header('Authorization', f'Bearer {groq_key}')
+                  with urllib.request.urlopen(req, timeout=10) as r:
+                      data = json.loads(r.read())
+                  models = [m['id'] for m in data.get('data', [])[:3]]
+                  print(f'  PASS GROQ_API_KEY -- valid, models: {models}')
+              except Exception as e:
+                  print(f'  FAIL GROQ_API_KEY -- REJECTED: {e}')
+                  print(f'       Go to console.groq.com > API Keys > Create > paste full key into GitHub Secret GROQ_API_KEY')
+
+          # --- GMAIL ---
+          if gmail_addr and gmail_pw:
+              pw = gmail_pw.replace(' ', '')  # strip display spaces
+              try:
+                  with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=15) as s:
+                      s.login(gmail_addr, pw)
+                  print(f'  PASS GMAIL_APP_PASSWORD -- SMTP login OK')
+              except smtplib.SMTPAuthenticationError as e:
+                  print(f'  FAIL GMAIL_APP_PASSWORD -- Auth rejected: {e}')
+                  print(f'       CAUSE: App Passwords only work when 2-Step Verification is ON.')
+                  print(f'       FIX:')
+                  print(f'         1. myaccount.google.com > Security > 2-Step Verification > turn ON')
+                  print(f'         2. myaccount.google.com > search "App Passwords"')
+                  print(f'         3. App name: SolarPunk > Generate')
+                  print(f'         4. Copy the 16-char code (no spaces) > GitHub Secret GMAIL_APP_PASSWORD')
+              except Exception as e:
+                  print(f'  WARN GMAIL_APP_PASSWORD -- network error: {e}')
+
+          # --- GUMROAD ---
+          if gumroad:
+              try:
+                  token = urllib.parse.quote(gumroad)
+                  url = f'https://api.gumroad.com/v2/user?access_token={token}'
+                  req = urllib.request.Request(url)
+                  req.add_header('User-Agent', 'SolarPunk/1.0')
+                  with urllib.request.urlopen(req, timeout=10) as r:
+                      data = json.loads(r.read())
+                  if data.get('success'):
+                      user = data.get('user', {})
+                      print(f'  PASS GUMROAD_SECRET -- account: {user.get("email", "?")}')
+                  else:
+                      print(f'  FAIL GUMROAD_SECRET -- API rejected token: {data}')
+                      print(f'       FIX: gumroad.com > Settings > Advanced > scroll to Applications section')
+                      print(f'            Click "Generate Token" > copy ENTIRE token > paste into GUMROAD_SECRET')
+              except Exception as e:
+                  print(f'  FAIL GUMROAD_SECRET -- error: {e}')
+          PYEOF
+        continue-on-error: true
+
+      - name: Run OMNIBUS
+        run: python mycelium/OMNIBUS.py
+        continue-on-error: true
+
+      - name: Commit + push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "SolarPunk Brain"
+          git config user.email "meekotharaccoon@gmail.com"
+          git add data/ docs/ mycelium/ README.md 2>/dev/null || true
+          git diff --staged --quiet && echo "nothing to commit" && exit 0
+          git commit -m "🧠 brain $(date -u +'%Y-%m-%d %H:%M') UTC [skip ci]"
+          git pull --rebase "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" main || true
+          git push "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:main

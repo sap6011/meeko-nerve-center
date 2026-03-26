@@ -1,0 +1,103 @@
+name: "CIVIC_PUSH - Grant deadlines + civic opportunity automation"
+
+on:
+  schedule:
+    - cron: "0 9,17 * * *"   # 09:00 + 17:00 UTC daily — catches both morning/evening windows
+  workflow_dispatch:
+
+concurrency:
+  group: civic-push
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  civic:
+    name: "Civic Grant + Intel Run"
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    env:
+      ANTHROPIC_API_KEY:   ${{ secrets.ANTHROPIC_API_KEY }}
+      GROQ_API_KEY:        ${{ secrets.GROQ_API_KEY }}
+      HF_TOKEN:            ${{ secrets.HF_TOKEN }}
+      OPENROUTER_KEY:      ${{ secrets.OPENROUTER_KEY }}
+      GMAIL_ADDRESS:       ${{ secrets.GMAIL_ADDRESS }}
+      GMAIL_APP_PASSWORD:  ${{ secrets.GMAIL_APP_PASSWORD }}
+      GITHUB_TOKEN:        ${{ secrets.GITHUB_TOKEN }}
+      SAMGOV_API_KEY:      ${{ secrets.SAMGOV_API_KEY }}
+      MASTODON_ACCESS_TOKEN:  ${{ secrets.MASTODON_ACCESS_TOKEN }}
+      MASTODON_API_BASE_URL:  ${{ secrets.MASTODON_API_BASE_URL }}
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install deps"
+        run: pip install requests anthropic 2>/dev/null || pip install requests
+
+      - name: "Setup git + dirs"
+        run: |
+          git config user.email "solarpunk@gazarosegallery.art"
+          git config user.name "SolarPunk Civic AI"
+          mkdir -p data docs
+
+      # Run from repo root so Path("data") = data/ at root (not mycelium/data/)
+      - name: "Phase 0 — Cycle context"
+        continue-on-error: true
+        run: python mycelium/CYCLE_OPENER.py 2>/dev/null || echo "cycle opener optional"
+
+      - name: "Phase 1 — Civic Grant Rush (CDBG + urgent deadlines)"
+        continue-on-error: true
+        run: python mycelium/CIVIC_GRANT_RUSH.py
+
+      - name: "Phase 2 — Grant AI Writer (foundation grants)"
+        continue-on-error: true
+        run: python mycelium/GRANT_AI_WRITER.py 2>/dev/null || python mycelium/GRANT_WRITER.py 2>/dev/null || echo "grant writer variant"
+
+      - name: "Phase 3 — Grant Hunter (scan for new opportunities)"
+        continue-on-error: true
+        run: python mycelium/GRANT_HUNTER.py
+
+      - name: "Phase 3b — Awesome Foundation Apply"
+        continue-on-error: true
+        run: python mycelium/AWESOME_FOUNDATION_APPLY.py
+
+      - name: "Phase 4 — SAM.gov Harvester (federal contracts)"
+        continue-on-error: true
+        run: python mycelium/SAMGOV_HARVESTER.py 2>/dev/null || echo "SAMgov optional"
+
+      - name: "Phase 4b — Web Intelligence (grant news)"
+        continue-on-error: true
+        run: python mycelium/WEB_INTELLIGENCE.py 2>/dev/null || echo "web intelligence optional"
+
+      - name: "Phase 5 — First Dollar Alert (check milestones)"
+        continue-on-error: true
+        run: python mycelium/FIRST_DOLLAR_ALERT.py
+
+      - name: "Phase 98 — Loop Conductor"
+        continue-on-error: true
+        run: python mycelium/LOOP_CONDUCTOR.py
+
+      - name: "Phase 99 — Engine Sanitizer"
+        continue-on-error: true
+        run: python mycelium/ENGINE_SANITIZER.py
+
+      - name: "Commit civic outputs"
+        continue-on-error: true
+        run: |
+          git add data/ docs/ -f
+          git diff --staged --quiet && echo "Nothing to commit" && exit 0
+          git -c commit.gpgsign=false commit -m "civic: grant proposals + intel $(date -u +%H:%M)Z"
+          git fetch origin main
+          git -c commit.gpgsign=false merge origin/main --no-edit -X ours 2>/dev/null || true
+          git push origin HEAD:main 2>/dev/null || git push origin HEAD:main --force-with-lease

@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-03-20T20:26:59.014831+00:00",
+  "target_monthly_usd": 1000,
+  "current_monthly_usd": 0.0,
+  "gap_usd": 1000.0,
+  "roadmap": "Claude roadmap error: HTTP Error 400: Bad Request",
+  "top_actions": [
+    {
+      "stream_id": "grant_pipeline",
+      "platform": "Multiple",
+      "action": "Start setup at https://awesomefoundation.org \u2014 estimated effort: 2/5",
+      "potential_usd": 2000,
+      "effort": 2,
+      "time_to_revenue": "2-8 weeks",
+      "setup_url": "https://awesomefoundation.org"
+    },
+    {
+      "stream_id": "digital_products",
+      "platform": "Gumroad",
+      "action": "Add secret `GUMROAD_ACCESS_TOKEN` via GitHub Actions \u2192 Secrets \u2192 New secret",
+      "potential_usd": 500,
+      "effort": 2,
+      "time_to_revenue": "1 day",
+      "setup_url": "https://gumroad.com"
+    },
+    {
+      "stream_id": "community_funding",
+      "platform": "OpenCollective + GitHub Sponsors + Ko-fi",
+      "action": "Add secret `OPENCOLLECTIVE_API_KEY` via GitHub Actions \u2192 Secrets \u2192 New secret",
+      "potential_usd": 500,
+      "effort": 2,
+      "time_to_revenue": "1 week",
+      "setup_url": "https://opencollective.com"
+    },
+    {
+      "stream_id": "task_poster_fees",
+      "platform": "SolarPunk Labor Marketplace",
+      "action": "Add secret `STRIPE_KEY` via GitHub Actions \u2192 Secrets \u2192 New secret",
+      "potential_usd": 800,
+      "effort": 4,
+      "time_to_revenue": "2 weeks",
+      "setup_url": "https://stripe.com"
+    },
+    {
+      "stream_id": "ko_fi_shop",
+      "platform": "Ko-fi",
+      "action": "Add secret `KOFI_API_KEY` via GitHub Actions \u2192 Secrets \u2192 New secret",
+      "potential_usd": 200,
+      "effort": 1,
+      "time_to_revenue": "1 day",
+      "setup_url": "https://ko-fi.com"
+    }
+  ],
+  "missing_secrets": [
+    "GUMROAD_ACCESS_TOKEN",
+    "HF_TOKEN",
+    "STRIPE_KEY",
+    "OPENCOLLECTIVE_API_KEY",
+    "KOFI_API_KEY",
+    "COINBASE_COMMERCE_KEY"
+  ]
+}

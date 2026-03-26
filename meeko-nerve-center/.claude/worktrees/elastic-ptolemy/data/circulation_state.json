@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-03-20T20:26:59.177492+00:00",
+  "pools": {
+    "crisis": {
+      "balance_usd": 0.0,
+      "total_in": 0.0,
+      "total_out": 0.0,
+      "target_usd": 0.0
+    },
+    "labor": {
+      "balance_usd": 0.0,
+      "total_in": 0.0,
+      "total_out": 0.0,
+      "target_usd": 0.0
+    },
+    "infrastructure": {
+      "balance_usd": 0.0,
+      "total_in": 0.0,
+      "total_out": 0.0,
+      "target_usd": 0.0
+    },
+    "growth": {
+      "balance_usd": 0.0,
+      "total_in": 0.0,
+      "total_out": 0.0,
+      "target_usd": 0.0
+    }
+  },
+  "leaks_detected": 1,
+  "leaks": [
+    {
+      "type": "unclaimed_easy_opportunities",
+      "severity": "medium",
+      "description": "4 easy opportunities found but unclaimed, ~$1800 potential",
+      "fix": "Review data/easy_money_opportunities.json and take action on top items",
+      "trigger_file": "data/trigger_easy_money.json",
+      "value_stuck_usd": 900.0
+    }
+  ],
+  "plugged": [],
+  "velocity": {
+    "velocity": 0,
+    "total_in_usd": 0.0,
+    "total_out_usd": 0.0,
+    "current_balance_usd": 0.0,
+    "overflow_events": 0,
+    "worker_payment_events": 0,
+    "crisis_transfer_events": 0,
+    "multiplier_effect": 1.0,
+    "assessment": "stagnant"
+  },
+  "projections": {
+    "current_monthly_usd": 0.0,
+    "projected_30d_usd": 0.0,
+    "projected_60d_usd": 2400.0,
+    "projected_90d_usd": 6120.0,
+    "potential_monthly_usd": 5350.0,
+    "opportunity_pipeline_usd": 12000,
+    "days_to_1000_monthly": 999,
+    "active_streams": 0,
+    "ready_streams_unlocked": 2,
+    "methodology": "15% MoM growth rate + opportunity conversion at 20%/30% by day 60/90"
+  },
+  "circulation_rules": {
+    "every_worker_payment": "worker gets paid \u2192 gets told about 2 more tasks \u2192 multiplier effect",
+    "every_product_sale": "sale logged \u2192 product improved \u2192 better description published \u2192 more sales",
+    "every_grant_received": "grant \u2192 70% labor pool \u2192 workers hired \u2192 tasks done \u2192 proof published \u2192 next grant application stronger",
+    "every_crisis_transfer": "PCRF receives \u2192 SolarPunk posts proof \u2192 proof attracts donors \u2192 donors fund more transfers",
+    "every_overflow_event": "overflow tracked \u2192 AUTO_ANNOUNCE broadcasts \u2192 swarm sees \u2192 swarm amplifies \u2192 more overflow"
+  }
+}

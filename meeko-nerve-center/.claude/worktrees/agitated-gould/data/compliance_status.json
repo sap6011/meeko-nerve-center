@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-03-21T07:32:30.929963+00:00",
+  "entity_name": "Ward 8 Sovereign Lattice LLC",
+  "entity_score": 25,
+  "ohio_llc": {
+    "status": "pending",
+    "filing_date": "",
+    "annual_report_due": ""
+  },
+  "ein": {
+    "status": "pending",
+    "has_number": false
+  },
+  "sam_gov": {
+    "status": "no_uei",
+    "note": "Add UEI to compliance_config.json"
+  },
+  "grants": [
+    {
+      "name": "Cuyahoga Falls CDBG 2026",
+      "amount_requested": 236000,
+      "submission_deadline": "2026-03-21",
+      "status": "drafting",
+      "award_date": "",
+      "amount_awarded": 0,
+      "_note": "Update submission_deadline with the real date from the city portal. Update status to submitted when filed."
+    }
+  ],
+  "sites_total": 3,
+  "sites_signed": 0,
+  "sites_needed": 3,
+  "sites_gap": 3,
+  "sovereign_wallet": {
+    "grant_funds_received": 0,
+    "grant_funds_spent": 0,
+    "grant_unspent": 0,
+    "corc_revenue": 0,
+    "maintenance_reserve": 0,
+    "self_funding_total": 0,
+    "grant_burn_rate_pct": 0.0,
+    "status": "healthy"
+  },
+  "alerts": [
+    {
+      "level": "critical",
+      "area": "EIN",
+      "message": "EIN not yet applied for. Takes 5 minutes at IRS.gov.",
+      "action": "Apply: IRS.gov \u2192 Apply for EIN Online"
+    },
+    {
+      "level": "critical",
+      "area": "SAM.gov",
+      "message": "SAM.gov registration not started. UEI required for all HUD grants.",
+      "action": "Register: sam.gov (need EIN first)"
+    },
+    {
+      "level": "critical",
+      "area": "Grant: Cuyahoga Falls CDBG 2026",
+      "message": "Deadline in -1 days \u2014 $236,000 at stake",
+      "action": "Submit by 2026-03-21"
+    }
+  ],
+  "critical_count": 3,
+  "warning_count": 0,
+  "compliance_summary": "ACTION REQUIRED \u2014 CHECK COMPLIANCE_CONFIG.JSON"
+}

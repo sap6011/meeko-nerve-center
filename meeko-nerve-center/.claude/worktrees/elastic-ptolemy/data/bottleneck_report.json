@@ -1,0 +1,212 @@
+{
+  "generated": "2026-03-20T22:22:51.151506+00:00",
+  "summary": {
+    "total_bottlenecks": 3,
+    "critical": 1,
+    "high": 1,
+    "secrets_ok": 5,
+    "secrets_total": 18,
+    "engines_ok": 353,
+    "engines_total": 355,
+    "gumroad_live": 0,
+    "gumroad_pending": 10,
+    "revenue_total": 0,
+    "gaza_total": 0
+  },
+  "bottlenecks": [
+    {
+      "id": "BN-001",
+      "severity": "CRITICAL",
+      "title": "GUMROAD_SECRET missing -- 10 products can't publish",
+      "description": "GUMROAD_ENGINE has products queued but can't authenticate to Gumroad API.",
+      "fix": "gumroad.com -> avatar -> Settings -> Advanced -> Generate Token -> GitHub Secret: GUMROAD_SECRET",
+      "revenue_impact": "$10/sale blocked",
+      "status": "PENDING"
+    },
+    {
+      "id": "BN-002",
+      "severity": "HIGH",
+      "title": "Gmail 534 error -- App Password wrong or expired",
+      "description": "Every email send fails: '534 Application-specific password required'. outreach_sent=0, exchange deaf.",
+      "fix": "Google Account -> Security -> 2-Step Verification -> App Passwords -> Generate for Mail -> update GMAIL_APP_PASSWORD secret",
+      "revenue_impact": "Zero email outreach, exchange tasks undeliverable, digests silent",
+      "status": "BROKEN"
+    },
+    {
+      "id": "BN-003",
+      "severity": "LOW",
+      "title": "2 engines have syntax errors",
+      "description": "Broken: LEGACY_SIFTED_engine_simple.py, LEGACY_SIFTED_humanitarian_revenue_engine.py",
+      "fix": "Fix syntax errors; set ANTHROPIC_API_KEY to enable AI auto-patching via AUTO_HEALER",
+      "revenue_impact": "Minor -- those engines skipped",
+      "status": "KNOWN"
+    }
+  ],
+  "secrets": [
+    {
+      "name": "ANTHROPIC_API_KEY",
+      "present": true,
+      "length": 108,
+      "impact": "CRITICAL",
+      "unlocks": [
+        "SELF_BUILDER",
+        "KNOWLEDGE_WEAVER",
+        "AI brain"
+      ]
+    },
+    {
+      "name": "GUMROAD_SECRET",
+      "present": false,
+      "length": 0,
+      "impact": "CRITICAL",
+      "unlocks": [
+        "10 queued products publishing"
+      ]
+    },
+    {
+      "name": "GMAIL_ADDRESS",
+      "present": true,
+      "length": 25,
+      "impact": "HIGH",
+      "unlocks": [
+        "email briefings",
+        "outreach"
+      ]
+    },
+    {
+      "name": "GMAIL_APP_PASSWORD",
+      "present": true,
+      "length": 19,
+      "impact": "HIGH",
+      "unlocks": [
+        "email sending \u2014 MUST be App Password not account password"
+      ]
+    },
+    {
+      "name": "X_API_KEY",
+      "present": true,
+      "length": 64,
+      "impact": "HIGH",
+      "unlocks": [
+        "100+ queued tweets posting"
+      ]
+    },
+    {
+      "name": "X_API_SECRET",
+      "present": false,
+      "length": 0,
+      "impact": "HIGH",
+      "unlocks": [
+        "Twitter auth"
+      ]
+    },
+    {
+      "name": "X_ACCESS_TOKEN",
+      "present": false,
+      "length": 0,
+      "impact": "HIGH",
+      "unlocks": [
+        "Twitter account auth"
+      ]
+    },
+    {
+      "name": "X_ACCESS_TOKEN_SECRET",
+      "present": false,
+      "length": 0,
+      "impact": "HIGH",
+      "unlocks": [
+        "Twitter account auth"
+      ]
+    },
+    {
+      "name": "REDDIT_CLIENT_ID",
+      "present": false,
+      "length": 0,
+      "impact": "MEDIUM",
+      "unlocks": [
+        "Reddit auto-posting"
+      ]
+    },
+    {
+      "name": "REDDIT_CLIENT_SECRET",
+      "present": false,
+      "length": 0,
+      "impact": "MEDIUM",
+      "unlocks": [
+        "Reddit auto-posting"
+      ]
+    },
+    {
+      "name": "PAYPAL_CLIENT_ID",
+      "present": false,
+      "length": 0,
+      "impact": "MEDIUM",
+      "unlocks": [
+        "automated payouts"
+      ]
+    },
+    {
+      "name": "PAYPAL_CLIENT_SECRET",
+      "present": false,
+      "length": 0,
+      "impact": "MEDIUM",
+      "unlocks": [
+        "PayPal API auth"
+      ]
+    },
+    {
+      "name": "HF_TOKEN",
+      "present": true,
+      "length": 37,
+      "impact": "MEDIUM",
+      "unlocks": [
+        "HuggingFace fallback AI"
+      ]
+    },
+    {
+      "name": "GUMROAD_ID",
+      "present": false,
+      "length": 0,
+      "impact": "LOW",
+      "unlocks": [
+        "Gumroad analytics"
+      ]
+    },
+    {
+      "name": "GUMROAD_NAME",
+      "present": false,
+      "length": 0,
+      "impact": "LOW",
+      "unlocks": [
+        "Gumroad display name"
+      ]
+    },
+    {
+      "name": "REDDIT_USERNAME",
+      "present": false,
+      "length": 0,
+      "impact": "LOW",
+      "unlocks": [
+        "Reddit identity"
+      ]
+    },
+    {
+      "name": "REDDIT_PASSWORD",
+      "present": false,
+      "length": 0,
+      "impact": "LOW",
+      "unlocks": [
+        "Reddit login"
+      ]
+    },
+    {
+      "name": "KOFI_VERIFICATION_TOKEN",
+      "present": false,
+      "length": 0,
+      "impact": "LOW",
+      "unlocks": [
+        "Ko-fi webhook verification"
+      ]
+    }
+  ]
+}

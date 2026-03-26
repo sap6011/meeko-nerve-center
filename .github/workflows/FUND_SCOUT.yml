@@ -1,0 +1,41 @@
+name: FUND_SCOUT — Autonomous Grant Discovery
+
+on:
+  schedule:
+    # Every Monday at 08:00 UTC — catches new grant cycles early in the week
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual run'
+        required: false
+        default: 'manual check'
+
+permissions:
+  contents: write
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests python-dateutil
+
+      - name: Run FUND_SCOUT
+        run: python mycelium/FUND_SCOUT.py
+
+      - name: Commit updated funder database
+        run: |
+          git config user.name  "SolarPunk-AutoBot"
+          git config user.email "bot@solarpunk.node"
+          git add data/fund_scout_results.json docs/grants/FUNDER_DATABASE.md || true
+          git diff --staged --quiet || git commit -m "FUND_SCOUT: Weekly funder database refresh $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main || true
+          git push

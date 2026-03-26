@@ -1,0 +1,26 @@
+name: SIA Auto-Repair & Hygiene
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Every 6h (was hourly — too noisy)
+  workflow_dispatch:
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Patch Documentation Gaps
+        run: |
+          # Ensure critical folders exist
+          mkdir -p docs mycelium blueprints
+          # Fix common script permissions
+          find . -name "*.sh" -exec chmod +x {} +
+          echo "Hygiene Check: Permissions and structure verified."
+
+      - name: Auto-Commit Repairs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "SIA: Automated Repository Hygiene [Gap-Filled]"

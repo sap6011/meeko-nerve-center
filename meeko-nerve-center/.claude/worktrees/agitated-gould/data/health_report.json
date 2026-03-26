@@ -1,0 +1,75 @@
+{
+  "score": 56,
+  "status": "FUNCTIONAL",
+  "achievements": [
+    "\u2705 Shop page: docs/index.html deployed",
+    "\u2705 Links page: docs/links.html exists",
+    "\u2705 Dashboard: docs/dashboard.html exists",
+    "\u2705 Data pipeline: flywheel_state.json exists",
+    "\u2705 ANTHROPIC_API_KEY: configured",
+    "\u2705 GMAIL_ADDRESS: configured",
+    "\u2705 GMAIL_APP_PASSWORD: configured",
+    "\u2705 Community abundance: 30/100 (5 contributors)"
+  ],
+  "issues": [
+    "\ud83d\udd34 CRITICAL: API error: 400 \u2014 All AI features disabled",
+    "\u26a0\ufe0f Revenue: 1 secret(s) missing \u2192 -10 pts potential",
+    "\u26a0\ufe0f Art: 1 secret(s) missing \u2192 -5 pts potential",
+    "\u26a0\ufe0f Social: 3 secret(s) missing \u2192 -10 pts potential",
+    "\ud83d\udcb0 No revenue yet \u2014 shop needs human promotion",
+    "\u26a0\ufe0f Social velocity low: 10/100 \u2014 post more consistently",
+    "\u2696\ufe0f Legal entity score: 25/100 \u2014 file Ohio LLC + EIN to unlock grants",
+    "\ud83d\udd34 3 compliance deadline(s) require attention"
+  ],
+  "fixes": [
+    "Go to anthropic.com/console \u2192 API Keys \u2192 Create new key \u2192 Add as os.environ.get(_ak, ) to GitHub Secrets",
+    "Add GUMROAD_ACCESS_TOKEN: gumroad.com \u2192 Settings \u2192 Advanced \u2192 Access Token",
+    "Add HF_TOKEN: huggingface.co \u2192 Settings \u2192 Access Tokens",
+    "Add X_API_KEY: developer.twitter.com \u2192 App \u2192 Keys & Tokens",
+    "Add X_ACCESS_TOKEN: developer.twitter.com \u2192 App \u2192 Keys & Tokens",
+    "Add REDDIT_CLIENT_ID: reddit.com/prefs/apps \u2192 Create app (script type)",
+    "Share shop URL: meekotharaccoon-cell.github.io/meeko-nerve-center",
+    "Use ready tweets in data/social_latest.json",
+    "Check data/compliance_status.json for urgent deadlines"
+  ],
+  "missing_secrets": [
+    {
+      "pts": 10,
+      "category": "Revenue",
+      "how": "gumroad.com \u2192 Settings \u2192 Advanced \u2192 Access Token",
+      "secret": "GUMROAD_ACCESS_TOKEN"
+    },
+    {
+      "pts": 5,
+      "category": "Art",
+      "how": "huggingface.co \u2192 Settings \u2192 Access Tokens",
+      "secret": "HF_TOKEN"
+    },
+    {
+      "pts": 5,
+      "category": "Social",
+      "how": "developer.twitter.com \u2192 App \u2192 Keys & Tokens",
+      "secret": "X_API_KEY"
+    },
+    {
+      "pts": 3,
+      "category": "Social",
+      "how": "developer.twitter.com \u2192 App \u2192 Keys & Tokens",
+      "secret": "X_ACCESS_TOKEN"
+    },
+    {
+      "pts": 2,
+      "category": "Social",
+      "how": "reddit.com/prefs/apps \u2192 Create app (script type)",
+      "secret": "REDDIT_CLIENT_ID"
+    }
+  ],
+  "has_revenue": false,
+  "total_sales": 0,
+  "total_to_gaza": 0.0,
+  "velocity_score": 10,
+  "abundance_score": 30,
+  "entity_score": 25,
+  "compliance_alerts": 3,
+  "timestamp": "2026-03-21T12:29:55.612746+00:00"
+}

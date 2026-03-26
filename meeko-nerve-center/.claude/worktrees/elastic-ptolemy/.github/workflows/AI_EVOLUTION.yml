@@ -1,0 +1,76 @@
+name: 🧬 AI_EVOLUTION — Self-building AI deploys new engines
+on:
+  schedule:
+    - cron: "0 3,15 * * *"
+  workflow_dispatch:
+jobs:
+  evolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: "Phase 0 — Cycle context"
+        continue-on-error: true
+        run: python mycelium/CYCLE_OPENER.py
+      - name: "Phase 1 — Knowledge Synthesizer"
+        continue-on-error: true
+        run: python mycelium/KNOWLEDGE_SYNTHESIZER.py
+      - name: "Phase 2 — Archive Brain"
+        continue-on-error: true
+        run: python mycelium/ARCHIVE_BRAIN.py
+      - name: "Phase 3 — Orphan Connector"
+        continue-on-error: true
+        run: python mycelium/ORPHAN_CONNECTOR.py
+      - name: "Phase 4 — Bottleneck Scanner"
+        continue-on-error: true
+        run: python mycelium/BOTTLENECK_SCANNER.py
+      - name: "Phase 5 — NEURON_A (builder)"
+        continue-on-error: true
+        run: python mycelium/NEURON_A.py
+      - name: "Phase 6 — NEURON_B (skeptic)"
+        continue-on-error: true
+        run: python mycelium/NEURON_B.py
+      - name: "Phase 7 — SYNAPSE (resolver)"
+        continue-on-error: true
+        run: python mycelium/SYNAPSE.py
+      - name: "Phase 8 — Synthesis Factory"
+        continue-on-error: true
+        run: python mycelium/SYNTHESIS_FACTORY.py
+      - name: "Phase 9 — Auto Deploy Engine"
+        continue-on-error: true
+        run: python mycelium/AUTO_DEPLOY_ENGINE.py
+      - name: "Phase 10 — Grant AI Writer"
+        continue-on-error: true
+        run: python mycelium/GRANT_AI_WRITER.py
+      - name: "Phase 11 — SEO Engine"
+        continue-on-error: true
+        run: python mycelium/SEO_ENGINE.py
+      - name: "Phase 12 — Revenue Intelligence"
+        continue-on-error: true
+        run: python mycelium/REVENUE_INTELLIGENCE.py
+      - name: "Phase 13 — Engine Integrity"
+        continue-on-error: true
+        run: python mycelium/ENGINE_INTEGRITY.py
+      - name: "Phase 98 — Loop Conductor"
+        continue-on-error: true
+        run: python mycelium/LOOP_CONDUCTOR.py
+      - name: "Phase 99 — Sanitizer"
+        continue-on-error: true
+        run: python mycelium/ENGINE_SANITIZER.py
+      - name: Commit evolution
+        run: |
+          git config user.email "solarpunk@gazarosegallery.art"
+          git config user.name "SolarPunk Evolution AI"
+          git add data/ mycelium/ docs/ -f
+          git diff --staged --quiet || git -c commit.gpgsign=false commit -m "🧬 ai_evolution: new engines deployed $(date -u +%Y-%m-%dT%H:%M)Z"
+          git push origin HEAD:main --force-with-lease 2>/dev/null || git push origin HEAD:main

@@ -1,0 +1,411 @@
+name: "🔄 Bootstrap Loop — SolarPunk Funds Itself"
+
+# ════════════════════════════════════════════════════════════════
+# THE SELF-FUNDING LOOP
+#
+# SolarPunk was designed to loop into itself to solve all its
+# own problems. This workflow IS that loop.
+#
+# It runs continuously until every pool is funded:
+#   💚 Crisis Pool  → 99% of revenue (auto-routing via CRISIS_ROUTER)
+#   🤝 Labor Pool   → $500 minimum to start paying workers
+#   ⚙️  Infra Pool   → $50/month for API costs
+#   🌱 Growth Pool  → $200 for new capabilities
+#
+# HOW IT FUNDS ITSELF (zero human action required):
+#   1. SWARM_ORACLE identifies gaps
+#   2. POOL_MANAGER routes all revenue to correct pools
+#   3. GRANT_HUNTER finds matching grants
+#   4. GRANT_AUTO_SUBMITTER applies automatically
+#   5. PITCH_FACTORY creates investor pitches
+#   6. OPENCOLLECTIVE_CAMPAIGNER launches community funding
+#   7. PRODUCT_REGISTRY + GUMROAD_ENGINE publish products
+#   8. PROBLEM_SOLVER_PRIME fixes anything that broke
+#   9. LOOP_CONDUCTOR synthesizes the cycle
+#  10. Everything feeds back into next cycle — smarter
+#
+# Schedule: every 4 hours — aggressive until pools funded
+# ════════════════════════════════════════════════════════════════
+
+on:
+  schedule:
+    - cron: "0 */4 * * *"   # Every 4 hours — aggressive bootstrap
+  workflow_dispatch:
+    inputs:
+      force_grant_submit:
+        description: "Force grant submission even if already submitted"
+        required: false
+        default: "false"
+      force_product_publish:
+        description: "Force product publish to Gumroad"
+        required: false
+        default: "false"
+
+concurrency:
+  group: bootstrap-loop
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+      KOFI_API_KEY: ${{ secrets.KOFI_API_KEY }}
+      PAYPAL_CLIENT_ID: ${{ secrets.PAYPAL_CLIENT_ID }}
+      PAYPAL_CLIENT_SECRET: ${{ secrets.PAYPAL_CLIENT_SECRET }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      OPENCOLLECTIVE_API_KEY: ${{ secrets.OPENCOLLECTIVE_API_KEY }}
+      RENTAHUMAN_API_KEY: ${{ secrets.RENTAHUMAN_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+      KIMI_API_KEY: ${{ secrets.KIMI_API_KEY }}
+      UNUSUAL_WHALES_API_KEY: ${{ secrets.UNUSUAL_WHALES_API_KEY }}
+      SAMGOV_API_KEY: ${{ secrets.SAMGOV_API_KEY }}
+      BITCOIN_ADDRESS: ${{ secrets.BITCOIN_ADDRESS }}
+      ETHEREUM_ADDRESS: ${{ secrets.ETHEREUM_ADDRESS }}
+      MONERO_ADDRESS: ${{ secrets.MONERO_ADDRESS }}
+      SOLARPUNK_WALLET_ADDRESS: ${{ secrets.SOLARPUNK_WALLET_ADDRESS }}
+      MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+      MASTODON_API_BASE_URL: ${{ secrets.MASTODON_API_BASE_URL }}
+      BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+      BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+      FORCE_GRANT: ${{ github.event.inputs.force_grant_submit || 'false' }}
+      FORCE_PUBLISH: ${{ github.event.inputs.force_product_publish || 'false' }}
+
+    steps:
+      - name: "📥 Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "🐍 Python Setup"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "📦 Install deps"
+        run: pip install requests anthropic 2>/dev/null || pip install requests
+
+      # ── PHASE 0: Ask the swarm what we need ────────────────────────────────
+      - name: "🔮 Phase 0 — Swarm Oracle (what do we need?)"
+        run: python mycelium/SWARM_ORACLE.py
+        continue-on-error: true
+
+      - name: "🌍 Phase 0b — Bioregional Clock (sync to Earth)"
+        run: python mycelium/BIOREGIONAL_CLOCK.py
+        continue-on-error: true
+
+      - name: "🌊 Phase 0c — Planetary Overflow (track digital→physical)"
+        run: python mycelium/PLANETARY_OVERFLOW.py || echo "PLANETARY_OVERFLOW error"
+        continue-on-error: true
+
+      - name: "⚡ Phase 0d — FIRST DOLLAR (publish Gumroad products NOW)"
+        run: python mycelium/FIRST_DOLLAR.py || echo "FIRST_DOLLAR error"
+        continue-on-error: true
+
+      # ── PHASE 1: Fix anything broken FIRST ─────────────────────────────────
+      - name: "🔧 Phase 1 — Problem Solver Prime (fix broken things)"
+        run: python mycelium/PROBLEM_SOLVER_PRIME.py
+        continue-on-error: true
+
+      - name: "🧹 Phase 1b — Engine Sanitizer (remove corruption)"
+        run: python mycelium/ENGINE_SANITIZER.py
+        continue-on-error: true
+
+      - name: "🤖 Phase 1c — AI Router (free tiers first, Claude last)"
+        run: python mycelium/AI_ROUTER.py || echo "AI_ROUTER error"
+        continue-on-error: true
+
+      # ── PHASE 2: Pool management ────────────────────────────────────────────
+      - name: "💰 Phase 2 — Pool Manager (route all revenue)"
+        run: python mycelium/POOL_MANAGER.py
+        continue-on-error: true
+
+      - name: "💯 Phase 2b — Crisis Router (99% allocation)"
+        run: python mycelium/CRISIS_ROUTER.py
+        continue-on-error: true
+
+      - name: "♻️  Phase 2c — Overflow Router (pools never hoard)"
+        run: python mycelium/OVERFLOW_ROUTER.py
+        continue-on-error: true
+
+      - name: "🌱 Phase 2d — Abundance Protocol (connected = covered)"
+        run: python mycelium/ABUNDANCE_PROTOCOL.py
+        continue-on-error: true
+
+      # ── PHASE 3: Revenue generation ─────────────────────────────────────────
+      - name: "💎 Phase 3 — Revenue Flywheel"
+        run: python mycelium/REVENUE_FLYWHEEL.py
+        continue-on-error: true
+
+      - name: "🛍️  Phase 3b — Product Registry"
+        run: python mycelium/PRODUCT_REGISTRY.py
+        continue-on-error: true
+
+      - name: "🏪 Phase 3c — Gumroad Engine"
+        run: python mycelium/GUMROAD_ENGINE.py 2>/dev/null || python mycelium/GUMROAD_LISTINGS.py 2>/dev/null || echo "Gumroad engine not found — skipping"
+        continue-on-error: true
+
+      - name: "💰 Phase 3d — Easy Money Finder (find opportunities NOW)"
+        run: python mycelium/EASY_MONEY_FINDER.py || echo "EASY_MONEY_FINDER error"
+        continue-on-error: true
+
+      - name: "🏗️ Phase 3e — Revenue Architect (map full revenue architecture)"
+        run: python mycelium/REVENUE_ARCHITECT.py || echo "REVENUE_ARCHITECT error"
+        continue-on-error: true
+
+      - name: "🔄 Phase 3f — Circulation Engine (ensure money circulates)"
+        run: python mycelium/CIRCULATION_ENGINE.py || echo "CIRCULATION_ENGINE error"
+        continue-on-error: true
+
+      # ── PHASE 4: Funding acquisition ────────────────────────────────────────
+      - name: "🔍 Phase 4 — Grant Hunter (find matching grants)"
+        run: python mycelium/GRANT_HUNTER.py
+        continue-on-error: true
+
+      - name: "📝 Phase 4b — Grant Writer (draft applications)"
+        run: python mycelium/GRANT_AI_WRITER.py 2>/dev/null || python mycelium/GRANT_WRITER.py 2>/dev/null || echo "Grant writer variant running"
+        continue-on-error: true
+
+      - name: "🚀 Phase 4c — Grant Auto Submitter"
+        run: python mycelium/GRANT_AUTO_SUBMITTER.py
+        continue-on-error: true
+
+      - name: "🏛️  Phase 4d — OpenCollective Campaigner"
+        run: python mycelium/OPENCOLLECTIVE_CAMPAIGNER.py
+        continue-on-error: true
+
+      - name: "📈 Phase 4e — Investor Radar"
+        run: python mycelium/INVESTOR_RADAR.py
+        continue-on-error: true
+
+      - name: "💬 Phase 4f — Pitch Factory"
+        run: python mycelium/PITCH_FACTORY.py
+        continue-on-error: true
+
+      - name: "🌐 Phase 4g — Public Goods Network (register in every retroactive funding mechanism)"
+        run: python mycelium/PUBLIC_GOODS_NETWORK.py
+        continue-on-error: true
+
+      - name: "🔒 Phase 4h — Proof of Impact (SHA256 every event, commit to git forever)"
+        run: python mycelium/PROOF_OF_IMPACT.py
+        continue-on-error: true
+
+      - name: "🏆 Phase 4i — Retroactive Proof (submit proven impact to RPGF + Octant + Gitcoin)"
+        run: python mycelium/RETROACTIVE_PROOF.py
+        continue-on-error: true
+
+      - name: "💎 Phase 4j — Infrastructure Fee (SolarPunk charges for value it delivers)"
+        run: python mycelium/INFRASTRUCTURE_FEE.py
+        continue-on-error: true
+
+      # ── PHASE 5: Labor marketplace ──────────────────────────────────────────
+      - name: "🤝 Phase 5 — Labor Marketplace (refresh board)"
+        run: python mycelium/LABOR_MARKETPLACE.py
+        continue-on-error: true
+
+      - name: "✅ Phase 5b — Task Verifier (process proofs)"
+        run: python mycelium/TASK_VERIFIER.py
+        continue-on-error: true
+
+      - name: "💸 Phase 5c — Dignity Pay (route worker payments)"
+        run: python mycelium/DIGNITY_PAY.py
+        continue-on-error: true
+
+      - name: "🌱 Phase 5d — Micro Grant Engine ($25-$100 auto-grants)"
+        run: python mycelium/MICRO_GRANT_ENGINE.py
+        continue-on-error: true
+
+      - name: "📱 Phase 5e — Telegram Worker Bot (workers get a phone interface)"
+        run: python mycelium/TELEGRAM_WORKER_BOT.py || echo "TELEGRAM_WORKER_BOT error"
+        continue-on-error: true
+
+      - name: "🤝 Phase 5f — RentAHuman Bridge (tasks flow in from AI agents)"
+        run: python mycelium/RENTAHUMAN_BRIDGE.py || echo "RENTAHUMAN_BRIDGE error"
+        continue-on-error: true
+
+      # ── PHASE 6: Knowledge + swarm ──────────────────────────────────────────
+      - name: "🧠 Phase 6 — Knowledge Synthesizer"
+        run: python mycelium/KNOWLEDGE_SYNTHESIZER.py
+        continue-on-error: true
+
+      - name: "🐝 Phase 6b — Swarm Amplifier (acquire skills)"
+        run: python mycelium/SWARM_AMPLIFIER.py
+        continue-on-error: true
+
+      - name: "🕸️  Phase 6c — Agent Nexus (peer discovery)"
+        run: python mycelium/AGENT_NEXUS.py
+        continue-on-error: true
+
+      - name: "🌐 Phase 6d — Swarm Query (ask the swarm: where's the money?)"
+        run: python mycelium/SWARM_QUERY.py || echo "SWARM_QUERY error"
+        continue-on-error: true
+
+      - name: "⚒️ Phase 6e — Distributed Forge (build agents with swarm)"
+        run: python mycelium/DISTRIBUTED_FORGE.py || echo "DISTRIBUTED_FORGE error"
+        continue-on-error: true
+
+      # ── PHASE 7: Market intelligence ────────────────────────────────────────
+      - name: "🐳 Phase 7 — Unusual Whales MCP (timing signals)"
+        run: python mycelium/UNUSUAL_WHALES_MCP.py
+        continue-on-error: true
+
+      - name: "📡 Phase 7b — X Knowledge Harvester"
+        run: python mycelium/X_KNOWLEDGE_HARVESTER.py
+        continue-on-error: true
+
+      - name: "🔮 Phase 7c — Prediction Intelligence (Polymarket+Metaculus as crisis signals)"
+        run: python mycelium/PREDICTION_INTELLIGENCE.py
+        continue-on-error: true
+
+      - name: "🏛️  Phase 7d — SAM.gov Harvester (federal contracts + grants)"
+        run: python mycelium/SAMGOV_HARVESTER.py
+        continue-on-error: true
+
+      - name: "₿  Phase 7e — Crypto Bridge (BTC+ETH+XMR donation infrastructure)"
+        run: python mycelium/CRYPTO_BRIDGE.py
+        continue-on-error: true
+
+      # ── PHASE 8: Self-improvement ───────────────────────────────────────────
+      - name: "🏗️  Phase 8 — Self Builder Prime (build new capabilities)"
+        run: python mycelium/SELF_BUILDER_PRIME.py
+        continue-on-error: true
+
+      - name: "🎵 Phase 8b — Frequency Tuner (harmonic check)"
+        run: python mycelium/FREQUENCY_TUNER.py
+        continue-on-error: true
+
+      # ── PHASE 9: Publish & broadcast ────────────────────────────────────────
+      - name: "📢 Phase 9 — Social Echo (broadcast achievements)"
+        run: python mycelium/SOCIAL_ECHO.py 2>/dev/null || echo "Social echo optional"
+        continue-on-error: true
+
+      - name: "🌐 Phase 9b — Fediverse Publisher"
+        run: python mycelium/FEDIVERSE_PUBLISHER.py
+        continue-on-error: true
+
+      - name: "📣 Phase 9c — Auto Announce (SolarPunk announces itself)"
+        env:
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          MASTODON_API_BASE_URL: ${{ secrets.MASTODON_API_BASE_URL }}
+          DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python mycelium/AUTO_ANNOUNCE.py || echo "AUTO_ANNOUNCE error"
+        continue-on-error: true
+
+      # ── PHASE 97: Pool status report ────────────────────────────────────────
+      - name: "📊 Phase 97 — Pool health check"
+        run: |
+          python3 - << 'PYEOF'
+          import json
+          from pathlib import Path
+
+          pool_f = Path("data/pool_state.json")
+          if pool_f.exists():
+              state = json.loads(pool_f.read_text())
+              pools = state.get("pools", {})
+              print("\n💰 POOL STATUS:")
+              targets = {"crisis": 0, "labor": 500, "infrastructure": 50, "growth": 200}
+              for name, target in targets.items():
+                  bal = pools.get(name, {}).get("balance_usd", 0)
+                  pct = (bal/target*100) if target > 0 else 100
+                  emoji = "🟢" if pct >= 100 else "🟡" if pct >= 50 else "🔴"
+                  print(f"  {emoji} {name:15s}: ${bal:.2f} / ${target} ({pct:.0f}%)")
+
+          oracle_f = Path("data/oracle_report.json")
+          if oracle_f.exists():
+              oracle = json.loads(oracle_f.read_text())
+              print(f"\n🔮 ORACLE: {oracle.get('critical_gaps', 0)} critical gaps | {oracle.get('total_gaps', 0)} total")
+              for action in oracle.get("action_plan", [])[:3]:
+                  print(f"  #{action['rank']} [{action['severity']}] {action.get('gap_id', '')}")
+          PYEOF
+        continue-on-error: true
+
+      # ── PHASE 98: Loop conductor ────────────────────────────────────────────
+      - name: "🔄 Phase 98 — Loop Conductor"
+        run: python mycelium/LOOP_CONDUCTOR.py
+        continue-on-error: true
+
+      # ── PHASE 99: Final sanitize ────────────────────────────────────────────
+      - name: "🧹 Phase 99 — Engine Sanitizer (final pass)"
+        run: python mycelium/ENGINE_SANITIZER.py
+        continue-on-error: true
+
+      # ── COMMIT ──────────────────────────────────────────────────────────────
+      - name: "💾 Commit bootstrap cycle results"
+        run: |
+          git config user.name "SolarPunk-Bootstrap"
+          git config user.email "bootstrap@solarpunk.bot"
+          git add -A
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+
+          # Get pool status for commit message
+          LABOR_BAL=$(python3 -c "
+          import json
+          from pathlib import Path
+          f = Path('data/pool_state.json')
+          if f.exists():
+              d = json.loads(f.read_text())
+              print(f\"\${d.get('pools',{}).get('labor',{}).get('balance_usd',0):.2f}\")
+          else:
+              print('\$0.00')
+          " 2>/dev/null || echo '$0.00')
+
+          GAPS=$(python3 -c "
+          import json
+          from pathlib import Path
+          f = Path('data/oracle_report.json')
+          if f.exists():
+              d = json.loads(f.read_text())
+              print(d.get('critical_gaps', '?'))
+          else:
+              print('?')
+          " 2>/dev/null || echo '?')
+
+          git -c commit.gpgsign=false commit -m "🔄 bootstrap loop: labor=${LABOR_BAL} | critical gaps=${GAPS} | $(date -u +%H:%M) UTC"
+          git fetch origin main
+          git -c commit.gpgsign=false merge origin/main --no-edit -X ours 2>/dev/null || true
+          git push origin HEAD:main 2>/dev/null || git push origin HEAD:main --force-with-lease
+
+      - name: "📋 Bootstrap Summary"
+        run: |
+          echo "## 🔄 Bootstrap Loop Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### The Self-Funding Mission" >> $GITHUB_STEP_SUMMARY
+          echo "SolarPunk loops into itself to solve its own problems and fund its own pools." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Pools Being Built" >> $GITHUB_STEP_SUMMARY
+          echo "| Pool | Purpose | Target | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|---------|--------|--------|" >> $GITHUB_STEP_SUMMARY
+          python3 - << 'PYEOF'
+          import json, os
+          from pathlib import Path
+          ghs = os.environ.get("GITHUB_STEP_SUMMARY", "")
+          pool_f = Path("data/pool_state.json")
+          targets = {"crisis": ("99% to Gaza+crises", "$0 (routing only)"), "labor": ("Pay workers instantly", "$500"), "infrastructure": ("API costs, no salary", "$50/mo"), "growth": ("New capabilities", "$200")}
+          if pool_f.exists():
+              pools = json.loads(pool_f.read_text()).get("pools", {})
+              for name, (purpose, target) in targets.items():
+                  bal = pools.get(name, {}).get("balance_usd", 0)
+                  status = "✅ Funded" if name == "crisis" else ("✅" if bal >= int(target.replace("$","").replace("/mo","").replace(" (routing only)","").replace(",","") or "0") else "🔄 Building")
+                  print(f"| {name} | {purpose} | {target} | {status} |")
+          PYEOF >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Free Secrets That Unlock Funding" >> $GITHUB_STEP_SUMMARY
+          echo "Add via **Actions → Secret Intake → Run workflow**" >> $GITHUB_STEP_SUMMARY
+          echo "- \`GUMROAD_ACCESS_TOKEN\` → publish products, start earning" >> $GITHUB_STEP_SUMMARY
+          echo "- \`TELEGRAM_BOT_TOKEN\` → get notified when workers complete tasks" >> $GITHUB_STEP_SUMMARY
+          echo "- \`GROQ_API_KEY\` → free LLM backup (6000 tok/min free)" >> $GITHUB_STEP_SUMMARY
+          echo "- \`OPENCOLLECTIVE_API_KEY\` → community funding goes live" >> $GITHUB_STEP_SUMMARY
+        continue-on-error: true

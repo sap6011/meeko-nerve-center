@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support SolarPunk — 99% to Gaza + Global Crises</title>
+<meta name="description" content="Every dollar to SolarPunk routes 99% to PCRF for Gaza children and global crises. 1% keeps the AI running. Fully automated.">
+<meta property="og:title" content="SolarPunk — Autonomous AI for Gaza Relief">
+<meta property="og:description" content="99% of every dollar goes to PCRF medical aid for Gaza and global crises. Fully automated. Radical transparency.">
+<style>
+  :root {
+    --green: #2d6a4f;
+    --light-green: #74c69d;
+    --gold: #f4a261;
+    --dark: #1b1b2f;
+    --gray: #f0f0f0;
+    --red: #e63946;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--dark);
+    color: #fff;
+    min-height: 100vh;
+  }
+  .hero {
+    background: linear-gradient(135deg, #1b1b2f 0%, #2d6a4f 50%, #1b1b2f 100%);
+    padding: 60px 20px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(116,198,157,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(244,162,97,0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  h1 span { color: var(--light-green); }
+  .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+  }
+  .split-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 30px auto;
+    max-width: 500px;
+  }
+  .split-block {
+    padding: 20px 30px;
+    border-radius: 12px;
+    text-align: center;
+    flex: 1;
+  }
+  .split-pcrf {
+    background: rgba(116,198,157,0.15);
+    border: 2px solid var(--light-green);
+  }
+  .split-infra {
+    background: rgba(244,162,97,0.1);
+    border: 2px solid rgba(244,162,97,0.4);
+  }
+  .split-num {
+    font-size: 2.5rem;
+    font-weight: 900;
+    display: block;
+  }
+  .split-pcrf .split-num { color: var(--light-green); }
+  .split-infra .split-num { color: var(--gold); }
+  .split-label { font-size: 0.85rem; opacity: 0.8; margin-top: 4px; }
+  .section { padding: 50px 20px; max-width: 900px; margin: 0 auto; }
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--light-green);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 24px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--light-green);
+  }
+  .card-icon { font-size: 2rem; margin-bottom: 12px; }
+  .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+  .card-fee {
+    display: inline-block;
+    background: rgba(116,198,157,0.15);
+    color: var(--light-green);
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .card-fee.zero { background: rgba(116,198,157,0.3); font-weight: 700; }
+  .card-desc { font-size: 0.9rem; opacity: 0.75; line-height: 1.5; margin-bottom: 14px; }
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--light-green);
+    color: var(--dark);
+  }
+  .btn-primary:hover { background: #95d5b2; }
+  .btn-outline {
+    background: transparent;
+    color: var(--light-green);
+    border: 1.5px solid var(--light-green);
+  }
+  .btn-outline:hover { background: rgba(116,198,157,0.1); }
+  .btn-gold {
+    background: var(--gold);
+    color: var(--dark);
+  }
+  .btn-gold:hover { background: #e08c4e; }
+  .sponsor-box {
+    background: linear-gradient(135deg, rgba(244,162,97,0.1), rgba(45,106,79,0.15));
+    border: 1px solid rgba(244,162,97,0.3);
+    border-radius: 16px;
+    padding: 36px;
+    text-align: center;
+    margin: 30px 0;
+  }
+  .sponsor-box h2 { font-size: 1.6rem; margin-bottom: 12px; }
+  .sponsor-box p { opacity: 0.8; margin-bottom: 20px; max-width: 550px; margin-left: auto; margin-right: auto; }
+  .pill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  .pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin: 30px 0;
+  }
+  .stat {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--light-green);
+    display: block;
+  }
+  .stat-label { font-size: 0.8rem; opacity: 0.7; margin-top: 4px; }
+  .transparency {
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--light-green);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+  .legal {
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    line-height: 1.6;
+    margin-top: 30px;
+  }
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    opacity: 0.5;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  @media (max-width: 500px) {
+    .split-visual { flex-direction: column; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">🌿 SolarPunk Nerve Center</div>
+  <h1>An AI That Makes Money<br><span>For Gaza.</span></h1>
+  <p class="subtitle">
+    Gaza Rose Gallery is an autonomous AI art shop. Every dollar it makes
+    routes 99% directly to PCRF and global crises. 1% keeps the AI running.
+    No human required. Fully transparent. All code is open source.
+  </p>
+  <div class="split-visual">
+    <div class="split-block split-pcrf">
+      <span class="split-num">99%</span>
+      <div class="split-label">→ Gaza + Global Crises</div>
+    </div>
+    <div style="font-size:1.5rem;opacity:0.4">+</div>
+    <div class="split-block split-infra">
+      <span class="split-num">1%</span>
+      <div class="split-label">→ Infrastructure</div>
+    </div>
+  </div>
+  <a href="https://www.pcrf.net/donate" class="btn btn-primary" style="font-size:1.1rem;padding:14px 32px;margin-right:10px">
+    Donate to PCRF Directly ↗
+  </a>
+  <a href="https://gazarosegallery.gumroad.com" class="btn btn-outline" style="font-size:1.1rem;padding:14px 32px">
+    Buy $1 Art Print ↗
+  </a>
+</div>
+
+<!-- STATS -->
+<div class="section">
+  <div class="stats-grid">
+    <div class="stat"><span class="stat-num">65+</span><div class="stat-label">Active AI Engines</div></div>
+    <div class="stat"><span class="stat-num">99%</span><div class="stat-label">Revenue to Crisis Zones</div></div>
+    <div class="stat"><span class="stat-num">$1</span><div class="stat-label">Art Print Starting Price</div></div>
+    <div class="stat"><span class="stat-num">24/7</span><div class="stat-label">Autonomous Operation</div></div>
+    <div class="stat"><span class="stat-num">0%</span><div class="stat-label">Overhead (No salary)</div></div>
+    <div class="stat"><span class="stat-num">MIT</span><div class="stat-label">Open Source License</div></div>
+  </div>
+</div>
+
+<!-- DONATE NOW -->
+<div class="section">
+  <div class="section-title">💝 Donate Right Now (Zero Friction)</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">💙</div>
+      <div class="card-title">PCRF Direct Donation</div>
+      <span class="card-fee zero">0% fees • Tax-deductible</span>
+      <div class="card-desc">
+        Donate directly to Palestinian Children's Relief Fund (501c3, EIN: 11-3320278).
+        100% goes to medical aid for children in Gaza. Tax-deductible for US donors.
+      </div>
+      <a href="https://www.pcrf.net/donate" class="btn btn-primary">Donate to PCRF ↗</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌹</div>
+      <div class="card-title">Buy $1 Art Print</div>
+      <span class="card-fee">10% platform fee</span>
+      <div class="card-desc">
+        Gaza Rose Gallery sells AI-generated art starting at $1.
+        99% of every sale goes to crisis relief. Get something beautiful while helping.
+      </div>
+      <a href="https://gazarosegallery.gumroad.com" class="btn btn-primary">Shop Now ↗</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">☕</div>
+      <div class="card-title">Ko-fi Support</div>
+      <span class="card-fee zero">0% platform fee</span>
+      <div class="card-desc">
+        Ko-fi free plan charges 0% platform fee. Tips go 100% to the pool,
+        then 99% gets transferred to crisis orgs monthly.
+      </div>
+      <a href="https://ko-fi.com/gazarosegallery" class="btn btn-outline">Support on Ko-fi ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- SPONSOR / INVESTOR -->
+<div class="section">
+  <div class="sponsor-box">
+    <h2>🤝 Sponsor SolarPunk<br><small style="font-weight:400;font-size:0.9em;opacity:0.8">And We'll Make You Richer</small></h2>
+    <p>
+      SolarPunk is an autonomous revenue machine. Back it and you own a piece of the
+      revenue stream. The AI scales indefinitely. 99% goes to Gaza and global crises. Your name goes on
+      every transparency report. We're not asking for charity — we're offering partnership.
+    </p>
+    <div class="pill-list">
+      <span class="pill">💰 Revenue share model</span>
+      <span class="pill">📊 Full transparency</span>
+      <span class="pill">🤖 Fully autonomous</span>
+      <span class="pill">🌍 Global audience</span>
+      <span class="pill">🌿 Open source</span>
+      <span class="pill">📄 MIT licensed</span>
+    </div>
+    <a href="mailto:solarpunk@meekoenergy.dev?subject=SolarPunk%20Sponsorship&body=I'm%20interested%20in%20sponsoring%20SolarPunk.%20Tell%20me%20more%20about%20the%20partnership%20model." class="btn btn-gold" style="margin-right:10px">
+      Partner With Us ↗
+    </a>
+    <a href="https://github.com/sponsors/meekoenergy" class="btn btn-outline">
+      GitHub Sponsors ↗
+    </a>
+  </div>
+
+  <div class="section-title">📋 Setup Required (Do These First)</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">⭐</div>
+      <div class="card-title">GitHub Sponsors</div>
+      <span class="card-fee zero">0% fees</span>
+      <div class="card-desc">
+        GitHub covers all Stripe fees. Recurring monthly support.
+        Best for developers and tech companies. Takes 10 minutes to set up.
+      </div>
+      <a href="https://github.com/sponsors" class="btn btn-outline">Set Up GitHub Sponsors ↗</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <div class="card-title">Open Collective</div>
+      <span class="card-fee">5% + 5% host fee</span>
+      <div class="card-desc">
+        Tax-deductible donations. Corporate sponsors love this.
+        Full budget transparency. Open Source Collective as fiscal host (free).
+      </div>
+      <a href="https://opencollective.com/create" class="btn btn-outline">Create Collective ↗</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌀</div>
+      <div class="card-title">Gitcoin Grants</div>
+      <span class="card-fee">15% fee</span>
+      <div class="card-desc">
+        Quadratic funding: 100 donors of $1 = more matching than 1 donor of $100.
+        Web3 community. Apply during Gitcoin rounds for free matching funds.
+      </div>
+      <a href="https://grants.gitcoin.co" class="btn btn-outline">Apply for Gitcoin Grant ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- TRANSPARENCY -->
+<div class="section">
+  <div class="section-title">🔍 Radical Transparency</div>
+  <div class="transparency">
+    <strong>How the money flows:</strong><br><br>
+    Sale on Gumroad → Meeko's account → Monthly batch transfer → 99% to crisis orgs (PCRF/IRC/MSF/UNICEF/Direct Relief) →
+    Gaza medical aid, Sudan IRC, DRC MSF, Yemen UNICEF, Climate Direct Relief.<br><br>
+    <strong>Every transfer is documented publicly in this repo. 1% keeps the AI running.</strong><br>
+    There is no salary line. No admin overhead. No mystery. The code is open-source.
+    The mission is permanent. The machine runs itself.
+  </div>
+
+  <div class="legal">
+    <strong>Legal notice:</strong> SolarPunk / Gaza Rose Gallery is an open-source software project operated by Meeko (individual).
+    It is not a nonprofit. PCRF (Palestinian Children's Relief Fund) is a registered US 501c3 nonprofit (EIN: 11-3320278)
+    based in Youngstown, Ohio. Donations to PCRF are tax-deductible for US donors. Purchases from Gaza Rose Gallery
+    are not tax-deductible. Monthly transfers to PCRF are documented in this repository at
+    <a href="https://github.com/meekoenergy/meeko-nerve-center" style="color:var(--light-green)">github.com/meekoenergy/meeko-nerve-center</a>.
+    All code is MIT licensed. SolarPunk takes no salary or personal income from this project.
+  </div>
+</div>
+
+<footer>
+  SolarPunk Nerve Center — Cuyahoga Falls, Ohio &nbsp;|&nbsp;
+  <a href="https://github.com/meekoenergy/meeko-nerve-center" style="color:var(--light-green)">GitHub</a> &nbsp;|&nbsp;
+  <a href="https://gazarosegallery.gumroad.com" style="color:var(--light-green)">Gaza Rose Gallery</a> &nbsp;|&nbsp;
+  <a href="https://www.pcrf.net" style="color:var(--light-green)">PCRF</a>
+  <br><br>
+  "The machine runs. The money flows. The children are helped."
+</footer>
+
+
+<!-- Ko-fi donation button -->
+<a href="https://ko-fi.com/solarpunk-ai" target="_blank" rel="noopener"><img src="https://storage.ko-fi.com/cdn/kofi3.png?v=3" alt="Buy Me a Coffee at ko-fi.com" height="36" /></a>
+
+<!-- Crypto Donations -->
+<div style="text-align:center;margin:2rem 0;padding:1.5rem;background:#0f1f0f;border:1px solid #22c55e;border-radius:8px;">
+  <h3 style="color:#22c55e;margin-bottom:0.5rem;">Donate with Crypto</h3>
+  <p style="color:#888;margin-bottom:1rem;">Bitcoin, Ethereum, Monero — direct to humanitarian crises</p>
+  <a href="donate-crypto.html" style="background:#22c55e;color:#000;padding:0.75rem 2rem;border-radius:6px;text-decoration:none;font-weight:700;">Crypto Donation Page →</a>
+</div>
+</body>
+</html>

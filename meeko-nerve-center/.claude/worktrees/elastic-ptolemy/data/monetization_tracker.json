@@ -1,0 +1,128 @@
+{
+  "timestamp": "2026-03-20T19:39:40.643316+00:00",
+  "revenue": {
+    "total_revenue": 0.0,
+    "current_balance": 0.0,
+    "total_to_gaza": 0.0,
+    "total_sales": 0,
+    "streams": [
+      {
+        "stream": "gaza_rose_gallery",
+        "amount": 0,
+        "share_pct": 0,
+        "status": "dormant"
+      },
+      {
+        "stream": "newsletter",
+        "amount": 0,
+        "share_pct": 0,
+        "status": "dormant"
+      },
+      {
+        "stream": "affiliate",
+        "amount": 0,
+        "share_pct": 0,
+        "status": "dormant"
+      },
+      {
+        "stream": "freelance_auto",
+        "amount": 0,
+        "share_pct": 0,
+        "status": "dormant"
+      },
+      {
+        "stream": "digital_products",
+        "amount": 0,
+        "share_pct": 0,
+        "status": "dormant"
+      },
+      {
+        "stream": "api_services",
+        "amount": 0,
+        "share_pct": 0,
+        "status": "dormant"
+      },
+      {
+        "stream": "content_licensing",
+        "amount": 0,
+        "share_pct": 0,
+        "status": "dormant"
+      },
+      {
+        "stream": "consulting",
+        "amount": 0,
+        "share_pct": 0,
+        "status": "dormant"
+      },
+      {
+        "stream": "corc_revenue",
+        "amount": 0,
+        "share_pct": 0,
+        "status": "dormant"
+      }
+    ],
+    "active_streams": 0,
+    "revenue_trend": "flat",
+    "loop_efficiency": 0.0
+  },
+  "products": {
+    "total_products": 3,
+    "gumroad_count": 0,
+    "etsy_count": 10,
+    "products": [
+      {
+        "platform": "etsy",
+        "name": "Desert Rose at Dawn",
+        "status": "ready",
+        "source": "template"
+      },
+      {
+        "platform": "etsy",
+        "name": "White Doves Over the Mediterranean",
+        "status": "ready",
+        "source": "template"
+      },
+      {
+        "platform": "etsy",
+        "name": "Olive Grove Eternal",
+        "status": "ready",
+        "source": "template"
+      }
+    ],
+    "listing_health": "needs_more_listings"
+  },
+  "pricing": {
+    "competitor_avg_price": null,
+    "competitor_min_price": null,
+    "competitor_max_price": null,
+    "our_price": 1.0,
+    "price_positioning": "competitive",
+    "web_priority": ""
+  },
+  "signals": [
+    {
+      "signal": "zero_revenue",
+      "urgency": "critical",
+      "action": "First sale needed \u2014 share shop URL manually"
+    },
+    {
+      "signal": "no_active_streams",
+      "urgency": "high",
+      "action": "Enable payment processing in docs/index.html"
+    },
+    {
+      "signal": "thin_catalog",
+      "urgency": "medium",
+      "action": "Add more Gumroad products \u2014 data/gumroad_listings.json has templates"
+    }
+  ],
+  "signal_count": 3,
+  "critical_signals": [
+    {
+      "signal": "zero_revenue",
+      "urgency": "critical",
+      "action": "First sale needed \u2014 share shop URL manually"
+    }
+  ],
+  "feeds_into": "signal_tracker.py"
+}

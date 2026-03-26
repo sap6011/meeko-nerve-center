@@ -1,0 +1,330 @@
+{
+  "generated_at": "2026-03-20T22:54:19.928272+00:00",
+  "summary": {
+    "active_secrets": 8,
+    "missing_secrets": 11,
+    "degraded_secrets": 0,
+    "engines_can_run": 43,
+    "reported_blocked": 2
+  },
+  "active": [
+    {
+      "secret": "ANTHROPIC_API_KEY",
+      "capability": "claude_ai",
+      "enables": [
+        "NEURON_A",
+        "NEURON_B",
+        "SYNAPSE",
+        "SYNTHESIS_FACTORY"
+      ]
+    },
+    {
+      "secret": "GROQ_API_KEY",
+      "capability": "groq_ai",
+      "enables": [
+        "AI_CLIENT",
+        "REVENUE_LOOP",
+        "CONTENT_HARVESTER",
+        "all_ai_engines"
+      ]
+    },
+    {
+      "secret": "GMAIL_ADDRESS",
+      "capability": "gmail_send",
+      "enables": [
+        "SYNAPSE",
+        "EMAIL_OUTREACH",
+        "CONNECTION_FORGE",
+        "NEWSLETTER_ENGINE"
+      ]
+    },
+    {
+      "secret": "GMAIL_APP_PASSWORD",
+      "capability": "gmail_auth",
+      "enables": [
+        "EMAIL_BRAIN",
+        "GMAIL_INTAKE",
+        "GMAIL_NOTIFIER"
+      ]
+    },
+    {
+      "secret": "GITHUB_TOKEN",
+      "capability": "github",
+      "enables": [
+        "GITHUB_POSTER",
+        "FORK_SCANNER",
+        "REPO_SPIDER",
+        "ISSUE_SYNC"
+      ]
+    },
+    {
+      "secret": "HF_TOKEN",
+      "capability": "huggingface",
+      "enables": [
+        "AI_CLIENT fallback",
+        "KNOWLEDGE_BRIDGE"
+      ]
+    },
+    {
+      "secret": "OPENROUTER_KEY",
+      "capability": "openrouter",
+      "enables": [
+        "AI_CLIENT fallback",
+        "GEMINI_BRIDGE"
+      ]
+    },
+    {
+      "secret": "PAYPAL_CLIENT_ID",
+      "capability": "paypal",
+      "enables": [
+        "PAYPAL_PAYOUT",
+        "HUMAN_PAYOUT"
+      ]
+    }
+  ],
+  "missing": [
+    {
+      "secret": "GUMROAD_ACCESS_TOKEN",
+      "capability": "gumroad",
+      "enables": [
+        "GUMROAD_ENGINE",
+        "GUMROAD_PRODUCT_PUBLISHER",
+        "GUMROAD_AUTO_QUEUE",
+        "FIRST_SALE_NOTIFIER"
+      ],
+      "impact": "CRITICAL \u2014 18 products queued, $0 published",
+      "action": "gumroad.com \u2192 Settings \u2192 Advanced \u2192 Access Token \u2192 add as GUMROAD_ACCESS_TOKEN"
+    },
+    {
+      "secret": "GEMINI_API_KEY",
+      "capability": "gemini",
+      "enables": [
+        "GEMINI_BRIDGE"
+      ],
+      "impact": "MEDIUM \u2014 free Google AI fallback",
+      "action": "aistudio.google.com \u2192 API Keys \u2192 free tier"
+    },
+    {
+      "secret": "X_API_KEY",
+      "capability": "twitter",
+      "enables": [
+        "AGENT_TWEET_WRITER"
+      ],
+      "impact": "MEDIUM \u2014 Twitter/X posting",
+      "action": "developer.twitter.com \u2192 App \u2192 Keys & Tokens"
+    },
+    {
+      "secret": "BLUESKY_HANDLE",
+      "capability": "bluesky",
+      "enables": [
+        "BLUESKY_ENGINE"
+      ],
+      "impact": "LOW-MEDIUM \u2014 free social network",
+      "action": "Add Bluesky handle as BLUESKY_HANDLE secret"
+    },
+    {
+      "secret": "BLUESKY_APP_PASSWORD",
+      "capability": "bluesky_auth",
+      "enables": [
+        "BLUESKY_ENGINE"
+      ],
+      "impact": "LOW-MEDIUM",
+      "action": "bsky.app \u2192 Settings \u2192 App Passwords"
+    },
+    {
+      "secret": "MASTODON_ACCESS_TOKEN",
+      "capability": "mastodon",
+      "enables": [
+        "MASTODON_ENGINE"
+      ],
+      "impact": "LOW-MEDIUM \u2014 free social network",
+      "action": "mastodon.social \u2192 Settings \u2192 Development \u2192 New Application"
+    },
+    {
+      "secret": "TELEGRAM_BOT_TOKEN",
+      "capability": "telegram",
+      "enables": [
+        "TELEGRAM_BRIDGE"
+      ],
+      "impact": "LOW \u2014 status notifications",
+      "action": "Telegram \u2192 @BotFather \u2192 /newbot"
+    },
+    {
+      "secret": "OCTOEVERYWHERE_APP_API_KEY",
+      "capability": "3d_print_relay",
+      "enables": [
+        "PRINT_RELAY_ENGINE",
+        "print_relay_dispatcher"
+      ],
+      "impact": "CRITICAL \u2014 Gaza medical 3D print dispatch via OctoEverywhere mesh",
+      "action": "Register at octoeverywhere.com \u2192 Settings \u2192 Apps \u2192 Create App \u2192 copy API key"
+    },
+    {
+      "secret": "OCTOEVERYWHERE_APP_TOKEN",
+      "capability": "3d_print_relay_auth",
+      "enables": [
+        "PRINT_RELAY_ENGINE"
+      ],
+      "impact": "CRITICAL \u2014 required alongside OCTOEVERYWHERE_APP_API_KEY",
+      "action": "Same OctoEverywhere App creation flow \u2014 copy App Token"
+    },
+    {
+      "secret": "RENTAHUMAN_API_KEY",
+      "capability": "physical_labor_dispatch",
+      "enables": [
+        "LABOR_DISPATCH_ENGINE",
+        "labor_broker",
+        "humanitarian_missions",
+        "gaza_emergency_response"
+      ],
+      "impact": "HIGH \u2014 physical world task dispatch: river monitoring, print dropoffs, aid transit",
+      "action": "Register at rentahuman.ai \u2192 Settings \u2192 API Keys \u2192 Create Key"
+    },
+    {
+      "secret": "SOLARPUNK_WALLET_ADDRESS",
+      "capability": "dao_wallet",
+      "enables": [
+        "LABOR_DISPATCH_ENGINE",
+        "labor_broker",
+        "gaza_emergency_response"
+      ],
+      "impact": "HIGH \u2014 $SOLARPUNK credit escrow for bounty payout",
+      "action": "Create SolarPunk DAO wallet \u2192 copy wallet address"
+    }
+  ],
+  "degraded": [],
+  "can_run_engines": [
+    "AI_CLIENT",
+    "AI_CLIENT fallback",
+    "ANALYTICS_ENGINE",
+    "ARCHIVE",
+    "ART_CATALOG",
+    "BOTTLENECK_SCANNER",
+    "CONNECTION_FORGE",
+    "CONTENT_HARVESTER",
+    "CYCLE_OPENER",
+    "EMAIL_BRAIN",
+    "EMAIL_OUTREACH",
+    "ENGINE_INTEGRITY",
+    "ENGINE_SANITIZER",
+    "EVOLUTION_VIEWER",
+    "FORK_SCANNER",
+    "FREE_API_ENGINE",
+    "GITHUB_POSTER",
+    "GMAIL_INTAKE",
+    "GMAIL_NOTIFIER",
+    "HEALTH_BOOSTER",
+    "HUMAN_PAYOUT",
+    "ISSUE_SYNC",
+    "KNOWLEDGE_BRIDGE",
+    "KNOWLEDGE_DISPATCH",
+    "KNOWLEDGE_SYNTHESIZER",
+    "LOOP_CONDUCTOR",
+    "MEMORY_PALACE",
+    "NEURON_A",
+    "NEURON_B",
+    "NEWSLETTER_ENGINE",
+    "ORPHAN_CONNECTOR",
+    "PAYPAL_PAYOUT",
+    "PRODUCT_REGISTRY",
+    "REPO_SPIDER",
+    "REVENUE_AUDIT",
+    "REVENUE_FLYWHEEL",
+    "REVENUE_LOOP",
+    "SYNAPSE",
+    "SYNTHESIS_FACTORY",
+    "SYSTEM_MAPPER",
+    "all_ai_engines",
+    "archivist",
+    "daily_pulse"
+  ],
+  "priority_actions": [
+    {
+      "priority": "CRITICAL",
+      "action": "gumroad.com \u2192 Settings \u2192 Advanced \u2192 Access Token \u2192 add as GUMROAD_ACCESS_TOKEN",
+      "unlocks": [
+        "GUMROAD_ENGINE",
+        "GUMROAD_PRODUCT_PUBLISHER",
+        "GUMROAD_AUTO_QUEUE"
+      ],
+      "impact": "CRITICAL \u2014 18 products queued, $0 published"
+    },
+    {
+      "priority": "CRITICAL",
+      "action": "Register at octoeverywhere.com \u2192 Settings \u2192 Apps \u2192 Create App \u2192 copy API key",
+      "unlocks": [
+        "PRINT_RELAY_ENGINE",
+        "print_relay_dispatcher"
+      ],
+      "impact": "CRITICAL \u2014 Gaza medical 3D print dispatch via OctoEverywhere mesh"
+    },
+    {
+      "priority": "CRITICAL",
+      "action": "Same OctoEverywhere App creation flow \u2014 copy App Token",
+      "unlocks": [
+        "PRINT_RELAY_ENGINE"
+      ],
+      "impact": "CRITICAL \u2014 required alongside OCTOEVERYWHERE_APP_API_KEY"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Register at rentahuman.ai \u2192 Settings \u2192 API Keys \u2192 Create Key",
+      "unlocks": [
+        "LABOR_DISPATCH_ENGINE",
+        "labor_broker",
+        "humanitarian_missions"
+      ],
+      "impact": "HIGH \u2014 physical world task dispatch: river monitoring, print dropoffs, aid transit"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Create SolarPunk DAO wallet \u2192 copy wallet address",
+      "unlocks": [
+        "LABOR_DISPATCH_ENGINE",
+        "labor_broker",
+        "gaza_emergency_response"
+      ],
+      "impact": "HIGH \u2014 $SOLARPUNK credit escrow for bounty payout"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "aistudio.google.com \u2192 API Keys \u2192 free tier",
+      "unlocks": [
+        "GEMINI_BRIDGE"
+      ],
+      "impact": "MEDIUM \u2014 free Google AI fallback"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "developer.twitter.com \u2192 App \u2192 Keys & Tokens",
+      "unlocks": [
+        "AGENT_TWEET_WRITER"
+      ],
+      "impact": "MEDIUM \u2014 Twitter/X posting"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Add Bluesky handle as BLUESKY_HANDLE secret",
+      "unlocks": [
+        "BLUESKY_ENGINE"
+      ],
+      "impact": "LOW-MEDIUM \u2014 free social network"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "bsky.app \u2192 Settings \u2192 App Passwords",
+      "unlocks": [
+        "BLUESKY_ENGINE"
+      ],
+      "impact": "LOW-MEDIUM"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "mastodon.social \u2192 Settings \u2192 Development \u2192 New Application",
+      "unlocks": [
+        "MASTODON_ENGINE"
+      ],
+      "impact": "LOW-MEDIUM \u2014 free social network"
+    }
+  ]
+}

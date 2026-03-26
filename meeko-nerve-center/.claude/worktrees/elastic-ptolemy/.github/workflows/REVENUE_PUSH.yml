@@ -1,0 +1,69 @@
+name: 💰 REVENUE_PUSH — Autonomous revenue + product pipeline
+on:
+  schedule:
+    - cron: "30 */2 * * *"
+  workflow_dispatch:
+jobs:
+  revenue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+      GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+      GUMROAD_SECRET: ${{ secrets.GUMROAD_SECRET }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+      PAYPAL_CLIENT_ID: ${{ secrets.PAYPAL_CLIENT_ID }}
+      PAYPAL_CLIENT_SECRET: ${{ secrets.PAYPAL_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: "Phase 0 — Cycle context"
+        continue-on-error: true
+        run: python mycelium/CYCLE_OPENER.py
+      - name: "Phase 1 — Capability Broker"
+        continue-on-error: true
+        run: python mycelium/CAPABILITY_BROKER.py
+      - name: "Phase 2 — Product Registry"
+        continue-on-error: true
+        run: python mycelium/PRODUCT_REGISTRY.py
+      - name: "Phase 3 — Gumroad Engine"
+        continue-on-error: true
+        run: python mycelium/GUMROAD_ENGINE.py
+      - name: "Phase 4 — Gumroad Auto Launch"
+        continue-on-error: true
+        run: python mycelium/GUMROAD_AUTO_LAUNCH.py
+      - name: "Phase 5 — Revenue Intelligence"
+        continue-on-error: true
+        run: python mycelium/REVENUE_INTELLIGENCE.py
+      - name: "Phase 6 — Revenue Flywheel"
+        continue-on-error: true
+        run: python mycelium/REVENUE_FLYWHEEL.py
+      - name: "Phase 7 — Revenue Audit"
+        continue-on-error: true
+        run: python mycelium/REVENUE_AUDIT.py
+      - name: "Phase 8 — Performance Optimizer"
+        continue-on-error: true
+        run: python mycelium/PERFORMANCE_OPTIMIZER.py
+      - name: "Phase 9 — First Sale Notifier"
+        continue-on-error: true
+        run: python mycelium/FIRST_SALE_NOTIFIER.py
+      - name: "Phase 98 — Loop Conductor"
+        continue-on-error: true
+        run: python mycelium/LOOP_CONDUCTOR.py
+      - name: "Phase 99 — Sanitizer"
+        continue-on-error: true
+        run: python mycelium/ENGINE_SANITIZER.py
+      - name: Commit outputs
+        run: |
+          git config user.email "solarpunk@gazarosegallery.art"
+          git config user.name "SolarPunk Revenue AI"
+          git add data/ mycelium/ -f
+          git diff --staged --quiet || git -c commit.gpgsign=false commit -m "💰 revenue_push: $(date -u +%Y-%m-%dT%H:%M)Z"
+          git push origin HEAD:main --force-with-lease 2>/dev/null || git push origin HEAD:main

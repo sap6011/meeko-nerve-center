@@ -1,0 +1,54 @@
+{
+  "tasks": [
+    {
+      "id": "etsy_upload_seo",
+      "title": "Upload SEO descriptions to Etsy listings",
+      "description": "Copy descriptions from data/etsy_seo_output.json into Gaza Rose Etsy shop listings",
+      "source_file": "data/etsy_seo_output.json",
+      "priority": "high",
+      "manual_url": "https://www.etsy.com/your/shops/me/listings",
+      "estimated_minutes": 15,
+      "added_at": "2026-03-20T07:46:54.983157+00:00",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "id": "gumroad_publish",
+      "title": "Publish Gumroad products",
+      "description": "Copy listings from data/gumroad_listings.json and publish them on Gumroad",
+      "source_file": "data/gumroad_listings.json",
+      "priority": "high",
+      "manual_url": "https://app.gumroad.com/products/new",
+      "estimated_minutes": 10,
+      "added_at": "2026-03-20T07:46:54.983163+00:00",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "id": "shop_paypal_update",
+      "title": "Update PayPal client ID in docs/index.html",
+      "description": "Replace placeholder PayPal client-id with real one in the shop page",
+      "source_file": "docs/index.html",
+      "priority": "critical",
+      "manual_url": "https://developer.paypal.com/dashboard/applications",
+      "estimated_minutes": 5,
+      "added_at": "2026-03-20T07:46:54.983166+00:00",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "id": "share_social_posts",
+      "title": "Post to social media",
+      "description": "Copy posts from data/social_latest.json and post to X/Twitter + Reddit",
+      "source_file": "data/social_latest.json",
+      "priority": "medium",
+      "manual_url": "https://twitter.com/compose/tweet",
+      "estimated_minutes": 10,
+      "added_at": "2026-03-20T07:46:54.983168+00:00",
+      "status": "pending",
+      "attempts": 0
+    }
+  ],
+  "completed": [],
+  "last_updated": "2026-03-21T07:34:03.063401+00:00"
+}

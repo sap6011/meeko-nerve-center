@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolarPunk — Proof of Impact</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0e14; color: #00ffcc; font-family: 'Courier New', monospace; min-height: 100vh; }
+  .hero { text-align: center; padding: 60px 20px 40px; border-bottom: 1px solid rgba(0,255,204,0.1); }
+  .hero-title { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 900; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; }
+  .hero-sub { font-size: 1rem; opacity: 0.7; max-width: 600px; margin: 0 auto 20px; line-height: 1.7; }
+  .bundle-id { font-size: 0.75rem; opacity: 0.4; letter-spacing: 1px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; max-width: 900px; margin: 40px auto; padding: 0 20px; }
+  .stat-box { text-align: center; padding: 24px 16px; background: rgba(0,255,204,0.04); border: 1px solid rgba(0,255,204,0.12); border-radius: 12px; }
+  .stat-num { font-size: 2rem; font-weight: 900; color: #00ffcc; text-shadow: 0 0 20px rgba(0,255,204,0.3); }
+  .stat-label { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; margin-top: 6px; }
+  .section { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+  .section-title { font-size: 1.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; margin-bottom: 20px; }
+  .philosophy { text-align: center; padding: 30px; background: rgba(0,255,204,0.04); border: 1px solid rgba(0,255,204,0.1); border-radius: 12px; margin: 0 20px 40px; max-width: 700px; margin: 0 auto 40px; }
+  .philosophy blockquote { font-size: 1.1rem; line-height: 1.8; opacity: 0.85; font-style: italic; }
+  .events-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  .event-row { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid rgba(0,255,204,0.06); flex-wrap: wrap; }
+  .event-row:hover { background: rgba(0,255,204,0.03); }
+  .event-type { min-width: 120px; font-weight: bold; color: #00ffcc; }
+  .event-detail { flex: 1; opacity: 0.6; min-width: 150px; }
+  .event-amount { color: #00ffcc; font-weight: bold; min-width: 70px; text-align: right; }
+  .event-hash { font-size: 0.7rem; opacity: 0.3; font-family: monospace; min-width: 100px; }
+  .event-date { font-size: 0.75rem; opacity: 0.4; min-width: 80px; text-align: right; }
+  .proof-meta { background: rgba(0,0,0,0.3); border: 1px solid rgba(0,255,204,0.08); border-radius: 10px; padding: 20px; margin: 20px 0; font-size: 0.8rem; line-height: 1.8; opacity: 0.7; }
+  .nav-bar { text-align: center; padding: 24px; border-top: 1px solid rgba(0,255,204,0.08); }
+  .nav-bar a { color: rgba(0,255,204,0.5); text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin: 0 14px; }
+  .nav-bar a:hover { color: #00ffcc; }
+  footer { text-align: center; padding: 24px; font-size: 0.7rem; color: rgba(0,255,204,0.2); border-top: 1px solid rgba(0,255,204,0.05); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-title">Proof of Impact</div>
+  <p class="hero-sub">Every event. Every dollar. Every worker. Every transfer.
+  Cryptographically hashed. Committed to git. Immutable forever.</p>
+  <div class="bundle-id">Bundle: sp-proof-68fb4443993a — Hash: 68fb4443993a7d594c159ea1cfe3aa73...</div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-box">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Workers Paid</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num">$0</div>
+    <div class="stat-label">To Workers</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Crisis Allocs</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num">$0</div>
+    <div class="stat-label">Crisis Routed</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Parts Dispatched</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Overflow Events</div>
+  </div>
+</div>
+
+<div style="max-width:700px;margin:0 auto 40px;padding:0 20px;">
+  <div class="philosophy">
+    <blockquote>"SolarPunk doesn't ask for money. It shows you what it did with the last dollar and lets that speak."</blockquote>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Impact Event Ledger — 2 Events</div>
+  <div class="proof-meta">
+    Proof standard: SHA256 per event • Git history = immutable ledger • Each event independently verifiable<br>
+    Bundle hash: 68fb4443993a7d594c159ea1cfe3aa73586fab6cb3ca8eb385f0163bd3a9f614<br>
+    Verify at: <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/blob/main/data/impact_proof.json" style="color:rgba(0,255,204,0.5);">github.com/meekotharaccoon-cell/meeko-nerve-center</a>
+  </div>
+  <div>
+    <div class="event-row" style="border-bottom: 1px solid rgba(0,255,204,0.15); font-weight:bold; opacity:0.5;">
+      <span style="min-width:120px;">TYPE</span>
+      <span style="flex:1;">DETAIL</span>
+      <span style="min-width:70px;text-align:right;">AMOUNT</span>
+      <span style="min-width:100px;">PROOF HASH</span>
+      <span style="min-width:80px;text-align:right;">DATE</span>
+    </div>
+    
+      <div class="event-row">
+        <span class="event-type">Crisis Allocation</span>
+        <span class="event-detail">split — </span>
+        
+        <span class="event-hash">c3f65ea8e5a84422...</span>
+        <span class="event-date">2026-03-20</span>
+      </div>
+      <div class="event-row">
+        <span class="event-type">Crisis Allocation</span>
+        <span class="event-detail">current_weights — </span>
+        
+        <span class="event-hash">e32dce7d5ea37dff...</span>
+        <span class="event-date">2026-03-20</span>
+      </div>
+  </div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">← Home</a>
+  <a href="public_goods.html">Public Goods Networks</a>
+  <a href="overflow.html">Overflow Ledger</a>
+  <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/blob/main/data/impact_proof.json">Raw JSON Proof</a>
+</nav>
+
+<footer>
+  Generated: 2026-03-20 20:27 UTC &nbsp;|&nbsp;
+  2 events proven &nbsp;|&nbsp;
+  This file commits to git on every cycle — immutable record &nbsp;|&nbsp;
+  MIT License
+</footer>
+</body>
+</html>

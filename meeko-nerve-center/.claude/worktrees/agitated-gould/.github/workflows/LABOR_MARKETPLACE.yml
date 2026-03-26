@@ -1,0 +1,77 @@
+# 🤝 LABOR MARKETPLACE
+# "I don't want people to have to sell their blood for money anymore." — Meeko
+# Runs every 6 hours to process verifications, route payments, refresh job board
+# Zero barrier to entry. Any info. Any situation. Dignity first.
+
+name: "🤝 Labor Marketplace — Universal Dignified Work"
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: labor-marketplace
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
+  PAYPAL_CLIENT_ID:  ${{ secrets.PAYPAL_CLIENT_ID }}
+  PAYPAL_CLIENT_SECRET: ${{ secrets.PAYPAL_CLIENT_SECRET }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+  GROQ_API_KEY:       ${{ secrets.GROQ_API_KEY }}
+
+jobs:
+  labor-marketplace:
+    name: "🤝 Dignified Work Cycle"
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: "📥 Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "🐍 Setup Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "📦 Install dependencies"
+        run: pip install requests anthropic
+
+      - name: "🤝 Phase 1 — Labor Marketplace (refresh board)"
+        run: python mycelium/LABOR_MARKETPLACE.py
+        continue-on-error: true
+
+      - name: "👤 Phase 2 — Worker Onboarding (process new accounts)"
+        run: python mycelium/WORKER_ONBOARDING.py
+        continue-on-error: true
+
+      - name: "✅ Phase 3 — Task Verifier (process pending proofs)"
+        run: python mycelium/TASK_VERIFIER.py
+        continue-on-error: true
+
+      - name: "💰 Phase 4 — Dignity Pay (route payments)"
+        run: python mycelium/DIGNITY_PAY.py
+        continue-on-error: true
+
+      - name: "💯 Phase 5 — Crisis Router (99% allocation update)"
+        run: python mycelium/CRISIS_ROUTER.py
+        continue-on-error: true
+
+      - name: "💾 Commit marketplace state"
+        run: |
+          git config user.name "SolarPunk-LaborMarket"
+          git config user.email "work@solarpunk.bot"
+          git add -A
+          git diff --cached --quiet || git -c commit.gpgsign=false commit -m "🤝 labor marketplace: $(date -u +%Y-%m-%d_%H:%M) — dignified work cycle"
+          git fetch origin main
+          git -c commit.gpgsign=false merge origin/main --no-edit -X ours 2>/dev/null || true
+          git push origin HEAD:main 2>/dev/null || git push origin HEAD:main --force-with-lease

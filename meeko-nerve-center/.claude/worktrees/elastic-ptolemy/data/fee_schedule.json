@@ -1,0 +1,111 @@
+{
+  "fee_schedule": {
+    "task_posting": {
+      "amount_usd": 10.0,
+      "description": "Organization posts a task to the labor marketplace",
+      "who_pays": "Organizations, not workers",
+      "goes_to": "90% labor pool, 10% crisis pool",
+      "justification": "Creates demand for workers. The fee enables the worker payment."
+    },
+    "crisis_routing_api": {
+      "amount_usd_per_call": 0.001,
+      "description": "External system uses SolarPunk's crisis routing API",
+      "goes_to": "100% crisis pool (the routing call IS a donation)",
+      "justification": "The API call itself routes money to Gaza/Sudan/DRC/Yemen. Fee = donation."
+    },
+    "bulk_verification": {
+      "amount_usd": 5.0,
+      "description": "Organization requests batch task verification",
+      "goes_to": "70% labor pool, 30% crisis pool",
+      "justification": "Verification services have real compute cost."
+    },
+    "agent_api_access": {
+      "amount_usd_monthly": 0.0,
+      "description": "AI agents use SolarPunk APIs \u2014 FREE, but...",
+      "optional_contribution": "Agent can optionally route 0.1% of their revenue through SolarPunk crisis routing",
+      "model": "Value exchange, not charity: agent gets humanitarian routing capability, SolarPunk gets mission fulfilled",
+      "justification": "AI agents routing ANY revenue through us multiplies impact."
+    },
+    "swarm_build_request": {
+      "amount_usd": 0.0,
+      "description": "Agents contribute code to Distributed Forge",
+      "model": "Code contribution = payment in kind",
+      "justification": "Swarm code has real value. We accept it as currency."
+    }
+  },
+  "payment_links": {
+    "task_posting": "https://buy.stripe.com/solarpunk-task-posting",
+    "bulk_verification": "https://buy.stripe.com/solarpunk-bulk-verify",
+    "note": "Add STRIPE_SECRET_KEY secret to activate live payment links"
+  },
+  "revenue_projections": {
+    "task_posting_10_per_day": {
+      "daily_usd": 100.0,
+      "monthly_usd": 3000.0,
+      "annually_usd": 36500.0,
+      "scenario": "10 org task postings per day"
+    },
+    "crisis_routing_1k_per_day": {
+      "daily_usd": 1.0,
+      "monthly_usd": 30.0,
+      "annually_usd": 365.0,
+      "scenario": "1000 external crisis routing calls per day"
+    },
+    "conservative_combined": {
+      "daily_usd": 60.5,
+      "monthly_usd": 1815.0,
+      "annually_usd": 22082.5,
+      "days_to_infra_coverage": 1,
+      "scenario": "5 task posts + 500 API calls + 2 bulk verifications per day"
+    }
+  },
+  "endpoints": {
+    "crisis_routing": {
+      "path": "/api/v1/crisis/route",
+      "method": "POST",
+      "description": "Route funds to crisis organizations (PCRF, IRC, MSF, UNICEF)",
+      "fee": "0.001 USD per call \u2014 goes 100% to crisis pool",
+      "example_request": {
+        "amount_usd": 100.0,
+        "allocation": {
+          "pcrf_gaza": 0.6,
+          "irc_sudan": 0.15,
+          "msf_drc": 0.1,
+          "unicef_yemen": 0.1,
+          "direct_relief": 0.05
+        }
+      },
+      "auth": "Bearer token (free registration)",
+      "rate_limit": "1000 calls/day free tier"
+    },
+    "labor_marketplace": {
+      "path": "/api/v1/labor/post",
+      "method": "POST",
+      "description": "Post task to SolarPunk labor marketplace",
+      "fee": "10 USD per task posting",
+      "note": "Workers earning from tasks always free \u2014 fee only for task posters"
+    },
+    "impact_proof": {
+      "path": "/api/v1/proof/bundle",
+      "method": "GET",
+      "description": "Get current impact proof bundle",
+      "fee": "Free \u2014 public data, no auth required",
+      "returns": "SHA256-verified bundle of all impact events"
+    },
+    "worker_verification": {
+      "path": "/api/v1/verify/worker",
+      "method": "POST",
+      "description": "Verify a worker's task completion",
+      "fee": "Free for individual verifications, 5 USD for batch"
+    },
+    "print_relay": {
+      "path": "/api/v1/print/dispatch",
+      "method": "POST",
+      "description": "Dispatch 3D printed part to crisis region",
+      "fee": "Free \u2014 humanitarian use only",
+      "restrictions": "Crisis zones only, verified need required"
+    }
+  },
+  "generated_at": "2026-03-20T20:27:12.726510+00:00",
+  "philosophy": "Workers always free. Orgs pay. Revenue funds wages + crisis routing."
+}

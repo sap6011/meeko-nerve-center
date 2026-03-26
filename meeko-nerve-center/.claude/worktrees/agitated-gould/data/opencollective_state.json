@@ -1,0 +1,83 @@
+{
+  "engine": "OPENCOLLECTIVE_CAMPAIGNER",
+  "timestamp": "2026-03-21T12:38:12.546478Z",
+  "has_api_key": false,
+  "collective_draft": {
+    "name": "SolarPunk \u2014 Autonomous AI for Humanitarian Aid",
+    "slug": "solarpunk-ai",
+    "description": "SolarPunk is an autonomous AI project that routes 99% of all revenue to humanitarian crisis zones: Gaza/PCRF (60%), Sudan/IRC (15%), DRC/MSF (10%), Yemen/UNICEF (10%), Climate/Direct Relief (5%). 1% covers AI infrastructure. No salary. No overhead. Fully automated. MIT licensed.",
+    "tags": [
+      "humanitarian",
+      "ai",
+      "open-source",
+      "gaza",
+      "crisis-relief",
+      "solarpunk"
+    ],
+    "currency": "USD",
+    "mission_split": {
+      "Gaza_PCRF": {
+        "pct": 59.4,
+        "ein": "11-3320278"
+      },
+      "Sudan_IRC": {
+        "pct": 14.85
+      },
+      "DRC_MSF": {
+        "pct": 9.9,
+        "ein": "13-3433452"
+      },
+      "Yemen_UNICEF": {
+        "pct": 9.9,
+        "ein": "13-1760110"
+      },
+      "Climate_DirectRelief": {
+        "pct": 4.95,
+        "ein": "95-1831116"
+      },
+      "Infrastructure": {
+        "pct": 1.0
+      }
+    }
+  },
+  "setup_instructions": [
+    "1. Go to https://opencollective.com/create",
+    "2. Name: 'SolarPunk AI \u2014 Humanitarian Mission'",
+    "3. Select fiscal host: 'Open Source Collective' (free, covers 501c3 receipts)",
+    "4. Description: paste SOLARPUNK_COLLECTIVE_DRAFT['description']",
+    "5. Add tags: humanitarian, ai, open-source, gaza",
+    "6. Set goal: $10,000/month (routes $9,900 to crisis zones)",
+    "7. Get API key at: https://opencollective.com/[your-slug]/admin/for-developers",
+    "8. Add secret: OPENCOLLECTIVE_API_KEY = your-key",
+    "9. Link to: https://opencollective.com/solarpunk-ai",
+    "10. Add to SolarPunk's donate.html page"
+  ],
+  "reference_collectives": {
+    "open-source-collective": {
+      "error": "[{'message': 'HTTP 403: error code: 1010'}]"
+    },
+    "doctors-without-borders": {
+      "error": "[{'message': 'HTTP 403: error code: 1010'}]"
+    },
+    "electronic-frontier-foundation": {
+      "error": "[{'message': 'HTTP 403: error code: 1010'}]"
+    }
+  },
+  "platform_info": {
+    "platform_fee": "5%",
+    "fiscal_host_fee": "0% (Open Source Collective)",
+    "tax_deductible": true,
+    "public_transparency": "All transactions publicly visible",
+    "corporate_donations": "Supported \u2014 companies can get invoices",
+    "url": "https://opencollective.com",
+    "create_url": "https://opencollective.com/create"
+  },
+  "why_opencollective": [
+    "Full public transparency \u2014 every dollar tracked",
+    "Fiscal hosting = legal entity for tax receipts",
+    "Corporate sponsors can donate tax-deductibly",
+    "5% fee is lowest of any transparent platform",
+    "Aligns with SolarPunk's radical transparency mission"
+  ],
+  "solarpunk_mission": "99% to crisis zones / 1% infrastructure"
+}

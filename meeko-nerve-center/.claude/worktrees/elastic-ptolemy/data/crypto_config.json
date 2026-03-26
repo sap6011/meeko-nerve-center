@@ -1,0 +1,107 @@
+{
+  "_comment": "SolarPunk crypto infrastructure — Base L2 (Coinbase's chain, ~$0.001/tx)",
+  "_trust": "Every address here is immutable once deployed. Verify each on the org's own website before CRYPTO_ENGINE deploys.",
+
+  "network": {
+    "name": "Base",
+    "chain_id": 8453,
+    "rpc_url": "https://mainnet.base.org",
+    "explorer": "https://basescan.org",
+    "native_token": "ETH",
+    "note": "Base L2 — Coinbase-backed, EVM-compatible, gas ~$0.001/tx, no API key needed"
+  },
+
+  "contract": {
+    "address": null,
+    "deployed_at": null,
+    "deployer": null,
+    "tx_hash": null,
+    "block": null,
+    "note": "Null until CRYPTO_ENGINE deploys. All beneficiary addresses must be verified=true first."
+  },
+
+  "operations_wallet": {
+    "address": null,
+    "note": "Set SOLARPUNK_WALLET_KEY as GitHub Secret. Address auto-derived. Run: python mycelium/WALLET_SETUP.py"
+  },
+
+  "beneficiaries": {
+    "PCRF": {
+      "name": "Palestine Children's Relief Fund",
+      "bps": 5940,
+      "pct": "59.40%",
+      "address": null,
+      "verified": false,
+      "verify_at": "https://www.pcrf.net/donate",
+      "note": "Check PCRF's crypto donation page for their ETH/Base address"
+    },
+    "IRC": {
+      "name": "International Rescue Committee",
+      "bps": 1485,
+      "pct": "14.85%",
+      "address": null,
+      "verified": false,
+      "verify_at": "https://www.rescue.org/page/crypto-donation",
+      "note": "IRC has a crypto donation page — verify ETH address there"
+    },
+    "MSF": {
+      "name": "Médecins Sans Frontières (Doctors Without Borders)",
+      "bps": 990,
+      "pct": "9.90%",
+      "address": null,
+      "verified": false,
+      "verify_at": "https://www.msf.org/donate",
+      "note": "MSF has accepted crypto — check their current donation page for ETH address"
+    },
+    "UNICEF": {
+      "name": "UNICEF",
+      "bps": 990,
+      "pct": "9.90%",
+      "address": null,
+      "verified": false,
+      "verify_at": "https://www.unicef.org/cryptocurrency-donations",
+      "note": "UNICEF CryptoFund — verify current ETH address at unicef.org"
+    },
+    "DirectRelief": {
+      "name": "Direct Relief",
+      "bps": 495,
+      "pct": "4.95%",
+      "address": null,
+      "verified": false,
+      "verify_at": "https://www.directrelief.org/ways-to-give/cryptocurrency/",
+      "note": "Direct Relief accepts crypto — verify ETH address on their site"
+    },
+    "Operations": {
+      "name": "SolarPunk Operations",
+      "bps": 100,
+      "pct": "1.00%",
+      "address": null,
+      "verified": false,
+      "note": "Auto-set from SOLARPUNK_WALLET_ADDRESS secret when wallet is generated"
+    }
+  },
+
+  "token": {
+    "name": "SolarPunk Token",
+    "symbol": "SPT",
+    "decimals": 18,
+    "wei_per_spt": "1000000000000000",
+    "human_rate": "1 SPT per 0.001 ETH contributed",
+    "perks": {
+      "10":  "Your AI agent gets priority task routing in SolarPunk's network",
+      "50":  "Your name in every cycle commit — permanent git history forever",
+      "100": "SolarPunk dedicates a full cycle to your chosen crisis zone",
+      "500": "Founding node — listed as super-connector in network_map.json forever"
+    }
+  },
+
+  "deployment_checklist": [
+    "1. Run: python mycelium/WALLET_SETUP.py — generates operations wallet",
+    "2. Add SOLARPUNK_WALLET_KEY to GitHub Secrets",
+    "3. Fund operations wallet with ~0.005 ETH on Base for gas (~$15)",
+    "4. Verify each beneficiary address on their website — set verified:true + address",
+    "5. GitHub Actions runs CRYPTO_ENGINE → auto-deploys contract",
+    "6. Contract address saved to crypto_config.json automatically",
+    "7. Store page updated with contract address → contributors can send ETH directly"
+  ]
+}

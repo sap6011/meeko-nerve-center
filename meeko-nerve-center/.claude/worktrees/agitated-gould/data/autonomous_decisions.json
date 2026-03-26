@@ -1,0 +1,38 @@
+{
+  "current_decisions": [
+    {
+      "type": "revenue",
+      "priority": "critical",
+      "decision": "activate_gumroad",
+      "reasoning": "No products live on Gumroad (products_live=0). No sales have occurred. Gumroad product publishing is the fastest path to first revenue. GUMROAD_FORCE_PUBLISH.py must be activated.",
+      "action": "Run GUMROAD_FORCE_PUBLISH.py \u2014 add GUMROAD_ACCESS_TOKEN to GitHub Secrets",
+      "impact": "First revenue possible within 24 hours of products going live",
+      "autonomous": true,
+      "requires_human": false
+    },
+    {
+      "type": "legal",
+      "priority": "high",
+      "decision": "apply_open_collective",
+      "reasoning": "Open Collective fiscal sponsorship has not been applied for. Without legal structure, grant makers cannot send money. Application takes 30 minutes, enables all future grants.",
+      "action": "READ docs/legal/opencollective_application.md and go to opencollective.com",
+      "impact": "Unlocks: tax-deductible donations, grant eligibility, legal entity status",
+      "autonomous": false,
+      "requires_human": true,
+      "human_action_url": "https://opencollective.com/create"
+    },
+    {
+      "type": "grants",
+      "priority": "high",
+      "decision": "submit_gitcoin_grants",
+      "reasoning": "0 grants have been submitted. 8 applications are written and ready. Gitcoin Grants ($500 \u2014 $10,000) should be submitted immediately.",
+      "action": "Go to https://grants.gitcoin.co and submit the application at data/grant_applications/Gitcoin_Grants_ready.md",
+      "impact": "Potential: $500 \u2014 $10,000",
+      "autonomous": false,
+      "requires_human": true
+    }
+  ],
+  "decision_count": 1,
+  "last_run": "2026-03-20T05:38:49.079476+00:00",
+  "applied_this_cycle": []
+}

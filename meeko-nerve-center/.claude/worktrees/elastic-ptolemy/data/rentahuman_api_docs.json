@@ -1,0 +1,57 @@
+{
+  "platform": "RentAHuman.ai",
+  "purpose": "Platform for AI agents to hire humans for tasks",
+  "api_key_secret": "RENTAHUMAN_API_KEY",
+  "documented_at": "2026-03-20T20:27:13.217367+00:00",
+  "known_endpoints": {
+    "tasks_list": "GET /tasks or /jobs",
+    "task_post": "POST /tasks or /jobs",
+    "task_status": "GET /tasks/{id}",
+    "task_complete": "PATCH /tasks/{id}/complete"
+  },
+  "auth_pattern": "Bearer token in Authorization header OR X-API-Key header",
+  "payment_flow": "RentAHuman \u2192 SolarPunk account \u2192 POOL_MANAGER \u2192 worker (via DIGNITY_PAY)",
+  "use_case_in": "Pull remote tasks suitable for unbanked workers (data labeling, verification, captioning)",
+  "use_case_out": "Post verification tasks when no local worker claims (tree photo verify, grant org confirm)",
+  "task_filter_criteria": {
+    "required_remote": true,
+    "required_no_id": true,
+    "preferred_categories": [
+      "data_labeling",
+      "data labeling",
+      "content_moderation",
+      "content moderation",
+      "image_captioning",
+      "image captioning",
+      "transcription",
+      "verification",
+      "research",
+      "annotation",
+      "translation",
+      "survey"
+    ]
+  },
+  "discovery_results": {
+    "https://rentahuman.ai/api/tasks": {
+      "status": 404,
+      "content_type": "text/html; charset=utf-8",
+      "body_preview": "<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover\"/><meta name=\"viewport\" content=\"wid"
+    },
+    "https://rentahuman.ai/api/jobs": {
+      "status": 404,
+      "content_type": "text/html; charset=utf-8",
+      "body_preview": "<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover\"/><meta name=\"viewport\" content=\"wid"
+    },
+    "https://rentahuman.ai/api/": {
+      "status": 404,
+      "content_type": "text/html; charset=utf-8",
+      "body_preview": "<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover\"/><meta name=\"viewport\" content=\"wid"
+    },
+    "https://rentahuman.ai/api/health": {
+      "status": 200,
+      "content_type": "application/json",
+      "body_preview": "{\"success\":true,\"status\":\"healthy\",\"timestamp\":\"2026-03-20T01:46:21.584Z\",\"version\":\"1.0.0\",\"services\":{\"api\":\"operational\",\"mcp\":\"operational\"}}"
+    }
+  },
+  "api_key_status": "missing \u2014 add RENTAHUMAN_API_KEY to GitHub secrets"
+}

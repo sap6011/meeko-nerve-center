@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolarPunk — Public Goods Networks</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0e14; color: #00ffcc; font-family: 'Courier New', monospace; min-height: 100vh; }
+  .hero { text-align: center; padding: 60px 20px 40px; border-bottom: 1px solid rgba(0,255,204,0.1); }
+  .hero-title { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 900; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; }
+  .hero-sub { font-size: 1rem; opacity: 0.7; max-width: 600px; margin: 0 auto; line-height: 1.7; }
+  .philosophy { max-width: 800px; margin: 40px auto; padding: 30px; background: rgba(0,255,204,0.04); border: 1px solid rgba(0,255,204,0.15); border-radius: 12px; text-align: center; }
+  .philosophy blockquote { font-size: 1.1rem; line-height: 1.8; opacity: 0.85; font-style: italic; }
+  .section { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+  .section-title { font-size: 1.5rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; opacity: 0.5; }
+  .mechanisms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 24px; }
+  .mechanism-card { background: rgba(0,255,204,0.03); border: 1px solid rgba(0,255,204,0.12); border-radius: 12px; padding: 24px; position: relative; }
+  .mech-status { display: inline-block; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
+  .mech-status.registered { background: rgba(0,255,204,0.15); color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); }
+  .mech-status.pending { background: rgba(255,200,0,0.1); color: #ffc800; border: 1px solid rgba(255,200,0,0.3); }
+  .mech-name { font-size: 1rem; font-weight: 900; margin-bottom: 8px; }
+  .mech-model { font-size: 0.8rem; opacity: 0.6; margin-bottom: 8px; line-height: 1.5; }
+  .mech-amounts { font-size: 0.85rem; color: rgba(0,255,204,0.9); font-weight: bold; margin-bottom: 12px; }
+  .mech-link { color: rgba(0,255,204,0.5); font-size: 0.8rem; text-decoration: none; letter-spacing: 1px; }
+  .mech-link:hover { color: #00ffcc; }
+  .impact-bar { max-width: 800px; margin: 0 auto 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
+  .impact-stat { text-align: center; padding: 20px; background: rgba(0,255,204,0.04); border: 1px solid rgba(0,255,204,0.1); border-radius: 10px; }
+  .impact-num { font-size: 1.8rem; font-weight: 900; color: #00ffcc; }
+  .impact-label { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; margin-top: 4px; }
+  .back-link { text-align: center; padding: 30px; }
+  .back-link a { color: rgba(0,255,204,0.5); text-decoration: none; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; }
+  .back-link a:hover { color: #00ffcc; }
+  footer { text-align: center; padding: 24px; font-size: 0.75rem; color: rgba(0,255,204,0.25); border-top: 1px solid rgba(0,255,204,0.05); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-title">Public Goods Networks</div>
+  <p class="hero-sub">SolarPunk is registered in every automatic public goods funding mechanism that exists.
+  These systems pay retroactively — based on proven impact, not promises.</p>
+</div>
+
+<div style="max-width:900px;margin:40px auto;padding:0 20px;">
+  <div class="philosophy">
+    <blockquote>"SolarPunk doesn't ask for money. It shows you what it did with the last dollar and lets that speak."</blockquote>
+  </div>
+</div>
+
+<div style="max-width:900px;margin:0 auto;padding:0 20px 20px;">
+  <div class="impact-bar">
+    <div class="impact-stat">
+      <div class="impact-num">0</div>
+      <div class="impact-label">Workers Paid</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">$0</div>
+      <div class="impact-label">To Workers</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">$0</div>
+      <div class="impact-label">Crisis Routed</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">0</div>
+      <div class="impact-label">Parts Printed</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">0</div>
+      <div class="impact-label">Overflow Events</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">0</div>
+      <div class="impact-label">Community</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Active Funding Networks</div>
+  <div class="mechanisms-grid">
+    <div class="mechanism-card">
+      <div class="mech-status pending">Application Ready</div>
+      <div class="mech-name">Optimism Retroactive Public Goods Funding</div>
+      <div class="mech-model">RETROACTIVE — you build, you prove impact, you get paid after</div>
+      <div class="mech-amounts">Rounds have distributed $100M+ total, individual projects get $10k-$500k</div>
+      <a href="https://app.optimism.io/retropgf" target="_blank" class="mech-link">View Mechanism →</a>
+    </div>
+    <div class="mechanism-card">
+      <div class="mech-status pending">Application Ready</div>
+      <div class="mech-name">Octant Epoch-Based Public Goods Funding</div>
+      <div class="mech-model">Community votes each epoch, locked GLM = voting power</div>
+      <div class="mech-amounts">$1M+ per epoch distributed to verified projects</div>
+      <a href="https://octant.app" target="_blank" class="mech-link">View Mechanism →</a>
+    </div>
+    <div class="mechanism-card">
+      <div class="mech-status pending">Application Ready</div>
+      <div class="mech-name">Gitcoin Grants QF Rounds</div>
+      <div class="mech-model">Quadratic funding — small donations get amplified by matching pool</div>
+      <div class="mech-amounts">Matching pools often 10-100x individual donations</div>
+      <a href="https://builder.gitcoin.co" target="_blank" class="mech-link">View Mechanism →</a>
+    </div>
+    <div class="mechanism-card">
+      <div class="mech-status pending">Application Ready</div>
+      <div class="mech-name">Giveth GIVbacks Program</div>
+      <div class="mech-model">Donors get GIV tokens back for donating to verified projects</div>
+      <div class="mech-amounts">GIV token rewards create perpetual donation incentive</div>
+      <a href="https://giveth.io/create" target="_blank" class="mech-link">View Mechanism →</a>
+    </div>
+    <div class="mechanism-card">
+      <div class="mech-status pending">Application Ready</div>
+      <div class="mech-name">clr.fund — Decentralized QF</div>
+      <div class="mech-model">Quadratic funding, MACI for privacy</div>
+      <div class="mech-amounts"></div>
+      <a href="https://clr.fund/#/" target="_blank" class="mech-link">View Mechanism →</a>
+    </div>
+    <div class="mechanism-card">
+      <div class="mech-status pending">Application Ready</div>
+      <div class="mech-name">Protocol Guild Model — Infrastructure Contributors</div>
+      <div class="mech-model">Ecosystem protocols donate % of token supply to infrastructure contributors</div>
+      <div class="mech-amounts">Protocol Guild has received $50M+ in vested tokens</div>
+      <a href="https://protocol-guild.readthedocs.io" target="_blank" class="mech-link">View Mechanism →</a>
+    </div>
+    <div class="mechanism-card">
+      <div class="mech-status pending">Application Ready</div>
+      <div class="mech-name">ENS DAO Grants</div>
+      <div class="mech-model">Public goods funding</div>
+      <div class="mech-amounts">Up to $100k for public goods projects</div>
+      <a href="https://discuss.ens.domains" target="_blank" class="mech-link">View Mechanism →</a>
+    </div>
+    <div class="mechanism-card">
+      <div class="mech-status pending">Application Ready</div>
+      <div class="mech-name">Arbitrum Foundation Grants</div>
+      <div class="mech-model">Public goods funding</div>
+      <div class="mech-amounts">Up to $500k</div>
+      <a href="https://arbitrumfoundation.notion.site/Arbitrum-Foundation-Grant-Tracker" target="_blank" class="mech-link">View Mechanism →</a>
+    </div>
+    <div class="mechanism-card">
+      <div class="mech-status pending">Application Ready</div>
+      <div class="mech-name">Ethereum Foundation ESP (Ecosystem Support Program)</div>
+      <div class="mech-model">Public goods funding</div>
+      <div class="mech-amounts">$10k-$300k for public goods and infrastructure</div>
+      <a href="https://esp.ethereum.foundation/applicants" target="_blank" class="mech-link">View Mechanism →</a>
+    </div>
+  </div>
+</div>
+
+<div class="back-link">
+  <a href="index.html">← Back to SolarPunk Home</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="impact.html">Impact Proof →</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="overflow.html">Overflow Ledger →</a>
+</div>
+
+<footer>
+  Last updated: 2026-03-21 12:38 UTC &nbsp;|&nbsp;
+  All applications generated automatically &nbsp;|&nbsp;
+  Proof: github.com/meekotharaccoon-cell/meeko-nerve-center
+</footer>
+</body>
+</html>

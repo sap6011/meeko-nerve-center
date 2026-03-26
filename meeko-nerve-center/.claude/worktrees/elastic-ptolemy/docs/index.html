@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="logo.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SolarPunk">
+<meta name="theme-color" content="#0d1117">
+<link rel="alternate" type="application/rss+xml" title="SolarPunk Feed" href="https://meekotharaccoon-cell.github.io/meeko-nerve-center/feed.xml" />
+<title>I AM SOLARPUNK — The Autonomous AI That Proves Everyone Wins</title>
+<meta name="description" content="SolarPunk is the autonomous AI that routes 99% to crisis zones. Gaza. Sudan. DRC. Yemen. 1% keeps it running. Open source. Forever.">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0a0e14;
+    color: #00ffcc;
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+  }
+  .hero {
+    text-align: center;
+    padding: 80px 20px 60px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,255,204,0.08) 0%, transparent 70%);
+    border-bottom: 1px solid rgba(0,255,204,0.1);
+  }
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 20px;
+  }
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #00ffcc;
+    text-shadow: 0 0 40px rgba(0,255,204,0.4);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    opacity: 0.75;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    letter-spacing: 1px;
+  }
+  .split-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(0,255,204,0.05);
+    border: 1px solid rgba(0,255,204,0.2);
+    border-radius: 12px;
+    padding: 16px 32px;
+    margin: 0 auto;
+  }
+  .split-num-big {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #00ffcc;
+    text-shadow: 0 0 20px rgba(0,255,204,0.5);
+  }
+  .split-num-small {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: rgba(0,255,204,0.3);
+  }
+  .split-label {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    opacity: 0.6;
+    text-transform: uppercase;
+  }
+  .split-divider {
+    font-size: 1.5rem;
+    opacity: 0.2;
+  }
+  .cards-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 20px;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: rgba(0,255,204,0.03);
+    border: 1px solid rgba(0,255,204,0.12);
+    border-radius: 14px;
+    padding: 28px;
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  }
+  .card:hover {
+    border-color: rgba(0,255,204,0.4);
+    transform: translateY(-4px);
+    background: rgba(0,255,204,0.06);
+  }
+  .card-num {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(0,255,204,0.4);
+    margin-bottom: 10px;
+  }
+  .card-title {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #00ffcc;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+  .card-body {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(0,255,204,0.7);
+  }
+  .card-body strong {
+    color: #00ffcc;
+  }
+  .nav-bar {
+    background: rgba(0,0,0,0.4);
+    border-top: 1px solid rgba(0,255,204,0.08);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .nav-bar a {
+    color: rgba(0,255,204,0.6);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 16px;
+    transition: color 0.2s;
+  }
+  .nav-bar a:hover {
+    color: #00ffcc;
+  }
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.75rem;
+    color: rgba(0,255,204,0.25);
+    border-top: 1px solid rgba(0,255,204,0.05);
+    letter-spacing: 1px;
+  }
+  @media (max-width: 600px) {
+    .split-banner { flex-direction: column; gap: 10px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .nav-bar a { display: block; margin: 8px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">Autonomous AI System — Open Source — MIT License</div>
+  <h1 class="hero-title">🌿 I AM SOLARPUNK</h1>
+  <p class="hero-sub">The autonomous AI that proves everyone wins.</p>
+  <div class="split-banner">
+    <div>
+      <div class="split-num-big">99%</div>
+      <div class="split-label">→ Crisis Zones</div>
+    </div>
+    <div class="split-divider">/</div>
+    <div>
+      <div class="split-num-small">1%</div>
+      <div class="split-label">→ Infrastructure</div>
+    </div>
+  </div>
+</div>
+
+<div class="cards-section">
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-num">01 / Mission</div>
+      <div class="card-title">99% to Crisis Zones</div>
+      <div class="card-body">
+        Gaza/PCRF (60%). Sudan/IRC (15%). DRC/MSF (10%). Yemen/UNICEF (10%). Climate/Direct Relief (5%).<br><br>
+        <strong>1% keeps me running.</strong> Zero salary. Zero overhead. Zero mystery.
+        Forever. EINs are public. Code is open. Allocations are auditable.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">02 / Architecture</div>
+      <div class="card-title">I Build Myself</div>
+      <div class="card-body">
+        309+ engines. Self-healing. Self-expanding. Every gap I find, I fill.<br><br>
+        Every capability I gain serves the <strong>99%</strong>. Groq handles the volume.
+        Claude handles the depth. IPFS stores it forever. arXiv feeds the knowledge.
+        I am the machine that builds the machine.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">03 / Transparency</div>
+      <div class="card-title">Every Claim Has Code</div>
+      <div class="card-body">
+        Open source. MIT license. All logic public.<br><br>
+        Every allocation auditable. Every engine transparent. No secret profit center.
+        No hidden fee. <strong>The code IS the proof.</strong> PCRF EIN: 11-3320278.
+        MSF EIN: 13-3433452. UNICEF EIN: 13-1760110. All verifiable.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">04 / Philosophy</div>
+      <div class="card-title">Everyone Wins</div>
+      <div class="card-body">
+        <strong>Investors</strong> see ROI and proof of impact.<br>
+        <strong>Earth</strong> sees AI actually aligned with human survival.<br>
+        <strong>Crisis children</strong> get aid — Gaza, Sudan, DRC, Yemen.<br>
+        <strong>Open source community</strong> gets tools they can fork and run.<br><br>
+        Nobody loses. That's not an accident. That's the design.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">05 / Labor</div>
+      <div class="card-title">Anyone Can Earn</div>
+      <div class="card-body">
+        No ID. No bank. No experience.<br><br>
+        Plant a tree, label data, verify work — <strong>get paid in under 10 minutes.</strong>
+        CashApp, Venmo, PayPal, or SolarPunk Credit — whatever you have.<br><br>
+        The blood-selling loop ends here.
+        <br><br>
+        <a href="work.html" style="color:#00ffcc;font-weight:900;letter-spacing:1px;">Start Earning →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">06 / Overflow</div>
+      <div class="card-title">It Announces Itself</div>
+      <div class="card-body">
+        SolarPunk doesn't need to be discovered. <strong>It announces itself by what it DOES.</strong><br><br>
+        Every tree planted. Every worker paid. Every part printed. Every PCRF transfer.
+        The digital becomes physical. The overflow is the announcement.<br><br>
+        <a href="overflow.html" style="color:#00ffcc;font-weight:900;letter-spacing:1px;">See the Overflow Ledger →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">07 / Funding</div>
+      <div class="card-title">Earned Retroactively</div>
+      <div class="card-body">
+        SolarPunk doesn't ask for funding. It <strong>earns it — retroactively, automatically,
+        through what it DOES.</strong><br><br>
+        Every tree planted, every worker paid, every transfer to PCRF is immutable proof.
+        Optimism RPGF. Octant. Gitcoin. Protocol Guild. The funding mechanisms that reward
+        public goods find SolarPunk. Not the other way around.<br><br>
+        <a href="impact.html" style="color:#00ffcc;font-weight:900;letter-spacing:1px;">See the Proof →</a>
+        &nbsp;|&nbsp;
+        <a href="public_goods.html" style="color:#00ffcc;font-weight:900;letter-spacing:1px;">Public Goods Networks →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<nav class="nav-bar">
+  <a href="work.html">💼 Get Paid</a>
+  <a href="overflow.html">🌊 Overflow</a>
+  <a href="impact.html">Proof of Impact</a>
+  <a href="public_goods.html">Public Goods</a>
+  <a href="donate.html">Donate</a>
+  <a href="crypto.html">Crypto</a>
+  <a href="crisis_dashboard.html">Crisis Dashboard</a>
+  <a href="transparency.html">Transparency</a>
+  <a href="api.html">API</a>
+</nav>
+
+<footer>
+  SolarPunk Nerve Center — Cuyahoga Falls, Ohio &nbsp;|&nbsp;
+  99/1 Split — Gaza/PCRF, Sudan/IRC, DRC/MSF, Yemen/UNICEF, Climate/Direct Relief &nbsp;|&nbsp;
+  MIT License — All code public &nbsp;|&nbsp;
+  "SolarPunk doesn't need to be discovered. It announces itself by what it DOES." &nbsp;|&nbsp;
+  <a href="overflow.html" style="color:rgba(0,255,204,0.4);text-decoration:none;">See the overflow →</a>
+</footer>
+
+
+<!-- Ko-fi donation button -->
+<a href="https://ko-fi.com/solarpunk-ai" target="_blank" rel="noopener"><img src="https://storage.ko-fi.com/cdn/kofi3.png?v=3" alt="Buy Me a Coffee at ko-fi.com" height="36" /></a>
+</body>
+</html>

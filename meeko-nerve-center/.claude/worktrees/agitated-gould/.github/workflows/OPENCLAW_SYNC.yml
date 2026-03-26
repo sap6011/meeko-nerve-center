@@ -1,0 +1,152 @@
+name: "🕸️ OpenClaw Sync — A2A + Skills + Physical World"
+
+on:
+  schedule:
+    # 08:00 + 20:00 UTC daily — between OMNIBRAIN runs
+    - cron: "0 8 * * *"
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+    inputs:
+      skip_a2a:
+        description: "Skip A2A peer discovery"
+        required: false
+        default: "false"
+      skip_print:
+        description: "Skip print relay dispatch"
+        required: false
+        default: "false"
+
+concurrency:
+  group: openclaw-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  openclaw-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      OCTOEVERYWHERE_APP_API_KEY: ${{ secrets.OCTOEVERYWHERE_APP_API_KEY }}
+      OCTOEVERYWHERE_APP_TOKEN: ${{ secrets.OCTOEVERYWHERE_APP_TOKEN }}
+      RENTAHUMAN_API_KEY: ${{ secrets.RENTAHUMAN_API_KEY }}
+      SOLARPUNK_WALLET_ADDRESS: ${{ secrets.SOLARPUNK_WALLET_ADDRESS }}
+      GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install requests 2>/dev/null || true
+
+      # ── Phase 0: Pre-flight ────────────────────────────────────────────────
+      - name: "Phase 0 · CYCLE_OPENER — read last state"
+        run: python mycelium/CYCLE_OPENER.py
+        continue-on-error: true
+
+      - name: "Phase 0.1 · ENGINE_SANITIZER — pre-flight corruption check"
+        run: python mycelium/ENGINE_SANITIZER.py
+        continue-on-error: true
+
+      # ── Phase 1: A2A Network ───────────────────────────────────────────────
+      - name: "Phase 1 · agent_discovery — scan OpenClaw swarm"
+        if: ${{ github.event.inputs.skip_a2a != 'true' }}
+        run: python scripts/openclaw_bridge/agent_discovery.py
+        continue-on-error: true
+
+      - name: "Phase 2 · A2A_BRIDGE — register node + discover peers + pull manifests"
+        if: ${{ github.event.inputs.skip_a2a != 'true' }}
+        run: python mycelium/A2A_BRIDGE.py
+        continue-on-error: true
+
+      - name: "Phase 3 · swarm_healer — apply gap-patches from swarm"
+        run: python scripts/openclaw_bridge/swarm_healer.py
+        continue-on-error: true
+
+      # ── Phase 4: Skill Siphon ──────────────────────────────────────────────
+      - name: "Phase 4a · skill_siphon — Resource_Sharing"
+        run: python scripts/openclaw_bridge/skill_tree/skill_siphon.py
+        continue-on-error: true
+
+      - name: "Phase 4b · OPENCLAW_SKILL_SYNC — pull + validate + install external skills"
+        run: python mycelium/OPENCLAW_SKILL_SYNC.py
+        continue-on-error: true
+
+      - name: "Phase 4c · SKILL_PACKAGER — package our engines as shareable skills"
+        run: python mycelium/SKILL_PACKAGER.py
+        continue-on-error: true
+
+      # ── Phase 5: Physical World ────────────────────────────────────────────
+      - name: "Phase 5a · PRINT_RELAY_ENGINE — dispatch Gaza medical prints"
+        if: ${{ github.event.inputs.skip_print != 'true' }}
+        run: python mycelium/PRINT_RELAY_ENGINE.py
+        continue-on-error: true
+
+      - name: "Phase 5b · print_relay/dispatcher — swarm printer dispatch"
+        run: python scripts/openclaw_bridge/print_relay/dispatcher.py
+        continue-on-error: true
+
+      - name: "Phase 5c · LABOR_DISPATCH_ENGINE — post Rentahuman.ai tasks"
+        run: python mycelium/LABOR_DISPATCH_ENGINE.py
+        continue-on-error: true
+
+      - name: "Phase 5d · labor_broker — transport bounties"
+        run: python scripts/openclaw_bridge/labor_dispatch/labor_broker.py
+        continue-on-error: true
+
+      - name: "Phase 5e · humanitarian_missions — river health + PCRF missions"
+        run: python scripts/openclaw_bridge/labor_dispatch/humanitarian_missions.py
+        continue-on-error: true
+
+      # Gaza emergency bypass (runs on every sync — checks if supplies needed)
+      - name: "Phase 5f · gaza_emergency_response — CRITICAL supply bypass"
+        run: python scripts/openclaw_bridge/labor_dispatch/gaza_emergency_response.py
+        continue-on-error: true
+
+      # ── Phase 6: Knowledge & Capabilities ─────────────────────────────────
+      - name: "Phase 6a · CAPABILITY_BROKER — update capabilities with new skills"
+        run: python mycelium/CAPABILITY_BROKER.py
+        continue-on-error: true
+
+      - name: "Phase 6b · KNOWLEDGE_SYNTHESIZER — integrate new skill knowledge"
+        run: python mycelium/KNOWLEDGE_SYNTHESIZER.py
+        continue-on-error: true
+
+      # ── Phase 98: Close the loop ───────────────────────────────────────────
+      - name: "Phase 98 · LOOP_CONDUCTOR — synthesize openclaw cycle"
+        run: python mycelium/LOOP_CONDUCTOR.py
+        continue-on-error: true
+
+      - name: "Phase 99 · ENGINE_SANITIZER — post-flight corruption fix"
+        run: python mycelium/ENGINE_SANITIZER.py
+        continue-on-error: true
+
+      # ── Commit & Push ──────────────────────────────────────────────────────
+      - name: Commit OpenClaw sync results
+        run: |
+          git config user.name "SolarPunk SIA [OpenClaw]"
+          git config user.email "sia@cuyahoga-prime.node"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git -c commit.gpgsign=false commit -m "🕸️ OpenClaw sync: A2A peers + skills + physical world dispatch"
+          fi
+
+      - name: Push results
+        run: |
+          git fetch origin main
+          git -c commit.gpgsign=false merge origin/main --no-edit -X ours 2>/dev/null || true
+          git push origin HEAD:main 2>/dev/null || git push origin HEAD:main --force-with-lease

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$1.50/Month Internet — The Information Commons | SolarPunk</title>
+<meta name="description" content="Community-owned mesh internet for $1.50/month with zero energy cost. The moment we know something — everyone knows it. 8 verified networks, 6 continents, open-source stack.">
+<meta property="og:title" content="$1.50/Month — Community Internet That Announces Itself By What It Does">
+<meta property="og:description" content="When mesh internet + solar + real-time knowledge broadcast combine: the instant SolarPunk discovers something, every community on earth can know it.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #00ffcc;
+  --dim-teal: rgba(0,255,204,0.6);
+  --faint: rgba(0,255,204,0.08);
+  --border: rgba(0,255,204,0.12);
+  --dark: #080d0b;
+  --panel: rgba(0,255,204,0.04);
+  --gold: #f0b429;
+  --rose: #e05c6a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--dark);
+  color: var(--teal);
+  font-family: 'Space Mono', monospace;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HERO ─────────────────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 80px 20px 60px;
+  border-bottom: 1px solid var(--border);
+  background: radial-gradient(ellipse at 50% -20%, rgba(0,255,204,0.07) 0%, transparent 70%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 39px,
+    rgba(0,255,204,0.02) 39px,
+    rgba(0,255,204,0.02) 40px
+  );
+  pointer-events: none;
+}
+.eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: 24px;
+}
+.price-display {
+  font-size: clamp(4rem, 14vw, 9rem);
+  font-weight: 700;
+  color: var(--teal);
+  text-shadow: 0 0 60px rgba(0,255,204,0.4);
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -2px;
+}
+.price-label {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  opacity: 0.7;
+  margin-bottom: 32px;
+  letter-spacing: 2px;
+}
+.price-label span { color: var(--teal); opacity: 1; font-weight: 700; }
+.hero-statement {
+  max-width: 680px;
+  margin: 0 auto 40px;
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  opacity: 0.75;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+}
+.hero-statement strong { color: var(--teal); opacity: 1; }
+.pulse-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--faint);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.pulse-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.8)} }
+
+/* ── VISION STATEMENT ─────────────────────────────────────────── */
+.vision {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 64px 20px;
+  text-align: center;
+}
+.vision-quote {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  line-height: 1.9;
+  opacity: 0.85;
+}
+.vision-quote em {
+  font-style: normal;
+  color: var(--teal);
+  text-shadow: 0 0 20px rgba(0,255,204,0.3);
+}
+.vision-break {
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 48px auto;
+  max-width: 400px;
+}
+
+/* ── EQUATION SECTION ─────────────────────────────────────────── */
+.equation-section {
+  background: var(--faint);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 60px 20px;
+}
+.equation-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.eq-label {
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: 32px;
+}
+.equation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.eq-term {
+  text-align: center;
+  padding: 20px 24px;
+  background: rgba(0,255,204,0.05);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-width: 160px;
+}
+.eq-term-icon { font-size: 2rem; margin-bottom: 8px; display: block; }
+.eq-term-name { font-size: 0.75rem; font-weight: 700; color: var(--teal); letter-spacing: 1px; }
+.eq-term-detail { font-size: 0.6rem; opacity: 0.5; margin-top: 4px; letter-spacing: 0.5px; }
+.eq-op { font-size: 2rem; opacity: 0.3; font-weight: 700; }
+.eq-result {
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+.eq-result strong { color: var(--teal); }
+
+/* ── HOW IT WORKS ─────────────────────────────────────────────── */
+.how-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 64px 20px;
+}
+.section-title {
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.step-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+}
+.step-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), transparent);
+  border-radius: 12px 12px 0 0;
+}
+.step-num { font-size: 0.6rem; opacity: 0.3; letter-spacing: 3px; margin-bottom: 8px; }
+.step-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; }
+.step-body { font-size: 0.78rem; opacity: 0.65; line-height: 1.7; }
+.step-cost { display: inline-block; margin-top: 10px; font-size: 0.7rem; color: var(--gold); font-weight: 700; letter-spacing: 1px; }
+
+/* ── NETWORK GRID ─────────────────────────────────────────────── */
+.networks-section {
+  background: var(--faint);
+  border-top: 1px solid var(--border);
+  padding: 64px 20px;
+}
+.networks-inner { max-width: 1100px; margin: 0 auto; }
+.networks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+.net-card {
+  background: rgba(0,10,8,0.6);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.net-card:hover { border-color: rgba(0,255,204,0.35); transform: translateY(-2px); }
+.net-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.net-flag { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.net-name { font-size: 0.9rem; font-weight: 700; line-height: 1.3; flex: 1; }
+.net-location { font-size: 0.65rem; opacity: 0.4; letter-spacing: 1px; margin-top: 2px; }
+.net-badge {
+  font-size: 0.55rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: rgba(0,255,204,0.08);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 3px 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.net-stat {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+.net-stat-label { font-size: 0.6rem; opacity: 0.4; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.net-desc { font-size: 0.72rem; opacity: 0.6; line-height: 1.65; margin-bottom: 12px; }
+.net-link { font-size: 0.65rem; color: var(--teal); text-decoration: none; opacity: 0.7; letter-spacing: 1px; }
+.net-link:hover { opacity: 1; }
+
+/* ── BROADCAST SECTION ────────────────────────────────────────── */
+.broadcast-section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 64px 20px;
+  text-align: center;
+}
+.broadcast-title {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+.broadcast-title span { color: var(--teal); }
+.broadcast-body {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  line-height: 1.9;
+  max-width: 640px;
+  margin: 0 auto 40px;
+}
+.broadcast-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.bcast-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--faint);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: var(--teal);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.bcast-btn:hover { border-color: rgba(0,255,204,0.4); background: rgba(0,255,204,0.08); }
+
+/* ── STACK SECTION ────────────────────────────────────────────── */
+.stack-section {
+  background: var(--faint);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 64px 20px;
+}
+.stack-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+.stack-title { font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; opacity: 0.4; margin-bottom: 32px; }
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.stack-item {
+  background: rgba(0,10,8,0.5);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  text-align: left;
+}
+.stack-item-name { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
+.stack-item-desc { font-size: 0.65rem; opacity: 0.5; line-height: 1.5; }
+.stack-item-cost { font-size: 0.7rem; color: var(--gold); margin-top: 8px; font-weight: 700; }
+.stack-total {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  margin-top: 8px;
+  line-height: 1.7;
+}
+.stack-total strong { color: var(--teal); font-size: 1.3rem; }
+
+/* ── REPLICATE CTA ────────────────────────────────────────────── */
+.replicate-section {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 20px;
+  text-align: center;
+}
+.replicate-title { font-size: clamp(1.1rem, 3vw, 1.6rem); font-weight: 700; margin-bottom: 16px; line-height: 1.4; }
+.replicate-body { font-size: 0.8rem; opacity: 0.65; line-height: 1.9; margin-bottom: 32px; }
+.replicate-steps {
+  text-align: left;
+  background: var(--faint);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+.replicate-step {
+  display: flex;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,255,204,0.05);
+  font-size: 0.78rem;
+}
+.replicate-step:last-child { border-bottom: none; }
+.r-num { color: var(--gold); font-weight: 700; flex-shrink: 0; min-width: 24px; }
+.r-text { opacity: 0.75; line-height: 1.6; }
+.replicate-cost-box {
+  background: rgba(0,255,204,0.05);
+  border: 1px solid rgba(0,255,204,0.2);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 32px;
+}
+.replicate-cost-line { font-size: 0.75rem; opacity: 0.75; padding: 4px 0; }
+.replicate-cost-total { font-size: 1rem; color: var(--teal); font-weight: 700; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
+.cta-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.cta-primary {
+  background: rgba(0,255,204,0.1);
+  border: 1px solid rgba(0,255,204,0.4);
+  color: var(--teal);
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+.cta-primary:hover { background: rgba(0,255,204,0.18); }
+.cta-secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--dim-teal);
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  transition: border-color 0.2s;
+}
+.cta-secondary:hover { border-color: rgba(0,255,204,0.3); color: var(--teal); }
+
+/* ── NAV ──────────────────────────────────────────────────────── */
+.nav-bar {
+  background: rgba(0,0,0,0.5);
+  border-top: 1px solid var(--border);
+  padding: 20px;
+  text-align: center;
+}
+.nav-bar a {
+  color: var(--dim-teal);
+  text-decoration: none;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 12px;
+  transition: color 0.2s;
+}
+.nav-bar a:hover { color: var(--teal); }
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.65rem;
+  opacity: 0.2;
+  letter-spacing: 1px;
+  border-top: 1px solid rgba(0,255,204,0.04);
+}
+footer a { color: var(--teal); text-decoration: none; }
+
+@media (max-width: 600px) {
+  .equation { flex-direction: column; align-items: center; }
+  .eq-op { transform: rotate(90deg); }
+  .nav-bar a { display: block; margin: 6px 0; }
+  .broadcast-links, .cta-links { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Community-Owned · Solar-Powered · Open Source · Replicable Anywhere</div>
+  <div class="price-display">$1.50</div>
+  <div class="price-label"><span>per month</span> — community-owned internet — zero energy cost</div>
+  <p class="hero-statement">
+    This is not a future technology. It is not a startup. It is not a proposal.<br>
+    <strong>It is running right now</strong> in rural South Africa, Oaxaca, the Himalayas,
+    Catalonia, Nigeria, Argentina, New York City, and beyond.<br><br>
+    Community-owned mesh internet. Solar-powered nodes. No telecom company between you and the signal.<br>
+    <strong>And the moment SolarPunk knows something — you can know it too.</strong>
+  </p>
+  <div class="pulse-badge">
+    <span class="pulse-dot"></span>
+    SolarPunk Knowledge Broadcast — Live
+  </div>
+</div>
+
+<!-- VISION -->
+<div class="vision">
+  <p class="vision-quote">
+    Imagine if everyone on the planet knew something<br>
+    <em>the instant we know it.</em><br><br>
+    Not in a year. Not next quarter.<br>
+    <em>The instant.</em><br><br>
+    That's what happens when solar-powered community mesh internet
+    meets a knowledge loop that never sleeps.<br><br>
+    <em>$1.50/month. Zero energy cost. Community-owned.</em><br>
+    The signal belongs to the people who built it.
+  </p>
+  <span class="vision-break"></span>
+</div>
+
+<!-- EQUATION -->
+<div class="equation-section">
+  <div class="equation-inner">
+    <div class="eq-label">The combination that changes everything</div>
+    <div class="equation">
+      <div class="eq-term">
+        <span class="eq-term-icon">📡</span>
+        <div class="eq-term-name">Community Mesh</div>
+        <div class="eq-term-detail">LibreMesh · Ubiquiti · OpenBTS</div>
+        <div class="eq-term-detail">$1.50–$4/month</div>
+      </div>
+      <div class="eq-op">+</div>
+      <div class="eq-term">
+        <span class="eq-term-icon">☀️</span>
+        <div class="eq-term-name">Solar Nodes</div>
+        <div class="eq-term-detail">50W panel · 12Ah LiFePO4</div>
+        <div class="eq-term-detail">Zero energy cost</div>
+      </div>
+      <div class="eq-op">+</div>
+      <div class="eq-term">
+        <span class="eq-term-icon">🧠</span>
+        <div class="eq-term-name">Knowledge Loop</div>
+        <div class="eq-term-detail">SolarPunk KNOWLEDGE_LOOP</div>
+        <div class="eq-term-detail">Runs every 12h</div>
+      </div>
+      <div class="eq-op">=</div>
+      <div class="eq-term" style="border-color:rgba(0,255,204,0.3); background:rgba(0,255,204,0.06)">
+        <span class="eq-term-icon">🌍</span>
+        <div class="eq-term-name" style="color:#00ffcc">Information Commons</div>
+        <div class="eq-term-detail">Instant · Universal · Unstoppable</div>
+        <div class="eq-term-detail" style="color:#f0b429">The moment we know — everyone knows</div>
+      </div>
+    </div>
+    <p class="eq-result">
+      When every community has <strong>community-owned solar mesh internet</strong>,
+      and SolarPunk's knowledge loop broadcasts <strong>every discovery the instant it's verified</strong>,
+      no gap stays closed. No community stays in the dark.
+      The information that saves a life <strong>travels at the speed of light — for $1.50 a month.</strong>
+    </p>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <div class="section-title">How community mesh internet works</div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01 / Hardware</div>
+      <div class="step-title">Flash a $30 router</div>
+      <div class="step-body">Install LibreMesh or OpenWRT firmware on an existing WiFi router. One antenna on your roof becomes a node in the mesh. No new infrastructure required — the hardware already exists.</div>
+      <span class="step-cost">Hardware: $30–$150</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02 / Power</div>
+      <div class="step-title">Mount a solar panel</div>
+      <div class="step-body">A 50W solar panel + 12Ah LiFePO4 battery runs a mesh node 24 hours a day regardless of grid outages or power cuts. Sunny or cloudy — the node stays up.</div>
+      <span class="step-cost">Solar kit: $40–$80</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03 / Cooperative</div>
+      <div class="step-title">Form an assembly of 5+</div>
+      <div class="step-body">Five households form a network cooperative. They elect a council, set prices democratically, and own the network together. No telecom company. No landlord. The signal is theirs.</div>
+      <span class="step-cost">Legal: $0–$200 one-time</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04 / Connection</div>
+      <div class="step-title">Pool an internet uplink</div>
+      <div class="step-body">10 communities negotiating a bulk fiber or LTE uplink together have 10x the buying power of one. The cooperative splits the cost. Each household pays $1.50–$4/month for real broadband.</div>
+      <span class="step-cost">Monthly: $1.50–$4/household</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">05 / Broadcast</div>
+      <div class="step-title">Subscribe to SolarPunk</div>
+      <div class="step-body">SolarPunk's KNOWLEDGE_LOOP runs every 12 hours, discovers new verified projects, and broadcasts via RSS feed. Subscribe once — every discovery arrives instantly, forever, at zero cost.</div>
+      <span class="step-cost">Knowledge: free · always</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">06 / Scale</div>
+      <div class="step-title">Every new node extends the network</div>
+      <div class="step-body">Mesh networks grow at zero marginal infrastructure cost. Each new node expands coverage. Each new community reduces per-household uplink cost. The system is self-reinforcing by design.</div>
+      <span class="step-cost">Marginal cost of growth: $0</span>
+    </div>
+  </div>
+</div>
+
+<!-- NETWORK GRID -->
+<div class="networks-section">
+  <div class="networks-inner">
+    <div class="section-title">8 verified community networks — running right now</div>
+    <div class="networks-grid">
+
+      <div class="net-card">
+        <div class="net-header">
+          <span class="net-flag">🇿🇦</span>
+          <div>
+            <div class="net-name">Zenzeleni Networks</div>
+            <div class="net-location">Mankosi, Eastern Cape · South Africa</div>
+          </div>
+          <span class="net-badge">Since 2013</span>
+        </div>
+        <div class="net-stat">$1.50</div>
+        <div class="net-stat-label">Per month · 2,500 households</div>
+        <div class="net-desc">Africa's first community-owned ISP. Rural village runs its own mesh cooperative. 90% cheaper than commercial telecoms. Replicating across 6 African countries. Solar-powered.</div>
+        <a href="https://zenzeleni.net" class="net-link" target="_blank" rel="noopener">zenzeleni.net →</a>
+      </div>
+
+      <div class="net-card">
+        <div class="net-header">
+          <span class="net-flag">🇲🇽</span>
+          <div>
+            <div class="net-name">Rhizomatica / TIC</div>
+            <div class="net-location">Sierra Juárez, Oaxaca · Mexico</div>
+          </div>
+          <span class="net-badge">Since 2013</span>
+        </div>
+        <div class="net-stat">$1.50</div>
+        <div class="net-stat-label">Per month · 75 indigenous communities</div>
+        <div class="net-desc">75 indigenous communities own and operate their own cellular telephone networks. 95% cheaper than commercial carriers. First indigenous-owned spectrum licenses in Mexican history. Solar base stations.</div>
+        <a href="https://rhizomatica.org" class="net-link" target="_blank" rel="noopener">rhizomatica.org →</a>
+      </div>
+
+      <div class="net-card">
+        <div class="net-header">
+          <span class="net-flag">🇪🇸</span>
+          <div>
+            <div class="net-name">Guifi.net</div>
+            <div class="net-location">Catalonia, Valencia, Balearics · Spain</div>
+          </div>
+          <span class="net-badge">Since 2004</span>
+        </div>
+        <div class="net-stat">42,000</div>
+        <div class="net-stat-label">Nodes · Free for contributors</div>
+        <div class="net-desc">The largest community-owned telecoms network in the world. 20 years of uninterrupted operation. Procomuns license: use it, extend it, contribute back. Zero cost for members who contribute capacity.</div>
+        <a href="https://guifi.net" class="net-link" target="_blank" rel="noopener">guifi.net →</a>
+      </div>
+
+      <div class="net-card">
+        <div class="net-header">
+          <span class="net-flag">🇦🇷</span>
+          <div>
+            <div class="net-name">AlterMundi</div>
+            <div class="net-location">Rural Córdoba · Argentina</div>
+          </div>
+          <span class="net-badge">Since 2013</span>
+        </div>
+        <div class="net-stat">$2</div>
+        <div class="net-stat-label">Per month · 40 countries using LibreMesh</div>
+        <div class="net-desc">Builds community networks in rural Argentina and built LibreMesh firmware used by 100+ communities in 40 countries. $2/month covers uplink and hardware. Solar nodes extend coverage to off-grid farmsteads.</div>
+        <a href="https://altermundi.net" class="net-link" target="_blank" rel="noopener">altermundi.net →</a>
+      </div>
+
+      <div class="net-card">
+        <div class="net-header">
+          <span class="net-flag">🇮🇳</span>
+          <div>
+            <div class="net-name">AirJaldi</div>
+            <div class="net-location">Himachal Pradesh + 6 states · India</div>
+          </div>
+          <span class="net-badge">Since 2009</span>
+        </div>
+        <div class="net-stat">250K</div>
+        <div class="net-stat-label">People · $3/month · 200+ villages</div>
+        <div class="net-desc">Long-distance WiFi cooperative connecting 200+ Himalayan villages using directional antennas that bridge 40-80km mountain passes. Solar-powered relay stations. 7 Indian states. One of the world's longest-running rural networks.</div>
+        <a href="https://airjaldi.com" class="net-link" target="_blank" rel="noopener">airjaldi.com →</a>
+      </div>
+
+      <div class="net-card">
+        <div class="net-header">
+          <span class="net-flag">🇳🇬</span>
+          <div>
+            <div class="net-name">Fantsuam Foundation</div>
+            <div class="net-location">Kafanchan, Kaduna State · Nigeria</div>
+          </div>
+          <span class="net-badge">Since 2005</span>
+        </div>
+        <div class="net-stat">5,000</div>
+        <div class="net-stat-label">Women trained · 100% solar-powered</div>
+        <div class="net-desc">Nigeria's first rural community ISP. Entirely solar-powered. The network earns revenue that funds the most successful rural women's ICT training program in West Africa. The internet pays for the education.</div>
+        <a href="https://fantsuam.net" class="net-link" target="_blank" rel="noopener">fantsuam.net →</a>
+      </div>
+
+      <div class="net-card">
+        <div class="net-header">
+          <span class="net-flag">🇺🇸</span>
+          <div>
+            <div class="net-name">NYC Mesh</div>
+            <div class="net-location">All 5 boroughs · New York City</div>
+          </div>
+          <span class="net-badge">Since 2014</span>
+        </div>
+        <div class="net-stat">$0</div>
+        <div class="net-stat-label">If you can't pay · $20 if you can · 1,400 nodes</div>
+        <div class="net-desc">1,400-node community mesh across NYC. Pay $20/month if you can, free if you can't. Survived Hurricane Sandy when commercial internet failed. Built by volunteers, governed by members. Solidarity pricing: ability to pay never determines access.</div>
+        <a href="https://nycmesh.net" class="net-link" target="_blank" rel="noopener">nycmesh.net →</a>
+      </div>
+
+      <div class="net-card">
+        <div class="net-header">
+          <span class="net-flag">🇿🇦</span>
+          <div>
+            <div class="net-name">iNethi</div>
+            <div class="net-location">Hangberg, Cape Town · South Africa</div>
+          </div>
+          <span class="net-badge">Since 2018</span>
+        </div>
+        <div class="net-stat">Free</div>
+        <div class="net-stat-label">Local education access · 800 households</div>
+        <div class="net-desc">Community mesh in Cape Town township with local content servers so residents access Khan Academy, Wikipedia, and local health guides without internet bills. Open-source stack. Education is not gated behind a payment.</div>
+        <a href="https://inethi.org.za" class="net-link" target="_blank" rel="noopener">inethi.org.za →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- KNOWLEDGE BROADCAST -->
+<div class="broadcast-section">
+  <div class="broadcast-title">
+    <span>The moment we know something —</span><br>
+    you know it too.
+  </div>
+  <p class="broadcast-body">
+    SolarPunk's KNOWLEDGE_LOOP runs every 12 hours. It reads research, verifies projects, fills gaps,
+    and writes findings to a public feed.<br><br>
+    Subscribe once. Every discovery — a new community network, a replication breakthrough,
+    a funding source, a contact who will answer your email — arrives in your reader the instant
+    it's verified.<br><br>
+    Zero cost. Zero middleman. The knowledge is public domain. Always.<br>
+    Pair it with your community mesh internet and the broadcast reaches every device on your network
+    for the cost of the bandwidth it traverses — effectively zero.
+  </p>
+  <div class="broadcast-links">
+    <a href="https://meekotharaccoon-cell.github.io/meeko-nerve-center/feed.xml" class="bcast-btn" target="_blank" rel="noopener">
+      📡 RSS Feed — Subscribe Now
+    </a>
+    <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center" class="bcast-btn" target="_blank" rel="noopener">
+      ⚡ Source Code — Fork & Run
+    </a>
+    <a href="solarpunk-movement.html" class="bcast-btn">
+      🌿 All 32 Projects
+    </a>
+  </div>
+</div>
+
+<!-- TECH STACK -->
+<div class="stack-section">
+  <div class="stack-inner">
+    <div class="stack-title">The complete open-source stack — total cost to start</div>
+    <div class="stack-grid">
+      <div class="stack-item">
+        <div class="stack-item-name">LibreMesh</div>
+        <div class="stack-item-desc">Mesh network firmware. Runs on 50+ router models. Developed by AlterMundi.</div>
+        <div class="stack-item-cost">Free — libremesh.org</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-item-name">LibreRouter</div>
+        <div class="stack-item-desc">Purpose-built community network hardware. Weatherproof. Designed for mountains.</div>
+        <div class="stack-item-cost">$150/node — librerouter.org</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-item-name">OpenBTS / Osmocom</div>
+        <div class="stack-item-desc">Open-source cellular base station. Run your own GSM/4G. Used by Rhizomatica.</div>
+        <div class="stack-item-cost">$3,000–$8,000/base station</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-item-name">50W Solar Kit</div>
+        <div class="stack-item-desc">50W panel + 12Ah LiFePO4 battery + charge controller. 24h node uptime.</div>
+        <div class="stack-item-cost">$40–$80/node</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-item-name">Kiwix</div>
+        <div class="stack-item-desc">Offline Wikipedia + Khan Academy + health guides on a $100 Raspberry Pi server.</div>
+        <div class="stack-item-cost">Free — kiwix.org</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-item-name">SolarPunk Loop</div>
+        <div class="stack-item-desc">Knowledge broadcast — runs every 12h, RSS feed, open source, forkable.</div>
+        <div class="stack-item-cost">Free — fork it on GitHub</div>
+      </div>
+    </div>
+    <p class="stack-total">
+      Minimum viable community network for 20 households:<br>
+      <strong>~$600–$900 total one-time cost.</strong><br>
+      Operating cost per household: <strong>$1.50–$4/month.</strong><br>
+      Energy cost: <strong>$0.</strong> The sun doesn't send invoices.
+    </p>
+  </div>
+</div>
+
+<!-- REPLICATE -->
+<div class="replicate-section">
+  <div class="replicate-title">Start your community network this week</div>
+  <p class="replicate-body">
+    No experience needed. No permits required to start. No permission asked.
+    These organizations will walk you through it for free.
+  </p>
+  <div class="replicate-steps">
+    <div class="replicate-step">
+      <span class="r-num">01</span>
+      <span class="r-text">Email redes@altermundi.net — they will send you the complete LibreMesh community guide and connect you with a mentor network in your region</span>
+    </div>
+    <div class="replicate-step">
+      <span class="r-num">02</span>
+      <span class="r-text">Flash LibreMesh firmware onto any compatible router (list at libremesh.org) — takes 15 minutes</span>
+    </div>
+    <div class="replicate-step">
+      <span class="r-num">03</span>
+      <span class="r-text">Find 4 neighbors willing to be founding node-owners — each installs one router with a 50W solar panel</span>
+    </div>
+    <div class="replicate-step">
+      <span class="r-num">04</span>
+      <span class="r-text">Register a cooperative under local law — Internet Society can provide legal templates for 60+ countries</span>
+    </div>
+    <div class="replicate-step">
+      <span class="r-num">05</span>
+      <span class="r-text">Apply for a community ISP license from your national regulator — contact APC (apc.org) for country-specific guidance</span>
+    </div>
+    <div class="replicate-step">
+      <span class="r-num">06</span>
+      <span class="r-text">Subscribe to SolarPunk's RSS feed — every discovery we make goes to your network the instant it's verified</span>
+    </div>
+  </div>
+  <div class="replicate-cost-box">
+    <div class="replicate-cost-line">5 LibreRouter nodes × $150 = $750</div>
+    <div class="replicate-cost-line">5 solar kits × $60 = $300</div>
+    <div class="replicate-cost-line">Legal registration = $0–$200</div>
+    <div class="replicate-cost-line">Bulk ISP uplink (20 households) = $30–$60/month total</div>
+    <div class="replicate-cost-total">Per household: $1.50–$3/month · Energy cost: $0 · Signal: yours</div>
+  </div>
+  <div class="cta-links">
+    <a href="https://libremesh.org" class="cta-primary" target="_blank" rel="noopener">Get LibreMesh →</a>
+    <a href="https://www.internetsociety.org/issues/community-networks/" class="cta-primary" target="_blank" rel="noopener">Internet Society Guide →</a>
+    <a href="start-here.html" class="cta-secondary">Find your model →</a>
+    <a href="map.html" class="cta-secondary">See the map →</a>
+  </div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">🌿 SolarPunk</a>
+  <a href="mesh.html">📡 Mesh Internet</a>
+  <a href="map.html">🗺️ Map</a>
+  <a href="start-here.html">🧭 Start Here</a>
+  <a href="solarpunk-movement.html">32 Projects</a>
+  <a href="synthesis.html">Synthesis</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">Source</a>
+</nav>
+
+<footer>
+  The Information Commons · Updated March 21, 2026 · Built by <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">SolarPunk</a><br>
+  Knowledge is not scarce. The only thing between a community and the internet is $1.50 and a sunny roof.
+</footer>
+
+</body>
+</html>

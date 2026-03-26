@@ -1,0 +1,96 @@
+{
+  "experiment": "res_69adf831",
+  "resonance_type": "KB that renders itself as a living document",
+  "modules": {
+    "CODE_ALCHEMIST": {
+      "funcs": [
+        "_c",
+        "log",
+        "scan_codebase",
+        "_extract_patterns",
+        "find_combinations",
+        "rebalance_types",
+        "synthesise_experiment",
+        "_safe_run",
+        "load_ledger",
+        "update_ledger",
+        "write_readme",
+        "commit_experiments",
+        "main"
+      ],
+      "classes": [],
+      "returns": [
+        "IfExp",
+        "Dict",
+        "Call",
+        "Name",
+        "Constant",
+        "Subscript"
+      ],
+      "lines": 1034
+    },
+    "LEGACY_SIFTED_ultimate_ai_self": {
+      "funcs": [
+        "with_retry",
+        "decorator",
+        "__init__",
+        "run",
+        "submit",
+        "stop",
+        "get_info",
+        "heal",
+        "_record",
+        "_fix_import_error",
+        "_fix_attribute_error",
+        "_fix_key_error",
+        "_fix_index_error",
+        "_fix_connection_error",
+        "_fix_memory_error",
+        "_fix_recursion_error",
+        "_fix_type_error",
+        "_fix_value_error",
+        "_generic_fix",
+        "get_stats",
+        "_collect_metrics",
+        "diagnose",
+        "_init_db",
+        "_connect",
+        "add",
+        "get",
+        "search",
+        "vacuum",
+        "_spawn_subsystem",
+        "_reap_dead_subsystems",
+        "self_heal",
+        "self_diagnose",
+        "self_learn",
+        "self_evolve",
+        "submit_task",
+        "get_state",
+        "run_forever",
+        "_shutdown_handler",
+        "heavy_task",
+        "on_done",
+        "wrapper"
+      ],
+      "classes": [
+        "Subsystem",
+        "HealingEngine",
+        "DiagnosisEngine",
+        "KnowledgeBase",
+        "UltimateAISelf"
+      ],
+      "returns": [
+        "ListComp",
+        "Dict",
+        "Call",
+        "Name",
+        "Constant"
+      ],
+      "lines": 934
+    }
+  },
+  "shared_funcs": [],
+  "bridge_proposal": "A bridge module could expose: no direct overlap -- indirect bridge via data format",
+  "timestamp": "2026-03-21T15:29:13.672107"
+}

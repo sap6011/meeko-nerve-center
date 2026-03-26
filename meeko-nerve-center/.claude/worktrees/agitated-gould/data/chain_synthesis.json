@@ -1,0 +1,54 @@
+{
+  "ts": "2026-03-21T10:35:10.945865+00:00",
+  "chains_ok": 4,
+  "chains_total": 4,
+  "loop_closed": false,
+  "first_revenue_ts": null,
+  "total_earned": 0,
+  "critical_actions": [
+    {
+      "step": 1,
+      "channel": "hacker_news",
+      "action": "POST Show HN NOW: 'Show HN: I built a self-running AI agent that funds Gaza relief from every sale' \u2014 news.ycombinator.com/submit",
+      "priority": "critical",
+      "ts": "2026-03-21T10:35:11.091891+00:00"
+    },
+    {
+      "step": 3,
+      "channel": "kofi",
+      "action": "FASTEST PATH: go to ko-fi.com/account/shop \u2192 paste 6 listings from data/quick_revenue.html \u2192 LIVE IN 5 MINUTES",
+      "priority": "critical",
+      "ts": "2026-03-21T10:35:11.091891+00:00"
+    },
+    {
+      "step": 3,
+      "channel": "gumroad",
+      "action": "10 products queued in data/gumroad_listings.json \u2014 create them at gumroad.com/new/product",
+      "priority": "critical",
+      "ts": "2026-03-21T10:35:11.091891+00:00"
+    }
+  ],
+  "next_engines": [
+    "REDDIT_POSTER \u2014 post to r/SideProject, r/MachineLearning, r/selfhosted, r/opensource daily",
+    "SHOW_HN_POSTER \u2014 auto-draft Show HN post and flag it for Meeko to submit",
+    "PRODUCTHUNT_DRAFTER \u2014 generate Product Hunt submission and save to data/ph_submission.json",
+    "KOFI_AUTO_POSTER \u2014 automatically create Ko-fi shop items via API",
+    "SIGNUP_WIDGET \u2014 embed email signup on every page, feed into Substack/Mailchimp"
+  ],
+  "priority_action": "Go to gumroad.com, create the 10 products from data/gumroad_listings.json. Fastest path to first dollar.",
+  "insights": [
+    "\u274c Failing engines: NANOSHOP_ENGINE, BRIEFING_ENGINE, NARRATOR \u2014 AUTO_HEALER should patch these",
+    "Zero revenue after many cycles = the work is built, the door isn't open yet",
+    "10 products ready in gumroad_listings.json, none live yet. This is the fastest revenue path.",
+    "1 GitHub star(s) = social proof. Time to post Show HN.",
+    "Health plateau \u2014 fix failing engines before adding new ones"
+  ],
+  "signals_processed": 1,
+  "actions_queued": 1,
+  "chain_results": {
+    "ECONOMY_CHAIN": true,
+    "SIGNAL_CHAIN": true,
+    "KNOWLEDGE_CHAIN": true,
+    "GROWTH_CHAIN": true
+  }
+}

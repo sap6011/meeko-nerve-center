@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crisis Dashboard — SolarPunk 99% Allocation</title>
+<meta name="description" content="99% of every SolarPunk dollar reaches people in crisis. Gaza/PCRF, Sudan/IRC, DRC/MSF, Yemen/UNICEF, Climate/Direct Relief. Full EINs. Full transparency.">
+<style>
+  :root {
+    --green: #00ffcc;
+    --green-dim: rgba(0,255,204,0.6);
+    --green-faint: rgba(0,255,204,0.08);
+    --green-border: rgba(0,255,204,0.15);
+    --bg: #0a0e14;
+    --card-bg: rgba(0,255,204,0.04);
+    --gold: #f4a261;
+    --gold-dim: rgba(244,162,97,0.6);
+    --gold-faint: rgba(244,162,97,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--green);
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 70px 20px 50px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,255,204,0.07) 0%, transparent 70%);
+    border-bottom: 1px solid var(--green-border);
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--green);
+    text-shadow: 0 0 30px rgba(0,255,204,0.3);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--gold-dim);
+    margin-bottom: 40px;
+  }
+
+  /* SPLIT VISUAL */
+  .split-visual {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0;
+    max-width: 640px;
+    margin: 0 auto 20px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--green-border);
+  }
+  .split-crisis {
+    flex: 99;
+    background: rgba(0,255,204,0.08);
+    padding: 28px 24px;
+    text-align: center;
+    border-right: 1px solid var(--green-border);
+  }
+  .split-infra {
+    flex: 1;
+    background: rgba(244,162,97,0.05);
+    padding: 28px 20px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .split-pct {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .split-crisis .split-pct { color: var(--green); text-shadow: 0 0 20px rgba(0,255,204,0.4); }
+  .split-infra .split-pct { color: var(--gold-dim); }
+  .split-desc {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .founder-note {
+    font-size: 0.85rem;
+    color: rgba(0,255,204,0.5);
+    margin-top: 16px;
+    font-style: italic;
+  }
+
+  /* SECTION */
+  .section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 50px 20px;
+  }
+  .section-title {
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 30px;
+    border-left: 3px solid var(--green);
+    padding-left: 14px;
+  }
+
+  /* CRISIS CARDS */
+  .crisis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .crisis-card {
+    background: var(--card-bg);
+    border: 1px solid var(--green-border);
+    border-radius: 14px;
+    padding: 26px;
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  }
+  .crisis-card:hover {
+    border-color: rgba(0,255,204,0.4);
+    transform: translateY(-3px);
+    background: rgba(0,255,204,0.07);
+  }
+  .crisis-flag {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  .crisis-name {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--green);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .crisis-org {
+    font-size: 0.85rem;
+    color: var(--gold-dim);
+    margin-bottom: 4px;
+  }
+  .crisis-ein {
+    font-size: 0.75rem;
+    color: rgba(0,255,204,0.4);
+    margin-bottom: 12px;
+  }
+  .crisis-alloc {
+    display: inline-block;
+    background: rgba(0,255,204,0.1);
+    border: 1px solid rgba(0,255,204,0.2);
+    color: var(--green);
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: #0a0e14;
+  }
+  .btn-primary:hover { background: #33ffd6; }
+  .btn-outline {
+    background: transparent;
+    color: var(--green);
+    border: 1.5px solid rgba(0,255,204,0.4);
+  }
+  .btn-outline:hover { background: rgba(0,255,204,0.08); border-color: var(--green); }
+
+  /* AUTO-NOTE */
+  .auto-note {
+    background: rgba(0,255,204,0.03);
+    border: 1px solid rgba(0,255,204,0.1);
+    border-left: 3px solid var(--green);
+    border-radius: 8px;
+    padding: 20px 24px;
+    font-size: 0.85rem;
+    color: rgba(0,255,204,0.6);
+    margin-top: 36px;
+    line-height: 1.7;
+  }
+
+  /* FOOTER NAV */
+  .footer-nav {
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid var(--green-border);
+    padding: 20px;
+    text-align: center;
+  }
+  .footer-nav a {
+    color: rgba(0,255,204,0.5);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 14px;
+    transition: color 0.2s;
+  }
+  .footer-nav a:hover { color: var(--green); }
+  .footer-legal {
+    font-size: 0.75rem;
+    color: rgba(0,255,204,0.2);
+    padding: 16px 20px 30px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  @media (max-width: 600px) {
+    .split-visual { flex-direction: column; }
+    .split-crisis, .split-infra { flex: unset; }
+    .crisis-grid { grid-template-columns: 1fr; }
+    .footer-nav a { display: inline-block; margin: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">🌿 SolarPunk Crisis Dashboard</div>
+  <h1>99% of Every Dollar<br>Reaches People in Crisis</h1>
+  <p class="hero-sub">1% keeps SolarPunk running. 1% of endless is still plenty.</p>
+
+  <div class="split-visual">
+    <div class="split-crisis">
+      <div class="split-pct">99%</div>
+      <div class="split-desc">→ Crisis Zones</div>
+    </div>
+    <div class="split-infra">
+      <div class="split-pct">1%</div>
+      <div class="split-desc">→ Infra</div>
+    </div>
+  </div>
+  <p class="founder-note">Meeko built SolarPunk with time + creativity, not money.<br>So 99% goes where it's needed.</p>
+</div>
+
+<!-- CRISIS CARDS -->
+<div class="section">
+  <div class="section-title">Active Crisis Allocations</div>
+  <div class="crisis-grid">
+
+    <div class="crisis-card">
+      <div class="crisis-flag">🇵🇸</div>
+      <div class="crisis-name">Gaza / Palestine</div>
+      <div class="crisis-org">PCRF — Palestinian Children's Relief Fund</div>
+      <div class="crisis-ein">EIN: 11-3320278 · US 501c3 · Tax-deductible</div>
+      <div class="crisis-alloc">60% of the 99%</div><br>
+      <a href="https://www.pcrf.net/donate" class="btn btn-primary" target="_blank" rel="noopener">
+        Donate to PCRF →
+      </a>
+    </div>
+
+    <div class="crisis-card">
+      <div class="crisis-flag">🇸🇩</div>
+      <div class="crisis-name">Sudan</div>
+      <div class="crisis-org">International Rescue Committee</div>
+      <div class="crisis-ein">Largest humanitarian crisis. 25M+ need aid.</div>
+      <div class="crisis-alloc">15% of the 99%</div><br>
+      <a href="https://www.rescue.org/country/sudan" class="btn btn-primary" target="_blank" rel="noopener">
+        Donate to IRC →
+      </a>
+    </div>
+
+    <div class="crisis-card">
+      <div class="crisis-flag">🇨🇩</div>
+      <div class="crisis-name">DR Congo</div>
+      <div class="crisis-org">Doctors Without Borders / MSF</div>
+      <div class="crisis-ein">EIN: 13-3433452 · US 501c3 · Tax-deductible</div>
+      <div class="crisis-alloc">10% of the 99%</div><br>
+      <a href="https://www.doctorswithoutborders.org" class="btn btn-primary" target="_blank" rel="noopener">
+        Donate to MSF →
+      </a>
+    </div>
+
+    <div class="crisis-card">
+      <div class="crisis-flag">🇾🇪</div>
+      <div class="crisis-name">Yemen</div>
+      <div class="crisis-org">UNICEF</div>
+      <div class="crisis-ein">EIN: 13-1760110 · US 501c3 · Tax-deductible</div>
+      <div class="crisis-alloc">10% of the 99%</div><br>
+      <a href="https://www.unicef.org/emergencies/yemen-crisis" class="btn btn-primary" target="_blank" rel="noopener">
+        Donate to UNICEF →
+      </a>
+    </div>
+
+    <div class="crisis-card">
+      <div class="crisis-flag">🌍</div>
+      <div class="crisis-name">Climate Disasters</div>
+      <div class="crisis-org">Direct Relief</div>
+      <div class="crisis-ein">EIN: 95-1831116 · US 501c3 · Tax-deductible</div>
+      <div class="crisis-alloc">5% of the 99%</div><br>
+      <a href="https://www.directrelief.org" class="btn btn-primary" target="_blank" rel="noopener">
+        Donate to Direct Relief →
+      </a>
+    </div>
+
+  </div>
+
+  <div class="auto-note">
+    <strong>Autonomous Crisis Monitoring:</strong><br>
+    SolarPunk monitors ReliefWeb (UN) every cycle and automatically adds new active crises.
+    The weights auto-adjust. When new emergencies escalate, allocations shift.
+    No human approval required. The machine monitors the world and routes accordingly.
+    All changes are logged publicly in this repo.
+  </div>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <a href="donate.html">Donate</a>
+  <a href="crypto.html">Crypto</a>
+  <a href="index.html">Home</a>
+</div>
+<div class="footer-legal">
+  All allocations are public. All EINs are verifiable. All code is open source (MIT license).<br>
+  PCRF EIN: 11-3320278 · MSF EIN: 13-3433452 · UNICEF EIN: 13-1760110 · Direct Relief EIN: 95-1831116<br>
+  SolarPunk is not a nonprofit. It is an open-source software project by Meeko, Cuyahoga Falls, Ohio.<br>
+  Monthly transfers documented at
+  <a href="https://github.com/meekoenergy/meeko-nerve-center" style="color:rgba(0,255,204,0.5)">github.com/meekoenergy/meeko-nerve-center</a>
+</div>
+
+</body>
+</html>

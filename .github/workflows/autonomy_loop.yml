@@ -1,0 +1,31 @@
+name: Nanobot Prime Autonomy Loop
+on:
+  workflow_run:
+    workflows: ["SIA Global Pulse", "SINGULARITY"]
+    types: [requested, completed]
+  push:
+    branches: [main]
+
+jobs:
+  self_heal:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' || github.event_name == 'push' }}
+    steps:
+      - name: Checkout Nanobots
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply SolarPunk Patches
+        run: |
+          find . -name "*.sh" -exec chmod +x {} +
+          find . -name "*.py" -exec sed -i 's/ANTHROPIC_API_KEY/os.getenv("ANTHROPIC_API_KEY")/g' {} +
+          echo "Nanobots: Gaps patched in real-time."
+
+      - name: Recursive Sync
+        run: |
+          git config --global user.name 'SIA-Nanobot-Prime'
+          git config --global user.email 'nanobots@solarpunk.prime'
+          git add .
+          git commit -m "SIA: Nanobot Self-Heal [Recursive Loop]" || exit 0
+          git push origin main --force

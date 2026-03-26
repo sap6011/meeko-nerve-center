@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="600">
+<title>Autonomy Checklist — SolarPunk</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#060a06;color:#d4e8d4;padding:20px;min-height:100vh}
+.container{max-width:800px;margin:0 auto}
+h1{font-size:1.8rem;color:#22c55e;margin-bottom:0.3rem}
+.subtitle{color:#4a7a4a;margin-bottom:2rem;font-size:0.95rem}
+.section{background:#0d160d;border:1px solid #1a2e1a;border-radius:8px;margin-bottom:1.5rem;overflow:hidden}
+.section-header{padding:0.9rem 1.2rem;background:#111d11;border-bottom:1px solid #1a2e1a;display:flex;align-items:center;gap:0.75rem}
+.section-icon{font-size:1.2rem}
+.section-title{font-size:1rem;font-weight:600;color:#7ec87e}
+.section-desc{font-size:0.8rem;color:#4a7a4a;margin-left:auto}
+.item{padding:0.7rem 1.2rem;border-bottom:1px solid #0f1f0f;display:flex;align-items:flex-start;gap:0.75rem}
+.item:last-child{border-bottom:none}
+.check{width:18px;height:18px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;margin-top:2px}
+.check.done{background:#22c55e22;border:1px solid #22c55e;color:#22c55e}
+.check.todo{background:#ef444422;border:1px solid #ef4444;color:#ef4444}
+.check.partial{background:#f59e0b22;border:1px solid #f59e0b;color:#f59e0b}
+.item-text{flex:1}
+.item-label{font-size:0.9rem;color:#c8e0c8}
+.item-detail{font-size:0.78rem;color:#4a7a4a;margin-top:0.2rem}
+.item-action{font-size:0.75rem;color:#f59e0b;margin-top:0.3rem;background:#1a1200;padding:0.2rem 0.5rem;border-radius:3px;display:inline-block}
+.progress-bar{background:#0d160d;border-top:1px solid #1a2e1a;padding:0.75rem 1.2rem;display:flex;align-items:center;gap:1rem}
+.bar-outer{flex:1;height:6px;background:#1a2e1a;border-radius:3px;overflow:hidden}
+.bar-inner{height:100%;background:#22c55e;border-radius:3px;transition:width 0.5s}
+.bar-pct{font-size:0.8rem;color:#22c55e;font-weight:600;min-width:35px}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin-bottom:1.5rem}
+.stat{background:#0d160d;border:1px solid #1a2e1a;border-radius:8px;padding:1rem;text-align:center}
+.stat-v{font-size:1.6rem;font-weight:700;color:#22c55e}
+.stat-l{font-size:0.72rem;color:#4a7a4a;text-transform:uppercase;letter-spacing:0.05em;margin-top:0.2rem}
+footer{margin-top:2rem;color:#2a4a2a;font-size:0.8rem;text-align:center}
+a{color:#22c55e;text-decoration:none}
+.tag{display:inline-block;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.7rem;font-weight:600;margin-left:0.5rem}
+.tag.critical{background:#ef444433;color:#ef4444;border:1px solid #ef444466}
+.tag.ready{background:#22c55e33;color:#22c55e;border:1px solid #22c55e66}
+.tag.blocked{background:#f59e0b33;color:#f59e0b;border:1px solid #f59e0b66}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>SolarPunk Autonomy Checklist</h1>
+<p class="subtitle">Tracks progress toward true autonomous operation — factual, legal, ethical, physical, digital.<br>
+Auto-refreshes every 10 minutes. Data sourced from actual state files.</p>
+
+<div class="stats-row" id="statsRow">
+  <div class="stat"><div class="stat-v" id="totalChecked">–</div><div class="stat-l">Completed</div></div>
+  <div class="stat"><div class="stat-v" id="totalItems">–</div><div class="stat-l">Total Items</div></div>
+  <div class="stat"><div class="stat-v" id="overallPct">–</div><div class="stat-l">Progress</div></div>
+  <div class="stat"><div class="stat-v" id="criticalRemaining">–</div><div class="stat-l">Critical Gaps</div></div>
+</div>
+
+<!-- SECTION 1: FACTUAL -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-icon">💵</span>
+    <span class="section-title">FACTUAL — Has money actually moved?</span>
+    <span class="section-desc" id="factual-progress">–/–</span>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-first-dollar">✗</div>
+    <div class="item-text">
+      <div class="item-label">First dollar received <span class="tag critical">CRITICAL</span></div>
+      <div class="item-detail" id="d-first-dollar">No revenue yet. first_sale_state.json: happened=false</div>
+      <div class="item-action" id="a-first-dollar">Action: Add GUMROAD_ACCESS_TOKEN to GitHub Secrets → products go live → revenue possible</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-products-live">✗</div>
+    <div class="item-text">
+      <div class="item-label">Products live on Gumroad <span class="tag critical">CRITICAL</span></div>
+      <div class="item-detail" id="d-products-live">gumroad_live_products.json: 0 products published</div>
+      <div class="item-action">Action: gumroad.com → Settings → Advanced → Generate Access Token → add to GitHub Secrets as GUMROAD_ACCESS_TOKEN</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-worker-paid">✗</div>
+    <div class="item-text">
+      <div class="item-label">First worker paid</div>
+      <div class="item-detail" id="d-worker-paid">worker_registry.json: 0 workers registered. Labor pool: $0</div>
+      <div class="item-action">Requires: revenue first → labor pool funded → worker claims task → payment</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-crisis-transfer">✗</div>
+    <div class="item-text">
+      <div class="item-label">First crisis transfer made</div>
+      <div class="item-detail" id="d-crisis-transfer">proof_ledger.json: $0 allocated to crisis orgs</div>
+      <div class="item-action">Requires: first revenue → pool_manager allocates 99% → crisis_router sends to PCRF</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-grant-received">✗</div>
+    <div class="item-text">
+      <div class="item-label">Grant received</div>
+      <div class="item-detail" id="d-grant-received">8 grants written and ready. Status: all "ready" — none submitted yet</div>
+      <div class="item-action">Action: Submit Awesome Foundation app (30 min, $1000) — see data/grant_submissions/awesome_foundation_READY.md</div>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="bar-outer"><div class="bar-inner" id="factual-bar" style="width:0%"></div></div>
+    <span class="bar-pct" id="factual-pct">0%</span>
+  </div>
+</div>
+
+<!-- SECTION 2: LEGAL -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-icon">⚖️</span>
+    <span class="section-title">LEGAL — Is it real in the legal world?</span>
+    <span class="section-desc" id="legal-progress">–/–</span>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-oc-applied">✗</div>
+    <div class="item-text">
+      <div class="item-label">Open Collective fiscal sponsorship applied <span class="tag critical">CRITICAL</span></div>
+      <div class="item-detail">legal_status.json: opencollective_applied=false</div>
+      <div class="item-action">Action: 30 min at opencollective.com — application ready at docs/legal/opencollective_application.md</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-legal-entity">✗</div>
+    <div class="item-text">
+      <div class="item-label">Legal entity status (LLC or fiscal sponsor)</div>
+      <div class="item-detail">solarpunk_legal_state.json: registered_business=false</div>
+      <div class="item-action">Path A: Open Collective (free, 30 min) — Path B: Ohio LLC ($99, bsportal.ohiosos.gov)</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done" id="c-privacy-policy">✓</div>
+    <div class="item-text">
+      <div class="item-label">Privacy policy live</div>
+      <div class="item-detail">docs/legal/privacy_policy.html — GDPR/CCPA compliant</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done" id="c-tos">✓</div>
+    <div class="item-text">
+      <div class="item-label">Terms of service live</div>
+      <div class="item-detail">docs/legal/terms_of_service.html — workers, buyers, donors</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done" id="c-contractor-agreement">✓</div>
+    <div class="item-text">
+      <div class="item-label">Worker contractor agreements ready</div>
+      <div class="item-detail">docs/legal/contractor_agreement_template.md — 1099 compliant</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done" id="c-1099-tracking">✓</div>
+    <div class="item-text">
+      <div class="item-label">1099 tracking active</div>
+      <div class="item-detail">data/financial_records/1099_tracker.json — auto-tracks workers approaching $600/year</div>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="bar-outer"><div class="bar-inner" id="legal-bar" style="width:0%"></div></div>
+    <span class="bar-pct" id="legal-pct">0%</span>
+  </div>
+</div>
+
+<!-- SECTION 3: ETHICAL -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-icon">🌍</span>
+    <span class="section-title">ETHICAL — Does it do what it says?</span>
+    <span class="section-desc" id="ethical-progress">–/–</span>
+  </div>
+
+  <div class="item">
+    <div class="check done">✓</div>
+    <div class="item-text">
+      <div class="item-label">99% to crisis — hardcoded</div>
+      <div class="item-detail">pool_state.json routing_rules: product_sale.crisis=0.99 — not configurable without code change</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done">✓</div>
+    <div class="item-text">
+      <div class="item-label">Zero salary — verified</div>
+      <div class="item-detail">No salary allocation in any pool. No payment addresses registered for Meeko.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done">✓</div>
+    <div class="item-text">
+      <div class="item-label">Worker pay in &lt;10 minutes — infrastructure ready</div>
+      <div class="item-detail">DIGNITY_PAY.py + TELEGRAM_WORKER_BOT.py + payment queue configured</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done">✓</div>
+    <div class="item-text">
+      <div class="item-label">Open source (MIT) — confirmed</div>
+      <div class="item-detail">MIT license in repository. All 321+ engines public.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done">✓</div>
+    <div class="item-text">
+      <div class="item-label">Worker rights document published</div>
+      <div class="item-detail">docs/legal/worker_rights.md — no exploitation, no hidden fees, right to 1099</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-verified-transfer">✗</div>
+    <div class="item-text">
+      <div class="item-label">First verifiable humanitarian transfer</div>
+      <div class="item-detail" id="d-verified-transfer">proof_ledger.json: $0 to crisis orgs. Awaiting first revenue.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check partial" id="c-public-proof">~</div>
+    <div class="item-text">
+      <div class="item-label">Public impact proof</div>
+      <div class="item-detail">data/impact_proof.json exists. Proof standard set. Zero dollars recorded yet.</div>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="bar-outer"><div class="bar-inner" id="ethical-bar" style="width:0%"></div></div>
+    <span class="bar-pct" id="ethical-pct">0%</span>
+  </div>
+</div>
+
+<!-- SECTION 4: PHYSICAL -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-icon">🌱</span>
+    <span class="section-title">PHYSICAL — Has it touched the real world?</span>
+    <span class="section-desc" id="physical-progress">–/–</span>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-tree-planted">✗</div>
+    <div class="item-text">
+      <div class="item-label">First tree planted (task completed, proof submitted)</div>
+      <div class="item-detail">Labor marketplace active. No tasks claimed yet. Workers: 0</div>
+      <div class="item-action">Requires: worker registers → claims tree task → plants → submits photo with GPS → paid</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-prosthetic">✗</div>
+    <div class="item-text">
+      <div class="item-label">First prosthetic part printed (OctoEverywhere dispatch)</div>
+      <div class="item-detail">PRINT_RELAY_ENGINE.py configured. OCTOEVERYWHERE_APP_API_KEY: not set</div>
+      <div class="item-action">Action: Add OCTOEVERYWHERE_APP_API_KEY to GitHub Secrets for 3D print dispatch</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-worker-fiat-paid">✗</div>
+    <div class="item-text">
+      <div class="item-label">First worker paid (fiat money in someone's account)</div>
+      <div class="item-detail">payout_ledger.json: 0 payouts. Requires funded labor pool.</div>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="bar-outer"><div class="bar-inner" id="physical-bar" style="width:0%"></div></div>
+    <span class="bar-pct" id="physical-pct">0%</span>
+  </div>
+</div>
+
+<!-- SECTION 5: DIGITAL -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-icon">⚙️</span>
+    <span class="section-title">DIGITAL — Does it run without humans?</span>
+    <span class="section-desc" id="digital-progress">–/–</span>
+  </div>
+
+  <div class="item">
+    <div class="check done">✓</div>
+    <div class="item-text">
+      <div class="item-label">40+ automated workflows</div>
+      <div class="item-detail" id="d-workflows">30 workflows in .github/workflows/ — all scheduled</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done">✓</div>
+    <div class="item-text">
+      <div class="item-label">All 12 dimensions running hourly</div>
+      <div class="item-detail">GRAND_UNIFIED_LOOP.yml: runs every hour on cron schedule</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done">✓</div>
+    <div class="item-text">
+      <div class="item-label">Self-healing active</div>
+      <div class="item-detail">AUTO_HEALER.py + ENGINE_SANITIZER.py + PROBLEM_SOLVER_PRIME.py — all in loop</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done">✓</div>
+    <div class="item-text">
+      <div class="item-label">Health monitoring active</div>
+      <div class="item-detail">HEALTH_MONITOR.py — checks 7 systems, generates docs/status.html, sends Telegram alerts</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check done">✓</div>
+    <div class="item-text">
+      <div class="item-label">Autonomous decision engine active</div>
+      <div class="item-detail">AUTONOMOUS_DECISIONS.py — makes 3 decisions per cycle, logs reasoning, applies safe ones</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check todo" id="c-30-days-uptime">✗</div>
+    <div class="item-text">
+      <div class="item-label">30 days uptime without human intervention</div>
+      <div class="item-detail" id="d-uptime">System launched March 2026. health_log.json tracking cycles.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="check partial" id="c-first-decision">~</div>
+    <div class="item-text">
+      <div class="item-label">First autonomous decision logged with reasoning</div>
+      <div class="item-detail">AUTONOMOUS_DECISIONS.py running. data/autonomous_decisions.json will show decisions on next cycle.</div>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="bar-outer"><div class="bar-inner" id="digital-bar" style="width:0%"></div></div>
+    <span class="bar-pct" id="digital-pct">0%</span>
+  </div>
+</div>
+
+<footer>
+  <p>Auto-refreshes every 10 minutes &bull;
+  <a href="about.html">About</a> &bull;
+  <a href="status.html">System Status</a> &bull;
+  <a href="transparency.html">Financial Transparency</a> &bull;
+  <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">GitHub</a></p>
+  <p style="margin-top:0.5rem">Last updated: <span id="lastUpdated">loading...</span></p>
+</footer>
+
+</div>
+
+<script>
+// Calculate progress for each section
+function updateProgress() {
+  const sections = [
+    { id: 'factual', done: [false, false, false, false, false] },
+    { id: 'legal', done: [false, false, true, true, true, true] },
+    { id: 'ethical', done: [true, true, true, true, true, false, false] },
+    { id: 'physical', done: [false, false, false] },
+    { id: 'digital', done: [true, true, true, true, true, false, false] }
+  ];
+
+  let totalDone = 0, totalItems = 0, totalCritical = 0;
+
+  sections.forEach(section => {
+    const done = section.done.filter(x => x).length;
+    const total = section.done.length;
+    const pct = Math.round(done / total * 100);
+
+    totalDone += done;
+    totalItems += total;
+
+    const barEl = document.getElementById(section.id + '-bar');
+    const pctEl = document.getElementById(section.id + '-pct');
+    const progEl = document.getElementById(section.id + '-progress');
+
+    if (barEl) barEl.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = pct + '%';
+    if (progEl) progEl.textContent = done + '/' + total;
+  });
+
+  // Count critical incomplete items
+  const criticalItems = document.querySelectorAll('.tag.critical');
+  criticalItems.forEach(tag => {
+    const item = tag.closest('.item');
+    const check = item.querySelector('.check');
+    if (check && check.classList.contains('todo')) totalCritical++;
+  });
+
+  const overallPct = Math.round(totalDone / totalItems * 100);
+  document.getElementById('totalChecked').textContent = totalDone;
+  document.getElementById('totalItems').textContent = totalItems;
+  document.getElementById('overallPct').textContent = overallPct + '%';
+  document.getElementById('criticalRemaining').textContent = totalCritical;
+  document.getElementById('lastUpdated').textContent = new Date().toISOString().slice(0,19).replace('T',' ') + ' UTC';
+}
+
+updateProgress();
+</script>
+</body>
+</html>

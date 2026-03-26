@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Donations — SolarPunk × PCRF Gaza Relief</title>
+<meta name="description" content="Donate crypto to SolarPunk. Every coin routes to Gaza via PCRF. Bitcoin, Ethereum, Solana, USDC, Monero, Dogecoin, Tezos accepted.">
+<meta property="og:title" content="Donate Crypto — SolarPunk Autonomous AI">
+<meta property="og:description" content="70% of every crypto donation routes to PCRF for Gaza children. Held in treasury, converted monthly, every conversion documented publicly.">
+<style>
+  :root {
+    --green: #2d6a4f;
+    --light-green: #74c69d;
+    --gold: #f4a261;
+    --dark: #1b1b2f;
+    --dark2: #13131f;
+    --gray: #f0f0f0;
+    --red: #e63946;
+    --card-bg: rgba(255,255,255,0.06);
+    --card-border: rgba(255,255,255,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--dark);
+    color: #fff;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ──────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #1b1b2f 0%, #2d6a4f 50%, #1b1b2f 100%);
+    padding: 60px 20px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 50% 40%, rgba(116,198,157,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(244,162,97,0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  h1 span { color: var(--light-green); }
+  .subtitle {
+    font-size: 1.1rem;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.7;
+  }
+
+  /* ── SPLIT VISUAL ───────────────────────────────────── */
+  .split-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 30px auto;
+    max-width: 460px;
+  }
+  .split-block {
+    padding: 20px 28px;
+    border-radius: 14px;
+    text-align: center;
+    flex: 1;
+  }
+  .split-pcrf {
+    background: rgba(116,198,157,0.15);
+    border: 2px solid var(--light-green);
+  }
+  .split-infra {
+    background: rgba(244,162,97,0.10);
+    border: 2px solid rgba(244,162,97,0.4);
+  }
+  .split-num {
+    font-size: 2.5rem;
+    font-weight: 900;
+    display: block;
+  }
+  .split-pcrf .split-num { color: var(--light-green); }
+  .split-infra .split-num { color: var(--gold); }
+  .split-label { font-size: 0.85rem; opacity: 0.8; margin-top: 4px; }
+  .split-divider { font-size: 1.5rem; opacity: 0.4; }
+
+  /* ── ROUTING NOTE ───────────────────────────────────── */
+  .routing-note {
+    background: rgba(116,198,157,0.08);
+    border: 1px solid rgba(116,198,157,0.25);
+    border-left: 4px solid var(--light-green);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 20px auto;
+    max-width: 680px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: left;
+  }
+  .routing-note strong { color: var(--light-green); }
+
+  /* ── SECTIONS ───────────────────────────────────────── */
+  .section {
+    padding: 50px 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .section-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--light-green);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-subtitle {
+    font-size: 0.95rem;
+    opacity: 0.65;
+    margin-bottom: 28px;
+    margin-top: -12px;
+    line-height: 1.6;
+  }
+
+  /* ── CRYPTO GRID ───────────────────────────────────── */
+  .crypto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+    margin-bottom: 40px;
+  }
+  .crypto-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .crypto-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+  }
+  .crypto-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(116,198,157,0.4);
+  }
+  .crypto-card.btc::before  { background: #f7931a; }
+  .crypto-card.ln::before   { background: #f9c62b; }
+  .crypto-card.eth::before  { background: #627eea; }
+  .crypto-card.sol::before  { background: #9945ff; }
+  .crypto-card.usdc::before { background: #2775ca; }
+  .crypto-card.usdt::before { background: #26a17b; }
+  .crypto-card.xmr::before  { background: #ff6600; }
+  .crypto-card.xtz::before  { background: #2c7df7; }
+  .crypto-card.doge::before { background: #c2a633; }
+
+  .coin-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .coin-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .coin-icon.btc  { background: rgba(247,147,26,0.2);  color: #f7931a; }
+  .coin-icon.ln   { background: rgba(249,198,43,0.2);  color: #f9c62b; }
+  .coin-icon.eth  { background: rgba(98,126,234,0.2);  color: #627eea; }
+  .coin-icon.sol  { background: rgba(153,69,255,0.2);  color: #9945ff; }
+  .coin-icon.usdc { background: rgba(39,117,202,0.2);  color: #2775ca; }
+  .coin-icon.usdt { background: rgba(38,161,123,0.2);  color: #26a17b; }
+  .coin-icon.xmr  { background: rgba(255,102,0,0.2);   color: #ff6600; }
+  .coin-icon.xtz  { background: rgba(44,125,247,0.2);  color: #2c7df7; }
+  .coin-icon.doge { background: rgba(194,166,51,0.2);  color: #c2a633; }
+
+  .coin-name { font-size: 1.1rem; font-weight: 700; }
+  .coin-network { font-size: 0.78rem; opacity: 0.55; margin-top: 2px; }
+  .coin-desc { font-size: 0.85rem; opacity: 0.7; line-height: 1.5; margin-bottom: 14px; }
+
+  .address-box {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.75rem;
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+    color: var(--light-green);
+    margin-bottom: 12px;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .address-box.unconfigured {
+    color: rgba(255,255,255,0.35);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.8rem;
+    cursor: default;
+    border-style: dashed;
+  }
+  .address-box:not(.unconfigured):hover {
+    border-color: var(--light-green);
+  }
+  .copy-hint {
+    font-size: 0.7rem;
+    opacity: 0.45;
+    margin-bottom: 12px;
+  }
+
+  .qr-placeholder {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.05);
+    border: 1px dashed rgba(255,255,255,0.15);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    opacity: 0.4;
+    text-align: center;
+    line-height: 1.4;
+    float: right;
+    margin: 0 0 8px 8px;
+  }
+  .qr-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    float: right;
+    margin: 0 0 8px 8px;
+    background: #fff;
+  }
+  .clearfix::after { content: ''; display: table; clear: both; }
+
+  .infra-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  .infra-tag {
+    background: rgba(116,198,157,0.1);
+    border: 1px solid rgba(116,198,157,0.2);
+    color: var(--light-green);
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  /* ── SERVICES SECTION ──────────────────────────────── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .service-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .service-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(116,198,157,0.35);
+  }
+  .service-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  .service-desc {
+    font-size: 0.82rem;
+    opacity: 0.65;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary { background: var(--light-green); color: var(--dark); }
+  .btn-primary:hover { background: #95d5b2; }
+  .btn-outline {
+    background: transparent;
+    color: var(--light-green);
+    border: 1.5px solid var(--light-green);
+  }
+  .btn-outline:hover { background: rgba(116,198,157,0.1); }
+  .btn-gold { background: var(--gold); color: var(--dark); }
+  .btn-gold:hover { background: #e08c4e; }
+  .btn-sm { padding: 6px 12px; font-size: 0.78rem; }
+
+  /* ── WHY CRYPTO ─────────────────────────────────────── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .why-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .why-icon { font-size: 2rem; margin-bottom: 10px; }
+  .why-title { font-weight: 700; margin-bottom: 6px; font-size: 0.95rem; }
+  .why-text { font-size: 0.82rem; opacity: 0.65; line-height: 1.5; }
+
+  /* ── TRANSPARENCY BOX ──────────────────────────────── */
+  .transparency {
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--light-green);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    line-height: 1.7;
+  }
+  .transparency a { color: var(--light-green); }
+
+  /* ── LEGAL ──────────────────────────────────────────── */
+  .legal {
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 0.78rem;
+    opacity: 0.55;
+    line-height: 1.7;
+    margin-top: 30px;
+  }
+  .legal a { color: var(--light-green); }
+
+  /* ── NAV ────────────────────────────────────────────── */
+  .nav-bar {
+    background: rgba(27,27,47,0.95);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand { font-weight: 700; color: var(--light-green); font-size: 1rem; text-decoration: none; }
+  .nav-links { display: flex; gap: 16px; flex-wrap: wrap; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--light-green); }
+  .nav-links a.active { color: var(--light-green); font-weight: 600; }
+
+  /* ── FOOTER ─────────────────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    opacity: 0.45;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  footer a { color: var(--light-green); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── DIVIDER ────────────────────────────────────────── */
+  .divider {
+    height: 1px;
+    background: rgba(255,255,255,0.05);
+    margin: 0;
+  }
+
+  /* ── COPIED TOAST ──────────────────────────────────── */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--light-green);
+    color: var(--dark);
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    transition: transform 0.3s;
+    z-index: 999;
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── RESPONSIVE ─────────────────────────────────────── */
+  @media (max-width: 540px) {
+    .split-visual { flex-direction: column; }
+    .crypto-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Copied!</div>
+
+<!-- NAV -->
+<nav class="nav-bar">
+  <a href="index.html" class="nav-brand">&#127807; SolarPunk</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="donate.html">Fiat Donate</a>
+    <a href="crypto.html" class="active">Crypto</a>
+    <a href="shop.html">Shop</a>
+    <a href="proof.html">Proof</a>
+    <a href="https://github.com/mrmosho/solarpunk" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">&#9889; Crypto Donations — 8 Chains Accepted</div>
+  <h1>Donate Crypto<br><span>Every Coin Routes to Gaza</span></h1>
+  <p class="subtitle">
+    Bitcoin, Ethereum, Solana, Monero, and more — all held in the SolarPunk treasury,
+    converted to USD monthly, and transferred to PCRF for Gaza children's medical care.
+    Every conversion is documented publicly.
+  </p>
+
+  <div class="split-visual">
+    <div class="split-block split-pcrf">
+      <span class="split-num">70%</span>
+      <div class="split-label">&#8594; PCRF Gaza Relief</div>
+    </div>
+    <div class="split-divider">+</div>
+    <div class="split-block split-infra">
+      <span class="split-num">30%</span>
+      <div class="split-label">&#8594; Infrastructure</div>
+    </div>
+  </div>
+
+  <div class="routing-note">
+    <strong>How crypto routing works:</strong><br>
+    PCRF does not accept crypto directly. Every coin received is held in the SolarPunk treasury
+    and converted to USD once per month. The USD is then donated via
+    <a href="https://www.pcrf.net/donate" style="color:var(--light-green)">pcrf.net/donate</a>.
+    Every conversion — amount, exchange rate, date, and PCRF receipt — is logged in
+    <a href="PUBLIC_LEDGER.json" style="color:var(--light-green)">PUBLIC_LEDGER.json</a>.
+  </div>
+
+  <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="https://www.pcrf.net/donate" class="btn btn-primary" style="font-size:1rem;padding:12px 28px;">
+      Donate USD to PCRF &#8599;
+    </a>
+    <a href="donate.html" class="btn btn-outline" style="font-size:1rem;padding:12px 28px;">
+      Fiat Options &#8594;
+    </a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CRYPTO CARDS -->
+<div class="section">
+  <div class="section-title">&#9679; Accepted Cryptocurrencies</div>
+  <p class="section-subtitle">
+    Send any amount to the address below. All balances are checked monthly and converted to USD for PCRF.
+    Click any address to copy it.
+  </p>
+
+  <div class="crypto-grid">
+
+    <!-- BTC -->
+    <div class="crypto-card btc">
+      <div class="coin-header">
+        <div class="coin-icon btc">&#8383;</div>
+        <div>
+          <div class="coin-name">Bitcoin</div>
+          <div class="coin-network">BTC &mdash; Bitcoin Mainnet</div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <div class="qr-placeholder" id="qr-BTC">QR<br>code<br>here</div>
+        <div class="coin-desc">The original. Most widely held. Accepted via Coinbase Commerce and BTCPay Server.</div>
+      </div>
+      <div class="address-box unconfigured" id="addr-BTC" onclick="copyAddr('BTC')">
+        Configure BITCOIN_ADDRESS secret in GitHub repo settings
+      </div>
+      <div class="copy-hint" id="hint-BTC"></div>
+      <div class="infra-tags">
+        <span class="infra-tag">Coinbase Commerce</span>
+        <span class="infra-tag">BTCPay Server</span>
+      </div>
+    </div>
+
+    <!-- Lightning -->
+    <div class="crypto-card ln">
+      <div class="coin-header">
+        <div class="coin-icon ln">&#9889;</div>
+        <div>
+          <div class="coin-name">Bitcoin Lightning</div>
+          <div class="coin-network">BTC (LN) &mdash; Lightning Network</div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <div class="qr-placeholder" id="qr-LN">QR<br>code<br>here</div>
+        <div class="coin-desc">Instant micropayments. No wait, no mining fee. Via Strike.me or LNURL.</div>
+      </div>
+      <div class="address-box unconfigured" id="addr-LN" onclick="copyAddr('LN')">
+        Configure LIGHTNING_ADDRESS secret in GitHub repo settings
+      </div>
+      <div class="copy-hint" id="hint-LN"></div>
+      <div class="infra-tags">
+        <span class="infra-tag">Strike.me</span>
+        <span class="infra-tag">Phoenix Wallet</span>
+      </div>
+    </div>
+
+    <!-- ETH -->
+    <div class="crypto-card eth">
+      <div class="coin-header">
+        <div class="coin-icon eth">&#926;</div>
+        <div>
+          <div class="coin-name">Ethereum</div>
+          <div class="coin-network">ETH &mdash; Ethereum Mainnet + ERC-20</div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <div class="qr-placeholder" id="qr-ETH">QR<br>code<br>here</div>
+        <div class="coin-desc">ETH and all ERC-20 tokens. Same address works for USDC, USDT, DAI on Ethereum.</div>
+      </div>
+      <div class="address-box unconfigured" id="addr-ETH" onclick="copyAddr('ETH')">
+        Configure ETHEREUM_ADDRESS secret in GitHub repo settings
+      </div>
+      <div class="copy-hint" id="hint-ETH"></div>
+      <div class="infra-tags">
+        <span class="infra-tag">Coinbase Commerce</span>
+        <span class="infra-tag">NOWPayments</span>
+      </div>
+    </div>
+
+    <!-- SOL -->
+    <div class="crypto-card sol">
+      <div class="coin-header">
+        <div class="coin-icon sol">&#9675;</div>
+        <div>
+          <div class="coin-name">Solana</div>
+          <div class="coin-network">SOL &mdash; Solana Mainnet</div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <div class="qr-placeholder" id="qr-SOL">QR<br>code<br>here</div>
+        <div class="coin-desc">Fast, low-fee, and widely held. Also accepts USDC on Solana to this address.</div>
+      </div>
+      <div class="address-box unconfigured" id="addr-SOL" onclick="copyAddr('SOL')">
+        Configure SOLARPUNK_WALLET_ADDRESS secret in GitHub repo settings
+      </div>
+      <div class="copy-hint" id="hint-SOL"></div>
+      <div class="infra-tags">
+        <span class="infra-tag">NOWPayments</span>
+        <span class="infra-tag">Solana RPC</span>
+      </div>
+    </div>
+
+    <!-- USDC -->
+    <div class="crypto-card usdc">
+      <div class="coin-header">
+        <div class="coin-icon usdc">$</div>
+        <div>
+          <div class="coin-name">USD Coin</div>
+          <div class="coin-network">USDC &mdash; ETH / SOL / Base / Polygon</div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <div class="qr-placeholder" id="qr-USDC">QR<br>code<br>here</div>
+        <div class="coin-desc">Stablecoin. No volatility risk. Available on Ethereum, Solana, Base, and Polygon.</div>
+      </div>
+      <div class="address-box unconfigured" id="addr-USDC" onclick="copyAddr('USDC')">
+        Configure USDC_ADDRESS secret in GitHub repo settings
+      </div>
+      <div class="copy-hint" id="hint-USDC"></div>
+      <div class="infra-tags">
+        <span class="infra-tag">Coinbase Commerce</span>
+        <span class="infra-tag">Multi-chain</span>
+      </div>
+    </div>
+
+    <!-- USDT -->
+    <div class="crypto-card usdt">
+      <div class="coin-header">
+        <div class="coin-icon usdt">&#8366;</div>
+        <div>
+          <div class="coin-name">Tether</div>
+          <div class="coin-network">USDT &mdash; ETH / Tron / Solana</div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <div class="qr-placeholder" id="qr-USDT">QR<br>code<br>here</div>
+        <div class="coin-desc">Largest stablecoin by market cap. Widely held globally, especially outside the US.</div>
+      </div>
+      <div class="address-box unconfigured" id="addr-USDT" onclick="copyAddr('USDT')">
+        Configure USDT_ADDRESS secret in GitHub repo settings
+      </div>
+      <div class="copy-hint" id="hint-USDT"></div>
+      <div class="infra-tags">
+        <span class="infra-tag">NOWPayments</span>
+      </div>
+    </div>
+
+    <!-- XMR -->
+    <div class="crypto-card xmr">
+      <div class="coin-header">
+        <div class="coin-icon xmr">&#625;</div>
+        <div>
+          <div class="coin-name">Monero</div>
+          <div class="coin-network">XMR &mdash; Monero Mainnet</div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <div class="qr-placeholder" id="qr-XMR">QR<br>code<br>here</div>
+        <div class="coin-desc">Privacy coin. Censorship-resistant. Converted to USD monthly and donated to PCRF.</div>
+      </div>
+      <div class="address-box unconfigured" id="addr-XMR" onclick="copyAddr('XMR')">
+        Configure MONERO_ADDRESS secret in GitHub repo settings
+      </div>
+      <div class="copy-hint" id="hint-XMR"></div>
+      <div class="infra-tags">
+        <span class="infra-tag">NOWPayments</span>
+        <span class="infra-tag">Privacy</span>
+      </div>
+    </div>
+
+    <!-- XTZ -->
+    <div class="crypto-card xtz">
+      <div class="coin-header">
+        <div class="coin-icon xtz">&#42857;</div>
+        <div>
+          <div class="coin-name">Tezos</div>
+          <div class="coin-network">XTZ &mdash; Tezos Mainnet</div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <div class="qr-placeholder" id="qr-XTZ">QR<br>code<br>here</div>
+        <div class="coin-desc">NFT-friendly chain — also used for Gaza Rose Gallery NFT sales on objkt.com.</div>
+      </div>
+      <div class="address-box unconfigured" id="addr-XTZ" onclick="copyAddr('XTZ')">
+        Configure TEZOS_ADDRESS secret in GitHub repo settings
+      </div>
+      <div class="copy-hint" id="hint-XTZ"></div>
+      <div class="infra-tags">
+        <span class="infra-tag">objkt.com</span>
+        <span class="infra-tag">Gaza Rose Gallery</span>
+      </div>
+    </div>
+
+    <!-- DOGE -->
+    <div class="crypto-card doge">
+      <div class="coin-header">
+        <div class="coin-icon doge">&#208;</div>
+        <div>
+          <div class="coin-name">Dogecoin</div>
+          <div class="coin-network">DOGE &mdash; Dogecoin Mainnet</div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <div class="qr-placeholder" id="qr-DOGE">QR<br>code<br>here</div>
+        <div class="coin-desc">Community coin. Much humanitarian. Very impact. Converted monthly and routed to PCRF.</div>
+      </div>
+      <div class="address-box unconfigured" id="addr-DOGE" onclick="copyAddr('DOGE')">
+        Configure DOGECOIN_ADDRESS secret in GitHub repo settings
+      </div>
+      <div class="copy-hint" id="hint-DOGE"></div>
+      <div class="infra-tags">
+        <span class="infra-tag">NOWPayments</span>
+        <span class="infra-tag">Community</span>
+      </div>
+    </div>
+
+  </div><!-- /crypto-grid -->
+
+  <div class="transparency">
+    <strong>Treasury routing process:</strong> Crypto is held in the SolarPunk treasury wallet &rarr;
+    converted to USD once per month using a regulated exchange &rarr;
+    transferred to PCRF via <a href="https://www.pcrf.net/donate">pcrf.net/donate</a>.
+    Every conversion is logged with: date, crypto amount, exchange rate, USD received, and PCRF confirmation.
+    All records are in <a href="PUBLIC_LEDGER.json">PUBLIC_LEDGER.json</a> (public, permanent).
+    PCRF does not accept crypto directly &mdash; this monthly conversion process ensures 100% of crypto value
+    reaches them in a form they can use.
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- NO WALLET? USE THESE SERVICES -->
+<div class="section">
+  <div class="section-title">&#128179; No Wallet? Use These Services</div>
+  <p class="section-subtitle">
+    No crypto wallet yet? These services let you buy crypto and send it in minutes.
+  </p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-name">&#128258; CoinGecko</div>
+      <div class="service-desc">
+        Research any coin. Tracks prices, market caps, and where to buy. Start here if you're new to crypto.
+      </div>
+      <a href="https://www.coingecko.com" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+        Explore Coins &#8599;
+      </a>
+    </div>
+    <div class="service-card">
+      <div class="service-name">&#128178; Coinbase</div>
+      <div class="service-desc">
+        Buy BTC, ETH, SOL, USDC with a credit card or bank transfer. Then send to the addresses above.
+      </div>
+      <a href="https://www.coinbase.com" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+        Buy Crypto &#8599;
+      </a>
+    </div>
+    <div class="service-card">
+      <div class="service-name">&#9889; Strike</div>
+      <div class="service-desc">
+        Lightning Network payments. Send Bitcoin instantly with near-zero fees. Great for micropayments.
+      </div>
+      <a href="https://strike.me" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+        Get Strike &#8599;
+      </a>
+    </div>
+    <div class="service-card">
+      <div class="service-name">&#128196; NOWPayments</div>
+      <div class="service-desc">
+        100+ cryptos accepted. Auto-converts. If your coin isn't listed above, reach out — we can add it.
+      </div>
+      <a href="https://nowpayments.io" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+        NOWPayments &#8599;
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WHY CRYPTO -->
+<div class="section">
+  <div class="section-title">&#128161; Why Crypto?</div>
+  <p class="section-subtitle">
+    Crypto donations have real advantages over fiat for humanitarian causes.
+  </p>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">&#9889;</div>
+      <div class="why-title">Instant Settlement</div>
+      <div class="why-text">Transfers confirm in seconds or minutes — no 3–5 business day bank delays.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">&#127758;</div>
+      <div class="why-title">Globally Accessible</div>
+      <div class="why-text">Send from any country. No bank account needed. No wire transfer limits.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">&#128184;</div>
+      <div class="why-title">Low Fees</div>
+      <div class="why-text">Lightning and Solana transactions cost fractions of a cent. More money reaches aid.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">&#128274;</div>
+      <div class="why-title">No Chargebacks</div>
+      <div class="why-text">Crypto transactions are final. No reversed donations, no payment disputes.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">&#128295;</div>
+      <div class="why-title">Censorship-Resistant</div>
+      <div class="why-text">No payment processor can block or freeze a crypto transfer.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">&#128202;</div>
+      <div class="why-title">Fully Auditable</div>
+      <div class="why-text">Every transaction is on-chain and permanent. Full public audit trail, forever.</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FIAT OPTION CTA -->
+<div class="section" style="text-align:center;padding:40px 20px;">
+  <div style="
+    background: linear-gradient(135deg, rgba(244,162,97,0.10), rgba(45,106,79,0.15));
+    border: 1px solid rgba(244,162,97,0.3);
+    border-radius: 16px;
+    padding: 40px 32px;
+    max-width: 640px;
+    margin: 0 auto;
+  ">
+    <div style="font-size:2rem;margin-bottom:12px;">&#128181;</div>
+    <h2 style="font-size:1.4rem;margin-bottom:12px;">Prefer USD, Card, or PayPal?</h2>
+    <p style="opacity:0.75;margin-bottom:20px;line-height:1.6;font-size:0.95rem;">
+      Fiat options include Ko-fi, GitHub Sponsors, PayPal, and direct PCRF donation.
+      Same 70/30 split. Same radical transparency.
+    </p>
+    <a href="donate.html" class="btn btn-gold" style="font-size:1rem;padding:12px 28px;">
+      See Fiat Donation Options &#8594;
+    </a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- LEGAL -->
+<div class="section">
+  <div class="legal">
+    <strong>Legal Disclosure:</strong> SolarPunk routes 70% of all revenue to the Palestine Children's Relief Fund
+    (PCRF), a verified US 501(c)(3) nonprofit organization (EIN: 11-3320278). Donations processed through SolarPunk
+    infrastructure are not directly tax-deductible to the donor unless routed to PCRF. For a tax-deductible donation,
+    donate directly at <a href="https://www.pcrf.net/donate">pcrf.net/donate</a>.
+    SolarPunk is not itself a nonprofit — it is an autonomous AI revenue system that programmatically routes a portion
+    of revenue to PCRF. All financial activity is publicly documented in
+    <a href="PUBLIC_LEDGER.json">PUBLIC_LEDGER.json</a>.
+    <br><br>
+    PCRF verification:
+    <a href="https://www.charitynavigator.org/ein/113320278" target="_blank" rel="noopener">
+      Charity Navigator (EIN 11-3320278)
+    </a> &bull;
+    <a href="https://www.pcrf.net" target="_blank" rel="noopener">pcrf.net</a>
+    <br><br>
+    Crypto conversion: All cryptocurrency received is converted to USD monthly before transfer to PCRF.
+    PCRF does not accept cryptocurrency directly. Every conversion is logged in PUBLIC_LEDGER.json with
+    date, amount, exchange rate, USD equivalent, and transaction ID.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    SolarPunk &mdash; Autonomous Humanitarian AI &bull;
+    <a href="index.html">Home</a> &bull;
+    <a href="donate.html">Fiat Donate</a> &bull;
+    <a href="https://github.com/mrmosho/solarpunk" target="_blank" rel="noopener">GitHub (MIT)</a> &bull;
+    <a href="https://www.pcrf.net" target="_blank" rel="noopener">PCRF (EIN: 11-3320278)</a>
+  </p>
+  <p style="margin-top:8px;">
+    All code open source (MIT). All transactions public. Zero salary overhead. 70% to Gaza.
+  </p>
+</footer>
+
+<script>
+// ── Wallet address data injected from crypto_wallets.json (or static fallback) ──
+// This section is populated by CRYPTO_TREASURY.py when it writes crypto_wallets.json.
+// If wallets are configured, addresses and QR codes appear automatically.
+// For now, loads from relative path if available.
+
+const WALLET_ADDRESSES = {
+  BTC:  '',
+  LN:   '',
+  ETH:  '',
+  SOL:  '',
+  USDC: '',
+  USDT: '',
+  XMR:  '',
+  XTZ:  '',
+  DOGE: '',
+};
+
+function buildQRUrl(address, size) {
+  if (!address) return null;
+  return 'https://api.qrserver.com/v1/create-qr-code/?data=' +
+    encodeURIComponent(address) + '&size=' + size + 'x' + size + '&margin=8';
+}
+
+function setWalletUI(symbol, address) {
+  if (!address) return;
+  const addrEl = document.getElementById('addr-' + symbol);
+  const hintEl = document.getElementById('hint-' + symbol);
+  const qrEl   = document.getElementById('qr-'   + symbol);
+  if (addrEl) {
+    addrEl.classList.remove('unconfigured');
+    addrEl.textContent = address;
+    addrEl.title = 'Click to copy';
+  }
+  if (hintEl) {
+    hintEl.textContent = 'Click address to copy';
+  }
+  if (qrEl && qrEl.tagName === 'DIV') {
+    const img = document.createElement('img');
+    img.src = buildQRUrl(address, 160);
+    img.alt = symbol + ' QR code';
+    img.className = 'qr-img';
+    img.width = 80;
+    img.height = 80;
+    img.onerror = function() { this.style.display = 'none'; };
+    qrEl.replaceWith(img);
+  }
+}
+
+// Apply any pre-set addresses
+Object.entries(WALLET_ADDRESSES).forEach(([sym, addr]) => {
+  if (addr) setWalletUI(sym, addr);
+});
+
+// Try to load from crypto_wallets.json
+fetch('data/crypto_wallets.json')
+  .then(r => r.ok ? r.json() : null)
+  .then(data => {
+    if (!data || !data.wallets) return;
+    Object.entries(data.wallets).forEach(([sym, info]) => {
+      if (info && info.configured && info.raw_address) {
+        setWalletUI(sym, info.raw_address);
+      }
+    });
+  })
+  .catch(() => {}); // silently ignore if file doesn't exist
+
+// Copy address to clipboard
+function copyAddr(symbol) {
+  const el = document.getElementById('addr-' + symbol);
+  if (!el || el.classList.contains('unconfigured')) return;
+  const text = el.textContent.trim();
+  if (!text || text.startsWith('Configure')) return;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showToast(symbol + ' address copied!'));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast(symbol + ' address copied!');
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donate Crypto to SolarPunk</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --border: #2a2a2a;
+      --text: #e0e0e0;
+      --muted: #888;
+      --green: #22c55e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; padding: 2rem; }
+    header { text-align: center; margin-bottom: 3rem; }
+    header h1 { font-size: 2.5rem; color: var(--green); margin-bottom: 0.5rem; }
+    header p { color: var(--muted); max-width: 600px; margin: 0 auto 0.5rem; line-height: 1.6; }
+    .philosophy { background: #0f1f0f; border: 1px solid var(--green); border-radius: 8px;
+                   padding: 1rem 1.5rem; max-width: 700px; margin: 1.5rem auto; }
+    .philosophy p { color: #a0d0a0; font-size: 0.95rem; line-height: 1.7; }
+    .impact { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin: 2rem 0; }
+    .impact-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+                    padding: 1rem 1.5rem; text-align: center; min-width: 140px; }
+    .impact-card .num { font-size: 1.8rem; font-weight: 700; color: var(--green); }
+    .impact-card .lbl { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+    .wallets { display: flex; flex-direction: column; gap: 1.5rem; max-width: 800px; margin: 0 auto; }
+    .wallet-card { background: var(--card); border: 2px solid; border-radius: 12px; padding: 1.5rem;
+                    transition: transform 0.2s; }
+    .wallet-card:hover { transform: translateY(-2px); }
+    .wallet-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .symbol { font-size: 1.5rem; font-weight: 700; }
+    .name { color: var(--muted); font-size: 1.1rem; }
+    .wallet-body { display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; }
+    .qr-container { flex-shrink: 0; }
+    .address-block { flex: 1; min-width: 200px; }
+    .address-label { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.4rem; }
+    .address { display: block; background: #1a1a1a; border-radius: 6px; padding: 0.6rem 0.8rem;
+                font-size: 0.75rem; word-break: break-all; margin-bottom: 0.75rem;
+                cursor: pointer; border: 1px solid var(--border); }
+    .address:hover { border-color: #444; }
+    .copy-btn { background: transparent; border: 1px solid; border-radius: 6px; padding: 0.4rem 1rem;
+                 cursor: pointer; font-size: 0.85rem; transition: background 0.2s; }
+    .copy-btn:hover { background: rgba(255,255,255,0.05); }
+    .balance { color: var(--green); font-size: 0.85rem; margin-top: 0.5rem; }
+    .desc { color: var(--muted); font-size: 0.85rem; margin-top: 1rem; line-height: 1.5; }
+    .routing { background: #0f1a0f; border: 1px solid #2a4a2a; border-radius: 8px;
+                padding: 1rem 1.5rem; max-width: 800px; margin: 2rem auto; }
+    .routing h3 { color: var(--green); margin-bottom: 0.75rem; }
+    .routing ul { color: #a0c0a0; font-size: 0.9rem; line-height: 1.8; padding-left: 1.2rem; }
+    footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 3rem; }
+    .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+              background: var(--green); color: #000; padding: 0.75rem 1.5rem; border-radius: 8px;
+              font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    @media (max-width: 600px) { .wallet-body { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Donate Crypto to SolarPunk</h1>
+  <p>SolarPunk is an autonomous humanitarian AI system routing funds to Gaza, Sudan, Yemen, and DRC.</p>
+  <p>Every crypto donation goes to crisis response — 99% to humanitarian orgs, 1% to keep the lights on.</p>
+
+  <div class="philosophy">
+    <p>Your crypto, your privacy. Bitcoin reaches every country. Monero protects donors in authoritarian regimes.
+    Ethereum connects you to the entire DeFi + Gitcoin ecosystem. All addresses are verified and publicly auditable.
+    SolarPunk holds nothing — it routes everything.</p>
+  </div>
+
+  <div class="impact">
+    <div class="impact-card"><div class="num">99%</div><div class="lbl">to humanitarian crises</div></div>
+    <div class="impact-card"><div class="num">4</div><div class="lbl">active crisis regions</div></div>
+    <div class="impact-card"><div class="num">0%</div><div class="lbl">admin fees taken</div></div>
+    <div class="impact-card"><div class="num">24/7</div><div class="lbl">autonomous routing</div></div>
+  </div>
+</header>
+
+<div class="wallets">
+  
+  
+  
+  
+</div>
+
+<div class="routing">
+  <h3>How Your Crypto Gets Routed</h3>
+  <ul>
+    <li><strong>Gaza Emergency Response</strong> — Medical supplies, food, shelter (35% of crisis pool)</li>
+    <li><strong>Sudan Famine Relief</strong> — Emergency food aid, displacement support (25%)</li>
+    <li><strong>Yemen Humanitarian Crisis</strong> — Water, medicine, food (20%)</li>
+    <li><strong>DRC Congo Conflict</strong> — Displacement and medical (15%)</li>
+    <li><strong>Climate Emergency Response</strong> — Disaster response fund (5%)</li>
+  </ul>
+</div>
+
+<footer>
+  <p>SolarPunk | Autonomous Humanitarian AI | Open Source</p>
+  <p>All transactions auditable on-chain. Generated 2026-03-20 UTC</p>
+  <p><a href="donate.html" style="color: var(--green);">Other ways to donate →</a></p>
+</footer>
+
+<div class="toast" id="toast">Address copied!</div>
+
+<script>
+function copyAddress(addr) {
+  navigator.clipboard.writeText(addr).then(() => {
+    const t = document.getElementById('toast');
+    t.style.opacity = '1';
+    setTimeout(() => { t.style.opacity = '0'; }, 2000);
+  }).catch(() => {
+    const el = document.createElement('textarea');
+    el.value = addr;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    const t = document.getElementById('toast');
+    t.style.opacity = '1';
+    setTimeout(() => { t.style.opacity = '0'; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

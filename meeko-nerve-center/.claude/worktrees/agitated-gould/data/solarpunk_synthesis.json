@@ -1,0 +1,216 @@
+{
+  "meta": {
+    "title": "SolarPunk Synthesis Knowledge",
+    "description": "New knowledge created by combining verified SolarPunk models. Each entry is a design that doesn't exist yet as a named project but is directly derivable from proven models.",
+    "last_updated": "2026-03-21T01:32:15.504023Z",
+    "count": 6
+  },
+  "syntheses": [
+    {
+      "id": "clt_plus_solar",
+      "name": "Energy-Sovereign Community Land Trust",
+      "type": "synthesis",
+      "requires_categories": [
+        "community_land_trust",
+        "indigenous_solar"
+      ],
+      "description": "A CLT with community-owned rooftop solar creates permanently affordable, energy-sovereign housing. Residents own both the land governance and the energy production. Neither can be taken away by a landlord or utility.",
+      "model": "Community Land Trust holds land + Solar Cooperative owns and operates rooftop array. Members pay into both. CLT resale formula keeps housing affordable; solar coop distributes energy dividends.",
+      "how_to_build": [
+        "Form CLT with tripartite board (residents/community/public interest)",
+        "Add Energy Committee with dedicated Solar Working Group",
+        "Install community solar array on CLT-held land or building rooftops",
+        "Structure as solar cooperative with membership shares held by CLT residents",
+        "Energy dividends offset monthly ground lease payments — solar reduces housing cost",
+        "Add battery storage for grid resilience — CLT becomes a microgrid island in outages"
+      ],
+      "example_organizations": [
+        "Grounded Solutions Network",
+        "Clean Energy States Alliance",
+        "NRECA"
+      ],
+      "funding_paths": [
+        "LIHTC + ITC (Investment Tax Credit)",
+        "DOE Solar for All program",
+        "USDA Rural Energy for America Program"
+      ],
+      "code_integration": null,
+      "agents_used": [],
+      "created_by": "KNOWLEDGE_LOOP synthesis engine",
+      "created_at": "2026-03-21T01:32:15.504023Z",
+      "verifiable": false,
+      "synthesis_confidence": "high"
+    },
+    {
+      "id": "food_forest_coop",
+      "name": "Worker-Owned Food Forest Cooperative",
+      "type": "synthesis",
+      "requires_categories": [
+        "food_forest",
+        "worker_cooperative"
+      ],
+      "description": "A worker cooperative that manages and harvests a community food forest creates a permanent, democratic food production system. Workers own the enterprise; the community owns the land. Food sovereignty and economic democracy in the same structure.",
+      "model": "Community land trust holds the land. Worker cooperative holds the harvest rights and manages the forest. Surplus sold via CSA shares. Workers paid by labor-hours. Community members get discounted shares.",
+      "how_to_build": [
+        "Establish food forest on CLT or municipal land with 99-year stewardship agreement",
+        "Form worker cooperative of 5-15 founding members with equal voting rights",
+        "Sign harvest rights agreement between CLT and cooperative",
+        "Launch CSA (Community Supported Agriculture) shares — pre-sold at planting season",
+        "Use patronage dividend structure: workers receive surplus based on labor hours contributed",
+        "Expand forest annually — each profitable season funds new canopy and understory layers"
+      ],
+      "example_organizations": [
+        "USFWC",
+        "Denver Urban Gardens",
+        "Practical Farmers of Iowa"
+      ],
+      "funding_paths": [
+        "USDA Beginning Farmer and Rancher grants",
+        "CDFI cooperative development funds"
+      ],
+      "code_integration": null,
+      "agents_used": [],
+      "created_by": "KNOWLEDGE_LOOP synthesis engine",
+      "created_at": "2026-03-21T01:32:15.504023Z",
+      "verifiable": false,
+      "synthesis_confidence": "high"
+    },
+    {
+      "id": "indigenous_knowledge_grid",
+      "name": "Indigenous Knowledge + Autonomous Grid Monitoring",
+      "type": "synthesis",
+      "requires_categories": [
+        "indigenous_solar",
+        "mutual_aid_tech"
+      ],
+      "description": "Indigenous communities operating their own solar grids can use autonomous agent systems (like MatrixSwarm) to monitor grid health, predict failures, and coordinate maintenance — combining traditional ecological knowledge with open-source AI agents.",
+      "model": "Community-owned solar microgrid + MatrixSwarm agent network running on local hardware. Agents monitor voltage, consumption patterns, weather data, and alert community coordinators. Knowledge of the land informs siting; agents monitor the technology.",
+      "how_to_build": [
+        "Install solar + battery microgrid (see Solar North model)",
+        "Deploy local Raspberry Pi or similar running MatrixSwarm agents",
+        "Configure system_health agent to monitor inverter + battery data via Modbus/MQTT",
+        "Configure watchdog agent to alert community coordinator (SMS via local Twilio) on anomalies",
+        "Train community members as grid stewards — knowledge transfer is part of sovereignty",
+        "Open-source all monitoring code and sensor configs for other Nations to fork"
+      ],
+      "example_organizations": [],
+      "funding_paths": [],
+      "code_integration": "mycelium/matrixswarm/",
+      "agents_used": [
+        "system_health",
+        "watchdog",
+        "alarm_streamer",
+        "network_health"
+      ],
+      "created_by": "KNOWLEDGE_LOOP synthesis engine",
+      "created_at": "2026-03-21T01:32:15.504023Z",
+      "verifiable": false,
+      "synthesis_confidence": "high"
+    },
+    {
+      "id": "repair_cafe_time_bank",
+      "name": "Repair Cafe + Time Bank = Circular Economy Hub",
+      "type": "synthesis",
+      "requires_categories": [
+        "mutual_aid_tech",
+        "worker_cooperative"
+      ],
+      "description": "A repair cafe (fix things instead of discarding them) combined with a time bank (exchange labor hours as currency) creates a closed-loop circular economy hub. No money required. Skills are the currency. The community builds resilience by learning to maintain its own infrastructure.",
+      "model": "Repair cafe meets weekly. Participants earn time credits for repair work. Credits exchangeable for other skills in the time bank network. Tool library on-site — borrow the tool, fix the thing, earn the credit.",
+      "how_to_build": [
+        "Find a consistent space (library, community center, church) — free or low cost",
+        "Recruit founding fixers in 5+ skill areas: electronics, textiles, bikes, furniture, appliances",
+        "Register with Repair Cafe International for training + materials",
+        "Set up time bank using hOurworld or Community Weaver software — both open source",
+        "Launch tool library alongside: start with 50 commonly borrowed tools",
+        "Track items repaired and waste diverted — this data gets you municipal grants"
+      ],
+      "example_organizations": [
+        "Repair Cafe International",
+        "TimeBanks USA",
+        "hOurworld"
+      ],
+      "funding_paths": [
+        "Municipal waste diversion grants",
+        "Community foundation grants",
+        "Local business sponsorship"
+      ],
+      "code_integration": null,
+      "agents_used": [],
+      "created_by": "KNOWLEDGE_LOOP synthesis engine",
+      "created_at": "2026-03-21T01:32:15.504023Z",
+      "verifiable": false,
+      "synthesis_confidence": "high"
+    },
+    {
+      "id": "community_mesh_solar",
+      "name": "Solar-Powered Community Mesh Internet",
+      "type": "synthesis",
+      "requires_categories": [
+        "mutual_aid_tech",
+        "indigenous_solar"
+      ],
+      "description": "A community-owned mesh internet network powered by community solar creates digital sovereignty. No ISP. No surveillance. No throttling. The community owns the pipes and the power.",
+      "model": "Directional antennas on community buildings or towers form a mesh network. Each node powered by a small solar panel + battery. One upstream connection (or satellite) shared among all nodes. Community cooperative governs access and expansion.",
+      "how_to_build": [
+        "Map community buildings with line-of-sight for antenna placement",
+        "Use LibreRouter or similar open-source mesh routing hardware — ~$150/node",
+        "Power each node with 50W solar panel + 100Ah battery — full off-grid node ~$300",
+        "Form a telecommunications cooperative under your state's rural telecom statutes",
+        "Apply to FCC Emergency Connectivity Fund or USDA ReConnect Program for rural mesh",
+        "Train local technicians — mesh maintenance is learnable in a weekend workshop"
+      ],
+      "example_organizations": [
+        "NYC Mesh",
+        "Althea Networks",
+        "LibreRouter Project"
+      ],
+      "funding_paths": [
+        "USDA ReConnect Program",
+        "FCC Emergency Connectivity Fund",
+        "Local government broadband grants"
+      ],
+      "code_integration": null,
+      "agents_used": [],
+      "created_by": "KNOWLEDGE_LOOP synthesis engine",
+      "created_at": "2026-03-21T01:32:15.504023Z",
+      "verifiable": false,
+      "synthesis_confidence": "high"
+    },
+    {
+      "id": "biochar_food_forest",
+      "name": "Biochar + Food Forest = Carbon-Sequestering Food Production",
+      "type": "synthesis",
+      "requires_categories": [
+        "food_forest",
+        "worker_cooperative"
+      ],
+      "description": "Integrating biochar production into food forest management creates a system that produces food, sequesters carbon permanently, and builds soil. The pruning waste from the food forest becomes biochar. The biochar feeds the soil. The soil grows more food.",
+      "model": "Food forest pruning → low-temperature pyrolysis (biochar kiln) → biochar + syngas → biochar inoculated with compost → applied to food forest soil → increased yield → more pruning → loop.",
+      "how_to_build": [
+        "Build or purchase a biochar kiln — can be made from 2 steel barrels for <$100",
+        "Collect all woody pruning waste from food forest (and neighborhood) during dormant season",
+        "Run a pyrolysis burn (produces biochar + usable heat for community space)",
+        "Inoculate biochar with compost tea before application — 'activates' it for soil",
+        "Apply at 10% by volume to new food forest planting beds",
+        "Document yield improvements year-over-year — biochar is permanent, improves for decades",
+        "Sell verified carbon credits through a voluntary carbon market if scale warrants"
+      ],
+      "example_organizations": [
+        "International Biochar Initiative",
+        "Carbon Drawdown Initiative"
+      ],
+      "funding_paths": [
+        "USDA Biomass Crop Assistance Program",
+        "Voluntary carbon markets",
+        "Local composting grants"
+      ],
+      "code_integration": null,
+      "agents_used": [],
+      "created_by": "KNOWLEDGE_LOOP synthesis engine",
+      "created_at": "2026-03-21T01:32:15.504023Z",
+      "verifiable": false,
+      "synthesis_confidence": "high"
+    }
+  ]
+}

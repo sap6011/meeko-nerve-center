@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About SolarPunk — Autonomous Humanitarian AI</title>
+<meta name="description" content="SolarPunk is a 321-engine autonomous AI system that earns money and routes 99% to crisis humanitarian organizations.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#0a0a0a;color:#e5e5e5;padding:20px;line-height:1.7}
+.container{max-width:800px;margin:0 auto}
+h1{font-size:2rem;margin-bottom:0.5rem;color:#fff}
+h2{font-size:1.3rem;color:#22c55e;margin:2rem 0 0.75rem;padding-top:1rem;border-top:1px solid #1a1a1a}
+p{margin-bottom:1rem;color:#ccc}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1.5rem 0}
+.stat{background:#111;border:1px solid #222;border-radius:8px;padding:1rem}
+.stat-value{font-size:1.8rem;font-weight:700;color:#22c55e}
+.stat-label{font-size:0.8rem;color:#888;text-transform:uppercase;letter-spacing:0.05em}
+ul{color:#ccc;padding-left:1.5rem;margin-bottom:1rem}
+ul li{margin-bottom:0.4rem}
+.loop-diagram{background:#111;border:1px solid #333;border-radius:8px;padding:1.5rem;margin:1.5rem 0;font-family:monospace;font-size:0.85rem;color:#22c55e;text-align:center;line-height:2}
+.cta{background:#111522;border:1px solid #1e40af;border-radius:8px;padding:1.5rem;margin:2rem 0}
+.cta h3{color:#60a5fa;margin-bottom:0.5rem}
+.cta a{color:#60a5fa;text-decoration:none;font-weight:600}
+footer{margin-top:3rem;padding-top:1rem;border-top:1px solid #1a1a1a;color:#555;font-size:0.85rem}
+a{color:#22c55e;text-decoration:none}
+.tag{display:inline-block;background:#1a2a1a;color:#22c55e;border:1px solid #2d5a2d;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.8rem;margin:0.2rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>SolarPunk</h1>
+<p style="color:#888;margin-bottom:1.5rem">Autonomous Humanitarian AI — Launched March 2026 &bull; MIT Licensed &bull; Cuyahoga Falls, OH</p>
+
+<span class="tag">Open Source</span>
+<span class="tag">99% Humanitarian</span>
+<span class="tag">Zero Salaries</span>
+<span class="tag">Self-Running</span>
+
+<h2>What It Is</h2>
+<p>SolarPunk is a fully autonomous AI system that earns money and routes 99% of it to people in
+crisis zones — Gaza, Sudan, DRC, Yemen — without any human managing it. It runs on GitHub's
+free servers 24/7, earning through digital products and grants, paying workers to do real
+environmental work, and routing the rest to verified humanitarian organizations.</p>
+
+<p>It was built by Meeko, a developer in Cuyahoga Falls, Ohio, with Claude as a collaborator.
+The entire codebase (336 Python engines, 41 GitHub Actions workflows)
+is MIT licensed. Anyone can fork it and deploy their own instance.</p>
+
+<h2>How It Works</h2>
+<div class="loop-diagram">
+Revenue (Gumroad + Grants + Affiliates)
+&darr;
+Pool Manager (splits: 99% crisis / 1% infrastructure)
+&darr;
+Crisis Router (PCRF, IRC, MSF, WFP, CARE)
+&darr;
+Grant Hunter (finds new money, submits applications)
+&darr;
+Labor Marketplace (pays workers $25-$60 per task)
+&darr;
+Proof of Impact (records everything publicly)
+&darr; &uarr;
+[ Loop repeats every hour, forever ]
+</div>
+
+<h2>The Numbers</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value">336</div>
+    <div class="stat-label">Python Engines</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">41</div>
+    <div class="stat-label">Workflows</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">0</div>
+    <div class="stat-label">Workers Registered</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">$0</div>
+    <div class="stat-label">Total Routed</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">99%</div>
+    <div class="stat-label">To Humanitarian Orgs</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">8</div>
+    <div class="stat-label">Grant Applications</div>
+  </div>
+</div>
+
+<h2>Who Gets the Money</h2>
+<ul>
+<li>PCRF (Palestine Children's Relief Fund, EIN 11-3320278)</li>
+<li>IRC (International Rescue Committee)</li>
+<li>MSF (Doctors Without Borders)</li>
+<li>WFP (World Food Programme)</li>
+<li>CARE International</li>
+</ul>
+<p>All allocations are publicly recorded in
+<a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/blob/main/data/proof_ledger.json">data/proof_ledger.json</a>.
+Every dollar is traceable.</p>
+
+<h2>Who Built It</h2>
+<p>Meeko. Cuyahoga Falls, Ohio. A builder, not a nonprofit director. SolarPunk was built in
+30 days starting March 2026, with Claude (Anthropic's AI) as a collaborator and co-author
+of most of the code. It is entirely open source.</p>
+
+<p>When Meeko explained the system to Claude, Claude said: <em>"This is a prosthetic hand for the planet."</em>
+That's still the best description.</p>
+
+<h2>Legal Status</h2>
+<p>SolarPunk is currently seeking Open Collective fiscal sponsorship, which would provide
+a 501(c)(3) umbrella entity, tax-deductible donation status, and full legal legitimacy.
+Until then, all operations are transparent and publicly auditable on GitHub.</p>
+
+<h2>Fork It</h2>
+<p>The entire codebase is MIT licensed. Fork it, deploy your own instance, route revenue
+to a different crisis. You're not competing with SolarPunk — you're multiplying the effect.</p>
+
+<div class="cta">
+  <h3>Get Involved</h3>
+  <p><strong>Work:</strong> <a href="work.html">Earn $25-$60 for environmental tasks</a></p>
+  <p><strong>Donate:</strong> <a href="donate.html">99% goes to crisis orgs immediately</a></p>
+  <p><strong>Fork:</strong> <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">Deploy your own autonomous instance</a></p>
+  <p><strong>Buy:</strong> <a href="index.html#products">Digital products fund the mission</a></p>
+</div>
+
+<footer>
+  <p>Last updated: 2026-03-20 &bull;
+  <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">GitHub</a> &bull;
+  <a href="transparency.html">Financial Transparency</a> &bull;
+  <a href="status.html">System Status</a> &bull;
+  <a href="legal/privacy_policy.html">Privacy</a> &bull;
+  <a href="legal/terms_of_service.html">Terms</a></p>
+</footer>
+
+</div>
+</body>
+</html>

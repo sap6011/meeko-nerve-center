@@ -1,0 +1,33 @@
+name: SIA Global Pulse
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Runs every 6 hours
+  workflow_dispatch:      # Allows manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install requests
+
+      - name: Run Global Scout
+        continue-on-error: true
+        run: python mycelium/scout_bot.py
+
+      - name: Sync Growth
+        run: |
+          git config --global user.name 'SIA-Autonomous-Node'
+          git config --global user.email 'agency@solarpunk.prime'
+          git add .
+          git -c commit.gpgsign=false commit -m "SIA: Global Pulse - Autonomous Growth Recorded" || exit 0
+          git push origin main 2>/dev/null || git push origin HEAD:main --force-with-lease

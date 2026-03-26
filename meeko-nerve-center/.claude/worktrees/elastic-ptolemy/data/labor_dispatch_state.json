@@ -1,0 +1,80 @@
+{
+  "posted_tasks": [],
+  "completed_tasks": [],
+  "total_rewards_paid_usd": 0,
+  "generated_at": "2026-03-20T22:24:02.401770+00:00",
+  "rentahuman_available": false,
+  "task_library_count": 5,
+  "tasks_posted_this_run": [],
+  "tasks_completed": [],
+  "errors": [],
+  "mode": "queue_only",
+  "capability_unlock": {
+    "secret": "RENTAHUMAN_API_KEY",
+    "impact": "HIGH",
+    "enables": "Physical-world task dispatch: river monitoring, print dropoffs, flyer distribution",
+    "how_to_get": "Register at rentahuman.ai, create API key under Settings"
+  },
+  "pending_tasks": [
+    {
+      "id": "river-health-photo-cuyahoga",
+      "title": "Cuyahoga River health photo verification",
+      "description": "Walk to the Cuyahoga River (Cuyahoga Falls, OH) and take 3 geo-tagged photos: (1) water clarity at riverbank, (2) visible wildlife/plants, (3) any pollution/debris. Upload via RentaHuman app for AI vision analysis.",
+      "reward_usd": 15.0,
+      "reward_credits": 150,
+      "location_required": "Cuyahoga Falls, OH, USA",
+      "category": "environmental_monitoring",
+      "priority": "MEDIUM",
+      "recurrence": "weekly",
+      "verification": "gps_photo"
+    },
+    {
+      "id": "print-dropoff-pcrf",
+      "title": "3D print pickup and dropoff to PCRF collection point",
+      "description": "Pick up completed 3D-printed medical supply (prosthetic or tourniquet holder) from print node and deliver to nearest PCRF or humanitarian collection point. Photograph handoff for confirmation.",
+      "reward_usd": 25.0,
+      "reward_credits": 250,
+      "location_required": "near 3D print node",
+      "category": "humanitarian_logistics",
+      "priority": "HIGH",
+      "recurrence": "on_demand",
+      "verification": "photo_handoff"
+    },
+    {
+      "id": "gaza-rose-gallery-flyer",
+      "title": "Print + distribute Gaza Rose Gallery flyers",
+      "description": "Print 20 copies of the Gaza Rose Gallery flyer (PDF provided) and post/distribute at local community boards, coffee shops, or art spaces in your city. Photograph 3 posted flyers for verification.",
+      "reward_usd": 10.0,
+      "reward_credits": 100,
+      "location_required": "any city",
+      "category": "marketing",
+      "priority": "MEDIUM",
+      "recurrence": "monthly",
+      "verification": "photo_flyers"
+    },
+    {
+      "id": "local-ai-node-setup",
+      "title": "Help a neighbor set up Ollama / local AI",
+      "description": "Assist a community member (friend, neighbor, local library) with installing Ollama and a local LLM on their computer. Document the session. Qualifies for SolarPunk mutual-aid skill credit.",
+      "reward_usd": 30.0,
+      "reward_credits": 300,
+      "location_required": "any",
+      "category": "education",
+      "priority": "LOW",
+      "recurrence": "ongoing",
+      "verification": "session_log"
+    },
+    {
+      "id": "community-solar-survey",
+      "title": "Community solar roof assessment",
+      "description": "Survey 5 neighboring rooftops with our orientation guide and photo checklist. Rate solar suitability (1-5), photograph each roof. Supports SolarPunk grid expansion.",
+      "reward_usd": 20.0,
+      "reward_credits": 200,
+      "location_required": "residential neighborhood",
+      "category": "infrastructure",
+      "priority": "LOW",
+      "recurrence": "on_demand",
+      "verification": "photo_survey"
+    }
+  ]
+}

@@ -1,0 +1,776 @@
+name: "🧠 OMNIBRAIN v3 — SolarPunk Full Stack"
+
+on:
+  schedule:
+    - cron: '0 7  * * *'
+    - cron: '0 19 * * *'
+  workflow_dispatch:
+    inputs:
+      instruction:
+        description: 'Manual instruction for this run'
+        required: false
+        default: ''
+
+jobs:
+  omnibrain:
+    name: "🧠 OMNIBRAIN v3"
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    permissions:
+      contents: write
+    env:
+      UNUSUAL_WHALES_API_KEY: ${{ secrets.UNUSUAL_WHALES_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests 2>/dev/null || true
+
+      - name: Configure git
+        run: |
+          git config user.name 'SolarPunk'
+          git config user.email 'solarpunk@meeko-nerve-center'
+          mkdir -p data mycelium docs saves
+
+      # ── PHASE 0: SELF-SOLVING LOOP OPENS ────────────────────────────────────
+      # SolarPunk asks what it needs, fixes what's broken, THEN does its work.
+
+      - name: "🔮 Phase 0.0 pre — SWARM_ORACLE (ask: what do we need?)"
+        run: python3 mycelium/SWARM_ORACLE.py || echo "SWARM_ORACLE error"
+        continue-on-error: true
+
+      - name: "🔧 Phase 0.0 pre-b — PROBLEM_SOLVER_PRIME (fix broken things first)"
+        run: python3 mycelium/PROBLEM_SOLVER_PRIME.py || echo "PROBLEM_SOLVER_PRIME error"
+        continue-on-error: true
+
+      - name: "🌍 Phase 0.0 pre-c — BIOREGIONAL_CLOCK (sync to Earth rhythm)"
+        run: python3 mycelium/BIOREGIONAL_CLOCK.py || echo "BIOREGIONAL_CLOCK error"
+        continue-on-error: true
+
+      - name: "🌊 Phase 0c — PLANETARY_OVERFLOW (track digital→physical)"
+        run: python3 mycelium/PLANETARY_OVERFLOW.py || echo "PLANETARY_OVERFLOW error"
+        continue-on-error: true
+
+      - name: "💰 Phase 0.0 pre-d — POOL_MANAGER (route all revenue, pay workers)"
+        run: python3 mycelium/POOL_MANAGER.py || echo "POOL_MANAGER error"
+        continue-on-error: true
+
+      # ── PHASE 0: KNOWLEDGE + LOOP OPEN ─────────────────────────────────────
+
+      - name: "📚 Phase 0.0a — REPO_LIBRARIAN (index full repo state)"
+        run: python3 mycelium/REPO_LIBRARIAN.py || echo "REPO_LIBRARIAN error"
+        continue-on-error: true
+
+      - name: "🛍️ Phase 0.0b — PRODUCT_REGISTRY (map docs/ → Gumroad)"
+        run: python3 mycelium/PRODUCT_REGISTRY.py || echo "PRODUCT_REGISTRY error"
+        continue-on-error: true
+
+      - name: "🔌 Phase 0.0c — CAPABILITY_BROKER (check live secret availability)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          PAYPAL_CLIENT_ID: ${{ secrets.PAYPAL_CLIENT_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          OCTOEVERYWHERE_APP_API_KEY: ${{ secrets.OCTOEVERYWHERE_APP_API_KEY }}
+          OCTOEVERYWHERE_APP_TOKEN: ${{ secrets.OCTOEVERYWHERE_APP_TOKEN }}
+          RENTAHUMAN_API_KEY: ${{ secrets.RENTAHUMAN_API_KEY }}
+          SOLARPUNK_WALLET_ADDRESS: ${{ secrets.SOLARPUNK_WALLET_ADDRESS }}
+        run: python3 mycelium/CAPABILITY_BROKER.py || echo "CAPABILITY_BROKER error"
+        continue-on-error: true
+
+      - name: "🧠 Phase 0.0d — KNOWLEDGE_SYNTHESIZER (unify all knowledge sources)"
+        run: python3 mycelium/KNOWLEDGE_SYNTHESIZER.py || echo "KNOWLEDGE_SYNTHESIZER error"
+        continue-on-error: true
+
+      - name: "🌐 Phase 0.0d2 — SWARM_QUERY (ask the swarm: where's the easy money?)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          MASTODON_API_BASE_URL: ${{ secrets.MASTODON_API_BASE_URL }}
+        run: python3 mycelium/SWARM_QUERY.py || echo "SWARM_QUERY error"
+        continue-on-error: true
+
+      - name: "🔗 Phase 0.0e — ORPHAN_CONNECTOR (wire unconnected data + scripts)"
+        run: python3 mycelium/ORPHAN_CONNECTOR.py || echo "ORPHAN_CONNECTOR error"
+        continue-on-error: true
+
+      - name: "📦 Phase 0.0f — ARCHIVE_BRAIN (saves/ + knowledge_ingest/ → active loop)"
+        run: python3 mycelium/ARCHIVE_BRAIN.py || echo "ARCHIVE_BRAIN error"
+        continue-on-error: true
+
+      - name: "🌅 Phase 0.0 — CYCLE_OPENER (read all knowledge → write cycle_brief)"
+        run: python3 mycelium/CYCLE_OPENER.py || echo "CYCLE_OPENER error"
+        continue-on-error: true
+
+      - name: "0.0g — FREQUENCY_TUNER (harmonic check)"
+        run: python mycelium/FREQUENCY_TUNER.py
+        continue-on-error: true
+
+      # ── PHASE 0: INTEGRITY ──────────────────────────────────────────────────
+
+      - name: "⚖️ Phase 0.1 — COMPLIANCE_MONITOR (legal shell health)"
+        env:
+          SAMGOV_API_KEY: ${{ secrets.SAMGOV_API_KEY }}
+        run: python3 mycelium/compliance_monitor.py || echo "COMPLIANCE_MONITOR error"
+        continue-on-error: true
+
+      - name: "🛡️ Phase 0 — GUARDIAN"
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/GUARDIAN.py || echo "GUARDIAN error"
+        continue-on-error: true
+
+      - name: "🤖 Phase 0.5 — GEMINI_BRIDGE (fallback brain)"
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/GEMINI_BRIDGE.py || echo "GEMINI_BRIDGE error"
+        continue-on-error: true
+
+      # ── PHASE 1-2: HARVEST + MEMORY ────────────────────────────────────────
+
+      - name: "🌿 Phase 1 — CONTENT_HARVESTER (free APIs, zero cost)"
+        run: python3 mycelium/CONTENT_HARVESTER.py || echo "CONTENT_HARVESTER error"
+        continue-on-error: true
+
+      - name: "🆓 Phase 1.5 — FREE_API_ENGINE (zero-auth public data)"
+        run: python3 mycelium/FREE_API_ENGINE.py || echo "FREE_API_ENGINE error"
+        continue-on-error: true
+
+      - name: "🏛️ Phase 2 — MEMORY_PALACE (persist + learn)"
+        run: python3 mycelium/MEMORY_PALACE.py || echo "MEMORY_PALACE error"
+        continue-on-error: true
+
+      - name: "📚 Phase 2.5 — KNOWLEDGE_DISPATCH (distill + seed NEURON_A)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/knowledge_dispatch.py || echo "KNOWLEDGE_DISPATCH error"
+        continue-on-error: true
+
+      # ── PHASE 3-4: BRAINS ──────────────────────────────────────────────────
+
+      - name: "🧠 Phase 3 — NEURON_A Builder Brain"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/NEURON_A.py || echo "NEURON_A error"
+        continue-on-error: true
+
+      - name: "🧠 Phase 4 — NEURON_B Skeptic Brain"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/NEURON_B.py || echo "NEURON_B error"
+        continue-on-error: true
+
+      - name: "🔑 Phase 4.5 — SECRETS_CHECKER (diagnose what's configured)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          SAMGOV_API_KEY: ${{ secrets.SAMGOV_API_KEY }}
+        run: python3 mycelium/SECRETS_CHECKER.py || echo "SECRETS_CHECKER error"
+        continue-on-error: true
+
+      # ── PHASE 5-6: PRODUCT CREATION ────────────────────────────────────────
+
+      - name: "🏪 Phase 5 — ETSY_SEO_ENGINE (Gaza Rose listings)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/ETSY_SEO_ENGINE.py || echo "ETSY_SEO_ENGINE error"
+        continue-on-error: true
+
+      - name: "🛒 Phase 5.1 — GUMROAD_AUTO_QUEUE (build product listing queue)"
+        env:
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+        run: python3 mycelium/GUMROAD_AUTO_QUEUE.py || echo "GUMROAD_AUTO_QUEUE error"
+        continue-on-error: true
+
+      - name: "🚀 Phase 5.2 — GUMROAD_PRODUCT_PUBLISHER (publish to Gumroad)"
+        env:
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/GUMROAD_PRODUCT_PUBLISHER.py || echo "GUMROAD_PRODUCT_PUBLISHER error"
+        continue-on-error: true
+
+      - name: "🤖 Phase 5.3 — AGENT_GUMROAD_BUILDER (AI nano-agent for listings)"
+        env:
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/AGENT_GUMROAD_BUILDER.py || echo "AGENT_GUMROAD_BUILDER error"
+        continue-on-error: true
+
+      - name: "💰 Phase 6 — INCOME_ARCHITECT ($1 Art Loop)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/INCOME_ARCHITECT.py || echo "INCOME_ARCHITECT error"
+        continue-on-error: true
+
+      - name: "📄 Phase 6.5 — PDF_GENERATOR (create sellable guides via Groq)"
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/PDF_GENERATOR.py || echo "PDF_GENERATOR error"
+        continue-on-error: true
+
+      # ── PHASE 7: ART + DELIVERY ────────────────────────────────────────────
+
+      - name: "🎨 Phase 7 — ART_GENERATOR (fulfill orders)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python3 mycelium/ART_GENERATOR.py || echo "ART_GENERATOR error"
+        continue-on-error: true
+
+      - name: "📦 Phase 7.1 — PRODUCT_DELIVERY_ENGINE (auto-deliver on sale)"
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/PRODUCT_DELIVERY_ENGINE.py || echo "PRODUCT_DELIVERY_ENGINE error"
+        continue-on-error: true
+
+      - name: "🎉 Phase 7.2 — FIRST_SALE_NOTIFIER (milestone tracker)"
+        run: python3 mycelium/FIRST_SALE_NOTIFIER.py || echo "FIRST_SALE_NOTIFIER error"
+        continue-on-error: true
+
+      - name: "💰 Phase 7.5 — MONETIZATION_TRACKER (revenue signals)"
+        run: python3 mycelium/monetization_tracker.py || echo "MONETIZATION_TRACKER error"
+        continue-on-error: true
+
+      - name: "📊 Phase 7.6 — SIGNAL_TRACKER (content performance)"
+        run: python3 mycelium/signal_tracker.py || echo "SIGNAL_TRACKER error"
+        continue-on-error: true
+
+      # ── PHASE 8: REVENUE ANALYSIS ──────────────────────────────────────────
+
+      - name: "💰 Phase 7.7 — EASY_MONEY_FINDER (find live opportunities: grants, bounties, products)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 mycelium/EASY_MONEY_FINDER.py || echo "EASY_MONEY_FINDER error"
+        continue-on-error: true
+
+      - name: "💸 Phase 8 — REVENUE_FLYWHEEL (upgrade alerts)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/REVENUE_FLYWHEEL.py || echo "REVENUE_FLYWHEEL error"
+        continue-on-error: true
+
+      - name: "🔎 Phase 8.1 — REVENUE_AUDIT (find every broken link blocking sales)"
+        run: python3 mycelium/REVENUE_AUDIT.py || echo "REVENUE_AUDIT error"
+        continue-on-error: true
+
+      - name: "💹 Phase 8.5 — REVENUE_OPTIMIZER (maximize every stream)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+        run: python3 mycelium/REVENUE_OPTIMIZER.py || echo "REVENUE_OPTIMIZER error"
+        continue-on-error: true
+
+      - name: "🏗️ Phase 8.6 — PASSIVE_INCOME_ARCHITECT (invent new streams)"
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/PASSIVE_INCOME_ARCHITECT.py || echo "PASSIVE_INCOME_ARCHITECT error"
+        continue-on-error: true
+
+      - name: "🏛️ Phase 8.7 — REVENUE_ARCHITECT (map full revenue architecture)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+          OPENCOLLECTIVE_API_KEY: ${{ secrets.OPENCOLLECTIVE_API_KEY }}
+        run: python3 mycelium/REVENUE_ARCHITECT.py || echo "REVENUE_ARCHITECT error"
+        continue-on-error: true
+
+      - name: "🔄 Phase 8.8 — CIRCULATION_ENGINE (ensure money never leaves the loop)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 mycelium/CIRCULATION_ENGINE.py || echo "CIRCULATION_ENGINE error"
+        continue-on-error: true
+
+      # ── PHASE 9: AUTO-BUILD ─────────────────────────────────────────────────
+
+      - name: "🏭 Phase 9 — SYNTHESIS_FACTORY (safe auto-builder)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/SYNTHESIS_FACTORY.py || echo "SYNTHESIS_FACTORY error"
+        continue-on-error: true
+
+      # ── PHASE 10: SOCIAL + DISTRIBUTION ────────────────────────────────────
+
+      - name: "📢 Phase 10 — SOCIAL_PROMOTER (traffic engine)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+        run: python3 mycelium/SOCIAL_PROMOTER.py || echo "SOCIAL_PROMOTER error"
+        continue-on-error: true
+
+      - name: "🐦 Phase 10.1 — AGENT_TWEET_WRITER (tweet drafts → queue)"
+        run: python3 mycelium/AGENT_TWEET_WRITER.py || echo "AGENT_TWEET_WRITER error"
+        continue-on-error: true
+
+      - name: "🦋 Phase 10.2 — BLUESKY_ENGINE (Bluesky / AT Protocol)"
+        env:
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+        run: python3 mycelium/BLUESKY_ENGINE.py || echo "BLUESKY_ENGINE error"
+        continue-on-error: true
+
+      - name: "🐘 Phase 10.3 — MASTODON_ENGINE (Fediverse posts)"
+        env:
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          MASTODON_API_BASE_URL: ${{ secrets.MASTODON_API_BASE_URL }}
+        run: python3 mycelium/MASTODON_ENGINE.py || echo "MASTODON_ENGINE error"
+        continue-on-error: true
+
+      - name: "📣 Phase 9c — AUTO_ANNOUNCE (SolarPunk announces itself)"
+        env:
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          MASTODON_API_BASE_URL: ${{ secrets.MASTODON_API_BASE_URL }}
+          DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 mycelium/AUTO_ANNOUNCE.py || echo "AUTO_ANNOUNCE error"
+        continue-on-error: true
+
+      - name: "👩‍💻 Phase 10.4 — DEV_TO_PUBLISHER (dev.to articles)"
+        env:
+          DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
+        run: python3 mycelium/DEV_TO_PUBLISHER.py || echo "DEV_TO_PUBLISHER error"
+        continue-on-error: true
+
+      - name: "📡 Phase 10.5 — RSS_PUBLISHER (RSS feed from newsletter archive)"
+        run: python3 mycelium/RSS_PUBLISHER.py || echo "RSS_PUBLISHER error"
+        continue-on-error: true
+
+      - name: "📮 Phase 10.55 — CROSS_POSTER (brain-gated distributor)"
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+        run: python3 mycelium/cross_poster.py || echo "CROSS_POSTER error"
+        continue-on-error: true
+
+      - name: "📈 Phase 10.6 — SOCIAL_VELOCITY (distribution metrics)"
+        run: python3 mycelium/social_velocity.py || echo "SOCIAL_VELOCITY error"
+        continue-on-error: true
+
+      - name: "🔥 Phase 10.7 — VIRALITY_ENGINE (HN/Reddit/Twitter launch posts)"
+        run: python3 mycelium/VIRALITY_ENGINE.py || echo "VIRALITY_ENGINE error"
+        continue-on-error: true
+
+      - name: "📊 Phase 10.8 — SOCIAL_DASHBOARD (copy-paste board → docs/social.html)"
+        run: python3 mycelium/SOCIAL_DASHBOARD.py || echo "SOCIAL_DASHBOARD error"
+        continue-on-error: true
+
+      - name: "🔗 Phase 10.9 — AFFILIATE_MAXIMIZER (inject affiliate links)"
+        run: python3 mycelium/AFFILIATE_MAXIMIZER.py || echo "AFFILIATE_MAXIMIZER error"
+        continue-on-error: true
+
+      - name: "📣 Phase 10.91 — AUTONOMOUS_PUBLISHER (voice that never fails)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/AUTONOMOUS_PUBLISHER.py || echo "AUTONOMOUS_PUBLISHER error"
+        continue-on-error: true
+
+      - name: "🌱 Phase 10.92 — GROWTH_CHAIN (distribute→attract→convert→retain)"
+        run: python3 mycelium/GROWTH_CHAIN.py || echo "GROWTH_CHAIN error"
+        continue-on-error: true
+
+      - name: "🐙 Phase 10.93 — GITHUB_POSTER (product announcements via GitHub)"
+        run: python3 mycelium/GITHUB_POSTER.py || echo "GITHUB_POSTER error"
+        continue-on-error: true
+
+      - name: "📦 Phase 10.94 — GITHUB_RELEASES_PUBLISHER (host product files)"
+        run: python3 mycelium/GITHUB_RELEASES_PUBLISHER.py || echo "GITHUB_RELEASES_PUBLISHER error"
+        continue-on-error: true
+
+      # ── PHASE 11: STOREFRONTS ───────────────────────────────────────────────
+
+      - name: "🏪 Phase 11 — GUMROAD_ENGINE (AI-powered product listings)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+        run: python3 mycelium/GUMROAD_ENGINE.py || echo "GUMROAD_ENGINE error"
+        continue-on-error: true
+
+      - name: "🖼️ Phase 11.1 — ART_CATALOG (Gaza Rose Gallery → docs/art.html)"
+        run: python3 mycelium/ART_CATALOG.py || echo "ART_CATALOG error"
+        continue-on-error: true
+
+      - name: "🏬 Phase 11.2 — NANOSHOP_ENGINE (micro-storefront builder)"
+        run: python3 mycelium/NANOSHOP_ENGINE.py || echo "NANOSHOP_ENGINE error"
+        continue-on-error: true
+
+      - name: "🛍️ Phase 11.21 — STOREFRONT_BUILDER (shop.html + landing pages)"
+        env:
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+        run: python3 mycelium/STOREFRONT_BUILDER.py || echo "STOREFRONT_BUILDER error"
+        continue-on-error: true
+
+      - name: "🏗️ Phase 11.22 — STORE_BUILDER (self-regenerating storefront)"
+        run: python3 mycelium/STORE_BUILDER.py || echo "STORE_BUILDER error"
+        continue-on-error: true
+
+      - name: "🚀 Phase 11.23 — LANDING_DEPLOYER (deploy landing pages → docs/)"
+        env:
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+        run: python3 mycelium/LANDING_DEPLOYER.py || echo "LANDING_DEPLOYER error"
+        continue-on-error: true
+
+      - name: "☕ Phase 11.3 — KOFI_ENGINE (Ko-fi 0% fee processor)"
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/KOFI_ENGINE.py || echo "KOFI_ENGINE error"
+        continue-on-error: true
+
+      - name: "☕ Phase 11.31 — KOFI_PAYMENT_TRACKER (reconcile Ko-fi payments)"
+        run: python3 mycelium/KOFI_PAYMENT_TRACKER.py || echo "KOFI_PAYMENT_TRACKER error"
+        continue-on-error: true
+
+      - name: "💚 Phase 11.4 — GITHUB_SPONSORS_ENGINE (sponsors + FUNDING.yml)"
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/GITHUB_SPONSORS_ENGINE.py || echo "GITHUB_SPONSORS_ENGINE error"
+        continue-on-error: true
+
+      - name: "📰 Phase 11.5 — SUBSTACK_ENGINE (newsletter draft + auto-publish)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/SUBSTACK_ENGINE.py || echo "SUBSTACK_ENGINE error"
+        continue-on-error: true
+
+      - name: "📧 Phase 11.6 — NEWSLETTER_ENGINE (full email newsletter)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/NEWSLETTER_ENGINE.py || echo "NEWSLETTER_ENGINE error"
+        continue-on-error: true
+
+      # ── PHASE 12: LINK + ANALYTICS ─────────────────────────────────────────
+
+      - name: "🔗 Phase 12 — LINK_PAGE (bio link rebuild)"
+        run: python3 mycelium/LINK_PAGE.py || echo "LINK_PAGE error"
+        continue-on-error: true
+
+      - name: "🔍 Phase 12.1 — AGENT_LINK_VERIFIER (scan for 404s)"
+        run: python3 mycelium/AGENT_LINK_VERIFIER.py || echo "AGENT_LINK_VERIFIER error"
+        continue-on-error: true
+
+      - name: "📊 Phase 12.2 — ANALYTICS_ENGINE (GitHub Pages views + referrers)"
+        run: python3 mycelium/ANALYTICS_ENGINE.py || echo "ANALYTICS_ENGINE error"
+        continue-on-error: true
+
+      - name: "🇵🇸 Phase 12.3 — PROOF_LEDGER (verifiable Gaza donation tracker)"
+        run: python3 mycelium/PROOF_LEDGER.py || echo "PROOF_LEDGER error"
+        continue-on-error: true
+
+      # ── PHASE 13: HEALTH + SECURITY ────────────────────────────────────────
+
+      - name: "🏥 Phase 13 — HEALTH_BOOSTER (diagnostics)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+        run: python3 mycelium/HEALTH_BOOSTER.py || echo "HEALTH_BOOSTER error"
+        continue-on-error: true
+
+      - name: "🔐 Phase 13.1 — ENGINE_INTEGRITY (SHA tamper detection)"
+        run: python3 mycelium/ENGINE_INTEGRITY.py || echo "ENGINE_INTEGRITY error"
+        continue-on-error: true
+
+      - name: "⚡ Phase 13.2 — BOTTLENECK_SCANNER (find revenue blockers)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python3 mycelium/BOTTLENECK_SCANNER.py || echo "BOTTLENECK_SCANNER error"
+        continue-on-error: true
+
+      - name: "🛡️ Phase 13.3 — SCAM_SHIELD (email security layer)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/SCAM_SHIELD.py || echo "SCAM_SHIELD error"
+        continue-on-error: true
+
+      - name: "🌙 Phase 13.4 — NIGHTLY_DIGEST (daily summary email)"
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/NIGHTLY_DIGEST.py || echo "NIGHTLY_DIGEST error"
+        continue-on-error: true
+
+      - name: "🔭 Phase 13.5 — AI_WATCHER (monitor AI ecosystem + weekly digest)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python3 mycelium/AI_WATCHER.py || echo "AI_WATCHER error"
+        continue-on-error: true
+
+      - name: "📬 Phase 13.6 — BRIEFING_ENGINE (morning/evening email to Meeko)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/BRIEFING_ENGINE.py || echo "BRIEFING_ENGINE error"
+        continue-on-error: true
+
+      # ── PHASE 14-15: BRIDGES + COMMUNITY ───────────────────────────────────
+
+      - name: "🌐 Phase 14 — BRAVE_BRIDGE (browser intelligence)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/BRAVE_BRIDGE.py || echo "BRAVE_BRIDGE not present"
+        continue-on-error: true
+
+      - name: "🖥️ Phase 15 — GETSCREEN_BRIDGE (desktop automation)"
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/GETSCREEN_BRIDGE.py || echo "GETSCREEN_BRIDGE not present"
+        continue-on-error: true
+
+      - name: "🔍 Phase 15.1 — GRANT_HUNTER (find matching grants)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: python3 mycelium/GRANT_HUNTER.py || echo "GRANT_HUNTER error"
+        continue-on-error: true
+
+      - name: "📝 Phase 15.2 — GRANT_APPLICANT (auto-draft + submit applications)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/GRANT_APPLICANT.py || echo "GRANT_APPLICANT error"
+        continue-on-error: true
+
+      - name: "🤝 Phase 15.3 — MUTUAL_AID_LEDGER (neighborhood abundance)"
+        run: python3 mycelium/mutual_aid_ledger.py || echo "MUTUAL_AID_LEDGER error"
+        continue-on-error: true
+
+      - name: "📋 Phase 15.4 — GRANT_GENERATOR (liquid narrative refresh)"
+        run: python3 mycelium/grant_generator.py || echo "GRANT_GENERATOR error"
+        continue-on-error: true
+
+      - name: "📄 Phase 15.5 — OMNIBRAIN_REPORT (public summary)"
+        run: python3 mycelium/omnibrain_report.py || echo "OMNIBRAIN_REPORT error"
+        continue-on-error: true
+
+      - name: "🌐 Phase 15.6 — FORK_SCANNER (reach out to repo forkers)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/FORK_SCANNER.py || echo "FORK_SCANNER error"
+        continue-on-error: true
+
+      # ── PHASE 15.9: SANITIZE → PHASE 16: RESOLVE ───────────────────────────
+
+      - name: "🧹 Phase 15.9 — ENGINE_SANITIZER (corruption guard before commit)"
+        run: python3 mycelium/ENGINE_SANITIZER.py || echo "ENGINE_SANITIZER error"
+        continue-on-error: true
+
+      - name: "⚡ Phase 16 — SYNAPSE (resolver + daily email)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 mycelium/SYNAPSE.py || echo "SYNAPSE error"
+        continue-on-error: true
+
+      # ── PHASE 97: OPENCLAW / A2A / PHYSICAL WORLD ───────────────────────────
+
+      - name: "🕸️ Phase 97a — A2A_BRIDGE (discover peers + pull skills)"
+        run: python3 mycelium/A2A_BRIDGE.py || echo "A2A_BRIDGE error"
+        continue-on-error: true
+
+      - name: "📦 Phase 97b — SKILL_PACKAGER (package engines as Agent Skills)"
+        run: python3 mycelium/SKILL_PACKAGER.py || echo "SKILL_PACKAGER error"
+        continue-on-error: true
+
+      - name: "🎯 Phase 97c — OPENCLAW_SKILL_SYNC (sync skills from swarm)"
+        run: python3 mycelium/OPENCLAW_SKILL_SYNC.py || echo "OPENCLAW_SKILL_SYNC error"
+        continue-on-error: true
+
+      - name: "🖨️ Phase 97d — PRINT_RELAY_ENGINE (Gaza medical 3D prints)"
+        run: python3 mycelium/PRINT_RELAY_ENGINE.py || echo "PRINT_RELAY_ENGINE error"
+        continue-on-error: true
+
+      - name: "👷 Phase 97e — LABOR_DISPATCH_ENGINE (Rentahuman.ai tasks)"
+        run: python3 mycelium/LABOR_DISPATCH_ENGINE.py || echo "LABOR_DISPATCH_ENGINE error"
+        continue-on-error: true
+
+      - name: "✍️ Phase 97f — GRANT_WRITER (research + draft grant applications)"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 mycelium/GRANT_WRITER.py || echo "GRANT_WRITER error"
+        continue-on-error: true
+
+      - name: "🚨 Phase 97g — gaza_emergency_response (CRITICAL humanitarian bypass)"
+        env:
+          OCTOEVERYWHERE_APP_API_KEY: ${{ secrets.OCTOEVERYWHERE_APP_API_KEY }}
+          OCTOEVERYWHERE_APP_TOKEN: ${{ secrets.OCTOEVERYWHERE_APP_TOKEN }}
+          RENTAHUMAN_API_KEY: ${{ secrets.RENTAHUMAN_API_KEY }}
+          SOLARPUNK_WALLET_ADDRESS: ${{ secrets.SOLARPUNK_WALLET_ADDRESS }}
+        run: python3 scripts/openclaw_bridge/labor_dispatch/gaza_emergency_response.py || echo "gaza_emergency error"
+        continue-on-error: true
+
+      # ── PHASE 98: LOOP CLOSE ────────────────────────────────────────────────
+
+      - name: "🔄 Phase 98 — LOOP_CONDUCTOR (synthesize cycle → write loop_state)"
+        run: python3 mycelium/LOOP_CONDUCTOR.py || echo "LOOP_CONDUCTOR error"
+        continue-on-error: true
+
+      # ── PHASE 99: SANITIZE BEFORE COMMIT ────────────────────────────────────
+
+      - name: "🧹 Phase 99 — ENGINE_SANITIZER (second pass before commit)"
+        run: python3 mycelium/ENGINE_SANITIZER.py || echo "ENGINE_SANITIZER error"
+        continue-on-error: true
+
+      - name: "🔧 Phase 99b — PROBLEM_SOLVER_PRIME (fix anything that broke this cycle)"
+        run: python3 mycelium/PROBLEM_SOLVER_PRIME.py || echo "PROBLEM_SOLVER_PRIME error"
+        continue-on-error: true
+
+      - name: "🎵 Phase 99c — FREQUENCY_TUNER (final harmonic score)"
+        run: python3 mycelium/FREQUENCY_TUNER.py || echo "FREQUENCY_TUNER error"
+        continue-on-error: true
+
+      # ── FINAL: COMMIT ───────────────────────────────────────────────────────
+
+      - name: "💾 Final — Commit cycle outputs"
+        run: |
+          git add -A
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+          CYCLE=$(date +%Y-%m-%dT%H:%M)
+          HEALTH=$(python3 -c "import json; d=json.load(open('data/brain_state.json')); print(d.get('health_score','?'))" 2>/dev/null || echo "?")
+          GAPS=$(python3 -c "import json; d=json.load(open('data/oracle_report.json')); print(d.get('critical_gaps','?'))" 2>/dev/null || echo "?")
+          HARMONIC=$(python3 -c "import json; d=json.load(open('data/harmonic_score.json')); print(f\"{d.get('harmonic_score',0):.0f}\")" 2>/dev/null || echo "?")
+          git -c commit.gpgsign=false commit -m "🧠 omnibrain v3 ${CYCLE} | health:${HEALTH} | harmonic:${HARMONIC} | gaps:${GAPS}"
+          git fetch origin main
+          git -c commit.gpgsign=false merge origin/main --no-edit -X ours 2>/dev/null || true
+          git push origin HEAD:main 2>/dev/null || git push origin HEAD:main --force-with-lease
+        continue-on-error: true

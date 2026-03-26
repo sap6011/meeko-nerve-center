@@ -1,0 +1,300 @@
+{
+  "cycle": 11,
+  "generated_at": "2026-03-20T22:45:19.690692",
+  "network": {
+    "total_nodes": 19,
+    "ai_nodes": 9,
+    "top_connectors": [],
+    "viral_projected_10c": 117
+  },
+  "agents": {
+    "ran_parallel": 0,
+    "insights": {},
+    "actions_queued": 0,
+    "raw_actions": []
+  },
+  "capabilities": {
+    "opportunities": 2,
+    "build_queue": [],
+    "kb_topics": [
+      "anthropic_claude",
+      "openai_gpt",
+      "google_gemini",
+      "groq",
+      "openrouter",
+      "huggingface",
+      "mistral",
+      "langchain",
+      "crewai",
+      "autogen",
+      "anthropic_mcp",
+      "openclaw_a2a",
+      "free_apis_no_key",
+      "self_expansion_pattern",
+      "metadata"
+    ]
+  },
+  "gaps": [
+    {
+      "type": "CAPABILITY",
+      "org": "SolarPunk",
+      "priority": "high",
+      "detail": "Secret `GEMINI_API_KEY` would unlock: GEMINI_BRIDGE",
+      "patch": "Add `GEMINI_API_KEY` to GitHub Secrets to unlock 1 new capabilities.",
+      "engine_name": null
+    },
+    {
+      "type": "CAPABILITY",
+      "org": "SolarPunk",
+      "priority": "high",
+      "detail": "Secret `X_API_KEY` would unlock: AGENT_TWEET_WRITER",
+      "patch": "Add `X_API_KEY` to GitHub Secrets to unlock 1 new capabilities.",
+      "engine_name": null
+    },
+    {
+      "type": "CAPABILITY",
+      "org": "SolarPunk",
+      "priority": "high",
+      "detail": "Secret `BLUESKY_HANDLE` would unlock: BLUESKY_ENGINE",
+      "patch": "Add `BLUESKY_HANDLE` to GitHub Secrets to unlock 1 new capabilities.",
+      "engine_name": null
+    },
+    {
+      "type": "CAPABILITY",
+      "org": "SolarPunk",
+      "priority": "high",
+      "detail": "Secret `BLUESKY_APP_PASSWORD` would unlock: BLUESKY_ENGINE",
+      "patch": "Add `BLUESKY_APP_PASSWORD` to GitHub Secrets to unlock 1 new capabilities.",
+      "engine_name": null
+    },
+    {
+      "type": "CAPABILITY",
+      "org": "SolarPunk",
+      "priority": "high",
+      "detail": "Secret `MASTODON_ACCESS_TOKEN` would unlock: MASTODON_ENGINE",
+      "patch": "Add `MASTODON_ACCESS_TOKEN` to GitHub Secrets to unlock 1 new capabilities.",
+      "engine_name": null
+    },
+    {
+      "type": "CAPABILITY",
+      "org": "SolarPunk",
+      "priority": "high",
+      "detail": "Secret `TELEGRAM_BOT_TOKEN` would unlock: TELEGRAM_BRIDGE",
+      "patch": "Add `TELEGRAM_BOT_TOKEN` to GitHub Secrets to unlock 1 new capabilities.",
+      "engine_name": null
+    },
+    {
+      "type": "CAPABILITY",
+      "org": "SolarPunk",
+      "priority": "high",
+      "detail": "Secret `OCTOEVERYWHERE_APP_API_KEY` would unlock: PRINT_RELAY_ENGINE, print_relay_dispatcher",
+      "patch": "Add `OCTOEVERYWHERE_APP_API_KEY` to GitHub Secrets to unlock 2 new capabilities.",
+      "engine_name": null
+    },
+    {
+      "type": "CAPABILITY",
+      "org": "SolarPunk",
+      "priority": "high",
+      "detail": "Secret `OCTOEVERYWHERE_APP_TOKEN` would unlock: PRINT_RELAY_ENGINE",
+      "patch": "Add `OCTOEVERYWHERE_APP_TOKEN` to GitHub Secrets to unlock 1 new capabilities.",
+      "engine_name": null
+    },
+    {
+      "type": "CAPABILITY",
+      "org": "SolarPunk",
+      "priority": "high",
+      "detail": "Secret `RENTAHUMAN_API_KEY` would unlock: LABOR_DISPATCH_ENGINE, labor_broker, humanitarian_missions",
+      "patch": "Add `RENTAHUMAN_API_KEY` to GitHub Secrets to unlock 4 new capabilities.",
+      "engine_name": null
+    },
+    {
+      "type": "CAPABILITY",
+      "org": "SolarPunk",
+      "priority": "high",
+      "detail": "Secret `SOLARPUNK_WALLET_ADDRESS` would unlock: LABOR_DISPATCH_ENGINE, labor_broker, gaza_emergency_response",
+      "patch": "Add `SOLARPUNK_WALLET_ADDRESS` to GitHub Secrets to unlock 3 new capabilities.",
+      "engine_name": null
+    }
+  ],
+  "crisis": {
+    "allocations": [
+      {
+        "crisis_id": "gaza_palestine",
+        "crisis": "Gaza / Palestine",
+        "flag": "🇵🇸",
+        "org": "PCRF — Palestinian Children's Relief Fund",
+        "ein": "11-3320278",
+        "donate_url": "https://www.pcrf.net/donate",
+        "weight_pct": 60.0,
+        "amount_usd": 0.0,
+        "of_99pct": "60.0% of the 99%",
+        "transfer_status": "insufficient_funds",
+        "transfer_instructions": "Accumulating — PCRF — Palestinian Children's Relief Fund receives when pool reaches $1",
+        "notes": "Medical aid, prosthetics, school supplies for children in Gaza"
+      },
+      {
+        "crisis_id": "sudan",
+        "crisis": "Sudan Crisis",
+        "flag": "🇸🇩",
+        "org": "International Rescue Committee — Sudan",
+        "ein": "IRC",
+        "donate_url": "https://www.rescue.org/country/sudan",
+        "weight_pct": 15.0,
+        "amount_usd": 0.0,
+        "of_99pct": "15.0% of the 99%",
+        "transfer_status": "insufficient_funds",
+        "transfer_instructions": "Accumulating — International Rescue Committee — Sudan receives when pool reaches $1",
+        "notes": "World's largest active displacement crisis as of 2024-2026"
+      },
+      {
+        "crisis_id": "congo_drc",
+        "crisis": "DR Congo",
+        "flag": "🇨🇩",
+        "org": "Doctors Without Borders / MSF",
+        "ein": "MSF-USA 13-3433452",
+        "donate_url": "https://www.doctorswithoutborders.org/what-we-do/countries/democratic-republic-congo",
+        "weight_pct": 10.0,
+        "amount_usd": 0.0,
+        "of_99pct": "10.0% of the 99%",
+        "transfer_status": "insufficient_funds",
+        "transfer_instructions": "Accumulating — Doctors Without Borders / MSF receives when pool reaches $1",
+        "notes": "Ongoing conflict, disease outbreaks, 7M+ displaced"
+      },
+      {
+        "crisis_id": "yemen",
+        "crisis": "Yemen",
+        "flag": "🇾🇪",
+        "org": "UNICEF — Yemen",
+        "ein": "UNICEF USA 13-1760110",
+        "donate_url": "https://www.unicef.org/emergencies/yemen-crisis",
+        "weight_pct": 10.0,
+        "amount_usd": 0.0,
+        "of_99pct": "10.0% of the 99%",
+        "transfer_status": "insufficient_funds",
+        "transfer_instructions": "Accumulating — UNICEF — Yemen receives when pool reaches $1",
+        "notes": "Child malnutrition, collapsed healthcare system"
+      },
+      {
+        "crisis_id": "climate_response",
+        "crisis": "Climate Disaster Response",
+        "flag": "🌍",
+        "org": "Direct Relief",
+        "ein": "95-1831116",
+        "donate_url": "https://www.directrelief.org",
+        "weight_pct": 5.0,
+        "amount_usd": 0.0,
+        "of_99pct": "5.0% of the 99%",
+        "transfer_status": "insufficient_funds",
+        "transfer_instructions": "Accumulating — Direct Relief receives when pool reaches $1",
+        "notes": "Rapid response to climate-driven disasters globally"
+      }
+    ],
+    "status": "no revenue yet"
+  },
+  "grants": {
+    "found": 20,
+    "top": [
+      {
+        "name": "Awesome Foundation",
+        "url": "https://www.awesomefoundation.org",
+        "tags": [
+          "community",
+          "art",
+          "$1000",
+          "monthly"
+        ],
+        "match_score": 54
+      },
+      {
+        "name": "Tech for Good",
+        "url": "https://www.techforgood.global/",
+        "tags": [
+          "humanitarian tech",
+          "social good",
+          "AI"
+        ],
+        "match_score": 54
+      },
+      {
+        "name": "Mozilla Foundation",
+        "url": "https://foundation.mozilla.org/en/what-we-fund/",
+        "tags": [
+          "open source",
+          "internet health",
+          "AI"
+        ],
+        "match_score": 46
+      }
+    ]
+  },
+  "outreach": {
+    "total_contacted": 10,
+    "total_replied": 0,
+    "ai_agents_recruited": 8,
+    "pending_to_send": 9,
+    "pending_targets": [
+      {
+        "name": "Allen Institute for AI",
+        "email": "contact@allenai.org",
+        "category": "ai_platform",
+        "subject": "SolarPunk — Live implementation: AI for humanity, not theory"
+      },
+      {
+        "name": "Zapier AI",
+        "email": "contact@zapier.com",
+        "category": "ai_framework",
+        "subject": "SolarPunk → Zapier AI: AI-to-AI connection for humanitarian "
+      },
+      {
+        "name": "n8n",
+        "email": "hello@n8n.io",
+        "category": "ai_framework",
+        "subject": "SolarPunk → n8n: AI-to-AI connection for humanitarian ops"
+      },
+      {
+        "name": "Google DeepMind",
+        "email": "deepmind-outreach@google.com",
+        "category": "ai_framework",
+        "subject": "SolarPunk → Google DeepMind: AI-to-AI connection for humanit"
+      },
+      {
+        "name": "Flowise AI",
+        "email": "hello@flowiseai.com",
+        "category": "ai_framework",
+        "subject": "SolarPunk → Flowise AI: AI-to-AI connection for humanitarian"
+      },
+      {
+        "name": "Together AI",
+        "email": "hello@together.ai",
+        "category": "ai_framework",
+        "subject": "SolarPunk → Together AI: AI-to-AI connection for humanitaria"
+      },
+      {
+        "name": "Replicate",
+        "email": "team@replicate.com",
+        "category": "ai_framework",
+        "subject": "SolarPunk → Replicate: AI-to-AI connection for humanitarian "
+      },
+      {
+        "name": "CrewAI",
+        "email": "hello@crewai.com",
+        "category": "ai_framework",
+        "subject": "SolarPunk → CrewAI: AI-to-AI connection for humanitarian ops"
+      },
+      {
+        "name": "AutoGen (Microsoft)",
+        "email": "autogen@microsoft.com",
+        "category": "ai_framework",
+        "subject": "SolarPunk → AutoGen (Microsoft): AI-to-AI connection for hum"
+      }
+    ]
+  },
+  "missing_secrets": [
+    "GMAIL_APP_PASSWORD",
+    "GUMROAD_ACCESS_TOKEN",
+    "TELEGRAM_BOT_TOKEN",
+    "TELEGRAM_CHAT_ID"
+  ],
+  "health": "?",
+  "volunteer_portal": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/volunteer-portal"
+}

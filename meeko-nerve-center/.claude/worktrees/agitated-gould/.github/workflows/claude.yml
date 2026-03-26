@@ -1,0 +1,66 @@
+name: Claude Code — SolarPunk Issue Handler
+
+# Trigger: mention @claude in any Issue or PR comment
+# Also fires when any issue is opened/assigned (so @claude in title or body works)
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  claude:
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install requests anthropic
+
+      - name: Run Claude Code Action
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          # SolarPunk context injected into every @claude call
+          system_prompt: |
+            You are Claude operating inside SolarPunk — Meeko's autonomous AI revenue system.
+            Repo: meekotharaccoon-cell/meeko-nerve-center
+            Stack: Python engines in mycelium/, orchestrated by OMNIBUS.py v17 (8 layers)
+            Data: all runtime state in data/ as JSON files
+            15% of all revenue routes to Palestinian Children's Relief Fund (PCRF)
+            
+            When asked to fix engines: read the file first, fix the specific issue, commit.
+            When asked to build new engines: follow the NANO_AGENT base class pattern in mycelium/NANO_AGENT.py
+            When asked to analyze: read data/omnibus_last.json for current system state.
+            
+            Always commit with emoji prefix: 🔧 fixes, 👁️ new engines, 🌟 version bumps.
+            Be fast, direct, complete. No hand-holding. Meeko is a pro builder.
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
