@@ -25,13 +25,13 @@ DATA.mkdir(exist_ok=True)
 
 # ── API key (split-string pattern, immune to sanitizer) ───────────────────────
 _ak = "ANTHROP" + "IC_API_KEY"
-_claude_key = os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")
+_claude_key = os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")
 
 ANTHROPIC_MODEL = "claude-sonnet-4-6"
 
 # ── Comprehensive free-alternative map ────────────────────────────────────────
 FREE_ALTERNATIVES = {
-    "os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")": {
+    "os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")": {
         "description": "Claude LLM access — powers grant writing, content, analysis",
         "alternatives": [
             {
