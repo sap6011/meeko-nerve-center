@@ -44,7 +44,7 @@ POLL_INTERVAL  = 15          # seconds between queue checks
 MAX_LOG_LINES  = 200
 MODEL          = "claude-haiku-4-5-20251001"   # fast + cheap for most tasks
 MODEL_HEAVY    = "claude-sonnet-4-6"            # for tasks flagged heavy=True
-API_KEY        = os.getenv("ANTHROPIC_API_KEY")
+API_KEY        = os.getenv("os.getenv("ANTHROPIC_API_KEY")")
 
 # ── SOLARPUNK SYSTEM CONTEXT ───────────────────────────────────────────────
 SYSTEM_CONTEXT = """
@@ -160,7 +160,7 @@ def build_context():
 # ── CLAUDE API ─────────────────────────────────────────────────────────────
 def call_claude(prompt, heavy=False, conversation_history=None):
     if not API_KEY:
-        return None, "os.getenv("ANTHROPIC_API_KEY")"
+        return None, "os.getenv("os.getenv("ANTHROPIC_API_KEY")")"
 
     model    = MODEL_HEAVY if heavy else MODEL
     messages = (conversation_history or []) + [{"role": "user", "content": prompt}]
@@ -319,8 +319,8 @@ def run_loop():
 
     log("DESKTOP_DAEMON started. SolarPunk is local and alive.")
     if not API_KEY:
-        log("WARNING: os.getenv("ANTHROPIC_API_KEY")
-        log("  Windows: $env:os.getenv("ANTHROPIC_API_KEY")
+        log("WARNING: os.getenv("os.getenv("ANTHROPIC_API_KEY")")
+        log("  Windows: $env:os.getenv("os.getenv("ANTHROPIC_API_KEY")")
         log("  Or add to repo root .env file")
 
     polls = 0
@@ -483,7 +483,7 @@ def install_autostart():
     else:
         print("✅ SolarPunk-Daemon installed as Windows scheduled task")
         print("   Auto-starts at every login, restarts on crash")
-        print(f"   Add os.getenv("ANTHROPIC_API_KEY")
+        print(f"   Add os.getenv("os.getenv("ANTHROPIC_API_KEY")")
 
 
 # ── ENTRY POINT ────────────────────────────────────────────────────────────
