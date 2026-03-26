@@ -1,0 +1,249 @@
+name: RIVER_WATCH
+
+on:
+  schedule:
+    - cron: "0 7 * * 6"  # Saturdays 07:00 UTC
+  workflow_dispatch:
+
+jobs:
+  monitor_cuyahoga:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch river data from free public APIs
+        run: |
+          python3 - <<'PYEOF'
+          import urllib.request
+          import json
+          import os
+          from datetime import datetime, timezone
+
+          def fetch_json(url, label):
+              print(f"Fetching {label}...")
+              try:
+                  req = urllib.request.Request(
+                      url,
+                      headers={"User-Agent": "SolarPunk-RiverWatch/1.0 (meekotharaccoon-cell/meeko-nerve-center)"},
+                  )
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      raw = resp.read()
+                      data = json.loads(raw)
+                      print(f"  OK — {len(raw)} bytes")
+                      return data
+              except Exception as e:
+                  print(f"  ERROR: {e}")
+                  return {"error": str(e), "source": label}
+
+          def fetch_text(url, label):
+              print(f"Fetching {label} (text)...")
+              try:
+                  req = urllib.request.Request(
+                      url,
+                      headers={"User-Agent": "SolarPunk-RiverWatch/1.0"},
+                  )
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      raw = resp.read().decode("utf-8", errors="replace")
+                      print(f"  OK — {len(raw)} chars")
+                      return raw
+              except Exception as e:
+                  print(f"  ERROR: {e}")
+                  return None
+
+          now = datetime.now(timezone.utc)
+
+          # 1. USGS Water Quality Portal — Cuyahoga River at Akron (site 04208000)
+          wq_url = (
+              "https://waterqualitydata.us/data/Result/search/"
+              "?siteid=USGS-04208000&mimeType=json&startDateLo="
+              + (now.strftime("%m-%d-%Y")[:10])
+          )
+          # Fall back to a date-range query for recent results
+          wq_url_recent = (
+              "https://waterqualitydata.us/data/Result/search/"
+              "?siteid=USGS-04208000&mimeType=json"
+          )
+          water_quality_raw = fetch_json(wq_url_recent, "USGS Water Quality Portal")
+
+          # Extract a readable summary from WQ data
+          wq_summary = []
+          if isinstance(water_quality_raw, list):
+              for r in water_quality_raw[:10]:
+                  wq_summary.append({
+                      "characteristic": r.get("CharacteristicName"),
+                      "value": r.get("ResultMeasureValue"),
+                      "unit": r.get("ResultMeasure/MeasureUnitCode"),
+                      "date": r.get("ActivityStartDate"),
+                      "detection_condition": r.get("ResultDetectionConditionText"),
+                  })
+          elif isinstance(water_quality_raw, dict):
+              wq_summary = water_quality_raw  # may be an error dict
+
+          # 2. EPA ECHO Facility Search — Akron, OH
+          echo_url = (
+              "https://echo.epa.gov/api/facilities/search"
+              "?p_st=OH&p_city=Akron&output=JSON"
+          )
+          echo_data = fetch_json(echo_url, "EPA ECHO Facility Search")
+
+          # Extract facility count and any with violations
+          epa_summary = {}
+          if isinstance(echo_data, dict):
+              results = echo_data.get("Results", {})
+              facilities = results.get("Facilities", [])
+              epa_summary = {
+                  "total_facilities": len(facilities),
+                  "facilities_with_violations": sum(
+                      1 for f in facilities
+                      if f.get("ViolationsByYear") or f.get("FormalEnforcementActions")
+                  ),
+                  "sample_facilities": [
+                      {
+                          "name": f.get("FacilityName"),
+                          "program": f.get("ProgramAcronym"),
+                          "formal_actions": f.get("FormalEnforcementActions"),
+                      }
+                      for f in facilities[:5]
+                  ],
+              }
+          else:
+              epa_summary = {"raw": str(echo_data)[:500]}
+
+          # 3. USGS WaterWatch — Ohio flow data
+          # WaterWatch returns HTML, so we'll use the USGS instantaneous values REST API instead
+          # for gauge 04208000 (Cuyahoga River at Akron)
+          usgs_iv_url = (
+              "https://waterservices.usgs.gov/nwis/iv/"
+              "?format=json&sites=04208000&parameterCd=00060,00065&siteStatus=active"
+          )
+          usgs_flow = fetch_json(usgs_iv_url, "USGS Instantaneous Values (flow)")
+
+          flow_summary = {}
+          try:
+              ts_list = usgs_flow["value"]["timeSeries"]
+              for ts in ts_list:
+                  var_name = ts["variable"]["variableName"]
+                  values = ts["values"][0]["value"]
+                  latest = values[-1] if values else {}
+                  unit = ts["variable"]["unit"]["unitCode"]
+                  flow_summary[var_name] = {
+                      "latest_value": latest.get("value"),
+                      "unit": unit,
+                      "datetime": latest.get("dateTime"),
+                      "qualifier": [q.get("qualifierCode") for q in latest.get("qualifiers", [])],
+                  }
+          except Exception as e:
+              flow_summary = {"error": str(e), "raw_keys": list(usgs_flow.keys()) if isinstance(usgs_flow, dict) else "not a dict"}
+
+          # 4. Federal Register API — Gorge Dam / Cuyahoga
+          fedreg_url = (
+              "https://www.federalregister.gov/api/v1/articles.json"
+              "?conditions[term]=Gorge+Dam+Cuyahoga&per_page=5&order=newest"
+          )
+          fedreg_data = fetch_json(fedreg_url, "Federal Register (Gorge Dam / Cuyahoga)")
+
+          fedreg_summary = []
+          if isinstance(fedreg_data, dict):
+              for article in fedreg_data.get("results", []):
+                  fedreg_summary.append({
+                      "title": article.get("title"),
+                      "date": article.get("publication_date"),
+                      "agency": article.get("agency_names"),
+                      "url": article.get("html_url"),
+                      "type": article.get("type"),
+                      "abstract": (article.get("abstract") or "")[:300],
+                  })
+
+          # --- Assemble output ---
+          output = {
+              "generated_at": now.isoformat(),
+              "gauge_site": "USGS-04208000 — Cuyahoga River at Akron, OH",
+              "dam_project": "Gorge Dam Removal / Cuyahoga River restoration",
+              "water_quality": {
+                  "source": "USGS Water Quality Portal",
+                  "url": wq_url_recent,
+                  "recent_readings": wq_summary,
+              },
+              "epa_facilities": {
+                  "source": "EPA ECHO",
+                  "url": echo_url,
+                  "summary": epa_summary,
+              },
+              "flow_data": {
+                  "source": "USGS Instantaneous Values REST API",
+                  "url": usgs_iv_url,
+                  "readings": flow_summary,
+              },
+              "regulatory_news": {
+                  "source": "Federal Register API",
+                  "url": fedreg_url,
+                  "gorge_dam_articles": fedreg_summary,
+              },
+          }
+
+          os.makedirs("data", exist_ok=True)
+          with open("data/river_watch.json", "w", encoding="utf-8") as f:
+              json.dump(output, f, indent=2)
+
+          print("\n" + "=" * 60)
+          print("RIVER WATCH SUMMARY")
+          print("=" * 60)
+
+          # Flow summary
+          if flow_summary and "error" not in flow_summary:
+              for var, info in flow_summary.items():
+                  print(f"  {var}: {info.get('latest_value')} {info.get('unit')} @ {info.get('datetime')}")
+          else:
+              print(f"  Flow data: {flow_summary}")
+
+          # WQ summary
+          print(f"\n  Water quality readings (latest {len(wq_summary)}):")
+          if isinstance(wq_summary, list):
+              for r in wq_summary[:3]:
+                  print(f"    {r.get('date')} — {r.get('characteristic')}: {r.get('value')} {r.get('unit')}")
+          else:
+              print(f"    {wq_summary}")
+
+          # EPA
+          print(f"\n  EPA ECHO Akron facilities: {epa_summary.get('total_facilities', 'unknown')}")
+          print(f"  Facilities with violations: {epa_summary.get('facilities_with_violations', 'unknown')}")
+
+          # Federal Register
+          print(f"\n  Federal Register — Gorge Dam articles found: {len(fedreg_summary)}")
+          for art in fedreg_summary:
+              print(f"    [{art.get('date')}] {art.get('title')} ({', '.join(art.get('agency', []) or [])})")
+              if art.get('url'):
+                  print(f"      {art.get('url')}")
+
+          print("\n  Written to: data/river_watch.json")
+          PYEOF
+
+      - name: Commit and push river data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "RIVER_WATCH[bot]"
+          git config user.email "river-watch@solarpunk-node01"
+
+          git fetch origin
+          git rebase origin/main || true
+
+          git add data/river_watch.json
+          git commit -m "data: river watch update — $(date -u +%Y-%m-%d)" || echo "No changes to commit"
+
+          git push origin HEAD:main || (
+            git fetch origin &&
+            git rebase origin/main &&
+            git push origin HEAD:main
+          )

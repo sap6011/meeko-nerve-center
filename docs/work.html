@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolarPunk — Got 5 Minutes? Help Build It.</title>
+  <meta name="description" content="People with 5 minutes can contribute to SolarPunk Nerve Center and get permanent timestamped credit on the repo. No account needed beyond GitHub.">
+  <meta property="og:title" content="Got 5 minutes? Help SolarPunk. Get credited.">
+  <meta property="og:description" content="Pick a task. Open a GitHub Issue. Done. Your contribution is timestamped forever in the repo history.">
+  <meta property="og:url" content="https://meekotharaccoon-cell.github.io/meeko-nerve-center/docs/work.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Got 5 minutes? Help SolarPunk. Get credited.">
+  <meta name="twitter:description" content="Pick a task. Open a GitHub Issue. Your name is in the repo forever.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a1a0f;
+      color: #e2f5e9;
+      font-family: 'Courier New', Courier, monospace;
+      min-height: 100vh;
+      padding: 0 16px 60px;
+    }
+
+    a { color: #4ade80; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header {
+      padding: 40px 0 32px;
+      text-align: center;
+      border-bottom: 1px solid #1a3a22;
+      margin-bottom: 36px;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 5vw, 2.4rem);
+      color: #4ade80;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    header p {
+      font-size: clamp(0.9rem, 3vw, 1.05rem);
+      color: #a7f3c4;
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .how-it-works {
+      background: #0f2316;
+      border: 1px solid #1f4a2a;
+      border-radius: 8px;
+      padding: 20px 24px;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .how-it-works h2 {
+      color: #4ade80;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .how-it-works ol {
+      padding-left: 20px;
+      line-height: 1.9;
+      font-size: 0.92rem;
+      color: #c4ebd3;
+    }
+
+    .how-it-works .credit-note {
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: #86efac;
+      border-top: 1px solid #1f4a2a;
+      padding-top: 12px;
+    }
+
+    .tasks {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .task-card {
+      background: #0f2316;
+      border: 1px solid #1f4a2a;
+      border-radius: 10px;
+      padding: 22px 20px;
+      transition: border-color 0.2s;
+    }
+
+    .task-card:hover {
+      border-color: #4ade80;
+    }
+
+    .task-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .task-header h3 {
+      font-size: 1.05rem;
+      color: #4ade80;
+      flex: 1;
+    }
+
+    .task-time {
+      font-size: 0.75rem;
+      color: #86efac;
+      background: #162b1e;
+      border: 1px solid #2a5a36;
+      border-radius: 20px;
+      padding: 2px 10px;
+      white-space: nowrap;
+    }
+
+    .task-desc {
+      font-size: 0.88rem;
+      color: #c4ebd3;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .start-btn {
+      display: inline-block;
+      background: #4ade80;
+      color: #0a1a0f;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.88rem;
+      font-weight: bold;
+      padding: 10px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+      letter-spacing: 0.03em;
+    }
+
+    .start-btn:hover {
+      background: #86efac;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0 20px;
+      font-size: 0.82rem;
+      color: #5a8a6a;
+      border-top: 1px solid #1a3a22;
+      margin-top: 56px;
+    }
+
+    footer a { color: #4ade80; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Got 5 minutes?<br>Help SolarPunk. Get credited.</h1>
+    <p>Every task below becomes a timestamped GitHub Issue — permanent proof of contribution, attached to your GitHub account, visible forever in the repo history.</p>
+  </header>
+
+  <div class="how-it-works">
+    <h2>How it works</h2>
+    <ol>
+      <li>Click <strong>Start Task</strong> on any card below</li>
+      <li>A pre-filled GitHub Issue opens in a new tab</li>
+      <li>Fill in what you found / did, then submit the Issue</li>
+      <li>Your name + timestamp = permanent credit on the repo</li>
+    </ol>
+    <p class="credit-note">No special access needed. Any GitHub account works. The Issue is your receipt — timestamped, immutable, public. If a task leads to a grant award, you may be eligible for the 20% finder's fee logged in the Issue.</p>
+  </div>
+
+  <div class="tasks">
+
+    <div class="task-card">
+      <div class="task-header">
+        <h3>Share SolarPunk</h3>
+        <span class="task-time">~5 min</span>
+      </div>
+      <p class="task-desc">
+        Post the repo or the site to one community you're part of — Mastodon, Reddit, a Discord, a newsletter, anywhere. Paste the link you posted in the Issue. That's it. Signal is infrastructure.
+      </p>
+      <a class="start-btn"
+         href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=TASK%3A+Share+SolarPunk&body=%23%23+Share+SolarPunk+%285+min%29%0A%0A**Where+I+shared+it%3A**+%5Bpaste+link+or+describe+community%5D%0A%0A**Post+link+%28if+public%29%3A**+%5Bpaste+URL%5D%0A%0A**Notes%3A**+%5Banything+you+want+to+add%5D%0A%0A---%0A*Submitted+via+work.html+%E2%80%94+permanent+timestamped+credit*"
+         target="_blank" rel="noopener">
+        Start Task &rarr;
+      </a>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header">
+        <h3>Test a Grant Link</h3>
+        <span class="task-time">~10 min</span>
+      </div>
+      <p class="task-desc">
+        Open <a href="https://meekotharaccoon-cell.github.io/meeko-nerve-center/docs/opportunities.html" target="_blank" rel="noopener">docs/opportunities.html</a> and click through 3–5 grant links. Report which ones load, which are dead, and whether the deadline is current. Saves hours of manual checking.
+      </p>
+      <a class="start-btn"
+         href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=TASK%3A+Test+Grant+Links&body=%23%23+Grant+Link+Test+Report%0A%0A**Links+tested%3A**%0A-%0A-%0A-%0A%0A**Dead+links%3A**+%5Bpaste+any+URLs+that+404+or+redirect+wrong%5D%0A%0A**Expired+deadlines%3A**+%5Bpaste+any+grants+with+passed+deadlines%5D%0A%0A**Notes%3A**%0A%0A---%0A*Submitted+via+work.html+%E2%80%94+permanent+timestamped+credit*"
+         target="_blank" rel="noopener">
+        Start Task &rarr;
+      </a>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header">
+        <h3>Report a Broken Link</h3>
+        <span class="task-time">~5 min</span>
+      </div>
+      <p class="task-desc">
+        Found a 404, a redirect loop, or a dead external link anywhere on the site or in the docs? Report it. Paste the page you were on and the link that failed. Small fix, real impact — bots and grant reviewers both bounce on broken links.
+      </p>
+      <a class="start-btn"
+         href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=TASK%3A+Broken+Link+Report&body=%23%23+Broken+Link+Report%0A%0A**Page+where+I+found+it%3A**+%5Bpaste+URL+of+the+page+you+were+on%5D%0A%0A**Broken+link%3A**+%5Bpaste+the+dead+URL%5D%0A%0A**What+happened%3A**+%5B404+%2F+redirect+loop+%2F+wrong+destination+%2F+other%5D%0A%0A**Notes%3A**%0A%0A---%0A*Submitted+via+work.html+%E2%80%94+permanent+timestamped+credit*"
+         target="_blank" rel="noopener">
+        Start Task &rarr;
+      </a>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header">
+        <h3>Translate a Paragraph</h3>
+        <span class="task-time">~30 min</span>
+      </div>
+      <p class="task-desc">
+        Pick any paragraph from the site or README and translate it into another language. Paste the original, your translation, and the target language in the Issue. SolarPunk is global infrastructure — it should speak more than English.
+      </p>
+      <a class="start-btn"
+         href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/issues/new?title=TASK%3A+Translate+a+Paragraph&body=%23%23+Translation+Contribution%0A%0A**Source+page+%2F+file%3A**+%5Bwhere+did+you+find+this+text%3F%5D%0A%0A**Target+language%3A**+%5Be.g.+Spanish%2C+French%2C+Arabic%2C+German%2C+etc.%5D%0A%0A**Original+text%3A**%0A%3E+%5Bpaste+original+paragraph+here%5D%0A%0A**Your+translation%3A**%0A%3E+%5Bpaste+translation+here%5D%0A%0A**Notes%3A**%0A%0A---%0A*Submitted+via+work.html+%E2%80%94+permanent+timestamped+credit*"
+         target="_blank" rel="noopener">
+        Start Task &rarr;
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>
+      <a href="index.html">← Back to SolarPunk Node-01</a>
+      &nbsp;|&nbsp;
+      <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center" target="_blank" rel="noopener">GitHub Repo</a>
+      &nbsp;|&nbsp;
+      MIT Licensed. $0/month. Built in Ohio.
+    </p>
+  </footer>
+
+</body>
+</html>

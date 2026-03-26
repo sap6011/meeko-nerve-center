@@ -1,0 +1,382 @@
+name: GRANT_RUNNER
+
+on:
+  workflow_dispatch:
+    inputs:
+      grant_url:
+        description: "URL of the grant page to apply for (required)"
+        required: true
+        type: string
+      finder_name:
+        description: "Name of the person who found this grant (gets 20% finder's fee)"
+        required: true
+        default: "anonymous"
+        type: string
+
+jobs:
+  draft_application:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests anthropic 2>/dev/null || pip install requests
+
+      - name: Fetch grant page and load repo data
+        id: fetch_data
+        env:
+          GRANT_URL: ${{ github.event.inputs.grant_url }}
+          FINDER_NAME: ${{ github.event.inputs.finder_name }}
+        run: |
+          python3 - <<'PYEOF'
+          import urllib.request
+          import json
+          import os
+          import sys
+
+          grant_url = os.environ["GRANT_URL"]
+          finder_name = os.environ["FINDER_NAME"]
+
+          # --- Fetch grant page ---
+          print(f"Fetching: {grant_url}")
+          try:
+              req = urllib.request.Request(grant_url, headers={"User-Agent": "SolarPunk-GrantRunner/1.0"})
+              with urllib.request.urlopen(req, timeout=20) as resp:
+                  raw = resp.read().decode("utf-8", errors="replace")
+              # Strip HTML tags crudely for prompt context
+              import re
+              grant_text = re.sub(r"<[^>]+>", " ", raw)
+              grant_text = re.sub(r"\s+", " ", grant_text).strip()[:6000]
+          except Exception as e:
+              print(f"WARNING: Could not fetch grant page: {e}")
+              grant_text = f"[Could not fetch page: {e}]"
+
+          # --- Load repo data files ---
+          def load_file(path, max_chars=4000):
+              try:
+                  with open(path, "r", encoding="utf-8", errors="replace") as f:
+                      return f.read(max_chars)
+              except Exception:
+                  return ""
+
+          shadow_val = load_file("docs/SHADOW_VALUATION.md") or load_file("README.md", 3000)
+          arxiv = load_file("data/arxiv_papers.json", 2000)
+          transparency = load_file("data/transparency_report.json", 2000)
+
+          data = {
+              "grant_url": grant_url,
+              "finder_name": finder_name,
+              "grant_text": grant_text,
+              "shadow_valuation": shadow_val,
+              "arxiv_papers": arxiv,
+              "transparency_report": transparency,
+          }
+
+          with open("/tmp/grant_data.json", "w") as f:
+              json.dump(data, f)
+
+          print("Data loaded.")
+          print(f"Grant text preview: {grant_text[:200]}")
+          PYEOF
+
+      - name: Draft grant application
+        id: draft
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GRANT_URL: ${{ github.event.inputs.grant_url }}
+          FINDER_NAME: ${{ github.event.inputs.finder_name }}
+        run: |
+          python3 - <<'PYEOF'
+          import json
+          import os
+          import sys
+          from datetime import datetime, timezone
+
+          with open("/tmp/grant_data.json") as f:
+              data = json.load(f)
+
+          grant_url = data["grant_url"]
+          finder_name = data["finder_name"]
+          grant_text = data["grant_text"]
+          shadow_val = data["shadow_valuation"]
+          arxiv = data["arxiv_papers"]
+          transparency = data["transparency_report"]
+
+          timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+          output_path = f"data/grant_draft_{timestamp}.md"
+
+          api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+
+          finder_fee_clause = (
+              f"**Finder's Fee: 20% of any award goes to {finder_name}** — "
+              f"This is a binding commitment logged in this timestamped GitHub Issue."
+          )
+
+          if api_key:
+              try:
+                  import anthropic
+                  client = anthropic.Anthropic(api_key=api_key)
+
+                  prompt = f"""You are drafting a grant application for SolarPunk Node-01, an open-source autonomous mutual aid AI system.
+
+  GRANT PAGE CONTENT:
+  {grant_text}
+
+  REPO DATA:
+  Shadow Valuation:
+  {shadow_val[:3000]}
+
+  Transparency Report:
+  {transparency[:1500]}
+
+  ArXiv Research Backing:
+  {arxiv[:1500]}
+
+  Write a complete, compelling grant application that:
+  1. Addresses the specific grant's priorities (infer from the page content above)
+  2. References SolarPunk's shadow valuation methodology ($16M conservative)
+  3. Cites the research backing where relevant
+  4. Includes concrete metrics (engine count, workflow count, monthly cost)
+  5. Emphasizes the mutual aid mission (20% hard-coded to local food banks)
+  6. Is honest about current status (zero-secrets mode running; full AI loop pending API key)
+  7. Has clear sections: Executive Summary, Problem Statement, Solution, Impact, Budget Ask, Team
+
+  Format as clean Markdown. Be specific. No fluff."""
+
+                  message = client.messages.create(
+                      model="claude-opus-4-5",
+                      max_tokens=4096,
+                      messages=[{"role": "user", "content": prompt}],
+                  )
+                  draft_body = message.content[0].text
+                  method = "Claude AI draft"
+              except Exception as e:
+                  print(f"Claude API error: {e} — falling back to template")
+                  api_key = ""
+
+          if not api_key:
+              draft_body = f"""# Grant Application — SolarPunk Node-01
+
+  **Grant URL:** {grant_url}
+  **Submitted by finder:** {finder_name}
+  **Date:** {datetime.now(timezone.utc).strftime("%Y-%m-%d")}
+
+  ---
+
+  ## Executive Summary
+
+  SolarPunk Node-01 is an open-source autonomous mutual aid AI system built by one person in Cuyahoga Falls, Ohio with no prior coding experience. Conservative shadow valuation: **$16 million** (comparable-company methodology). Operating cost: **$0/month** (GitHub Actions free tier). MIT licensed. 20% of all revenue is hard-coded by algorithm — not policy — to local mutual aid.
+
+  We are applying for grant support to activate the full autonomous AI loop and expand community reach.
+
+  ---
+
+  ## Problem Statement
+
+  [TODO: Tailor to this grant's stated priorities — see {grant_url}]
+
+  Mutual aid infrastructure is fragmented, underfunded, and dependent on volunteer labor that burns out. AI tools exist but are locked behind paywalls and corporate governance. Communities that need automation most can afford it least.
+
+  ---
+
+  ## Solution
+
+  SolarPunk Node-01 is a self-correcting autonomous pipeline:
+
+  - **248+ Python engines** handling grant discovery, financial routing, transparency reporting, security monitoring
+  - **30+ GitHub Actions workflows** — the entire system runs on free infrastructure
+  - **Murmuration logic** — distributed consensus with no central authority
+  - **Zero-secrets design** — everything that can run on GITHUB_TOKEN alone does
+  - **Kaleidoscope Shield** — honeytoken defense comparable to $3–8M commercial products
+  - **Mutual Aid Auditor** — 20% hard-coded routing, not configurable, not discretionary
+
+  Shadow valuation breakdown: $16M–$40M using standard comparable-company pricing. Documented in `docs/SHADOW_VALUATION.md`.
+
+  ---
+
+  ## Research Backing
+
+  {arxiv[:800] if arxiv else "[See data/arxiv_papers.json — 12+ arXiv papers in technical foundation]"}
+
+  ---
+
+  ## Impact
+
+  - Local food bank routing: active
+  - Transparency log: every autonomous action is public and immutable
+  - Infrastructure cost to replicate: $0 (MIT licensed, full codebase public)
+  - Communities served: Summit County, Ohio + any fork that deploys the node
+
+  ---
+
+  ## Budget Ask
+
+  [TODO: Insert specific ask amount aligned with this grant's range]
+
+  Requested funds will be used for:
+  - ANTHROPIC_API_KEY to activate full autonomous AI loop
+  - Community outreach and node replication support
+  - Security audit of supply chain components
+  - Translation and accessibility work
+
+  ---
+
+  ## Team
+
+  One person. No coding background. Typed slowly. Built anyway.
+
+  The authorship record is clean. The commit history is timestamped. The wayback preservation is active.
+
+  ---
+
+  ## Transparency
+
+  Full financial routing: `vault/treasury_ledger.json`
+  Autonomous action log: `SOLARPUNK_ACTUAL.md`
+  Shadow valuation: `docs/SHADOW_VALUATION.md`
+  Live system: https://meekotharaccoon-cell.github.io/meeko-nerve-center/
+
+  ---
+
+  *Generated by GRANT_RUNNER workflow — {datetime.now(timezone.utc).isoformat()}Z*
+  """
+              method = "template (no API key)"
+
+          full_draft = f"""---
+  grant_url: {grant_url}
+  finder: {finder_name}
+  generated: {datetime.now(timezone.utc).isoformat()}Z
+  method: {method}
+  ---
+
+  {draft_body}
+
+  ---
+
+  > {finder_fee_clause}
+  """
+
+          os.makedirs("data", exist_ok=True)
+          with open(output_path, "w", encoding="utf-8") as f:
+              f.write(full_draft)
+
+          print(f"Draft written to: {output_path}")
+          print(f"Method: {method}")
+
+          # Export for next steps
+          with open("/tmp/draft_meta.json", "w") as f:
+              json.dump({
+                  "output_path": output_path,
+                  "finder_name": finder_name,
+                  "grant_url": grant_url,
+                  "finder_fee_clause": finder_fee_clause,
+                  "draft_preview": full_draft[:2000],
+              }, f)
+          PYEOF
+
+      - name: Create GitHub Issue with draft
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GRANT_URL: ${{ github.event.inputs.grant_url }}
+          FINDER_NAME: ${{ github.event.inputs.finder_name }}
+        run: |
+          python3 - <<'PYEOF'
+          import json
+          import os
+          import urllib.request
+          import urllib.parse
+
+          with open("/tmp/draft_meta.json") as f:
+              meta = json.load(f)
+
+          gh_token = os.environ["GH_TOKEN"]
+          repo = os.environ.get("GITHUB_REPOSITORY", "meekotharaccoon-cell/meeko-nerve-center")
+
+          title = f"📝 Grant Draft: {meta['finder_name']} — {meta['grant_url']}"
+
+          body = f"""{meta['draft_preview']}
+
+          ---
+
+          **Full draft file:** `{meta['output_path']}`
+
+          ---
+
+          {meta['finder_fee_clause']}
+
+          ---
+          *Created by GRANT_RUNNER workflow*
+          """
+
+          payload = json.dumps({
+              "title": title,
+              "body": body[:65000],  # GitHub issue body limit
+              "labels": ["FINDER_FEE: 20%"],
+          }).encode("utf-8")
+
+          url = f"https://api.github.com/repos/{repo}/issues"
+          req = urllib.request.Request(
+              url,
+              data=payload,
+              headers={
+                  "Authorization": f"Bearer {gh_token}",
+                  "Accept": "application/vnd.github+json",
+                  "Content-Type": "application/json",
+                  "X-GitHub-Api-Version": "2022-11-28",
+              },
+              method="POST",
+          )
+
+          try:
+              with urllib.request.urlopen(req) as resp:
+                  result = json.loads(resp.read())
+                  print(f"Issue created: {result.get('html_url')}")
+          except urllib.error.HTTPError as e:
+              body_err = e.read().decode()
+              print(f"Issue creation error {e.code}: {body_err}")
+              # Label may not exist — retry without label
+              payload2 = json.dumps({
+                  "title": title,
+                  "body": body[:65000],
+              }).encode("utf-8")
+              req2 = urllib.request.Request(url, data=payload2, headers={
+                  "Authorization": f"Bearer {gh_token}",
+                  "Accept": "application/vnd.github+json",
+                  "Content-Type": "application/json",
+                  "X-GitHub-Api-Version": "2022-11-28",
+              }, method="POST")
+              with urllib.request.urlopen(req2) as resp2:
+                  result2 = json.loads(resp2.read())
+                  print(f"Issue created (no label): {result2.get('html_url')}")
+          PYEOF
+
+      - name: Commit draft and push
+        run: |
+          git config user.name "GRANT_RUNNER[bot]"
+          git config user.email "grant-runner@solarpunk-node01"
+
+          DRAFT_FILE=$(python3 -c "import json; d=json.load(open('/tmp/draft_meta.json')); print(d['output_path'])")
+
+          git fetch origin
+          git rebase origin/main || git rebase --abort && git reset --soft HEAD~1
+
+          git add "$DRAFT_FILE"
+          git commit -m "feat: grant draft — ${{ github.event.inputs.finder_name }} — $(date -u +%Y-%m-%d)" || echo "Nothing to commit"
+
+          git push origin HEAD:main || (
+            git fetch origin &&
+            git rebase origin/main &&
+            git push origin HEAD:main
+          )
