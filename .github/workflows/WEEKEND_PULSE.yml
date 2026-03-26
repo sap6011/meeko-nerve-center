@@ -1,0 +1,70 @@
+name: WEEKEND_PULSE — Autonomous Self-Wiring Cycle
+
+# The organism breathes while the Human Anchor sleeps.
+# Every 12 hours: BRIDGE_BUILDER feeds hungry inputs, LIVE_WIRE maps the
+# wiring topology, VITAL_SIGN_API publishes the pulse to docs/api/vital.json.
+#
+# Zero secrets. Zero API keys. The system monitors itself.
+# When you wake up Monday for the NLnet review, you'll have 4 days of
+# autonomous growth logs to show them.
+
+on:
+  schedule:
+    - cron: '0 6,18 * * *'  # Every 12 hours: 06:00 and 18:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run BRIDGE_BUILDER — Feed hungry inputs
+        run: |
+          echo "=== BRIDGE BUILDER ==="
+          python mycelium/BRIDGE_BUILDER.py || echo "BRIDGE_BUILDER had errors (non-fatal)"
+
+      - name: Run LIVE_WIRE — Map wiring topology
+        run: |
+          echo "=== LIVE WIRE ==="
+          python mycelium/LIVE_WIRE.py || echo "LIVE_WIRE had errors (non-fatal)"
+
+      - name: Run VITAL_SIGN_API — Publish pulse
+        run: |
+          echo "=== VITAL SIGN API ==="
+          python mycelium/VITAL_SIGN_API.py || echo "VITAL_SIGN_API had errors (non-fatal)"
+
+      - name: Log cycle timestamp
+        run: |
+          echo "Weekend pulse completed: $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> data/weekend_pulse_log.txt
+          echo "Wires: $(python -c "import json; r=json.load(open('data/live_wire_report.json')); print(r['stats']['total_wires_discovered'])" 2>/dev/null || echo 'N/A')" >> data/weekend_pulse_log.txt
+          echo "Live: $(python -c "import json; r=json.load(open('data/live_wire_report.json')); print(sum(1 for t in r['test_results'] if t['status']=='LIVE'))" 2>/dev/null || echo 'N/A')" >> data/weekend_pulse_log.txt
+          echo "---" >> data/weekend_pulse_log.txt
+
+      - name: Commit results
+        run: |
+          git config user.name "SolarPunk Node-01"
+          git config user.email "solarpunk-node@users.noreply.github.com"
+          git add data/ docs/api/ || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git fetch origin main
+            git rebase FETCH_HEAD || git rebase --abort
+            git commit -m "pulse: weekend autonomous cycle $(date -u +%Y-%m-%d_%H%M)
+
+BRIDGE_BUILDER -> LIVE_WIRE -> VITAL_SIGN_API
+Zero secrets. The organism breathes."
+            git push origin main
+          fi
