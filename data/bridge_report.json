@@ -1,24 +1,9 @@
 {
-  "timestamp": "2026-03-26T20:38:03.547674+00:00",
-  "bridges_attempted": 4,
-  "bridges_built": 4,
-  "bridges_failed": 0,
-  "unbridged_inputs": [
-    "SOCIAL_QUEUE.txt",
-    "brave_browser_state.json",
-    "conversion_log.json",
-    "desktop_daemon_state.json",
-    "knowledge_bank.txt",
-    "neuron_a_report.json",
-    "neuron_b_report.json",
-    "newsletter_subscribers.json",
-    "pending_publication.txt",
-    "resurrections.json",
-    "sponsors_inbox.json",
-    "storefront_builder_state.json",
-    "synergy_mutations.txt",
-    "system_directive.json"
-  ],
+  "timestamp": "2026-03-26T20:43:32.646327+00:00",
+  "bridges_attempted": 18,
+  "bridges_built": 10,
+  "bridges_failed": 8,
+  "unbridged_inputs": [],
   "results": [
     {
       "status": "BRIDGED",
@@ -48,11 +33,11 @@
           34
         ],
         [
-          "DISPATCH_HANDLER",
+          "DEV_TO_PUBLISHER",
           31
         ],
         [
-          "DEV_TO_PUBLISHER",
+          "DISPATCH_HANDLER",
           31
         ],
         [
@@ -67,6 +52,76 @@
       "detail": "Quick revenue synthesized from brain_state + revenue_inbox",
       "revenue": 221.35,
       "target": "quick_revenue.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Seeded SOCIAL_QUEUE.txt",
+      "target": "SOCIAL_QUEUE.txt"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "brave_browser_state.json already has data",
+      "target": "brave_browser_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "conversion_log.json already has data",
+      "target": "conversion_log.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "desktop_daemon_state.json already has data",
+      "target": "desktop_daemon_state.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Knowledge bank synthesized (19 lines, feeds 3 engines)",
+      "target": "knowledge_bank.txt"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Neuron A+B reports seeded for cross-neuron comms",
+      "target": "neuron_a_report.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Neuron A+B reports seeded for cross-neuron comms",
+      "target": "neuron_b_report.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "newsletter_subscribers.json already has data",
+      "target": "newsletter_subscribers.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Seeded pending_publication.txt",
+      "target": "pending_publication.txt"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "resurrections.json already has data",
+      "target": "resurrections.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "sponsors_inbox.json already has data",
+      "target": "sponsors_inbox.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "storefront_builder_state.json already has data",
+      "target": "storefront_builder_state.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Synergy mutations seeded (3 lines)",
+      "target": "synergy_mutations.txt"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "system_directive.json already has data",
+      "target": "system_directive.json"
     }
   ],
   "note": "Successes AND failures documented. Both are useful."
