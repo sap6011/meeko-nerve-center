@@ -1,0 +1,312 @@
+name: MURMUR — Flock Intelligence Protocol
+
+# Murmuration: no engine is the authority.
+# Each engine writes a signal → MURMUR reads all signals → broadcasts consensus.
+# The flock decides what matters. No central coordinator.
+# Runs after every OMNIBRAIN cycle and daily.
+#
+# Output: data/murmur_consensus.json
+# This file is read by: MUTATE (weights parent selection),
+#   LIVING_DOCS (knows what to amplify), HEALTH_BOOSTER (flock energy),
+#   BUILD_YOURSELF (knows what's missing), any engine that wants context.
+#
+# This is how static becomes alive:
+# every engine's output feeds back into every other engine's input.
+
+on:
+  workflow_run:
+    workflows: ["OMNIBRAIN"]
+    types: [completed]
+  schedule:
+    - cron: '0 1 * * *'   # daily 01:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  murmur:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Collect signals from all engines
+        run: |
+          python3 - <<'PYEOF'
+          import json, os
+          from pathlib import Path
+          from datetime import datetime, timezone, timedelta
+
+          DATA = Path("data"); DATA.mkdir(exist_ok=True)
+
+          # Every engine that runs writes a signal.
+          # MURMUR reads them all and builds the consensus.
+          # Format: {engine, status, energy 0-1, finding, neighbors_needed, payload}
+
+          def load(fname):
+              f = DATA / fname
+              if not f.exists(): return None
+              try: return json.loads(f.read_text())
+              except: return None
+
+          def age_hours(ts_str):
+              if not ts_str: return 9999
+              try:
+                  ts = datetime.fromisoformat(ts_str.replace("Z","+00:00"))
+                  return (datetime.now(timezone.utc) - ts).total_seconds() / 3600
+              except: return 9999
+
+          # Read every engine state file and derive a signal
+          signals = {}
+
+          # OMNIBRAIN / brain
+          brain = load("brain_state.json") or {}
+          if brain:
+              signals["OMNIBRAIN"] = {
+                  "engine": "OMNIBRAIN",
+                  "status": "active" if brain.get("cycles",0) > 0 else "idle",
+                  "energy": min(1.0, brain.get("cycles",0) / 100),
+                  "finding": f"{brain.get('cycles',0)} cycles completed",
+                  "neighbors_needed": ["BRIEFING_ENGINE","HEALTH_BOOSTER"],
+                  "payload": {"cycles": brain.get("cycles",0)}
+              }
+
+          # SENTINEL
+          sentinel = load("sentinel_report.json") or {}
+          if sentinel:
+              health = sentinel.get("summary",{}).get("health","UNKNOWN")
+              fail   = sentinel.get("summary",{}).get("syntax_fail",0) or 0
+              signals["SENTINEL"] = {
+                  "engine": "SENTINEL",
+                  "status": "clean" if health=="CLEAN" else "alert",
+                  "energy": 1.0 if health=="CLEAN" else max(0.2, 1-(fail*0.1)),
+                  "finding": f"{health} — {fail} syntax failures",
+                  "neighbors_needed": ["REPAIR_CORE"] if fail > 0 else [],
+                  "payload": {"health": health, "failures": fail}
+              }
+
+          # GRANTS
+          grants = load("grants_found.json") or []
+          grants_live = load("grants_gov_live.json") or {}
+          g_count = len(grants) if isinstance(grants,list) else 0
+          g_live  = grants_live.get("total_found",0)
+          if g_count or g_live:
+              signals["GRANT_HUNTER"] = {
+                  "engine": "GRANT_HUNTER",
+                  "status": "active",
+                  "energy": min(1.0, (g_count+g_live) / 20),
+                  "finding": f"{g_count} tracked, {g_live} live from Grants.gov",
+                  "neighbors_needed": ["GRANT_APPLICANT","BRIEFING_ENGINE"],
+                  "payload": {"tracked": g_count, "live": g_live}
+              }
+
+          # ARXIV / Research
+          arxiv = load("arxiv_papers.json") or {}
+          papers = arxiv.get("total_papers",0)
+          arxiv_age = age_hours(arxiv.get("fetched_at",""))
+          if papers:
+              signals["ARXIV_BRIDGE"] = {
+                  "engine": "ARXIV_BRIDGE",
+                  "status": "fresh" if arxiv_age < 72 else "stale",
+                  "energy": 0.9 if arxiv_age < 72 else 0.4,
+                  "finding": f"{papers} research papers ({arxiv_age:.0f}h old)",
+                  "neighbors_needed": ["LIVING_DOCS","AMPLIFY"],
+                  "payload": {"papers": papers, "age_hours": arxiv_age}
+              }
+
+          # OPEN_ANTENNA
+          antenna = load("open_antenna.json") or {}
+          sigs = antenna.get("total_signals",0)
+          ant_age = age_hours(antenna.get("scanned_at",""))
+          if sigs:
+              signals["OPEN_ANTENNA"] = {
+                  "engine": "OPEN_ANTENNA",
+                  "status": "fresh" if ant_age < 168 else "stale",
+                  "energy": min(1.0, sigs/30),
+                  "finding": f"{sigs} signals from Reddit/HN/DEV.to ({ant_age:.0f}h old)",
+                  "neighbors_needed": ["LIVING_DOCS","VIRALITY_ENGINE"],
+                  "payload": {"signals": sigs}
+              }
+
+          # EMAIL_BRAIN
+          email = load("email_brain_state.json") or {}
+          if email:
+              sent = email.get("sent",email.get("emails_sent",0)) or 0
+              signals["EMAIL_BRAIN"] = {
+                  "engine": "EMAIL_BRAIN",
+                  "status": "active",
+                  "energy": min(1.0, sent/50),
+                  "finding": f"{sent} emails sent autonomously",
+                  "neighbors_needed": ["BRIEFING_ENGINE"],
+                  "payload": {"sent": sent}
+              }
+
+          # MUTATION vault
+          mutations = load("mutation_vault.json") or []
+          if isinstance(mutations,list) and mutations:
+              written = [m for m in mutations if m.get("written")]
+              signals["MUTATE"] = {
+                  "engine": "MUTATE",
+                  "status": "evolving",
+                  "energy": min(1.0, len(written)/10),
+                  "finding": f"{len(written)} successful mutations of {len(mutations)} attempts",
+                  "neighbors_needed": ["SENTINEL","BUILD_YOURSELF"],
+                  "payload": {
+                      "attempts": len(mutations),
+                      "successes": len(written),
+                      "recent_parents": list(set(
+                          m.get("parent_a","") for m in mutations[-5:] if m.get("parent_a")
+                      ))
+                  }
+              }
+
+          # Build registry
+          build_reg = load("build_registry.json") or []
+          if isinstance(build_reg,list) and build_reg:
+              signals["BUILD_YOURSELF"] = {
+                  "engine": "BUILD_YOURSELF",
+                  "status": "active",
+                  "energy": min(1.0, len(build_reg)/20),
+                  "finding": f"{len(build_reg)} engines built autonomously",
+                  "neighbors_needed": ["SENTINEL","MURMUR"],
+                  "payload": {"built": len(build_reg)}
+              }
+
+          # Scam shield
+          scam = load("scam_shield_state.json") or {}
+          if scam:
+              blocked = scam.get("blocked",scam.get("total_blocked",0)) or 0
+              signals["SCAM_SHIELD"] = {
+                  "engine": "SCAM_SHIELD",
+                  "status": "active",
+                  "energy": 0.8,
+                  "finding": f"{blocked} threats neutralized",
+                  "neighbors_needed": [],
+                  "payload": {"blocked": blocked}
+              }
+
+          Path("data/murmur_signals.json").write_text(json.dumps(signals, indent=2))
+          print(f"Signals collected: {len(signals)} engines reporting")
+          for name, sig in signals.items():
+              print(f"  {name}: energy={sig['energy']:.2f} | {sig['finding'][:60]}")
+          PYEOF
+
+      - name: Compute flock consensus
+        run: |
+          python3 - <<'PYEOF'
+          import json
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          signals = json.loads(Path("data/murmur_signals.json").read_text())
+
+          if not signals:
+              print("No signals — flock is silent")
+              exit(0)
+
+          # Flock energy = weighted average
+          energies = [s["energy"] for s in signals.values()]
+          flock_energy = sum(energies) / len(energies) if energies else 0
+
+          # Hot engines: energy > 0.6
+          hot = {name: s for name, s in signals.items() if s["energy"] > 0.6}
+          cold = {name: s for name, s in signals.items() if s["energy"] <= 0.3}
+
+          # Hot edges: which engines most want which neighbors
+          hot_edges = []
+          for name, sig in signals.items():
+              for neighbor in sig.get("neighbors_needed",[]):
+                  hot_edges.append([name, neighbor])
+
+          # Consensus focus: what's the flock most excited about?
+          focus_votes = {}
+          for name, sig in hot.items():
+              # Map engine names to focus areas
+              focus_map = {
+                  "GRANT_HUNTER": "grant_pursuit",
+                  "ARXIV_BRIDGE": "academic_weight",
+                  "OPEN_ANTENNA": "community_reach",
+                  "EMAIL_BRAIN": "outreach",
+                  "MUTATE": "evolution",
+                  "BUILD_YOURSELF": "growth",
+                  "SENTINEL": "integrity",
+                  "OMNIBRAIN": "coordination",
+              }
+              focus = focus_map.get(name, "general")
+              focus_votes[focus] = focus_votes.get(focus,0) + sig["energy"]
+
+          consensus_focus = max(focus_votes, key=focus_votes.get) if focus_votes else "general"
+
+          # Mutation weights: weight parent selection toward hot engines
+          # These get read by MUTATE.yml to bias toward what's working
+          all_engines = sorted([f.name for f in Path("mycelium").glob("*.py") if not f.name.startswith("__")])
+          mutation_weights = {}
+          for eng in all_engines:
+              eng_stem = eng.replace(".py","")
+              # Check if this engine is in hot signals or connected to hot signals
+              if eng_stem in hot:
+                  mutation_weights[eng] = signals[eng_stem]["energy"]
+              elif any(eng_stem in e[1] for e in hot_edges):
+                  mutation_weights[eng] = 0.5  # wanted by hot engines
+              else:
+                  mutation_weights[eng] = 0.1  # cold
+
+          # The murmur message — what every engine should know this cycle
+          murmur_message = []
+          if flock_energy > 0.7:
+              murmur_message.append("Flock is energized — push forward on all fronts")
+          elif flock_energy > 0.4:
+              murmur_message.append("Flock is steady — maintain current trajectory")
+          else:
+              murmur_message.append("Flock energy is low — consolidate and repair")
+
+          if "grant_pursuit" == consensus_focus:
+              murmur_message.append("Grant opportunities are hot — prioritize applications")
+          if "academic_weight" == consensus_focus:
+              murmur_message.append("Research data is fresh — use it to strengthen all outreach")
+          if "evolution" == consensus_focus:
+              murmur_message.append("Mutation rate is high — review what the lottery produced")
+
+          consensus = {
+              "timestamp": datetime.now(timezone.utc).isoformat(),
+              "flock_energy": round(flock_energy, 3),
+              "engines_reporting": len(signals),
+              "hot_engines": list(hot.keys()),
+              "cold_engines": list(cold.keys()),
+              "hot_edges": hot_edges[:20],
+              "consensus_focus": consensus_focus,
+              "focus_votes": focus_votes,
+              "murmur_message": murmur_message,
+              "mutation_weights": dict(sorted(mutation_weights.items(), key=lambda x: -x[1])[:30]),
+              "signals": signals
+          }
+
+          Path("data/murmur_consensus.json").write_text(json.dumps(consensus, indent=2))
+
+          print(f"\n=== MURMUR CONSENSUS ===")
+          print(f"Flock energy: {flock_energy:.2f}")
+          print(f"Focus: {consensus_focus}")
+          print(f"Hot: {list(hot.keys())}")
+          print(f"Cold: {list(cold.keys())}")
+          print(f"Message: {' | '.join(murmur_message)}")
+          PYEOF
+
+      - name: Commit consensus
+        run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git config user.name 'MURMUR' && git config user.email 'murmur@solarpunk'
+          git fetch "$REMOTE" main && git rebase FETCH_HEAD || true
+          git add data/murmur_signals.json data/murmur_consensus.json 2>/dev/null || true
+          git diff --staged --quiet && echo "Consensus unchanged" && exit 0
+          ENERGY=$(python3 -c "import json; print(json.load(open('data/murmur_consensus.json'))['flock_energy'])" 2>/dev/null || echo "?")
+          FOCUS=$(python3 -c "import json; print(json.load(open('data/murmur_consensus.json'))['consensus_focus'])" 2>/dev/null || echo "?")
+          git commit -m "🐦 MURMUR: energy=$ENERGY focus=$FOCUS [skip ci]"
+          git push "$REMOTE" HEAD:main

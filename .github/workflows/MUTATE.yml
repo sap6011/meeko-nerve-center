@@ -74,17 +74,43 @@ jobs:
               print("Not enough engines to mutate")
               exit(0)
 
-          # Select parents
+          # Read murmur consensus — flock weights parent selection toward hot engines
+          murmur_weights = {}
+          murmur_f = Path("data/murmur_consensus.json")
+          if murmur_f.exists():
+              try:
+                  murmur = json.loads(murmur_f.read_text())
+                  murmur_weights = murmur.get("mutation_weights", {})
+                  flock_focus = murmur.get("consensus_focus","general")
+                  flock_energy = murmur.get("flock_energy", 0.5)
+                  print(f"Murmur: energy={flock_energy:.2f} focus={flock_focus}")
+              except: pass
+
+          def weighted_choice(pool, weights):
+              """Pick from pool using murmur weights — hot engines chosen more often."""
+              import random as _r
+              ws = [weights.get(f.name, 0.1) for f in pool]
+              total = sum(ws)
+              if total == 0: return _r.choice(pool)
+              r = _r.uniform(0, total)
+              cumulative = 0
+              for f, w in zip(pool, ws):
+                  cumulative += w
+                  if r <= cumulative:
+                      return f
+              return pool[-1]
+
+          # Select parents — murmur-weighted if consensus available, else random
           if parent_a and Path("mycelium") / parent_a in [Path("mycelium") / c.name for c in candidates]:
               eng_a = Path("mycelium") / parent_a
           else:
-              eng_a = random.choice(candidates)
+              eng_a = weighted_choice(candidates, murmur_weights) if murmur_weights else random.choice(candidates)
 
           remaining = [c for c in candidates if c.name != eng_a.name]
           if parent_b and Path("mycelium") / parent_b in [Path("mycelium") / c.name for c in remaining]:
               eng_b = Path("mycelium") / parent_b
           else:
-              eng_b = random.choice(remaining)
+              eng_b = weighted_choice(remaining, murmur_weights) if murmur_weights else random.choice(remaining)
 
           print(f"Parent A: {eng_a.name}")
           print(f"Parent B: {eng_b.name}")
