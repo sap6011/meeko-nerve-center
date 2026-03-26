@@ -40,6 +40,16 @@ jobs:
           echo "=== LIVE WIRE ==="
           python mycelium/LIVE_WIRE.py || echo "LIVE_WIRE had errors (non-fatal)"
 
+      - name: Run MYCELIUM_NETWORK — Bio-inspired routing and healing
+        run: |
+          echo "=== MYCELIUM NETWORK ==="
+          python mycelium/MYCELIUM_NETWORK.py || echo "MYCELIUM_NETWORK had errors (non-fatal)"
+
+      - name: Run PRODUCT_FACTORY — Validate and generate products
+        run: |
+          echo "=== PRODUCT FACTORY ==="
+          python mycelium/PRODUCT_FACTORY.py || echo "PRODUCT_FACTORY had errors (non-fatal)"
+
       - name: Run VITAL_SIGN_API — Publish pulse
         run: |
           echo "=== VITAL SIGN API ==="
@@ -64,7 +74,7 @@ jobs:
             git rebase FETCH_HEAD || git rebase --abort
             git commit -m "pulse: weekend autonomous cycle $(date -u +%Y-%m-%d_%H%M)
 
-BRIDGE_BUILDER -> LIVE_WIRE -> VITAL_SIGN_API
+BRIDGE_BUILDER -> LIVE_WIRE -> MYCELIUM_NETWORK -> PRODUCT_FACTORY -> VITAL_SIGN_API
 Zero secrets. The organism breathes."
             git push origin main
           fi

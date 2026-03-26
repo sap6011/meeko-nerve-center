@@ -1,0 +1,298 @@
+{
+  "timestamp": "2026-03-26T23:15:30.542895+00:00",
+  "protocol": "mycelium-network-v1",
+  "nutrient_routing": {
+    "total_nodes": 242,
+    "producers": 85,
+    "consumers": 27,
+    "top_producers": [
+      {
+        "name": "DISPATCH_HANDLER",
+        "level": 20.0,
+        "role": "producer",
+        "writes": 4,
+        "reads": 4,
+        "downstream_dependents": 21,
+        "upstream_feeders": 10
+      },
+      {
+        "name": "FIRST_SALE_NOTIFIER",
+        "level": 18.5,
+        "role": "producer",
+        "writes": 5,
+        "reads": 8,
+        "downstream_dependents": 29,
+        "upstream_feeders": 25
+      },
+      {
+        "name": "REVENUE_LOOP",
+        "level": 16.5,
+        "role": "producer",
+        "writes": 5,
+        "reads": 5,
+        "downstream_dependents": 19,
+        "upstream_feeders": 15
+      },
+      {
+        "name": "EMAIL_BRAIN",
+        "level": 15.5,
+        "role": "producer",
+        "writes": 5,
+        "reads": 5,
+        "downstream_dependents": 13,
+        "upstream_feeders": 5
+      },
+      {
+        "name": "DEV_TO_PUBLISHER",
+        "level": 14.5,
+        "role": "producer",
+        "writes": 3,
+        "reads": 3,
+        "downstream_dependents": 18,
+        "upstream_feeders": 13
+      }
+    ],
+    "steepest_gradients": [
+      {
+        "from": "DISPATCH_HANDLER",
+        "to": "STORE_BUILDER",
+        "via": "revenue_inbox.json",
+        "gradient": 27.5,
+        "src_level": 20.0,
+        "dst_level": -7.5
+      },
+      {
+        "from": "DISPATCH_HANDLER",
+        "to": "VITAL_SIGN_API",
+        "via": "brain_state.json",
+        "gradient": 26.5,
+        "src_level": 20.0,
+        "dst_level": -6.5
+      },
+      {
+        "from": "FIRST_SALE_NOTIFIER",
+        "to": "STORE_BUILDER",
+        "via": "revenue_inbox.json",
+        "gradient": 26.0,
+        "src_level": 18.5,
+        "dst_level": -7.5
+      },
+      {
+        "from": "FIRST_SALE_NOTIFIER",
+        "to": "VITAL_SIGN_API",
+        "via": "brain_state.json",
+        "gradient": 25.0,
+        "src_level": 18.5,
+        "dst_level": -6.5
+      },
+      {
+        "from": "DISPATCH_HANDLER",
+        "to": "SYNTHESIS_FACTORY",
+        "via": "brain_state.json",
+        "gradient": 24.0,
+        "src_level": 20.0,
+        "dst_level": -4.0
+      },
+      {
+        "from": "DISPATCH_HANDLER",
+        "to": "GRANT_APPLICANT",
+        "via": "revenue_inbox.json",
+        "gradient": 24.0,
+        "src_level": 20.0,
+        "dst_level": -4.0
+      },
+      {
+        "from": "DISPATCH_HANDLER",
+        "to": "SYNAPSE",
+        "via": "brain_state.json",
+        "gradient": 23.5,
+        "src_level": 20.0,
+        "dst_level": -3.5
+      },
+      {
+        "from": "DISPATCH_HANDLER",
+        "to": "PROOF_LEDGER",
+        "via": "revenue_inbox.json",
+        "gradient": 23.5,
+        "src_level": 20.0,
+        "dst_level": -3.5
+      },
+      {
+        "from": "REVENUE_LOOP",
+        "to": "VITAL_SIGN_API",
+        "via": "brain_state.json",
+        "gradient": 23.0,
+        "src_level": 16.5,
+        "dst_level": -6.5
+      },
+      {
+        "from": "EMAIL_BRAIN",
+        "to": "STORE_BUILDER",
+        "via": "revenue_inbox.json",
+        "gradient": 23.0,
+        "src_level": 15.5,
+        "dst_level": -7.5
+      }
+    ]
+  },
+  "adaptive_growth": {
+    "total_wires": 385,
+    "strengthen": 377,
+    "monitor": 8,
+    "prune": 0
+  },
+  "anastomosis": {
+    "broken_wires": 0,
+    "hungry_inputs": 18,
+    "breaks": [
+      {
+        "type": "hungry_input",
+        "file": "SOCIAL_QUEUE.txt",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "brave_browser_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "conversion_log.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "desktop_daemon_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "grants_found.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "knowledge_bank.txt",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "neuron_a_report.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "neuron_b_report.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "newsletter_subscribers.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "pending_publication.txt",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "quick_revenue.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "resurrections.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "something",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "sponsors_inbox.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "storefront_builder_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "synergy_mutations.txt",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "system_directive.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "|DATA\\s*/\\s*[",
+        "healing": "Create seed data or bridge from existing source"
+      }
+    ]
+  },
+  "decomposition": {
+    "decompose_targets": 0,
+    "monitor_targets": 0,
+    "targets": []
+  },
+  "signals": [
+    {
+      "type": "PEST_ALERT",
+      "severity": "medium",
+      "message": "10 engines failing syntax checks",
+      "source": "sentinel",
+      "affected": [
+        "AI_CLIENT.py",
+        "ai_council.py",
+        "BIG_BRAIN_ORACLE.py",
+        "BOTTLENECK_SCANNER.py",
+        "CAPABILITY_SCANNER.py",
+        "CLAUDE_ENGINE.py",
+        "DESKTOP_BLUEPRINT_SCANNER.py",
+        "DESKTOP_DAEMON.py",
+        "HEALTH_BOOSTER.py",
+        "ledger_engine.py"
+      ],
+      "biology": "Bark beetle attack detected -- VOC warning sent to neighbors"
+    },
+    {
+      "type": "NUTRIENT_DEFICIT",
+      "severity": "medium",
+      "message": "9 engines severely nutrient-depleted",
+      "source": "nutrient_routing",
+      "affected": [
+        "GRANT_APPLICANT",
+        "NEWSLETTER_ENGINE",
+        "PROOF_LEDGER",
+        "RESONANCE_CONVERTER",
+        "STORE_BUILDER",
+        "SYNAPSE",
+        "SYNERGY_SCOUT",
+        "SYNTHESIS_FACTORY",
+        "VITAL_SIGN_API"
+      ],
+      "biology": "Shaded understory trees need carbon transfer from canopy"
+    },
+    {
+      "type": "NETWORK_PULSE",
+      "severity": "info",
+      "message": "Network health: 98% (377/385 wires healthy)",
+      "source": "mycelium_network",
+      "biology": "Seasonal growth assessment -- overall forest vitality check"
+    }
+  ],
+  "biology_notes": {
+    "nutrient_routing": "Mycorrhizal networks transport carbon/nitrogen/phosphorus from surplus trees to deficit trees via concentration gradients",
+    "adaptive_growth": "Hyphae that find nutrients thicken; hyphae that find nothing are pruned. Explore-exploit tradeoff.",
+    "anastomosis": "Broken hyphae are healed by nearby hyphae fusing across the gap. Self-repair without central coordination.",
+    "decomposition": "Enzymes (cellulase, lignin peroxidase) break dead wood into nutrients. Waste becomes food.",
+    "signaling": "VOCs and electrical signals propagate threat warnings through the network. Neighbors prepare before the threat arrives."
+  }
+}
