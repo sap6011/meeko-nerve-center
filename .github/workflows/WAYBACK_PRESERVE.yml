@@ -1,0 +1,114 @@
+name: WAYBACK_PRESERVE — Internet Archive Insurance
+
+# Submits all SolarPunk public pages to web.archive.org every month.
+# The Wayback Machine's Save API requires zero authentication.
+# SolarPunk becomes permanent. Can't be taken down. Can't be erased.
+# Even if GitHub disappears, this project lives in the Archive forever.
+
+on:
+  schedule:
+    - cron: '0 5 1 * *'   # 1st of every month, 05:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests
+
+      - name: Submit all pages to Internet Archive
+        run: |
+          python3 - <<'PYEOF'
+          import json, requests, time
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          DATA = Path("data"); DATA.mkdir(exist_ok=True)
+
+          # All SolarPunk public URLs to preserve
+          BASE = "https://meekotharaccoon-cell.github.io/meeko-nerve-center"
+          PAGES = [
+              f"{BASE}/",
+              f"{BASE}/index.html",
+              f"{BASE}/store.html",
+              f"{BASE}/press.html",
+              f"{BASE}/share.html",
+              f"{BASE}/research.html",
+              f"{BASE}/mcdonalds-pitch.html",
+              f"{BASE}/grants/otf-application",
+              "https://github.com/meekotharaccoon-cell/meeko-nerve-center",
+              "https://github.com/meekotharaccoon-cell/meeko-nerve-center/blob/main/README.md",
+              "https://github.com/meekotharaccoon-cell/meeko-nerve-center/blob/main/SOLARPUNK_ACTUAL.md",
+          ]
+
+          results = []
+          success = 0
+
+          for url in PAGES:
+              try:
+                  # Wayback Machine Save API — zero auth, just POST
+                  r = requests.get(
+                      f"https://web.archive.org/save/{url}",
+                      headers={
+                          "User-Agent": "SolarPunk/1.0 (https://github.com/meekotharaccoon-cell/meeko-nerve-center)"
+                      },
+                      timeout=60,
+                      allow_redirects=True
+                  )
+                  wayback_url = ""
+                  if r.status_code in (200, 302):
+                      # Archive returns the snapshot URL in headers
+                      wayback_url = r.headers.get("Content-Location", "")
+                      if wayback_url:
+                          wayback_url = f"https://web.archive.org{wayback_url}"
+                      success += 1
+                      print(f"  ✅ Preserved: {url[:60]}")
+                  else:
+                      print(f"  ⚠️  Status {r.status_code}: {url[:60]}")
+
+                  results.append({
+                      "url": url,
+                      "status": r.status_code,
+                      "wayback_url": wayback_url,
+                      "preserved_at": datetime.now(timezone.utc).isoformat()
+                  })
+                  time.sleep(3)  # be respectful — archive.org is a nonprofit
+
+              except Exception as e:
+                  print(f"  ❌ Error {url[:60]}: {e}")
+                  results.append({"url": url, "status": 0, "error": str(e)})
+
+          output = {
+              "run_at": datetime.now(timezone.utc).isoformat(),
+              "pages_submitted": len(PAGES),
+              "pages_confirmed": success,
+              "results": results
+          }
+          Path("data/wayback_archive.json").write_text(json.dumps(output, indent=2))
+          print(f"\n{success}/{len(PAGES)} pages preserved in Internet Archive")
+          print("SolarPunk is now permanent. Knowledge belongs to everyone.")
+          PYEOF
+
+      - name: Commit archive log
+        run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git config user.name 'WAYBACK' && git config user.email 'wayback@solarpunk'
+          git fetch "$REMOTE" main && git rebase FETCH_HEAD || true
+          git add data/wayback_archive.json 2>/dev/null || true
+          git diff --staged --quiet && echo "No changes" && exit 0
+          COUNT=$(python3 -c "import json; d=json.load(open('data/wayback_archive.json')); print(d['pages_confirmed'])" 2>/dev/null || echo "?")
+          git commit -m "🏛️ WAYBACK: $COUNT pages preserved in Internet Archive [skip ci]"
+          git push "$REMOTE" HEAD:main

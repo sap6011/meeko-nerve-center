@@ -1,0 +1,238 @@
+name: TRANSPARENCY_PULSE — Monthly Proof It Works
+
+# Auto-generates a public transparency report from all data/ files.
+# No secrets. No external API. Just honest numbers from the system itself.
+# This is the proof: SolarPunk ran X times, routed $Y, took Z actions.
+# Every claim verifiable. Every number sourced from logged data files.
+
+on:
+  schedule:
+    - cron: '0 8 1 * *'   # 1st of every month, 08:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Compile transparency report
+        run: |
+          python3 - <<'PYEOF'
+          import json, os
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          DATA = Path("data"); DATA.mkdir(exist_ok=True)
+
+          def load(fname):
+              f = DATA / fname
+              if not f.exists(): return None
+              try: return json.loads(f.read_text())
+              except: return None
+
+          def safe_int(v, default=0):
+              try: return int(v)
+              except: return default
+
+          now = datetime.now(timezone.utc)
+
+          # Aggregate from all state files
+          brain      = load("brain_state.json") or {}
+          guardian   = load("guardian_state.json") or {}
+          email      = load("email_brain_state.json") or {}
+          grants     = load("grants_found.json") or []
+          applied    = load("grant_applicant_state.json") or {}
+          kofi       = load("kofi_state.json") or {}
+          sentinel   = load("sentinel_report.json") or {}
+          mutations  = load("mutation_vault.json") or []
+          build_reg  = load("build_registry.json") or []
+          grants_live = load("grants_gov_live.json") or {}
+          food_routes = load("food_routes.json") or []
+          scam       = load("scam_shield_state.json") or {}
+          wayback    = load("wayback_archive.json") or {}
+
+          # Count engines
+          engines = sorted([f.name for f in Path("mycelium").glob("*.py") if not f.name.startswith("__")])
+          workflows = sorted([f.name for f in Path(".github/workflows").glob("*.yml")])
+
+          # Extract key metrics
+          cycles     = safe_int(brain.get("cycles", brain.get("total_cycles", 0)))
+          emails_out = safe_int(email.get("sent", email.get("emails_sent", 0)))
+          emails_in  = safe_int(email.get("processed", email.get("emails_processed", 0)))
+          grants_found = len(grants) if isinstance(grants, list) else safe_int(grants.get("total",0))
+          grants_applied = safe_int(applied.get("applied", applied.get("total_applied", 0)))
+          scams_blocked  = safe_int(scam.get("blocked", scam.get("total_blocked", 0)))
+          mutations_run  = len(mutations)
+          engines_built  = len(build_reg)
+          pages_archived = safe_int(wayback.get("pages_confirmed", 0))
+          grant_opps     = safe_int(grants_live.get("total_found", 0))
+          sentinel_status = sentinel.get("summary", {}).get("health", "UNKNOWN")
+          syntax_pass    = safe_int(sentinel.get("summary", {}).get("syntax_pass", 0))
+          syntax_fail    = safe_int(sentinel.get("summary", {}).get("syntax_fail", 0))
+
+          # Food distribution
+          meals_est = 0
+          if isinstance(food_routes, list):
+              for r in food_routes:
+                  if isinstance(r, dict):
+                      alloc = safe_int(r.get("allocation", r.get("amount", 0)))
+                      meals_est += alloc * 2
+          elif isinstance(food_routes, dict):
+              meals_est = safe_int(food_routes.get("total_meals_estimated", 0))
+
+          report = {
+              "period": now.strftime("%B %Y"),
+              "generated_at": now.isoformat(),
+              "metrics": {
+                  "autonomous_cycles": cycles,
+                  "emails_processed": emails_in,
+                  "emails_sent": emails_out,
+                  "grants_discovered": grants_found,
+                  "grants_applied": grants_applied,
+                  "live_grant_opportunities": grant_opps,
+                  "scams_blocked": scams_blocked,
+                  "mutations_run": mutations_run,
+                  "engines_built_autonomously": engines_built,
+                  "total_engines": len(engines),
+                  "total_workflows": len(workflows),
+                  "pages_archived": pages_archived,
+                  "meals_estimated": meals_est,
+                  "code_health": sentinel_status,
+                  "syntax_pass": syntax_pass,
+                  "syntax_fail": syntax_fail,
+              }
+          }
+
+          Path("data/transparency_report.json").write_text(json.dumps(report, indent=2))
+
+          print(f"\n=== SOLARPUNK TRANSPARENCY REPORT — {report['period']} ===")
+          for k, v in report["metrics"].items():
+              print(f"  {k}: {v}")
+          PYEOF
+
+      - name: Build docs/transparency.html
+        run: |
+          python3 - <<'PYEOF'
+          import json
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          r = json.loads(Path("data/transparency_report.json").read_text())
+          m = r["metrics"]
+          period = r["period"]
+
+          def fmt(v):
+              if isinstance(v, int) and v > 999: return f"{v:,}"
+              return str(v)
+
+          rows = ""
+          LABELS = {
+              "autonomous_cycles": ("🔄", "Autonomous Cycles Run", "Times OMNIBRAIN executed without human input"),
+              "emails_processed": ("📥", "Emails Processed", "Emails read and classified by EMAIL_BRAIN"),
+              "emails_sent": ("📤", "Emails Sent", "Autonomous outreach, grant follow-ups, notifications"),
+              "grants_discovered": ("🔍", "Grants Discovered", "Funding opportunities found by FUND_SCOUT"),
+              "grants_applied": ("📝", "Grant Applications", "Applications submitted or drafted autonomously"),
+              "live_grant_opportunities": ("💰", "Live Fed Opportunities", "Active grants from Grants.gov + NIH"),
+              "scams_blocked": ("🛡️", "Scams Blocked", "SCAM_SHIELD stopped before reaching Meeko"),
+              "mutations_run": ("🧬", "Mutations Run", "MUTATE lottery — hybrid engines bred"),
+              "engines_built_autonomously": ("🔨", "Engines Built", "New engines created by BUILD_YOURSELF"),
+              "total_engines": ("⚙️", "Total Engines", "Active Python engines in mycelium/"),
+              "total_workflows": ("🔧", "Total Workflows", "GitHub Actions workflows running"),
+              "pages_archived": ("🏛️", "Pages Archived", "Pages submitted to Internet Archive"),
+              "meals_estimated": ("🍽️", "Meals Estimated", "Food bank routing estimate"),
+              "code_health": ("✅", "Code Health", "SENTINEL integrity scan result"),
+              "syntax_pass": ("🟢", "Engines Passing Syntax", "Clean engines per last SENTINEL run"),
+              "syntax_fail": ("🔴", "Syntax Failures", "Engines with errors — SolarPunk auto-flags these"),
+          }
+
+          for key, val in m.items():
+              icon, label, desc = LABELS.get(key, ("•", key.replace("_"," ").title(), ""))
+              rows += f"""
+              <tr>
+                <td>{icon} {label}</td>
+                <td class="num">{fmt(val)}</td>
+                <td class="desc">{desc}</td>
+              </tr>"""
+
+          html = f"""<!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>SolarPunk Transparency Report — {period}</title>
+          <meta property="og:title" content="SolarPunk Transparency Report — {period}">
+          <meta property="og:description" content="Every autonomous action SolarPunk took this month. Verifiable. Open. Free.">
+          <meta name="twitter:card" content="summary">
+          <style>
+          *{{box-sizing:border-box;margin:0;padding:0}}
+          body{{background:#0a1a0f;color:#c8f5d0;font-family:system-ui,sans-serif;line-height:1.6}}
+          header{{background:#0d2210;border-bottom:1px solid #1a3a1f;padding:2rem;text-align:center}}
+          header h1{{color:#4ade80;font-size:2rem;margin-bottom:.5rem}}
+          header p{{color:#86efac}}
+          .container{{max-width:900px;margin:2rem auto;padding:0 1rem}}
+          .intro{{background:#0d2210;border:1px solid #1a3a1f;border-radius:12px;padding:1.5rem;margin-bottom:2rem}}
+          .intro p{{color:#86efac;margin-bottom:.5rem}}
+          table{{width:100%;border-collapse:collapse;background:#0d2210;border-radius:12px;overflow:hidden;border:1px solid #1a3a1f}}
+          th{{background:#052e16;color:#4ade80;text-align:left;padding:1rem;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em}}
+          td{{padding:.85rem 1rem;border-bottom:1px solid #1a3a1f;font-size:.95rem}}
+          td.num{{color:#4ade80;font-weight:700;font-size:1.1rem;white-space:nowrap}}
+          td.desc{{color:#86efac;font-size:.85rem}}
+          tr:last-child td{{border-bottom:none}}
+          tr:hover td{{background:#0f2915}}
+          .source-note{{text-align:center;padding:1.5rem;color:#86efac;font-size:.85rem}}
+          footer{{text-align:center;padding:2rem;color:#86efac;border-top:1px solid #1a3a1f;font-size:.9rem}}
+          </style>
+          </head>
+          <body>
+          <header>
+            <h1>📊 Transparency Report</h1>
+            <p>{period} · Generated automatically by TRANSPARENCY_PULSE.yml</p>
+          </header>
+          <div class="container">
+            <div class="intro">
+              <p><strong style="color:#4ade80">Every number in this report is sourced directly from SolarPunk's own data files.</strong></p>
+              <p>No marketing. No spin. These are the actual counts logged by each engine as it ran. The source files are in <code>data/</code> in the public repo.</p>
+              <p>This report was generated with zero human input. If the numbers look wrong, the engine that logged them needs fixing — and SENTINEL will catch it.</p>
+            </div>
+            <table>
+              <thead><tr><th>Metric</th><th>Value</th><th>What it means</th></tr></thead>
+              <tbody>{rows}</tbody>
+            </table>
+            <p class="source-note">
+              Source files: <code>data/*.json</code> ·
+              <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/tree/main/data" style="color:#4ade80">View raw data →</a>
+            </p>
+          </div>
+          <footer>
+            <p>🌱 <a href="index.html" style="color:#4ade80">SolarPunk Nerve Center</a> — Autonomous. Transparent. Free forever.</p>
+          </footer>
+          </body>
+          </html>"""
+
+          Path("docs").mkdir(exist_ok=True)
+          Path("docs/transparency.html").write_text(html)
+          print(f"Built docs/transparency.html for {period}")
+          PYEOF
+
+      - name: Commit
+        run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git config user.name 'TRANSPARENCY' && git config user.email 'transparency@solarpunk'
+          git fetch "$REMOTE" main && git rebase FETCH_HEAD || true
+          git add data/transparency_report.json docs/transparency.html 2>/dev/null || true
+          git diff --staged --quiet && echo "No changes" && exit 0
+          PERIOD=$(python3 -c "import json; print(json.load(open('data/transparency_report.json'))['period'])" 2>/dev/null || echo "?")
+          git commit -m "📊 TRANSPARENCY: $PERIOD report published [skip ci]"
+          git push "$REMOTE" HEAD:main

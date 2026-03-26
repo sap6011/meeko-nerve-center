@@ -1,0 +1,252 @@
+name: ARXIV_BRIDGE — Open Science Intelligence
+
+# Queries arXiv (completely free, no auth) for research relevant to SolarPunk:
+# - Autonomous agents + mutual aid
+# - Supply chain security + transparency
+# - Community wealth + distributed systems
+# Builds a curated docs/research.html page. Zero secrets.
+
+on:
+  schedule:
+    - cron: '0 6 * * 3'   # Wednesday 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests
+
+      - name: Query arXiv + Wikidata + Semantic Scholar
+        run: |
+          python3 - <<'PYEOF'
+          import json, requests, re
+          from pathlib import Path
+          from datetime import datetime, timezone
+          import urllib.parse, xml.etree.ElementTree as ET
+
+          DATA = Path("data"); DATA.mkdir(exist_ok=True)
+
+          SEARCH_TERMS = [
+              "autonomous agents mutual aid",
+              "supply chain security transparency",
+              "community wealth distributed systems",
+              "food security technology open source",
+              "decentralized governance autonomous",
+          ]
+
+          papers = []
+
+          # arXiv Atom API — completely free, no auth ever needed
+          for term in SEARCH_TERMS:
+              try:
+                  url = f"http://export.arxiv.org/api/query?search_query=all:{urllib.parse.quote(term)}&start=0&max_results=3&sortBy=submittedDate&sortOrder=descending"
+                  r = requests.get(url, timeout=30, headers={"User-Agent": "SolarPunk/1.0"})
+                  if r.status_code == 200:
+                      ns = {"atom": "http://www.w3.org/2005/Atom"}
+                      root = ET.fromstring(r.text)
+                      for entry in root.findall("atom:entry", ns):
+                          title = entry.find("atom:title", ns)
+                          summary = entry.find("atom:summary", ns)
+                          published = entry.find("atom:published", ns)
+                          link = entry.find("atom:id", ns)
+                          authors = entry.findall("atom:author", ns)
+                          author_names = [a.find("atom:name", ns).text for a in authors[:3] if a.find("atom:name", ns) is not None]
+                          papers.append({
+                              "source": "arxiv",
+                              "search_term": term,
+                              "title": (title.text or "").strip().replace("\n"," "),
+                              "summary": (summary.text or "")[:300].strip().replace("\n"," "),
+                              "published": (published.text or "")[:10],
+                              "url": link.text or "",
+                              "authors": author_names
+                          })
+                  print(f"  arXiv '{term}': {len([e for e in root.findall('atom:entry', ns)])} papers")
+              except Exception as e:
+                  print(f"  arXiv error '{term}': {e}")
+
+          # Semantic Scholar API — free, no auth for basic queries
+          try:
+              r = requests.get(
+                  "https://api.semanticscholar.org/graph/v1/paper/search",
+                  params={
+                      "query": "mutual aid technology autonomous community",
+                      "fields": "title,year,authors,abstract,url,citationCount",
+                      "limit": 5
+                  },
+                  timeout=30,
+                  headers={"User-Agent": "SolarPunk/1.0"}
+              )
+              if r.status_code == 200:
+                  for paper in r.json().get("data", [])[:5]:
+                      papers.append({
+                          "source": "semantic_scholar",
+                          "search_term": "mutual aid technology",
+                          "title": paper.get("title", ""),
+                          "summary": (paper.get("abstract") or "")[:300],
+                          "published": str(paper.get("year", "")),
+                          "url": paper.get("url", f"https://www.semanticscholar.org/paper/{paper.get('paperId','')}"),
+                          "authors": [a.get("name","") for a in paper.get("authors",[])[:3]],
+                          "citations": paper.get("citationCount", 0)
+                      })
+              print(f"  Semantic Scholar: {len(r.json().get('data',[]))} papers")
+          except Exception as e:
+              print(f"  Semantic Scholar error: {e}")
+
+          # Wikidata SPARQL — free, no auth, structured knowledge graph
+          try:
+              sparql_query = """
+              SELECT ?item ?itemLabel ?description WHERE {
+                ?item wdt:P31 wd:Q7397.  # instance of: software
+                ?item wdt:P31 wd:Q341.   # also: free software
+                ?item wdt:P366 wd:Q2251788. # use: mutual aid
+                SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+              } LIMIT 10
+              """
+              r = requests.get(
+                  "https://query.wikidata.org/sparql",
+                  params={"query": sparql_query, "format": "json"},
+                  headers={"User-Agent": "SolarPunk/1.0 (meeko-nerve-center)"},
+                  timeout=30
+              )
+              wikidata_results = []
+              if r.status_code == 200:
+                  bindings = r.json().get("results",{}).get("bindings",[])
+                  for b in bindings:
+                      wikidata_results.append({
+                          "item": b.get("item",{}).get("value",""),
+                          "label": b.get("itemLabel",{}).get("value",""),
+                          "description": b.get("description",{}).get("value","")
+                      })
+              Path("data/wikidata_peers.json").write_text(json.dumps(wikidata_results, indent=2))
+              print(f"  Wikidata peer projects: {len(wikidata_results)}")
+          except Exception as e:
+              print(f"  Wikidata error: {e}")
+
+          output = {
+              "fetched_at": datetime.now(timezone.utc).isoformat(),
+              "total_papers": len(papers),
+              "papers": papers
+          }
+          Path("data/arxiv_papers.json").write_text(json.dumps(output, indent=2))
+          print(f"\nTotal research items: {len(papers)}")
+          PYEOF
+
+      - name: Build docs/research.html
+        run: |
+          python3 - <<'PYEOF'
+          import json
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          data_f = Path("data/arxiv_papers.json")
+          if not data_f.exists():
+              exit(0)
+
+          data   = json.loads(data_f.read_text())
+          papers = data.get("papers", [])
+          fetched = data.get("fetched_at","")[:10]
+
+          arxiv  = [p for p in papers if p["source"] == "arxiv"]
+          ss     = [p for p in papers if p["source"] == "semantic_scholar"]
+
+          cards  = ""
+          for p in papers[:20]:
+              badge = {"arxiv":"arXiv","semantic_scholar":"Semantic Scholar"}.get(p["source"],p["source"])
+              cite  = f'<span class="cite">{p.get("citations",0):,} citations</span>' if p.get("citations") else ""
+              cards += f"""
+              <div class="card">
+                <div class="card-meta">
+                  <span class="badge">{badge}</span>
+                  <span class="year">{p.get("published","")[:7]}</span>
+                  {cite}
+                </div>
+                <h3><a href="{p.get('url','#')}" target="_blank" rel="noopener">{p.get('title','')[:100]}</a></h3>
+                <p class="authors">{', '.join(p.get('authors',[]))}</p>
+                <p class="summary">{p.get('summary','')[:250]}…</p>
+                <span class="tag">{p.get('search_term','')}</span>
+              </div>"""
+
+          html = f"""<!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>SolarPunk Research — Open Science Intelligence</title>
+          <meta property="og:title" content="SolarPunk Open Science Intelligence">
+          <meta property="og:description" content="Academic research on mutual aid tech, supply chain security, and autonomous systems — all free, all open.">
+          <meta property="og:url" content="https://meekotharaccoon-cell.github.io/meeko-nerve-center/research.html">
+          <meta name="twitter:card" content="summary">
+          <style>
+          *{{box-sizing:border-box;margin:0;padding:0}}
+          body{{background:#0a1a0f;color:#c8f5d0;font-family:system-ui,sans-serif;line-height:1.6}}
+          header{{background:#0d2210;border-bottom:1px solid #1a3a1f;padding:2rem;text-align:center}}
+          header h1{{color:#4ade80;font-size:2rem;margin-bottom:.5rem}}
+          header p{{color:#86efac;max-width:600px;margin:0 auto}}
+          .stats{{display:flex;gap:1rem;justify-content:center;padding:1.5rem;flex-wrap:wrap}}
+          .stat{{background:#0d2210;border:1px solid #1a3a1f;border-radius:8px;padding:1rem 1.5rem;text-align:center}}
+          .stat .n{{font-size:2rem;color:#4ade80;font-weight:700}}
+          .stat .l{{font-size:.8rem;color:#86efac;text-transform:uppercase}}
+          .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;padding:2rem;max-width:1200px;margin:0 auto}}
+          .card{{background:#0d2210;border:1px solid #1a3a1f;border-radius:12px;padding:1.5rem;transition:border-color .2s}}
+          .card:hover{{border-color:#4ade80}}
+          .card-meta{{display:flex;gap:.5rem;align-items:center;margin-bottom:.75rem;flex-wrap:wrap}}
+          .badge{{background:#14532d;color:#4ade80;padding:.2rem .6rem;border-radius:4px;font-size:.75rem;font-weight:600}}
+          .year,.cite{{color:#86efac;font-size:.8rem}}
+          .card h3{{margin-bottom:.5rem;font-size:1rem;line-height:1.4}}
+          .card h3 a{{color:#c8f5d0;text-decoration:none}}
+          .card h3 a:hover{{color:#4ade80}}
+          .authors{{color:#86efac;font-size:.85rem;margin-bottom:.5rem}}
+          .summary{{color:#a7d5b5;font-size:.9rem;margin-bottom:.75rem}}
+          .tag{{background:#052e16;color:#4ade80;padding:.2rem .5rem;border-radius:4px;font-size:.75rem}}
+          footer{{text-align:center;padding:2rem;color:#86efac;border-top:1px solid #1a3a1f;font-size:.9rem}}
+          </style>
+          </head>
+          <body>
+          <header>
+            <h1>🔬 Open Science Intelligence</h1>
+            <p>Academic research on mutual aid technology, supply chain security, and autonomous systems — pulled from arXiv and Semantic Scholar. Completely free. No paywalls. Updated automatically.</p>
+            <p style="margin-top:.5rem;font-size:.85rem;color:#86efac">Last updated: {fetched} · Sources: arXiv · Semantic Scholar · Wikidata</p>
+          </header>
+          <div class="stats">
+            <div class="stat"><div class="n">{len(papers)}</div><div class="l">Papers Found</div></div>
+            <div class="stat"><div class="n">{len(arxiv)}</div><div class="l">From arXiv</div></div>
+            <div class="stat"><div class="n">{len(ss)}</div><div class="l">Semantic Scholar</div></div>
+            <div class="stat"><div class="n">$0</div><div class="l">API Cost</div></div>
+          </div>
+          <div class="grid">{cards}</div>
+          <footer>
+            <p>🌱 <a href="index.html" style="color:#4ade80">SolarPunk Nerve Center</a> — Open science for open systems</p>
+            <p>All research sourced from open-access databases. Knowledge belongs to everyone.</p>
+          </footer>
+          </body>
+          </html>"""
+
+          Path("docs").mkdir(exist_ok=True)
+          Path("docs/research.html").write_text(html)
+          print(f"Built docs/research.html with {len(papers)} papers")
+          PYEOF
+
+      - name: Commit
+        run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git config user.name 'ARXIV_BRIDGE' && git config user.email 'arxiv@solarpunk'
+          git fetch "$REMOTE" main && git rebase FETCH_HEAD || true
+          git add data/arxiv_papers.json data/wikidata_peers.json docs/research.html 2>/dev/null || true
+          git diff --staged --quiet && echo "No changes" && exit 0
+          COUNT=$(python3 -c "import json; d=json.load(open('data/arxiv_papers.json')); print(d['total_papers'])" 2>/dev/null || echo "?")
+          git commit -m "🔬 ARXIV_BRIDGE: $COUNT research items [skip ci]"
+          git push "$REMOTE" HEAD:main

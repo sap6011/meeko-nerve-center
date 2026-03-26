@@ -1,0 +1,267 @@
+name: GRANTS_GOV — Live Federal Grant Radar
+
+# Queries the actual Grants.gov API — no auth, no key, zero secrets
+# Also hits NIH Reporter + EU Funding Portal (both free)
+# Real federal money. Real deadlines. Runs every Monday 07:00 UTC.
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests
+
+      - name: Query Grants.gov API
+        run: |
+          python3 - <<'PYEOF'
+          import json, requests
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          DATA = Path("data"); DATA.mkdir(exist_ok=True)
+
+          KEYWORDS = [
+              "mutual aid", "open source", "community technology",
+              "food security", "digital equity", "autonomous systems",
+              "civic technology", "public interest technology"
+          ]
+
+          results = []
+
+          for keyword in KEYWORDS:
+              try:
+                  # Grants.gov Search API — completely public, no auth
+                  url = "https://apply07.grants.gov/grantsws/rest/opportunities/search/"
+                  payload = {
+                      "keyword": keyword,
+                      "oppStatuses": "posted",
+                      "rows": 5,
+                      "sortBy": "openDate|desc"
+                  }
+                  r = requests.post(url, json=payload, timeout=30,
+                                    headers={"Content-Type": "application/json"})
+                  if r.status_code == 200:
+                      data = r.json()
+                      opps = data.get("oppHits", [])
+                      for opp in opps[:3]:
+                          results.append({
+                              "source": "grants.gov",
+                              "keyword": keyword,
+                              "title": opp.get("title", ""),
+                              "agency": opp.get("agencyName", ""),
+                              "close_date": opp.get("closeDate", ""),
+                              "award_ceiling": opp.get("awardCeiling", 0),
+                              "url": f"https://www.grants.gov/search-results-detail/{opp.get('id','')}",
+                              "id": opp.get("id", "")
+                          })
+                  print(f"  grants.gov '{keyword}': {len(opps)} opportunities")
+              except Exception as e:
+                  print(f"  grants.gov error for '{keyword}': {e}")
+
+          # NIH Reporter API — free, no auth needed
+          try:
+              r = requests.post(
+                  "https://api.reporter.nih.gov/v2/projects/search",
+                  json={
+                      "criteria": {
+                          "advanced_text_search": {
+                              "operator": "and",
+                              "search_field": "all",
+                              "search_text": "community technology open source mutual aid"
+                          }
+                      },
+                      "limit": 5,
+                      "offset": 0
+                  },
+                  timeout=30
+              )
+              if r.status_code == 200:
+                  data = r.json()
+                  for proj in data.get("results", [])[:5]:
+                      results.append({
+                          "source": "nih_reporter",
+                          "keyword": "NIH community technology",
+                          "title": proj.get("project_title", ""),
+                          "agency": proj.get("agency_ic_admin", {}).get("name", "NIH"),
+                          "close_date": proj.get("project_end_date", ""),
+                          "award_ceiling": proj.get("award_amount", 0),
+                          "url": f"https://reporter.nih.gov/project-details/{proj.get('core_project_num','')}",
+                          "id": proj.get("core_project_num", "")
+                      })
+              print(f"  NIH Reporter: {len(data.get('results',[]))} projects")
+          except Exception as e:
+              print(f"  NIH error: {e}")
+
+          # World Bank Open Data API — free, no auth
+          try:
+              r = requests.get(
+                  "http://search.worldbank.org/api/v2/projects",
+                  params={
+                      "qterm": "open source community technology",
+                      "format": "json",
+                      "rows": 5
+                  },
+                  timeout=30
+              )
+              if r.status_code == 200:
+                  data = r.json()
+                  projects = data.get("projects", {}).get("project", [])
+                  for proj in projects[:3]:
+                      if isinstance(proj, dict):
+                          results.append({
+                              "source": "world_bank",
+                              "keyword": "community technology",
+                              "title": proj.get("project_name", ""),
+                              "agency": "World Bank",
+                              "close_date": proj.get("closingdate", ""),
+                              "award_ceiling": 0,
+                              "url": proj.get("url", ""),
+                              "id": proj.get("id", "")
+                          })
+              print(f"  World Bank: {len(projects)} projects")
+          except Exception as e:
+              print(f"  World Bank error: {e}")
+
+          output = {
+              "fetched_at": datetime.now(timezone.utc).isoformat(),
+              "total_found": len(results),
+              "opportunities": results
+          }
+
+          Path("data/grants_gov_live.json").write_text(json.dumps(output, indent=2))
+          print(f"\nTotal grant opportunities found: {len(results)}")
+          for r in results[:5]:
+              print(f"  [{r['source']}] {r['title'][:60]} — {r['agency']}")
+          PYEOF
+
+      - name: Post top grants to GitHub Discussions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, requests
+          from pathlib import Path
+
+          token = os.environ.get("GITHUB_TOKEN", "")
+          repo  = os.environ.get("GH_REPO", "")
+          if not token or not repo:
+              print("No token — skipping Discussions post")
+              exit(0)
+
+          grants_f = Path("data/grants_gov_live.json")
+          if not grants_f.exists():
+              exit(0)
+
+          data = json.loads(grants_f.read_text())
+          opps = data.get("opportunities", [])[:8]
+          if not opps:
+              print("No opportunities to post")
+              exit(0)
+
+          # Get discussion category ID via GraphQL
+          owner, name = repo.split("/")
+          headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+          cat_query = """
+          query($owner:String!,$name:String!){
+            repository(owner:$owner,name:$name){
+              discussionCategories(first:10){
+                nodes{id name}
+              }
+            }
+          }"""
+          r = requests.post("https://api.github.com/graphql",
+              json={"query": cat_query, "variables": {"owner": owner, "name": name}},
+              headers=headers, timeout=30)
+
+          cat_id = None
+          if r.status_code == 200:
+              cats = r.json().get("data",{}).get("repository",{}).get("discussionCategories",{}).get("nodes",[])
+              for c in cats:
+                  if c["name"].lower() in ["general","announcements","show and tell","q&a"]:
+                      cat_id = c["id"]
+                      break
+              if not cat_id and cats:
+                  cat_id = cats[0]["id"]
+
+          if not cat_id:
+              print("No discussion category found")
+              exit(0)
+
+          # Get repo node ID
+          repo_query = """query($owner:String!,$name:String!){repository(owner:$owner,name:$name){id}}"""
+          r = requests.post("https://api.github.com/graphql",
+              json={"query": repo_query, "variables": {"owner": owner, "name": name}},
+              headers=headers, timeout=30)
+          repo_id = r.json().get("data",{}).get("repository",{}).get("id","") if r.status_code == 200 else ""
+
+          if not repo_id:
+              print("Could not get repo ID")
+              exit(0)
+
+          body = f"## 💰 Live Grant Opportunities — {data.get('fetched_at','')[:10]}\n\n"
+          body += f"*{len(opps)} opportunities found across Grants.gov, NIH Reporter, and World Bank — all free public APIs, zero secrets.*\n\n"
+          body += "---\n\n"
+
+          for opp in opps:
+              body += f"### {opp.get('title','Untitled')[:80]}\n"
+              body += f"**Source:** {opp.get('source','').replace('_',' ').title()}  \n"
+              body += f"**Agency:** {opp.get('agency','')}  \n"
+              if opp.get('close_date'):
+                  body += f"**Closes:** {opp.get('close_date','')}  \n"
+              if opp.get('award_ceiling'):
+                  body += f"**Award Ceiling:** ${opp.get('award_ceiling',0):,}  \n"
+              if opp.get('url'):
+                  body += f"**Link:** {opp.get('url','')}  \n"
+              body += "\n"
+
+          body += "---\n*Posted automatically by GRANTS_GOV.yml — GITHUB_TOKEN only, no paid APIs needed.*"
+
+          mut = """
+          mutation($repoId:ID!,$catId:ID!,$title:String!,$body:String!){
+            createDiscussion(input:{repositoryId:$repoId,categoryId:$catId,title:$title,body:$body}){
+              discussion{url}
+            }
+          }"""
+          r = requests.post("https://api.github.com/graphql",
+              json={"query": mut, "variables": {
+                  "repoId": repo_id, "catId": cat_id,
+                  "title": f"💰 {len(opps)} Live Grant Opportunities ({data.get('fetched_at','')[:10]})",
+                  "body": body
+              }},
+              headers=headers, timeout=30)
+          if r.status_code == 200 and "errors" not in r.json():
+              url = r.json().get("data",{}).get("createDiscussion",{}).get("discussion",{}).get("url","")
+              print(f"Discussion posted: {url}")
+          else:
+              print(f"Discussion error: {r.text[:200]}")
+          PYEOF
+
+      - name: Commit results
+        run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git config user.name 'GRANTS_GOV' && git config user.email 'grants@solarpunk'
+          git fetch "$REMOTE" main && git rebase FETCH_HEAD || true
+          git add data/grants_gov_live.json 2>/dev/null || true
+          git diff --staged --quiet && echo "No new data" && exit 0
+          COUNT=$(python3 -c "import json; d=json.load(open('data/grants_gov_live.json')); print(d['total_found'])" 2>/dev/null || echo "?")
+          git commit -m "💰 GRANTS_GOV: $COUNT live opportunities [skip ci]"
+          git push "$REMOTE" HEAD:main

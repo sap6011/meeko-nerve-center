@@ -1,0 +1,163 @@
+name: BADGE_FORGE — Live README Badges
+
+# Generates dynamic status badges and injects them into README.md.
+# Uses shields.io endpoint format (no API key — shields.io is free+open)
+# and GitHub Actions job summaries.
+# Shows the world: engines running, cycles completed, code health, etc.
+
+on:
+  push:
+    paths:
+      - 'mycelium/**'
+      - 'data/**'
+  schedule:
+    - cron: '0 4 * * *'   # daily 04:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  badges:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate badge data + update README badges section
+        run: |
+          python3 - <<'PYEOF'
+          import json, re
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          def load(fname):
+              f = Path("data") / fname
+              if not f.exists(): return {}
+              try: return json.loads(f.read_text())
+              except: return {}
+
+          brain     = load("brain_state.json")
+          sentinel  = load("sentinel_report.json")
+          build_reg = load("build_registry.json") if Path("data/build_registry.json").exists() else []
+          if not isinstance(build_reg, list): build_reg = []
+          mutations = load("mutation_vault.json") if Path("data/mutation_vault.json").exists() else []
+          if not isinstance(mutations, list): mutations = []
+
+          engines = len([f for f in Path("mycelium").glob("*.py") if not f.name.startswith("__")])
+          cycles  = brain.get("cycles", brain.get("total_cycles", 0)) or 0
+          health  = sentinel.get("summary", {}).get("health", "UNKNOWN")
+          syntax_fail = sentinel.get("summary", {}).get("syntax_fail", 0) or 0
+          built   = len(build_reg)
+          mutated = len(mutations)
+
+          # shields.io static badge format: no API key, pure URL
+          # https://img.shields.io/badge/<LABEL>-<MESSAGE>-<COLOR>
+          def badge(label, message, color, logo=None):
+              label   = str(label).replace("-","--").replace(" ","%20").replace("_","__")
+              message = str(message).replace("-","--").replace(" ","%20").replace("_","__")
+              url     = f"https://img.shields.io/badge/{label}-{message}-{color}"
+              if logo: url += f"?logo={logo}&logoColor=white"
+              return url
+
+          health_color = "brightgreen" if health == "CLEAN" else "red"
+          syntax_color = "brightgreen" if syntax_fail == 0 else "red"
+
+          badges = {
+              "engines":   (badge("engines", str(engines), "4ade80"), "Active engines in mycelium/"),
+              "cycles":    (badge("cycles", str(cycles), "22c55e"), "Autonomous OMNIBRAIN cycles"),
+              "sentinel":  (badge("SENTINEL", health, health_color), "Code integrity status"),
+              "syntax":    (badge("syntax", "passing" if syntax_fail == 0 else f"{syntax_fail}%20fail", syntax_color), "Syntax check"),
+              "built":     (badge("engines%20built", str(built), "16a34a"), "Engines built by BUILD_YOURSELF"),
+              "mutations": (badge("mutations", str(mutated), "15803d"), "Hybrid engines from MUTATE lottery"),
+              "license":   (badge("license", "MIT", "86efac"), "License"),
+              "free":      (badge("API%20cost", "%240%2Fmonth", "4ade80"), "Zero paid APIs"),
+          }
+
+          # Build badge markdown block
+          badge_lines = []
+          for key, (url, alt) in badges.items():
+              badge_lines.append(f"![{alt}]({url})")
+
+          badge_block = " ".join(badge_lines)
+
+          # Update README.md badge section
+          readme_f = Path("README.md")
+          if readme_f.exists():
+              content = readme_f.read_text()
+              # Replace existing badge block between markers or insert after first heading
+              marker_start = "<!-- BADGES_START -->"
+              marker_end   = "<!-- BADGES_END -->"
+              new_block    = f"{marker_start}\n{badge_block}\n{marker_end}"
+
+              if marker_start in content:
+                  content = re.sub(
+                      rf"{re.escape(marker_start)}.*?{re.escape(marker_end)}",
+                      new_block,
+                      content,
+                      flags=re.DOTALL
+                  )
+              else:
+                  # Insert after first # heading
+                  content = re.sub(
+                      r"(^# .+?\n)",
+                      rf"\1\n{new_block}\n",
+                      content,
+                      count=1,
+                      flags=re.MULTILINE
+                  )
+              readme_f.write_text(content)
+              print(f"Updated README.md badge section")
+
+          # Write badge data for other uses
+          Path("data/badges.json").write_text(json.dumps({
+              "updated": datetime.now(timezone.utc).isoformat(),
+              "badges": {k: {"url": v[0], "description": v[1]} for k, v in badges.items()}
+          }, indent=2))
+
+          print(f"\nBadges generated:")
+          for k, (url, desc) in badges.items():
+              print(f"  {k}: {desc}")
+          PYEOF
+
+      - name: Write GitHub Actions job summary
+        run: |
+          python3 - <<'PYEOF'
+          import json, os
+          from pathlib import Path
+
+          summary_f = os.environ.get("GITHUB_STEP_SUMMARY", "")
+          if not summary_f: exit(0)
+
+          badges_data = {}
+          if Path("data/badges.json").exists():
+              badges_data = json.loads(Path("data/badges.json").read_text())
+
+          lines = ["# 🌱 SolarPunk Status", ""]
+          for k, v in badges_data.get("badges", {}).items():
+              lines.append(f"![{v['description']}]({v['url']})")
+
+          lines += ["", f"*Updated: {badges_data.get('updated','')[:16]} UTC*"]
+
+          with open(summary_f, "w") as f:
+              f.write("\n".join(lines))
+          PYEOF
+        env:
+          GITHUB_STEP_SUMMARY: ${{ github.step_summary }}
+
+      - name: Commit badge updates
+        run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git config user.name 'BADGE_FORGE' && git config user.email 'badges@solarpunk'
+          git fetch "$REMOTE" main && git rebase FETCH_HEAD || true
+          git add README.md data/badges.json 2>/dev/null || true
+          git diff --staged --quiet && echo "Badges unchanged" && exit 0
+          git commit -m "🏷️ BADGE_FORGE: live status badges updated [skip ci]"
+          git push "$REMOTE" HEAD:main

@@ -1,0 +1,248 @@
+name: OPEN_ANTENNA — Free Signal Intelligence
+
+# Monitors open platforms for SolarPunk-relevant conversations.
+# Reddit .json endpoint: no auth, no API key — just append .json to any URL
+# Hacker News Algolia API: completely free
+# DEV.to public API: no auth for reads
+# GitHub trending: public API
+# Posts digest to GitHub Discussions weekly. Zero secrets.
+
+on:
+  schedule:
+    - cron: '0 10 * * 4'   # Thursday 10:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  listen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests
+
+      - name: Scan open platforms
+        run: |
+          python3 - <<'PYEOF'
+          import json, requests, time
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          DATA = Path("data"); DATA.mkdir(exist_ok=True)
+          HEADERS = {"User-Agent": "SolarPunk/1.0 (meeko-nerve-center; research bot)"}
+
+          signals = []
+
+          # Reddit .json — ZERO auth needed, just append .json
+          SUBREDDITS = [
+              ("r/solarpunk", "solarpunk"),
+              ("r/mutualaid", "mutual aid"),
+              ("r/opensource", "open source"),
+              ("r/anticapitalism", "economic alternatives"),
+              ("r/foodsecurity", "food security"),
+              ("r/commontechnology", "community tech"),
+          ]
+
+          for subreddit, topic in SUBREDDITS:
+              try:
+                  url = f"https://www.reddit.com/{subreddit}/hot.json?limit=5"
+                  r = requests.get(url, headers=HEADERS, timeout=20)
+                  if r.status_code == 200:
+                      posts = r.json().get("data", {}).get("children", [])
+                      for post in posts[:3]:
+                          d = post.get("data", {})
+                          if d.get("score", 0) > 50:
+                              signals.append({
+                                  "platform": "reddit",
+                                  "subreddit": subreddit,
+                                  "topic": topic,
+                                  "title": d.get("title", ""),
+                                  "score": d.get("score", 0),
+                                  "comments": d.get("num_comments", 0),
+                                  "url": f"https://reddit.com{d.get('permalink','')}",
+                                  "author": d.get("author", ""),
+                                  "created": d.get("created_utc", 0)
+                              })
+                  print(f"  Reddit {subreddit}: {len(posts)} posts scanned")
+                  time.sleep(2)  # respectful rate limiting
+              except Exception as e:
+                  print(f"  Reddit error {subreddit}: {e}")
+
+          # Hacker News Algolia API — free, no auth
+          HN_QUERIES = [
+              "mutual aid technology",
+              "open source infrastructure",
+              "autonomous agent community",
+              "solarpunk",
+          ]
+          for query in HN_QUERIES:
+              try:
+                  r = requests.get(
+                      "https://hn.algolia.com/api/v1/search",
+                      params={"query": query, "hitsPerPage": 3, "numericFilters": "points>10"},
+                      headers=HEADERS, timeout=20
+                  )
+                  if r.status_code == 200:
+                      for hit in r.json().get("hits", [])[:3]:
+                          signals.append({
+                              "platform": "hackernews",
+                              "topic": query,
+                              "title": hit.get("title",""),
+                              "score": hit.get("points", 0),
+                              "comments": hit.get("num_comments", 0),
+                              "url": hit.get("url") or f"https://news.ycombinator.com/item?id={hit.get('objectID','')}",
+                              "author": hit.get("author",""),
+                              "created": hit.get("created_at","")
+                          })
+                  print(f"  HN '{query}': {len(r.json().get('hits',[]))} results")
+              except Exception as e:
+                  print(f"  HN error '{query}': {e}")
+
+          # DEV.to public API — free reads, no auth
+          DEV_TAGS = ["opensource", "mutualaid", "automation", "community"]
+          for tag in DEV_TAGS:
+              try:
+                  r = requests.get(
+                      "https://dev.to/api/articles",
+                      params={"tag": tag, "per_page": 3, "state": "rising"},
+                      headers=HEADERS, timeout=20
+                  )
+                  if r.status_code == 200:
+                      for article in r.json()[:2]:
+                          signals.append({
+                              "platform": "devto",
+                              "topic": tag,
+                              "title": article.get("title",""),
+                              "score": article.get("positive_reactions_count",0),
+                              "comments": article.get("comments_count",0),
+                              "url": article.get("url",""),
+                              "author": article.get("user",{}).get("username",""),
+                              "created": article.get("published_at","")
+                          })
+                  print(f"  DEV.to #{tag}: {len(r.json())} articles")
+              except Exception as e:
+                  print(f"  DEV.to error #{tag}: {e}")
+
+          # GitHub trending repos — no auth for search API
+          try:
+              r = requests.get(
+                  "https://api.github.com/search/repositories",
+                  params={
+                      "q": "mutual-aid OR solarpunk OR community-technology topic:open-source",
+                      "sort": "updated",
+                      "order": "desc",
+                      "per_page": 5
+                  },
+                  headers={**HEADERS, "Accept": "application/vnd.github.v3+json"},
+                  timeout=20
+              )
+              if r.status_code == 200:
+                  for repo in r.json().get("items", [])[:5]:
+                      signals.append({
+                          "platform": "github",
+                          "topic": "community technology repos",
+                          "title": f"{repo.get('full_name','')} — {repo.get('description','')}",
+                          "score": repo.get("stargazers_count",0),
+                          "comments": repo.get("open_issues_count",0),
+                          "url": repo.get("html_url",""),
+                          "author": repo.get("owner",{}).get("login",""),
+                          "created": repo.get("updated_at","")
+                      })
+              print(f"  GitHub: {len(r.json().get('items',[]))} repos")
+          except Exception as e:
+              print(f"  GitHub search error: {e}")
+
+          # Sort by engagement
+          signals.sort(key=lambda x: x.get("score",0) + x.get("comments",0)*2, reverse=True)
+
+          output = {
+              "scanned_at": datetime.now(timezone.utc).isoformat(),
+              "total_signals": len(signals),
+              "signals": signals
+          }
+          Path("data/open_antenna.json").write_text(json.dumps(output, indent=2))
+          print(f"\nTotal signals: {len(signals)} across Reddit, HN, DEV.to, GitHub")
+          PYEOF
+
+      - name: Post weekly digest to GitHub Discussions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, requests
+          from pathlib import Path
+
+          token = os.environ.get("GITHUB_TOKEN","")
+          repo  = os.environ.get("GH_REPO","")
+          if not token or not repo: exit(0)
+
+          data_f = Path("data/open_antenna.json")
+          if not data_f.exists(): exit(0)
+          data    = json.loads(data_f.read_text())
+          signals = data.get("signals",[])[:10]
+          if not signals: exit(0)
+
+          owner, name = repo.split("/")
+          headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+          # Get category + repo IDs
+          q = """query($o:String!,$n:String!){repository(owner:$o,name:$n){id discussionCategories(first:10){nodes{id name}}}}"""
+          r = requests.post("https://api.github.com/graphql",
+              json={"query":q,"variables":{"o":owner,"n":name}},
+              headers=headers, timeout=30)
+          rdata = r.json().get("data",{}).get("repository",{}) if r.status_code==200 else {}
+          repo_id = rdata.get("id","")
+          cats = rdata.get("discussionCategories",{}).get("nodes",[])
+          cat_id = next((c["id"] for c in cats if c["name"].lower() in ["general","show and tell","announcements"]), cats[0]["id"] if cats else None)
+
+          if not repo_id or not cat_id: exit(0)
+
+          by_platform = {}
+          for s in signals:
+              p = s.get("platform","other")
+              by_platform.setdefault(p,[]).append(s)
+
+          body = f"## 📡 Open Antenna — Weekly Signal Digest\n\n"
+          body += f"*{data.get('total_signals',0)} signals scanned across Reddit, HN, DEV.to, GitHub — zero API keys needed.*\n\n"
+
+          PLATFORM_EMOJI = {"reddit":"🔴","hackernews":"🟠","devto":"🟣","github":"⚫"}
+          for platform, items in by_platform.items():
+              emoji = PLATFORM_EMOJI.get(platform,"•")
+              body += f"### {emoji} {platform.title()}\n\n"
+              for s in items[:3]:
+                  body += f"**[{s['title'][:80]}]({s['url']})**  \n"
+                  body += f"↑{s.get('score',0)} · 💬{s.get('comments',0)} · `{s.get('topic','')}`\n\n"
+
+          body += "---\n*OPEN_ANTENNA.yml — public platform monitoring via free JSON endpoints. No API keys. No costs.*"
+
+          mut = """mutation($ri:ID!,$ci:ID!,$t:String!,$b:String!){createDiscussion(input:{repositoryId:$ri,categoryId:$ci,title:$t,body:$b}){discussion{url}}}"""
+          r = requests.post("https://api.github.com/graphql",
+              json={"query":mut,"variables":{"ri":repo_id,"ci":cat_id,
+                  "t":f"📡 Weekly Signal Digest — {data.get('scanned_at','')[:10]}","b":body}},
+              headers=headers, timeout=30)
+          if r.status_code==200 and "errors" not in r.json():
+              url = r.json().get("data",{}).get("createDiscussion",{}).get("discussion",{}).get("url","")
+              print(f"Discussion posted: {url}")
+          PYEOF
+
+      - name: Commit
+        run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git config user.name 'OPEN_ANTENNA' && git config user.email 'antenna@solarpunk'
+          git fetch "$REMOTE" main && git rebase FETCH_HEAD || true
+          git add data/open_antenna.json 2>/dev/null || true
+          git diff --staged --quiet && echo "No changes" && exit 0
+          COUNT=$(python3 -c "import json; print(json.load(open('data/open_antenna.json'))['total_signals'])" 2>/dev/null || echo "?")
+          git commit -m "📡 OPEN_ANTENNA: $COUNT signals scanned [skip ci]"
+          git push "$REMOTE" HEAD:main
