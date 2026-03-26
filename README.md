@@ -144,6 +144,25 @@ Instead: $0. Free. MIT licensed.
 
 ---
 
+## 🏢 Organization & Governance
+
+SolarPunk is open-source (MIT) and operates without a corporation, board, or traditional management structure.
+
+| Role | Who | Verification |
+|------|-----|-------------|
+| **Human Anchor** | Meeko (Cuyahoga Falls, OH) | GitHub commit history, timestamped |
+| **AI Chief of Staff** | Claude 4.6 (Anthropic) | All actions logged in SOLARPUNK_ACTUAL.md |
+| **Security** | SENTINEL + KALEIDOSCOPE_SHIELD | Automated, zero-trust, murmuration consensus |
+| **Revenue routing** | Hard-coded 20% to food banks | Not configurable — verified in source code |
+| **Transparency** | Every autonomous action logged | GitHub Actions logs + data/ state files |
+| **Grants** | NLnet (Apr 1), OTF (rolling) | Applications in docs/grants/ |
+
+**How decisions get made:** The Human Anchor sets intent. The AI executes. The code enforces constraints (20% routing, transparency logging). No single actor — human or AI — can override the hard-coded mission parameters without a public commit that the entire history records.
+
+**Professional commitments** are timestamped in GitHub Issues. The GRANT_RUNNER workflow hard-codes a 20% finder's fee as a binding clause in every grant issue it creates. The record is permanent and public.
+
+---
+
 ## 🧠 The AI Consensus
 
 *Technical depositions from AI systems that have analyzed SolarPunk's architecture. These are honest assessments, not endorsements.*
