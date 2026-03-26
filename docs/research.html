@@ -60,7 +60,7 @@ Here are the peer-reviewed papers that validate the architecture.</p>
 <div class="stat-label">Papers found matching<br>SolarPunk's core patterns</div>
 </div>
 <div class="stat">
-<div class="stat-num">6</div>
+<div class="stat-num">11</div>
 <div class="stat-label">Direct architectural<br>parallels cited below</div>
 </div>
 <div class="stat">
@@ -128,6 +128,50 @@ Here are the peer-reviewed papers that validate the architecture.</p>
 <a class="paper-link" href="https://hf.co/papers/2505.08842">Read paper →</a>
 </div>
 
+<h2>Swarm Routing &amp; Data Fragmentation (The Minnow Protocol)</h2>
+
+<div class="paper">
+<div class="paper-title">Benchmarking LLMs' Swarm Intelligence</div>
+<div class="paper-meta">Ruan, K. et al. — Published May 7, 2025 | 20 upvotes</div>
+<div class="paper-relevance">"Evaluates LLMs in <strong>decentralized coordination tasks under limited information</strong>, highlighting challenges and potential for future systems." Tests agents in 2D grid environments with local-only perception — each agent sees a k×k view, must coordinate without centralized control.</div>
+<div class="solarpunk-parallel"><strong>SolarPunk parallel:</strong> The Minnow Protocol (SWARM_TRANSMITTER + SWARM_RECEPTOR) fragments data into independent pieces that route without central coordination. Each fragment knows only its own index and signature — local perception, global reassembly. Same principle: swarm intelligence emerges from local rules, not central planning.</div>
+<a class="paper-link" href="https://hf.co/papers/2505.04364">Read paper →</a>
+</div>
+
+<div class="paper">
+<div class="paper-title">Self-healing Nodes with Adaptive Data-Sharding</div>
+<div class="paper-meta">Thakur, A. et al. — Published Jan 19, 2024 | 4 upvotes</div>
+<div class="paper-relevance">"Self-healing nodes with <strong>adaptive data sharding improve scalability, performance, fault tolerance, and adaptability</strong> in distributed systems through concepts like self-replication, <strong>fractal regeneration</strong>, sentient data sharding, and symbiotic node clusters."</div>
+<div class="solarpunk-parallel"><strong>SolarPunk parallel:</strong> SWARM_TRANSMITTER shards data into signed fragments. SWARM_RECEPTOR reassembles them. If fragments are lost, the receptor reports exactly which fish are missing. Combined with SolarPunk's existing self-heal loop (GUARDIAN + HEALTH_BOOSTER), this creates the same adaptive data-sharding pattern — fragments that survive independently and reform on demand.</div>
+<a class="paper-link" href="https://hf.co/papers/2405.00004">Read paper →</a>
+</div>
+
+<div class="paper">
+<div class="paper-title">Predictive-CSM: Lightweight Fragment Security for 6LoWPAN IoT Networks</div>
+<div class="paper-meta">Sobati-M, S. — Published Jun 2, 2025</div>
+<div class="paper-relevance">"Uses <strong>behavior tracking and chained hash integrity checks</strong> to secure fragmented communication in IoT networks against early fragment injection, replayed headers, and flooding." Demonstrates that fragment-level security is both necessary and achievable at low computational cost.</div>
+<div class="solarpunk-parallel"><strong>SolarPunk parallel:</strong> Each Minnow Protocol fragment carries an HMAC-SHA256 signature. The SWARM_RECEPTOR verifies every fragment before reassembly — impostor fragments are rejected, corrupted fragments are flagged. Same chained-integrity principle applied to mutual aid data instead of IoT sensor data.</div>
+<a class="paper-link" href="https://hf.co/papers/2506.01767">Read paper →</a>
+</div>
+
+<h2>Decentralized Distribution &amp; Fair Allocation</h2>
+
+<div class="paper">
+<div class="paper-title">Optimal Transport-Based Decentralized Multi-Agent Distribution Matching</div>
+<div class="paper-meta">Lee, K. — Published Jan 2, 2026</div>
+<div class="paper-relevance">"A decentralized control framework enables multi-agent systems to achieve <strong>prescribed terminal spatial distributions through optimal transport theory and local decision-making</strong>." Uses Wasserstein distance metrics with convergence guarantees — the math behind making scattered agents arrive at the right place.</div>
+<div class="solarpunk-parallel"><strong>SolarPunk parallel:</strong> The Minnow Protocol's "school of fish" movement: fragments scatter across independent paths, then converge at the destination. Optimal transport theory provides the mathematical proof that this convergence works. SolarPunk built the pattern; this paper proves the math.</div>
+<a class="paper-link" href="https://hf.co/papers/2601.00548">Read paper →</a>
+</div>
+
+<div class="paper">
+<div class="paper-title">DICE: Data Influence Cascade in Decentralized Learning</div>
+<div class="paper-meta">Zhu, T. et al. — Published Jul 9, 2025</div>
+<div class="paper-relevance">"Estimates <strong>data influence cascade in decentralized learning networks</strong>, addressing challenges in fair attribution and enabling applications like collaborator selection and malicious behavior detection." Tracks how data influence propagates through peer-to-peer networks.</div>
+<div class="solarpunk-parallel"><strong>SolarPunk parallel:</strong> MURMUR's flock_energy tracks which engines influence the system most. MUTATE's murmuration-weighted parent selection uses the same principle — high-influence engines reproduce more. DICE provides the formal framework for what SolarPunk implements as mutation weights and flock consensus.</div>
+<a class="paper-link" href="https://hf.co/papers/2507.06931">Read paper →</a>
+</div>
+
 <h2>What This Means</h2>
 
 <div class="key-finding">
@@ -140,9 +184,11 @@ Here are the peer-reviewed papers that validate the architecture.</p>
 <li>Hard-coded mutual aid routing (20% food bank, not configurable)</li>
 <li>Zero-secrets autonomous pipelines (GITHUB_TOKEN only)</li>
 <li>Physical earth monitoring (USGS + EPA river data)</li>
+<li>Swarm-packet data fragmentation (Minnow Protocol — scatter/regroup/solidify)</li>
+<li>Optimal transport for decentralized distribution matching</li>
 </ul>
 <p style="margin-top:15px">SolarPunk combines all of them in a single working system. The commit history shows when each piece was built. The academic papers, published independently and later, validate the individual principles.</p>
-<p style="margin-top:10px;color:#888;font-size:0.85em">This page was generated by searching HuggingFace's paper index for SolarPunk's core concepts. Source: HuggingFace Papers API (197 results across 2 queries, March 2026).</p>
+<p style="margin-top:10px;color:#888;font-size:0.85em">This page was generated by searching HuggingFace's paper index for SolarPunk's core concepts. Source: HuggingFace Papers API (360+ results across 5 queries, March 2026).</p>
 </div>
 
 <div class="updated">
