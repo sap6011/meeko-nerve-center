@@ -19,7 +19,7 @@ Required secret (optional, unlocks full capability):
   GETSCREEN_API_KEY   -- from getscreen.me → API settings
 
 Always available:
-  os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")")")") (via _ak split) + GMAIL_ADDRESS + GMAIL_APP_PASSWORD
+  os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")")")")") (via _ak split) + GMAIL_ADDRESS + GMAIL_APP_PASSWORD
 """
 import os, json, smtplib, requests
 from pathlib import Path
