@@ -1,0 +1,242 @@
+name: MUTATE — Hybrid Engine Lottery
+
+# Every run picks 2 random engines and breeds a new one from their logic.
+# No human decision. No prediction. Pure evolutionary recombination.
+# Some will be junk. Some will be breakthroughs. That's the lottery.
+
+on:
+  schedule:
+    - cron: '0 3 * * 2,5'   # Tuesday + Friday 03:00 UTC — twice a week
+  workflow_dispatch:
+    inputs:
+      parent_a:
+        description: 'Engine A to hybridize (leave blank = random)'
+        required: false
+        default: ''
+      parent_b:
+        description: 'Engine B to hybridize (leave blank = random)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  mutate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests
+
+      - name: Configure git
+        run: |
+          git config user.name 'SolarPunk Mutator'
+          git config user.email 'mutate@solarpunk'
+          mkdir -p mycelium data
+
+      - name: Select parent engines + run mutation
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PARENT_A: ${{ inputs.parent_a }}
+          PARENT_B: ${{ inputs.parent_b }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, json, random, requests
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          api_key  = os.environ.get("ANTHROPIC_API_KEY", "")
+          parent_a = os.environ.get("PARENT_A", "").strip()
+          parent_b = os.environ.get("PARENT_B", "").strip()
+
+          # Collect candidate engines (skip stubs < 30 lines and LEGACY files)
+          candidates = []
+          for f in sorted(Path("mycelium").glob("*.py")):
+              if f.name.startswith("__") or "LEGACY" in f.name:
+                  continue
+              try:
+                  lines = f.read_text(errors="replace").splitlines()
+              except:
+                  continue
+              if len(lines) >= 20:
+                  candidates.append(f)
+
+          if len(candidates) < 2:
+              print("Not enough engines to mutate")
+              exit(0)
+
+          # Select parents
+          if parent_a and Path("mycelium") / parent_a in [Path("mycelium") / c.name for c in candidates]:
+              eng_a = Path("mycelium") / parent_a
+          else:
+              eng_a = random.choice(candidates)
+
+          remaining = [c for c in candidates if c.name != eng_a.name]
+          if parent_b and Path("mycelium") / parent_b in [Path("mycelium") / c.name for c in remaining]:
+              eng_b = Path("mycelium") / parent_b
+          else:
+              eng_b = random.choice(remaining)
+
+          print(f"Parent A: {eng_a.name}")
+          print(f"Parent B: {eng_b.name}")
+
+          code_a = eng_a.read_text(errors="replace")[:3000]
+          code_b = eng_b.read_text(errors="replace")[:3000]
+
+          # Load mutation vault to avoid repeating
+          vault_f = Path("data/mutation_vault.json")
+          vault = json.loads(vault_f.read_text()) if vault_f.exists() else []
+          past_mutations = [m.get("filename","") for m in vault]
+
+          prompt = f"""You are SolarPunk's mutation engine.
+
+PARENT ENGINE A — {eng_a.name}:
+{code_a}
+
+PARENT ENGINE B — {eng_b.name}:
+{code_b}
+
+YOUR JOB:
+Create a NEW hybrid Python engine that combines the strongest logic from both parents
+in a way neither parent could do alone. Look for emergent behaviors at the intersection
+— what can BOTH together achieve that neither could alone?
+
+CONSTRAINTS:
+- Import only: os, json, requests, datetime, pathlib, smtplib, email, re, urllib
+- Write results to data/[new_engine_name]_state.json
+- Read credentials from environment variables (never hardcode)
+- Must be fully functional and run without error in GitHub Actions ubuntu-latest
+- DO NOT just merge the two files — find the creative synthesis
+- The new engine must serve SolarPunk's mission: mutual aid, transparency, autonomous revenue
+- Filename must not match any of these (already exist): {past_mutations[:20]}
+
+Respond ONLY with valid JSON (no markdown, no code fences):
+{{
+  "filename": "NEW_ENGINE_NAME.py",
+  "parents": ["{eng_a.name}", "{eng_b.name}"],
+  "synthesis_concept": "one sentence: what NEW behavior emerges from combining these two",
+  "mission_alignment": "how this serves mutual aid / transparency / revenue",
+  "code": "complete python file as a string"
+}}"""
+
+          if not api_key:
+              result = {
+                  "filename": "",
+                  "parents": [eng_a.name, eng_b.name],
+                  "synthesis_concept": "No API key — set ANTHROPIC_API_KEY to run mutations",
+                  "mission_alignment": "",
+                  "code": ""
+              }
+              print("No API key — mutation requires ANTHROPIC_API_KEY")
+          else:
+              try:
+                  r = requests.post(
+                      "https://api.anthropic.com/v1/messages",
+                      headers={
+                          "x-api-key": api_key,
+                          "anthropic-version": "2023-06-01",
+                          "Content-Type": "application/json"
+                      },
+                      json={
+                          "model": "claude-sonnet-4-6",
+                          "max_tokens": 6000,
+                          "messages": [{"role": "user", "content": prompt}]
+                      },
+                      timeout=120
+                  )
+                  r.raise_for_status()
+                  text = r.json()["content"][0]["text"]
+                  s, e = text.find("{"), text.rfind("}") + 1
+                  result = json.loads(text[s:e]) if s >= 0 else {}
+                  print(f"Mutation synthesized: {result.get('filename','?')}")
+                  print(f"Concept: {result.get('synthesis_concept','')}")
+              except Exception as ex:
+                  print(f"API error: {ex}")
+                  result = {}
+
+          # Write the new engine
+          fname = result.get("filename", "")
+          code  = result.get("code", "")
+          written = False
+          if fname and code and fname.endswith(".py") and "/" not in fname:
+              target = Path("mycelium") / fname
+              if not target.exists():
+                  target.write_text(code)
+                  written = True
+                  print(f"New engine written: {fname}")
+              else:
+                  print(f"Engine {fname} already exists — skipping")
+
+          # Update mutation vault
+          vault.append({
+              "timestamp": datetime.now(timezone.utc).isoformat(),
+              "parent_a": eng_a.name,
+              "parent_b": eng_b.name,
+              "filename": fname,
+              "synthesis_concept": result.get("synthesis_concept", ""),
+              "mission_alignment": result.get("mission_alignment", ""),
+              "written": written
+          })
+          vault_f.write_text(json.dumps(vault[-100:], indent=2))  # keep last 100
+
+          print(f"\nMutation vault: {len(vault)} total mutations")
+          PYEOF
+
+      - name: Syntax check new engine
+        run: |
+          python3 - <<'PYEOF'
+          import json
+          from pathlib import Path
+          import subprocess
+
+          vault_f = Path("data/mutation_vault.json")
+          if not vault_f.exists():
+              exit(0)
+          vault = json.loads(vault_f.read_text())
+          latest = vault[-1] if vault else {}
+          fname = latest.get("filename", "")
+          if not fname:
+              exit(0)
+          target = Path("mycelium") / fname
+          if not target.exists():
+              print(f"File not found: {target}")
+              exit(0)
+          r = subprocess.run(["python3", "-m", "py_compile", str(target)], capture_output=True, text=True)
+          if r.returncode == 0:
+              print(f"Syntax OK: {fname}")
+          else:
+              print(f"SYNTAX ERROR in {fname}:\n{r.stderr}")
+              target.unlink()  # remove broken mutation
+              latest["written"] = False
+              latest["error"] = r.stderr
+              Path("data/mutation_vault.json").write_text(json.dumps(vault[-100:], indent=2))
+              print(f"Removed broken mutation")
+          PYEOF
+
+      - name: Commit mutation
+        run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git fetch "$REMOTE" main
+          git rebase FETCH_HEAD || true
+          git add mycelium/ data/mutation_vault.json 2>/dev/null || true
+          git diff --staged --quiet && echo "No new mutation this run" && exit 0
+          FNAME=$(python3 -c "
+          import json; v=json.load(open('data/mutation_vault.json'));
+          print(v[-1].get('filename','?') if v else '?')
+          " 2>/dev/null || echo "?")
+          CONCEPT=$(python3 -c "
+          import json; v=json.load(open('data/mutation_vault.json'));
+          print(v[-1].get('synthesis_concept','')[:80] if v else '')
+          " 2>/dev/null || echo "")
+          git commit -m "🧬 MUTATE: $FNAME — $CONCEPT [skip ci]"
+          git push "$REMOTE" HEAD:main
+        continue-on-error: true
