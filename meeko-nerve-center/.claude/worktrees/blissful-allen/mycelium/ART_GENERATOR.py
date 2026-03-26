@@ -117,7 +117,7 @@ Sale: {concept.get('sale_id','')}"""
 def main():
     DATA_DIR.mkdir(exist_ok=True)
     print("ART_GENERATOR -- Gaza Rose")
-    api_key = os.environ.get("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")")")")")")")", "")
+    api_key = os.environ.get("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")")")")")")")")", "")
     pending_f = DATA_DIR / "pending_art.json"
     if not pending_f.exists():
         print("  No pending art requests")
