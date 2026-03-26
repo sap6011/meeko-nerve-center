@@ -178,8 +178,10 @@ jobs:
 
       - name: Commit
         run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git fetch "$REMOTE" main
+          git rebase FETCH_HEAD || true
           git add data/ mycelium/
           git diff --staged --quiet && echo "Nothing built" && exit 0
           git commit -m "🔨 BUILD: $(date +%Y-%m-%dT%H:%M) — ${{ github.event.inputs.note || 'autonomous build' }}"
-          git pull --rebase "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" main || true
-          git push "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:main
+          git push "$REMOTE" HEAD:main

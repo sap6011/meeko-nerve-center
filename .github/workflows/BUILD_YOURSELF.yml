@@ -243,12 +243,14 @@ jobs:
 
       - name: "🚀 Commit New Engines"
         run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git fetch "$REMOTE" main
+          git rebase FETCH_HEAD || true
           git add -A
-          git diff --cached --quiet && echo "Nothing new to commit" && exit 0
+          git diff --staged --quiet && echo "Nothing new to commit" && exit 0
           BUILT=$(python3 -c "import json; p=json.load(open('data/build_plan.json')); print(', '.join(e['filename'] for e in p.get('engines',[])))" 2>/dev/null || echo "engines")
           git commit -m "🔨 BUILD_YOURSELF: $BUILT [$(date +%Y-%m-%dT%H:%M)]"
-          git pull --rebase origin main || true
-          git push origin main || git push origin main --force-with-lease
+          git push "$REMOTE" HEAD:main
 
       - name: "📧 Email Meeko — What Was Built"
         env:
