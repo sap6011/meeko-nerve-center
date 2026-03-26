@@ -1,0 +1,73 @@
+{
+  "timestamp": "2026-03-26T20:25:42.012106+00:00",
+  "bridges_attempted": 4,
+  "bridges_built": 4,
+  "bridges_failed": 0,
+  "unbridged_inputs": [
+    "SOCIAL_QUEUE.txt",
+    "brave_browser_state.json",
+    "conversion_log.json",
+    "desktop_daemon_state.json",
+    "knowledge_bank.txt",
+    "neuron_a_report.json",
+    "neuron_b_report.json",
+    "newsletter_subscribers.json",
+    "pending_publication.txt",
+    "resurrections.json",
+    "sponsors_inbox.json",
+    "storefront_builder_state.json",
+    "synergy_mutations.txt",
+    "system_directive.json"
+  ],
+  "results": [
+    {
+      "status": "BRIDGED",
+      "detail": "Transformed fund_scout_results -> grants_found (0 grants)",
+      "grants_count": 0,
+      "target": "grants_found.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Local sentinel: 197 pass, 45 fail out of 242 engines",
+      "pass": 197,
+      "fail": 45,
+      "target": "sentinel_report.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Knowledge graph: 276 nodes, 360 edges, top hub: FIRST_SALE_NOTIFIER",
+      "nodes": 276,
+      "edges": 360,
+      "top_hubs": [
+        [
+          "FIRST_SALE_NOTIFIER",
+          51
+        ],
+        [
+          "REVENUE_LOOP",
+          32
+        ],
+        [
+          "DEV_TO_PUBLISHER",
+          31
+        ],
+        [
+          "DISPATCH_HANDLER",
+          28
+        ],
+        [
+          "REVENUE_FLYWHEEL",
+          27
+        ]
+      ],
+      "target": "knowledge_graph.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Quick revenue synthesized from brain_state + revenue_inbox",
+      "revenue": 221.35,
+      "target": "quick_revenue.json"
+    }
+  ],
+  "note": "Successes AND failures documented. Both are useful."
+}
