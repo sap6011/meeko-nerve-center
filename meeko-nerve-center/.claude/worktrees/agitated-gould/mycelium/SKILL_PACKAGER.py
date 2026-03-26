@@ -242,7 +242,7 @@ Or via GitHub Actions (OMNIBRAIN.yml):
 - name: {engine_name}
   run: python mycelium/{engine_name}.py
   env:
-    ANTHROP_IC_API_KEY: ${{{{ secrets.os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")") }}}}
+    ANTHROP_IC_API_KEY: ${{{{ secrets.os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")") }}}}
 ```
 
 ## Mission Context
