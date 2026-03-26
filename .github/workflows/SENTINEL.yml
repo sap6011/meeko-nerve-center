@@ -1,0 +1,223 @@
+name: SENTINEL — Continuous Code Integrity
+
+# Runs on every push + daily at 02:00 UTC
+# Catches what self-healing misses: source-level corruption
+# No external secrets needed — pure syntax + pattern audit
+
+on:
+  push:
+    paths:
+      - 'mycelium/**'
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Syntax check all engines
+        id: syntax
+        run: |
+          python3 - <<'PYEOF'
+          import subprocess, json
+          from pathlib import Path
+
+          results = {"pass": [], "fail": []}
+
+          for f in sorted(Path("mycelium").glob("*.py")):
+              if f.name.startswith("__"):
+                  continue
+              r = subprocess.run(
+                  ["python3", "-m", "py_compile", str(f)],
+                  capture_output=True, text=True
+              )
+              if r.returncode == 0:
+                  results["pass"].append(f.name)
+              else:
+                  results["fail"].append({
+                      "file": f.name,
+                      "error": r.stderr.strip()
+                  })
+
+          total = len(results["pass"]) + len(results["fail"])
+          print(f"Syntax check: {len(results['pass'])}/{total} pass | {len(results['fail'])} fail")
+          for item in results["fail"]:
+              print(f"  SYNTAX ERROR: {item['file']}")
+              print(f"    {item['error'][:200]}")
+
+          Path("data").mkdir(exist_ok=True)
+          Path("data/sentinel_syntax.json").write_text(json.dumps(results, indent=2))
+
+          if results["fail"]:
+              print(f"\n::warning::SENTINEL: {len(results['fail'])} engines have syntax errors")
+          PYEOF
+
+      - name: Pattern audit — known corruption signatures
+        run: |
+          python3 - <<'PYEOF'
+          import re, json
+          from pathlib import Path
+
+          # Patterns that indicate automated tool corruption
+          CORRUPTION_PATTERNS = [
+              (r'os\.getenv\("os\.getenv\(', "nested os.getenv wrapping"),
+              (r'os\.environ\.get\("os\.getenv\(', "nested os.environ.get wrapping"),
+              (r'<<<<<<< HEAD', "unresolved git merge conflict"),
+              (r'>>>>>>> [0-9a-f]{7}', "unresolved git merge conflict"),
+              (r'=======\n', "unresolved git merge conflict (======= marker)"),
+              (r'0x[0-9A-Fa-f]+_[A-Z]', "invalid hex literal with non-hex suffix"),
+              (r'datetime\.utcnow\(\)', "deprecated datetime.utcnow() — use datetime.now(timezone.utc)"),
+              (r'access_token=', "API token in URL query param — use Authorization header"),
+          ]
+
+          issues = []
+
+          for f in sorted(Path("mycelium").glob("*.py")):
+              if f.name.startswith("__"):
+                  continue
+              try:
+                  content = f.read_text(errors="replace")
+              except:
+                  continue
+              for pattern, description in CORRUPTION_PATTERNS:
+                  matches = list(re.finditer(pattern, content))
+                  for m in matches:
+                      line_no = content[:m.start()].count('\n') + 1
+                      issues.append({
+                          "file": f.name,
+                          "line": line_no,
+                          "pattern": description,
+                          "snippet": content[m.start():m.start()+80].replace('\n', '↵')
+                      })
+
+          print(f"Pattern audit: {len(issues)} issues found across {len(set(i['file'] for i in issues))} files")
+          for issue in issues:
+              print(f"  {issue['file']}:{issue['line']} — {issue['pattern']}")
+
+          Path("data").mkdir(exist_ok=True)
+          Path("data/sentinel_patterns.json").write_text(json.dumps(issues, indent=2))
+
+          if issues:
+              print(f"\n::warning::SENTINEL: {len(issues)} pattern violations found")
+          PYEOF
+
+      - name: Credential leak scan
+        run: |
+          python3 - <<'PYEOF'
+          import re, json
+          from pathlib import Path
+
+          # Patterns that suggest real credentials in source
+          LEAK_PATTERNS = [
+              (r'sk-[a-zA-Z0-9]{20,}', "Potential OpenAI/Anthropic API key"),
+              (r'Bearer [a-zA-Z0-9_\-\.]{20,}', "Potential Bearer token hardcoded"),
+              (r'password\s*=\s*["\'][^"\']{8,}["\']', "Potential hardcoded password"),
+              (r'acct_[a-zA-Z0-9]{16,}', "Potential Stripe account ID"),
+              (r'[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}', "Potential card number"),
+          ]
+
+          leaks = []
+          SAFE_FILES = {"KALEIDOSCOPE_SHIELD.py", "HONEYTOKEN_GUARD.py"}  # these handle fake tokens
+
+          for f in sorted(Path("mycelium").glob("*.py")):
+              if f.name.startswith("__") or f.name in SAFE_FILES:
+                  continue
+              try:
+                  content = f.read_text(errors="replace")
+              except:
+                  continue
+              for pattern, description in LEAK_PATTERNS:
+                  for m in re.finditer(pattern, content):
+                      line_no = content[:m.start()].count('\n') + 1
+                      leaks.append({
+                          "file": f.name,
+                          "line": line_no,
+                          "issue": description
+                          # deliberately NOT logging the matched text
+                      })
+
+          print(f"Credential scan: {len(leaks)} potential issues")
+          for leak in leaks:
+              print(f"  {leak['file']}:{leak['line']} — {leak['issue']}")
+
+          Path("data/sentinel_leaks.json").write_text(json.dumps(leaks, indent=2))
+          PYEOF
+
+      - name: Generate SENTINEL report
+        run: |
+          python3 - <<'PYEOF'
+          import json
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          syntax  = json.loads(Path("data/sentinel_syntax.json").read_text()) if Path("data/sentinel_syntax.json").exists() else {}
+          patterns = json.loads(Path("data/sentinel_patterns.json").read_text()) if Path("data/sentinel_patterns.json").exists() else []
+          leaks   = json.loads(Path("data/sentinel_leaks.json").read_text()) if Path("data/sentinel_leaks.json").exists() else []
+
+          total_engines = len(syntax.get("pass", [])) + len(syntax.get("fail", []))
+          syntax_pass   = len(syntax.get("pass", []))
+          syntax_fail   = len(syntax.get("fail", []))
+
+          report = {
+              "timestamp": datetime.now(timezone.utc).isoformat(),
+              "summary": {
+                  "engines_total": total_engines,
+                  "syntax_pass": syntax_pass,
+                  "syntax_fail": syntax_fail,
+                  "pattern_violations": len(patterns),
+                  "credential_warnings": len(leaks),
+                  "health": "CLEAN" if (syntax_fail == 0 and len(patterns) == 0 and len(leaks) == 0)
+                             else "ISSUES_FOUND"
+              },
+              "syntax_failures": syntax.get("fail", []),
+              "pattern_violations": patterns,
+              "credential_warnings": [{"file": l["file"], "line": l["line"], "issue": l["issue"]} for l in leaks]
+          }
+
+          Path("data/sentinel_report.json").write_text(json.dumps(report, indent=2))
+
+          status = report["summary"]["health"]
+          total_issues = syntax_fail + len(patterns) + len(leaks)
+
+          print(f"\nSENTINEL REPORT — {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
+          print(f"{'='*50}")
+          print(f"  Engines:   {total_engines} total | {syntax_pass} pass | {syntax_fail} syntax errors")
+          print(f"  Patterns:  {len(patterns)} violations")
+          print(f"  Secrets:   {len(leaks)} warnings")
+          print(f"  Status:    {status}")
+          print(f"{'='*50}")
+
+          if total_issues > 0:
+              print(f"\n::warning::SENTINEL found {total_issues} issues — run REPAIR workflow to auto-fix")
+          else:
+              print("\n✅ All engines clean")
+          PYEOF
+
+      - name: Commit SENTINEL results
+        run: |
+          REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git config user.name 'SENTINEL'
+          git config user.email 'sentinel@solarpunk'
+          git fetch "$REMOTE" main
+          git rebase FETCH_HEAD || true
+          git add data/sentinel_*.json 2>/dev/null || true
+          git diff --staged --quiet && echo "No changes" && exit 0
+          STATUS=$(python3 -c "import json; r=json.load(open('data/sentinel_report.json')); print(r['summary']['health'])" 2>/dev/null || echo "?")
+          ISSUES=$(python3 -c "import json; r=json.load(open('data/sentinel_report.json')); s=r['summary']; print(s['syntax_fail']+s['pattern_violations'])" 2>/dev/null || echo "?")
+          git commit -m "🔍 SENTINEL: $STATUS | $ISSUES issues [skip ci]"
+          git push "$REMOTE" HEAD:main
