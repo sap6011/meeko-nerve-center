@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-03-26T23:15:30.542895+00:00",
+  "timestamp": "2026-03-26T23:25:45.000147+00:00",
   "protocol": "mycelium-network-v1",
   "nutrient_routing": {
-    "total_nodes": 242,
-    "producers": 85,
+    "total_nodes": 244,
+    "producers": 86,
     "consumers": 27,
     "top_producers": [
       {
@@ -25,6 +25,15 @@
         "upstream_feeders": 25
       },
       {
+        "name": "BRIDGE_BUILDER",
+        "level": 16.5,
+        "role": "producer",
+        "writes": 7,
+        "reads": 10,
+        "downstream_dependents": 19,
+        "upstream_feeders": 13
+      },
+      {
         "name": "REVENUE_LOOP",
         "level": 16.5,
         "role": "producer",
@@ -41,15 +50,6 @@
         "reads": 5,
         "downstream_dependents": 13,
         "upstream_feeders": 5
-      },
-      {
-        "name": "DEV_TO_PUBLISHER",
-        "level": 14.5,
-        "role": "producer",
-        "writes": 3,
-        "reads": 3,
-        "downstream_dependents": 18,
-        "upstream_feeders": 13
       }
     ],
     "steepest_gradients": [
@@ -118,7 +118,7 @@
         "dst_level": -3.5
       },
       {
-        "from": "REVENUE_LOOP",
+        "from": "BRIDGE_BUILDER",
         "to": "VITAL_SIGN_API",
         "via": "brain_state.json",
         "gradient": 23.0,
@@ -126,18 +126,18 @@
         "dst_level": -6.5
       },
       {
-        "from": "EMAIL_BRAIN",
-        "to": "STORE_BUILDER",
-        "via": "revenue_inbox.json",
+        "from": "REVENUE_LOOP",
+        "to": "VITAL_SIGN_API",
+        "via": "brain_state.json",
         "gradient": 23.0,
-        "src_level": 15.5,
-        "dst_level": -7.5
+        "src_level": 16.5,
+        "dst_level": -6.5
       }
     ]
   },
   "adaptive_growth": {
-    "total_wires": 385,
-    "strengthen": 377,
+    "total_wires": 405,
+    "strengthen": 397,
     "monitor": 8,
     "prune": 0
   },
@@ -283,16 +283,67 @@
     {
       "type": "NETWORK_PULSE",
       "severity": "info",
-      "message": "Network health: 98% (377/385 wires healthy)",
+      "message": "Network health: 98% (397/405 wires healthy)",
       "source": "mycelium_network",
       "biology": "Seasonal growth assessment -- overall forest vitality check"
     }
   ],
+  "reciprocal_rewards": {
+    "mutualists": 46,
+    "balanced": 178,
+    "consumers": 5,
+    "inert": 15,
+    "top_mutualists": [
+      {
+        "name": "SOCIAL_DASHBOARD",
+        "reciprocity": 11.0,
+        "role": "mutualist",
+        "giving": 11,
+        "taking": 1
+      },
+      {
+        "name": "AGENT_TWEET_WRITER",
+        "reciprocity": 10.0,
+        "role": "mutualist",
+        "giving": 1,
+        "taking": 0
+      },
+      {
+        "name": "DEV_TO_PUBLISHER",
+        "reciprocity": 7.0,
+        "role": "mutualist",
+        "giving": 21,
+        "taking": 3
+      },
+      {
+        "name": "DISPATCH_HANDLER",
+        "reciprocity": 6.25,
+        "role": "mutualist",
+        "giving": 25,
+        "taking": 4
+      },
+      {
+        "name": "QUICK_REVENUE",
+        "reciprocity": 6.0,
+        "role": "mutualist",
+        "giving": 12,
+        "taking": 2
+      }
+    ]
+  },
+  "network_memory": {
+    "cycles_tracked": 1,
+    "new_connections": 384,
+    "persisted": 0,
+    "lost": 0
+  },
   "biology_notes": {
     "nutrient_routing": "Mycorrhizal networks transport carbon/nitrogen/phosphorus from surplus trees to deficit trees via concentration gradients",
     "adaptive_growth": "Hyphae that find nutrients thicken; hyphae that find nothing are pruned. Explore-exploit tradeoff.",
     "anastomosis": "Broken hyphae are healed by nearby hyphae fusing across the gap. Self-repair without central coordination.",
     "decomposition": "Enzymes (cellulase, lignin peroxidase) break dead wood into nutrients. Waste becomes food.",
-    "signaling": "VOCs and electrical signals propagate threat warnings through the network. Neighbors prepare before the threat arrives."
+    "signaling": "VOCs and electrical signals propagate threat warnings through the network. Neighbors prepare before the threat arrives.",
+    "reciprocal_rewards": "Kiers (Science, 2011): plants and fungi preferentially reward partners that provide more resources. Cheaters are economically penalized.",
+    "network_memory": "Mycelium retains spatial memory of past nutrient encounters without neurons. Stored in cytoskeletal patterns and network topology."
   }
 }

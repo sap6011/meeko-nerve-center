@@ -345,7 +345,112 @@ def propagate_signals(wire_health, nutrient_levels, sentinel_report):
 
 
 # ═══════════════════════════════════════════════════════════════════
-# MAIN: Run all five mycelium patterns
+# 6. RECIPROCAL REWARDS — Biological market dynamics (Kiers 2011)
+# ═══════════════════════════════════════════════════════════════════
+
+def compute_reciprocal_rewards(engines, wires, nutrient_levels):
+    """
+    Score engines by their reciprocity — do they give as much as they take?
+
+    Biology: Toby Kiers (Science, 2011) showed that mycorrhizal fungi
+    and trees use reciprocal rewards: plants allocate more carbon to
+    fungi that provide more phosphorus, and vice versa. Cheaters —
+    organisms that take without giving — get economically penalized
+    by receiving less from their partners.
+
+    Digital: Engines that consume many data files but produce nothing
+    for others are "cheaters." Engines that both consume AND produce
+    are mutualists. Track the balance.
+    """
+    rewards = {}
+    for name, info in engines.items():
+        nutrient = nutrient_levels.get(name, {})
+        reads = len(info.get("reads", []))
+        writes = len(info.get("writes", []))
+        downstream = nutrient.get("downstream_dependents", 0)
+
+        # Reciprocity score: what you give / what you take
+        giving = writes + downstream
+        taking = reads
+        if taking > 0:
+            reciprocity = round(giving / taking, 2)
+        elif giving > 0:
+            reciprocity = 10.0  # Pure giver
+        else:
+            reciprocity = 1.0  # Neither gives nor takes
+
+        if reciprocity >= 2.0:
+            role = "mutualist"    # Gives much more than it takes
+        elif reciprocity >= 0.5:
+            role = "balanced"     # Fair exchange
+        elif reciprocity > 0:
+            role = "consumer"     # Takes more than it gives
+        else:
+            role = "inert"        # Does nothing
+
+        rewards[name] = {
+            "reciprocity": reciprocity,
+            "role": role,
+            "giving": giving,
+            "taking": taking,
+        }
+
+    return rewards
+
+
+# ═══════════════════════════════════════════════════════════════════
+# 7. NETWORK MEMORY — Spatial memory without neurons
+# ═══════════════════════════════════════════════════════════════════
+
+def compute_network_memory(wire_report_path):
+    """
+    Track network topology changes over time.
+
+    Biology: Mycelium retains 'memory' of past nutrient encounters —
+    it grows faster toward locations where it previously found food,
+    even after the food is removed. This spatial memory is stored in
+    cytoskeletal patterns, not neurons. (Fukasawa et al., 2024)
+
+    Digital: Compare current topology to previous snapshots.
+    Connections that persist across cycles are 'remembered' —
+    the network's structural memory. New connections are exploration.
+    Lost connections may need restoration.
+    """
+    current = load_json(wire_report_path)
+    previous_state = load_json(DATA / "mycelium_memory.json")
+
+    current_wires = set()
+    for w in current.get("wires", []):
+        current_wires.add(f"{w['from']}->{w['to']}")
+
+    previous_wires = set(previous_state.get("known_wires", []))
+
+    # What's new, what persisted, what was lost
+    new_connections = current_wires - previous_wires
+    persisted = current_wires & previous_wires
+    lost = previous_wires - current_wires
+
+    # Update memory
+    memory = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "known_wires": sorted(current_wires),
+        "total_remembered": len(current_wires),
+        "cycles_tracked": previous_state.get("cycles_tracked", 0) + 1,
+        "this_cycle": {
+            "new_connections": len(new_connections),
+            "persisted": len(persisted),
+            "lost": len(lost),
+            "lost_list": sorted(lost)[:20],
+            "new_list": sorted(new_connections)[:20],
+        },
+    }
+
+    (DATA / "mycelium_memory.json").write_text(json.dumps(memory, indent=2))
+    return memory
+
+
+# ═══════════════════════════════════════════════════════════════════
+# MAIN: Run all seven mycelium patterns
 # ═══════════════════════════════════════════════════════════════════
 
 def run():
@@ -420,6 +525,33 @@ def run():
         print(f"    [{icon}] {sig['type']}: {sig['message']}")
         print(f"        Biology: {sig['biology']}")
 
+    # Phase 6: RECIPROCAL REWARDS
+    print("\n  Phase 6: RECIPROCAL REWARDS (biological market)")
+    rewards = compute_reciprocal_rewards(engines, wires, nutrients)
+    mutualists = sum(1 for r in rewards.values() if r["role"] == "mutualist")
+    balanced = sum(1 for r in rewards.values() if r["role"] == "balanced")
+    consumers_rr = sum(1 for r in rewards.values() if r["role"] == "consumer")
+    inert = sum(1 for r in rewards.values() if r["role"] == "inert")
+    print(f"    Mutualists (give > take): {mutualists}")
+    print(f"    Balanced (fair exchange): {balanced}")
+    print(f"    Consumers (take > give):  {consumers_rr}")
+    print(f"    Inert (neither):          {inert}")
+    top_mutualists = sorted(
+        [(n, r) for n, r in rewards.items() if r["role"] == "mutualist"],
+        key=lambda x: x[1]["reciprocity"], reverse=True
+    )[:5]
+    for name, info in top_mutualists:
+        print(f"    + {name}: reciprocity={info['reciprocity']} (gives {info['giving']}, takes {info['taking']})")
+
+    # Phase 7: NETWORK MEMORY
+    print("\n  Phase 7: NETWORK MEMORY (spatial memory without neurons)")
+    memory = compute_network_memory(DATA / "live_wire_report.json")
+    cycle = memory.get("this_cycle", {})
+    print(f"    Cycles tracked: {memory.get('cycles_tracked', 1)}")
+    print(f"    Persisted connections: {cycle.get('persisted', 0)}")
+    print(f"    New connections: {cycle.get('new_connections', 0)}")
+    print(f"    Lost connections: {cycle.get('lost', 0)}")
+
     # Build comprehensive state
     state = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -448,12 +580,27 @@ def run():
             "targets": decomp_targets[:20],
         },
         "signals": signals,
+        "reciprocal_rewards": {
+            "mutualists": mutualists,
+            "balanced": balanced,
+            "consumers": consumers_rr,
+            "inert": inert,
+            "top_mutualists": [{"name": n, **i} for n, i in top_mutualists],
+        },
+        "network_memory": {
+            "cycles_tracked": memory.get("cycles_tracked", 1),
+            "new_connections": cycle.get("new_connections", 0),
+            "persisted": cycle.get("persisted", 0),
+            "lost": cycle.get("lost", 0),
+        },
         "biology_notes": {
             "nutrient_routing": "Mycorrhizal networks transport carbon/nitrogen/phosphorus from surplus trees to deficit trees via concentration gradients",
             "adaptive_growth": "Hyphae that find nutrients thicken; hyphae that find nothing are pruned. Explore-exploit tradeoff.",
             "anastomosis": "Broken hyphae are healed by nearby hyphae fusing across the gap. Self-repair without central coordination.",
             "decomposition": "Enzymes (cellulase, lignin peroxidase) break dead wood into nutrients. Waste becomes food.",
             "signaling": "VOCs and electrical signals propagate threat warnings through the network. Neighbors prepare before the threat arrives.",
+            "reciprocal_rewards": "Kiers (Science, 2011): plants and fungi preferentially reward partners that provide more resources. Cheaters are economically penalized.",
+            "network_memory": "Mycelium retains spatial memory of past nutrient encounters without neurons. Stored in cytoskeletal patterns and network topology.",
         },
     }
 
@@ -465,11 +612,13 @@ def run():
     print(f"\n  === MYCELIUM NETWORK STATE ===")
     print(f"  Network health:       {network_health:.0%}")
     print(f"  Nutrient producers:   {len(producers)}")
+    print(f"  Mutualists:           {mutualists}")
     print(f"  Active signals:       {len(signals)}")
     print(f"  Self-heal targets:    {len(breaks)}")
     print(f"  Decomposition queue:  {len(old_files)}")
-    print(f"\n  The forest feeds itself. The network heals itself.")
-    print(f"  Both patterns are documented. That's the point.")
+    print(f"  Memory cycles:        {memory.get('cycles_tracked', 1)}")
+    print(f"\n  7 patterns from biology. 0 from engineering textbooks.")
+    print(f"  The forest feeds itself. The network heals itself.")
 
 
 if __name__ == "__main__":
