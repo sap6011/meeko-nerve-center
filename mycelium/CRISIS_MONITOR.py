@@ -141,47 +141,66 @@ def match_aid_orgs(text):
 
 # ── Source: ReliefWeb (OCHA) ────────────────────────────────────────────────
 def fetch_reliefweb(limit=15):
-    """OCHA ReliefWeb API — free, no key, authoritative humanitarian data."""
+    """OCHA ReliefWeb API — humanitarian data. Falls back to RSS if API requires registration."""
     import requests
     signals = []
-    try:
-        r = requests.post(
-            "https://api.reliefweb.int/v1/reports?appname=solarpunk",
-            json={
-                "limit": limit, "sort": ["date:desc"],
-                "fields": {"include": ["title", "url_alias", "source", "date", "country", "theme"]},
-                "filter": {"operator": "OR", "conditions": [
-                    {"field": "theme.name", "value": "Protection and Human Rights"},
-                    {"field": "theme.name", "value": "Food and Nutrition"},
-                    {"field": "country.name", "value": [
-                        "occupied Palestinian territory", "Sudan",
-                        "Democratic Republic of the Congo", "Yemen",
-                        "Myanmar", "Syrian Arab Republic", "Ukraine",
-                        "Somalia", "Ethiopia", "Afghanistan", "Haiti"
-                    ]},
-                ]}
-            },
-            headers=HEADERS, timeout=15
-        )
-        r.raise_for_status()
-        for item in r.json().get("data", []):
-            f = item.get("fields", {})
-            title = f.get("title", "")
-            countries = [c.get("name", "") for c in f.get("country", [])]
-            full_text = title + " " + " ".join(countries)
-            score = score_urgency(full_text)
-            signals.append({
-                "title": title,
-                "url": f"https://reliefweb.int{f.get('url_alias', '')}",
-                "date": f.get("date", {}).get("created", ""),
-                "countries": countries,
-                "source_orgs": [s.get("name", "") for s in f.get("source", [])],
-                "origin": "reliefweb",
-                "urgency_score": score, "urgency": classify(score),
-            })
-        print(f"  ReliefWeb: {len(signals)} humanitarian reports")
-    except Exception as e:
-        print(f"  ReliefWeb error: {e}")
+    # Try RSS feed first (always free, no registration)
+    rss_feeds = [
+        ("https://reliefweb.int/updates/rss.xml", "reliefweb"),
+        ("https://www.ochaopt.org/rss.xml", "ocha_opt"),
+    ]
+    for feed_url, origin in rss_feeds:
+        try:
+            r = requests.get(feed_url, headers=HEADERS, timeout=15)
+            if r.status_code == 200:
+                import re
+                titles = re.findall(r'<title><!\[CDATA\[(.*?)\]\]></title>', r.text)
+                if not titles:
+                    titles = re.findall(r'<title>(.*?)</title>', r.text)
+                links = re.findall(r'<link>(https://reliefweb\.int[^<]*)</link>', r.text)
+                if not links:
+                    links = re.findall(r'<link>(https?://[^<]*)</link>', r.text)
+                for i, title in enumerate(titles[:limit]):
+                    if title in ["ReliefWeb", "OCHA opt", ""]:
+                        continue
+                    full_text = title
+                    sc = score_urgency(full_text)
+                    signals.append({
+                        "title": title,
+                        "url": links[i] if i < len(links) else "",
+                        "origin": origin,
+                        "urgency_score": sc, "urgency": classify(sc),
+                    })
+            print(f"  {origin}: {len(signals)} reports via RSS")
+        except Exception as e:
+            print(f"  {origin} RSS error: {e}")
+
+    # Fallback: try API (may require registration)
+    if not signals:
+        try:
+            r = requests.post(
+                "https://api.reliefweb.int/v1/reports?appname=solarpunk-humanitarian",
+                json={"limit": limit, "sort": ["date:desc"],
+                      "fields": {"include": ["title", "url_alias", "country"]}},
+                headers=HEADERS, timeout=15
+            )
+            if r.status_code == 200:
+                for item in r.json().get("data", []):
+                    f = item.get("fields", {})
+                    title = f.get("title", "")
+                    sc = score_urgency(title)
+                    signals.append({
+                        "title": title,
+                        "url": f"https://reliefweb.int{f.get('url_alias', '')}",
+                        "countries": [c.get("name", "") for c in f.get("country", [])],
+                        "origin": "reliefweb",
+                        "urgency_score": sc, "urgency": classify(sc),
+                    })
+                print(f"  ReliefWeb API: {len(signals)} reports")
+            else:
+                print(f"  ReliefWeb API: {r.status_code} (registration required — using RSS only)")
+        except Exception as e:
+            print(f"  ReliefWeb API fallback error: {e}")
     return signals
 
 
@@ -195,7 +214,7 @@ def fetch_gdelt(limit=15):
             "https://api.gdeltproject.org/api/v2/doc/doc"
             "?query=genocide OR war%20crimes OR censorship OR humanitarian%20crisis"
             "&mode=artlist&maxrecords=" + str(limit) + "&format=json&sort=datedesc",
-            headers=HEADERS, timeout=15
+            headers=HEADERS, timeout=30
         )
         if r.status_code == 200:
             for art in r.json().get("articles", []):

@@ -1,9 +1,14 @@
 {
-  "timestamp": "2026-03-27T18:49:18.152381+00:00",
+  "timestamp": "2026-03-27T23:57:55.455479+00:00",
   "bridges_attempted": 23,
   "bridges_built": 14,
   "bridges_failed": 9,
-  "unbridged_inputs": [],
+  "unbridged_inputs": [
+    "_stress_backup_river_watch.json",
+    "murmuration_trap_state.json",
+    "sentinel_scan.json",
+    "sovereignty_state.json"
+  ],
   "results": [
     {
       "status": "BRIDGED",
@@ -13,35 +18,35 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 243 pass, 1 fail out of 244 engines",
-      "pass": 243,
-      "fail": 1,
+      "detail": "Local sentinel: 253 pass, 0 fail out of 253 engines",
+      "pass": 253,
+      "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 282 nodes, 442 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 282,
-      "edges": 442,
+      "detail": "Knowledge graph: 297 nodes, 514 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 297,
+      "edges": 514,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          69
+          78
         ],
         [
           "FIRST_SALE_NOTIFIER",
-          56
+          58
         ],
         [
           "REVENUE_LOOP",
-          36
+          38
         ],
         [
           "DEV_TO_PUBLISHER",
-          33
+          35
         ],
         [
-          "DISPATCH_HANDLER",
+          "BROADCAST_PROTOCOL",
           31
         ]
       ],
@@ -60,23 +65,23 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "River watch: 1 alerts, 0 waterways",
+      "detail": "River watch: 0 alerts, 0 waterways",
       "target": "river_watch.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 244 scripts, 1 need repair",
+      "detail": "Desktop blueprints: 253 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
-      "status": "BRIDGED",
-      "detail": "Routed 608 tweets from orphan tweets_queue.txt -> social_queue.json",
-      "target": "tweets_queue.txt"
+      "target": "tweets_queue.txt",
+      "status": "ERROR",
+      "detail": "'charmap' codec can't decode byte 0x81 in position 342: character maps to <undefined>"
     },
     {
-      "target": "daemon_task.xml",
-      "status": "ERROR",
-      "detail": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+      "status": "BRIDGED",
+      "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json",
+      "target": "daemon_task.xml"
     },
     {
       "status": "BRIDGED",
