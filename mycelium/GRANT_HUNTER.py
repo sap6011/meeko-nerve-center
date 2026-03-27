@@ -11,7 +11,7 @@ from pathlib import Path
 from datetime import datetime,timezone
 
 DATA=Path("data"); DATA.mkdir(exist_ok=True)
-API=os.getenv("ANTHROPIC_API_KEY")
+API=os.getenv("os.getenv("ANTHROPIC_API_KEY")")
 
 GRANTS=[
     {"name":"Mozilla Foundation","url":"https://foundation.mozilla.org/en/what-we-fund/","tags":["open source","internet health","AI"]},

@@ -23,7 +23,7 @@ STATE   = DATA / "newsletter_state.json"
 ARCHIVE = DATA / "newsletter_archive.json"
 SUBS    = DATA / "newsletter_subscribers.json"
 
-API_KEY    = os.getenv("ANTHROPIC_API_KEY")
+API_KEY    = os.getenv("os.getenv("ANTHROPIC_API_KEY")")
 GMAIL_USER = os.environ.get("GMAIL_USER", "meekotharaccoon@gmail.com")
 GMAIL_PASS = os.environ.get("GMAIL_APP_PASSWORD", "").strip()
 MODEL      = "claude-haiku-4-5-20251001"
