@@ -96,14 +96,19 @@ jobs:
         run: |
           git config user.name "SolarPunk Node-01"
           git config user.email "solarpunk-node@users.noreply.github.com"
-          git add data/ docs/api/ || true
+          git add data/ docs/api/ mycelium/__pycache__ 2>/dev/null || true
+          git add -u || true
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "pulse: autonomous cycle $(date -u +%Y-%m-%d_%H%M) — 12 engines fired"
             for attempt in 1 2 3; do
               git fetch origin main
+              git stash || true
               git rebase FETCH_HEAD || git rebase --abort
+              git stash pop || true
+              git add data/ docs/api/ 2>/dev/null || true
+              git add -u || true
+              git diff --cached --quiet || git commit -m "pulse: autonomous cycle $(date -u +%Y-%m-%d_%H%M) — 12 engines fired"
               git push origin main && break
               echo "Push attempt $attempt failed, retrying in $((attempt * 5))s..."
               sleep $((attempt * 5))
