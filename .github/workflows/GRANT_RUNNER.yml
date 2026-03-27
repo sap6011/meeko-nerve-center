@@ -155,11 +155,20 @@ jobs:
 
   Format as clean Markdown. Be specific. No fluff."""
 
-                  message = client.messages.create(
-                      model="claude-opus-4-5",
-                      max_tokens=4096,
-                      messages=[{"role": "user", "content": prompt}],
-                  )
+                  for _model in ["claude-sonnet-4-5-20241022", "claude-opus-4-5", "claude-3-5-sonnet-20241022"]:
+                      try:
+                          message = client.messages.create(
+                              model=_model,
+                              max_tokens=4096,
+                              messages=[{"role": "user", "content": prompt}],
+                          )
+                          print(f"  Grant draft using {_model}")
+                          break
+                      except Exception as _e:
+                          print(f"  {_model} failed: {_e}")
+                          message = None
+                  if not message:
+                      raise Exception("All models failed")
                   draft_body = message.content[0].text
                   method = "Claude AI draft"
               except Exception as e:

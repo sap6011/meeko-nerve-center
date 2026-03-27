@@ -80,15 +80,19 @@ jobs:
           ---"""
 
           def call_anthropic(prompt):
-              r = requests.post(
-                  "https://api.anthropic.com/v1/messages",
-                  headers={"x-api-key": api_key, "anthropic-version": "2023-06-01", "Content-Type": "application/json"},
-                  json={"model": "claude-sonnet-4-6", "max_tokens": 4000,
-                        "messages": [{"role": "user", "content": prompt}]},
-                  timeout=120
-              )
-              r.raise_for_status()
-              return r.json()["content"][0]["text"]
+              headers = {"x-api-key": api_key, "anthropic-version": "2023-06-01", "Content-Type": "application/json"}
+              for model in ["claude-sonnet-4-5-20241022", "claude-sonnet-4-6", "claude-3-5-sonnet-20241022"]:
+                  r = requests.post(
+                      "https://api.anthropic.com/v1/messages",
+                      headers=headers,
+                      json={"model": model, "max_tokens": 4000,
+                            "messages": [{"role": "user", "content": prompt}]},
+                      timeout=120
+                  )
+                  if r.status_code == 200:
+                      return r.json()["content"][0]["text"]
+                  print(f"  {model}: HTTP {r.status_code} — {r.text[:200]}")
+              r.raise_for_status()  # raise last error
 
           def call_hf(prompt):
               for model in ["Qwen/Qwen2.5-72B-Instruct", "meta-llama/Llama-3.1-8B-Instruct"]:

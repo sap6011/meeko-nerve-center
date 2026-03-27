@@ -132,6 +132,27 @@ jobs:
               except Exception as e:
                   print(f'  WARN GMAIL_APP_PASSWORD -- network error: {e}')
 
+          # --- ANTHROPIC ---
+          if anthropic:
+              try:
+                  body = json.dumps({"model": "claude-sonnet-4-5-20241022", "max_tokens": 10, "messages": [{"role": "user", "content": "hi"}]}).encode()
+                  req = urllib.request.Request('https://api.anthropic.com/v1/messages', data=body, method='POST')
+                  req.add_header('x-api-key', anthropic)
+                  req.add_header('Content-Type', 'application/json')
+                  req.add_header('anthropic-version', '2023-06-01')
+                  with urllib.request.urlopen(req, timeout=15) as r:
+                      data = json.loads(r.read())
+                  print(f'  PASS ANTHROPIC_API_KEY -- model: {data.get("model","?")} usage: {data.get("usage",{})}')
+              except urllib.error.HTTPError as e:
+                  err_body = e.read().decode()[:300]
+                  print(f'  FAIL ANTHROPIC_API_KEY -- HTTP {e.code}: {err_body}')
+                  if e.code == 401:
+                      print(f'       Key is INVALID. Go to console.anthropic.com > API Keys > create new key')
+                  elif e.code == 400:
+                      print(f'       Bad request — key may be admin key not API key, or model not available')
+              except Exception as e:
+                  print(f'  FAIL ANTHROPIC_API_KEY -- error: {e}')
+
           # --- GUMROAD ---
           if gumroad:
               try:
@@ -164,9 +185,13 @@ jobs:
           REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           git config user.name "SolarPunk Brain"
           git config user.email "meekotharaccoon@gmail.com"
-          git fetch "$REMOTE" main
-          git rebase FETCH_HEAD || true
           git add data/ docs/ mycelium/ README.md 2>/dev/null || true
           git diff --staged --quiet && echo "nothing to commit" && exit 0
           git commit -m "🧠 brain $(date -u +'%Y-%m-%d %H:%M') UTC [skip ci]"
-          git push "$REMOTE" HEAD:main
+          for attempt in 1 2 3; do
+            git fetch "$REMOTE" main
+            git rebase FETCH_HEAD || git rebase --abort
+            git push "$REMOTE" HEAD:main && break
+            echo "Push attempt $attempt failed, retrying in $((attempt * 5))s..."
+            sleep $((attempt * 5))
+          done

@@ -165,22 +165,23 @@ Respond ONLY with valid JSON (no markdown, no code fences):
               print("No API key — mutation requires ANTHROPIC_API_KEY")
           else:
               try:
-                  r = requests.post(
-                      "https://api.anthropic.com/v1/messages",
-                      headers={
-                          "x-api-key": api_key,
-                          "anthropic-version": "2023-06-01",
-                          "Content-Type": "application/json"
-                      },
-                      json={
-                          "model": "claude-sonnet-4-6",
-                          "max_tokens": 6000,
-                          "messages": [{"role": "user", "content": prompt}]
-                      },
-                      timeout=120
-                  )
-                  r.raise_for_status()
-                  text = r.json()["content"][0]["text"]
+                  headers = {"x-api-key": api_key, "anthropic-version": "2023-06-01", "Content-Type": "application/json"}
+                  text = None
+                  for model in ["claude-sonnet-4-5-20241022", "claude-sonnet-4-6", "claude-3-5-sonnet-20241022"]:
+                      r = requests.post(
+                          "https://api.anthropic.com/v1/messages",
+                          headers=headers,
+                          json={"model": model, "max_tokens": 6000,
+                                "messages": [{"role": "user", "content": prompt}]},
+                          timeout=120
+                      )
+                      if r.status_code == 200:
+                          text = r.json()["content"][0]["text"]
+                          print(f"  Success with {model}")
+                          break
+                      print(f"  {model}: HTTP {r.status_code} — {r.text[:200]}")
+                  if not text:
+                      r.raise_for_status()
                   s, e = text.find("{"), text.rfind("}") + 1
                   result = json.loads(text[s:e]) if s >= 0 else {}
                   print(f"Mutation synthesized: {result.get('filename','?')}")

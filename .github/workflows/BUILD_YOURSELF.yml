@@ -140,21 +140,32 @@ jobs:
               print("No API key — writing placeholder build plan")
               plan = {"engines": [], "build_log": "No API key — run with ANTHROPIC_API_KEY secret set", "next_build_suggestion": "Add ANTHROPIC_API_KEY secret first"}
           else:
-              try:
-                  r = requests.post(
-                      "https://api.anthropic.com/v1/messages",
-                      headers={"x-api-key": api_key, "Content-Type": "application/json", "anthropic-version": "2023-06-01"},
-                      json={"model": "claude-sonnet-4-6", "max_tokens": 8000,
-                            "messages": [{"role": "user", "content": prompt}]},
-                      timeout=120
-                  )
-                  r.raise_for_status()
-                  text = r.json()["content"][0]["text"]
-                  s, e = text.find("{"), text.rfind("}") + 1
-                  plan = json.loads(text[s:e]) if s >= 0 else {"engines": [], "build_log": "Parse error", "next_build_suggestion": "Retry"}
-              except Exception as ex:
-                  print(f"API error: {ex}")
-                  plan = {"engines": [], "build_log": str(ex), "next_build_suggestion": "Check API key"}
+              headers = {"x-api-key": api_key, "Content-Type": "application/json", "anthropic-version": "2023-06-01"}
+              # Try models in order of preference
+              for model in ["claude-sonnet-4-5-20241022", "claude-sonnet-4-6", "claude-3-5-sonnet-20241022"]:
+                  try:
+                      print(f"Trying model: {model}")
+                      r = requests.post(
+                          "https://api.anthropic.com/v1/messages",
+                          headers=headers,
+                          json={"model": model, "max_tokens": 8000,
+                                "messages": [{"role": "user", "content": prompt}]},
+                          timeout=120
+                      )
+                      if r.status_code != 200:
+                          print(f"  {model} returned {r.status_code}: {r.text[:500]}")
+                          continue
+                      text = r.json()["content"][0]["text"]
+                      s, e = text.find("{"), text.rfind("}") + 1
+                      plan = json.loads(text[s:e]) if s >= 0 else {"engines": [], "build_log": "Parse error", "next_build_suggestion": "Retry"}
+                      print(f"  Success with {model}")
+                      break
+                  except Exception as ex:
+                      print(f"  {model} error: {ex}")
+                      plan = {"engines": [], "build_log": str(ex), "next_build_suggestion": "Check API key"}
+              else:
+                  print("All models failed")
+                  plan = plan if 'plan' in dir() else {"engines": [], "build_log": "All models failed", "next_build_suggestion": "Check API key and credits"}
 
           Path("data/build_plan.json").write_text(json.dumps(plan, indent=2))
           print(f"Build plan: {len(plan.get('engines', []))} engines to create")
@@ -244,13 +255,17 @@ jobs:
       - name: "🚀 Commit New Engines"
         run: |
           REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
-          git fetch "$REMOTE" main
-          git rebase FETCH_HEAD || true
           git add -A
           git diff --staged --quiet && echo "Nothing new to commit" && exit 0
           BUILT=$(python3 -c "import json; p=json.load(open('data/build_plan.json')); print(', '.join(e['filename'] for e in p.get('engines',[])))" 2>/dev/null || echo "engines")
           git commit -m "🔨 BUILD_YOURSELF: $BUILT [$(date +%Y-%m-%dT%H:%M)]"
-          git push "$REMOTE" HEAD:main
+          for attempt in 1 2 3; do
+            git fetch "$REMOTE" main
+            git rebase FETCH_HEAD || git rebase --abort
+            git push "$REMOTE" HEAD:main && break
+            echo "Push attempt $attempt failed, retrying in $((attempt * 5))s..."
+            sleep $((attempt * 5))
+          done
 
       - name: "📧 Email Meeko — What Was Built"
         env:

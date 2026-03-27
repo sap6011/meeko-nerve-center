@@ -112,21 +112,26 @@ jobs:
 
           decisions = None
           if api_key:
-              try:
-                  r = requests.post(
-                      "https://api.anthropic.com/v1/messages",
-                      headers={"x-api-key": api_key, "anthropic-version": "2023-06-01", "Content-Type": "application/json"},
-                      json={"model": "claude-sonnet-4-6", "max_tokens": 800,
-                            "messages": [{"role": "user", "content": prompt}]},
-                      timeout=60
-                  )
-                  r.raise_for_status()
-                  text = r.json()["content"][0]["text"]
-                  s, e = text.find("{"), text.rfind("}") + 1
-                  if s >= 0: decisions = json.loads(text[s:e])
-                  print("✅ Claude synthesized decisions")
-              except Exception as ex:
-                  print(f"Anthropic error: {ex}")
+              headers = {"x-api-key": api_key, "anthropic-version": "2023-06-01", "Content-Type": "application/json"}
+              for model in ["claude-sonnet-4-5-20241022", "claude-sonnet-4-6", "claude-3-5-sonnet-20241022"]:
+                  try:
+                      r = requests.post(
+                          "https://api.anthropic.com/v1/messages",
+                          headers=headers,
+                          json={"model": model, "max_tokens": 800,
+                                "messages": [{"role": "user", "content": prompt}]},
+                          timeout=60
+                      )
+                      if r.status_code != 200:
+                          print(f"  {model}: HTTP {r.status_code} — {r.text[:200]}")
+                          continue
+                      text = r.json()["content"][0]["text"]
+                      s, e = text.find("{"), text.rfind("}") + 1
+                      if s >= 0: decisions = json.loads(text[s:e])
+                      print(f"✅ Claude synthesized decisions (model: {model})")
+                      break
+                  except Exception as ex:
+                      print(f"  {model} error: {ex}")
 
           if not decisions and hf_key:
               try:
