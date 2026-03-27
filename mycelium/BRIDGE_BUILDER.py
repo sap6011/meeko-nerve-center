@@ -404,11 +404,157 @@ def bridge_system_directive():
     })
 
 
+def bridge_newsletter_archive():
+    """
+    Bridge: product_registry.json + brain_state -> newsletter_archive.json
+    Feeds: RSS_PUBLISHER
+    """
+    products = load_json(DATA / "product_registry.json")
+    brain = load_json(DATA / "brain_state.json")
+
+    entries = []
+    if isinstance(products, dict):
+        for slug, prod in products.items():
+            if isinstance(prod, dict) and prod.get("status") == "ready":
+                entries.append({
+                    "title": prod.get("title", slug),
+                    "type": "product_launch",
+                    "words": prod.get("word_count", 0),
+                })
+
+    archive = {
+        "last_updated": datetime.now(timezone.utc).isoformat(),
+        "newsletters": entries,
+        "total_sent": 0,
+        "brain_cycles": brain.get("cycles", 0) if isinstance(brain, dict) else 0,
+        "source": "BRIDGE_BUILDER synthesis from product_registry + brain_state"
+    }
+    (DATA / "newsletter_archive.json").write_text(json.dumps(archive, indent=2))
+    return {"status": "BRIDGED", "detail": f"Newsletter archive: {len(entries)} entries from product registry"}
+
+
+def bridge_river_watch():
+    """
+    Bridge: fund_scout_results + sentinel -> river_watch.json
+    Feeds: VITAL_SIGN_API, ECOLOGICAL_GRANT_SYNTHESIZER
+    """
+    sentinel = load_json(DATA / "sentinel_report.json")
+    fund = load_json(DATA / "fund_scout_results.json")
+
+    watch = {
+        "last_updated": datetime.now(timezone.utc).isoformat(),
+        "waterways": [],
+        "alerts": [],
+        "status": "monitoring",
+        "source": "BRIDGE_BUILDER synthesis"
+    }
+
+    if isinstance(sentinel, dict) and sentinel.get("syntax_fail", 0) > 0:
+        watch["alerts"].append({
+            "type": "code_health",
+            "message": f"{sentinel['syntax_fail']} engines have syntax errors",
+            "severity": "warning"
+        })
+
+    if isinstance(fund, dict):
+        grants = fund.get("grants", fund.get("results", []))
+        if isinstance(grants, list):
+            for g in grants[:5]:
+                if isinstance(g, dict) and any(k in str(g).lower() for k in ["water", "river", "ecology", "environment"]):
+                    watch["waterways"].append(g)
+
+    (DATA / "river_watch.json").write_text(json.dumps(watch, indent=2))
+    return {"status": "BRIDGED", "detail": f"River watch: {len(watch['alerts'])} alerts, {len(watch['waterways'])} waterways"}
+
+
+def bridge_desktop_blueprints():
+    """
+    Bridge: sentinel_report + live_wire -> desktop_blueprints.json
+    Feeds: BRAVE_BRIDGE, DESKTOP_BLUEPRINT_SCANNER, DESKTOP_ORCHESTRATOR
+    """
+    sentinel = load_json(DATA / "sentinel_report.json")
+
+    blueprints = {
+        "last_updated": datetime.now(timezone.utc).isoformat(),
+        "blueprints": [],
+        "scripts_found": 0,
+        "note": "Populated from sentinel data. Full scan requires local run.",
+        "source": "BRIDGE_BUILDER synthesis"
+    }
+
+    if isinstance(sentinel, dict):
+        blueprints["scripts_found"] = sentinel.get("total_engines", 0)
+        for fail in sentinel.get("failures", []):
+            blueprints["blueprints"].append({
+                "name": fail.get("engine", "unknown"),
+                "status": "needs_repair",
+                "error": fail.get("error", "")[:100]
+            })
+
+    (DATA / "desktop_blueprints.json").write_text(json.dumps(blueprints, indent=2))
+    return {"status": "BRIDGED", "detail": f"Desktop blueprints: {blueprints['scripts_found']} scripts, {len(blueprints['blueprints'])} need repair"}
+
+
+def bridge_orphan_tweets():
+    """
+    Bridge: tweets_queue.txt -> social_queue.json (connect orphan output)
+    tweets_queue.txt is written but never read. Route it into social_queue.json.
+    """
+    tweets_path = DATA / "tweets_queue.txt"
+    if not tweets_path.exists():
+        return {"status": "NO_SOURCE", "detail": "tweets_queue.txt not found"}
+
+    tweets_text = tweets_path.read_text().strip()
+    if not tweets_text:
+        return {"status": "ALREADY_EXISTS", "detail": "tweets_queue.txt is empty"}
+
+    # Append to social_queue.json
+    sq = load_json(DATA / "social_queue.json") or {"posts": [], "source": "aggregated"}
+    if isinstance(sq, list):
+        sq = {"posts": sq, "source": "aggregated"}
+
+    tweets = [t.strip() for t in tweets_text.split("\n") if t.strip()]
+    for t in tweets[:10]:
+        sq.setdefault("posts", []).append({"text": t, "source": "tweets_queue", "status": "pending"})
+
+    (DATA / "social_queue.json").write_text(json.dumps(sq, indent=2))
+    return {"status": "BRIDGED", "detail": f"Routed {len(tweets)} tweets from orphan tweets_queue.txt -> social_queue.json"}
+
+
+def bridge_orphan_daemon_task():
+    """
+    Bridge: daemon_task.xml -> desktop_daemon_state.json (connect orphan output)
+    daemon_task.xml is written but never read. Extract info into daemon state.
+    """
+    xml_path = DATA / "daemon_task.xml"
+    if not xml_path.exists():
+        return {"status": "NO_SOURCE", "detail": "daemon_task.xml not found"}
+
+    content = xml_path.read_text().strip()
+    if not content:
+        return {"status": "ALREADY_EXISTS", "detail": "daemon_task.xml is empty"}
+
+    state = load_json(DATA / "desktop_daemon_state.json") or {}
+    state["last_task_xml"] = content[:500]
+    state["xml_present"] = True
+    state["updated_by_bridge"] = datetime.now(timezone.utc).isoformat()
+
+    (DATA / "desktop_daemon_state.json").write_text(json.dumps(state, indent=2))
+    return {"status": "BRIDGED", "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json"}
+
+
 BRIDGES = {
     "grants_found.json": bridge_grants_found,
     "sentinel_report.json": bridge_sentinel_report,
     "knowledge_graph.json": bridge_knowledge_graph,
     "quick_revenue.json": bridge_quick_revenue,
+    # --- Waiting Wire Bridges (make 8 waiting wires go LIVE) ---
+    "newsletter_archive.json": bridge_newsletter_archive,
+    "river_watch.json": bridge_river_watch,
+    "desktop_blueprints.json": bridge_desktop_blueprints,
+    # --- Orphan Output Bridges (connect 2 dead ends) ---
+    "tweets_queue.txt": bridge_orphan_tweets,
+    "daemon_task.xml": bridge_orphan_daemon_task,
     # --- The 14 Hunger Bridges ---
     "SOCIAL_QUEUE.txt": bridge_social_queue,
     "brave_browser_state.json": bridge_brave_browser_state,

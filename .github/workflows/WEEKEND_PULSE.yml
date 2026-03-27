@@ -50,6 +50,33 @@ jobs:
           echo "=== PRODUCT FACTORY ==="
           python mycelium/PRODUCT_FACTORY.py || echo "PRODUCT_FACTORY had errors (non-fatal)"
 
+      - name: Run CYCLE_MEMORY — Track topology changes across cycles
+        run: |
+          echo "=== CYCLE MEMORY ==="
+          python mycelium/CYCLE_MEMORY.py || echo "CYCLE_MEMORY had errors (non-fatal)"
+
+      - name: Run NARRATOR — Generate human-readable system narrative
+        run: |
+          echo "=== NARRATOR ==="
+          python mycelium/NARRATOR.py || echo "NARRATOR had errors (non-fatal)"
+
+      - name: Run PROOF_LEDGER — Document what happened this cycle
+        run: |
+          echo "=== PROOF LEDGER ==="
+          python mycelium/PROOF_LEDGER.py || echo "PROOF_LEDGER had errors (non-fatal)"
+
+      - name: Run BRAND_LEGAL + CONTENT_HARVESTER + SYNTHESIS_FACTORY — First-time engines
+        run: |
+          echo "=== FIRST-TIME ENGINES ==="
+          python mycelium/BRAND_LEGAL.py || echo "BRAND_LEGAL had errors (non-fatal)"
+          python mycelium/CONTENT_HARVESTER.py || echo "CONTENT_HARVESTER had errors (non-fatal)"
+          python mycelium/SYNTHESIS_FACTORY.py || echo "SYNTHESIS_FACTORY had errors (non-fatal)"
+
+      - name: Run ECOLOGICAL_GRANT_SYNTHESIZER — Feed river_watch.json
+        run: |
+          echo "=== ECOLOGICAL GRANT SYNTHESIZER ==="
+          python mycelium/ECOLOGICAL_GRANT_SYNTHESIZER.py || echo "ECO_GRANT had errors (non-fatal)"
+
       - name: Run VITAL_SIGN_API — Publish pulse
         run: |
           echo "=== VITAL SIGN API ==="
@@ -70,7 +97,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "pulse: weekend autonomous cycle $(date -u +%Y-%m-%d_%H%M) — BRIDGE->LIVE_WIRE->MYCELIUM->PRODUCT->VITAL"
+            git commit -m "pulse: autonomous cycle $(date -u +%Y-%m-%d_%H%M) — 12 engines fired"
             for attempt in 1 2 3; do
               git fetch origin main
               git rebase FETCH_HEAD || git rebase --abort
