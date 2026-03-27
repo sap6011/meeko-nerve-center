@@ -40,7 +40,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install deps
-        run: pip install requests anthropic
+        run: pip install requests==2.33.0 anthropic
 
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@v1

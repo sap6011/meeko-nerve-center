@@ -39,7 +39,7 @@ jobs:
           # NO cache: pip — we don't have requirements.txt
 
       - name: Install deps
-        run: pip install requests python-dateutil imapclient tweepy praw beautifulsoup4 feedparser
+        run: pip install requests==2.33.0 python-dateutil imapclient tweepy praw beautifulsoup4 feedparser
 
       - name: Restore data cache
         uses: actions/cache@v4

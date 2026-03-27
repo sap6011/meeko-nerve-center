@@ -62,7 +62,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests python-dateutil imapclient tweepy praw beautifulsoup4 feedparser anthropic groq
+        run: pip install requests==2.33.0 python-dateutil imapclient tweepy praw beautifulsoup4 feedparser anthropic groq
 
       - name: Restore brain state
         uses: actions/cache@v4

@@ -18,8 +18,8 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.path.append(os.path.abspath('../../mycelium'))
 
 # Core and Generated Skill Imports
-try: from SWARM_TOOLBOX import *
-except: pass
+try: from SWARM_TOOLBOX import list_engines, engine_info, viable_skills
+except ImportError: pass
 try: from GENERATED_SKILLS import *
 except: pass
 

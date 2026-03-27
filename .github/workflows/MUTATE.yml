@@ -35,7 +35,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - run: pip install requests
+      - run: pip install requests==2.33.0
 
       - name: Configure git
         run: |
@@ -248,6 +248,11 @@ Respond ONLY with valid JSON (no markdown, no code fences):
               Path("data/mutation_vault.json").write_text(json.dumps(vault[-100:], indent=2))
               print(f"Removed broken mutation")
           PYEOF
+
+      - name: Corruption Sentinel — Block corrupted commits
+        run: |
+          python3 mycelium/CORRUPTION_SENTINEL.py || python mycelium/CORRUPTION_SENTINEL.py
+          echo "Sentinel passed — safe to commit"
 
       - name: Commit mutation
         run: |

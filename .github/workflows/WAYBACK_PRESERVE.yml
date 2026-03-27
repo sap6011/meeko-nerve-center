@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - run: pip install requests
+      - run: pip install requests==2.33.0
 
       - name: Submit all pages to Internet Archive
         run: |

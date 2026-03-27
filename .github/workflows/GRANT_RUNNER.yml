@@ -32,7 +32,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests anthropic 2>/dev/null || pip install requests
+        run: pip install requests==2.33.0 anthropic 2>/dev/null || pip install requests==2.33.0
 
       - name: Fetch grant page and load repo data
         id: fetch_data

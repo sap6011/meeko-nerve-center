@@ -18,10 +18,15 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install requests
+          pip install requests==2.33.0
 
       - name: Run Global Scout
         run: python mycelium/scout_bot.py
+
+      - name: Corruption Sentinel — Block corrupted commits
+        run: |
+          python mycelium/CORRUPTION_SENTINEL.py
+          echo "Sentinel passed — safe to commit"
 
       - name: Sync Growth
         run: |

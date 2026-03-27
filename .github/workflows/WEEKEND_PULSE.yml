@@ -31,7 +31,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install deps
-        run: pip install requests 2>/dev/null || true
+        run: pip install requests==2.33.0 2>/dev/null || true
 
       - name: Run BRIDGE_BUILDER — Feed hungry inputs
         run: |
@@ -84,6 +84,27 @@ jobs:
         run: |
           echo "=== VITAL SIGN API ==="
           python mycelium/VITAL_SIGN_API.py || echo "VITAL_SIGN_API had errors (non-fatal)"
+
+      - name: Run SWARM_TOOLBOX — Update engine registry
+        run: |
+          echo "=== SWARM TOOLBOX ==="
+          python mycelium/SWARM_TOOLBOX.py || echo "SWARM_TOOLBOX had errors (non-fatal)"
+
+      - name: Run SOVEREIGNTY_ENGINE — Self-sovereign heartbeat
+        run: |
+          echo "=== SOVEREIGNTY ENGINE ==="
+          python mycelium/SOVEREIGNTY_ENGINE.py || echo "Sovereignty cycle had errors (non-fatal)"
+
+      - name: Run MURMURATION_TRAP — Kaleidoscope security sweep
+        run: |
+          echo "=== MURMURATION TRAP ==="
+          python mycelium/MURMURATION_TRAP.py || echo "Trap deployment had errors (non-fatal)"
+
+      - name: Run CORRUPTION_SENTINEL — Block corrupted commits
+        run: |
+          echo "=== CORRUPTION SENTINEL ==="
+          python mycelium/CORRUPTION_SENTINEL.py
+          echo "Sentinel passed — codebase clean"
 
       - name: Log cycle timestamp
         run: |

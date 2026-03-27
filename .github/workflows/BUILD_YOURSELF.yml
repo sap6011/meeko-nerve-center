@@ -38,7 +38,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install deps
-        run: pip install requests 2>/dev/null || true
+        run: pip install requests==2.33.0 2>/dev/null || true
 
       - name: Configure git
         run: |
@@ -251,6 +251,11 @@ jobs:
               Path("data/next_build_suggestion.txt").write_text(suggestion)
               print(f"Next run: {suggestion}")
           PYEOF
+
+      - name: "🛡️ Corruption Sentinel — Block corrupted commits"
+        run: |
+          python3 mycelium/CORRUPTION_SENTINEL.py || python mycelium/CORRUPTION_SENTINEL.py
+          echo "Sentinel passed — safe to commit"
 
       - name: "🚀 Commit New Engines"
         run: |

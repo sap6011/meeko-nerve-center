@@ -26,7 +26,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - run: pip install requests python-dateutil
+      - run: pip install requests==2.33.0 python-dateutil
 
       - name: Run FUND_SCOUT
         run: python mycelium/FUND_SCOUT.py
