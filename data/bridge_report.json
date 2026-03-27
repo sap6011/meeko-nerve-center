@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-03-27T07:01:08.022534+00:00",
-  "bridges_attempted": 18,
-  "bridges_built": 10,
-  "bridges_failed": 8,
+  "timestamp": "2026-03-27T13:57:16.730633+00:00",
+  "bridges_attempted": 23,
+  "bridges_built": 14,
+  "bridges_failed": 9,
   "unbridged_inputs": [],
   "results": [
     {
@@ -13,9 +13,9 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 222 pass, 22 fail out of 244 engines",
-      "pass": 222,
-      "fail": 22,
+      "detail": "Local sentinel: 243 pass, 1 fail out of 244 engines",
+      "pass": 243,
+      "fail": 1,
       "target": "sentinel_report.json"
     },
     {
@@ -52,6 +52,31 @@
       "detail": "Quick revenue synthesized from brain_state + revenue_inbox",
       "revenue": 0,
       "target": "quick_revenue.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Newsletter archive: 0 entries from product registry",
+      "target": "newsletter_archive.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "River watch: 1 alerts, 0 waterways",
+      "target": "river_watch.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Desktop blueprints: 244 scripts, 1 need repair",
+      "target": "desktop_blueprints.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Routed 608 tweets from orphan tweets_queue.txt -> social_queue.json",
+      "target": "tweets_queue.txt"
+    },
+    {
+      "target": "daemon_task.xml",
+      "status": "ERROR",
+      "detail": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
     },
     {
       "status": "BRIDGED",

@@ -15,14 +15,14 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 ## System Topology
 
 - **Total engines**: 244
-- **Wire connections**: 405
-- **Zero-secret chains**: 57 (work without any API keys)
+- **Wire connections**: 442
+- **Zero-secret chains**: 115 (work without any API keys)
 - **Orphan outputs**: 2 (data written but never read)
-- **Hungry inputs**: 18 (data needed but not yet produced)
+- **Hungry inputs**: 17 (data needed but not yet produced)
 
 ## Engine Categories
 
-### Zero-Secret Engines (160 total)
+### Zero-Secret Engines (170 total)
 These engines run without any API keys or credentials:
 
 - **AFFILIATE_MAXIMIZER** -- reads: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json, writes: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json
@@ -36,10 +36,12 @@ These engines run without any API keys or credentials:
 - **AUTO_DOCS** -- reads: nothing, writes: nothing
 - **AUTO_HEALER** -- reads: nothing, writes: nothing
 - **AUTO_RUNNER** -- reads: nothing, writes: nothing
+- **BIG_BRAIN_ORACLE** -- reads: revenue_inbox.json, brain_state.json, brand_legal_state.json, gumroad_engine_state.json, oracle_state.json, oracle_insights.json, omnibrain_seed.json, writes: oracle_insights.json, revenue_inbox.json, omnibrain_seed.json, oracle_state.json
+- **BOTTLENECK_SCANNER** -- reads: gumroad_listings.json, revenue_inbox.json, bottleneck_report.json, writes: gumroad_listings.json, bottleneck_report.json
 - **BRAND_LEGAL** -- reads: brand_legal_state.json, writes: brand_legal_state.json
 - **BRAVE_BRIDGE** -- reads: brave_bridge_state.json, desktop_blueprints.json, social_queue.json, writes: social_queue.json, brave_bridge_state.json, desktop_blueprints.json
 - **BRAVE_BROWSER_ENGINE** -- reads: gumroad_listings.json, brave_browser_state.json, brave_connection.json, writes: gumroad_listings.json, brave_connection.json
-- **BRIDGE_BUILDER** -- reads: fund_scout_results.json, grants_found.json, sentinel_report.json, live_wire_report.json, knowledge_graph.json, brain_state.json, revenue_inbox.json, quick_revenue.json, bridge_report.json, mutation_vault.json, writes: bridge_report.json, fund_scout_results.json, sentinel_report.json, live_wire_report.json, brain_state.json, knowledge_graph.json, mutation_vault.json
+- **BRIDGE_BUILDER** -- reads: fund_scout_results.json, grants_found.json, sentinel_report.json, live_wire_report.json, knowledge_graph.json, brain_state.json, revenue_inbox.json, quick_revenue.json, bridge_report.json, mutation_vault.json, product_registry.json, newsletter_archive.json, river_watch.json, desktop_blueprints.json, social_queue.json, desktop_daemon_state.json, writes: bridge_report.json, fund_scout_results.json, sentinel_report.json, live_wire_report.json, brain_state.json, knowledge_graph.json, mutation_vault.json, product_registry.json, social_queue.json, desktop_daemon_state.json
 - **CAPACITY_BOOSTER** -- reads: nothing, writes: nothing
 - **CHAIN_ORCHESTRATOR** -- reads: chain_synthesis.json, chain_orchestrator_state.json, writes: chain_synthesis.json, chain_orchestrator_state.json
 - **CHAOS_TEST** -- reads: nothing, writes: nothing
@@ -52,12 +54,10 @@ These engines run without any API keys or credentials:
 - **CROSS_POLLINATOR** -- reads: nothing, writes: nothing
 - **CYCLE_MEMORY** -- reads: cycle_ledger.json, cycle_delta.json, writes: cycle_ledger.json, cycle_delta.json
 - **DEEP_RESEARCHER** -- reads: self_builder_queue.json, writes: nothing
-- **DESKTOP_HARVESTER** -- reads: nothing, writes: nothing
-- **DESKTOP_ORCHESTRATOR** -- reads: desktop_orchestrator_state.json, desktop_blueprints.json, resurrections.json, resurrection_tasks.json, writes: resurrection_tasks.json, desktop_orchestrator_state.json, desktop_blueprints.json
-- **DUEL_ENGINE** -- reads: nothing, writes: nothing
-- ... and 130 more
+- **DESKTOP_BLUEPRINT_SCANNER** -- reads: desktop_blueprints_state.json, desktop_blueprints.json, writes: desktop_blueprints_state.json, desktop_blueprints.json
+- ... and 140 more
 
-### Engines Needing API Keys (84 total)
+### Engines Needing API Keys (74 total)
 These engines unlock when you add credentials:
 
 - **AGENT_TWEET_WRITER** -- needs: ANTHROPIC_API_KEY
@@ -66,52 +66,52 @@ These engines unlock when you add credentials:
 - **ANALYTICS_ENGINE** -- needs: GITHUB_TOKEN
 - **ART_GENERATOR** -- needs: HF_TOKEN, GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
 - **AUTONOMOUS_PUBLISHER** -- needs: BLUESKY_APP_PASSWORD, DEVTO_API_KEY, MASTODON_ACCESS_TOKEN, X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET, GITHUB_TOKEN
-- **BIG_BRAIN_ORACLE** -- needs: ANTHROPIC_API_KEY
 - **BLUESKY_ENGINE** -- needs: BLUESKY_APP_PASSWORD
-- **BOTTLENECK_SCANNER** -- needs: ANTHROPIC_API_KEY
 - **BRIEFING_ENGINE** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
 - **BUSINESS_FACTORY** -- needs: GMAIL_APP_PASSWORD
 - **CALENDAR_BRAIN** -- needs: GMAIL_APP_PASSWORD
-- **CAPABILITY_SCANNER** -- needs: GMAIL_APP_PASSWORD, GUMROAD_ACCESS_TOKEN, X_API_KEY, ANTHROPIC_API_KEY
+- **CAPABILITY_SCANNER** -- needs: GMAIL_APP_PASSWORD, GUMROAD_ACCESS_TOKEN, X_API_KEY
 - **CLAUDE_ENGINE** -- needs: ANTHROPIC_API_KEY
 - **CONNECTION_FORGE** -- needs: GMAIL_APP_PASSWORD, GUMROAD_ACCESS_TOKEN, HF_TOKEN, X_API_KEY, ANTHROPIC_API_KEY
 - **CRYPTO_WATCHER** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
 - **DESKTOP_AGENT** -- needs: GITHUB_TOKEN
-- **DESKTOP_BLUEPRINT_SCANNER** -- needs: ANTHROPIC_API_KEY
-- **DESKTOP_DAEMON** -- needs: ANTHROPIC_API_KEY
 - **DEV_TO_PUBLISHER** -- needs: DEVTO_API_KEY
-- ... and 64 more
+- **DISPATCH_HANDLER** -- needs: GMAIL_APP_PASSWORD
+- **EMAIL_AGENT_EXCHANGE** -- needs: GMAIL_APP_PASSWORD
+- **EMAIL_BRAIN** -- needs: GMAIL_APP_PASSWORD
+- **EMAIL_OUTREACH** -- needs: GMAIL_APP_PASSWORD
+- ... and 54 more
 
 ## Live Wire Connections (Sample)
 
 These are real data flows between engines:
 
-- BRAND_LEGAL -> BIG_BRAIN_ORACLE via `brand_legal_state.json`
-- ARCHITECT -> BUSINESS_FACTORY via `architect_plan.json`
-- ARCHITECT -> SELF_BUILDER via `architect_plan.json`
-- BUSINESS_FACTORY -> ARCHITECT via `architect_plan.json`
-- BUSINESS_FACTORY -> SELF_BUILDER via `architect_plan.json`
-- SELF_BUILDER -> ARCHITECT via `architect_plan.json`
-- SELF_BUILDER -> BUSINESS_FACTORY via `architect_plan.json`
-- AUTONOMOUS_PUBLISHER -> BLUESKY_ENGINE via `social_queue.json`
-- AUTONOMOUS_PUBLISHER -> BRAVE_BRIDGE via `social_queue.json`
-- AUTONOMOUS_PUBLISHER -> BUSINESS_FACTORY via `social_queue.json`
-- AUTONOMOUS_PUBLISHER -> DEV_TO_PUBLISHER via `social_queue.json`
-- AUTONOMOUS_PUBLISHER -> FIRST_SALE_NOTIFIER via `social_queue.json`
-- AUTONOMOUS_PUBLISHER -> MASTODON_ENGINE via `social_queue.json`
-- AUTONOMOUS_PUBLISHER -> REVENUE_FLYWHEEL via `social_queue.json`
-- AUTONOMOUS_PUBLISHER -> REVENUE_LOOP via `social_queue.json`
-- AUTONOMOUS_PUBLISHER -> SOCIAL_DASHBOARD via `social_queue.json`
-- AUTONOMOUS_PUBLISHER -> SOCIAL_PROMOTER via `social_queue.json`
-- BLUESKY_ENGINE -> AUTONOMOUS_PUBLISHER via `social_queue.json`
-- BLUESKY_ENGINE -> BRAVE_BRIDGE via `social_queue.json`
-- BLUESKY_ENGINE -> BUSINESS_FACTORY via `social_queue.json`
-- BLUESKY_ENGINE -> DEV_TO_PUBLISHER via `social_queue.json`
-- BLUESKY_ENGINE -> FIRST_SALE_NOTIFIER via `social_queue.json`
-- BLUESKY_ENGINE -> MASTODON_ENGINE via `social_queue.json`
-- BLUESKY_ENGINE -> REVENUE_FLYWHEEL via `social_queue.json`
-- BLUESKY_ENGINE -> REVENUE_LOOP via `social_queue.json`
-- ... and 380 more connections
+- BIG_BRAIN_ORACLE -> BOTTLENECK_SCANNER via `revenue_inbox.json` (zero-secrets)
+- BIG_BRAIN_ORACLE -> BRIDGE_BUILDER via `revenue_inbox.json` (zero-secrets)
+- BIG_BRAIN_ORACLE -> DISPATCH_HANDLER via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> EMAIL_BRAIN via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> FIRST_SALE_NOTIFIER via `revenue_inbox.json` (zero-secrets)
+- BIG_BRAIN_ORACLE -> GRANT_APPLICANT via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> KOFI_PAYMENT_TRACKER via `revenue_inbox.json` (zero-secrets)
+- BIG_BRAIN_ORACLE -> PROOF_LEDGER via `revenue_inbox.json` (zero-secrets)
+- BIG_BRAIN_ORACLE -> QUICK_REVENUE via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> SOLARPUNK_LEGAL via `revenue_inbox.json` (zero-secrets)
+- BIG_BRAIN_ORACLE -> STORE_BUILDER via `revenue_inbox.json` (zero-secrets)
+- DISPATCH_HANDLER -> BIG_BRAIN_ORACLE via `revenue_inbox.json`
+- DISPATCH_HANDLER -> BOTTLENECK_SCANNER via `revenue_inbox.json`
+- DISPATCH_HANDLER -> BRIDGE_BUILDER via `revenue_inbox.json`
+- DISPATCH_HANDLER -> EMAIL_BRAIN via `revenue_inbox.json`
+- DISPATCH_HANDLER -> FIRST_SALE_NOTIFIER via `revenue_inbox.json`
+- DISPATCH_HANDLER -> GRANT_APPLICANT via `revenue_inbox.json`
+- DISPATCH_HANDLER -> KOFI_PAYMENT_TRACKER via `revenue_inbox.json`
+- DISPATCH_HANDLER -> PROOF_LEDGER via `revenue_inbox.json`
+- DISPATCH_HANDLER -> QUICK_REVENUE via `revenue_inbox.json`
+- DISPATCH_HANDLER -> SOLARPUNK_LEGAL via `revenue_inbox.json`
+- DISPATCH_HANDLER -> STORE_BUILDER via `revenue_inbox.json`
+- EMAIL_BRAIN -> BIG_BRAIN_ORACLE via `revenue_inbox.json`
+- EMAIL_BRAIN -> BOTTLENECK_SCANNER via `revenue_inbox.json`
+- EMAIL_BRAIN -> BRIDGE_BUILDER via `revenue_inbox.json`
+- ... and 417 more connections
 
 ## Knowledge Graph
 
@@ -131,7 +131,7 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-03-27 07:01 UTC
+- **Generated**: 2026-03-27 13:57 UTC
 - **Data source**: data/live_wire_report.json
 - **Engines scanned**: 244
 
