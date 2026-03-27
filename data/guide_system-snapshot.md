@@ -86,6 +86,13 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
+- BRAND_LEGAL -> BIG_BRAIN_ORACLE via `brand_legal_state.json`
+- ARCHITECT -> BUSINESS_FACTORY via `architect_plan.json`
+- ARCHITECT -> SELF_BUILDER via `architect_plan.json`
+- BUSINESS_FACTORY -> ARCHITECT via `architect_plan.json`
+- BUSINESS_FACTORY -> SELF_BUILDER via `architect_plan.json`
+- SELF_BUILDER -> ARCHITECT via `architect_plan.json`
+- SELF_BUILDER -> BUSINESS_FACTORY via `architect_plan.json`
 - AUTONOMOUS_PUBLISHER -> BLUESKY_ENGINE via `social_queue.json`
 - AUTONOMOUS_PUBLISHER -> BRAVE_BRIDGE via `social_queue.json`
 - AUTONOMOUS_PUBLISHER -> BUSINESS_FACTORY via `social_queue.json`
@@ -104,13 +111,6 @@ These are real data flows between engines:
 - BLUESKY_ENGINE -> MASTODON_ENGINE via `social_queue.json`
 - BLUESKY_ENGINE -> REVENUE_FLYWHEEL via `social_queue.json`
 - BLUESKY_ENGINE -> REVENUE_LOOP via `social_queue.json`
-- BLUESKY_ENGINE -> SOCIAL_DASHBOARD via `social_queue.json`
-- BLUESKY_ENGINE -> SOCIAL_PROMOTER via `social_queue.json`
-- BRAVE_BRIDGE -> AUTONOMOUS_PUBLISHER via `social_queue.json`
-- BRAVE_BRIDGE -> BLUESKY_ENGINE via `social_queue.json`
-- BRAVE_BRIDGE -> BUSINESS_FACTORY via `social_queue.json`
-- BRAVE_BRIDGE -> DEV_TO_PUBLISHER via `social_queue.json`
-- BRAVE_BRIDGE -> FIRST_SALE_NOTIFIER via `social_queue.json` (zero-secrets)
 - ... and 380 more connections
 
 ## Knowledge Graph
@@ -131,7 +131,7 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-03-27 04:32 UTC
+- **Generated**: 2026-03-27 07:01 UTC
 - **Data source**: data/live_wire_report.json
 - **Engines scanned**: 244
 

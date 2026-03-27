@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-27T04:32:41.339345+00:00",
+  "timestamp": "2026-03-27T07:01:08.708983+00:00",
   "protocol": "mycelium-network-v1",
   "nutrient_routing": {
     "total_nodes": 244,
@@ -87,14 +87,6 @@
       },
       {
         "from": "DISPATCH_HANDLER",
-        "to": "SYNTHESIS_FACTORY",
-        "via": "brain_state.json",
-        "gradient": 24.0,
-        "src_level": 20.0,
-        "dst_level": -4.0
-      },
-      {
-        "from": "DISPATCH_HANDLER",
         "to": "GRANT_APPLICANT",
         "via": "revenue_inbox.json",
         "gradient": 24.0,
@@ -103,11 +95,11 @@
       },
       {
         "from": "DISPATCH_HANDLER",
-        "to": "SYNAPSE",
+        "to": "SYNTHESIS_FACTORY",
         "via": "brain_state.json",
-        "gradient": 23.5,
+        "gradient": 24.0,
         "src_level": 20.0,
-        "dst_level": -3.5
+        "dst_level": -4.0
       },
       {
         "from": "DISPATCH_HANDLER",
@@ -118,20 +110,28 @@
         "dst_level": -3.5
       },
       {
+        "from": "DISPATCH_HANDLER",
+        "to": "SYNAPSE",
+        "via": "brain_state.json",
+        "gradient": 23.5,
+        "src_level": 20.0,
+        "dst_level": -3.5
+      },
+      {
         "from": "BRIDGE_BUILDER",
         "to": "VITAL_SIGN_API",
-        "via": "brain_state.json",
+        "via": "sentinel_report.json",
         "gradient": 23.0,
         "src_level": 16.5,
         "dst_level": -6.5
       },
       {
-        "from": "REVENUE_LOOP",
-        "to": "VITAL_SIGN_API",
-        "via": "brain_state.json",
+        "from": "EMAIL_BRAIN",
+        "to": "STORE_BUILDER",
+        "via": "revenue_inbox.json",
         "gradient": 23.0,
-        "src_level": 16.5,
-        "dst_level": -6.5
+        "src_level": 15.5,
+        "dst_level": -7.5
       }
     ]
   },
@@ -249,16 +249,16 @@
       "message": "10 engines failing syntax checks",
       "source": "sentinel",
       "affected": [
-        "CAPABILITY_SCANNER.py",
-        "AI_CLIENT.py",
-        "NANO_AGENT.py",
-        "DESKTOP_DAEMON.py",
-        "ledger_engine.py",
-        "NEURON_B.py",
-        "MEMORY_PALACE.py",
         "ai_council.py",
-        "LEGACY_SIFTED_engine_simple.py",
-        "LEGACY_SIFTED_humanitarian_revenue_engine.py"
+        "SECRETS_CHECKER.py",
+        "LEGACY_SIFTED_humanitarian_revenue_engine.py",
+        "DESKTOP_BLUEPRINT_SCANNER.py",
+        "NEURON_B.py",
+        "DESKTOP_DAEMON.py",
+        "CLAUDE_ENGINE.py",
+        "CAPABILITY_SCANNER.py",
+        "BOTTLENECK_SCANNER.py",
+        "LEGACY_SIFTED_engine_simple.py"
       ],
       "biology": "Bark beetle attack detected -- VOC warning sent to neighbors"
     },
@@ -332,7 +332,7 @@
     ]
   },
   "network_memory": {
-    "cycles_tracked": 2,
+    "cycles_tracked": 3,
     "new_connections": 0,
     "persisted": 384,
     "lost": 0
