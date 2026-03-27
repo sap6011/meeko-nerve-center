@@ -1,25 +1,20 @@
 {
-  "generated": "2026-03-27T13:57:17.666261+00:00",
+  "generated": "2026-03-27T18:49:18.928744+00:00",
   "cycle_number": 51,
   "health": 55,
-  "health_trend": "stuck",
+  "health_trend": "improving",
   "delta": {
     "first_cycle": false,
-    "wins": [
-      "AFFILIATE_MAXIMIZER"
-    ],
-    "regressions": [
-      "BRIEFING_ENGINE"
-    ],
-    "new_failures": [
-      "BRIEFING_ENGINE"
-    ],
+    "wins": [],
+    "regressions": [],
+    "new_failures": [],
     "still_failing": [
+      "BRIEFING_ENGINE",
       "NANOSHOP_ENGINE",
       "NARRATOR"
     ],
     "revenue_delta": 0,
-    "health_delta": 15,
+    "health_delta": 0,
     "stars_delta": 0,
     "resonance_delta": 0
   },
@@ -35,22 +30,19 @@
       "id": "BN-002",
       "title": "2 engines have syntax errors",
       "severity": "LOW",
-      "cycles_open": 9,
-      "escalation": "URGENT"
+      "cycles_open": 10,
+      "escalation": "CRITICAL"
     }
   ],
   "still_failing": [
+    "BRIEFING_ENGINE",
     "NANOSHOP_ENGINE",
     "NARRATOR"
   ],
-  "new_fixes": [
-    "AFFILIATE_MAXIMIZER"
-  ],
-  "new_regressions": [
-    "BRIEFING_ENGINE"
-  ],
+  "new_fixes": [],
+  "new_regressions": [],
   "revenue": 0,
   "revenue_delta": 0,
   "resonance": 60,
-  "summary": "Cycle 51 | Health: 55 (stuck) | Fixed: 1 | Regressed: 1 | Persistent blockers: 2 | Revenue: $0.00"
+  "summary": "Cycle 51 | Health: 55 (improving) | Fixed: 0 | Regressed: 0 | Persistent blockers: 2 | Revenue: $0.00"
 }

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-27T13:57:17.582750+00:00",
+  "timestamp": "2026-03-27T18:49:18.846135+00:00",
   "protocol": "mycelium-network-v1",
   "nutrient_routing": {
     "total_nodes": 244,
@@ -56,7 +56,7 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "VITAL_SIGN_API",
-        "via": "sentinel_report.json",
+        "via": "brain_state.json",
         "gradient": 30.0,
         "src_level": 23.5,
         "dst_level": -6.5
@@ -64,18 +64,10 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "VITAL_SIGN_API",
-        "via": "brain_state.json",
+        "via": "sentinel_report.json",
         "gradient": 30.0,
         "src_level": 23.5,
         "dst_level": -6.5
-      },
-      {
-        "from": "DISPATCH_HANDLER",
-        "to": "STORE_BUILDER",
-        "via": "revenue_inbox.json",
-        "gradient": 27.5,
-        "src_level": 20.0,
-        "dst_level": -7.5
       },
       {
         "from": "BRIDGE_BUILDER",
@@ -86,12 +78,12 @@
         "dst_level": -4.0
       },
       {
-        "from": "BRIDGE_BUILDER",
-        "to": "SYNAPSE",
-        "via": "brain_state.json",
-        "gradient": 27.0,
-        "src_level": 23.5,
-        "dst_level": -3.5
+        "from": "DISPATCH_HANDLER",
+        "to": "STORE_BUILDER",
+        "via": "revenue_inbox.json",
+        "gradient": 27.5,
+        "src_level": 20.0,
+        "dst_level": -7.5
       },
       {
         "from": "BRIDGE_BUILDER",
@@ -102,12 +94,12 @@
         "dst_level": -3.5
       },
       {
-        "from": "FIRST_SALE_NOTIFIER",
-        "to": "STORE_BUILDER",
-        "via": "revenue_inbox.json",
-        "gradient": 26.5,
-        "src_level": 19.0,
-        "dst_level": -7.5
+        "from": "BRIDGE_BUILDER",
+        "to": "SYNAPSE",
+        "via": "brain_state.json",
+        "gradient": 27.0,
+        "src_level": 23.5,
+        "dst_level": -3.5
       },
       {
         "from": "DISPATCH_HANDLER",
@@ -116,6 +108,14 @@
         "gradient": 26.5,
         "src_level": 20.0,
         "dst_level": -6.5
+      },
+      {
+        "from": "FIRST_SALE_NOTIFIER",
+        "to": "STORE_BUILDER",
+        "via": "revenue_inbox.json",
+        "gradient": 26.5,
+        "src_level": 19.0,
+        "dst_level": -7.5
       },
       {
         "from": "BRIDGE_BUILDER",
@@ -317,9 +317,9 @@
     ]
   },
   "network_memory": {
-    "cycles_tracked": 4,
-    "new_connections": 30,
-    "persisted": 384,
+    "cycles_tracked": 5,
+    "new_connections": 0,
+    "persisted": 414,
     "lost": 0
   },
   "biology_notes": {

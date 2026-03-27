@@ -86,37 +86,37 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
-- BIG_BRAIN_ORACLE -> BOTTLENECK_SCANNER via `revenue_inbox.json` (zero-secrets)
-- BIG_BRAIN_ORACLE -> BRIDGE_BUILDER via `revenue_inbox.json` (zero-secrets)
-- BIG_BRAIN_ORACLE -> DISPATCH_HANDLER via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> EMAIL_BRAIN via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> FIRST_SALE_NOTIFIER via `revenue_inbox.json` (zero-secrets)
-- BIG_BRAIN_ORACLE -> GRANT_APPLICANT via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> KOFI_PAYMENT_TRACKER via `revenue_inbox.json` (zero-secrets)
-- BIG_BRAIN_ORACLE -> PROOF_LEDGER via `revenue_inbox.json` (zero-secrets)
-- BIG_BRAIN_ORACLE -> QUICK_REVENUE via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> SOLARPUNK_LEGAL via `revenue_inbox.json` (zero-secrets)
-- BIG_BRAIN_ORACLE -> STORE_BUILDER via `revenue_inbox.json` (zero-secrets)
-- DISPATCH_HANDLER -> BIG_BRAIN_ORACLE via `revenue_inbox.json`
-- DISPATCH_HANDLER -> BOTTLENECK_SCANNER via `revenue_inbox.json`
-- DISPATCH_HANDLER -> BRIDGE_BUILDER via `revenue_inbox.json`
-- DISPATCH_HANDLER -> EMAIL_BRAIN via `revenue_inbox.json`
-- DISPATCH_HANDLER -> FIRST_SALE_NOTIFIER via `revenue_inbox.json`
-- DISPATCH_HANDLER -> GRANT_APPLICANT via `revenue_inbox.json`
-- DISPATCH_HANDLER -> KOFI_PAYMENT_TRACKER via `revenue_inbox.json`
-- DISPATCH_HANDLER -> PROOF_LEDGER via `revenue_inbox.json`
-- DISPATCH_HANDLER -> QUICK_REVENUE via `revenue_inbox.json`
-- DISPATCH_HANDLER -> SOLARPUNK_LEGAL via `revenue_inbox.json`
-- DISPATCH_HANDLER -> STORE_BUILDER via `revenue_inbox.json`
-- EMAIL_BRAIN -> BIG_BRAIN_ORACLE via `revenue_inbox.json`
-- EMAIL_BRAIN -> BOTTLENECK_SCANNER via `revenue_inbox.json`
-- EMAIL_BRAIN -> BRIDGE_BUILDER via `revenue_inbox.json`
+- CLAUDE_BRIDGE -> DESKTOP_DAEMON via `claude_task_results.json` (zero-secrets)
+- ETSY_SEO_ENGINE -> STORE_BUILDER via `etsy_seo_output.json`
+- BRIDGE_BUILDER -> MISSION_CONTROL via `knowledge_graph.json` (zero-secrets)
+- BRIDGE_BUILDER -> PRODUCT_FACTORY via `knowledge_graph.json` (zero-secrets)
+- BRIDGE_BUILDER -> SYNAPSE_BUILDER via `knowledge_graph.json` (zero-secrets)
+- BRIDGE_BUILDER -> SYNERGY_SCOUT via `knowledge_graph.json` (zero-secrets)
+- BRIDGE_BUILDER -> VALUE_GENERATOR via `knowledge_graph.json` (zero-secrets)
+- BRAVE_BRIDGE -> BRIDGE_BUILDER via `desktop_blueprints.json` (zero-secrets)
+- BRAVE_BRIDGE -> DESKTOP_BLUEPRINT_SCANNER via `desktop_blueprints.json` (zero-secrets)
+- BRAVE_BRIDGE -> DESKTOP_ORCHESTRATOR via `desktop_blueprints.json` (zero-secrets)
+- DESKTOP_BLUEPRINT_SCANNER -> BRAVE_BRIDGE via `desktop_blueprints.json` (zero-secrets)
+- DESKTOP_BLUEPRINT_SCANNER -> BRIDGE_BUILDER via `desktop_blueprints.json` (zero-secrets)
+- DESKTOP_BLUEPRINT_SCANNER -> DESKTOP_ORCHESTRATOR via `desktop_blueprints.json` (zero-secrets)
+- DESKTOP_ORCHESTRATOR -> BRAVE_BRIDGE via `desktop_blueprints.json` (zero-secrets)
+- DESKTOP_ORCHESTRATOR -> BRIDGE_BUILDER via `desktop_blueprints.json` (zero-secrets)
+- DESKTOP_ORCHESTRATOR -> DESKTOP_BLUEPRINT_SCANNER via `desktop_blueprints.json` (zero-secrets)
+- DISPATCH_HANDLER -> FIRST_SALE_NOTIFIER via `kofi_state.json`
+- DISPATCH_HANDLER -> KOFI_ENGINE via `kofi_state.json`
+- KOFI_ENGINE -> DISPATCH_HANDLER via `kofi_state.json`
+- KOFI_ENGINE -> FIRST_SALE_NOTIFIER via `kofi_state.json`
+- BRIDGE_BUILDER -> BIG_BRAIN_ORACLE via `brain_state.json` (zero-secrets)
+- BRIDGE_BUILDER -> DISPATCH_HANDLER via `brain_state.json`
+- BRIDGE_BUILDER -> FIRST_SALE_NOTIFIER via `brain_state.json` (zero-secrets)
+- BRIDGE_BUILDER -> HEALTH_BOOSTER via `brain_state.json` (zero-secrets)
+- BRIDGE_BUILDER -> REVENUE_LOOP via `brain_state.json`
 - ... and 417 more connections
 
 ## Knowledge Graph
 
-- **281 nodes** (engines, data files, concepts)
-- **405 edges** (connections between them)
+- **282 nodes** (engines, data files, concepts)
+- **442 edges** (connections between them)
 
 ## What This Means
 
@@ -131,7 +131,7 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-03-27 13:57 UTC
+- **Generated**: 2026-03-27 18:49 UTC
 - **Data source**: data/live_wire_report.json
 - **Engines scanned**: 244
 
