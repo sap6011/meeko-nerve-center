@@ -101,7 +101,7 @@ def _ask_groq(messages, max_tokens=2000, system=None):
 def _ask_anthropic(messages, max_tokens=2000, system=None):
     """Anthropic Claude — premium, use when quality matters."""
     if not ANTHROPIC_KEY:
-        raise RuntimeError("os.getenv("ANTHROPIC_API_KEY")"
+        raise RuntimeError("ANTHROPIC_API_KEY not set")
 
     body = {"model": ANTHROPIC_MODEL, "max_tokens": max_tokens, "messages": messages}
     if system:

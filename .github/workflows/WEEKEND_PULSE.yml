@@ -30,6 +30,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install deps
+        run: pip install requests 2>/dev/null || true
+
       - name: Run BRIDGE_BUILDER — Feed hungry inputs
         run: |
           echo "=== BRIDGE BUILDER ==="

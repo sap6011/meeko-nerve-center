@@ -207,7 +207,7 @@ h1{{font-size:1.25rem;font-weight:800;line-height:1.3;margin-bottom:8px}}
 
   <div class="embed-section">
     <div class="embed-title">🔌 Embed This Nanoshop</div>
-    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent).then(()=>this.style.color='#00e87a').catch(()=>{})"
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent).then(function(){{this.style.color='#00e87a'}}).catch(function(){{}})"
          title="Click to copy">{embed_snippet}</div>
     <div class="embed-hint">Drop this tag into any webpage. Shows as a 1-click shop widget. × to dismiss. No tracking.</div>
   </div>

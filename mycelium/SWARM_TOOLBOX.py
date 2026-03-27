@@ -39,43 +39,43 @@ class AgencyOrchestrator:
         # API Credentials (loaded from environment)
         self.apis = {
             # Playbook 1: Website Agency
-            "namecheap": os.getenv("NAMECHEAP_API_KEY"),
-            "godaddy": os.getenv("GODADDY_API_KEY"),
-            "vercel": os.getenv("VERCEL_TOKEN"),
+            "namecheap": NAMECHEAP_API_KEY,
+            "godaddy": GODADDY_API_KEY,
+            "vercel": VERCEL_TOKEN,
             
             # Playbook 2: Social Prospecting  
-            "apollo": os.getenv("APOLLO_API_KEY"),
-            "instantly": os.getenv("INSTANTLY_API_KEY"),
+            "apollo": APOLLO_API_KEY,
+            "instantly": INSTANTLY_API_KEY,
             
             # Playbook 3: Content Agency
-            "claude": os.getenv("ANTHROPIC_API_KEY"),
-            "surfer": os.getenv("SURFERSEO_KEY"),
-            "wordpress": os.getenv("WP_URL"),
+            "claude": ANTHROPIC_API_KEY,
+            "surfer": SURFERSEO_KEY,
+            "wordpress": WP_URL,
             
             # Playbook 4: SEO Agency
-            "ahrefs": os.getenv("AHREFS_TOKEN"),
-            "semrush": os.getenv("SEMRUSH_KEY"),
+            "ahrefs": AHREFS_TOKEN,
+            "semrush": SEMRUSH_KEY,
             
             # Playbook 5: Email Agency
-            "mailchimp": os.getenv("MAILCHIMP_API_KEY"),
-            "klaviyo": os.getenv("KLAVIYO_API_KEY"),
-            "mailgun": os.getenv("MAILGUN_API_KEY"),
+            "mailchimp": MAILCHIMP_API_KEY,
+            "klaviyo": KLAVIYO_API_KEY,
+            "mailgun": MAILGUN_API_KEY,
             
             # Playbook 6: Social Media
-            "buffer": os.getenv("BUFFER_TOKEN"),
-            "brandwatch": os.getenv("BRANDWATCH_TOKEN"),
+            "buffer": BUFFER_TOKEN,
+            "brandwatch": BRANDWATCH_TOKEN,
             
             # Playbook 7: Video Agency
-            "heygen": os.getenv("HEYGEN_API_KEY"),
-            "runway": os.getenv("RUNWAY_API_KEY"),
+            "heygen": HEYGEN_API_KEY,
+            "runway": RUNWAY_API_KEY,
             
             # Playbook 8: Audio Agency
-            "elevenlabs": os.getenv("ELEVENLABS_API_KEY"),
-            "descript": os.getenv("DESCRIPT_API_KEY"),
+            "elevenlabs": ELEVENLABS_API_KEY,
+            "descript": DESCRIPT_API_KEY,
             
             # Playbook 9: Ecommerce Agency
-            "shopify": os.getenv("SHOPIFY_ACCESS_TOKEN"),
-            "stripe": os.getenv("STRIPE_API_KEY"),
+            "shopify": SHOPIFY_ACCESS_TOKEN,
+            "stripe": STRIPE_API_KEY,
         }
         
     def _load_humanitarian_system(self):
@@ -2253,19 +2253,19 @@ class EmailAutomation:
                 "subject": "Welcome to {brand_name} - Here's your free guide",
                 "preview_text": "The productivity system that changed everything...",
                 "content_type": "value_delivery",
-                "body_template": """
-                <h1>Welcome to the community!</h1>
-                <p>Hi {{first_name}},</p>
-                <p>Thanks for joining {brand_name}. I'm excited to help you transform your productivity.</p>
-                <p><strong>Here's your promised guide:</strong> <a href="[DOWNLOAD_LINK]">Download the Productivity Toolkit</a></p>
-                <p>Over the next week, I'll share:</p>
-                <ul>
-                    <li>The exact system I use to manage 5 projects simultaneously</li>
-                    <li>Automation scripts that save 10+ hours/week</li>
-                    <li>My favorite tools (most are free)</li>
-                </ul>
-                <p>Talk soon,<br>{brand_name} Team</p>
-                """,
+                "body_template": (
+                    "<h1>Welcome to the community!</h1>"
+                    "<p>Hi {first_name},</p>"
+                    "<p>Thanks for joining {brand_name}. We are excited to help you transform your productivity.</p>"
+                    "<p><strong>Your promised guide:</strong> <a href='[DOWNLOAD_LINK]'>Download the Productivity Toolkit</a></p>"
+                    "<p>Over the next week, we will share:</p>"
+                    "<ul>"
+                    "<li>The exact system for managing 5 projects simultaneously</li>"
+                    "<li>Automation scripts that save 10+ hours/week</li>"
+                    "<li>Favorite tools (most are free)</li>"
+                    "</ul>"
+                    "<p>Talk soon,<br>{brand_name} Team</p>"
+                ),
                 "cta": "Download Your Free Guide",
                 "affiliate_links": []
             },

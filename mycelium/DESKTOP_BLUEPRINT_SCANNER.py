@@ -2,7 +2,7 @@
 # Part of the Meeko SolarPunk Swarm.
 
 #!/usr/bin/env python3
-"""
+r"""
 DESKTOP_BLUEPRINT_SCANNER.py — Catalogs and revives Meeko's desktop scripts
 =============================================================================
 When run LOCALLY (via SOLARPUNK.bat or solarpunk_agent.py):
@@ -150,7 +150,7 @@ def scan_local():
                 ).isoformat()
                 # Extract any secrets/env vars referenced
                 refs = []
-                for word in ["GITHUB_TOKEN", "os.getenv("ANTHROPIC_API_KEY")",
+                for word in ["GITHUB_TOKEN", "ANTHROPIC_API_KEY",
                              "GUMROAD_SECRET", "DEVTO_API_KEY", "CONDUCTOR_TOKEN",
                              "X_API_KEY", "BLUESKY_IDENTIFIER", "BLUESKY_APP_PASSWORD"]:
                     if word in content:

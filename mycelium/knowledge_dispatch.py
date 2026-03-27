@@ -41,7 +41,7 @@ def analyze_engines():
                     break
             engine_info.append({
                 "name": e.name, "size": e.stat().st_size, "desc": desc,
-                "has_main": "def main(" in code, "uses_api": "os.getenv("ANTHROPIC_API_KEY")",
+                "has_main": "def main(" in code, "uses_api": "ANTHROPIC_API_KEY" in code,
                 "saves_data": "DATA_DIR" in code or "data/" in code,
             })
         except: pass
