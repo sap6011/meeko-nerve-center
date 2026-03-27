@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-26T20:43:32.629635+00:00",
-  "total_nodes": 278,
-  "total_edges": 381,
+  "timestamp": "2026-03-27T04:32:40.155497+00:00",
+  "total_nodes": 281,
+  "total_edges": 405,
   "top_hubs": [
     {
       "name": "FIRST_SALE_NOTIFIER",
@@ -10,6 +10,10 @@
     {
       "name": "REVENUE_LOOP",
       "connections": 34
+    },
+    {
+      "name": "BRIDGE_BUILDER",
+      "connections": 32
     },
     {
       "name": "DEV_TO_PUBLISHER",
@@ -24,15 +28,19 @@
       "connections": 27
     },
     {
-      "name": "BIG_BRAIN_ORACLE",
-      "connections": 24
-    },
-    {
       "name": "AUTONOMOUS_PUBLISHER",
       "connections": 24
     },
     {
       "name": "BLUESKY_ENGINE",
+      "connections": 24
+    },
+    {
+      "name": "MASTODON_ENGINE",
+      "connections": 24
+    },
+    {
+      "name": "BIG_BRAIN_ORACLE",
       "connections": 24
     },
     {
@@ -44,16 +52,8 @@
       "connections": 24
     },
     {
-      "name": "MASTODON_ENGINE",
-      "connections": 24
-    },
-    {
       "name": "DESKTOP_DAEMON",
       "connections": 22
-    },
-    {
-      "name": "BRIDGE_BUILDER",
-      "connections": 21
     },
     {
       "name": "SOCIAL_DASHBOARD",
@@ -360,7 +360,7 @@
       "type": "engine",
       "zero_secrets": true,
       "has_run": true,
-      "lines": 316,
+      "lines": 504,
       "reads": [
         "fund_scout_results.json",
         "grants_found.json",
@@ -370,14 +370,17 @@
         "brain_state.json",
         "revenue_inbox.json",
         "quick_revenue.json",
-        "bridge_report.json"
+        "bridge_report.json",
+        "mutation_vault.json"
       ],
       "writes": [
         "bridge_report.json",
         "fund_scout_results.json",
         "sentinel_report.json",
         "live_wire_report.json",
-        "brain_state.json"
+        "brain_state.json",
+        "knowledge_graph.json",
+        "mutation_vault.json"
       ]
     },
     "BRIEFING_ENGINE": {
@@ -1731,6 +1734,21 @@
       "reads": [],
       "writes": []
     },
+    "MYCELIUM_NETWORK": {
+      "type": "engine",
+      "zero_secrets": true,
+      "has_run": true,
+      "lines": 477,
+      "reads": [
+        "live_wire_report.json",
+        "sentinel_report.json",
+        "mycelium_network_state.json"
+      ],
+      "writes": [
+        "mycelium_network_state.json",
+        "live_wire_report.json"
+      ]
+    },
     "NANO_AGENT": {
       "type": "engine",
       "zero_secrets": false,
@@ -1970,6 +1988,24 @@
       "writes": [
         "delivery_log.json",
         "delivery_engine_state.json"
+      ]
+    },
+    "PRODUCT_FACTORY": {
+      "type": "engine",
+      "zero_secrets": true,
+      "has_run": true,
+      "lines": 308,
+      "reads": [
+        "product_registry.json",
+        "publish_queue.json",
+        "live_wire_report.json",
+        "knowledge_graph.json",
+        "sentinel_report.json"
+      ],
+      "writes": [
+        "product_registry.json",
+        "publish_queue.json",
+        "live_wire_report.json"
       ]
     },
     "PROOF_LEDGER": {
@@ -2680,52 +2716,73 @@
       "reads": [],
       "writes": []
     },
-    "data/brand_legal_state.json": {
+    "data/free_api_state.json": {
       "type": "data_file"
     },
     "data/gumroad_listings.json": {
       "type": "data_file"
     },
-    "data/proof_ledger.json": {
-      "type": "data_file"
-    },
-    "data/resonance_state.json": {
-      "type": "data_file"
-    },
-    "data/live_wire_report.json": {
-      "type": "data_file"
-    },
-    "data/repo_spider_state.json": {
-      "type": "data_file"
-    },
-    "data/asks_queue.json": {
-      "type": "data_file"
-    },
-    "data/product_registry.json": {
-      "type": "data_file"
-    },
-    "data/delivery_log.json": {
+    "data/brand_legal_state.json": {
       "type": "data_file"
     },
     "data/landing_deployer_state.json": {
       "type": "data_file"
     },
-    "data/etsy_seo_output.json": {
+    "data/river_watch.json": {
       "type": "data_file"
     },
-    "data/appointments_inbox.json": {
+    "data/outreach_state.json": {
       "type": "data_file"
     },
-    "data/desktop_blueprints.json": {
+    "data/knowledge_graph.json": {
       "type": "data_file"
     },
     "data/email_exchange_state.json": {
       "type": "data_file"
     },
+    "data/claude_task_results.json": {
+      "type": "data_file"
+    },
+    "data/flywheel_state.json": {
+      "type": "data_file"
+    },
+    "data/omnibus_history.json": {
+      "type": "data_file"
+    },
+    "data/proof_ledger.json": {
+      "type": "data_file"
+    },
+    "data/email_brain_state.json": {
+      "type": "data_file"
+    },
     "data/social_queue.json": {
       "type": "data_file"
     },
-    "data/payout_ledger.json": {
+    "data/architect_plan.json": {
+      "type": "data_file"
+    },
+    "data/live_wire_report.json": {
+      "type": "data_file"
+    },
+    "data/product_registry.json": {
+      "type": "data_file"
+    },
+    "data/omnibus_last.json": {
+      "type": "data_file"
+    },
+    "data/appointments_inbox.json": {
+      "type": "data_file"
+    },
+    "data/gumroad_engine_state.json": {
+      "type": "data_file"
+    },
+    "data/delivery_log.json": {
+      "type": "data_file"
+    },
+    "data/contributor_registry.json": {
+      "type": "data_file"
+    },
+    "data/asks_queue.json": {
       "type": "data_file"
     },
     "data/memory_palace.json": {
@@ -2734,271 +2791,631 @@
     "data/revenue_inbox.json": {
       "type": "data_file"
     },
-    "data/kofi_state.json": {
-      "type": "data_file"
-    },
     "data/claude_tasks_queue.json": {
       "type": "data_file"
     },
-    "data/self_builder_queue.json": {
-      "type": "data_file"
-    },
-    "data/omnibus_last.json": {
-      "type": "data_file"
-    },
-    "data/architect_plan.json": {
+    "data/repo_spider_state.json": {
       "type": "data_file"
     },
     "data/sentinel_report.json": {
       "type": "data_file"
     },
-    "data/omnibus_history.json": {
+    "data/payout_ledger.json": {
+      "type": "data_file"
+    },
+    "data/etsy_seo_output.json": {
       "type": "data_file"
     },
     "data/newsletter_archive.json": {
       "type": "data_file"
     },
-    "data/flywheel_state.json": {
+    "data/desktop_blueprints.json": {
       "type": "data_file"
     },
-    "data/outreach_state.json": {
-      "type": "data_file"
-    },
-    "data/contributor_registry.json": {
+    "data/self_builder_queue.json": {
       "type": "data_file"
     },
     "data/brain_state.json": {
       "type": "data_file"
     },
-    "data/claude_task_results.json": {
-      "type": "data_file"
-    },
-    "data/free_api_state.json": {
-      "type": "data_file"
-    },
-    "data/river_watch.json": {
-      "type": "data_file"
-    },
     "data/omnibrain_seed.json": {
       "type": "data_file"
     },
-    "data/gumroad_engine_state.json": {
+    "data/kofi_state.json": {
       "type": "data_file"
     },
-    "data/email_brain_state.json": {
+    "data/resonance_state.json": {
       "type": "data_file"
     }
   },
   "edges": [
     {
-      "from": "EMAIL_AGENT_EXCHANGE",
-      "to": "FIRST_CONTACT",
-      "via": "email_exchange_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_AGENT_EXCHANGE",
-      "to": "KOFI_PAYMENT_TRACKER",
-      "via": "email_exchange_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "KOFI_PAYMENT_TRACKER",
-      "to": "EMAIL_AGENT_EXCHANGE",
-      "via": "email_exchange_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "KOFI_PAYMENT_TRACKER",
-      "to": "FIRST_CONTACT",
-      "via": "email_exchange_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "CLAUDE_BRIDGE",
-      "to": "DESKTOP_DAEMON",
-      "via": "claude_tasks_queue.json",
+      "from": "CONTRIBUTOR_REGISTRY",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "contributor_registry.json",
       "zero_secrets": true
     },
     {
-      "from": "CLAUDE_BRIDGE",
-      "to": "OMNIBUS",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "CLAUDE_BRIDGE",
-      "to": "RESONANCE_CONVERTER",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "CLAUDE_BRIDGE",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "OMNIBUS",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "RESONANCE_CONVERTER",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "CLAUDE_BRIDGE",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "DESKTOP_DAEMON",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "RESONANCE_CONVERTER",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "RESONANCE_CONVERTER",
-      "to": "CLAUDE_BRIDGE",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "RESONANCE_CONVERTER",
-      "to": "DESKTOP_DAEMON",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "RESONANCE_CONVERTER",
-      "to": "OMNIBUS",
-      "via": "claude_tasks_queue.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "ECOLOGICAL_GRANT_SYNTHESIZER",
-      "to": "VITAL_SIGN_API",
-      "via": "river_watch.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "NEWSLETTER_ENGINE",
-      "to": "RSS_PUBLISHER",
-      "via": "newsletter_archive.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REPO_SPIDER",
-      "to": "NEWSLETTER_ENGINE",
-      "via": "repo_spider_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REPO_SPIDER",
-      "to": "RESONANCE_CONVERTER",
-      "via": "repo_spider_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "PASSIVE_INCOME_ARCHITECT",
-      "to": "AUTONOMOUS_TESTER",
-      "via": "self_builder_queue.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "PASSIVE_INCOME_ARCHITECT",
-      "to": "DEEP_RESEARCHER",
-      "via": "self_builder_queue.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "PASSIVE_INCOME_ARCHITECT",
-      "to": "OFFLINE_BRAIN",
-      "via": "self_builder_queue.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "PASSIVE_INCOME_ARCHITECT",
-      "to": "REPO_SPIDER",
-      "via": "self_builder_queue.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "PASSIVE_INCOME_ARCHITECT",
-      "to": "SYNERGY_SCOUT",
-      "via": "self_builder_queue.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REPO_SPIDER",
-      "to": "AUTONOMOUS_TESTER",
-      "via": "self_builder_queue.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REPO_SPIDER",
-      "to": "DEEP_RESEARCHER",
-      "via": "self_builder_queue.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REPO_SPIDER",
-      "to": "OFFLINE_BRAIN",
-      "via": "self_builder_queue.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REPO_SPIDER",
-      "to": "PASSIVE_INCOME_ARCHITECT",
-      "via": "self_builder_queue.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REPO_SPIDER",
-      "to": "SYNERGY_SCOUT",
-      "via": "self_builder_queue.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "HUMAN_PAYOUT",
+      "from": "CONTRIBUTOR_REGISTRY",
       "to": "PAYPAL_PAYOUT",
-      "via": "payout_ledger.json",
+      "via": "contributor_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "CONTRIBUTOR_REGISTRY",
+      "to": "PLUGIN_REGISTRY",
+      "via": "contributor_registry.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "PAYPAL_PAYOUT",
+      "to": "CONTRIBUTOR_REGISTRY",
+      "via": "contributor_registry.json",
       "zero_secrets": false
     },
     {
       "from": "PAYPAL_PAYOUT",
-      "to": "HUMAN_PAYOUT",
-      "via": "payout_ledger.json",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "contributor_registry.json",
       "zero_secrets": false
     },
     {
-      "from": "OMNIBUS",
-      "to": "RSS_PUBLISHER",
-      "via": "omnibus_history.json",
+      "from": "PAYPAL_PAYOUT",
+      "to": "PLUGIN_REGISTRY",
+      "via": "contributor_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PLUGIN_REGISTRY",
+      "to": "CONTRIBUTOR_REGISTRY",
+      "via": "contributor_registry.json",
       "zero_secrets": true
     },
     {
-      "from": "BRAND_LEGAL",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "brand_legal_state.json",
+      "from": "PLUGIN_REGISTRY",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "contributor_registry.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "PLUGIN_REGISTRY",
+      "to": "PAYPAL_PAYOUT",
+      "via": "contributor_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PROOF_LEDGER",
+      "to": "STOREFRONT_BUILDER",
+      "via": "proof_ledger.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "STOREFRONT_BUILDER",
+      "to": "PROOF_LEDGER",
+      "via": "proof_ledger.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_OUTREACH",
+      "to": "FORK_SCANNER",
+      "via": "outreach_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "FORK_SCANNER",
+      "to": "EMAIL_OUTREACH",
+      "via": "outreach_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "CLAUDE_BRIDGE",
+      "to": "DESKTOP_DAEMON",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "CLAUDE_BRIDGE",
+      "to": "OMNIBUS",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "CLAUDE_BRIDGE",
+      "to": "RESONANCE_CONVERTER",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "CLAUDE_BRIDGE",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "OMNIBUS",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "RESONANCE_CONVERTER",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "CLAUDE_BRIDGE",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "DESKTOP_DAEMON",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "RESONANCE_CONVERTER",
+      "via": "claude_tasks_queue.json",
       "zero_secrets": true
     },
     {
       "from": "RESONANCE_CONVERTER",
-      "to": "NEWSLETTER_ENGINE",
-      "via": "asks_queue.json",
+      "to": "CLAUDE_BRIDGE",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "RESONANCE_CONVERTER",
+      "to": "DESKTOP_DAEMON",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "RESONANCE_CONVERTER",
+      "to": "OMNIBUS",
+      "via": "claude_tasks_queue.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "AUTONOMOUS_PUBLISHER",
+      "via": "omnibus_last.json",
       "zero_secrets": false
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "BLUESKY_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "DEV_TO_PUBLISHER",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "MASTODON_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "NARRATOR",
+      "via": "omnibus_last.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "NEWSLETTER_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "OMNIBUS",
+      "via": "omnibus_last.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DESKTOP_DAEMON",
+      "to": "RESONANCE_CONVERTER",
+      "via": "omnibus_last.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DEV_TO_PUBLISHER",
+      "to": "AUTONOMOUS_PUBLISHER",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DEV_TO_PUBLISHER",
+      "to": "BLUESKY_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DEV_TO_PUBLISHER",
+      "to": "DESKTOP_DAEMON",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DEV_TO_PUBLISHER",
+      "to": "MASTODON_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DEV_TO_PUBLISHER",
+      "to": "NARRATOR",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DEV_TO_PUBLISHER",
+      "to": "NEWSLETTER_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DEV_TO_PUBLISHER",
+      "to": "OMNIBUS",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DEV_TO_PUBLISHER",
+      "to": "RESONANCE_CONVERTER",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "NARRATOR",
+      "to": "AUTONOMOUS_PUBLISHER",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "NARRATOR",
+      "to": "BLUESKY_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "NARRATOR",
+      "to": "DESKTOP_DAEMON",
+      "via": "omnibus_last.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "NARRATOR",
+      "to": "DEV_TO_PUBLISHER",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "NARRATOR",
+      "to": "MASTODON_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "NARRATOR",
+      "to": "NEWSLETTER_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "NARRATOR",
+      "to": "OMNIBUS",
+      "via": "omnibus_last.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "NARRATOR",
+      "to": "RESONANCE_CONVERTER",
+      "via": "omnibus_last.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "AUTONOMOUS_PUBLISHER",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "BLUESKY_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "DESKTOP_DAEMON",
+      "via": "omnibus_last.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "DEV_TO_PUBLISHER",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "MASTODON_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "NARRATOR",
+      "via": "omnibus_last.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "NEWSLETTER_ENGINE",
+      "via": "omnibus_last.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "RESONANCE_CONVERTER",
+      "via": "omnibus_last.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "DISPATCH_HANDLER",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "HEALTH_BOOSTER",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "REVENUE_LOOP",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "SYNAPSE",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "SYNTHESIS_FACTORY",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "VITAL_SIGN_API",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "BRIDGE_BUILDER",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "HEALTH_BOOSTER",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "REVENUE_LOOP",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "SYNAPSE",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "SYNTHESIS_FACTORY",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "VITAL_SIGN_API",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "BRIDGE_BUILDER",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "DISPATCH_HANDLER",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "HEALTH_BOOSTER",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "REVENUE_LOOP",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "SYNAPSE",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "SYNTHESIS_FACTORY",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "VITAL_SIGN_API",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "BRIDGE_BUILDER",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "DISPATCH_HANDLER",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "REVENUE_LOOP",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "SYNAPSE",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "SYNTHESIS_FACTORY",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "VITAL_SIGN_API",
+      "via": "brain_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "REVENUE_LOOP",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_LOOP",
+      "to": "BRIDGE_BUILDER",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_LOOP",
+      "to": "DISPATCH_HANDLER",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_LOOP",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_LOOP",
+      "to": "HEALTH_BOOSTER",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_LOOP",
+      "to": "SYNAPSE",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_LOOP",
+      "to": "SYNTHESIS_FACTORY",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_LOOP",
+      "to": "VITAL_SIGN_API",
+      "via": "brain_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "SYNTHESIS_FACTORY",
+      "via": "omnibrain_seed.json",
+      "zero_secrets": true
     },
     {
       "from": "MEMORY_PALACE",
@@ -3667,154 +4084,112 @@
       "zero_secrets": false
     },
     {
-      "from": "PRODUCT_DELIVERY_ENGINE",
+      "from": "BRAVE_BRIDGE",
+      "to": "DESKTOP_BLUEPRINT_SCANNER",
+      "via": "desktop_blueprints.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRAVE_BRIDGE",
+      "to": "DESKTOP_ORCHESTRATOR",
+      "via": "desktop_blueprints.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DESKTOP_BLUEPRINT_SCANNER",
+      "to": "BRAVE_BRIDGE",
+      "via": "desktop_blueprints.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DESKTOP_BLUEPRINT_SCANNER",
+      "to": "DESKTOP_ORCHESTRATOR",
+      "via": "desktop_blueprints.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DESKTOP_ORCHESTRATOR",
+      "to": "BRAVE_BRIDGE",
+      "via": "desktop_blueprints.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DESKTOP_ORCHESTRATOR",
+      "to": "DESKTOP_BLUEPRINT_SCANNER",
+      "via": "desktop_blueprints.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "EMAIL_AGENT_EXCHANGE",
+      "to": "FIRST_CONTACT",
+      "via": "email_exchange_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_AGENT_EXCHANGE",
+      "to": "KOFI_PAYMENT_TRACKER",
+      "via": "email_exchange_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "KOFI_PAYMENT_TRACKER",
+      "to": "EMAIL_AGENT_EXCHANGE",
+      "via": "email_exchange_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "KOFI_PAYMENT_TRACKER",
+      "to": "FIRST_CONTACT",
+      "via": "email_exchange_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "GUMROAD_ENGINE",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "gumroad_engine_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "GUMROAD_ENGINE",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "gumroad_engine_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "GUMROAD_ENGINE",
       "to": "PROOF_LEDGER",
-      "via": "delivery_log.json",
+      "via": "gumroad_engine_state.json",
       "zero_secrets": false
     },
     {
-      "from": "HEALTH_BOOSTER",
-      "to": "DESKTOP_DAEMON",
-      "via": "flywheel_state.json",
+      "from": "BRIDGE_BUILDER",
+      "to": "MISSION_CONTROL",
+      "via": "knowledge_graph.json",
       "zero_secrets": true
     },
     {
-      "from": "HEALTH_BOOSTER",
-      "to": "LINK_PAGE",
-      "via": "flywheel_state.json",
+      "from": "BRIDGE_BUILDER",
+      "to": "PRODUCT_FACTORY",
+      "via": "knowledge_graph.json",
       "zero_secrets": true
     },
     {
-      "from": "HEALTH_BOOSTER",
-      "to": "NEWSLETTER_ENGINE",
-      "via": "flywheel_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "HEALTH_BOOSTER",
-      "to": "RESONANCE_CONVERTER",
-      "via": "flywheel_state.json",
+      "from": "BRIDGE_BUILDER",
+      "to": "SYNAPSE_BUILDER",
+      "via": "knowledge_graph.json",
       "zero_secrets": true
     },
     {
-      "from": "HEALTH_BOOSTER",
-      "to": "REVENUE_FLYWHEEL",
-      "via": "flywheel_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "LINK_PAGE",
-      "to": "DESKTOP_DAEMON",
-      "via": "flywheel_state.json",
+      "from": "BRIDGE_BUILDER",
+      "to": "SYNERGY_SCOUT",
+      "via": "knowledge_graph.json",
       "zero_secrets": true
     },
     {
-      "from": "LINK_PAGE",
-      "to": "HEALTH_BOOSTER",
-      "via": "flywheel_state.json",
+      "from": "BRIDGE_BUILDER",
+      "to": "VALUE_GENERATOR",
+      "via": "knowledge_graph.json",
       "zero_secrets": true
-    },
-    {
-      "from": "LINK_PAGE",
-      "to": "NEWSLETTER_ENGINE",
-      "via": "flywheel_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "LINK_PAGE",
-      "to": "RESONANCE_CONVERTER",
-      "via": "flywheel_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "LINK_PAGE",
-      "to": "REVENUE_FLYWHEEL",
-      "via": "flywheel_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_FLYWHEEL",
-      "to": "DESKTOP_DAEMON",
-      "via": "flywheel_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_FLYWHEEL",
-      "to": "HEALTH_BOOSTER",
-      "via": "flywheel_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_FLYWHEEL",
-      "to": "LINK_PAGE",
-      "via": "flywheel_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_FLYWHEEL",
-      "to": "NEWSLETTER_ENGINE",
-      "via": "flywheel_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_FLYWHEEL",
-      "to": "RESONANCE_CONVERTER",
-      "via": "flywheel_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "GITHUB_RELEASES_PUBLISHER",
-      "to": "GUMROAD_PRODUCT_PUBLISHER",
-      "via": "product_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "GITHUB_RELEASES_PUBLISHER",
-      "to": "PDF_GENERATOR",
-      "via": "product_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "GITHUB_RELEASES_PUBLISHER",
-      "to": "PRODUCT_DELIVERY_ENGINE",
-      "via": "product_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "GUMROAD_PRODUCT_PUBLISHER",
-      "to": "GITHUB_RELEASES_PUBLISHER",
-      "via": "product_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "GUMROAD_PRODUCT_PUBLISHER",
-      "to": "PDF_GENERATOR",
-      "via": "product_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "GUMROAD_PRODUCT_PUBLISHER",
-      "to": "PRODUCT_DELIVERY_ENGINE",
-      "via": "product_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "PDF_GENERATOR",
-      "to": "GITHUB_RELEASES_PUBLISHER",
-      "via": "product_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "PDF_GENERATOR",
-      "to": "GUMROAD_PRODUCT_PUBLISHER",
-      "via": "product_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "PDF_GENERATOR",
-      "to": "PRODUCT_DELIVERY_ENGINE",
-      "via": "product_registry.json",
-      "zero_secrets": false
     },
     {
       "from": "LANDING_DEPLOYER",
@@ -3829,910 +4204,16 @@
       "zero_secrets": false
     },
     {
-      "from": "CLAUDE_BRIDGE",
-      "to": "DESKTOP_DAEMON",
-      "via": "claude_task_results.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "CALENDAR_BRAIN",
-      "via": "appointments_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "AUTONOMOUS_PUBLISHER",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "BLUESKY_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "DEV_TO_PUBLISHER",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "MASTODON_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "NARRATOR",
-      "via": "omnibus_last.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "NEWSLETTER_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "OMNIBUS",
-      "via": "omnibus_last.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "DESKTOP_DAEMON",
-      "to": "RESONANCE_CONVERTER",
-      "via": "omnibus_last.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "DEV_TO_PUBLISHER",
-      "to": "AUTONOMOUS_PUBLISHER",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DEV_TO_PUBLISHER",
-      "to": "BLUESKY_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DEV_TO_PUBLISHER",
-      "to": "DESKTOP_DAEMON",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DEV_TO_PUBLISHER",
-      "to": "MASTODON_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DEV_TO_PUBLISHER",
-      "to": "NARRATOR",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DEV_TO_PUBLISHER",
-      "to": "NEWSLETTER_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DEV_TO_PUBLISHER",
-      "to": "OMNIBUS",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DEV_TO_PUBLISHER",
-      "to": "RESONANCE_CONVERTER",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "NARRATOR",
-      "to": "AUTONOMOUS_PUBLISHER",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "NARRATOR",
-      "to": "BLUESKY_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "NARRATOR",
-      "to": "DESKTOP_DAEMON",
-      "via": "omnibus_last.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "NARRATOR",
-      "to": "DEV_TO_PUBLISHER",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "NARRATOR",
-      "to": "MASTODON_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "NARRATOR",
-      "to": "NEWSLETTER_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "NARRATOR",
-      "to": "OMNIBUS",
-      "via": "omnibus_last.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "NARRATOR",
-      "to": "RESONANCE_CONVERTER",
-      "via": "omnibus_last.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "AUTONOMOUS_PUBLISHER",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "BLUESKY_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "DESKTOP_DAEMON",
-      "via": "omnibus_last.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "DEV_TO_PUBLISHER",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "MASTODON_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "NARRATOR",
-      "via": "omnibus_last.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "NEWSLETTER_ENGINE",
-      "via": "omnibus_last.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "OMNIBUS",
-      "to": "RESONANCE_CONVERTER",
-      "via": "omnibus_last.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BRIDGE_BUILDER",
-      "to": "VITAL_SIGN_API",
-      "via": "sentinel_report.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "SYNTHESIS_FACTORY",
-      "via": "omnibrain_seed.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BRIDGE_BUILDER",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BRIDGE_BUILDER",
-      "to": "DISPATCH_HANDLER",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "BRIDGE_BUILDER",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BRIDGE_BUILDER",
-      "to": "HEALTH_BOOSTER",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BRIDGE_BUILDER",
-      "to": "REVENUE_LOOP",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "BRIDGE_BUILDER",
-      "to": "SYNAPSE",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "BRIDGE_BUILDER",
-      "to": "SYNTHESIS_FACTORY",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BRIDGE_BUILDER",
-      "to": "VITAL_SIGN_API",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "BRIDGE_BUILDER",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "HEALTH_BOOSTER",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "REVENUE_LOOP",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "SYNAPSE",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "SYNTHESIS_FACTORY",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "VITAL_SIGN_API",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "BRIDGE_BUILDER",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "DISPATCH_HANDLER",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "HEALTH_BOOSTER",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "REVENUE_LOOP",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "SYNAPSE",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "SYNTHESIS_FACTORY",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "VITAL_SIGN_API",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "HEALTH_BOOSTER",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "HEALTH_BOOSTER",
-      "to": "BRIDGE_BUILDER",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "HEALTH_BOOSTER",
-      "to": "DISPATCH_HANDLER",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "HEALTH_BOOSTER",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "HEALTH_BOOSTER",
-      "to": "REVENUE_LOOP",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "HEALTH_BOOSTER",
-      "to": "SYNAPSE",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "HEALTH_BOOSTER",
-      "to": "SYNTHESIS_FACTORY",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "HEALTH_BOOSTER",
-      "to": "VITAL_SIGN_API",
-      "via": "brain_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "REVENUE_LOOP",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_LOOP",
-      "to": "BRIDGE_BUILDER",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_LOOP",
-      "to": "DISPATCH_HANDLER",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_LOOP",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_LOOP",
-      "to": "HEALTH_BOOSTER",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_LOOP",
-      "to": "SYNAPSE",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_LOOP",
-      "to": "SYNTHESIS_FACTORY",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "REVENUE_LOOP",
-      "to": "VITAL_SIGN_API",
-      "via": "brain_state.json",
-      "zero_secrets": false
-    },
-    {
       "from": "EMAIL_BRAIN",
       "to": "SCAM_SHIELD",
       "via": "email_brain_state.json",
       "zero_secrets": false
     },
     {
-      "from": "GUMROAD_ENGINE",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "gumroad_engine_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "GUMROAD_ENGINE",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "gumroad_engine_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "GUMROAD_ENGINE",
-      "to": "PROOF_LEDGER",
-      "via": "gumroad_engine_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "BOTTLENECK_SCANNER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "BRIDGE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "DISPATCH_HANDLER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "EMAIL_BRAIN",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "GRANT_APPLICANT",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "KOFI_PAYMENT_TRACKER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "PROOF_LEDGER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "QUICK_REVENUE",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "SOLARPUNK_LEGAL",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "BIG_BRAIN_ORACLE",
-      "to": "STORE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "BOTTLENECK_SCANNER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "BRIDGE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "EMAIL_BRAIN",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "GRANT_APPLICANT",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "KOFI_PAYMENT_TRACKER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "PROOF_LEDGER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "QUICK_REVENUE",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "SOLARPUNK_LEGAL",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "DISPATCH_HANDLER",
-      "to": "STORE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
       "from": "EMAIL_BRAIN",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "revenue_inbox.json",
+      "to": "CALENDAR_BRAIN",
+      "via": "appointments_inbox.json",
       "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "BOTTLENECK_SCANNER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "BRIDGE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "DISPATCH_HANDLER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "GRANT_APPLICANT",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "KOFI_PAYMENT_TRACKER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "PROOF_LEDGER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "QUICK_REVENUE",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "SOLARPUNK_LEGAL",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "EMAIL_BRAIN",
-      "to": "STORE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "BOTTLENECK_SCANNER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "BRIDGE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "DISPATCH_HANDLER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "EMAIL_BRAIN",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "GRANT_APPLICANT",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "KOFI_PAYMENT_TRACKER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "PROOF_LEDGER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "QUICK_REVENUE",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "SOLARPUNK_LEGAL",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FIRST_SALE_NOTIFIER",
-      "to": "STORE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "BOTTLENECK_SCANNER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "BRIDGE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "DISPATCH_HANDLER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "EMAIL_BRAIN",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "GRANT_APPLICANT",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "KOFI_PAYMENT_TRACKER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "PROOF_LEDGER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "SOLARPUNK_LEGAL",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "QUICK_REVENUE",
-      "to": "STORE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "BIG_BRAIN_ORACLE",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "BOTTLENECK_SCANNER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "BRIDGE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "DISPATCH_HANDLER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "EMAIL_BRAIN",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "GRANT_APPLICANT",
-      "via": "revenue_inbox.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "KOFI_PAYMENT_TRACKER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "PROOF_LEDGER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "QUICK_REVENUE",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "SOLARPUNK_LEGAL",
-      "to": "STORE_BUILDER",
-      "via": "revenue_inbox.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "FREE_API_ENGINE",
-      "to": "KNOWLEDGE_WEAVER",
-      "via": "free_api_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "KNOWLEDGE_WEAVER",
-      "to": "FREE_API_ENGINE",
-      "via": "free_api_state.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "EMAIL_OUTREACH",
-      "to": "FORK_SCANNER",
-      "via": "outreach_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "FORK_SCANNER",
-      "to": "EMAIL_OUTREACH",
-      "via": "outreach_state.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "ETSY_SEO_ENGINE",
-      "to": "STORE_BUILDER",
-      "via": "etsy_seo_output.json",
-      "zero_secrets": true
     },
     {
       "from": "NEWSLETTER_ENGINE",
@@ -4759,6 +4240,102 @@
       "zero_secrets": false
     },
     {
+      "from": "GITHUB_RELEASES_PUBLISHER",
+      "to": "GUMROAD_PRODUCT_PUBLISHER",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "GITHUB_RELEASES_PUBLISHER",
+      "to": "PDF_GENERATOR",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "GITHUB_RELEASES_PUBLISHER",
+      "to": "PRODUCT_DELIVERY_ENGINE",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "GITHUB_RELEASES_PUBLISHER",
+      "to": "PRODUCT_FACTORY",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "GUMROAD_PRODUCT_PUBLISHER",
+      "to": "GITHUB_RELEASES_PUBLISHER",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "GUMROAD_PRODUCT_PUBLISHER",
+      "to": "PDF_GENERATOR",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "GUMROAD_PRODUCT_PUBLISHER",
+      "to": "PRODUCT_DELIVERY_ENGINE",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "GUMROAD_PRODUCT_PUBLISHER",
+      "to": "PRODUCT_FACTORY",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PDF_GENERATOR",
+      "to": "GITHUB_RELEASES_PUBLISHER",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PDF_GENERATOR",
+      "to": "GUMROAD_PRODUCT_PUBLISHER",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PDF_GENERATOR",
+      "to": "PRODUCT_DELIVERY_ENGINE",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PDF_GENERATOR",
+      "to": "PRODUCT_FACTORY",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PRODUCT_FACTORY",
+      "to": "GITHUB_RELEASES_PUBLISHER",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PRODUCT_FACTORY",
+      "to": "GUMROAD_PRODUCT_PUBLISHER",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PRODUCT_FACTORY",
+      "to": "PDF_GENERATOR",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PRODUCT_FACTORY",
+      "to": "PRODUCT_DELIVERY_ENGINE",
+      "via": "product_registry.json",
+      "zero_secrets": false
+    },
+    {
       "from": "BOTTLENECK_SCANNER",
       "to": "BRAVE_BROWSER_ENGINE",
       "via": "gumroad_listings.json",
@@ -4903,15 +4480,597 @@
       "zero_secrets": false
     },
     {
-      "from": "PROOF_LEDGER",
-      "to": "STOREFRONT_BUILDER",
-      "via": "proof_ledger.json",
+      "from": "BRAND_LEGAL",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "brand_legal_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "DESKTOP_DAEMON",
+      "via": "flywheel_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "LINK_PAGE",
+      "via": "flywheel_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "NEWSLETTER_ENGINE",
+      "via": "flywheel_state.json",
       "zero_secrets": false
     },
     {
-      "from": "STOREFRONT_BUILDER",
+      "from": "HEALTH_BOOSTER",
+      "to": "RESONANCE_CONVERTER",
+      "via": "flywheel_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "HEALTH_BOOSTER",
+      "to": "REVENUE_FLYWHEEL",
+      "via": "flywheel_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "LINK_PAGE",
+      "to": "DESKTOP_DAEMON",
+      "via": "flywheel_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "LINK_PAGE",
+      "to": "HEALTH_BOOSTER",
+      "via": "flywheel_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "LINK_PAGE",
+      "to": "NEWSLETTER_ENGINE",
+      "via": "flywheel_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "LINK_PAGE",
+      "to": "RESONANCE_CONVERTER",
+      "via": "flywheel_state.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "LINK_PAGE",
+      "to": "REVENUE_FLYWHEEL",
+      "via": "flywheel_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_FLYWHEEL",
+      "to": "DESKTOP_DAEMON",
+      "via": "flywheel_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_FLYWHEEL",
+      "to": "HEALTH_BOOSTER",
+      "via": "flywheel_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_FLYWHEEL",
+      "to": "LINK_PAGE",
+      "via": "flywheel_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_FLYWHEEL",
+      "to": "NEWSLETTER_ENGINE",
+      "via": "flywheel_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REVENUE_FLYWHEEL",
+      "to": "RESONANCE_CONVERTER",
+      "via": "flywheel_state.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "OMNIBUS",
+      "to": "RSS_PUBLISHER",
+      "via": "omnibus_history.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "MYCELIUM_NETWORK",
+      "via": "sentinel_report.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "PRODUCT_FACTORY",
+      "via": "sentinel_report.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "VITAL_SIGN_API",
+      "via": "sentinel_report.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "BOTTLENECK_SCANNER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "BRIDGE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "DISPATCH_HANDLER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "EMAIL_BRAIN",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "GRANT_APPLICANT",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "KOFI_PAYMENT_TRACKER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
       "to": "PROOF_LEDGER",
-      "via": "proof_ledger.json",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "QUICK_REVENUE",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "SOLARPUNK_LEGAL",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BIG_BRAIN_ORACLE",
+      "to": "STORE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "BOTTLENECK_SCANNER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "BRIDGE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "EMAIL_BRAIN",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "GRANT_APPLICANT",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "KOFI_PAYMENT_TRACKER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "PROOF_LEDGER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "QUICK_REVENUE",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "SOLARPUNK_LEGAL",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "DISPATCH_HANDLER",
+      "to": "STORE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "BOTTLENECK_SCANNER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "BRIDGE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "DISPATCH_HANDLER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "GRANT_APPLICANT",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "KOFI_PAYMENT_TRACKER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "PROOF_LEDGER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "QUICK_REVENUE",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "SOLARPUNK_LEGAL",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "EMAIL_BRAIN",
+      "to": "STORE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "BOTTLENECK_SCANNER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "BRIDGE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "DISPATCH_HANDLER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "EMAIL_BRAIN",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "GRANT_APPLICANT",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "KOFI_PAYMENT_TRACKER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "PROOF_LEDGER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "QUICK_REVENUE",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "SOLARPUNK_LEGAL",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "FIRST_SALE_NOTIFIER",
+      "to": "STORE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "BOTTLENECK_SCANNER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "BRIDGE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "DISPATCH_HANDLER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "EMAIL_BRAIN",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "GRANT_APPLICANT",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "KOFI_PAYMENT_TRACKER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "PROOF_LEDGER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "SOLARPUNK_LEGAL",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "QUICK_REVENUE",
+      "to": "STORE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "BIG_BRAIN_ORACLE",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "BOTTLENECK_SCANNER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "BRIDGE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "DISPATCH_HANDLER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "EMAIL_BRAIN",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "FIRST_SALE_NOTIFIER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "GRANT_APPLICANT",
+      "via": "revenue_inbox.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "KOFI_PAYMENT_TRACKER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "PROOF_LEDGER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "QUICK_REVENUE",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "SOLARPUNK_LEGAL",
+      "to": "STORE_BUILDER",
+      "via": "revenue_inbox.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "RESONANCE_CONVERTER",
+      "to": "NEWSLETTER_ENGINE",
+      "via": "asks_queue.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "ECOLOGICAL_GRANT_SYNTHESIZER",
+      "to": "VITAL_SIGN_API",
+      "via": "river_watch.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "CLAUDE_BRIDGE",
+      "to": "DESKTOP_DAEMON",
+      "via": "claude_task_results.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "PASSIVE_INCOME_ARCHITECT",
+      "to": "AUTONOMOUS_TESTER",
+      "via": "self_builder_queue.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PASSIVE_INCOME_ARCHITECT",
+      "to": "DEEP_RESEARCHER",
+      "via": "self_builder_queue.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PASSIVE_INCOME_ARCHITECT",
+      "to": "OFFLINE_BRAIN",
+      "via": "self_builder_queue.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PASSIVE_INCOME_ARCHITECT",
+      "to": "REPO_SPIDER",
+      "via": "self_builder_queue.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PASSIVE_INCOME_ARCHITECT",
+      "to": "SYNERGY_SCOUT",
+      "via": "self_builder_queue.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REPO_SPIDER",
+      "to": "AUTONOMOUS_TESTER",
+      "via": "self_builder_queue.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REPO_SPIDER",
+      "to": "DEEP_RESEARCHER",
+      "via": "self_builder_queue.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REPO_SPIDER",
+      "to": "OFFLINE_BRAIN",
+      "via": "self_builder_queue.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REPO_SPIDER",
+      "to": "PASSIVE_INCOME_ARCHITECT",
+      "via": "self_builder_queue.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "REPO_SPIDER",
+      "to": "SYNERGY_SCOUT",
+      "via": "self_builder_queue.json",
       "zero_secrets": false
     },
     {
@@ -4948,6 +5107,24 @@
       "from": "SELF_BUILDER",
       "to": "BUSINESS_FACTORY",
       "via": "architect_plan.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "HUMAN_PAYOUT",
+      "to": "PAYPAL_PAYOUT",
+      "via": "payout_ledger.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PAYPAL_PAYOUT",
+      "to": "HUMAN_PAYOUT",
+      "via": "payout_ledger.json",
+      "zero_secrets": false
+    },
+    {
+      "from": "PRODUCT_DELIVERY_ENGINE",
+      "to": "PROOF_LEDGER",
+      "via": "delivery_log.json",
       "zero_secrets": false
     },
     {
@@ -4975,62 +5152,44 @@
       "zero_secrets": false
     },
     {
-      "from": "CONTRIBUTOR_REGISTRY",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "contributor_registry.json",
+      "from": "FREE_API_ENGINE",
+      "to": "KNOWLEDGE_WEAVER",
+      "via": "free_api_state.json",
       "zero_secrets": true
     },
     {
-      "from": "CONTRIBUTOR_REGISTRY",
-      "to": "PAYPAL_PAYOUT",
-      "via": "contributor_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "CONTRIBUTOR_REGISTRY",
-      "to": "PLUGIN_REGISTRY",
-      "via": "contributor_registry.json",
+      "from": "KNOWLEDGE_WEAVER",
+      "to": "FREE_API_ENGINE",
+      "via": "free_api_state.json",
       "zero_secrets": true
     },
     {
-      "from": "PAYPAL_PAYOUT",
-      "to": "CONTRIBUTOR_REGISTRY",
-      "via": "contributor_registry.json",
+      "from": "REPO_SPIDER",
+      "to": "NEWSLETTER_ENGINE",
+      "via": "repo_spider_state.json",
       "zero_secrets": false
     },
     {
-      "from": "PAYPAL_PAYOUT",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "contributor_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "PAYPAL_PAYOUT",
-      "to": "PLUGIN_REGISTRY",
-      "via": "contributor_registry.json",
-      "zero_secrets": false
-    },
-    {
-      "from": "PLUGIN_REGISTRY",
-      "to": "CONTRIBUTOR_REGISTRY",
-      "via": "contributor_registry.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "PLUGIN_REGISTRY",
-      "to": "FIRST_SALE_NOTIFIER",
-      "via": "contributor_registry.json",
-      "zero_secrets": true
-    },
-    {
-      "from": "PLUGIN_REGISTRY",
-      "to": "PAYPAL_PAYOUT",
-      "via": "contributor_registry.json",
+      "from": "REPO_SPIDER",
+      "to": "RESONANCE_CONVERTER",
+      "via": "repo_spider_state.json",
       "zero_secrets": false
     },
     {
       "from": "BRIDGE_BUILDER",
       "to": "LIVE_WIRE",
+      "via": "live_wire_report.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "MYCELIUM_NETWORK",
+      "via": "live_wire_report.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "BRIDGE_BUILDER",
+      "to": "PRODUCT_FACTORY",
       "via": "live_wire_report.json",
       "zero_secrets": true
     },
@@ -5041,40 +5200,64 @@
       "zero_secrets": true
     },
     {
-      "from": "BRAVE_BRIDGE",
-      "to": "DESKTOP_BLUEPRINT_SCANNER",
-      "via": "desktop_blueprints.json",
+      "from": "LIVE_WIRE",
+      "to": "MYCELIUM_NETWORK",
+      "via": "live_wire_report.json",
       "zero_secrets": true
     },
     {
-      "from": "BRAVE_BRIDGE",
-      "to": "DESKTOP_ORCHESTRATOR",
-      "via": "desktop_blueprints.json",
+      "from": "LIVE_WIRE",
+      "to": "PRODUCT_FACTORY",
+      "via": "live_wire_report.json",
       "zero_secrets": true
     },
     {
-      "from": "DESKTOP_BLUEPRINT_SCANNER",
-      "to": "BRAVE_BRIDGE",
-      "via": "desktop_blueprints.json",
+      "from": "MYCELIUM_NETWORK",
+      "to": "BRIDGE_BUILDER",
+      "via": "live_wire_report.json",
       "zero_secrets": true
     },
     {
-      "from": "DESKTOP_BLUEPRINT_SCANNER",
-      "to": "DESKTOP_ORCHESTRATOR",
-      "via": "desktop_blueprints.json",
+      "from": "MYCELIUM_NETWORK",
+      "to": "LIVE_WIRE",
+      "via": "live_wire_report.json",
       "zero_secrets": true
     },
     {
-      "from": "DESKTOP_ORCHESTRATOR",
-      "to": "BRAVE_BRIDGE",
-      "via": "desktop_blueprints.json",
+      "from": "MYCELIUM_NETWORK",
+      "to": "PRODUCT_FACTORY",
+      "via": "live_wire_report.json",
       "zero_secrets": true
     },
     {
-      "from": "DESKTOP_ORCHESTRATOR",
-      "to": "DESKTOP_BLUEPRINT_SCANNER",
-      "via": "desktop_blueprints.json",
+      "from": "PRODUCT_FACTORY",
+      "to": "BRIDGE_BUILDER",
+      "via": "live_wire_report.json",
       "zero_secrets": true
+    },
+    {
+      "from": "PRODUCT_FACTORY",
+      "to": "LIVE_WIRE",
+      "via": "live_wire_report.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "PRODUCT_FACTORY",
+      "to": "MYCELIUM_NETWORK",
+      "via": "live_wire_report.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "ETSY_SEO_ENGINE",
+      "to": "STORE_BUILDER",
+      "via": "etsy_seo_output.json",
+      "zero_secrets": true
+    },
+    {
+      "from": "NEWSLETTER_ENGINE",
+      "to": "RSS_PUBLISHER",
+      "via": "newsletter_archive.json",
+      "zero_secrets": false
     }
   ],
   "source": "BRIDGE_BUILDER from LIVE_WIRE topology",

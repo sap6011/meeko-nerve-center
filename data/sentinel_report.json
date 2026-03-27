@@ -1,48 +1,48 @@
 {
-  "timestamp": "2026-03-26T20:43:32.629635+00:00",
-  "total_engines": 242,
-  "syntax_pass": 221,
-  "syntax_fail": 21,
+  "timestamp": "2026-03-27T04:32:40.140367+00:00",
+  "total_engines": 244,
+  "syntax_pass": 222,
+  "syntax_fail": 22,
   "failures": [
     {
-      "engine": "AI_CLIENT.py",
-      "error": "  File \"mycelium\\AI_CLIENT.py\", line 104\n    raise RuntimeError(\"ANTHROPIC_API_KEY\"\n                      ^\nSyntaxError: '(' was never closed\n"
-    },
-    {
-      "engine": "ai_council.py",
-      "error": "  File \"mycelium\\ai_council.py\", line 274\n    print(\"\u274c ANTHROPIC_API_KEY,\n          ^\nSyntaxError: unterminated string literal (detected at line 274)\n"
-    },
-    {
-      "engine": "BIG_BRAIN_ORACLE.py",
-      "error": "  File \"mycelium\\BIG_BRAIN_ORACLE.py\", line 135\n    print(\"  \u26a0\ufe0f  ANTHROPIC_API_KEY\n          ^\nSyntaxError: unterminated string literal (detected at line 135)\n"
-    },
-    {
-      "engine": "BOTTLENECK_SCANNER.py",
-      "error": "  File \"mycelium\\BOTTLENECK_SCANNER.py\", line 116\n    \"fix\": \"console.anthropic.com -> API Keys -> Create -> GitHub Secret: ANTHROPIC_API_KEY,\n           ^\nSyntaxError: unterminated string literal (de"
-    },
-    {
       "engine": "CAPABILITY_SCANNER.py",
-      "error": "  File \"mycelium\\CAPABILITY_SCANNER.py\", line 35\n    \"fix\": \"anthropic.com/console \u2192 API Keys \u2192 add ANTHROPIC_API_KEY,\n           ^\nSyntaxError: unterminated string literal (detected at line 35)\n"
+      "error": "  File \"mycelium/CAPABILITY_SCANNER.py\", line 35\n    \"fix\": \"anthropic.com/console \u2192 API Keys \u2192 add os.getenv(\"ANTHROPIC_API_KEY\"),\n                                                                    "
     },
     {
-      "engine": "CLAUDE_ENGINE.py",
-      "error": "  File \"mycelium\\CLAUDE_ENGINE.py\", line 87\n    \"action\": \"Add ANTHROPIC_API_KEY,\n              ^\nSyntaxError: unterminated string literal (detected at line 87)\n"
+      "engine": "AI_CLIENT.py",
+      "error": "  File \"mycelium/AI_CLIENT.py\", line 104\n    raise RuntimeError(\"os.getenv(\"ANTHROPIC_API_KEY\")\"\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a "
     },
     {
-      "engine": "DESKTOP_BLUEPRINT_SCANNER.py",
-      "error": "  File \"mycelium\\DESKTOP_BLUEPRINT_SCANNER.py\", line 5\n    \"\"\"\n    ^^^\nSyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 236-237: truncated \\UXXXXXXXX escape\n"
+      "engine": "NANO_AGENT.py",
+      "error": "  File \"mycelium/NANO_AGENT.py\", line 102\n    self._log(\"os.getenv(\"ANTHROPIC_API_KEY\")\"\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n"
     },
     {
       "engine": "DESKTOP_DAEMON.py",
-      "error": "  File \"mycelium\\DESKTOP_DAEMON.py\", line 322\n    log(\"WARNING: ANTHROPIC_API_KEY\n        ^\nSyntaxError: unterminated string literal (detected at line 322)\n"
-    },
-    {
-      "engine": "HEALTH_BOOSTER.py",
-      "error": "  File \"mycelium\\HEALTH_BOOSTER.py\", line 81\n    fixes.append(\"Go to anthropic.com/console \u2192 API Keys \u2192 Create new key \u2192 Add as ANTHROPIC_API_KEY\n                 ^\nSyntaxError: unterminated string li"
+      "error": "  File \"mycelium/DESKTOP_DAEMON.py\", line 322\n    log(\"WARNING: os.getenv(\"ANTHROPIC_API_KEY\")\n                                              ^\nSyntaxError: unterminated string literal (detected at lin"
     },
     {
       "engine": "ledger_engine.py",
-      "error": "  File \"mycelium\\ledger_engine.py\", line 6\n    import json from datetime import datetime  def log_transaction(source, amount, allocation, units=\"USD\"):     entry = {         \"timestamp\": str(datetime."
+      "error": "  File \"mycelium/ledger_engine.py\", line 6\n    import json from datetime import datetime  def log_transaction(source, amount, allocation, units=\"USD\"):     entry = {         \"timestamp\": str(datetime."
+    },
+    {
+      "engine": "NEURON_B.py",
+      "error": "  File \"mycelium/NEURON_B.py\", line 61\n    timeout=60)\n              ^\nSyntaxError: closing parenthesis ')' does not match opening parenthesis '{' on line 59\n"
+    },
+    {
+      "engine": "MEMORY_PALACE.py",
+      "error": "  File \"mycelium/MEMORY_PALACE.py\", line 96\n    lessons.append({\"lesson\": \"Health declining \u2014 check os.getenv(\"ANTHROPIC_API_KEY\"),\n                                                                    "
+    },
+    {
+      "engine": "ai_council.py",
+      "error": "  File \"mycelium/ai_council.py\", line 274\n    print(\"\u274c os.getenv(\"ANTHROPIC_API_KEY\"),\n                                         ^\nSyntaxError: unterminated string literal (detected at line 274)\n"
+    },
+    {
+      "engine": "LEGACY_SIFTED_engine_simple.py",
+      "error": "  File \"mycelium/LEGACY_SIFTED_engine_simple.py\", line 1\n    cd C:\\Users\\meeko\\Downloads\\autonomous_income_system\n       ^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "engine": "LEGACY_SIFTED_humanitarian_revenue_engine.py",
+      "error": "  File \"mycelium/LEGACY_SIFTED_humanitarian_revenue_engine.py\", line 1\n    cd C:\\Users\\meeko\\Downloads\\autonomous_income_system\n       ^\nSyntaxError: invalid syntax\n"
     }
   ],
   "source": "BRIDGE_BUILDER local syntax check"
