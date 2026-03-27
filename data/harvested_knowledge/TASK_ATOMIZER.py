@@ -28,7 +28,7 @@ GOALS = DATA / "goal_queue.json"
 REPO_OWNER    = "meekotharaccoon-cell"
 REPO_NAME     = "meeko-nerve-center"
 GITHUB_TOKEN  = os.environ.get("GITHUB_TOKEN", "")
-ANTHROPIC_KEY = os.environ.get("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")")", "")
+ANTHROPIC_KEY = os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "")
 
 SYSTEM_PROMPT = """You are TASK_ATOMIZER for SolarPunk — an autonomous AI revenue system.
 

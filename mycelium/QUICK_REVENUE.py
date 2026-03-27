@@ -26,7 +26,7 @@ Honest answer after reading system state:
      This engine generates the bio and README snippet that drives it.
 
 The 10x multiplier when you're ready:
-  os.getenv("os.getenv("ANTHROPIC_API_KEY")") + GUMROAD_ACCESS_TOKEN + X_API_KEY
+  os.getenv("ANTHROPIC_API_KEY") + GUMROAD_ACCESS_TOKEN + X_API_KEY
 
 Outputs:
   docs/quick_revenue.html  -- action dashboard, copy-paste ready
