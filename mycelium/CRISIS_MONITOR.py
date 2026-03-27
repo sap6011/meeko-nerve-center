@@ -1,28 +1,32 @@
 #!/usr/bin/env python3
 """
-CRISIS_MONITOR.py — Humanitarian Crisis Detection & Alert Engine
-================================================================
+CRISIS_MONITOR.py — Humanitarian Action Trigger Engine
+======================================================
 SolarPunk exists to help, save, and protect people being silenced,
 censored, bombed, starved, and subjected to war crimes and genocide.
 
-This engine is the dedicated humanitarian eye. It:
-  1. Monitors ReliefWeb (OCHA) — authoritative UN humanitarian reports
-  2. Monitors GDELT — global event database for crisis detection
-  3. Monitors crisis subreddits — ground-level signals from affected people
-  4. Scores urgency — is this an active massacre? internet shutdown? aid cutoff?
-  5. Maps signals to aid organizations — who can help RIGHT NOW
-  6. Generates amplification content — ready-to-share posts
-  7. Builds a live crisis dashboard on GitHub Pages
-  8. Emails CRITICAL alerts to Meeko immediately
+This engine is NOT a dashboard. It's a TRIGGER.
 
-Urgency levels:
-  CRITICAL — Active killing, internet shutdown, people disappearing NOW
-  HIGH     — Aid blocked, journalist arrested, ceasefire violation
-  ELEVATED — New displacement, escalating rhetoric, sanctions news
-  WATCH    — Ongoing situations, slow-burn crises
+When it detects a crisis signal, it doesn't show you the horror.
+It fires the other 252 engines to DO SOMETHING:
 
-Feeds: BRIDGE_BUILDER (aid routing), OUTREACH_ENGINE (org contacts),
-       SOCIAL_PROMOTER (amplification), BROADCAST_PROTOCOL (distribution)
+  Signal: Internet shutdown   → Trigger: BROADCAST_PROTOCOL pushes alert to all channels
+  Signal: Aid blockade        → Trigger: EMAIL_OUTREACH sends handshake to verified NGOs
+  Signal: Censorship          → Trigger: SOCIAL_PROMOTER amplifies suppressed voices
+  Signal: Civilian casualties → Trigger: aid_routing.json maps donations to responders
+
+The pipeline:
+  1. DETECT: ReliefWeb (OCHA), GDELT, crisis subreddits
+  2. SCORE: Urgency classification (CRITICAL/HIGH/ELEVATED/WATCH)
+  3. TRIGGER: Write action queues that downstream engines consume
+  4. HANDSHAKE: Generate ready-to-send NGO alert emails
+  5. AMPLIFY: Queue social posts for SOCIAL_PROMOTER / BLUESKY_ENGINE
+
+"SolarPunk does not observe for the sake of awareness. It monitors
+for the sake of kinetic response." — Mission Directive
+
+Feeds: EMAIL_OUTREACH (NGO handshakes), BROADCAST_PROTOCOL (channels),
+       SOCIAL_PROMOTER (amplification), BRIDGE_BUILDER (wiring)
 
 All sources are FREE. No API keys required.
 Zero secrets needed (email optional for CRITICAL alerts).
@@ -43,6 +47,8 @@ DOCS.mkdir(exist_ok=True)
 CRISIS_OUT = DATA / "crisis_signals.json"
 AID_OUT = DATA / "aid_routing.json"
 AMPLIFY_OUT = DATA / "amplification_queue.json"
+TRIGGERS_OUT = DATA / "crisis_triggers.json"       # Action queue for downstream engines
+HANDSHAKES_OUT = DATA / "ngo_handshakes.json"       # Ready-to-send NGO alert emails
 DASHBOARD = DOCS / "crisis_dashboard.html"
 HISTORY = DATA / "crisis_monitor_history.json"
 
@@ -303,14 +309,20 @@ def build_dashboard(signals, routing, amplify_count):
             <small style="color:#888;">Focus: {', '.join(org['focus'][:3])}</small>
         </div>"""
 
+    # Load triggers for dashboard
+    triggers = []
+    if TRIGGERS_OUT.exists():
+        try: triggers = json.loads(TRIGGERS_OUT.read_text()).get("triggers", [])
+        except: pass
+
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SolarPunk Crisis Monitor</title>
+<title>SolarPunk — Act Now</title>
 <style>
 body{{background:#0d1117;color:#c9d1d9;font-family:-apple-system,sans-serif;margin:0;padding:20px;max-width:900px;margin:0 auto;}}
-h1{{color:#ff6b6b;text-align:center;margin-bottom:4px;}}
+h1{{color:#00ff88;text-align:center;margin-bottom:4px;}}
 .subtitle{{text-align:center;color:#888;margin-bottom:24px;}}
 .stats{{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:20px 0;}}
 .stat{{background:#161b22;padding:14px 20px;border-radius:8px;text-align:center;min-width:100px;}}
@@ -320,28 +332,31 @@ a{{color:#58a6ff;text-decoration:none;}} a:hover{{text-decoration:underline;}}
 h2{{color:#66ccff;border-bottom:1px solid #333;padding-bottom:6px;margin-top:32px;}}
 .orgs{{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}}
 .footer{{text-align:center;margin-top:40px;padding:20px;color:#555;font-size:13px;border-top:1px solid #222;}}
+.action{{background:#0a2e1a;border-left:4px solid #00ff88;padding:12px;margin:8px 0;border-radius:4px;}}
 </style>
 </head>
 <body>
-<h1>SolarPunk Crisis Monitor</h1>
-<p class="subtitle">Last scan: {ts} | Protecting the silenced</p>
+<h1>SolarPunk — Act Now</h1>
+<p class="subtitle">Last scan: {ts} | Action over observation</p>
 <p style="text-align:center;color:#aaa;max-width:600px;margin:0 auto 20px;font-size:14px;">
-Real-time monitoring of humanitarian crises worldwide. When people are being silenced,
-censored, bombed, and starved — this system tracks it and connects you to action.
+This system doesn't watch. It triggers action. Every signal fires downstream engines
+that alert NGOs, amplify silenced voices, and route aid to where it's needed.
 </p>
 <div class="stats">
+<div class="stat"><div class="n aid">{len(triggers)}</div>TRIGGERS</div>
+<div class="stat"><div class="n tot">{amplify_count}</div>POSTS QUEUED</div>
+<div class="stat"><div class="n hi">{len(routing)}</div>AID ROUTES</div>
 <div class="stat"><div class="n crit">{len(critical)}</div>CRITICAL</div>
-<div class="stat"><div class="n hi">{len(high)}</div>HIGH</div>
-<div class="stat"><div class="n tot">{len(signals)}</div>SIGNALS</div>
-<div class="stat"><div class="n aid">{amplify_count}</div>SHARE-READY</div>
 </div>
-<h2>Active Alerts</h2>
-{alerts_html or '<p style="color:#666;">Scanning... run CRISIS_MONITOR to populate.</p>'}
+<h2>Actions Triggered</h2>
+{"".join(f'<div class="action"><strong style="color:#00ff88;">' + t.get("action","") + '</strong> → ' + ", ".join(t.get("target_engines",[])) + '<br><small style="color:#ccc;">' + t.get("signal","")[:120] + '</small></div>' for t in triggers[:15]) or '<p style="color:#666;">No triggers fired this cycle.</p>'}
+<h2>Where to Help NOW</h2>
+{alerts_html or '<p style="color:#666;">No active signals.</p>'}
 <h2>Verified Aid Organizations</h2>
 <div class="orgs">{org_cards}</div>
 <div class="footer">
-<p><strong>SolarPunk Crisis Monitor</strong> | Open Source | MIT License</p>
-<p>This system exists to amplify voices being silenced. Share widely.</p>
+<p><strong>SolarPunk Action Monitor</strong> | Open Source | MIT Licensed</p>
+<p>This system triggers action, not observation. Every signal fires a response.</p>
 <p><a href="https://github.com/Meekoshy/meeko-nerve-center">Source</a> |
 <a href="index.html">Main Dashboard</a></p>
 </div>
@@ -375,6 +390,194 @@ def email_critical(signals):
         print(f"  CRITICAL ALERT emailed ({len(critical)} signals)")
     except Exception as e:
         print(f"  Email error: {e}")
+
+
+# ── Action Triggers ─────────────────────────────────────────────────────────
+# These write files that downstream engines (EMAIL_OUTREACH, BROADCAST_PROTOCOL,
+# SOCIAL_PROMOTER, BRIDGE_BUILDER) pick up and ACT on.
+
+TRIGGER_MAP = {
+    "internet shutdown": {
+        "engines": ["BROADCAST_PROTOCOL", "SOCIAL_PROMOTER", "BLUESKY_ENGINE"],
+        "action": "AMPLIFY_BEFORE_BLACKOUT",
+        "message": "Internet shutdown detected. Push all cached signals to every channel NOW before the blackout spreads.",
+    },
+    "aid blocked": {
+        "engines": ["EMAIL_OUTREACH", "BROADCAST_PROTOCOL"],
+        "action": "NGO_HANDSHAKE",
+        "message": "Aid blockade detected. Fire handshake emails to all matched NGOs with GPS/source data.",
+    },
+    "media blackout": {
+        "engines": ["SOCIAL_PROMOTER", "BLUESKY_ENGINE", "BROADCAST_PROTOCOL"],
+        "action": "COUNTER_CENSORSHIP",
+        "message": "Media blackout detected. Amplify last known signals across all decentralized channels.",
+    },
+    "genocide": {
+        "engines": ["EMAIL_OUTREACH", "BROADCAST_PROTOCOL", "SOCIAL_PROMOTER"],
+        "action": "MAXIMUM_ALERT",
+        "message": "Genocide signal detected. All channels fire. All NGO handshakes send. Maximum amplification.",
+    },
+    "famine": {
+        "engines": ["EMAIL_OUTREACH"],
+        "action": "NGO_HANDSHAKE",
+        "message": "Famine/starvation signal. Route to WFP, Action Against Hunger, Direct Relief.",
+    },
+    "journalist killed": {
+        "engines": ["SOCIAL_PROMOTER", "BROADCAST_PROTOCOL"],
+        "action": "PRESS_FREEDOM_ALERT",
+        "message": "Journalist killed/arrested. Alert CPJ, RSF. Amplify their last report.",
+    },
+}
+
+# NGO handshake email templates — zero-secret, ready to send
+NGO_HANDSHAKE_TEMPLATES = {
+    "aid_blockade": {
+        "subject": "Automated Alert: Aid Blockade Detected — {region}",
+        "body": """Dear {org_name},
+
+This is an automated humanitarian alert from SolarPunk, an open-source crisis monitoring system.
+
+SIGNAL DETECTED: Aid blockade in {region}
+SOURCE: {source} (verified by {origin})
+TIMESTAMP: {timestamp}
+DETAILS: {title}
+
+We are flagging this because your organization ({org_name}) has demonstrated
+capacity to respond to this type of crisis.
+
+SOURCE DATA: {url}
+
+This alert was generated automatically by SolarPunk's CRISIS_MONITOR engine,
+which scans ReliefWeb (OCHA), GDELT, and ground-level reports for humanitarian
+emergencies. No human reviewed this specific alert before sending.
+
+If this is not relevant to your operations, we apologize for the noise.
+To stop receiving these alerts, reply with UNSUBSCRIBE.
+
+In solidarity,
+SolarPunk Humanitarian Monitor
+https://github.com/Meekoshy/meeko-nerve-center
+Open source. Zero gatekeeping. MIT licensed.""",
+    },
+    "internet_shutdown": {
+        "subject": "URGENT: Internet Shutdown Detected — {region}",
+        "body": """Dear {org_name},
+
+CRITICAL ALERT: Internet/communications shutdown detected in {region}.
+
+SOURCE: {source}
+DETAILS: {title}
+URL: {url}
+
+When communications go dark, evidence disappears. We are pushing this
+signal to every available channel before the blackout spreads.
+
+Your organization's expertise in {focus} may be critical right now.
+
+If you have contacts on the ground or can verify this signal, any
+confirmation helps the humanitarian community respond faster.
+
+SolarPunk Humanitarian Monitor
+https://github.com/Meekoshy/meeko-nerve-center""",
+    },
+    "general_crisis": {
+        "subject": "Humanitarian Alert: {urgency} Signal — {region}",
+        "body": """Dear {org_name},
+
+SolarPunk has detected a {urgency} humanitarian signal:
+
+{title}
+
+SOURCE: {source} via {origin}
+URL: {url}
+TIMESTAMP: {timestamp}
+
+Matched to your organization based on focus area: {focus}.
+
+We route these signals to organizations that can act. If you are
+already responding to this situation, this confirms independent
+detection from our monitoring system.
+
+SolarPunk Humanitarian Monitor
+Open source crisis detection — https://github.com/Meekoshy/meeko-nerve-center""",
+    },
+}
+
+
+def build_triggers(signals):
+    """Generate action triggers for downstream engines."""
+    triggers = []
+    for s in signals:
+        if s.get("urgency") not in ["CRITICAL", "HIGH"]:
+            continue
+        text = s.get("title", "").lower()
+        fired = set()
+        for keyword, trigger_spec in TRIGGER_MAP.items():
+            if keyword in text and trigger_spec["action"] not in fired:
+                triggers.append({
+                    "signal": s.get("title", "")[:150],
+                    "urgency": s["urgency"],
+                    "keyword_match": keyword,
+                    "action": trigger_spec["action"],
+                    "target_engines": trigger_spec["engines"],
+                    "message": trigger_spec["message"],
+                    "source_url": s.get("url", ""),
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                })
+                fired.add(trigger_spec["action"])
+    return triggers
+
+
+def build_ngo_handshakes(signals):
+    """Generate ready-to-send NGO handshake emails from crisis signals."""
+    handshakes = []
+    seen_orgs = set()
+    for s in signals:
+        if s.get("urgency") not in ["CRITICAL", "HIGH"]:
+            continue
+        orgs = match_aid_orgs(s.get("title", "") + " " + json.dumps(s.get("countries", [])))
+        text_lower = s.get("title", "").lower()
+
+        # Pick template
+        if "shutdown" in text_lower or "blackout" in text_lower:
+            template_key = "internet_shutdown"
+        elif "blocked" in text_lower or "blockade" in text_lower:
+            template_key = "aid_blockade"
+        else:
+            template_key = "general_crisis"
+
+        template = NGO_HANDSHAKE_TEMPLATES[template_key]
+        region = ", ".join(s.get("countries", [])) or "Unknown Region"
+
+        for org in orgs:
+            org_key = org["key"] + "|" + s.get("title", "")[:50]
+            if org_key in seen_orgs:
+                continue
+            seen_orgs.add(org_key)
+
+            org_info = AID_ORGS.get(org["key"], {})
+            handshakes.append({
+                "org_key": org["key"],
+                "org_name": org["name"],
+                "template": template_key,
+                "subject": template["subject"].format(
+                    region=region, org_name=org["name"],
+                    urgency=s["urgency"]
+                ),
+                "body": template["body"].format(
+                    org_name=org["name"], region=region,
+                    source=s.get("origin", ""), origin=s.get("origin", ""),
+                    timestamp=s.get("date", datetime.now(timezone.utc).isoformat()),
+                    title=s.get("title", ""), url=s.get("url", "N/A"),
+                    urgency=s["urgency"],
+                    focus=", ".join(org_info.get("focus", ["humanitarian"])),
+                ),
+                "urgency": s["urgency"],
+                "signal": s.get("title", "")[:150],
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "status": "QUEUED",
+            })
+    return handshakes
 
 
 # ── Main ────────────────────────────────────────────────────────────────────
@@ -415,7 +618,29 @@ def main():
     # Build amplification queue
     posts = build_amplification(all_signals)
 
-    # Write outputs
+    # Build action triggers — these fire downstream engines
+    print("\n[4/6] Building action triggers...")
+    triggers = build_triggers(all_signals)
+    TRIGGERS_OUT.write_text(json.dumps({
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "triggers": triggers, "count": len(triggers),
+        "target_engines": list(set(
+            eng for t in triggers for eng in t.get("target_engines", [])
+        )),
+    }, indent=2))
+    print(f"    {len(triggers)} triggers fired -> {len(set(e for t in triggers for e in t['target_engines']))} engines targeted")
+
+    # Build NGO handshake emails — ready for EMAIL_OUTREACH to send
+    print("\n[5/6] Building NGO handshake emails...")
+    handshakes = build_ngo_handshakes(all_signals)
+    HANDSHAKES_OUT.write_text(json.dumps({
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "handshakes": handshakes, "count": len(handshakes),
+        "orgs_targeted": list(set(h["org_key"] for h in handshakes)),
+    }, indent=2))
+    print(f"    {len(handshakes)} handshake emails queued for {len(set(h['org_key'] for h in handshakes))} orgs")
+
+    # Write core outputs
     CRISIS_OUT.write_text(json.dumps({
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "total": len(all_signals), "by_urgency": counts,
@@ -432,7 +657,8 @@ def main():
         "posts": posts, "count": len(posts),
     }, indent=2))
 
-    # Dashboard
+    # Dashboard — action-focused, not horror-focused
+    print("\n[6/6] Building action dashboard...")
     build_dashboard(all_signals, routing, len(posts))
 
     # Update history
@@ -444,20 +670,20 @@ def main():
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "total": len(all_signals), "critical": counts.get("CRITICAL", 0),
         "high": counts.get("HIGH", 0),
+        "triggers_fired": len(triggers), "handshakes_queued": len(handshakes),
     })
     HISTORY.write_text(json.dumps(history[-200:], indent=2))
 
-    # Email critical alerts
+    # Email critical alerts to Meeko
     email_critical(all_signals)
 
     print(f"\n{'='*60}")
-    print(f"CRISIS MONITOR COMPLETE")
-    print(f"  CRITICAL: {counts.get('CRITICAL',0)}")
-    print(f"  HIGH:     {counts.get('HIGH',0)}")
-    print(f"  ELEVATED: {counts.get('ELEVATED',0)}")
-    print(f"  WATCH:    {counts.get('WATCH',0)}")
-    print(f"  Aid routes: {len(routing)} | Share-ready posts: {len(posts)}")
-    print(f"  Dashboard: {DASHBOARD}")
+    print(f"CRISIS MONITOR — ACTION REPORT")
+    print(f"  Signals:    {len(all_signals)} (CRIT:{counts.get('CRITICAL',0)} HIGH:{counts.get('HIGH',0)})")
+    print(f"  Triggers:   {len(triggers)} fired -> downstream engines")
+    print(f"  Handshakes: {len(handshakes)} NGO emails queued")
+    print(f"  Amplify:    {len(posts)} social posts ready")
+    print(f"  Aid routes: {len(routing)} crisis->org bridges")
     print(f"{'='*60}")
 
 
