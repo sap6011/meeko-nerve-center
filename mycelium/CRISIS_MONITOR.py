@@ -1,0 +1,465 @@
+#!/usr/bin/env python3
+"""
+CRISIS_MONITOR.py — Humanitarian Crisis Detection & Alert Engine
+================================================================
+SolarPunk exists to help, save, and protect people being silenced,
+censored, bombed, starved, and subjected to war crimes and genocide.
+
+This engine is the dedicated humanitarian eye. It:
+  1. Monitors ReliefWeb (OCHA) — authoritative UN humanitarian reports
+  2. Monitors GDELT — global event database for crisis detection
+  3. Monitors crisis subreddits — ground-level signals from affected people
+  4. Scores urgency — is this an active massacre? internet shutdown? aid cutoff?
+  5. Maps signals to aid organizations — who can help RIGHT NOW
+  6. Generates amplification content — ready-to-share posts
+  7. Builds a live crisis dashboard on GitHub Pages
+  8. Emails CRITICAL alerts to Meeko immediately
+
+Urgency levels:
+  CRITICAL — Active killing, internet shutdown, people disappearing NOW
+  HIGH     — Aid blocked, journalist arrested, ceasefire violation
+  ELEVATED — New displacement, escalating rhetoric, sanctions news
+  WATCH    — Ongoing situations, slow-burn crises
+
+Feeds: BRIDGE_BUILDER (aid routing), OUTREACH_ENGINE (org contacts),
+       SOCIAL_PROMOTER (amplification), BROADCAST_PROTOCOL (distribution)
+
+All sources are FREE. No API keys required.
+Zero secrets needed (email optional for CRITICAL alerts).
+"""
+import json
+import os
+import smtplib
+import time
+from pathlib import Path
+from datetime import datetime, timezone
+from email.mime.text import MIMEText
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+DOCS = Path("docs")
+DOCS.mkdir(exist_ok=True)
+
+CRISIS_OUT = DATA / "crisis_signals.json"
+AID_OUT = DATA / "aid_routing.json"
+AMPLIFY_OUT = DATA / "amplification_queue.json"
+DASHBOARD = DOCS / "crisis_dashboard.html"
+HISTORY = DATA / "crisis_monitor_history.json"
+
+HEADERS = {"User-Agent": "SolarPunk/3.0 (humanitarian-crisis-monitor; open-source)"}
+
+# ── Crisis detection vocabulary ─────────────────────────────────────────────
+CRITICAL_TERMS = {
+    "genocide": 10, "ethnic cleansing": 10, "mass killing": 10,
+    "internet shutdown": 9, "communications blackout": 9,
+    "bombing hospital": 9, "bombing school": 9, "bombing refugee": 9,
+    "mass graves": 9, "forced starvation": 9, "siege": 8,
+    "aid blocked": 8, "humanitarian corridor closed": 8,
+    "journalist killed": 8, "media blackout": 8,
+    "disappeared": 7, "collective punishment": 7,
+    "civilian casualties": 7, "forced displacement": 7,
+    "famine": 8, "starvation": 8, "war crime": 8,
+    "apartheid": 7, "occupation": 6, "blockade": 7,
+    "chemical weapons": 10, "cluster munitions": 9,
+    "white phosphorus": 9, "extrajudicial": 8,
+}
+
+CRISIS_REGIONS = {
+    "gaza": 15, "palestine": 12, "sudan": 12, "darfur": 12,
+    "congo": 10, "drc": 10, "yemen": 10, "myanmar": 8,
+    "uyghur": 8, "xinjiang": 8, "tigray": 8, "ethiopia": 7,
+    "syria": 7, "ukraine": 7, "haiti": 7, "somalia": 8,
+    "afghanistan": 7, "rohingya": 8, "west bank": 10,
+    "rafah": 12, "khan younis": 12, "jabalia": 12,
+}
+
+# ── Verified aid organizations ──────────────────────────────────────────────
+AID_ORGS = {
+    "PCRF": {"name": "Palestine Children's Relief Fund", "donate": "https://www.pcrf.net/donate",
+             "focus": ["gaza", "palestine", "children", "medical"]},
+    "MSF": {"name": "Doctors Without Borders", "donate": "https://www.msf.org/donate",
+            "focus": ["medical", "conflict", "global"]},
+    "IRC": {"name": "International Rescue Committee", "donate": "https://www.rescue.org/donate",
+            "focus": ["refugees", "displacement", "sudan", "drc"]},
+    "UNRWA": {"name": "UN Relief and Works Agency", "donate": "https://donate.unrwa.org",
+              "focus": ["palestine", "gaza", "refugees"]},
+    "UNICEF": {"name": "UNICEF", "donate": "https://www.unicef.org/donate",
+               "focus": ["children", "global", "emergency"]},
+    "WFP": {"name": "World Food Programme", "donate": "https://www.wfp.org/donate",
+            "focus": ["food", "famine", "starvation"]},
+    "CPJ": {"name": "Committee to Protect Journalists", "donate": "https://cpj.org/donate",
+            "focus": ["press freedom", "journalists", "media blackout"]},
+    "Access Now": {"name": "Access Now", "donate": "https://www.accessnow.org/donate",
+                   "focus": ["internet", "shutdown", "digital rights", "censorship"]},
+    "Direct Relief": {"name": "Direct Relief", "donate": "https://www.directrelief.org/donate",
+                      "focus": ["medical supplies", "emergency"]},
+    "ICRC": {"name": "International Committee of the Red Cross", "donate": "https://www.icrc.org/donate",
+             "focus": ["conflict", "protection", "global"]},
+}
+
+
+def score_urgency(text):
+    """Score text for crisis urgency 0-100."""
+    t = text.lower()
+    score = 0
+    for term, weight in CRITICAL_TERMS.items():
+        if term in t:
+            score += weight
+    for region, boost in CRISIS_REGIONS.items():
+        if region in t:
+            score += boost
+    return min(score, 100)
+
+
+def classify(score):
+    if score >= 25: return "CRITICAL"
+    if score >= 15: return "HIGH"
+    if score >= 8: return "ELEVATED"
+    return "WATCH"
+
+
+def match_aid_orgs(text):
+    """Find which aid organizations are relevant to this crisis signal."""
+    t = text.lower()
+    matched = []
+    for key, org in AID_ORGS.items():
+        for focus in org["focus"]:
+            if focus in t:
+                matched.append({"key": key, "name": org["name"], "donate": org["donate"]})
+                break
+    if not matched:
+        matched.append({"key": "ICRC", "name": AID_ORGS["ICRC"]["name"],
+                        "donate": AID_ORGS["ICRC"]["donate"]})
+    return matched
+
+
+# ── Source: ReliefWeb (OCHA) ────────────────────────────────────────────────
+def fetch_reliefweb(limit=15):
+    """OCHA ReliefWeb API — free, no key, authoritative humanitarian data."""
+    import requests
+    signals = []
+    try:
+        r = requests.post(
+            "https://api.reliefweb.int/v1/reports?appname=solarpunk",
+            json={
+                "limit": limit, "sort": ["date:desc"],
+                "fields": {"include": ["title", "url_alias", "source", "date", "country", "theme"]},
+                "filter": {"operator": "OR", "conditions": [
+                    {"field": "theme.name", "value": "Protection and Human Rights"},
+                    {"field": "theme.name", "value": "Food and Nutrition"},
+                    {"field": "country.name", "value": [
+                        "occupied Palestinian territory", "Sudan",
+                        "Democratic Republic of the Congo", "Yemen",
+                        "Myanmar", "Syrian Arab Republic", "Ukraine",
+                        "Somalia", "Ethiopia", "Afghanistan", "Haiti"
+                    ]},
+                ]}
+            },
+            headers=HEADERS, timeout=15
+        )
+        r.raise_for_status()
+        for item in r.json().get("data", []):
+            f = item.get("fields", {})
+            title = f.get("title", "")
+            countries = [c.get("name", "") for c in f.get("country", [])]
+            full_text = title + " " + " ".join(countries)
+            score = score_urgency(full_text)
+            signals.append({
+                "title": title,
+                "url": f"https://reliefweb.int{f.get('url_alias', '')}",
+                "date": f.get("date", {}).get("created", ""),
+                "countries": countries,
+                "source_orgs": [s.get("name", "") for s in f.get("source", [])],
+                "origin": "reliefweb",
+                "urgency_score": score, "urgency": classify(score),
+            })
+        print(f"  ReliefWeb: {len(signals)} humanitarian reports")
+    except Exception as e:
+        print(f"  ReliefWeb error: {e}")
+    return signals
+
+
+# ── Source: GDELT ───────────────────────────────────────────────────────────
+def fetch_gdelt(limit=15):
+    """GDELT Global Event Database — free crisis event monitoring."""
+    import requests
+    signals = []
+    try:
+        r = requests.get(
+            "https://api.gdeltproject.org/api/v2/doc/doc"
+            "?query=genocide OR war%20crimes OR censorship OR humanitarian%20crisis"
+            "&mode=artlist&maxrecords=" + str(limit) + "&format=json&sort=datedesc",
+            headers=HEADERS, timeout=15
+        )
+        if r.status_code == 200:
+            for art in r.json().get("articles", []):
+                title = art.get("title", "")
+                score = score_urgency(title)
+                if score >= 5:
+                    signals.append({
+                        "title": title, "url": art.get("url", ""),
+                        "date": art.get("seendate", ""), "domain": art.get("domain", ""),
+                        "origin": "gdelt",
+                        "urgency_score": score, "urgency": classify(score),
+                    })
+        print(f"  GDELT: {len(signals)} crisis articles")
+    except Exception as e:
+        print(f"  GDELT error: {e}")
+    return signals
+
+
+# ── Source: Reddit crisis subreddits ────────────────────────────────────────
+def fetch_reddit_crisis(limit=5):
+    """Monitor crisis subreddits for ground-level human signals."""
+    import requests
+    subs = ["Gaza", "Sudan", "Palestine", "HumanRights", "YemeniCrisis",
+            "Congo", "Rojava", "worldnews"]
+    signals = []
+    for sub in subs:
+        try:
+            r = requests.get(f"https://www.reddit.com/r/{sub}/hot.json?limit={limit}",
+                             headers=HEADERS, timeout=8)
+            if r.status_code == 200:
+                for c in r.json().get("data", {}).get("children", []):
+                    d = c.get("data", {})
+                    title = d.get("title", "")
+                    full_text = title + " " + d.get("selftext", "")[:300]
+                    score = score_urgency(full_text)
+                    # Always include from crisis-specific subs, or if score is high enough
+                    if sub in ["Gaza", "Sudan", "Palestine", "YemeniCrisis", "Congo"] or score >= 5:
+                        signals.append({
+                            "title": title,
+                            "url": "https://reddit.com" + d.get("permalink", ""),
+                            "score_reddit": d.get("score", 0),
+                            "subreddit": sub, "origin": "reddit",
+                            "urgency_score": score, "urgency": classify(score),
+                        })
+            time.sleep(0.4)
+        except Exception as e:
+            print(f"  Reddit r/{sub}: {e}")
+    print(f"  Reddit: {len(signals)} crisis signals from {len(subs)} subs")
+    return signals
+
+
+# ── Amplification content generator ────────────────────────────────────────
+def build_amplification(signals):
+    """Generate ready-to-share social posts from crisis signals."""
+    posts = []
+    for s in signals:
+        if s.get("urgency") not in ["CRITICAL", "HIGH"]:
+            continue
+        title = s.get("title", "")[:200]
+        url = s.get("url", "")
+        orgs = match_aid_orgs(title + " " + json.dumps(s.get("countries", [])))
+        org_names = [o["name"] for o in orgs[:3]]
+        donate_links = [o["donate"] for o in orgs[:2]]
+
+        posts.append({
+            "text": title,
+            "url": url,
+            "urgency": s["urgency"],
+            "aid_orgs": org_names,
+            "donate_links": donate_links,
+            "platforms": {
+                "twitter": f"{title[:220]}\n\nHelp: {donate_links[0] if donate_links else ''}" if url else title[:280],
+                "bluesky": f"{title[:250]}\n\nAid: {', '.join(org_names[:2])}",
+            },
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+        })
+    return posts
+
+
+# ── Crisis dashboard (GitHub Pages) ────────────────────────────────────────
+def build_dashboard(signals, routing, amplify_count):
+    """Generate a live crisis dashboard HTML."""
+    critical = [s for s in signals if s.get("urgency") == "CRITICAL"]
+    high = [s for s in signals if s.get("urgency") == "HIGH"]
+    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+
+    alerts_html = ""
+    for s in (critical + high)[:25]:
+        color = "#ff0000" if s["urgency"] == "CRITICAL" else "#ff6600"
+        url = s.get("url", "")
+        link = f'<a href="{url}" target="_blank" style="color:#58a6ff;">[source]</a>' if url else ""
+        orgs = match_aid_orgs(s.get("title", "") + " " + json.dumps(s.get("countries", [])))
+        orgs_html = " &middot; ".join(
+            f'<a href="{o["donate"]}" target="_blank" style="color:#00ff88;">{o["name"]}</a>'
+            for o in orgs[:3]
+        )
+        alerts_html += f"""
+        <div style="border-left:4px solid {color};padding:12px;margin:8px 0;background:#161b22;border-radius:4px;">
+            <span style="background:{color};color:white;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:bold;">{s['urgency']}</span>
+            <strong style="color:#eee;margin-left:8px;">{s.get('title','')[:160]}</strong> {link}<br>
+            <small style="color:#888;">Source: {s.get('origin','')} | Score: {s.get('urgency_score',0)}/100</small><br>
+            <small>Help: {orgs_html}</small>
+        </div>"""
+
+    org_cards = ""
+    for key, org in AID_ORGS.items():
+        org_cards += f"""
+        <div style="background:#161b22;padding:12px;border-radius:8px;">
+            <strong style="color:#eee;">{org['name']}</strong><br>
+            <a href="{org['donate']}" target="_blank" style="color:#00ff88;font-weight:bold;">DONATE</a><br>
+            <small style="color:#888;">Focus: {', '.join(org['focus'][:3])}</small>
+        </div>"""
+
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SolarPunk Crisis Monitor</title>
+<style>
+body{{background:#0d1117;color:#c9d1d9;font-family:-apple-system,sans-serif;margin:0;padding:20px;max-width:900px;margin:0 auto;}}
+h1{{color:#ff6b6b;text-align:center;margin-bottom:4px;}}
+.subtitle{{text-align:center;color:#888;margin-bottom:24px;}}
+.stats{{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:20px 0;}}
+.stat{{background:#161b22;padding:14px 20px;border-radius:8px;text-align:center;min-width:100px;}}
+.stat .n{{font-size:2em;font-weight:bold;}}
+.crit{{color:#ff0000;}} .hi{{color:#ff6600;}} .tot{{color:#ffcc00;}} .aid{{color:#00ff88;}}
+a{{color:#58a6ff;text-decoration:none;}} a:hover{{text-decoration:underline;}}
+h2{{color:#66ccff;border-bottom:1px solid #333;padding-bottom:6px;margin-top:32px;}}
+.orgs{{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}}
+.footer{{text-align:center;margin-top:40px;padding:20px;color:#555;font-size:13px;border-top:1px solid #222;}}
+</style>
+</head>
+<body>
+<h1>SolarPunk Crisis Monitor</h1>
+<p class="subtitle">Last scan: {ts} | Protecting the silenced</p>
+<p style="text-align:center;color:#aaa;max-width:600px;margin:0 auto 20px;font-size:14px;">
+Real-time monitoring of humanitarian crises worldwide. When people are being silenced,
+censored, bombed, and starved — this system tracks it and connects you to action.
+</p>
+<div class="stats">
+<div class="stat"><div class="n crit">{len(critical)}</div>CRITICAL</div>
+<div class="stat"><div class="n hi">{len(high)}</div>HIGH</div>
+<div class="stat"><div class="n tot">{len(signals)}</div>SIGNALS</div>
+<div class="stat"><div class="n aid">{amplify_count}</div>SHARE-READY</div>
+</div>
+<h2>Active Alerts</h2>
+{alerts_html or '<p style="color:#666;">Scanning... run CRISIS_MONITOR to populate.</p>'}
+<h2>Verified Aid Organizations</h2>
+<div class="orgs">{org_cards}</div>
+<div class="footer">
+<p><strong>SolarPunk Crisis Monitor</strong> | Open Source | MIT License</p>
+<p>This system exists to amplify voices being silenced. Share widely.</p>
+<p><a href="https://github.com/Meekoshy/meeko-nerve-center">Source</a> |
+<a href="index.html">Main Dashboard</a></p>
+</div>
+</body>
+</html>"""
+    DASHBOARD.write_text(html)
+
+
+# ── Email CRITICAL alerts ──────────────────────────────────────────────────
+def email_critical(signals):
+    """Email Meeko immediately when CRITICAL signals detected."""
+    critical = [s for s in signals if s.get("urgency") == "CRITICAL"]
+    gmail = os.environ.get("GMAIL_ADDRESS", "")
+    gpass = os.environ.get("GMAIL_APP_PASSWORD", "")
+    if not critical or not gmail or not gpass:
+        return
+    body = f"CRISIS MONITOR — {len(critical)} CRITICAL SIGNALS\n{'='*50}\n\n"
+    for i, s in enumerate(critical[:10], 1):
+        orgs = match_aid_orgs(s.get("title", ""))
+        body += f"[{i}] {s.get('title','')[:150]}\n"
+        body += f"    Score: {s.get('urgency_score',0)}/100 | Source: {s.get('origin','')}\n"
+        body += f"    URL: {s.get('url','N/A')}\n"
+        body += f"    Aid: {', '.join(o['name'] for o in orgs[:3])}\n\n"
+    body += "\nACTION: Share these signals. Contact listed orgs. Document everything.\n— SolarPunk Crisis Monitor"
+    try:
+        msg = MIMEText(body)
+        msg["Subject"] = f"CRISIS ALERT — {len(critical)} critical signals"
+        msg["From"] = gmail; msg["To"] = gmail
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+            s.login(gmail, gpass); s.send_message(msg)
+        print(f"  CRITICAL ALERT emailed ({len(critical)} signals)")
+    except Exception as e:
+        print(f"  Email error: {e}")
+
+
+# ── Main ────────────────────────────────────────────────────────────────────
+def main():
+    print("=" * 60)
+    print("CRISIS_MONITOR — Humanitarian Alert Engine")
+    print(f"  {datetime.now(timezone.utc).isoformat()}")
+    print("  Scanning for people being silenced, bombed, starved...")
+    print("=" * 60)
+
+    all_signals = []
+
+    print("\n[1/3] ReliefWeb — OCHA humanitarian reports")
+    all_signals.extend(fetch_reliefweb(limit=15))
+
+    print("\n[2/3] GDELT — global crisis events")
+    all_signals.extend(fetch_gdelt(limit=15))
+
+    print("\n[3/3] Reddit — ground-level crisis signals")
+    all_signals.extend(fetch_reddit_crisis(limit=5))
+
+    # Sort by urgency
+    all_signals.sort(key=lambda x: x.get("urgency_score", 0), reverse=True)
+
+    counts = {}
+    for s in all_signals:
+        u = s["urgency"]
+        counts[u] = counts.get(u, 0) + 1
+
+    # Build aid routing
+    routing = []
+    for s in all_signals:
+        if s["urgency"] in ["CRITICAL", "HIGH"]:
+            orgs = match_aid_orgs(s.get("title", "") + " " + json.dumps(s.get("countries", [])))
+            routing.append({"signal": s["title"][:150], "urgency": s["urgency"],
+                            "orgs": [{"name": o["name"], "donate": o["donate"]} for o in orgs]})
+
+    # Build amplification queue
+    posts = build_amplification(all_signals)
+
+    # Write outputs
+    CRISIS_OUT.write_text(json.dumps({
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "total": len(all_signals), "by_urgency": counts,
+        "signals": all_signals[:100],
+    }, indent=2))
+
+    AID_OUT.write_text(json.dumps({
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "routes": routing, "count": len(routing),
+    }, indent=2))
+
+    AMPLIFY_OUT.write_text(json.dumps({
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "posts": posts, "count": len(posts),
+    }, indent=2))
+
+    # Dashboard
+    build_dashboard(all_signals, routing, len(posts))
+
+    # Update history
+    history = []
+    if HISTORY.exists():
+        try: history = json.loads(HISTORY.read_text())
+        except: pass
+    history.append({
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "total": len(all_signals), "critical": counts.get("CRITICAL", 0),
+        "high": counts.get("HIGH", 0),
+    })
+    HISTORY.write_text(json.dumps(history[-200:], indent=2))
+
+    # Email critical alerts
+    email_critical(all_signals)
+
+    print(f"\n{'='*60}")
+    print(f"CRISIS MONITOR COMPLETE")
+    print(f"  CRITICAL: {counts.get('CRITICAL',0)}")
+    print(f"  HIGH:     {counts.get('HIGH',0)}")
+    print(f"  ELEVATED: {counts.get('ELEVATED',0)}")
+    print(f"  WATCH:    {counts.get('WATCH',0)}")
+    print(f"  Aid routes: {len(routing)} | Share-ready posts: {len(posts)}")
+    print(f"  Dashboard: {DASHBOARD}")
+    print(f"{'='*60}")
+
+
+if __name__ == "__main__":
+    main()

@@ -3,9 +3,15 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v24 — NANOSHOPS + PASSIVE INCOME ARCHITECT + DIGEST FIXED
-=================================================================
-New in v24:
+OMNIBUS v25 — CRISIS_MONITOR + WORKTREE_ANCHOR
+================================================
+New in v25:
+  CRISIS_MONITOR         (L1) — humanitarian crisis detection, ReliefWeb/GDELT/Reddit
+                                 crisis_signals.json, aid_routing.json, crisis_dashboard.html
+  WORKTREE_ANCHOR        (L0) — stamps ground truth to prevent Claude session desync
+  CONTENT_HARVESTER      (L1) — now includes ReliefWeb + crisis subreddits
+
+Previous in v24:
   NANOSHOP_ENGINE        (L4) — generates embeddable 1-click purchase widgets
                                  docs/nanoshop.js + docs/ns/{id}.html + embed.html
   PASSIVE_INCOME_ARCHITECT(L6)— invents new income streams using real capabilities
@@ -203,6 +209,7 @@ def L0():
     eng("AGENT_LINK_VERIFIER",timeout=60)
     eng("PLUGIN_REGISTRY",    timeout=60)
     eng("REVENUE_AUDIT",      timeout=60)
+    eng("WORKTREE_ANCHOR",    timeout=30)   # v25: stamps ground truth to prevent session desync
     save_ctx()
 
 
@@ -212,6 +219,7 @@ def L1():
     eng("SCAM_SHIELD",        timeout=60)
     eng("CALENDAR_BRAIN",     timeout=30)
     eng("CONTENT_HARVESTER",  timeout=90)
+    eng("CRISIS_MONITOR",     timeout=120)  # v25: humanitarian crisis detection + aid routing
     eng("AI_WATCHER",         timeout=60)
     eng("CRYPTO_WATCHER",     timeout=60)
     eng("FREE_API_ENGINE",    timeout=60)

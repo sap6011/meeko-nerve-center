@@ -9,9 +9,11 @@ Uses only FREE public APIs (no keys required):
   - Reddit JSON       (community pulse — no auth, .json suffix)
   - Open-Meteo        (free weather for eco/climate content)
   - DEV.to API        (free tech articles)
+  - ReliefWeb API     (OCHA humanitarian crisis reports — FREE)
+  - Reddit crisis subs (Gaza, Sudan, Palestine, HumanRights)
 
 Writes: data/content_harvest.json
-Output feeds NEURON_A (what to write about) + social posting engines.
+Output feeds NEURON_A (what to write about) + social posting engines + CRISIS_MONITOR.
 """
 import json, requests, time
 from pathlib import Path
@@ -40,9 +42,45 @@ def fetch_hackernews(limit=5):
         print(f"  HN error: {e}")
         return []
 
+def fetch_reliefweb_crisis(limit=10):
+    """ReliefWeb (OCHA) — authoritative humanitarian crisis reports. Free, no key."""
+    signals = []
+    try:
+        r = requests.post(
+            "https://api.reliefweb.int/v1/reports?appname=solarpunk",
+            json={
+                "limit": limit, "sort": ["date:desc"],
+                "fields": {"include": ["title", "url_alias", "date", "country"]},
+                "filter": {"operator": "OR", "conditions": [
+                    {"field": "theme.name", "value": "Protection and Human Rights"},
+                    {"field": "theme.name", "value": "Food and Nutrition"},
+                    {"field": "country.name", "value": [
+                        "occupied Palestinian territory", "Sudan",
+                        "Democratic Republic of the Congo", "Yemen",
+                        "Myanmar", "Somalia", "Ethiopia", "Haiti"
+                    ]},
+                ]}
+            },
+            headers=HEADERS, timeout=15
+        )
+        r.raise_for_status()
+        for item in r.json().get("data", []):
+            f = item.get("fields", {})
+            signals.append({
+                "title": f.get("title", ""),
+                "url": f"https://reliefweb.int{f.get('url_alias', '')}",
+                "countries": [c.get("name", "") for c in f.get("country", [])],
+                "source": "reliefweb", "crisis": True,
+            })
+        print(f"  ReliefWeb: {len(signals)} humanitarian reports")
+    except Exception as e:
+        print(f"  ReliefWeb error: {e}")
+    return signals
+
 def fetch_reddit_json(subreddits=None, limit=3):
     if subreddits is None:
-        subreddits = ["solarpunk", "Gaza", "technology", "ArtificialIntelligence"]
+        subreddits = ["solarpunk", "Gaza", "Sudan", "Palestine", "HumanRights",
+                       "technology", "ArtificialIntelligence"]
     posts = []
     for sub in subreddits:
         try:
@@ -129,13 +167,15 @@ def main():
     hn = fetch_hackernews(limit=5)
     reddit = fetch_reddit_json()
     devto = fetch_devto(tag="opensource", limit=4)
+    reliefweb = fetch_reliefweb_crisis(limit=10)
     weather = fetch_weather_vibe()
-    all_content = hn + reddit + devto
+    all_content = hn + reddit + devto + reliefweb
     themes = distill_themes(all_content)
     angles = generate_content_angles(themes, hn, reddit)
-    harvest = {"timestamp": ts, "sources": {"hackernews": hn, "reddit": reddit, "devto": devto},
-        "gaza_weather": weather, "trending_themes": themes, "content_angles": angles,
-        "total_items": len(all_content), "status": "harvested"}
+    harvest = {"timestamp": ts, "sources": {"hackernews": hn, "reddit": reddit, "devto": devto,
+        "reliefweb": reliefweb}, "gaza_weather": weather, "trending_themes": themes,
+        "content_angles": angles, "total_items": len(all_content),
+        "crisis_items": len(reliefweb), "status": "harvested"}
     OUT.write_text(json.dumps(harvest, indent=2))
     print(f"Harvested {len(all_content)} items -> {len(angles)} content angles")
     if angles:
