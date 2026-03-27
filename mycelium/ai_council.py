@@ -271,7 +271,7 @@ RETURN ONLY valid JSON — nothing else, no preamble, no markdown fences:
 
 def call_analyst(context_str):
     if not os.getenv("ANTHROPIC_API_KEY"):
-        print("os.getenv("ANTHROPIC_API_KEY") not set")
+        print("ANTHROPIC_API_KEY not set")
         sys.exit(1)
     print("  🔬 ANALYST reading system...")
     r = requests.post(

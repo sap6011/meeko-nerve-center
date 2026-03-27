@@ -28,8 +28,8 @@ DATA_DIR = MYCELIUM.parent / "data"
 CORRUPTION_PATTERNS = [
     # os.getenv nesting — the #1 recurring bug
     (r'os\.getenv\(\s*["\']os\.getenv', "os.getenv nesting (recursive SIA corruption)"),
-    # Bare os.getenv("ANTHROPIC_API_KEY") as variable (not in string, not as getenv arg)
-    (r'(?<!["\'])(?<!getenv\(["\'])os.getenv("ANTHROPIC_API_KEY")\s*=\s*os.getenv("ANTHROPIC_API_KEY")', "bare os.getenv("ANTHROPIC_API_KEY") self-assignment"),
+    # Bare ANTHROPIC_API_KEY self-assignment
+    (r'ANTHROPIC_API_KEY\s*=\s*ANTHROPIC_API_KEY', "bare ANTHROPIC_API_KEY self-assignment"),
     # PowerShell in Python files
     (r'^\$[A-Z][a-zA-Z]+\s*=\s*', "PowerShell variable assignment in Python file"),
     (r'^Write-Host\s', "PowerShell Write-Host in Python file"),

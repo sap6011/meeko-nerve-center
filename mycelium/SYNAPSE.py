@@ -51,8 +51,8 @@ def call_claude(stats, a_report, b_report):
         return {
             "health_score": score,
             "top_actions": [o.get("action","") for o in a_report.get("opportunities",[])[:3]],
-            "synthesis": f"{stats['engines_total']} engines running, {stats['cycles']} autonomous cycles done. First priority: add os.getenv("ANTHROPIC_API_KEY")",
-            "next_run_priority": b_report.get("refined_priority", "Add os.getenv("ANTHROPIC_API_KEY")"),
+            "synthesis": f"{stats['engines_total']} engines running, {stats['cycles']} autonomous cycles done. First priority: add ANTHROPIC_API_KEY",
+            "next_run_priority": b_report.get("refined_priority", "Add ANTHROPIC_API_KEY"),
             "passive_income_progress": "Gaza Rose Gallery tracking active. GitHub Sponsors setup pending. Newsletter idea queued.",
             "meeko_headline": f"{stats['engines_total']} engines autonomous"
         }

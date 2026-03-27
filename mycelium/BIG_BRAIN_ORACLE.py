@@ -132,7 +132,7 @@ def run():
     now = datetime.now(timezone.utc).isoformat()
 
     if not ANTHROPIC_KEY:
-        print("  os.getenv("ANTHROPIC_API_KEY") not set")
+        print("  ANTHROPIC_API_KEY not set")
         (DATA / "oracle_state.json").write_text(json.dumps({"last_run": now, "status": "no_key"}, indent=2))
         return
 
