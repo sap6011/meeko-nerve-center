@@ -1,0 +1,115 @@
+{
+  "timestamp": "2026-03-27T03:44:16.107258+00:00",
+  "flock_energy": 0.45,
+  "engines_reporting": 4,
+  "hot_engines": [
+    "SENTINEL",
+    "SCAM_SHIELD"
+  ],
+  "cold_engines": [
+    "OMNIBRAIN",
+    "EMAIL_BRAIN"
+  ],
+  "hot_edges": [
+    [
+      "OMNIBRAIN",
+      "BRIEFING_ENGINE"
+    ],
+    [
+      "OMNIBRAIN",
+      "HEALTH_BOOSTER"
+    ],
+    [
+      "EMAIL_BRAIN",
+      "BRIEFING_ENGINE"
+    ]
+  ],
+  "consensus_focus": "integrity",
+  "focus_votes": {
+    "integrity": 1.0,
+    "general": 0.8
+  },
+  "murmur_message": [
+    "Flock is steady \u2014 maintain current trajectory"
+  ],
+  "mutation_weights": {
+    "SCAM_SHIELD.py": 0.8,
+    "BRIEFING_ENGINE.py": 0.5,
+    "HEALTH_BOOSTER.py": 0.5,
+    "AFFILIATE_MAXIMIZER.py": 0.1,
+    "AGENT_GUMROAD_BUILDER.py": 0.1,
+    "AGENT_LINK_VERIFIER.py": 0.1,
+    "AGENT_TWEET_WRITER.py": 0.1,
+    "AI_CLIENT.py": 0.1,
+    "AI_WATCHER.py": 0.1,
+    "ANALYTICS_ENGINE.py": 0.1,
+    "ARCHITECT.py": 0.1,
+    "ART_CATALOG.py": 0.1,
+    "ART_GENERATOR.py": 0.1,
+    "AUTONOMOUS_PUBLISHER.py": 0.1,
+    "AUTONOMOUS_TESTER.py": 0.1,
+    "AUTONOMY_PROOF.py": 0.1,
+    "AUTO_ARCHITECT.py": 0.1,
+    "AUTO_DOCS.py": 0.1,
+    "AUTO_HEALER.py": 0.1,
+    "AUTO_RUNNER.py": 0.1,
+    "BIG_BRAIN_ORACLE.py": 0.1,
+    "BLUESKY_ENGINE.py": 0.1,
+    "BOTTLENECK_SCANNER.py": 0.1,
+    "BRAND_LEGAL.py": 0.1,
+    "BRAVE_BRIDGE.py": 0.1,
+    "BRAVE_BROWSER_ENGINE.py": 0.1,
+    "BRIDGE_BUILDER.py": 0.1,
+    "BUSINESS_FACTORY.py": 0.1,
+    "CALENDAR_BRAIN.py": 0.1,
+    "CAPABILITY_SCANNER.py": 0.1
+  },
+  "signals": {
+    "OMNIBRAIN": {
+      "engine": "OMNIBRAIN",
+      "status": "idle",
+      "energy": 0.0,
+      "finding": "0 cycles completed",
+      "neighbors_needed": [
+        "BRIEFING_ENGINE",
+        "HEALTH_BOOSTER"
+      ],
+      "payload": {
+        "cycles": 0
+      }
+    },
+    "SENTINEL": {
+      "engine": "SENTINEL",
+      "status": "alert",
+      "energy": 1.0,
+      "finding": "UNKNOWN \u2014 0 syntax failures",
+      "neighbors_needed": [],
+      "payload": {
+        "health": "UNKNOWN",
+        "failures": 0
+      }
+    },
+    "EMAIL_BRAIN": {
+      "engine": "EMAIL_BRAIN",
+      "status": "active",
+      "energy": 0.0,
+      "finding": "0 emails sent autonomously",
+      "neighbors_needed": [
+        "BRIEFING_ENGINE"
+      ],
+      "payload": {
+        "sent": 0
+      }
+    },
+    "SCAM_SHIELD": {
+      "engine": "SCAM_SHIELD",
+      "status": "active",
+      "energy": 0.8,
+      "finding": "0 threats neutralized",
+      "neighbors_needed": [],
+      "payload": {
+        "blocked": 0
+      }
+    }
+  }
+}
