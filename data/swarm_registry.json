@@ -1,9 +1,10 @@
 {
-  "generated": "2026-03-27T14:48:33.004272",
-  "engine_count": 247,
+  "generated": "2026-03-27T15:05:11.041470",
+  "engine_count": 249,
   "engines_with_errors": [],
   "engines_with_main": [
     "ART_GENERATOR",
+    "BROADCAST_PROTOCOL",
     "CONTENT_HARVESTER",
     "CORRUPTION_SENTINEL",
     "DESKTOP_AGENT",
@@ -21,6 +22,7 @@
     "MURMURATION_TRAP",
     "NEURON_A",
     "NEURON_B",
+    "RESEARCH_WRITER",
     "SOLARPUNK_CLI",
     "SOVEREIGNTY_ENGINE",
     "SWARM_TOOLBOX",
@@ -29,7 +31,7 @@
     "ai_council",
     "knowledge_dispatch"
   ],
-  "total_functions": 1347,
+  "total_functions": 1360,
   "registry": {
     "AFFILIATE_MAXIMIZER": {
       "description": "AFFILIATE_MAXIMIZER.py \u2014 Every piece of content = affiliate revenue",
@@ -283,6 +285,20 @@
         "build_evening_report",
         "send_email",
         "run"
+      ]
+    },
+    "BROADCAST_PROTOCOL": {
+      "description": "BROADCAST_PROTOCOL \u2014 Wire the Digital World to the Global Mycelium",
+      "functions": [
+        "load_system_state",
+        "generate_research_brief",
+        "broadcast_to_social_queue",
+        "broadcast_to_newsletter",
+        "broadcast_to_github_discussion",
+        "broadcast_to_rss",
+        "broadcast_to_devto",
+        "save_broadcast_state",
+        "main"
       ]
     },
     "BUSINESS_FACTORY": {
@@ -1794,6 +1810,15 @@
         "save_state",
         "queue_ideas",
         "run"
+      ]
+    },
+    "RESEARCH_WRITER": {
+      "description": "RESEARCH_WRITER \u2014 Autonomous Research Paper Generator",
+      "functions": [
+        "gather_system_evidence",
+        "write_paper_mycelium_nanobot",
+        "write_paper_autonomous_organisms",
+        "main"
       ]
     },
     "RESONANCE_CONVERTER": {

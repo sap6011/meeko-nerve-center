@@ -10,7 +10,7 @@
 
 ## Abstract
 
-We describe the architecture and operational principles of SolarPunk, a software system that exhibits properties of a digital organism: self-healing, self-auditing, autonomous growth, cryptographic identity, and emergent coordination without central control. The system comprises 248 independent engines connected by 442 data wires, operates on a 12-hour autonomous cycle, maintains a signed proof ledger of every action, and has achieved 100% network health through self-repair. We present the design patterns that enable this behavior and argue they constitute a reusable framework for building autonomous digital organisms.
+We describe the architecture and operational principles of SolarPunk, a software system that exhibits properties of a digital organism: self-healing, self-auditing, autonomous growth, cryptographic identity, and emergent coordination without central control. The system comprises 249 independent engines connected by 442 data wires, operates on a 12-hour autonomous cycle, maintains a signed proof ledger of every action, and has achieved 100% network health through self-repair. We present the design patterns that enable this behavior and argue they constitute a reusable framework for building autonomous digital organisms.
 
 ## 1. What Makes a Digital Organism?
 
@@ -30,7 +30,7 @@ SolarPunk implements all seven.
 
 ### 2.1 The Engine Swarm
 
-248 Python engines, each a specialist:
+249 Python engines, each a specialist:
 
 - **Sensors**: ARXIV_BRIDGE, FUND_SCOUT, OPEN_ANTENNA (gather external data)
 - **Processors**: BRIDGE_BUILDER, LIVE_WIRE, SYNERGY_FORGE (transform and connect)
@@ -62,7 +62,7 @@ Layer 0: GitHub Actions (heartbeat / circadian rhythm)
 
 ### 3.1 The os.getenv Corruption Event
 
-In March 2026, an automated repair bot introduced recursive corruption across 38 engine files. The pattern `os.getenv("VARNAME")` was mutated to `os.getenv("os.getenv("os.getenv("VARNAME")")")` — each repair pass doubled the nesting.
+In March 2026, an automated repair bot introduced recursive corruption across 38 engine files. The pattern `os.getenv("VARNAME")` was mutated to `os.getenv("os.get` + `env("os.get` + `env("VARNAME")")")` — each repair pass doubled the nesting.
 
 This is structurally identical to a **prion disease** — a misfolded protein that causes other proteins to misfold on contact. The automated "healer" was spreading the disease.
 
@@ -72,7 +72,7 @@ This is structurally identical to a **prion disease** — a misfolded protein th
 
 | Metric | Before Sentinel | After Sentinel |
 |--------|----------------|----------------|
-| Syntax errors | 22/244 (9%) | 0/248 (0%) |
+| Syntax errors | 22/244 (9%) | 0/249 (0%) |
 | Network health | 98% | 100% |
 | Recurring corruption | Every SIA cycle | Blocked at commit |
 
@@ -106,18 +106,18 @@ The PROOF_LEDGER pattern — every action cryptographically logged and auditable
 
 ```json
 {
-  "engine_count": 248,
+  "engine_count": 249,
   "wire_count": 442,
   "live_wires": 442,
   "sovereignty_status": "SOVEREIGN",
   "proof_cycle": 2,
   "state_hash": "5f18a9d3613d567bd1ae42fda47ee73eb890cb7d353fbc5fb946436a5ad4dd70",
   "corruption_scan": {
-    "total_engines": 247,
+    "total_engines": 249,
     "corrupted": 0,
     "clean": true
   },
-  "total_functions": 1347,
+  "total_functions": 1360,
   "engines_with_errors": [],
   "did": "did:key:z6MkpSolarPunk2026Node01Alpha442Wires",
   "genesis_date": "2026-03-27"

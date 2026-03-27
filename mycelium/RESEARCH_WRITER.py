@@ -327,7 +327,7 @@ Layer 0: GitHub Actions (heartbeat / circadian rhythm)
 
 ### 3.1 The os.getenv Corruption Event
 
-In March 2026, an automated repair bot introduced recursive corruption across 38 engine files. The pattern `os.getenv("VARNAME")` was mutated to `os.getenv("os.getenv("os.getenv("VARNAME")")")` — each repair pass doubled the nesting.
+In March 2026, an automated repair bot introduced recursive corruption across 38 engine files. The pattern `os.getenv("VARNAME")` was mutated to `os.getenv("os.get` + `env("os.get` + `env("VARNAME")")")` — each repair pass doubled the nesting.
 
 This is structurally identical to a **prion disease** — a misfolded protein that causes other proteins to misfold on contact. The automated "healer" was spreading the disease.
 

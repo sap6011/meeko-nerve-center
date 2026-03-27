@@ -100,6 +100,16 @@ jobs:
           echo "=== MURMURATION TRAP ==="
           python mycelium/MURMURATION_TRAP.py || echo "Trap deployment had errors (non-fatal)"
 
+      - name: Run RESEARCH_WRITER — Update living research papers
+        run: |
+          echo "=== RESEARCH WRITER ==="
+          python mycelium/RESEARCH_WRITER.py || echo "Research writer had errors (non-fatal)"
+
+      - name: Run BROADCAST_PROTOCOL — Wire research to global channels
+        run: |
+          echo "=== BROADCAST PROTOCOL ==="
+          python mycelium/BROADCAST_PROTOCOL.py || echo "Broadcast had errors (non-fatal)"
+
       - name: Run CORRUPTION_SENTINEL — Block corrupted commits
         run: |
           echo "=== CORRUPTION SENTINEL ==="
