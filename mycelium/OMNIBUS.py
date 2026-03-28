@@ -210,6 +210,7 @@ def L0():
     eng("PLUGIN_REGISTRY",    timeout=60)
     eng("REVENUE_AUDIT",      timeout=60)
     eng("WORKTREE_ANCHOR",    timeout=30)   # v25: stamps ground truth to prevent session desync
+    eng("DARK_WATCH",         timeout=30)   # v25: silent guardian — only fires on score >= 90
     save_ctx()
 
 
