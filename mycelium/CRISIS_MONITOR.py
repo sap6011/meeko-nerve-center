@@ -266,6 +266,50 @@ def fetch_reddit_crisis(limit=5):
     return signals
 
 
+# ── Source: Wikipedia Current Events ──────────────────────────────────────
+def fetch_wikipedia_current(limit=20):
+    """Wikipedia Current Events portal — free, no API key, always available."""
+    import requests
+    import re
+    signals = []
+    try:
+        today = datetime.now(timezone.utc)
+        # Try today and yesterday
+        for delta in [0, 1]:
+            d = today - __import__("datetime").timedelta(days=delta)
+            url = f"https://en.wikipedia.org/wiki/Portal:Current_events/{d.strftime('%Y_%B_%-d')}"
+            # Windows-safe date format
+            try:
+                url = f"https://en.wikipedia.org/wiki/Portal:Current_events/{d.strftime('%Y_%B_')+str(d.day)}"
+            except Exception:
+                pass
+            r = requests.get(url, headers=HEADERS, timeout=15)
+            if r.status_code != 200:
+                continue
+            # Extract list items — Wikipedia current events are <li> tags
+            items = re.findall(r'<li>(.*?)</li>', r.text, re.DOTALL)
+            for item in items[:limit]:
+                # Strip HTML tags
+                text = re.sub(r'<[^>]+>', '', item).strip()
+                if len(text) < 20:
+                    continue
+                sc = score_urgency(text)
+                if sc >= 5:
+                    # Extract first link as source
+                    link_match = re.search(r'href="(/wiki/[^"]+)"', item)
+                    wiki_url = f"https://en.wikipedia.org{link_match.group(1)}" if link_match else ""
+                    signals.append({
+                        "title": text[:300],
+                        "url": wiki_url,
+                        "origin": "wikipedia_current_events",
+                        "urgency_score": sc, "urgency": classify(sc),
+                    })
+        print(f"  Wikipedia Current Events: {len(signals)} crisis-relevant items")
+    except Exception as e:
+        print(f"  Wikipedia error: {e}")
+    return signals
+
+
 # ── Amplification content generator ────────────────────────────────────────
 def build_amplification(signals):
     """Generate ready-to-share social posts from crisis signals."""
@@ -615,8 +659,11 @@ def main():
     print("\n[2/3] GDELT — global crisis events")
     all_signals.extend(fetch_gdelt(limit=15))
 
-    print("\n[3/3] Reddit — ground-level crisis signals")
+    print("\n[3/4] Reddit — ground-level crisis signals")
     all_signals.extend(fetch_reddit_crisis(limit=5))
+
+    print("\n[4/4] Wikipedia Current Events — verified global events")
+    all_signals.extend(fetch_wikipedia_current(limit=20))
 
     # Sort by urgency
     all_signals.sort(key=lambda x: x.get("urgency_score", 0), reverse=True)
@@ -638,7 +685,7 @@ def main():
     posts = build_amplification(all_signals)
 
     # Build action triggers — these fire downstream engines
-    print("\n[4/6] Building action triggers...")
+    print("\n[5/7] Building action triggers...")
     triggers = build_triggers(all_signals)
     TRIGGERS_OUT.write_text(json.dumps({
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -650,7 +697,7 @@ def main():
     print(f"    {len(triggers)} triggers fired -> {len(set(e for t in triggers for e in t['target_engines']))} engines targeted")
 
     # Build NGO handshake emails — ready for EMAIL_OUTREACH to send
-    print("\n[5/6] Building NGO handshake emails...")
+    print("\n[6/7] Building NGO handshake emails...")
     handshakes = build_ngo_handshakes(all_signals)
     HANDSHAKES_OUT.write_text(json.dumps({
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -677,7 +724,7 @@ def main():
     }, indent=2))
 
     # Dashboard — action-focused, not horror-focused
-    print("\n[6/6] Building action dashboard...")
+    print("\n[7/7] Building action dashboard...")
     build_dashboard(all_signals, routing, len(posts))
 
     # Update history

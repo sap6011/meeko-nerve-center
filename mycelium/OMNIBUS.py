@@ -3,13 +3,18 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v25 — CRISIS_MONITOR + WORKTREE_ANCHOR
-================================================
-New in v25:
+OMNIBUS v26 — RESOURCE_KIT + SIGNAL_BOOST + Wikipedia source
+=============================================================
+New in v26:
+  RESOURCE_KIT           (L1) — emergency survival guides (internet shutdown, documentation,
+                                 displacement, medical, press freedom)
+  SIGNAL_BOOST           (L1) — creates GitHub Issues as permanent public records for CRITICAL signals
+  CRISIS_MONITOR         (L1) — +Wikipedia Current Events as 4th data source
+  EMAIL_OUTREACH         (L4) — now reads ngo_handshakes.json (crisis pipeline connected)
+
+Previous in v25:
   CRISIS_MONITOR         (L1) — humanitarian crisis detection, ReliefWeb/GDELT/Reddit
-                                 crisis_signals.json, aid_routing.json, crisis_dashboard.html
   WORKTREE_ANCHOR        (L0) — stamps ground truth to prevent Claude session desync
-  CONTENT_HARVESTER      (L1) — now includes ReliefWeb + crisis subreddits
 
 Previous in v24:
   NANOSHOP_ENGINE        (L4) — generates embeddable 1-click purchase widgets
@@ -223,6 +228,8 @@ def L1():
     eng("CRISIS_MONITOR",     timeout=120)  # v25: humanitarian crisis detection + aid routing
     eng("KNOWLEDGE_PULSE",    timeout=60)   # v25: generates actionable help packets from crisis data
     eng("MURMURATION_RELAY",  timeout=60)   # v25: pushes help to social/Reddit/broadcast channels
+    eng("RESOURCE_KIT",       timeout=60)   # v26: emergency survival guides for crises
+    eng("SIGNAL_BOOST",       timeout=60)   # v26: creates GitHub Issues as permanent public records
     eng("AI_WATCHER",         timeout=60)
     eng("CRYPTO_WATCHER",     timeout=60)
     eng("FREE_API_ENGINE",    timeout=60)
