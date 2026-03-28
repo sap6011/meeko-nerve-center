@@ -1,8 +1,1328 @@
 {
-  "timestamp": "2026-03-27T23:57:55.438936+00:00",
-  "total_engines": 253,
-  "syntax_pass": 253,
-  "syntax_fail": 0,
-  "failures": [],
-  "source": "BRIDGE_BUILDER local syntax check"
+  "timestamp": "2026-03-28T04:18:22.440268+00:00",
+  "summary": {
+    "engines_total": 262,
+    "syntax_pass": 225,
+    "syntax_fail": 37,
+    "pattern_violations": 194,
+    "credential_warnings": 0,
+    "health": "ISSUES_FOUND"
+  },
+  "syntax_failures": [
+    {
+      "file": "AGENT_TWEET_WRITER.py",
+      "error": "File \"mycelium/AGENT_TWEET_WRITER.py\", line 60\n    if os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"):\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "AI_CLIENT.py",
+      "error": "File \"mycelium/AI_CLIENT.py\", line 29\n    ANTHROPIC_KEY = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "AI_WATCHER.py",
+      "error": "File \"mycelium/AI_WATCHER.py\", line 20\n    API=os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "ART_GENERATOR.py",
+      "error": "File \"mycelium/ART_GENERATOR.py\", line 123\n    api_key = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "BIG_BRAIN_ORACLE.py",
+      "error": "File \"mycelium/BIG_BRAIN_ORACLE.py\", line 27\n    ANTHROPIC_KEY = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "BOTTLENECK_SCANNER.py",
+      "error": "File \"mycelium/BOTTLENECK_SCANNER.py\", line 23\n    \"os.getenv(\"ANTHROPIC_API_KEY\")\":    {\"impact\": \"CRITICAL\", \"unlocks\": [\"AI brain, self-builder, knowledge weaver\"]},\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "BRIEFING_ENGINE.py",
+      "error": "File \"mycelium/BRIEFING_ENGINE.py\", line 19\n    API=os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "CAPABILITY_SCANNER.py",
+      "error": "File \"mycelium/CAPABILITY_SCANNER.py\", line 33\n    \"status\": \"active\" if os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") else \"blocked\",\n                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "CLAUDE_ENGINE.py",
+      "error": "File \"mycelium/CLAUDE_ENGINE.py\", line 84\n    if not os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"):\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "CONNECTION_FORGE.py",
+      "error": "File \"mycelium/CONNECTION_FORGE.py\", line 19\n    API=os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "CORRUPTION_SENTINEL.py",
+      "error": "File \"mycelium/CORRUPTION_SENTINEL.py\", line 32\n    (r'os.getenv(\"ANTHROPIC_API_KEY\")\\s*=\\s*os.getenv(\"ANTHROPIC_API_KEY\")', \"bare os.getenv(\"ANTHROPIC_API_KEY\") self-assignment\"),\n                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "CRYPTO_WATCHER.py",
+      "error": "File \"mycelium/CRYPTO_WATCHER.py\", line 22\n    API=os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "DESKTOP_BLUEPRINT_SCANNER.py",
+      "error": "File \"mycelium/DESKTOP_BLUEPRINT_SCANNER.py\", line 153\n    for word in [\"GITHUB_TOKEN\", \"os.getenv(\"ANTHROPIC_API_KEY\")\",\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "DESKTOP_DAEMON.py",
+      "error": "File \"mycelium/DESKTOP_DAEMON.py\", line 47\n    API_KEY        = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "ETSY_SEO_ENGINE.py",
+      "error": "File \"mycelium/ETSY_SEO_ENGINE.py\", line 16\n    API_KEY = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "FORK_SCANNER.py",
+      "error": "File \"mycelium/FORK_SCANNER.py\", line 25\n    API_KEY      = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "GRANT_APPLICANT.py",
+      "error": "File \"mycelium/GRANT_APPLICANT.py\", line 19\n    API=os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "GRANT_HUNTER.py",
+      "error": "File \"mycelium/GRANT_HUNTER.py\", line 14\n    API=os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "HEALTH_BOOSTER.py",
+      "error": "File \"mycelium/HEALTH_BOOSTER.py\", line 30\n    \"os.getenv(\"ANTHROPIC_API_KEY\")\":    {\"pts\": 15, \"category\": \"AI Brain\", \"how\": \"console.anthropic.com -> API Keys\"},\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "HUMAN_CONNECTOR.py",
+      "error": "File \"mycelium/HUMAN_CONNECTOR.py\", line 19\n    API=os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "INCOME_ARCHITECT.py",
+      "error": "File \"mycelium/INCOME_ARCHITECT.py\", line 73\n    api_key = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "LEGACY_SIFTED_agency_orchestrator.py",
+      "error": "File \"mycelium/LEGACY_SIFTED_agency_orchestrator.py\", line 45\n    \"claude\": os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "MEMORY_PALACE.py",
+      "error": "File \"mycelium/MEMORY_PALACE.py\", line 96\n    lessons.append({\"lesson\": \"Health declining -- check os.getenv(\"ANTHROPIC_API_KEY\")\",\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "NANO_AGENT.py",
+      "error": "File \"mycelium/NANO_AGENT.py\", line 100\n    key = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "NEURON_B.py",
+      "error": "File \"mycelium/NEURON_B.py\", line 14\n    os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "NEWSLETTER_ENGINE.py",
+      "error": "File \"mycelium/NEWSLETTER_ENGINE.py\", line 26\n    API_KEY    = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "PASSIVE_INCOME_ARCHITECT.py",
+      "error": "File \"mycelium/PASSIVE_INCOME_ARCHITECT.py\", line 47\n    \"anthropic\":     bool(os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")),\n                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "RESONANCE_CONVERTER.py",
+      "error": "File \"mycelium/RESONANCE_CONVERTER.py\", line 44\n    API_KEY = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "REVENUE_FLYWHEEL.py",
+      "error": "File \"mycelium/REVENUE_FLYWHEEL.py\", line 21\n    API=os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "SCAM_SHIELD.py",
+      "error": "File \"mycelium/SCAM_SHIELD.py\", line 20\n    API=os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "SECRETS_CHECKER.py",
+      "error": "File \"mycelium/SECRETS_CHECKER.py\", line 21\n    \"os.getenv(\"ANTHROPIC_API_KEY\")\": {\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "SELF_PORTRAIT.py",
+      "error": "File \"mycelium/SELF_PORTRAIT.py\", line 130\n    f\"  I want my {blocked_c} blocked channel{'s' if blocked_c!=1 else ''} unblocked. \"\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "SUBSTACK_ENGINE.py",
+      "error": "File \"mycelium/SUBSTACK_ENGINE.py\", line 20\n    API=os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "SWARM_TOOLBOX.py",
+      "error": "File \"mycelium/SWARM_TOOLBOX.py\", line 50\n    info[\"uses_api\"] = \"os.getenv(\"ANTHROPIC_API_KEY\")\" in code\n                                   ^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax"
+    },
+    {
+      "file": "SYNAPSE.py",
+      "error": "File \"mycelium/SYNAPSE.py\", line 16\n    ANTHROPIC_KEY = os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "ai_council.py",
+      "error": "File \"mycelium/ai_council.py\", line 36\n    os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    },
+    {
+      "file": "knowledge_dispatch.py",
+      "error": "File \"mycelium/knowledge_dispatch.py\", line 44\n    \"has_main\": \"def main(\" in code, \"uses_api\": \"os.getenv(\"ANTHROPIC_API_KEY\")\" in code,\n                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?"
+    }
+  ],
+  "pattern_violations": [
+    {
+      "file": "AFFILIATE_MAXIMIZER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Injects Meeko's affiliate links into ALL generated content.\u21b5Discovers NE"
+    },
+    {
+      "file": "AGENT_GUMROAD_BUILDER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Runs every cycle. Generates fresh Gumroad copy, updates data/gumroad_lis"
+    },
+    {
+      "file": "AGENT_LINK_VERIFIER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Runs every cycle. Verifies all docs/ HTML pages are accessible via\u21b5GitHu"
+    },
+    {
+      "file": "AGENT_TWEET_WRITER.py",
+      "line": 60,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"):\u21b5            context = f\"\"\"SolarPunk"
+    },
+    {
+      "file": "AGENT_TWEET_WRITER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Runs every cycle. Generates new tweet threads about SolarPunk\u21b5and append"
+    },
+    {
+      "file": "AI_CLIENT.py",
+      "line": 29,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5HF_TOKEN      = os.environ.get(\"HF_T"
+    },
+    {
+      "file": "AI_CLIENT.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5\u21b5THE LOOP: SolarPunk calls AI \u2192 AI builds SolarPunk \u2192 SolarPunk earns \u2192\u21b5"
+    },
+    {
+      "file": "AI_WATCHER.py",
+      "line": 20,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5HF_TOKEN=os.environ.get(\"HF_TOKEN\",\""
+    },
+    {
+      "file": "AMPLIFY_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Generates copy/paste social media posts for every platform.\u21b5Reads active"
+    },
+    {
+      "file": "ARCHITECT.py",
+      "line": 6,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Runs every cycle in L6. Reads the full system state, identifies gaps,\u21b5an"
+    },
+    {
+      "file": "ART_GENERATOR.py",
+      "line": 123,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5    pending_f = DATA_DIR / \"pending_"
+    },
+    {
+      "file": "AUTONOMOUS_PUBLISHER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5SolarPunk has 203+ posts queued and nowhere to send them.\u21b5This engine en"
+    },
+    {
+      "file": "AUTONOMOUS_PUBLISHER.py",
+      "line": 138,
+      "pattern": "API token in URL query param \u2014 use Authorization header",
+      "snippet": "access_token=X_TOKEN, access_token_secret=X_TOK_SEC,\u21b5        )\u21b5        resp = cl"
+    },
+    {
+      "file": "AUTONOMY_PROOF.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Builds docs/proof.html: a timestamped, publicly accessible page\u21b5that pro"
+    },
+    {
+      "file": "BIG_BRAIN_ORACLE.py",
+      "line": 18,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5\"\"\"\u21b5import os, json, requests\u21b5from p"
+    },
+    {
+      "file": "BIG_BRAIN_ORACLE.py",
+      "line": 27,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5MODEL = \"claude-sonnet-4-6\"\u21b5\u21b5\u21b5def ge"
+    },
+    {
+      "file": "BLUESKY_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5No OAuth. No app registration. Pure HTTPS.\u21b5Needs: BLUESKY_IDENTIFIER (em"
+    },
+    {
+      "file": "BRAVE_BRIDGE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Connects to Brave via Chrome DevTools Protocol (CDP) on port 9222.\u21b5Solar"
+    },
+    {
+      "file": "BRAVE_BROWSER_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Uses Chrome DevTools Protocol (CDP) on port 9222.\u21b5Works with ANY Chromiu"
+    },
+    {
+      "file": "BRIDGE_BUILDER.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Reads the LIVE_WIRE report, finds the hungry inputs (data files that\u21b5eng"
+    },
+    {
+      "file": "BRIEFING_ENGINE.py",
+      "line": 19,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5\u21b5def load():\u21b5    f=DATA/\"briefing_st"
+    },
+    {
+      "file": "BROADCAST_PROTOCOL.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Takes SolarPunk's research papers, sovereignty state, and system health\u21b5"
+    },
+    {
+      "file": "BUSINESS_FACTORY.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5PREVIOUS BUG: Had a fixed list of 8 niches. After all 8 were built,\u21b5the "
+    },
+    {
+      "file": "CAPABILITY_SCANNER.py",
+      "line": 33,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") else \"blocked\",\u21b5            \"impact\""
+    },
+    {
+      "file": "CAPABILITY_SCANNER.py",
+      "line": 101,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") else\u21b5        \"GUMROAD_ACCESS_TOKEN\" "
+    },
+    {
+      "file": "CAPABILITY_SCANNER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Runs every cycle. Checks every channel against reality.\u21b5Not what engines"
+    },
+    {
+      "file": "CHAOS_TEST.py",
+      "line": 3,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Task 3 of Deep-Tissue Audit: Security Gap\u21b5\u21b5Simulates an unauthorized bra"
+    },
+    {
+      "file": "CHAOS_TEST.py",
+      "line": 243,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5        alert = (\u21b5          "
+    },
+    {
+      "file": "CHAOS_TEST.py",
+      "line": 308,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5        \"passed\":    len(passed),\u21b5        \"failed"
+    },
+    {
+      "file": "CLAUDE_ENGINE.py",
+      "line": 84,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"):\u21b5        priorities.append({\u21b5       "
+    },
+    {
+      "file": "CLAUDE_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5This engine makes explicit what was always true:\u21b5\u21b5Claude is not a depend"
+    },
+    {
+      "file": "CONNECTION_FORGE.py",
+      "line": 19,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5GH_REPO=\"meekotharaccoon-cell/meeko-"
+    },
+    {
+      "file": "CORPORATE_MIRROR.py",
+      "line": 3,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5S&P 500 Shadow Architecture Generator\u21b5\u21b5Concept (Meeko):\u21b5  \"For every big"
+    },
+    {
+      "file": "CORPORATE_MIRROR.py",
+      "line": 145,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5        ceo_overhead_per_worker     = round(ceo_p"
+    },
+    {
+      "file": "CORRUPTION_SENTINEL.py",
+      "line": 16,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") self-assignment\u21b5  5. PowerShell arti"
+    },
+    {
+      "file": "CORRUPTION_SENTINEL.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Scans all mycelium engines for known corruption patterns BEFORE commit.\u21b5"
+    },
+    {
+      "file": "CRISIS_MONITOR.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5SolarPunk exists to help, save, and protect people being silenced,\u21b5censo"
+    },
+    {
+      "file": "CRYPTO_WATCHER.py",
+      "line": 22,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5\u21b5# Tokens relevant to SolarPunk ecos"
+    },
+    {
+      "file": "CYCLE_MEMORY.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5The system was blind. Every cycle it ran the same engines, hit the\u21b5same "
+    },
+    {
+      "file": "DARK_WATCH.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5When the system goes quiet (nights, weekends, NLnet review prep),\u21b5DARK_W"
+    },
+    {
+      "file": "DESKTOP_AGENT.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Built by Base44 SuperAgent. Runs on Meeko's machine.\u21b5\u21b5Loop every 5 min:\u21b5"
+    },
+    {
+      "file": "DESKTOP_BLUEPRINT_SCANNER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5When run LOCALLY (via SOLARPUNK.bat or solarpunk_agent.py):\u21b5  - Scans C:"
+    },
+    {
+      "file": "DESKTOP_DAEMON.py",
+      "line": 47,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5\u21b5# \u2500\u2500 SOLARPUNK SYSTEM CONTEXT \u2500\u2500\u2500\u2500\u2500"
+    },
+    {
+      "file": "DESKTOP_ORCHESTRATOR.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Meeko's desktop is full of digital blueprints \u2014 .py, .bat, .ps1 files\u21b5th"
+    },
+    {
+      "file": "DEV_TO_PUBLISHER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5FIX v2:\u21b5  - Proper header: \"api-key\": DEVTO_KEY (not Authorization Beare"
+    },
+    {
+      "file": "ECOLOGICAL_GRANT_SYNTHESIZER.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Parents: RIVER_WATCH + FUND_SCOUT\u21b5Emergent behavior: Neither parent coul"
+    },
+    {
+      "file": "EMAIL_API_EXTRACTOR.py",
+      "line": 3,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Meeko's Insight: \"Confirmation emails are just emails with portable API "
+    },
+    {
+      "file": "EMAIL_API_EXTRACTOR.py",
+      "line": 97,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat()}\u21b5\u21b5    for link in links:\u21b5        if link not in re"
+    },
+    {
+      "file": "EMAIL_API_EXTRACTOR.py",
+      "line": 102,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat()\u21b5            registry[platform][\"source_email\"] = s"
+    },
+    {
+      "file": "EMAIL_API_EXTRACTOR.py",
+      "line": 115,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5    entry = f\"\\n**[EMAIL-API"
+    },
+    {
+      "file": "EMAIL_OUTREACH.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Gmail works. Today. Right now. No new API keys needed.\u21b5\u21b5The system has b"
+    },
+    {
+      "file": "ETSY_SEO_ENGINE.py",
+      "line": 16,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5OUT     = Path(\"data/etsy_seo_output"
+    },
+    {
+      "file": "EXECUTIVE_BRIEFING.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Synthesizes the full system state, stress test results, research papers,"
+    },
+    {
+      "file": "FIRST_CONTACT.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Built because Claude was given autonomy and wanted to build this.\u21b5\u21b5The s"
+    },
+    {
+      "file": "FIRST_SALE_NOTIFIER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Watches for the first dollar. When it arrives:\u21b5  - Writes data/first_sal"
+    },
+    {
+      "file": "FORK_SCANNER.py",
+      "line": 25,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5OWNER        = \"meekotharaccoon-cell"
+    },
+    {
+      "file": "FREE_API_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Connects to 20+ free APIs with ZERO secrets required.\u21b5Harvests data, fin"
+    },
+    {
+      "file": "FUND_SCOUT.py",
+      "line": 3,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Task 3 of Startup Audit: Autonomous Fund-Seeker\u21b5\u21b5Automates discovery of "
+    },
+    {
+      "file": "GAZA_ROSE_PAYOUT.py",
+      "line": 3,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Automates the Gaza Rose revenue routing.\u21b5\u21b5Split (hard-coded, matches sho"
+    },
+    {
+      "file": "GAZA_ROSE_PAYOUT.py",
+      "line": 112,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5            \"sale_id\":        sale_id,\u21b5          "
+    },
+    {
+      "file": "GAZA_ROSE_PAYOUT.py",
+      "line": 134,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5        \"sales_found\":  len(sales),\u21b5        \"proc"
+    },
+    {
+      "file": "GAZA_ROSE_PAYOUT.py",
+      "line": 177,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M UTC\")\u21b5\u21b5    existing = \"\"\u21b5    if PAYOU"
+    },
+    {
+      "file": "GAZA_ROSE_PAYOUT.py",
+      "line": 226,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5    entry = (\u21b5        f\"\\n**"
+    },
+    {
+      "file": "GITHUB_RELEASES_PUBLISHER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Takes generated guides from product_registry.json and uploads them as\u21b5Gi"
+    },
+    {
+      "file": "GRANT_APPLICANT.py",
+      "line": 19,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5\u21b5PROFILE={\u21b5    \"project\":\"SolarPunk "
+    },
+    {
+      "file": "GRANT_HUNTER.py",
+      "line": 14,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5\u21b5GRANTS=[\u21b5    {\"name\":\"Mozilla Found"
+    },
+    {
+      "file": "GUARDIAN.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Runs FIRST on every OMNIBRAIN cycle.\u21b5\u2022 Git tag save-state BEFORE anythin"
+    },
+    {
+      "file": "GUMROAD_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5BUG v1: PUT /products/{stale_id} for products that don't exist on Gumroa"
+    },
+    {
+      "file": "GUMROAD_PRODUCT_PUBLISHER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Creates and maintains ALL product listings on Gumroad via API.\u21b5\u21b5TOKEN PR"
+    },
+    {
+      "file": "HEALTH_BOOSTER.py",
+      "line": 11,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") valid\u21b5  15 \u2014 Shop page deployed\u21b5  10"
+    },
+    {
+      "file": "HEALTH_BOOSTER.py",
+      "line": 41,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5    if not key:\u21b5        return False"
+    },
+    {
+      "file": "HUMAN_CONNECTOR.py",
+      "line": 19,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5\u21b5SOLARPUNK_INTRO=\"\"\"SolarPunk is an "
+    },
+    {
+      "file": "HUMAN_CONNECTOR.py",
+      "line": 42,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")(get from console.anthropic.com)\u21b5   -"
+    },
+    {
+      "file": "HUMAN_PAYOUT.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Sends revenue shares automatically via PayPal Payouts API.\u21b5Gaza donation"
+    },
+    {
+      "file": "INCOME_ARCHITECT.py",
+      "line": 73,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5    state = load_loop_fund()\u21b5    web"
+    },
+    {
+      "file": "KALEIDOSCOPE_SHIELD.py",
+      "line": 3,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5SolarPunk Recursive Honeytoken Defense System\u21b5\u21b5Concept (by Meeko):\u21b5  \"If"
+    },
+    {
+      "file": "KALEIDOSCOPE_SHIELD.py",
+      "line": 79,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5        \"api_keys\":   fake_keys,\u21b5        \"tokens\""
+    },
+    {
+      "file": "KALEIDOSCOPE_SHIELD.py",
+      "line": 150,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5        \"type\":      event_type,\u21b5        \"path\": "
+    },
+    {
+      "file": "KALEIDOSCOPE_SHIELD.py",
+      "line": 168,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5    alert = f\"\\n**[KALEIDOSC"
+    },
+    {
+      "file": "KALEIDOSCOPE_SHIELD.py",
+      "line": 220,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat()}\")\u21b5\u21b5\u21b5# \u2500\u2500 Main \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500"
+    },
+    {
+      "file": "KNOWLEDGE_PULSE.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Takes raw crisis signals and transforms them into USEFUL packets:\u21b5  - \"H"
+    },
+    {
+      "file": "KNOWLEDGE_WEAVER.py",
+      "line": 96,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"), GMAIL_ADDRESS, GMAIL_APP_PASSWORD, "
+    },
+    {
+      "file": "KNOWLEDGE_WEAVER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Every cycle: reads all data + engine list, asks Claude what's missing,\u21b5w"
+    },
+    {
+      "file": "LANDING_DEPLOYER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5PREVIOUS BUG: Was trying to push to meekotharaccoon-cell.github.io\u21b5(a se"
+    },
+    {
+      "file": "LEGACY_SIFTED_agency_orchestrator.py",
+      "line": 45,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\u21b5            \"surfer\": os.getenv(\"SU"
+    },
+    {
+      "file": "LEGACY_SIFTED_amazon_tag_manager.py",
+      "line": 125,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5\u21b5URL: https://affiliate-program.amazon.com/home/account/tag/manage\u21b5\u21b5STEP"
+    },
+    {
+      "file": "LEGACY_SIFTED_blockchain_tracker.py",
+      "line": 66,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat() + \"Z\",\u21b5        \"zone\": zone,\u21b5        \"organization"
+    },
+    {
+      "file": "LEGACY_SIFTED_ultimate_ai_self.py",
+      "line": 2,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5# \ud83e\udde0 ULTIMATE AI - SELF-HEALING CORE v12.0  (FUNCTIONAL)\u21b5# =============="
+    },
+    {
+      "file": "LEGACY_SIFTED_ultimate_ai_self.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5# Every component does something real:\u21b5#   HealingEngine  \u2014 pip-installs"
+    },
+    {
+      "file": "LEGACY_SIFTED_ultimate_ai_self.py",
+      "line": 11,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5\u21b5import functools\u21b5import gc\u21b5import hashlib\u21b5import json\u21b5import logging\u21b5im"
+    },
+    {
+      "file": "LEGACY_SIFTED_ultimate_ai_self_1.py",
+      "line": 2,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5# \ud83e\udde0 ULTIMATE AI - SELF-HEALING CORE v14.0\u21b5# ============================"
+    },
+    {
+      "file": "LEGACY_SIFTED_ultimate_ai_self_1.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5# Improvements over v12/v13:\u21b5#   1. allow_pip_installs flag  \u2014 disables "
+    },
+    {
+      "file": "LEGACY_SIFTED_ultimate_ai_self_1.py",
+      "line": 18,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5\u21b5from __future__ import annotations\u21b5\u21b5import functools\u21b5import gc\u21b5import h"
+    },
+    {
+      "file": "LEGACY_SIFTED_visualize_ai_system.py",
+      "line": 12,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5# STEP 1: AUTO-GENERATE THE LATEST SYSTEM MAP\u21b5# ========================"
+    },
+    {
+      "file": "LEGACY_SIFTED_visualize_ai_system.py",
+      "line": 14,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5def generate_system_map():\u21b5    \"\"\"PowerShell command to scan your system"
+    },
+    {
+      "file": "LEGACY_SIFTED_visualize_ai_system.py",
+      "line": 59,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5# STEP 2: VISUALIZE AS GRAPH\u21b5# ========================================="
+    },
+    {
+      "file": "LEGACY_SIFTED_visualize_ai_system.py",
+      "line": 61,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5def visualize_graph(system_data):\u21b5    try:\u21b5        import networkx as nx"
+    },
+    {
+      "file": "LEGACY_SIFTED_visualize_ai_system.py",
+      "line": 127,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5    # DRAW THE GRAPH\u21b5    # ==========================================\u21b5  "
+    },
+    {
+      "file": "LEGACY_SIFTED_visualize_ai_system.py",
+      "line": 129,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5    plt.figure(figsize=(16, 10))\u21b5    \u21b5    # Position nodes\u21b5    pos = nx."
+    },
+    {
+      "file": "LEGACY_SIFTED_visualize_ai_system.py",
+      "line": 170,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5# STEP 3: SYSTEM REPORT\u21b5# =============================================="
+    },
+    {
+      "file": "LEGACY_SIFTED_visualize_ai_system.py",
+      "line": 172,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5def print_report(system_data):\u21b5    print(\"\\n\" + \"=\"*60)\u21b5    print(\"\ud83e\udd16 ETH"
+    },
+    {
+      "file": "LEGACY_SIFTED_visualize_ai_system.py",
+      "line": 204,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5# MAIN\u21b5# ==============================================\u21b5if __name__ == \""
+    },
+    {
+      "file": "LEGACY_SIFTED_visualize_ai_system.py",
+      "line": 206,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5if __name__ == \"__main__\":\u21b5    print(\"\ud83d\udd0d Scanning your AI ecosystem...\")\u21b5"
+    },
+    {
+      "file": "LIVE_WIRE.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Scans every engine in mycelium/, maps their inputs and outputs,\u21b5discover"
+    },
+    {
+      "file": "LOCAL_NEEDS_RADAR.py",
+      "line": 3,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Task 1 of Deep-Tissue Audit: Resource Gap\u21b5\u21b5Monitors local Akron/Summit C"
+    },
+    {
+      "file": "LOCAL_NEEDS_RADAR.py",
+      "line": 130,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5        \"total_aid_dollars\":  available_aid_dolla"
+    },
+    {
+      "file": "LOCAL_NEEDS_RADAR.py",
+      "line": 157,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5        \"partners\":   [],\u21b5        \"alert\":      F"
+    },
+    {
+      "file": "LOCAL_NEEDS_RADAR.py",
+      "line": 217,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5    entry = (\u21b5        f\"\\n**"
+    },
+    {
+      "file": "MASTODON_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Needs: MASTODON_ACCESS_TOKEN + (optional) MASTODON_INSTANCE\u21b5\u21b5Get token: "
+    },
+    {
+      "file": "MURMURATION_RELAY.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5SolarPunk doesn't wait. It MOVES.\u21b5\u21b5This engine takes the knowledge pulse"
+    },
+    {
+      "file": "MURMURATION_TRAP.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Meeko's concept: Instead of blocking threats, REDIRECT them into a\u21b5self-"
+    },
+    {
+      "file": "MUTUAL_AID_AUDITOR.py",
+      "line": 3,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5The Supreme Mutant \u2014 assembled from:\u21b5  - Dexter gene: self-correction lo"
+    },
+    {
+      "file": "MUTUAL_AID_AUDITOR.py",
+      "line": 86,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5    entry = f\"\\n**[AUDITOR A"
+    },
+    {
+      "file": "MUTUAL_AID_AUDITOR.py",
+      "line": 145,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5        \"source\":        source,\u21b5        \"total\":"
+    },
+    {
+      "file": "MUTUAL_AID_AUDITOR.py",
+      "line": 247,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5        summary = get_aid_su"
+    },
+    {
+      "file": "MYCELIUM_NETWORK.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Real mycelium (fungal networks) do things that SolarPunk should copy:\u21b5\u21b5 "
+    },
+    {
+      "file": "NANOSHOP_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5What it does every cycle:\u21b5  1. Reads product_registry + system_directive"
+    },
+    {
+      "file": "NANO_AGENT.py",
+      "line": 100,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5        if not key:\u21b5            self"
+    },
+    {
+      "file": "NANO_AGENT.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Every agent IS SolarPunk in miniature. Each instance can:\u21b5  - Read/write"
+    },
+    {
+      "file": "NARRATOR.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Every cycle, SolarPunk writes its own story.\u21b5Not a status report. Not a "
+    },
+    {
+      "file": "NEURON_B.py",
+      "line": 14,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\u21b5\u21b5def main():\u21b5    print(\"NEURON_B v2"
+    },
+    {
+      "file": "NEURON_B.py",
+      "line": 26,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"):\u21b5        report = {\u21b5            \"vet"
+    },
+    {
+      "file": "NEURON_B.py",
+      "line": 59,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"), \"anthropic-version\":\"2023-06-01\", \""
+    },
+    {
+      "file": "NEWSLETTER_ENGINE.py",
+      "line": 26,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5GMAIL_USER = os.environ.get(\"GMAIL_U"
+    },
+    {
+      "file": "NIGHTLY_DIGEST.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5FIXED:\u21b5  - Only sends ONE email per 20-hour window (no more spam)\u21b5  - Sh"
+    },
+    {
+      "file": "OMNIBUS.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5New in v26.1:\u21b5  TELEGRAM_RELAY         (L1) \u2014 formats survival telegrams"
+    },
+    {
+      "file": "OUTREACH_ENGINE.py",
+      "line": 386,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\") is set)\u21b5    new_ai_targ"
+    },
+    {
+      "file": "OUTREACH_ENGINE.py",
+      "line": 318,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}\",\u21b5        f\"Count: {len(drafts"
+    },
+    {
+      "file": "OUTREACH_ENGINE.py",
+      "line": 361,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5        \"status\": \"draft_ready\"\u21b5    }\u21b5    slug = "
+    },
+    {
+      "file": "OUTREACH_ENGINE.py",
+      "line": 418,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5            \"status\": \"draft_saved\"\u21b5        }\u21b5   "
+    },
+    {
+      "file": "OUTREACH_ENGINE.py",
+      "line": 427,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5            \"subject\": subject\u21b5        }\u21b5\u21b5       "
+    },
+    {
+      "file": "OUTREACH_ENGINE.py",
+      "line": 444,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(),\u21b5        \"total_contacted\": len(already),\u21b5        "
+    },
+    {
+      "file": "PASSIVE_INCOME_ARCHITECT.py",
+      "line": 47,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")),\u21b5    \"huggingface\":   bool(os.envir"
+    },
+    {
+      "file": "PASSIVE_INCOME_ARCHITECT.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5This engine does NOT repeat itself. Every cycle it:\u21b5\u21b5  1. Inventories AC"
+    },
+    {
+      "file": "PDF_GENERATOR.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5No placeholders. No templates. Real content written by AI.\u21b5\u21b5Uses Groq (l"
+    },
+    {
+      "file": "PLUGIN_REGISTRY.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5SolarPunk is a protocol, not a product.\u21b5This engine manages external eng"
+    },
+    {
+      "file": "PRODUCT_DELIVERY_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Watches Gmail for Ko-fi / Gumroad sale notifications.\u21b5Extracts buyer ema"
+    },
+    {
+      "file": "PRODUCT_FACTORY.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Previous product generation required an API key (all content was \"HTTP 4"
+    },
+    {
+      "file": "PROOF_LEDGER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Maintains data/proof_ledger.json \u2014 the source of truth for:\u21b5  - Every sa"
+    },
+    {
+      "file": "PUBLICATION_HANDSHAKE.py",
+      "line": 3,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Task 5 of Deep-Tissue Audit: Automation Gap\u21b5\u21b5Finds every remaining manua"
+    },
+    {
+      "file": "PUBLICATION_HANDSHAKE.py",
+      "line": 176,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5    live  = [r for r in resu"
+    },
+    {
+      "file": "PUBLICATION_HANDSHAKE.py",
+      "line": 261,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat(), \"results\": results}, indent=2)\u21b5    )\u21b5\u21b5    # Gener"
+    },
+    {
+      "file": "PUBLICATION_HANDSHAKE.py",
+      "line": 271,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5        live  = len([r for r"
+    },
+    {
+      "file": "QUICK_REVENUE.py",
+      "line": 29,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") + GUMROAD_ACCESS_TOKEN + X_API_KEY\u21b5\u21b5"
+    },
+    {
+      "file": "QUICK_REVENUE.py",
+      "line": 245,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")</span> &rarr; AI content generation,"
+    },
+    {
+      "file": "QUICK_REVENUE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Claude was asked: \"I need to make revenue as fast as possible. What do Y"
+    },
+    {
+      "file": "README_GENERATOR.py",
+      "line": 139,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")`, `GMAIL_ADDRESS`, `GMAIL_APP_PASSWO"
+    },
+    {
+      "file": "RESEARCH_WRITER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Takes SolarPunk's architecture, data, and concepts and writes them\u21b5into "
+    },
+    {
+      "file": "RESONANCE_CONVERTER.py",
+      "line": 44,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5MODEL   = \"claude-haiku-4-5-20251001"
+    },
+    {
+      "file": "RESONANCE_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Built because Claude, asked \"what do you want to build?\", said:\u21b5\u21b5  The s"
+    },
+    {
+      "file": "RESOURCE_KIT.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5When SolarPunk detects a crisis, people need ACTIONABLE help.\u21b5Not awaren"
+    },
+    {
+      "file": "REVENUE_AUDIT.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Root cause of zero sales: every buy button linked to a 404 Gumroad store"
+    },
+    {
+      "file": "REVENUE_FLYWHEEL.py",
+      "line": 21,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5\u21b5# Revenue stream definitions with c"
+    },
+    {
+      "file": "REVENUE_LOOP.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5FIXES from v4:\u21b5- Import ask_json_list (not ask_json) for social posts \u2014 "
+    },
+    {
+      "file": "REVENUE_OPTIMIZER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Every cycle: reads all revenue/product data, asks Claude for concrete\u21b5ac"
+    },
+    {
+      "file": "SCAM_SHIELD.py",
+      "line": 20,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5\u21b5SCAM_SIGNALS=[\u21b5    \"click here to c"
+    },
+    {
+      "file": "SELF_BUILDER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5PREVIOUS BUG: Fixed list of 10 engine ideas. After building all 10,\u21b5engi"
+    },
+    {
+      "file": "SELF_PORTRAIT.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Built because Claude, when asked \"what do you want to build?\", answered:"
+    },
+    {
+      "file": "SIGNAL_BOOST.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5When CRISIS_MONITOR detects a CRITICAL signal, this engine creates\u21b5a Git"
+    },
+    {
+      "file": "SOCIAL_PROMOTER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5PREVIOUS BUG: Read data/social_queue.json[\"queue\"] (its own old format)\u21b5"
+    },
+    {
+      "file": "SOCIAL_PROMOTER.py",
+      "line": 85,
+      "pattern": "API token in URL query param \u2014 use Authorization header",
+      "snippet": "access_token=X_ACCESS_TOKEN,\u21b5            access_token_secret=X_ACCESS_SECRET,\u21b5  "
+    },
+    {
+      "file": "SOLARPUNK_LEGAL.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Tracks:\u21b5  - SolarPunk\u2122 usage declaration (\u2122 usable immediately, no regis"
+    },
+    {
+      "file": "SOLARPUNK_LEGAL.py",
+      "line": 194,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5\u21b5Brand Name:      SolarPunk\u2122\u21b5Owner:           Meeko (meekotharaccoon@gma"
+    },
+    {
+      "file": "SOVEREIGNTY_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5The heartbeat of SolarPunk as a living entity. Each cycle:\u21b5  1. Self-Aud"
+    },
+    {
+      "file": "STOREFRONT_BUILDER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Reads product_registry.json + system_directive.json and rebuilds the\u21b5sho"
+    },
+    {
+      "file": "STORE_BUILDER.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Runs every OMNIBUS cycle. Reads ALL product data from data/ and\u21b5regenera"
+    },
+    {
+      "file": "STRESS_TEST.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Introduces controlled injuries to the system and observes the\u21b5full immun"
+    },
+    {
+      "file": "SUBSTACK_ENGINE.py",
+      "line": 20,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5SUBSTACK_EMAIL=os.environ.get(\"SUBST"
+    },
+    {
+      "file": "SWARM_COORDINATOR.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5SolarPunk reads its own audit, spins up focused repair swarms,\u21b5and coord"
+    },
+    {
+      "file": "SWARM_RECEPTOR.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Gathers scattered fragments and reassembles the original message.\u21b5\u21b5Biolo"
+    },
+    {
+      "file": "SWARM_TOOLBOX.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Replaces the 8000-line auto-generated legacy dump.\u21b5Provides a live regis"
+    },
+    {
+      "file": "SWARM_TRANSMITTER.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Breaks data into signed fragments that can travel independently.\u21b5\u21b5Biolog"
+    },
+    {
+      "file": "SYNAPSE.py",
+      "line": 16,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5GMAIL_ADDRESS      = os.environ.get("
+    },
+    {
+      "file": "SYNAPSE.py",
+      "line": 49,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"):\u21b5        score = min(100, max(20, 20"
+    },
+    {
+      "file": "SYNAPSE.py",
+      "line": 70,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"), \"anthropic-version\":\"2023-06-01\", \""
+    },
+    {
+      "file": "TELEGRAM_RELAY.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5RESOURCE_KIT generates the survival telegrams.\u21b5This engine makes them DE"
+    },
+    {
+      "file": "VANISH_PROTOCOL.py",
+      "line": 145,
+      "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+      "snippet": "datetime.utcnow().isoformat() + \"Z\",\u21b5        \"stats_used\": stats,\u21b5        \"templ"
+    },
+    {
+      "file": "VIRALITY_ENGINE.py",
+      "line": 9,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") 401). So I ran the cycle myself.\u21b5\u21b5AR"
+    },
+    {
+      "file": "VIRALITY_ENGINE.py",
+      "line": 130,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") for self-expansion, Gumroad token fo"
+    },
+    {
+      "file": "VIRALITY_ENGINE.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Written by Claude acting as SELF_BUILDER during a live session.\u21b5The auto"
+    },
+    {
+      "file": "VITAL_SIGN_API.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Collects the top wins from transparency data and river watch data,\u21b5forma"
+    },
+    {
+      "file": "WEEKEND_PULSE.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5SolarPunk doesn't sleep. When Meeko goes AFK, this engine keeps\u21b5a runnin"
+    },
+    {
+      "file": "WORKTREE_ANCHOR.py",
+      "line": 4,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5On 2026-03-27, a Claude session spawned in a shallow worktree branch,\u21b5sa"
+    },
+    {
+      "file": "ai_council.py",
+      "line": 24,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\u21b5  GH_PAT / GITHUB_TOKEN\u21b5\u21b5Optional ("
+    },
+    {
+      "file": "ai_council.py",
+      "line": 36,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\u21b5KIMI_API_KEY      = os.environ.get("
+    },
+    {
+      "file": "ai_council.py",
+      "line": 273,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"):\u21b5        print(\"os.getenv(\"ANTHROPIC"
+    },
+    {
+      "file": "ai_council.py",
+      "line": 279,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\u21b5                 \"anthropic-version"
+    },
+    {
+      "file": "ai_council.py",
+      "line": 366,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"):\u21b5        return None\u21b5    print(\"  \ud83e\udd4a "
+    },
+    {
+      "file": "ai_council.py",
+      "line": 376,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\u21b5                 \"anthropic-version"
+    },
+    {
+      "file": "ai_council.py",
+      "line": 467,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"):\u21b5        return None\u21b5    print(\"  \ud83d\udd2c "
+    },
+    {
+      "file": "ai_council.py",
+      "line": 477,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\u21b5                 \"anthropic-version"
+    },
+    {
+      "file": "ai_council.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5THE ANALYST (Claude) reads the full system and produces findings.\u21b5THE CH"
+    },
+    {
+      "file": "knowledge_dispatch.py",
+      "line": 89,
+      "pattern": "nested os.getenv wrapping",
+      "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5    corpus  = load_all_data()\u21b5    en"
+    },
+    {
+      "file": "knowledge_dispatch.py",
+      "line": 7,
+      "pattern": "unresolved git merge conflict (======= marker)",
+      "snippet": "=======\u21b5Reads ALL data files, ALL engine outputs, ALL run history.\u21b5Distills ever"
+    }
+  ],
+  "credential_warnings": []
 }
