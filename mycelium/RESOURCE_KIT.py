@@ -1,9 +1,29 @@
 #!/usr/bin/env python3
 """
-RESOURCE_KIT.py — Emergency Survival Guides for Real People
-============================================================
+RESOURCE_KIT.py — Emergency Survival Guides for Real People (v2: LIQUID DATA)
+===============================================================================
 When SolarPunk detects a crisis, people need ACTIONABLE help.
 Not awareness. Not dashboards. INSTRUCTIONS.
+
+v2 "Liquid Data" upgrade:
+  Every kit now generates FOUR formats:
+    1. FULL TEXT  — complete guide, plain .txt, works on any device
+    2. TELEGRAM   — atomic survival syntax, <160 bytes per message
+                    can be sent via SMS, satellite phone, LoRa radio
+    3. MARKDOWN   — ASCII-only .md, readable on 2010 Nokia to Linux terminal
+    4. HTML       — lightweight static page for high-latency areas
+
+  The compression layer strips help down to its smallest possible form
+  so it can flow through the narrowest pipes on Earth:
+    - SMS (160 chars per segment)
+    - Satellite phone (2400 baud)
+    - LoRa radio (250 bytes/packet)
+    - Mesh networks (Briar/Bridgefy)
+    - Tor hidden services (high latency)
+
+  "Survival Telegrams" are the atomic unit of help:
+    Medical:  "ORS: 6tsp sugar+0.5tsp salt+1L water. Sip 50ml/kg. Saves lives." (67 bytes)
+    Shutdown: "Briar app=mesh msg no internet. Tor+bridges=bypass blocks. OONI=measure." (74 bytes)
 
 This engine generates ready-to-distribute emergency resource kits:
 
@@ -13,14 +33,9 @@ This engine generates ready-to-distribute emergency resource kits:
   4. MEDICAL EMERGENCY KIT: First aid when hospitals are destroyed
   5. PRESS FREEDOM KIT: Secure communication for journalists
 
-Each kit is:
-  - Plain text (works on any device, low bandwidth)
-  - Available in the store as $1 downloads (funds Gaza via PCRF)
-  - Auto-updated when new tools/resources become available
-  - Written to data/resource_kits.json for other engines to distribute
-
 Reads: data/crisis_signals.json, data/crisis_triggers.json
-Writes: data/resource_kits.json, docs/emergency_kits.html
+Writes: data/resource_kits.json, docs/emergency_kits.html,
+        docs/kits/*.txt, docs/kits/*.md, data/survival_telegrams.json
 """
 import json
 from pathlib import Path
@@ -28,10 +43,13 @@ from datetime import datetime, timezone
 
 DATA = Path("data")
 DOCS = Path("docs")
+KITS_DIR = DOCS / "kits"
 DATA.mkdir(exist_ok=True)
 DOCS.mkdir(exist_ok=True)
+KITS_DIR.mkdir(exist_ok=True)
 
 KITS_FILE = DATA / "resource_kits.json"
+TELEGRAMS_FILE = DATA / "survival_telegrams.json"
 CRISIS_FILE = DATA / "crisis_signals.json"
 TRIGGERS_FILE = DATA / "crisis_triggers.json"
 
@@ -236,6 +254,135 @@ KITS = {
 }
 
 
+# ── SURVIVAL TELEGRAMS — Atomic Syntax for SMS/Satellite/LoRa ────────────
+# Each telegram is <160 bytes (1 SMS segment) or <250 bytes (1 LoRa packet)
+# These are the absolute minimum words needed to save a life.
+
+SURVIVAL_TELEGRAMS = {
+    "internet_shutdown": [
+        "SHUTDOWN KIT: Briar app=mesh msg w/o internet. Bridgefy=Bluetooth msg. Tor+obfs4 bridges=bypass blocks. Psiphon.ca=anti-censor VPN. OONI.org=measure censorship.",
+        "PREP NOW: Download Briar+Bridgefy+Tor before shutdown. Save offline maps. Get ProtonVPN. Store contacts offline. FM radio=backup comms.",
+        "REPORT: accessnow.org/help=24/7 helpline. netblocks.org=track shutdowns. If you reach outside: ask them to report.",
+    ],
+    "medical_emergency": [
+        "ORS RECIPE: 6tsp sugar+0.5tsp salt+1L clean water. Sip slowly. Prevents fatal dehydration. WHO approved. Saves children.",
+        "BLEEDING: Direct pressure w/ clean cloth. Tourniquet ONLY limb+life-threatening=above wound+tight. Burns=cool water 10min. NO ice.",
+        "WATER SAFE: Boil 1min (3min above 2000m). Solar: clear bottle in sun 6hrs. Cholera prevention=boil+wash hands+cook food.",
+        "HELP: MSF msf.org=conflict zones. PCRF pcrf.net=Gaza children. ICRC icrc.org=surgical teams. All free. No questions.",
+    ],
+    "documentation_safety": [
+        "EVIDENCE: eyeWitness app (eyewitness.global)=crypto-verified footage. Film landmarks+dates+uniforms. Enable GPS metadata on camera.",
+        "PROTECT: Blur faces w/o consent. Signal=encrypted transmit. Cloud upload survives device seizure. NEVER ID yourself unless you choose.",
+        "SUBMIT: ICC icc-cpi.int/how-to-communicate. HRW hrw.org/submit-information. Bellingcat bellingcat.com. Amnesty amnesty.org/en/contact.",
+    ],
+    "displacement_survival": [
+        "RIGHTS: You CAN seek asylum=international law. Cannot be returned to danger. UNHCR unhcr.org=register for protection. Keep ALL documents.",
+        "FAMILY: Red Cross family tracing familylinks.icrc.org. Children alone=special CRC protections. Register w/ICRC immediately if separated.",
+        "AID: IRC rescue.org=country guides. MSF msf.org=free medical. WFP wfp.org=food. UNICEF=child protection. Cash programs via local UNHCR.",
+    ],
+    "press_freedom": [
+        "SECURE: Signal signal.org=encrypted. ProtonMail proton.me=encrypted email. SecureDrop=anonymous docs to newsrooms. Tails OS=no trace.",
+        "ARRESTED: CPJ cpj.org/campaigns/assistance=24/7. RSF rsf.org. RIGHT to lawyer=universal. Do NOT unlock devices w/o legal counsel.",
+        "SAFETY: Separate work+personal phones. Strip metadata=exiftool. EFF guide ssd.eff.org. AccessNow helpline accessnow.org/help.",
+    ],
+}
+
+# SMS segment size limits
+SMS_SEGMENT = 160   # bytes per SMS
+LORA_PACKET = 250   # bytes per LoRa packet
+
+
+def render_telegram_sms(kit_id):
+    """Split telegrams into SMS-sized segments (160 chars each)."""
+    telegrams = SURVIVAL_TELEGRAMS.get(kit_id, [])
+    sms_segments = []
+    for i, telegram in enumerate(telegrams, 1):
+        # Split into 160-char SMS segments
+        text = telegram
+        seg_num = 0
+        while text:
+            chunk = text[:SMS_SEGMENT]
+            # Try to break at word boundary
+            if len(text) > SMS_SEGMENT:
+                last_space = chunk.rfind(" ")
+                if last_space > 100:
+                    chunk = text[:last_space]
+            text = text[len(chunk):].lstrip()
+            seg_num += 1
+            sms_segments.append({
+                "telegram": i,
+                "segment": seg_num,
+                "text": chunk.strip(),
+                "bytes": len(chunk.strip().encode("utf-8")),
+            })
+    return sms_segments
+
+
+def render_kit_markdown(kit_id):
+    """Render kit as pure ASCII markdown — works on any terminal, any device."""
+    kit = KITS[kit_id]
+    lines = [
+        f"# {kit['title']}",
+        f"",
+        f"Urgency: {kit['urgency']}",
+        f"Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}",
+        f"Source: github.com/Meekoshy/meeko-nerve-center",
+        f"",
+        f"---",
+        f"",
+    ]
+    # Add survival telegrams at top if available
+    telegrams = SURVIVAL_TELEGRAMS.get(kit_id, [])
+    if telegrams:
+        lines.append("## QUICK REFERENCE (SMS-ready)")
+        lines.append("")
+        for t in telegrams:
+            lines.append(f"> {t}")
+            lines.append(f"> ({len(t.encode('utf-8'))} bytes)")
+            lines.append("")
+        lines.append("---")
+        lines.append("")
+
+    for section in kit["sections"]:
+        lines.append(f"## {section['heading']}")
+        lines.append("")
+        for item in section["items"]:
+            lines.append(f"- {item}")
+        lines.append("")
+
+    lines.append("---")
+    lines.append("SolarPunk | Open Source Humanitarian AI | MIT License")
+    lines.append("15% of every $1 -> PCRF (Palestinian children)")
+    return "\n".join(lines)
+
+
+def render_kit_ultra_txt(kit_id):
+    """Absolute minimum text — designed for satellite phone / LoRa / SMS relay."""
+    kit = KITS[kit_id]
+    telegrams = SURVIVAL_TELEGRAMS.get(kit_id, [])
+    lines = [kit["title"].upper(), "=" * len(kit["title"]), ""]
+    for t in telegrams:
+        lines.append(t)
+        lines.append("")
+    if not telegrams:
+        for section in kit["sections"]:
+            lines.append(section["heading"].upper())
+            for item in section["items"]:
+                # Strip URLs to just domains
+                lines.append(f"* {item}")
+            lines.append("")
+    lines.append("-- SolarPunk Humanitarian AI --")
+    return "\n".join(lines)
+
+
+def write_kit_files(kit_id, text, markdown, ultra):
+    """Write all format variants to docs/kits/."""
+    safe_name = kit_id.replace("_", "-")
+    (KITS_DIR / f"{safe_name}.txt").write_text(text, encoding="utf-8")
+    (KITS_DIR / f"{safe_name}.md").write_text(markdown, encoding="utf-8")
+    (KITS_DIR / f"{safe_name}-ultra.txt").write_text(ultra, encoding="utf-8")
+
+
 def get_active_crisis_types():
     """Read current crisis signals and return active crisis types."""
     types = set()
@@ -361,7 +508,8 @@ These are not awareness campaigns &mdash; they are <strong>instructions</strong>
 
 
 def main():
-    print("RESOURCE_KIT — Building emergency survival guides...")
+    print("RESOURCE_KIT v2 (LIQUID DATA) — Building emergency survival guides...")
+    print("  Formats: FULL TEXT | TELEGRAM (SMS) | MARKDOWN (ASCII) | HTML | ULTRA-LOW")
 
     active = get_active_crisis_types()
     print(f"  Active crisis types: {', '.join(sorted(active)) if active else 'all (default)'}")
@@ -370,9 +518,34 @@ def main():
     all_kit_ids = list(KITS.keys())
 
     kits_output = []
+    all_telegrams = {}
+    total_telegram_bytes = 0
+    total_sms_segments = 0
+
     for kit_id in all_kit_ids:
         kit = KITS[kit_id]
+
+        # Generate all formats
         text = render_kit_text(kit_id)
+        markdown = render_kit_markdown(kit_id)
+        ultra = render_kit_ultra_txt(kit_id)
+        sms_segments = render_telegram_sms(kit_id)
+
+        # Write format files to docs/kits/
+        write_kit_files(kit_id, text, markdown, ultra)
+
+        # Track telegram stats
+        telegram_bytes = sum(s["bytes"] for s in sms_segments)
+        total_telegram_bytes += telegram_bytes
+        total_sms_segments += len(sms_segments)
+        all_telegrams[kit_id] = {
+            "title": kit["title"],
+            "telegrams": SURVIVAL_TELEGRAMS.get(kit_id, []),
+            "sms_segments": sms_segments,
+            "total_bytes": telegram_bytes,
+            "segment_count": len(sms_segments),
+        }
+
         kits_output.append({
             "id": kit_id,
             "title": kit["title"],
@@ -382,28 +555,62 @@ def main():
             "section_count": len(kit["sections"]),
             "item_count": sum(len(s["items"]) for s in kit["sections"]),
             "text": text,
+            "text_bytes": len(text.encode("utf-8")),
+            "markdown_bytes": len(markdown.encode("utf-8")),
+            "ultra_bytes": len(ultra.encode("utf-8")),
+            "telegram_bytes": telegram_bytes,
+            "sms_segments": len(sms_segments),
+            "formats": ["txt", "md", "ultra-txt", "html", "sms-telegram"],
+            "files": {
+                "txt": f"docs/kits/{kit_id.replace('_', '-')}.txt",
+                "md": f"docs/kits/{kit_id.replace('_', '-')}.md",
+                "ultra": f"docs/kits/{kit_id.replace('_', '-')}-ultra.txt",
+            },
             "generated_at": datetime.now(timezone.utc).isoformat(),
         })
         status = "ACTIVE" if kit_id in active else "standby"
-        print(f"  [{status}] {kit['title']} ({sum(len(s['items']) for s in kit['sections'])} items)")
+        items = sum(len(s["items"]) for s in kit["sections"])
+        print(f"  [{status}] {kit['title']}")
+        print(f"           {items} items | {len(text.encode('utf-8'))} bytes full | {telegram_bytes} bytes telegram | {len(sms_segments)} SMS segments")
 
     # Write JSON for other engines
     output = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
+        "version": "2.0-liquid",
         "kit_count": len(kits_output),
         "active_count": len([k for k in kits_output if k["active"]]),
+        "total_formats": 5,
+        "total_sms_segments": total_sms_segments,
+        "total_telegram_bytes": total_telegram_bytes,
         "kits": kits_output,
     }
     KITS_FILE.write_text(json.dumps(output, indent=2))
+
+    # Write survival telegrams JSON — the atomic packets for SMS/satellite/LoRa
+    telegram_output = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "version": "1.0",
+        "description": "Survival telegrams — atomic help packets for SMS, satellite phone, LoRa radio, mesh networks",
+        "max_segment_bytes": SMS_SEGMENT,
+        "total_telegrams": sum(len(t["telegrams"]) for t in all_telegrams.values()),
+        "total_sms_segments": total_sms_segments,
+        "total_bytes": total_telegram_bytes,
+        "kits": all_telegrams,
+    }
+    TELEGRAMS_FILE.write_text(json.dumps(telegram_output, indent=2))
 
     # Write HTML page
     html = build_html_page(all_kit_ids)
     (DOCS / "emergency_kits.html").write_text(html)
 
     total_items = sum(k["item_count"] for k in kits_output)
-    print(f"\n  {len(kits_output)} kits generated | {total_items} total resource items")
-    print(f"  HTML: docs/emergency_kits.html")
-    print(f"  JSON: data/resource_kits.json")
+    print(f"\n{'='*60}")
+    print(f"  RESOURCE_KIT v2 LIQUID DATA — COMPLETE")
+    print(f"  {len(kits_output)} kits | {total_items} resource items | 5 output formats")
+    print(f"  {total_sms_segments} SMS segments | {total_telegram_bytes} telegram bytes total")
+    print(f"  Files: docs/kits/*.txt + *.md + *-ultra.txt + emergency_kits.html")
+    print(f"  Atomic: data/survival_telegrams.json (ready for SMS/satellite/LoRa relay)")
+    print(f"{'='*60}")
     print("RESOURCE_KIT done.")
 
 
