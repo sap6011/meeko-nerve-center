@@ -1,0 +1,139 @@
+{
+  "timestamp": "2026-03-28T14:57:56.640499+00:00",
+  "version": "1.0",
+  "pattern": "homeostasis",
+  "planetary_health": 89,
+  "status": "HEALTHY",
+  "message": "System healthy with minor adjustments needed.",
+  "vitals": {
+    "engine_count": 269,
+    "crisis_signals": 29,
+    "active_sources": 1,
+    "source_list": [
+      "reddit"
+    ],
+    "trigger_rate": 0,
+    "handshake_queue": 6,
+    "amplification_posts": 8,
+    "immune_patterns": 2,
+    "information_voids": 14,
+    "silence_events": 0,
+    "spore_count": 17,
+    "global_quorum": 13,
+    "active_quorums": 2,
+    "sovereignty": "?"
+  },
+  "diagnoses": [
+    {
+      "vital": "engine_count",
+      "value": 269,
+      "unit": "engines",
+      "range": "250-500",
+      "status": "NORMAL",
+      "deduction": 0
+    },
+    {
+      "vital": "crisis_signals",
+      "value": 29,
+      "unit": "signals/scan",
+      "range": "5-100",
+      "status": "NORMAL",
+      "deduction": 0
+    },
+    {
+      "vital": "active_sources",
+      "value": 1,
+      "unit": "data sources",
+      "range": "2-6",
+      "status": "CRITICAL",
+      "deduction": 15
+    },
+    {
+      "vital": "trigger_rate",
+      "value": 0,
+      "unit": "triggers/scan",
+      "range": "0-50",
+      "status": "NORMAL",
+      "deduction": 0
+    },
+    {
+      "vital": "handshake_queue",
+      "value": 6,
+      "unit": "queued emails",
+      "range": "0-20",
+      "status": "NORMAL",
+      "deduction": 0
+    },
+    {
+      "vital": "amplification_posts",
+      "value": 8,
+      "unit": "posts/cycle",
+      "range": "1-30",
+      "status": "NORMAL",
+      "deduction": 0
+    },
+    {
+      "vital": "immune_patterns",
+      "value": 2,
+      "unit": "patterns",
+      "range": "1-1000",
+      "status": "NORMAL",
+      "deduction": 0
+    },
+    {
+      "vital": "information_voids",
+      "value": 14,
+      "unit": "critical voids",
+      "range": "0-10",
+      "status": "HIGH",
+      "deduction": 3
+    },
+    {
+      "vital": "silence_events",
+      "value": 0,
+      "unit": "active blackouts",
+      "range": "0-3",
+      "status": "NORMAL",
+      "deduction": 0
+    },
+    {
+      "vital": "spore_count",
+      "value": 17,
+      "unit": "spores/cycle",
+      "range": "5-100",
+      "status": "NORMAL",
+      "deduction": 0
+    }
+  ],
+  "prescriptions": [
+    {
+      "vital": "active_sources",
+      "condition": "Only 1 data sources active (need >= 2)",
+      "prescription": "DIVERSIFY_SOURCES",
+      "actions": [
+        "Current sources: reddit",
+        "Add backup RSS feeds for each primary source",
+        "Enable Wikipedia Current Events fallback",
+        "Consider adding Twitter/X API if available"
+      ],
+      "urgency": "HIGH"
+    },
+    {
+      "vital": "information_voids",
+      "condition": "14 critical information voids",
+      "prescription": "INCREASE_COVERAGE",
+      "actions": [
+        "Route AMPLIFY_ENGINE toward void regions",
+        "Increase Reddit scanning for under-covered regions",
+        "Generate social posts specifically about forgotten crises"
+      ],
+      "urgency": "MEDIUM"
+    }
+  ],
+  "stats": {
+    "normal_count": 8,
+    "warning_count": 1,
+    "critical_count": 1,
+    "prescription_count": 2
+  }
+}

@@ -244,6 +244,8 @@ def L1():
     eng("QUORUM_SENSE",      timeout=60)   # v27: collective signal threshold — bacterial pattern
     eng("SPORE_DISPERSAL",   timeout=60)   # v27: maximum redundancy distribution — fungal pattern
     eng("OSMOSIS_ROUTER",    timeout=60)   # v27: help flows toward information voids — molecular pattern
+    eng("HOMEOSTASIS",       timeout=60)   # v27: self-regulating planetary health — thermostat pattern
+    eng("NEUROPLASTICITY",   timeout=60)   # v27: self-rewiring pathways — brain pattern
     eng("AI_WATCHER",         timeout=60)
     eng("CRYPTO_WATCHER",     timeout=60)
     eng("FREE_API_ENGINE",    timeout=60)
