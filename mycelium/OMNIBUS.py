@@ -3,18 +3,19 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v26 — RESOURCE_KIT + SIGNAL_BOOST + Wikipedia source
-=============================================================
-New in v26:
-  RESOURCE_KIT           (L1) — emergency survival guides (internet shutdown, documentation,
-                                 displacement, medical, press freedom)
-  SIGNAL_BOOST           (L1) — creates GitHub Issues as permanent public records for CRITICAL signals
+OMNIBUS v26.1 — LIQUID DATA + AMPLIFY + TELEGRAM_RELAY + WEEKEND_PULSE
+========================================================================
+New in v26.1:
+  TELEGRAM_RELAY         (L1) — formats survival telegrams for SMS/LoRa/mesh/satellite/QR
+  AMPLIFY_ENGINE         (L1) — ready-to-post content for 8 platforms (Twitter/Bluesky/Reddit/HN/etc)
+  WEEKEND_PULSE          (L7) — system heartbeat page while Meeko sleeps (docs/pulse.html)
+  RESOURCE_KIT v2        (L1) — "Liquid Data" compression: 5 kits in 5 formats, survival telegrams
+
+Previous in v26:
+  RESOURCE_KIT           (L1) — emergency survival guides
+  SIGNAL_BOOST           (L1) — GitHub Issues as permanent public records
   CRISIS_MONITOR         (L1) — +Wikipedia Current Events as 4th data source
   EMAIL_OUTREACH         (L4) — now reads ngo_handshakes.json (crisis pipeline connected)
-
-Previous in v25:
-  CRISIS_MONITOR         (L1) — humanitarian crisis detection, ReliefWeb/GDELT/Reddit
-  WORKTREE_ANCHOR        (L0) — stamps ground truth to prevent Claude session desync
 
 Previous in v24:
   NANOSHOP_ENGINE        (L4) — generates embeddable 1-click purchase widgets
@@ -229,7 +230,9 @@ def L1():
     eng("KNOWLEDGE_PULSE",    timeout=60)   # v25: generates actionable help packets from crisis data
     eng("MURMURATION_RELAY",  timeout=60)   # v25: pushes help to social/Reddit/broadcast channels
     eng("RESOURCE_KIT",       timeout=60)   # v26: emergency survival guides for crises
+    eng("TELEGRAM_RELAY",     timeout=60)   # v26.1: formats telegrams for SMS/LoRa/mesh/satellite/QR
     eng("SIGNAL_BOOST",       timeout=60)   # v26: creates GitHub Issues as permanent public records
+    eng("AMPLIFY_ENGINE",     timeout=60)   # v26.1: ready-to-post content for 8 platforms
     eng("AI_WATCHER",         timeout=60)
     eng("CRYPTO_WATCHER",     timeout=60)
     eng("FREE_API_ENGINE",    timeout=60)
@@ -368,6 +371,7 @@ def L7():
     eng("SELF_PORTRAIT",    timeout=60)
     eng("RSS_PUBLISHER",    timeout=30)
     eng("NARRATOR",         timeout=60)
+    eng("WEEKEND_PULSE",    timeout=30)   # v26: system heartbeat while Meeko sleeps
     save_ctx()
 
 

@@ -1,0 +1,633 @@
+{
+  "timestamp": "2026-03-28T02:00:19.958056+00:00",
+  "version": "1.0",
+  "description": "Survival telegrams formatted for every delivery protocol",
+  "protocols": {
+    "sms": {
+      "limit": 160,
+      "encoding": "GSM-7",
+      "note": "Ready for Twilio/Vonage API"
+    },
+    "lora": {
+      "limit": 250,
+      "encoding": "ASCII",
+      "note": "250-byte LoRa radio packets"
+    },
+    "mesh": {
+      "limit": 1024,
+      "encoding": "UTF-8",
+      "note": "Briar/Bridgefy bundles"
+    },
+    "satellite": {
+      "limit": 160,
+      "encoding": "ASCII-UPPER",
+      "note": "2400 baud satellite"
+    },
+    "qr": {
+      "limit": 2000,
+      "encoding": "UTF-8",
+      "note": "QR code data, scannable offline"
+    },
+    "gist": {
+      "limit": null,
+      "encoding": "UTF-8",
+      "note": "GitHub Gist, Google-indexed"
+    }
+  },
+  "kits": {
+    "internet_shutdown": {
+      "title": "Internet Shutdown Survival Kit",
+      "active": false,
+      "sms": [
+        {
+          "format": "sms_gateway",
+          "kit": "internet_shutdown",
+          "part": 1,
+          "body": "SHUTDOWN KIT: Briar app=mesh msg w/o internet. Bridgefy=Bluetooth msg. Tor+obfs4 bridges=bypass blocks. Psiphon.ca=anti-censor VPN. OONI.org=measure censorship.",
+          "bytes": 160,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "internet_shutdown",
+          "part": 1,
+          "body": "PREP NOW: Download Briar+Bridgefy+Tor before shutdown. Save offline maps. Get ProtonVPN. Store contacts offline. FM radio=backup comms.",
+          "bytes": 135,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "internet_shutdown",
+          "part": 1,
+          "body": "REPORT: accessnow.org/help=24/7 helpline. netblocks.org=track shutdowns. If you reach outside: ask them to report.",
+          "bytes": 114,
+          "encoding": "GSM-7",
+          "api_ready": true
+        }
+      ],
+      "lora": [
+        {
+          "format": "lora_packet",
+          "kit": "internet_shutdown",
+          "header": "SP|internet|1|1|",
+          "payload": "SHUTDOWN KIT: Briar app=mesh msg w/o internet. Bridgefy=Bluetooth msg. Tor+obfs4 bridges=bypass blocks. Psiphon.ca=anti-censor VPN. OONI.org=measure censorship.",
+          "full_packet": "SP|internet|1|1|SHUTDOWN KIT: Briar app=mesh msg w/o internet. Bridgefy=Bluetooth msg. Tor+obfs4 bridges=bypass blocks. Psiphon.ca=anti-censor VPN. OONI.org=measure censorship.",
+          "bytes": 176,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "internet_shutdown",
+          "header": "SP|internet|2|1|",
+          "payload": "PREP NOW: Download Briar+Bridgefy+Tor before shutdown. Save offline maps. Get ProtonVPN. Store contacts offline. FM radio=backup comms.",
+          "full_packet": "SP|internet|2|1|PREP NOW: Download Briar+Bridgefy+Tor before shutdown. Save offline maps. Get ProtonVPN. Store contacts offline. FM radio=backup comms.",
+          "bytes": 151,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "internet_shutdown",
+          "header": "SP|internet|3|1|",
+          "payload": "REPORT: accessnow.org/help=24/7 helpline. netblocks.org=track shutdowns. If you reach outside: ask them to report.",
+          "full_packet": "SP|internet|3|1|REPORT: accessnow.org/help=24/7 helpline. netblocks.org=track shutdowns. If you reach outside: ask them to report.",
+          "bytes": 130,
+          "within_limit": true
+        }
+      ],
+      "mesh": {
+        "format": "mesh_bundle",
+        "kit": "internet_shutdown",
+        "body": "[SOLARPUNK EMERGENCY: INTERNET SHUTDOWN]\n\n[1] SHUTDOWN KIT: Briar app=mesh msg w/o internet. Bridgefy=Bluetooth msg. Tor+obfs4 bridges=bypass blocks. Psiphon.ca=anti-censor VPN. OONI.org=measure censorship.\n\n[2] PREP NOW: Download Briar+Bridgefy+Tor before shutdown. Save offline maps. Get ProtonVPN. Store contacts offline. FM radio=backup comms.\n\n[3] REPORT: accessnow.org/help=24/7 helpline. netblocks.org=track shutdowns. If you reach outside: ask them to report.\n\n[END] Share freely. SolarPunk MIT License.\n",
+        "bytes": 512,
+        "within_limit": true,
+        "protocol": "briar/bridgefy/generic"
+      },
+      "satellite": [
+        {
+          "format": "satellite",
+          "kit": "internet_shutdown",
+          "seq": 1,
+          "body": "SHUTDOWN KIT: BRIAR APP=MESH MSG W/O INTERNET. BRIDGEFY=BLUETOOTH MSG. TOR+OBFS4 BRIDGES=BYPASS BLOCKS. PSIPHON.CA=ANTI-CENSOR VPN. OONI.ORG=MEASURE CENSORSHIP.",
+          "bytes": 160,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "internet_shutdown",
+          "seq": 2,
+          "body": "PREP NOW: DOWNLOAD BRIAR+BRIDGEFY+TOR BEFORE SHUTDOWN. SAVE OFFLINE MAPS. GET PROTONVPN. STORE CONTACTS OFFLINE. FM RADIO=BACKUP COMMS.",
+          "bytes": 135,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "internet_shutdown",
+          "seq": 3,
+          "body": "REPORT: ACCESSNOW.ORG/HELP=24/7 HELPLINE. NETBLOCKS.ORG=TRACK SHUTDOWNS. IF YOU REACH OUTSIDE: ASK THEM TO REPORT.",
+          "bytes": 114,
+          "encoding": "ASCII-UPPER"
+        }
+      ],
+      "qr": {
+        "format": "qr_data",
+        "kit": "internet_shutdown",
+        "body": "SOLARPUNK EMERGENCY KIT: INTERNET SHUTDOWN\n\n1. SHUTDOWN KIT: Briar app=mesh msg w/o internet. Bridgefy=Bluetooth msg. Tor+obfs4 bridges=bypass blocks. Psiphon.ca=anti-censor VPN. OONI.org=measure censorship.\n2. PREP NOW: Download Briar+Bridgefy+Tor before shutdown. Save offline maps. Get ProtonVPN. Store contacts offline. FM radio=backup comms.\n3. REPORT: accessnow.org/help=24/7 helpline. netblocks.org=track shutdowns. If you reach outside: ask them to report.\n\nShare: github.com/Meekoshy/meeko-nerve-center",
+        "bytes": 511,
+        "qr_version_estimate": "L",
+        "note": "Encode this text into a QR code. Any camera phone can scan it."
+      },
+      "gist": {
+        "format": "gist",
+        "kit": "internet_shutdown",
+        "filename": "internet-shutdown-gist.txt",
+        "path": "docs/kits/relay-ready/internet-shutdown-gist.txt",
+        "bytes": 623,
+        "content": "# EMERGENCY: INTERNET SHUTDOWN\n# Generated by SolarPunk \u2014 2026-03-28\n# Share freely. MIT License.\n\n1. SHUTDOWN KIT: Briar app=mesh msg w/o internet. Bridgefy=Bluetooth msg. Tor+obfs4 bridges=bypass blocks. Psiphon.ca=anti-censor VPN. OONI.org=measure censorship.\n\n2. PREP NOW: Download Briar+Bridgefy+Tor before shutdown. Save offline maps. Get ProtonVPN. Store contacts offline. FM radio=backup comms.\n\n3. REPORT: accessnow.org/help=24/7 helpline. netblocks.org=track shutdowns. If you reach outside: ask them to report.\n\n---\nSource: github.com/Meekoshy/meeko-nerve-center\n15% of every $1 -> PCRF (Palestinian children)\n"
+      }
+    },
+    "documentation_safety": {
+      "title": "War Crimes Documentation Safety Kit",
+      "active": false,
+      "sms": [
+        {
+          "format": "sms_gateway",
+          "kit": "documentation_safety",
+          "part": 1,
+          "body": "EVIDENCE: eyeWitness app (eyewitness.global)=crypto-verified footage. Film landmarks+dates+uniforms. Enable GPS metadata on camera.",
+          "bytes": 131,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "documentation_safety",
+          "part": 1,
+          "body": "PROTECT: Blur faces w/o consent. Signal=encrypted transmit. Cloud upload survives device seizure. NEVER ID yourself unless you choose.",
+          "bytes": 134,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "documentation_safety",
+          "part": 1,
+          "body": "SUBMIT: ICC icc-cpi.int/how-to-communicate. HRW hrw.org/submit-information. Bellingcat bellingcat.com. Amnesty amnesty.org/en/contact.",
+          "bytes": 134,
+          "encoding": "GSM-7",
+          "api_ready": true
+        }
+      ],
+      "lora": [
+        {
+          "format": "lora_packet",
+          "kit": "documentation_safety",
+          "header": "SP|document|1|1|",
+          "payload": "EVIDENCE: eyeWitness app (eyewitness.global)=crypto-verified footage. Film landmarks+dates+uniforms. Enable GPS metadata on camera.",
+          "full_packet": "SP|document|1|1|EVIDENCE: eyeWitness app (eyewitness.global)=crypto-verified footage. Film landmarks+dates+uniforms. Enable GPS metadata on camera.",
+          "bytes": 147,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "documentation_safety",
+          "header": "SP|document|2|1|",
+          "payload": "PROTECT: Blur faces w/o consent. Signal=encrypted transmit. Cloud upload survives device seizure. NEVER ID yourself unless you choose.",
+          "full_packet": "SP|document|2|1|PROTECT: Blur faces w/o consent. Signal=encrypted transmit. Cloud upload survives device seizure. NEVER ID yourself unless you choose.",
+          "bytes": 150,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "documentation_safety",
+          "header": "SP|document|3|1|",
+          "payload": "SUBMIT: ICC icc-cpi.int/how-to-communicate. HRW hrw.org/submit-information. Bellingcat bellingcat.com. Amnesty amnesty.org/en/contact.",
+          "full_packet": "SP|document|3|1|SUBMIT: ICC icc-cpi.int/how-to-communicate. HRW hrw.org/submit-information. Bellingcat bellingcat.com. Amnesty amnesty.org/en/contact.",
+          "bytes": 150,
+          "within_limit": true
+        }
+      ],
+      "mesh": {
+        "format": "mesh_bundle",
+        "kit": "documentation_safety",
+        "body": "[SOLARPUNK EMERGENCY: DOCUMENTATION SAFETY]\n\n[1] EVIDENCE: eyeWitness app (eyewitness.global)=crypto-verified footage. Film landmarks+dates+uniforms. Enable GPS metadata on camera.\n\n[2] PROTECT: Blur faces w/o consent. Signal=encrypted transmit. Cloud upload survives device seizure. NEVER ID yourself unless you choose.\n\n[3] SUBMIT: ICC icc-cpi.int/how-to-communicate. HRW hrw.org/submit-information. Bellingcat bellingcat.com. Amnesty amnesty.org/en/contact.\n\n[END] Share freely. SolarPunk MIT License.\n",
+        "bytes": 505,
+        "within_limit": true,
+        "protocol": "briar/bridgefy/generic"
+      },
+      "satellite": [
+        {
+          "format": "satellite",
+          "kit": "documentation_safety",
+          "seq": 1,
+          "body": "EVIDENCE: EYEWITNESS APP (EYEWITNESS.GLOBAL)=CRYPTO-VERIFIED FOOTAGE. FILM LANDMARKS+DATES+UNIFORMS. ENABLE GPS METADATA ON CAMERA.",
+          "bytes": 131,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "documentation_safety",
+          "seq": 2,
+          "body": "PROTECT: BLUR FACES W/O CONSENT. SIGNAL=ENCRYPTED TRANSMIT. CLOUD UPLOAD SURVIVES DEVICE SEIZURE. NEVER ID YOURSELF UNLESS YOU CHOOSE.",
+          "bytes": 134,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "documentation_safety",
+          "seq": 3,
+          "body": "SUBMIT: ICC ICC-CPI.INT/HOW-TO-COMMUNICATE. HRW HRW.ORG/SUBMIT-INFORMATION. BELLINGCAT BELLINGCAT.COM. AMNESTY AMNESTY.ORG/EN/CONTACT.",
+          "bytes": 134,
+          "encoding": "ASCII-UPPER"
+        }
+      ],
+      "qr": {
+        "format": "qr_data",
+        "kit": "documentation_safety",
+        "body": "SOLARPUNK EMERGENCY KIT: DOCUMENTATION SAFETY\n\n1. EVIDENCE: eyeWitness app (eyewitness.global)=crypto-verified footage. Film landmarks+dates+uniforms. Enable GPS metadata on camera.\n2. PROTECT: Blur faces w/o consent. Signal=encrypted transmit. Cloud upload survives device seizure. NEVER ID yourself unless you choose.\n3. SUBMIT: ICC icc-cpi.int/how-to-communicate. HRW hrw.org/submit-information. Bellingcat bellingcat.com. Amnesty amnesty.org/en/contact.\n\nShare: github.com/Meekoshy/meeko-nerve-center",
+        "bytes": 504,
+        "qr_version_estimate": "L",
+        "note": "Encode this text into a QR code. Any camera phone can scan it."
+      },
+      "gist": {
+        "format": "gist",
+        "kit": "documentation_safety",
+        "filename": "documentation-safety-gist.txt",
+        "path": "docs/kits/relay-ready/documentation-safety-gist.txt",
+        "bytes": 616,
+        "content": "# EMERGENCY: DOCUMENTATION SAFETY\n# Generated by SolarPunk \u2014 2026-03-28\n# Share freely. MIT License.\n\n1. EVIDENCE: eyeWitness app (eyewitness.global)=crypto-verified footage. Film landmarks+dates+uniforms. Enable GPS metadata on camera.\n\n2. PROTECT: Blur faces w/o consent. Signal=encrypted transmit. Cloud upload survives device seizure. NEVER ID yourself unless you choose.\n\n3. SUBMIT: ICC icc-cpi.int/how-to-communicate. HRW hrw.org/submit-information. Bellingcat bellingcat.com. Amnesty amnesty.org/en/contact.\n\n---\nSource: github.com/Meekoshy/meeko-nerve-center\n15% of every $1 -> PCRF (Palestinian children)\n"
+      }
+    },
+    "displacement_survival": {
+      "title": "Displacement & Refugee Survival Kit",
+      "active": false,
+      "sms": [
+        {
+          "format": "sms_gateway",
+          "kit": "displacement_survival",
+          "part": 1,
+          "body": "RIGHTS: You CAN seek asylum=international law. Cannot be returned to danger. UNHCR unhcr.org=register for protection. Keep ALL documents.",
+          "bytes": 137,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "displacement_survival",
+          "part": 1,
+          "body": "FAMILY: Red Cross family tracing familylinks.icrc.org. Children alone=special CRC protections. Register w/ICRC immediately if separated.",
+          "bytes": 136,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "displacement_survival",
+          "part": 1,
+          "body": "AID: IRC rescue.org=country guides. MSF msf.org=free medical. WFP wfp.org=food. UNICEF=child protection. Cash programs via local UNHCR.",
+          "bytes": 135,
+          "encoding": "GSM-7",
+          "api_ready": true
+        }
+      ],
+      "lora": [
+        {
+          "format": "lora_packet",
+          "kit": "displacement_survival",
+          "header": "SP|displace|1|1|",
+          "payload": "RIGHTS: You CAN seek asylum=international law. Cannot be returned to danger. UNHCR unhcr.org=register for protection. Keep ALL documents.",
+          "full_packet": "SP|displace|1|1|RIGHTS: You CAN seek asylum=international law. Cannot be returned to danger. UNHCR unhcr.org=register for protection. Keep ALL documents.",
+          "bytes": 153,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "displacement_survival",
+          "header": "SP|displace|2|1|",
+          "payload": "FAMILY: Red Cross family tracing familylinks.icrc.org. Children alone=special CRC protections. Register w/ICRC immediately if separated.",
+          "full_packet": "SP|displace|2|1|FAMILY: Red Cross family tracing familylinks.icrc.org. Children alone=special CRC protections. Register w/ICRC immediately if separated.",
+          "bytes": 152,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "displacement_survival",
+          "header": "SP|displace|3|1|",
+          "payload": "AID: IRC rescue.org=country guides. MSF msf.org=free medical. WFP wfp.org=food. UNICEF=child protection. Cash programs via local UNHCR.",
+          "full_packet": "SP|displace|3|1|AID: IRC rescue.org=country guides. MSF msf.org=free medical. WFP wfp.org=food. UNICEF=child protection. Cash programs via local UNHCR.",
+          "bytes": 151,
+          "within_limit": true
+        }
+      ],
+      "mesh": {
+        "format": "mesh_bundle",
+        "kit": "displacement_survival",
+        "body": "[SOLARPUNK EMERGENCY: DISPLACEMENT SURVIVAL]\n\n[1] RIGHTS: You CAN seek asylum=international law. Cannot be returned to danger. UNHCR unhcr.org=register for protection. Keep ALL documents.\n\n[2] FAMILY: Red Cross family tracing familylinks.icrc.org. Children alone=special CRC protections. Register w/ICRC immediately if separated.\n\n[3] AID: IRC rescue.org=country guides. MSF msf.org=free medical. WFP wfp.org=food. UNICEF=child protection. Cash programs via local UNHCR.\n\n[END] Share freely. SolarPunk MIT License.\n",
+        "bytes": 515,
+        "within_limit": true,
+        "protocol": "briar/bridgefy/generic"
+      },
+      "satellite": [
+        {
+          "format": "satellite",
+          "kit": "displacement_survival",
+          "seq": 1,
+          "body": "RIGHTS: YOU CAN SEEK ASYLUM=INTERNATIONAL LAW. CANNOT BE RETURNED TO DANGER. UNHCR UNHCR.ORG=REGISTER FOR PROTECTION. KEEP ALL DOCUMENTS.",
+          "bytes": 137,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "displacement_survival",
+          "seq": 2,
+          "body": "FAMILY: RED CROSS FAMILY TRACING FAMILYLINKS.ICRC.ORG. CHILDREN ALONE=SPECIAL CRC PROTECTIONS. REGISTER W/ICRC IMMEDIATELY IF SEPARATED.",
+          "bytes": 136,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "displacement_survival",
+          "seq": 3,
+          "body": "AID: IRC RESCUE.ORG=COUNTRY GUIDES. MSF MSF.ORG=FREE MEDICAL. WFP WFP.ORG=FOOD. UNICEF=CHILD PROTECTION. CASH PROGRAMS VIA LOCAL UNHCR.",
+          "bytes": 135,
+          "encoding": "ASCII-UPPER"
+        }
+      ],
+      "qr": {
+        "format": "qr_data",
+        "kit": "displacement_survival",
+        "body": "SOLARPUNK EMERGENCY KIT: DISPLACEMENT SURVIVAL\n\n1. RIGHTS: You CAN seek asylum=international law. Cannot be returned to danger. UNHCR unhcr.org=register for protection. Keep ALL documents.\n2. FAMILY: Red Cross family tracing familylinks.icrc.org. Children alone=special CRC protections. Register w/ICRC immediately if separated.\n3. AID: IRC rescue.org=country guides. MSF msf.org=free medical. WFP wfp.org=food. UNICEF=child protection. Cash programs via local UNHCR.\n\nShare: github.com/Meekoshy/meeko-nerve-center",
+        "bytes": 514,
+        "qr_version_estimate": "L",
+        "note": "Encode this text into a QR code. Any camera phone can scan it."
+      },
+      "gist": {
+        "format": "gist",
+        "kit": "displacement_survival",
+        "filename": "displacement-survival-gist.txt",
+        "path": "docs/kits/relay-ready/displacement-survival-gist.txt",
+        "bytes": 626,
+        "content": "# EMERGENCY: DISPLACEMENT SURVIVAL\n# Generated by SolarPunk \u2014 2026-03-28\n# Share freely. MIT License.\n\n1. RIGHTS: You CAN seek asylum=international law. Cannot be returned to danger. UNHCR unhcr.org=register for protection. Keep ALL documents.\n\n2. FAMILY: Red Cross family tracing familylinks.icrc.org. Children alone=special CRC protections. Register w/ICRC immediately if separated.\n\n3. AID: IRC rescue.org=country guides. MSF msf.org=free medical. WFP wfp.org=food. UNICEF=child protection. Cash programs via local UNHCR.\n\n---\nSource: github.com/Meekoshy/meeko-nerve-center\n15% of every $1 -> PCRF (Palestinian children)\n"
+      }
+    },
+    "medical_emergency": {
+      "title": "Medical Emergency Kit (When Hospitals Are Gone)",
+      "active": false,
+      "sms": [
+        {
+          "format": "sms_gateway",
+          "kit": "medical_emergency",
+          "part": 1,
+          "body": "ORS RECIPE: 6tsp sugar+0.5tsp salt+1L clean water. Sip slowly. Prevents fatal dehydration. WHO approved. Saves children.",
+          "bytes": 120,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "medical_emergency",
+          "part": 1,
+          "body": "BLEEDING: Direct pressure w/ clean cloth. Tourniquet ONLY limb+life-threatening=above wound+tight. Burns=cool water 10min. NO ice.",
+          "bytes": 130,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "medical_emergency",
+          "part": 1,
+          "body": "WATER SAFE: Boil 1min (3min above 2000m). Solar: clear bottle in sun 6hrs. Cholera prevention=boil+wash hands+cook food.",
+          "bytes": 120,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "medical_emergency",
+          "part": 1,
+          "body": "HELP: MSF msf.org=conflict zones. PCRF pcrf.net=Gaza children. ICRC icrc.org=surgical teams. All free. No questions.",
+          "bytes": 116,
+          "encoding": "GSM-7",
+          "api_ready": true
+        }
+      ],
+      "lora": [
+        {
+          "format": "lora_packet",
+          "kit": "medical_emergency",
+          "header": "SP|medical_|1|1|",
+          "payload": "ORS RECIPE: 6tsp sugar+0.5tsp salt+1L clean water. Sip slowly. Prevents fatal dehydration. WHO approved. Saves children.",
+          "full_packet": "SP|medical_|1|1|ORS RECIPE: 6tsp sugar+0.5tsp salt+1L clean water. Sip slowly. Prevents fatal dehydration. WHO approved. Saves children.",
+          "bytes": 136,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "medical_emergency",
+          "header": "SP|medical_|2|1|",
+          "payload": "BLEEDING: Direct pressure w/ clean cloth. Tourniquet ONLY limb+life-threatening=above wound+tight. Burns=cool water 10min. NO ice.",
+          "full_packet": "SP|medical_|2|1|BLEEDING: Direct pressure w/ clean cloth. Tourniquet ONLY limb+life-threatening=above wound+tight. Burns=cool water 10min. NO ice.",
+          "bytes": 146,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "medical_emergency",
+          "header": "SP|medical_|3|1|",
+          "payload": "WATER SAFE: Boil 1min (3min above 2000m). Solar: clear bottle in sun 6hrs. Cholera prevention=boil+wash hands+cook food.",
+          "full_packet": "SP|medical_|3|1|WATER SAFE: Boil 1min (3min above 2000m). Solar: clear bottle in sun 6hrs. Cholera prevention=boil+wash hands+cook food.",
+          "bytes": 136,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "medical_emergency",
+          "header": "SP|medical_|4|1|",
+          "payload": "HELP: MSF msf.org=conflict zones. PCRF pcrf.net=Gaza children. ICRC icrc.org=surgical teams. All free. No questions.",
+          "full_packet": "SP|medical_|4|1|HELP: MSF msf.org=conflict zones. PCRF pcrf.net=Gaza children. ICRC icrc.org=surgical teams. All free. No questions.",
+          "bytes": 132,
+          "within_limit": true
+        }
+      ],
+      "mesh": {
+        "format": "mesh_bundle",
+        "kit": "medical_emergency",
+        "body": "[SOLARPUNK EMERGENCY: MEDICAL EMERGENCY]\n\n[1] ORS RECIPE: 6tsp sugar+0.5tsp salt+1L clean water. Sip slowly. Prevents fatal dehydration. WHO approved. Saves children.\n\n[2] BLEEDING: Direct pressure w/ clean cloth. Tourniquet ONLY limb+life-threatening=above wound+tight. Burns=cool water 10min. NO ice.\n\n[3] WATER SAFE: Boil 1min (3min above 2000m). Solar: clear bottle in sun 6hrs. Cholera prevention=boil+wash hands+cook food.\n\n[4] HELP: MSF msf.org=conflict zones. PCRF pcrf.net=Gaza children. ICRC icrc.org=surgical teams. All free. No questions.\n\n[END] Share freely. SolarPunk MIT License.\n",
+        "bytes": 595,
+        "within_limit": true,
+        "protocol": "briar/bridgefy/generic"
+      },
+      "satellite": [
+        {
+          "format": "satellite",
+          "kit": "medical_emergency",
+          "seq": 1,
+          "body": "ORS RECIPE: 6TSP SUGAR+0.5TSP SALT+1L CLEAN WATER. SIP SLOWLY. PREVENTS FATAL DEHYDRATION. WHO APPROVED. SAVES CHILDREN.",
+          "bytes": 120,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "medical_emergency",
+          "seq": 2,
+          "body": "BLEEDING: DIRECT PRESSURE W/ CLEAN CLOTH. TOURNIQUET ONLY LIMB+LIFE-THREATENING=ABOVE WOUND+TIGHT. BURNS=COOL WATER 10MIN. NO ICE.",
+          "bytes": 130,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "medical_emergency",
+          "seq": 3,
+          "body": "WATER SAFE: BOIL 1MIN (3MIN ABOVE 2000M). SOLAR: CLEAR BOTTLE IN SUN 6HRS. CHOLERA PREVENTION=BOIL+WASH HANDS+COOK FOOD.",
+          "bytes": 120,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "medical_emergency",
+          "seq": 4,
+          "body": "HELP: MSF MSF.ORG=CONFLICT ZONES. PCRF PCRF.NET=GAZA CHILDREN. ICRC ICRC.ORG=SURGICAL TEAMS. ALL FREE. NO QUESTIONS.",
+          "bytes": 116,
+          "encoding": "ASCII-UPPER"
+        }
+      ],
+      "qr": {
+        "format": "qr_data",
+        "kit": "medical_emergency",
+        "body": "SOLARPUNK EMERGENCY KIT: MEDICAL EMERGENCY\n\n1. ORS RECIPE: 6tsp sugar+0.5tsp salt+1L clean water. Sip slowly. Prevents fatal dehydration. WHO approved. Saves children.\n2. BLEEDING: Direct pressure w/ clean cloth. Tourniquet ONLY limb+life-threatening=above wound+tight. Burns=cool water 10min. NO ice.\n3. WATER SAFE: Boil 1min (3min above 2000m). Solar: clear bottle in sun 6hrs. Cholera prevention=boil+wash hands+cook food.\n4. HELP: MSF msf.org=conflict zones. PCRF pcrf.net=Gaza children. ICRC icrc.org=surgical teams. All free. No questions.\n\nShare: github.com/Meekoshy/meeko-nerve-center",
+        "bytes": 592,
+        "qr_version_estimate": "L",
+        "note": "Encode this text into a QR code. Any camera phone can scan it."
+      },
+      "gist": {
+        "format": "gist",
+        "kit": "medical_emergency",
+        "filename": "medical-emergency-gist.txt",
+        "path": "docs/kits/relay-ready/medical-emergency-gist.txt",
+        "bytes": 705,
+        "content": "# EMERGENCY: MEDICAL EMERGENCY\n# Generated by SolarPunk \u2014 2026-03-28\n# Share freely. MIT License.\n\n1. ORS RECIPE: 6tsp sugar+0.5tsp salt+1L clean water. Sip slowly. Prevents fatal dehydration. WHO approved. Saves children.\n\n2. BLEEDING: Direct pressure w/ clean cloth. Tourniquet ONLY limb+life-threatening=above wound+tight. Burns=cool water 10min. NO ice.\n\n3. WATER SAFE: Boil 1min (3min above 2000m). Solar: clear bottle in sun 6hrs. Cholera prevention=boil+wash hands+cook food.\n\n4. HELP: MSF msf.org=conflict zones. PCRF pcrf.net=Gaza children. ICRC icrc.org=surgical teams. All free. No questions.\n\n---\nSource: github.com/Meekoshy/meeko-nerve-center\n15% of every $1 -> PCRF (Palestinian children)\n"
+      }
+    },
+    "press_freedom": {
+      "title": "Journalist & Activist Safety Kit",
+      "active": false,
+      "sms": [
+        {
+          "format": "sms_gateway",
+          "kit": "press_freedom",
+          "part": 1,
+          "body": "SECURE: Signal signal.org=encrypted. ProtonMail proton.me=encrypted email. SecureDrop=anonymous docs to newsrooms. Tails OS=no trace.",
+          "bytes": 133,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "press_freedom",
+          "part": 1,
+          "body": "ARRESTED: CPJ cpj.org/campaigns/assistance=24/7. RSF rsf.org. RIGHT to lawyer=universal. Do NOT unlock devices w/o legal counsel.",
+          "bytes": 129,
+          "encoding": "GSM-7",
+          "api_ready": true
+        },
+        {
+          "format": "sms_gateway",
+          "kit": "press_freedom",
+          "part": 1,
+          "body": "SAFETY: Separate work+personal phones. Strip metadata=exiftool. EFF guide ssd.eff.org. AccessNow helpline accessnow.org/help.",
+          "bytes": 125,
+          "encoding": "GSM-7",
+          "api_ready": true
+        }
+      ],
+      "lora": [
+        {
+          "format": "lora_packet",
+          "kit": "press_freedom",
+          "header": "SP|press_fr|1|1|",
+          "payload": "SECURE: Signal signal.org=encrypted. ProtonMail proton.me=encrypted email. SecureDrop=anonymous docs to newsrooms. Tails OS=no trace.",
+          "full_packet": "SP|press_fr|1|1|SECURE: Signal signal.org=encrypted. ProtonMail proton.me=encrypted email. SecureDrop=anonymous docs to newsrooms. Tails OS=no trace.",
+          "bytes": 149,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "press_freedom",
+          "header": "SP|press_fr|2|1|",
+          "payload": "ARRESTED: CPJ cpj.org/campaigns/assistance=24/7. RSF rsf.org. RIGHT to lawyer=universal. Do NOT unlock devices w/o legal counsel.",
+          "full_packet": "SP|press_fr|2|1|ARRESTED: CPJ cpj.org/campaigns/assistance=24/7. RSF rsf.org. RIGHT to lawyer=universal. Do NOT unlock devices w/o legal counsel.",
+          "bytes": 145,
+          "within_limit": true
+        },
+        {
+          "format": "lora_packet",
+          "kit": "press_freedom",
+          "header": "SP|press_fr|3|1|",
+          "payload": "SAFETY: Separate work+personal phones. Strip metadata=exiftool. EFF guide ssd.eff.org. AccessNow helpline accessnow.org/help.",
+          "full_packet": "SP|press_fr|3|1|SAFETY: Separate work+personal phones. Strip metadata=exiftool. EFF guide ssd.eff.org. AccessNow helpline accessnow.org/help.",
+          "bytes": 141,
+          "within_limit": true
+        }
+      ],
+      "mesh": {
+        "format": "mesh_bundle",
+        "kit": "press_freedom",
+        "body": "[SOLARPUNK EMERGENCY: PRESS FREEDOM]\n\n[1] SECURE: Signal signal.org=encrypted. ProtonMail proton.me=encrypted email. SecureDrop=anonymous docs to newsrooms. Tails OS=no trace.\n\n[2] ARRESTED: CPJ cpj.org/campaigns/assistance=24/7. RSF rsf.org. RIGHT to lawyer=universal. Do NOT unlock devices w/o legal counsel.\n\n[3] SAFETY: Separate work+personal phones. Strip metadata=exiftool. EFF guide ssd.eff.org. AccessNow helpline accessnow.org/help.\n\n[END] Share freely. SolarPunk MIT License.\n",
+        "bytes": 486,
+        "within_limit": true,
+        "protocol": "briar/bridgefy/generic"
+      },
+      "satellite": [
+        {
+          "format": "satellite",
+          "kit": "press_freedom",
+          "seq": 1,
+          "body": "SECURE: SIGNAL SIGNAL.ORG=ENCRYPTED. PROTONMAIL PROTON.ME=ENCRYPTED EMAIL. SECUREDROP=ANONYMOUS DOCS TO NEWSROOMS. TAILS OS=NO TRACE.",
+          "bytes": 133,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "press_freedom",
+          "seq": 2,
+          "body": "ARRESTED: CPJ CPJ.ORG/CAMPAIGNS/ASSISTANCE=24/7. RSF RSF.ORG. RIGHT TO LAWYER=UNIVERSAL. DO NOT UNLOCK DEVICES W/O LEGAL COUNSEL.",
+          "bytes": 129,
+          "encoding": "ASCII-UPPER"
+        },
+        {
+          "format": "satellite",
+          "kit": "press_freedom",
+          "seq": 3,
+          "body": "SAFETY: SEPARATE WORK+PERSONAL PHONES. STRIP METADATA=EXIFTOOL. EFF GUIDE SSD.EFF.ORG. ACCESSNOW HELPLINE ACCESSNOW.ORG/HELP.",
+          "bytes": 125,
+          "encoding": "ASCII-UPPER"
+        }
+      ],
+      "qr": {
+        "format": "qr_data",
+        "kit": "press_freedom",
+        "body": "SOLARPUNK EMERGENCY KIT: PRESS FREEDOM\n\n1. SECURE: Signal signal.org=encrypted. ProtonMail proton.me=encrypted email. SecureDrop=anonymous docs to newsrooms. Tails OS=no trace.\n2. ARRESTED: CPJ cpj.org/campaigns/assistance=24/7. RSF rsf.org. RIGHT to lawyer=universal. Do NOT unlock devices w/o legal counsel.\n3. SAFETY: Separate work+personal phones. Strip metadata=exiftool. EFF guide ssd.eff.org. AccessNow helpline accessnow.org/help.\n\nShare: github.com/Meekoshy/meeko-nerve-center",
+        "bytes": 485,
+        "qr_version_estimate": "M",
+        "note": "Encode this text into a QR code. Any camera phone can scan it."
+      },
+      "gist": {
+        "format": "gist",
+        "kit": "press_freedom",
+        "filename": "press-freedom-gist.txt",
+        "path": "docs/kits/relay-ready/press-freedom-gist.txt",
+        "bytes": 597,
+        "content": "# EMERGENCY: PRESS FREEDOM\n# Generated by SolarPunk \u2014 2026-03-28\n# Share freely. MIT License.\n\n1. SECURE: Signal signal.org=encrypted. ProtonMail proton.me=encrypted email. SecureDrop=anonymous docs to newsrooms. Tails OS=no trace.\n\n2. ARRESTED: CPJ cpj.org/campaigns/assistance=24/7. RSF rsf.org. RIGHT to lawyer=universal. Do NOT unlock devices w/o legal counsel.\n\n3. SAFETY: Separate work+personal phones. Strip metadata=exiftool. EFF guide ssd.eff.org. AccessNow helpline accessnow.org/help.\n\n---\nSource: github.com/Meekoshy/meeko-nerve-center\n15% of every $1 -> PCRF (Palestinian children)\n"
+      }
+    }
+  },
+  "stats": {
+    "total_sms_segments": 16,
+    "total_lora_packets": 16,
+    "total_sms_bytes": 2089,
+    "total_lora_bytes": 2345,
+    "total_kits_formatted": 5,
+    "formats_available": 6
+  }
+}
