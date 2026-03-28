@@ -221,6 +221,8 @@ def L1():
     eng("CALENDAR_BRAIN",     timeout=30)
     eng("CONTENT_HARVESTER",  timeout=90)
     eng("CRISIS_MONITOR",     timeout=120)  # v25: humanitarian crisis detection + aid routing
+    eng("KNOWLEDGE_PULSE",    timeout=60)   # v25: generates actionable help packets from crisis data
+    eng("MURMURATION_RELAY",  timeout=60)   # v25: pushes help to social/Reddit/broadcast channels
     eng("AI_WATCHER",         timeout=60)
     eng("CRYPTO_WATCHER",     timeout=60)
     eng("FREE_API_ENGINE",    timeout=60)
