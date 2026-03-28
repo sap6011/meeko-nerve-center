@@ -15,7 +15,7 @@ Then:
   - Seeds data/omnibrain_seed.json with top actions
   - Generates ENGINE_IDEAS for SELF_BUILDER to build
 
-Secrets: os.getenv("ANTHROPIC_API_KEY")
+Secrets: os.getenv("os.getenv("ANTHROPIC_API_KEY")")
 """
 import os, json, requests
 from pathlib import Path
@@ -24,7 +24,7 @@ from datetime import datetime, timezone
 DATA = Path("data"); DATA.mkdir(exist_ok=True)
 MYCELIUM = Path("mycelium")
 
-ANTHROPIC_KEY = os.getenv("ANTHROPIC_API_KEY")
+ANTHROPIC_KEY = os.getenv("os.getenv("ANTHROPIC_API_KEY")")
 MODEL = "claude-sonnet-4-6"
 
 
@@ -132,7 +132,7 @@ def run():
     now = datetime.now(timezone.utc).isoformat()
 
     if not ANTHROPIC_KEY:
-        print("  ANTHROPIC_API_KEY not set")
+        print("  os.getenv("ANTHROPIC_API_KEY") not set")
         (DATA / "oracle_state.json").write_text(json.dumps({"last_run": now, "status": "no_key"}, indent=2))
         return
 
