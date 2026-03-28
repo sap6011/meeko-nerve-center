@@ -3,9 +3,17 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v27 — NATURE'S PATTERNS: 5 bio-inspired engines
+OMNIBUS v28 — NATURE'S PATTERNS + NOTION NERVE CENTER
 =========================================================
-New in v27 (Nature's Playbook):
+New in v28 (Compound the Compound):
+  CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
+  STIGMERGY              (L1) — Ant pheromone trails: indirect coordination through data traces
+  NOTION_NERVE_CENTER    (L1) — Symbiosis pattern: SolarPunk <-> Notion live dashboard sync
+  CIRCADIAN_RHYTHM       (L1) — Biological clock: time-aware crisis/NGO/social intelligence
+  SYMBIOGENESIS          (L1) — Endosymbiosis: engine capability fusion and bond tracking
+  APOPTOSIS              (L1) — Programmed cell death: engine retirement scanning and lifecycle management
+
+Previous in v27 (Nature's Playbook):
   IMMUNE_MEMORY          (L1) — T-cell pattern: remembers crisis responses, 24x faster recall
   BIOLUMINESCENCE        (L1) — Deep-sea pattern: detects silence = danger, generates light in blackouts
   QUORUM_SENSE           (L1) — Bacterial pattern: collective signal threshold triggers escalation
@@ -246,6 +254,12 @@ def L1():
     eng("OSMOSIS_ROUTER",    timeout=60)   # v27: help flows toward information voids — molecular pattern
     eng("HOMEOSTASIS",       timeout=60)   # v27: self-regulating planetary health — thermostat pattern
     eng("NEUROPLASTICITY",   timeout=60)   # v27: self-rewiring pathways — brain pattern
+    eng("CHEMOTAXIS",        timeout=60)   # v28: gradient-following navigation — bacterial pattern
+    eng("STIGMERGY",         timeout=60)   # v28: indirect coordination through traces — ant pattern
+    eng("NOTION_NERVE_CENTER", timeout=60) # v28: symbiosis pattern — SolarPunk <-> Notion sync
+    eng("CIRCADIAN_RHYTHM",  timeout=60)   # v28: biological clock — time-aware intelligence
+    eng("SYMBIOGENESIS",     timeout=60)   # v28: endosymbiosis — engine capability fusion
+    eng("APOPTOSIS",         timeout=60)   # v28: programmed cell death — engine retirement scanning
     eng("AI_WATCHER",         timeout=60)
     eng("CRYPTO_WATCHER",     timeout=60)
     eng("FREE_API_ENGINE",    timeout=60)

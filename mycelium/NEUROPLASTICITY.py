@@ -112,6 +112,26 @@ PATHWAYS = {
         "output_files": ["homeostasis.json", "worktree_anchor.json"],
         "purpose": "Monitor system health -> detect degradation -> alert",
     },
+    "gradient_navigation": {
+        "chain": ["CHEMOTAXIS", "SPORE_DISPERSAL", "AMPLIFY_ENGINE"],
+        "output_files": ["chemotaxis_state.json", "spore_dispersal.json"],
+        "purpose": "Navigate toward need -> distribute help where gaps are greatest",
+    },
+    "colony_coordination": {
+        "chain": ["STIGMERGY", "NEUROPLASTICITY", "SYMBIOGENESIS"],
+        "output_files": ["pheromone_map.json", "neuroplasticity.json", "symbiogenesis_state.json"],
+        "purpose": "Pheromone traces -> pathway optimization -> bond fusion tracking",
+    },
+    "time_intelligence": {
+        "chain": ["CIRCADIAN_RHYTHM", "EMAIL_OUTREACH", "AMPLIFY_ENGINE"],
+        "output_files": ["circadian_state.json", "outreach_state.json"],
+        "purpose": "Time awareness -> optimal NGO contact -> peak social posting",
+    },
+    "notion_dashboard": {
+        "chain": ["NOTION_NERVE_CENTER", "HOMEOSTASIS", "CRISIS_MONITOR"],
+        "output_files": ["notion_sync_state.json", "homeostasis.json"],
+        "purpose": "Sync live data to Notion -> human-readable command center",
+    },
 }
 
 
