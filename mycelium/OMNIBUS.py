@@ -3,13 +3,19 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v26.1 — LIQUID DATA + AMPLIFY + TELEGRAM_RELAY + WEEKEND_PULSE
-========================================================================
-New in v26.1:
+OMNIBUS v27 — NATURE'S PATTERNS: 5 bio-inspired engines
+=========================================================
+New in v27 (Nature's Playbook):
+  IMMUNE_MEMORY          (L1) — T-cell pattern: remembers crisis responses, 24x faster recall
+  BIOLUMINESCENCE        (L1) — Deep-sea pattern: detects silence = danger, generates light in blackouts
+  QUORUM_SENSE           (L1) — Bacterial pattern: collective signal threshold triggers escalation
+  SPORE_DISPERSAL        (L1) — Fungal pattern: maximum redundancy, saturate all channels
+  OSMOSIS_ROUTER         (L1) — Molecular pattern: help flows toward information voids
+
+Previous in v26.1:
   TELEGRAM_RELAY         (L1) — formats survival telegrams for SMS/LoRa/mesh/satellite/QR
-  AMPLIFY_ENGINE         (L1) — ready-to-post content for 8 platforms (Twitter/Bluesky/Reddit/HN/etc)
-  WEEKEND_PULSE          (L7) — system heartbeat page while Meeko sleeps (docs/pulse.html)
-  RESOURCE_KIT v2        (L1) — "Liquid Data" compression: 5 kits in 5 formats, survival telegrams
+  AMPLIFY_ENGINE         (L1) — ready-to-post content for 8 platforms
+  WEEKEND_PULSE          (L7) — system heartbeat while Meeko sleeps
 
 Previous in v26:
   RESOURCE_KIT           (L1) — emergency survival guides
@@ -233,6 +239,11 @@ def L1():
     eng("TELEGRAM_RELAY",     timeout=60)   # v26.1: formats telegrams for SMS/LoRa/mesh/satellite/QR
     eng("SIGNAL_BOOST",       timeout=60)   # v26: creates GitHub Issues as permanent public records
     eng("AMPLIFY_ENGINE",     timeout=60)   # v26.1: ready-to-post content for 8 platforms
+    eng("IMMUNE_MEMORY",     timeout=60)   # v27: adaptive crisis response — T-cell pattern
+    eng("BIOLUMINESCENCE",   timeout=60)   # v27: silence detection — deep-sea pattern
+    eng("QUORUM_SENSE",      timeout=60)   # v27: collective signal threshold — bacterial pattern
+    eng("SPORE_DISPERSAL",   timeout=60)   # v27: maximum redundancy distribution — fungal pattern
+    eng("OSMOSIS_ROUTER",    timeout=60)   # v27: help flows toward information voids — molecular pattern
     eng("AI_WATCHER",         timeout=60)
     eng("CRYPTO_WATCHER",     timeout=60)
     eng("FREE_API_ENGINE",    timeout=60)
