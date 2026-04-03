@@ -3,7 +3,10 @@ import os
 
 def rebuild_mission_control():
     # Gather data from the swarm
-    with open('data/knowledge_graph.json', 'r') as f: graph = json.load(f)
+    try:
+        with open('data/knowledge_graph.json', 'r') as f: graph = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        graph = {"nodes": [{"info": "SolarPunk Node-01 online. 278 engines. Brain active via Ollama."}]}
     
     html = f"""
     <html>

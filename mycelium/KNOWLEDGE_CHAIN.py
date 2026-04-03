@@ -162,19 +162,32 @@ Give exactly:
 
 Respond as JSON: {{"priority": str, "engine": {{"name": str, "purpose": str}}, "tweet": str}}"""
 
-        result = ask_json(context)
-        if result:
+        import signal, threading
+        result = None
+        ai_err = None
+        def _ai_call():
+            nonlocal result, ai_err
+            try:
+                result = ask_json(context)
+            except Exception as e:
+                ai_err = e
+        t = threading.Thread(target=_ai_call, daemon=True)
+        t.start()
+        t.join(timeout=30)  # Hard 30s cap — don't let AI hang the cycle
+        if t.is_alive():
+            print("  [BRAIN] AI call timed out (30s) -- deterministic synthesis only")
+        elif result:
             if result.get("priority"):
                 synthesis["priority_action"] = result["priority"]
-                ins.append(f"🤖 AI says: {result['priority'][:100]}")
+                ins.append(f"[AI] says: {result['priority'][:100]}")
             if result.get("engine", {}).get("name"):
                 ne.append(f"{result['engine']['name']} — {result['engine'].get('purpose', '')}")
                 bp.append(f"Build {result['engine']['name']}: {result['engine'].get('purpose', '')}")
             if result.get("tweet"):
                 ca.append(result["tweet"])
-            print(f"  🧠 AI synthesis: {synthesis['priority_action'][:80]}")
+            print(f"  [BRAIN] AI synthesis: {synthesis['priority_action'][:80]}")
         else:
-            print(f"  🧠 AI unavailable — deterministic synthesis only")
+            print(f"  [BRAIN] AI unavailable -- deterministic synthesis only")
 
     # ── Dedupe and trim ────────────────────────────────────────────────────────
     synthesis["next_engines_to_build"] = list(dict.fromkeys(ne))[:10]
@@ -187,10 +200,11 @@ Respond as JSON: {{"priority": str, "engine": {{"name": str, "purpose": str}}, "
 
     (DATA / "knowledge_chain_synthesis.json").write_text(json.dumps(synthesis, indent=2))
 
-    print(f"  🧬 Insights: {len(ins)} | Next engines: {len(synthesis['next_engines_to_build'])} | "
+    print(f"  [DNA] Insights: {len(ins)} | Next engines: {len(synthesis['next_engines_to_build'])} | "
           f"Content angles: {len(synthesis['content_angles'])}")
-    print(f"  🎯 Priority: {synthesis['priority_action'][:80]}")
+    print(f"  [TARGET] Priority: {synthesis['priority_action'][:80]}")
     for i in ins[:3]:
-        print(f"     • {i[:80]}")
+        safe = i[:80].encode("ascii", "replace").decode("ascii")
+        print(f"     - {safe}")
 
 if __name__ == "__main__": run()

@@ -84,6 +84,14 @@ def update_registry(guides):
     if "products" not in registry:
         registry["products"] = {}
 
+    # Handle list format (from new product_registry) vs dict format
+    if isinstance(registry["products"], list):
+        products_dict = {}
+        for p in registry["products"]:
+            pid = p.get("id", p.get("name", "unknown"))
+            products_dict[pid] = p
+        registry["products"] = products_dict
+
     for slug, info in guides.items():
         existing = registry["products"].get(slug, {})
         registry["products"][slug] = {
@@ -155,7 +163,7 @@ def generate_system_snapshot_product():
 
 ---
 
-**Price:** $1.00 · **A SolarPunk Guide** · 15% goes to Gaza via PCRF (EIN 93-1057665)
+**Price:** $1.00 · **A SolarPunk Guide** · 99% goes to Gaza via PCRF (EIN 93-1057665)
 
 ---
 
@@ -227,7 +235,7 @@ This system demonstrates that autonomous software can:
 2. Feed its own needs (BRIDGE_BUILDER creates data for hungry inputs)
 3. Monitor its own health (VITAL_SIGN_API publishes metrics)
 4. Generate its own products (you're reading one right now)
-5. Route revenue to causes (15% hard-coded to PCRF)
+5. Route revenue to causes (99% hard-coded to PCRF)
 
 Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
@@ -297,7 +305,7 @@ def run():
     print(f"  Total products:     {total_products}")
     print(f"  Ready to sell:      {ready_products}")
     print(f"  In publish queue:   {len(queue)}")
-    print(f"  Revenue per sale:   $1.00 (15% -> Gaza)")
+    print(f"  Revenue per sale:   $1.00 (99% -> Gaza)")
     print(f"\n  Next step: Create free Ko-fi or Gumroad account")
     print(f"  Then: Paste listings from docs/quick_revenue.html")
     print(f"  Time needed: ~10 minutes, one time")

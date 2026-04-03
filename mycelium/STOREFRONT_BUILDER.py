@@ -104,7 +104,7 @@ def run():
     urls = {}
     for pid, prod in registry.items():
         urls[pid] = {
-            "gumroad":  prod.get("gumroad_url") or f"https://{GUMROAD_NAME}.gumroad.com",
+            "gumroad":  prod.get("gumroad_url") or "https://www.paypal.me/meekotharaccoon/1USD",
             "download": prod.get("download_url"),
             "kofi":     prod.get("kofi_url") or "https://ko-fi.com/meekotharaccoon/shop",
         }

@@ -75,7 +75,7 @@ def gather_products():
             buckets[cat].append({
                 "name": name, "price": price,
                 "desc": (p.get("description", "") or "")[:400],
-                "url":  p.get("landing_url") or "https://meekotharaccoon.gumroad.com",
+                "url":  p.get("landing_url") or "https://www.paypal.me/meekotharaccoon/1USD",
                 "cat": cat, "gz_pct": gz_pct,
                 "tag": "ART PRINT" if cat == "art" else "DIGITAL",
             })
@@ -94,7 +94,7 @@ def gather_products():
             buckets[cat].append({
                 "name": name, "price": price,
                 "desc": (d.get("description") or d.get("pitch") or "")[:400],
-                "url":  d.get("landing_url") or d.get("gumroad_url") or "https://meekotharaccoon.gumroad.com",
+                "url":  d.get("landing_url") or d.get("gumroad_url") or "https://www.paypal.me/meekotharaccoon/1USD",
                 "cat": cat, "gz_pct": gz_pct, "tag": "DIGITAL",
             })
         except Exception as e:
@@ -111,7 +111,7 @@ def gather_products():
             buckets["art"].append({
                 "name": name, "price": price_float(listing.get("price", 1)),
                 "desc": (listing.get("description") or listing.get("desc") or "")[:400],
-                "url":  "https://meekotharaccoon.gumroad.com",
+                "url":  "https://www.paypal.me/meekotharaccoon/1USD",
                 "cat": "art", "gz_pct": 70, "tag": "ART PRINT",
             })
 
@@ -123,7 +123,7 @@ def card_html(p):
     gz    = price * p["gz_pct"] / 100
     name  = p["name"].replace("<", "&lt;").replace('"', "&quot;")
     desc  = (p["desc"] or "").replace("<", "&lt;").replace(">", "&gt;")[:350]
-    url   = p["url"] or "https://meekotharaccoon.gumroad.com"
+    url   = p["url"] or "https://www.paypal.me/meekotharaccoon/1USD"
     tc    = "tag-art" if p["cat"] == "art" else "tag-tool"
     return f'''    <div class="card">
       <div class="card-eyebrow">DIGITAL DOWNLOAD · INSTANT ACCESS</div>
@@ -294,7 +294,7 @@ footer{{position:relative;z-index:1;border-top:1px solid var(--border);padding:3
   <div style="margin-top:10px">
     <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">GitHub</a> ·
     <a href="links.html">All Links</a> ·
-    <a href="https://meekotharaccoon.gumroad.com">Gumroad Shop</a> ·
+    <a href="https://www.paypal.me/meekotharaccoon/1USD">Gumroad Shop</a> ·
     <a href="https://ko-fi.com/meekotharaccoon">Ko-fi</a>
   </div>
   <div style="margin-top:14px;font-size:10px;opacity:.35">PCRF EIN: 93-1057665 · 4★ Charity Navigator · First line: SolarPunk</div>
