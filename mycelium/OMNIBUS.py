@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v28 — NATURE'S PATTERNS + NOTION NERVE CENTER
+OMNIBUS v29 — CHIMERA EVOLUTION + HEMISPHERE BRAIN + RELAY BATON
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -196,6 +196,16 @@ def ctx():
         "storefront":       rj("storefront_builder_state.json"),
         "nanoshop":         rj("nanoshop_state.json"),           # v24
         "passive_income":   rj("passive_income_state.json"),     # v24
+        # v29: chimera evolution data
+        "chimera":          rj("chimera_evolution_report.json"),
+        "nanobot_heal":     rj("nanobot_heal_report.json"),
+        "mutation_vault":   rj("mutation_vault.json"),
+        "mutation_board":   rj("mutation_leaderboard.json"),
+        "polymarket":       rj("polymarket_scan.json"),
+        "live_wire":        rj("live_wire_report.json"),
+        "bridge_report":    rj("bridge_report.json"),
+        "hemisphere":       rj("hemisphere_state.json"),
+        "relay_baton":      rj("relay_baton.json"),
         "engines_ok":       results["ok"][:],
         "engines_failed":   results["failed"][:],
     }
@@ -224,6 +234,7 @@ def L0():
     eng("ENGINE_INTEGRITY",   timeout=60)
     eng("SECRETS_CHECKER",    timeout=60)
     eng("BOTTLENECK_SCANNER", timeout=60)
+    eng("NANOBOT_HEALER",     timeout=120)  # v29: self-repair before anything else runs
     eng("AUTO_HEALER",        timeout=90)
     eng("CAPABILITY_SCANNER", timeout=30)
     eng("AGENT_LINK_VERIFIER",timeout=60)
@@ -263,6 +274,7 @@ def L1():
     eng("AI_WATCHER",         timeout=60)
     eng("CRYPTO_WATCHER",     timeout=60)
     eng("FREE_API_ENGINE",    timeout=60)
+    eng("POLYMARKET_SCANNER", timeout=120)  # v29: live market intelligence from Gamma API
     eng("RESONANCE_ENGINE",   timeout=60)
     eng("ANALYTICS_ENGINE",   timeout=60)
     eng("REPO_SPIDER",        timeout=120)
@@ -318,6 +330,7 @@ def L4():
     eng("HUMAN_CONNECTOR",     timeout=60)
     eng("AFFILIATE_MAXIMIZER", timeout=60)
     eng("STORE_BUILDER",       timeout=90)
+    eng("LIVE_WIRE",            timeout=180)  # v29: scan topology before bridging
     eng("BRIDGE_BUILDER",      timeout=90)
     eng("EMAIL_OUTREACH",      timeout=120)
     eng("VIRALITY_ENGINE",     timeout=60)
@@ -348,7 +361,7 @@ def L5():
 
 
 def L6():
-    print("\n--- L6: THINK + SELF-EXPAND + INVENT ---")
+    print("\n--- L6: THINK + SELF-EXPAND + INVENT + EVOLVE ---")
     save_ctx()
     eng("SYNAPSE",                  timeout=120); save_ctx()
     eng("SYNTHESIS_FACTORY",        timeout=120); save_ctx()
@@ -356,10 +369,14 @@ def L6():
     eng("SELF_BUILDER",             timeout=240); save_ctx()
     eng("KNOWLEDGE_BRIDGE",         timeout=60)
     eng("KNOWLEDGE_WEAVER",         timeout=180); save_ctx()
+    eng("KNOWLEDGE_CHAIN",          timeout=60)   # v29: deterministic knowledge synthesis
     eng("REVENUE_OPTIMIZER",        timeout=120); save_ctx()
     eng("BIG_BRAIN_ORACLE",         timeout=90)
     eng("SWARM_COORDINATOR",        timeout=120); save_ctx()
     eng("PASSIVE_INCOME_ARCHITECT", timeout=120); save_ctx()  # v24: invents new streams
+    eng("SYNERGY_FORGE",            timeout=60)   # v29: generates mutations from viable skills
+    eng("MUTATION_VAULT",           timeout=60)   # v29: scores + archives evolution data
+    eng("CHIMERA_EVOLUTION_ENGINE", timeout=600); save_ctx()  # v29: master evolution loop
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")
@@ -399,6 +416,10 @@ def L7():
     eng("RSS_PUBLISHER",    timeout=30)
     eng("NARRATOR",         timeout=60)
     eng("WEEKEND_PULSE",    timeout=30)   # v26: system heartbeat while Meeko sleeps
+    eng("PRODUCT_FACTORY",  timeout=60)   # v29: validates guides, builds publish queue
+    eng("MISSION_CONTROL",  timeout=30)   # v29: rebuilds docs/index.html dashboard
+    eng("HEMISPHERE_SYNC",  timeout=120)  # v29: syncs local machine <-> repo hemispheres
+    eng("RELAY_BATON",      timeout=30)   # v29: writes handoff state for Claude relay
     save_ctx()
 
 

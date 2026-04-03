@@ -504,7 +504,7 @@ def bridge_orphan_tweets():
     if not tweets_path.exists():
         return {"status": "NO_SOURCE", "detail": "tweets_queue.txt not found"}
 
-    tweets_text = tweets_path.read_text().strip()
+    tweets_text = tweets_path.read_text(encoding="utf-8", errors="replace").strip()
     if not tweets_text:
         return {"status": "ALREADY_EXISTS", "detail": "tweets_queue.txt is empty"}
 
@@ -543,6 +543,123 @@ def bridge_orphan_daemon_task():
     return {"status": "BRIDGED", "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json"}
 
 
+def bridge_chimera_evolution():
+    """Bridge: chimera_evolution_report.json -> consumed by VITAL_SIGN_API + EVOLUTION_VIEWER."""
+    chimera = load_json(DATA / "chimera_evolution_report.json")
+    if not chimera:
+        return {"status": "NO_SOURCE", "detail": "chimera_evolution_report.json not found -- run CHIMERA_EVOLUTION_ENGINE"}
+    return {"status": "ALREADY_EXISTS", "detail": f"Chimera gen {chimera.get('generation', '?')}, score {chimera.get('composite_score', '?')}/100"}
+
+
+def bridge_nanobot_heal():
+    """Bridge: nanobot_heal_report.json -> consumed by VITAL_SIGN_API + CHIMERA_EVOLUTION."""
+    report = load_json(DATA / "nanobot_heal_report.json")
+    if not report:
+        return {"status": "NO_SOURCE", "detail": "nanobot_heal_report.json not found -- run NANOBOT_HEALER"}
+    return {"status": "ALREADY_EXISTS", "detail": f"Healed {report.get('healed', 0)}, scanned {report.get('scanned', 0)}"}
+
+
+def bridge_mutation_leaderboard():
+    """Bridge: mutation_leaderboard.json -> consumed by EVOLUTION_VIEWER dashboard."""
+    lb = load_json(DATA / "mutation_leaderboard.json")
+    if not lb:
+        return {"status": "NO_SOURCE", "detail": "mutation_leaderboard.json not found -- run MUTATION_VAULT"}
+    return {"status": "ALREADY_EXISTS", "detail": f"Leaderboard: {lb.get('total_mutations', 0)} mutations, {lb.get('total_generations', 0)} gens"}
+
+
+def bridge_polymarket_scan():
+    """Bridge: polymarket_scan.json -> consumed by dashboard + KNOWLEDGE_CHAIN."""
+    scan = load_json(DATA / "polymarket_scan.json")
+    if not scan:
+        return {"status": "NO_SOURCE", "detail": "polymarket_scan.json not found -- run POLYMARKET_SCANNER"}
+    return {"status": "ALREADY_EXISTS", "detail": f"Markets scanned: {scan.get('total_markets_scanned', 0)}, edges: {scan.get('edges_found', 0)}"}
+
+
+def bridge_hemisphere_state():
+    """Seed hemisphere_state.json for HEMISPHERE_SYNC."""
+    return seed_json("hemisphere_state.json", {
+        "left": {"name": "local_machine", "status": "active"},
+        "right": {"name": "github_repo", "status": "active"},
+        "last_sync": None,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_relay_baton():
+    """Seed relay_baton.json for RELAY_BATON."""
+    return seed_json("relay_baton.json", {
+        "holder": "idle",
+        "tasks": [],
+        "last_handoff": None,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_amplification_posts():
+    """Seed amplification_posts.json for AMPLIFY_ENGINE."""
+    return seed_json("amplification_posts.json", {
+        "posts": [], "platforms": ["twitter", "bluesky", "mastodon", "reddit"],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_amplify_cooldown():
+    """Seed amplify_cooldown.json for AMPLIFY_ENGINE rate limiting."""
+    return seed_json("amplify_cooldown.json", {
+        "cooldowns": {}, "last_post": None,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_murmuration_trap():
+    """Seed murmuration_trap_state.json for MURMURATION_RELAY."""
+    return seed_json("murmuration_trap_state.json", {
+        "active": False, "traps": [], "last_check": None,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_revenue_state():
+    """Seed revenue_state.json from flywheel + brain state."""
+    brain = load_json(DATA / "brain_state.json")
+    flywheel = load_json(DATA / "flywheel_summary.json")
+    state = {
+        "total_revenue": flywheel.get("current_balance", 0) if flywheel else 0,
+        "health_score": brain.get("health_score", 0) if brain else 0,
+        "active": True,
+        "source": "BRIDGE_BUILDER synthesis from brain_state + flywheel"
+    }
+    return seed_json("revenue_state.json", state)
+
+
+def bridge_sentinel_scan():
+    """Bridge: sentinel_report.json -> sentinel_scan.json (alias bridge)."""
+    sentinel = load_json(DATA / "sentinel_report.json")
+    if not sentinel:
+        return seed_json("sentinel_scan.json", {"scanned": 0, "source": "BRIDGE_BUILDER seed"})
+    # Copy sentinel data with alias name
+    (DATA / "sentinel_scan.json").write_text(json.dumps(sentinel, indent=2))
+    return {"status": "BRIDGED", "detail": f"Aliased sentinel_report -> sentinel_scan ({sentinel.get('syntax_pass', 0)} pass)"}
+
+
+def bridge_sovereignty_state():
+    """Seed sovereignty_state.json for AUTONOMY_PROOF."""
+    return seed_json("sovereignty_state.json", {
+        "sovereign": True, "ethics_lock": "99/1",
+        "revenue_split": 0.99, "node": "SolarPunk Node-01",
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_stress_backup_river_watch():
+    """Bridge: river_watch.json -> _stress_backup_river_watch.json."""
+    rw = load_json(DATA / "river_watch.json")
+    if not rw:
+        return seed_json("_stress_backup_river_watch.json", {"backup": True, "source": "BRIDGE_BUILDER seed"})
+    (DATA / "_stress_backup_river_watch.json").write_text(json.dumps(rw, indent=2))
+    return {"status": "BRIDGED", "detail": "Backed up river_watch -> _stress_backup_river_watch"}
+
+
 BRIDGES = {
     "grants_found.json": bridge_grants_found,
     "sentinel_report.json": bridge_sentinel_report,
@@ -555,6 +672,13 @@ BRIDGES = {
     # --- Orphan Output Bridges (connect 2 dead ends) ---
     "tweets_queue.txt": bridge_orphan_tweets,
     "daemon_task.xml": bridge_orphan_daemon_task,
+    # --- v29: Chimera Evolution Bridges ---
+    "chimera_evolution_report.json": bridge_chimera_evolution,
+    "nanobot_heal_report.json": bridge_nanobot_heal,
+    "mutation_leaderboard.json": bridge_mutation_leaderboard,
+    "polymarket_scan.json": bridge_polymarket_scan,
+    "hemisphere_state.json": bridge_hemisphere_state,
+    "relay_baton.json": bridge_relay_baton,
     # --- The 14 Hunger Bridges ---
     "SOCIAL_QUEUE.txt": bridge_social_queue,
     "brave_browser_state.json": bridge_brave_browser_state,
@@ -570,6 +694,14 @@ BRIDGES = {
     "storefront_builder_state.json": bridge_storefront_builder_state,
     "synergy_mutations.txt": bridge_synergy_mutations,
     "system_directive.json": bridge_system_directive,
+    # --- v29: Last 7 unbridged hungry inputs ---
+    "amplification_posts.json": bridge_amplification_posts,
+    "amplify_cooldown.json": bridge_amplify_cooldown,
+    "murmuration_trap_state.json": bridge_murmuration_trap,
+    "revenue_state.json": bridge_revenue_state,
+    "sentinel_scan.json": bridge_sentinel_scan,
+    "sovereignty_state.json": bridge_sovereignty_state,
+    "_stress_backup_river_watch.json": bridge_stress_backup_river_watch,
 }
 
 

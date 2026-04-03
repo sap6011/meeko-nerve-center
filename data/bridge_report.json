@@ -1,19 +1,9 @@
 {
-  "timestamp": "2026-04-03T10:06:47.303440+00:00",
-  "bridges_attempted": 23,
-  "bridges_built": 14,
-  "bridges_failed": 9,
-  "unbridged_inputs": [
-    "_stress_backup_river_watch.json",
-    "amplification_posts.json",
-    "amplify_cooldown.json",
-    "chimera_evolution_report.json",
-    "murmuration_trap_state.json",
-    "mutation_leaderboard.json",
-    "revenue_state.json",
-    "sentinel_scan.json",
-    "sovereignty_state.json"
-  ],
+  "timestamp": "2026-04-03T15:10:40.195677+00:00",
+  "bridges_attempted": 36,
+  "bridges_built": 17,
+  "bridges_failed": 19,
+  "unbridged_inputs": [],
   "results": [
     {
       "status": "BRIDGED",
@@ -23,20 +13,20 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 282 pass, 0 fail out of 282 engines",
-      "pass": 282,
+      "detail": "Local sentinel: 284 pass, 0 fail out of 284 engines",
+      "pass": 284,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 355 nodes, 725 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 355,
-      "edges": 725,
+      "detail": "Knowledge graph: 360 nodes, 774 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 360,
+      "edges": 774,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          88
+          106
         ],
         [
           "FIRST_SALE_NOTIFIER",
@@ -75,18 +65,48 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 282 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 284 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
-      "target": "tweets_queue.txt",
-      "status": "ERROR",
-      "detail": "'charmap' codec can't decode byte 0x81 in position 342: character maps to <undefined>"
+      "status": "BRIDGED",
+      "detail": "Routed 608 tweets from orphan tweets_queue.txt -> social_queue.json",
+      "target": "tweets_queue.txt"
     },
     {
       "status": "BRIDGED",
       "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json",
       "target": "daemon_task.xml"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "Chimera gen 3, score 54/100",
+      "target": "chimera_evolution_report.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "Healed 0, scanned 284",
+      "target": "nanobot_heal_report.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "Leaderboard: 1 mutations, 1 gens",
+      "target": "mutation_leaderboard.json"
+    },
+    {
+      "status": "NO_SOURCE",
+      "detail": "polymarket_scan.json not found -- run POLYMARKET_SCANNER",
+      "target": "polymarket_scan.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "hemisphere_state.json already has data",
+      "target": "hemisphere_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "relay_baton.json already has data",
+      "target": "relay_baton.json"
     },
     {
       "status": "BRIDGED",
@@ -157,6 +177,41 @@
       "status": "ALREADY_EXISTS",
       "detail": "system_directive.json already has data",
       "target": "system_directive.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "amplification_posts.json already has data",
+      "target": "amplification_posts.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "amplify_cooldown.json already has data",
+      "target": "amplify_cooldown.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "murmuration_trap_state.json already has data",
+      "target": "murmuration_trap_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "revenue_state.json already has data",
+      "target": "revenue_state.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Aliased sentinel_report -> sentinel_scan (284 pass)",
+      "target": "sentinel_scan.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "sovereignty_state.json already has data",
+      "target": "sovereignty_state.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "Backed up river_watch -> _stress_backup_river_watch",
+      "target": "_stress_backup_river_watch.json"
     }
   ],
   "note": "Successes AND failures documented. Both are useful."
