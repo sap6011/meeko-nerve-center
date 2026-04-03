@@ -3,7 +3,7 @@
 VIRALITY_ENGINE.py -- Community-specific launch posts, engineered to spread
 ===========================================================================
 Written by Claude acting as SELF_BUILDER during a live session.
-The automated cycle failed (os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")") 401). So I ran the cycle myself.
+The automated cycle failed (os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")") 401). So I ran the cycle myself.
 
 ARCHITECT flagged: system has 54 engines, 0 distribution.
 NEURON_B (skeptic) flagged: one HN post = 100 stars = credibility = first sale.
@@ -124,7 +124,7 @@ what's actually happening here.
 **Why $0 revenue and why I'm not worried:**
 The system is operating correctly. It knows exactly what's blocked.
 CAPABILITY_SCANNER audits this every cycle and reports. The three unlocks are
-known: os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")") for self-expansion, Gumroad token for product publishing,
+known: os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")") for self-expansion, Gumroad token for product publishing,
 Twitter API for distribution. When those are in: the math becomes real.
 
 Source (MIT): {REPO}

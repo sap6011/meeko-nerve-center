@@ -13,7 +13,7 @@ Known corruption patterns:
   1. os.getenv nesting (recursive SIA corruption)
   2. Broken string context with env vars
   3. Unterminated triple-quotes (odd count)
-  4. Bare os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")") self-assignment
+  4. Bare os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")") self-assignment
   5. PowerShell artifacts in Python files
 
 Exit code 0 = clean, Exit code 1 = corruption found (blocks commit)
@@ -28,8 +28,8 @@ DATA_DIR = MYCELIUM.parent / "data"
 CORRUPTION_PATTERNS = [
     # os.getenv nesting — the #1 recurring bug
     (r'os\.getenv\(\s*["\']os\.getenv', "os.getenv nesting (recursive SIA corruption)"),
-    # Bare os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")") self-assignment
-    (r'os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")\s*=\s*os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")', "bare os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")") self-assignment"),
+    # Bare os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")") self-assignment
+    (r'os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")\s*=\s*os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")', "bare os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")") self-assignment"),
     # PowerShell in Python files
     (r'^\$[A-Z][a-zA-Z]+\s*=\s*', "PowerShell variable assignment in Python file"),
     (r'^Write-Host\s', "PowerShell Write-Host in Python file"),
