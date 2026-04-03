@@ -11,7 +11,7 @@ import os, json, requests
 from pathlib import Path
 from datetime import datetime, timezone
 
-os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")"),
+os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")"),
 
 def main():
     print("NEURON_B v2 - Skeptic Brain starting...")
@@ -23,7 +23,7 @@ def main():
     if not a_report:
         a_report = {"opportunities":[],"builder_thesis":"No NEURON_A data","priority_build":""}
 
-    if not os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")"):
+    if not os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")"):
         report = {
             "vetted_opportunities": a_report.get("opportunities",[]),
             "killed_ideas": [],
@@ -56,7 +56,7 @@ Respond ONLY JSON (no markdown):
 "safeguards_needed":["specific safeguard to prevent another wipe or failure"]}}"""
         try:
             r = requests.post("https://api.anthropic.com/v1/messages",
-                headers={"x-api-key":os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")"), "anthropic-version":"2023-06-01", "Content-Type":"application/json"},
+                headers={"x-api-key":os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")"), "anthropic-version":"2023-06-01", "Content-Type":"application/json"},
                 json={"model":"claude-sonnet-4-20250514","max_tokens":1200,"messages":[{"role":"user","content":prompt}]},
                 timeout=60)
             r.raise_for_status()
