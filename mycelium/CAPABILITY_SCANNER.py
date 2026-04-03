@@ -30,9 +30,9 @@ def scan():
     caps = {
         "anthropic_api": {
             "name": "Claude API",
-            "status": "active" if os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")") else "blocked",
+            "status": "active" if os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")") else "blocked",
             "impact": "SELF_BUILDER, KNOWLEDGE_WEAVER, REVENUE_OPTIMIZER, ARCHITECT all dead without this",
-            "fix": "anthropic.com/console -> API Keys -> add os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")",
+            "fix": "anthropic.com/console -> API Keys -> add os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")",
             "blocks": ["SELF_BUILDER", "KNOWLEDGE_WEAVER", "REVENUE_OPTIMIZER", "NEURON_B"],
         },
         "gmail": {
@@ -68,7 +68,7 @@ def scan():
             "name": "HuggingFace (AI fallback)",
             "status": "degraded",
             "impact": "All fallback models 410 Gone — Llama, Phi-3.5 dead. Engines fail silently.",
-            "fix": "Add os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")",
+            "fix": "Add os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")",
             "blocks": ["SYNTHESIS_FACTORY", "ARCHITECT", "EMAIL_BRAIN classification"],
         },
         "github_pages": {
@@ -98,7 +98,7 @@ def scan():
     degraded = [k for k, v in caps.items() if v["status"] == "degraded"]
 
     priority = (
-        "os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")" if not os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")") else
+        "os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")" if not os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")") else
         "GUMROAD_ACCESS_TOKEN" if not os.environ.get("GUMROAD_ACCESS_TOKEN") else
         "X_API_KEY"
     )
