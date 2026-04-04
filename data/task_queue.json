@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-04-04T16:27:40.746607+00:00",
+  "total_tasks": 6,
+  "autonomous_tasks": 5,
+  "manual_tasks": 1,
+  "tasks": [
+    {
+      "type": "CONTENT",
+      "priority": 2,
+      "title": "Publish 1 draft articles",
+      "engine": "CONTENT_AUTOPILOT",
+      "command": "python mycelium/CONTENT_AUTOPILOT.py",
+      "expected_output": "data/article_drafts.json updated, new draft generated",
+      "autonomous": true
+    },
+    {
+      "type": "PRODUCT",
+      "priority": 3,
+      "title": "Expand Ethical AI Revenue Playbook (only 180 words)",
+      "engine": "PRODUCT_FORGE",
+      "command": "python mycelium/PRODUCT_FORGE.py",
+      "expected_output": "products/products/ethical-ai-revenue-playbook.md expanded",
+      "autonomous": true
+    },
+    {
+      "type": "CONTENT",
+      "priority": 3,
+      "title": "Generate more social posts (queue at 0)",
+      "engine": "CONTENT_AUTOPILOT",
+      "command": "python mycelium/CONTENT_AUTOPILOT.py",
+      "expected_output": "data/social_queue.json appended",
+      "autonomous": true
+    },
+    {
+      "type": "CONTENT",
+      "priority": 3,
+      "title": "Refresh system dashboard and product catalog",
+      "engine": "METRICS_DASHBOARD + CATALOG_GENERATOR",
+      "command": "python mycelium/METRICS_DASHBOARD.py && python mycelium/CATALOG_GENERATOR.py",
+      "expected_output": "docs/dashboard.html + docs/catalog.html updated",
+      "autonomous": true
+    },
+    {
+      "type": "PRODUCT",
+      "priority": 4,
+      "title": "Generate template pack for docker-automation domain",
+      "engine": "MICRO_PRODUCT_FACTORY",
+      "command": "python mycelium/MICRO_PRODUCT_FACTORY.py",
+      "expected_output": "products/templates/docker-automation/ created",
+      "autonomous": true,
+      "note": "Needs MICRO_PRODUCT_FACTORY domain list expanded"
+    },
+    {
+      "type": "GROW",
+      "priority": 4,
+      "title": "Build engines to produce 52 missing data files",
+      "engine": "BUILD",
+      "command": "# Needs new engine creation",
+      "expected_output": "New engines that write: *.json, *_report.json, PUBLIC_LEDGER.json, active_outreach_draft.json, aggregated_summary.json",
+      "autonomous": false,
+      "note": "These data files are read but never written by any engine"
+    }
+  ]
+}

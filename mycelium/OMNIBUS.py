@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v34 — CATALOG + ENCYCLOPEDIA + BUNDLES + DASHBOARD + STOREFRONT
+OMNIBUS v35 — ZERO SECRET ARMY + TASK FACTORY + AUTO EXECUTOR
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -224,6 +224,9 @@ def ctx():
         "catalog":          rj("catalog_generator_state.json"),
         "dashboard":        rj("metrics_dashboard_state.json"),
         "storefront":       rj("storefront_copy_state.json"),
+        "task_factory":     rj("task_factory_state.json"),
+        "auto_executor":    rj("auto_executor_state.json"),
+        "zero_secret_army": rj("zero_secret_army_report.json"),
         "engines_ok":       results["ok"][:],
         "engines_failed":   results["failed"][:],
     }
@@ -415,6 +418,9 @@ def L6():
     eng("CATALOG_GENERATOR",       timeout=60)   # v34: HTML product catalog for GitHub Pages
     eng("METRICS_DASHBOARD",       timeout=60)   # v34: live HTML system dashboard
     eng("STOREFRONT_COPY",         timeout=60)   # v34: ready-to-paste Ko-fi/Gumroad listings
+    eng("TASK_FACTORY",            timeout=30)   # v35: generate autonomous tasks from system state
+    eng("AUTO_EXECUTOR",           timeout=300)  # v35: execute all autonomous tasks
+    eng("ZERO_SECRET_ARMY",        timeout=300)  # v35: deploy all 82 zero-secret engines
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")
