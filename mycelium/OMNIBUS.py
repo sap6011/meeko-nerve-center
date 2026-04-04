@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v33 — RESOURCE ALLOCATOR + CREDENTIAL SENSOR
+OMNIBUS v34 — CATALOG + ENCYCLOPEDIA + BUNDLES + DASHBOARD + STOREFRONT
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -219,6 +219,11 @@ def ctx():
         "event_relay":      rj("event_relay_report.json"),
         "resource_allocator": rj("resource_allocator_plan.json"),
         "credential_sensor": rj("credential_sensor_report.json"),
+        "knowledge_distiller": rj("knowledge_distiller_state.json"),
+        "bundle_forge":     rj("bundle_forge_state.json"),
+        "catalog":          rj("catalog_generator_state.json"),
+        "dashboard":        rj("metrics_dashboard_state.json"),
+        "storefront":       rj("storefront_copy_state.json"),
         "engines_ok":       results["ok"][:],
         "engines_failed":   results["failed"][:],
     }
@@ -405,6 +410,11 @@ def L6():
     eng("EVENT_RELAY",             timeout=60)   # v32: auto-git event-driven trigger system (DRY_RUN)
     eng("RESOURCE_ALLOCATOR",      timeout=30)   # v33: strategic $100 infrastructure investment plan
     eng("CREDENTIAL_SENSOR",       timeout=30)   # v33: auto-detect new API keys, report unblocked engines
+    eng("KNOWLEDGE_DISTILLER",     timeout=120)  # v34: engine encyclopedia product ($8)
+    eng("BUNDLE_FORGE",            timeout=120)  # v34: themed product bundles ($6-$25)
+    eng("CATALOG_GENERATOR",       timeout=60)   # v34: HTML product catalog for GitHub Pages
+    eng("METRICS_DASHBOARD",       timeout=60)   # v34: live HTML system dashboard
+    eng("STOREFRONT_COPY",         timeout=60)   # v34: ready-to-paste Ko-fi/Gumroad listings
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")

@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SolarPunk Digital Products Catalog</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a0a0f; color: #e0e0e0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height: 1.6; }
+a { color: #00ff88; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.hero { background: linear-gradient(135deg, #0a0a0f 0%, #0d1f0d 50%, #0a0a0f 100%); border-bottom: 2px solid #00ff88; padding: 3rem 1rem; text-align: center; }
+.hero-inner { max-width: 800px; margin: 0 auto; }
+.hero h1 { font-size: 2.4rem; color: #00ff88; margin-bottom: 0.3rem; letter-spacing: 0.05em; }
+.hero-sub { font-size: 1.2rem; color: #88ccaa; margin-bottom: 1.5rem; font-style: italic; }
+.hero-stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+.hero-stats span { background: #111820; border: 1px solid #00ff8844; border-radius: 8px; padding: 0.5rem 1.2rem; font-size: 0.95rem; color: #00ff88; }
+.catalog { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+.category { margin-bottom: 3rem; }
+.category-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem; border-bottom: 1px solid #1a2a1a; padding-bottom: 0.5rem; }
+.category-header h2 { font-size: 1.6rem; color: #00ff88; }
+.category-count { font-size: 0.85rem; color: #668866; background: #0d1f0d; border-radius: 12px; padding: 0.2rem 0.8rem; }
+.category-desc { color: #889988; margin-bottom: 1.2rem; font-size: 0.95rem; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+.product-card { background: #111820; border: 1px solid #1a2a1a; border-radius: 10px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+.product-card:hover { border-color: #00ff88; transform: translateY(-2px); }
+.card-accent { height: 4px; background: linear-gradient(90deg, #00ff88, #00cc66, #009944); }
+.card-body { padding: 1.2rem; }
+.card-title { font-size: 1.05rem; color: #f0f0f0; margin-bottom: 0.6rem; line-height: 1.3; }
+.card-meta { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.5rem; }
+.price-tag { background: #00ff88; color: #0a0a0f; font-weight: 700; border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.9rem; }
+.word-count { color: #668866; font-size: 0.85rem; }
+.card-detail { color: #556655; font-size: 0.8rem; margin-bottom: 0.3rem; }
+.card-path { color: #334433; font-size: 0.7rem; font-family: monospace; word-break: break-all; margin-top: 0.5rem; }
+.catalog-footer { background: #060810; border-top: 2px solid #00ff88; padding: 2rem 1rem; text-align: center; margin-top: 2rem; }
+.footer-inner { max-width: 600px; margin: 0 auto; }
+.ethics { font-size: 1.3rem; color: #00ff88; font-weight: 700; margin-bottom: 0.5rem; }
+.gen-time { color: #445544; font-size: 0.8rem; margin-top: 1rem; }
+@media (max-width: 640px) { .hero h1 { font-size: 1.6rem; } .hero-stats { gap: 0.8rem; } .product-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="hero-inner">
+<h1>SolarPunk Digital Products</h1>
+<p class='hero-sub'>Built by 300 Engines</p>
+<div class="hero-stats">
+<span>91 Products</span>
+<span>$158.00 Total Value</span>
+<span>99% Mutual Aid</span>
+</div>
+</div>
+</header>
+<main class="catalog">
+<section class="category" id="guides">
+<div class="category-header">
+<h2>Guides</h2>
+<span class="category-count">19 products</span>
+</div>
+<p class="category-desc">Deep-dive technical guides built from a living 300-engine system</p>
+<div class="product-grid">
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">1. Read input</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">962 words</span>
+</div>
+<p class="card-detail">6,414 characters</p>
+<div class="card-path">products/devto-article-300-engines.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">AI Builder Kit</h3>
+<div class="card-meta">
+<span class="price-tag">$10.00</span>
+<span class="word-count">7,243 words</span>
+</div>
+<p class="card-detail">59,012 characters</p>
+<div class="card-path">products/bundle-ai-builder-kit.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Bio Inspired Architecture</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">3,068 words</span>
+</div>
+<p class="card-detail">23,129 characters</p>
+<div class="card-path">data/guide_bio-inspired-architecture.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Build Your Own SolarPunk</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">2,398 words</span>
+</div>
+<p class="card-detail">16,896 characters</p>
+<div class="card-path">data/guide_solarpunk-starter.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Build a Local AI Agent with Ollama</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">2,451 words</span>
+</div>
+<p class="card-detail">20,871 characters</p>
+<div class="card-path">data/guide_local-ai-agent.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Complete SolarPunk Bundle</h3>
+<div class="card-meta">
+<span class="price-tag">$25.00</span>
+<span class="word-count">11,464 words</span>
+</div>
+<p class="card-detail">97,927 characters</p>
+<div class="card-path">products/bundle-complete-solarpunk.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Content Creator Pack</h3>
+<div class="card-meta">
+<span class="price-tag">$6.00</span>
+<span class="word-count">3,105 words</span>
+</div>
+<p class="card-detail">26,605 characters</p>
+<div class="card-path">products/bundle-content-creator-pack.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Developer Starter Pack</h3>
+<div class="card-meta">
+<span class="price-tag">$8.00</span>
+<span class="word-count">5,545 words</span>
+</div>
+<p class="card-detail">48,643 characters</p>
+<div class="card-path">products/bundle-developer-starter-pack.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Ethical AI Revenue Playbook</h3>
+<div class="card-meta">
+<span class="price-tag">$5.00</span>
+<span class="word-count">180 words</span>
+</div>
+<p class="card-detail">1,069 characters</p>
+<div class="card-path">products/ethical-ai-revenue-playbook.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Gaza Rose Collection: 12 Digital Art Descriptions and AI Generation Prompts</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">879 words</span>
+</div>
+<p class="card-detail">6,407 characters</p>
+<div class="card-path">products/gaza-rose-digital-art-pack.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">How to Build a 300-Engine Autonomous AI System</h3>
+<div class="card-meta">
+<span class="price-tag">$12.00</span>
+<span class="word-count">5,500 words</span>
+</div>
+<p class="card-detail">35,000 characters</p>
+<div class="card-path">products/solarpunk-autonomous-ai-guide.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">How to Build a 300-Engine Autonomous System</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">482 words</span>
+</div>
+<p class="card-detail">3,146 characters</p>
+<div class="card-path">products/autonomous-system-guide.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">SolarPunk Engine Encyclopedia</h3>
+<div class="card-meta">
+<span class="price-tag">$8.00</span>
+<span class="word-count">14,145 words</span>
+</div>
+<p class="card-detail">105,643 characters</p>
+<div class="card-path">products\solarpunk-engine-encyclopedia.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">SolarPunk Engine Encyclopedia</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">14,145 words</span>
+</div>
+<p class="card-detail">105,643 characters</p>
+<div class="card-path">products/solarpunk-engine-encyclopedia.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">SolarPunk Engine Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">154 words</span>
+</div>
+<p class="card-detail">1,374 characters</p>
+<div class="card-path">products/engine-template.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">System Snapshot</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">838 words</span>
+</div>
+<p class="card-detail">8,650 characters</p>
+<div class="card-path">data/guide_system-snapshot.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">The 99/1 Protocol: Build a Revenue System That Funds Crisis Relief</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">288 words</span>
+</div>
+<p class="card-detail">2,099 characters</p>
+<div class="card-path">products/99-1-mutual-aid-playbook.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">The Mycelium Engine Template: Build Self-Healing Python Microservices</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">406 words</span>
+</div>
+<p class="card-detail">3,364 characters</p>
+<div class="card-path">products/mycelium-engine-template.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">The Zero-Cost API Stack: 15 Free APIs That Power a Full AI System</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">433 words</span>
+</div>
+<p class="card-detail">2,961 characters</p>
+<div class="card-path">products/free-api-stack-blueprint.md</div>
+</div>
+</div>
+</div>
+</section>
+<section class="category" id="template-packs">
+<div class="category-header">
+<h2>Template Packs</h2>
+<span class="category-count">32 products</span>
+</div>
+<p class="category-desc">Production-ready templates for Python, GitHub Actions, AI prompts, and SolarPunk configs</p>
+<div class="product-grid">
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Auto Deploy to GitHub Pages</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">76 words</span>
+</div>
+<p class="card-detail">709 characters</p>
+<div class="card-path">products/templates/github-actions/auto_deploy_pages.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Auto Issue Responder</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">95 words</span>
+</div>
+<p class="card-detail">1,255 characters</p>
+<div class="card-path">products/templates/github-actions/issue_responder.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Automated Release Drafter</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">76 words</span>
+</div>
+<p class="card-detail">806 characters</p>
+<div class="card-path">products/templates/github-actions/release_drafter.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Batch File Renamer</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">104 words</span>
+</div>
+<p class="card-detail">943 characters</p>
+<div class="card-path">products/templates/python-automation/batch_renamer.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">CSV File Processor Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">129 words</span>
+</div>
+<p class="card-detail">1,263 characters</p>
+<div class="card-path">products/templates/python-automation/file_processor_csv.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Chain-of-Thought Reasoning Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">99 words</span>
+</div>
+<p class="card-detail">615 characters</p>
+<div class="card-path">products/templates/ai-prompts/chain_of_thought.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Code Generation Prompt Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">141 words</span>
+</div>
+<p class="card-detail">933 characters</p>
+<div class="card-path">products/templates/ai-prompts/code_generator.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Cortex Directive Configuration</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">44 words</span>
+</div>
+<p class="card-detail">519 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/cortex_directive.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Data Analysis System Prompt</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">124 words</span>
+</div>
+<p class="card-detail">847 characters</p>
+<div class="card-path">products/templates/ai-prompts/data_analyst.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Directory File Watcher</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">136 words</span>
+</div>
+<p class="card-detail">1,443 characters</p>
+<div class="card-path">products/templates/python-automation/file_watcher.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Dynamic Badge Generator</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">75 words</span>
+</div>
+<p class="card-detail">791 characters</p>
+<div class="card-path">products/templates/github-actions/badge_generator.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">ETL Data Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">144 words</span>
+</div>
+<p class="card-detail">1,727 characters</p>
+<div class="card-path">products/templates/python-automation/data_pipeline_etl.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Engine Bridge Pattern</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">116 words</span>
+</div>
+<p class="card-detail">1,388 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/bridge_pattern.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Engine Health Check Pattern</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">109 words</span>
+</div>
+<p class="card-detail">1,052 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/health_check.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Engine State Machine Pattern</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">116 words</span>
+</div>
+<p class="card-detail">1,303 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/state_machine.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Engine Wire Pattern (Topology)</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">87 words</span>
+</div>
+<p class="card-detail">973 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/wire_pattern.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Event Bus Pattern</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">121 words</span>
+</div>
+<p class="card-detail">1,297 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/event_bus.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Few-Shot Learning Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">55 words</span>
+</div>
+<p class="card-detail">540 characters</p>
+<div class="card-path">products/templates/ai-prompts/few_shot_template.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">General-Purpose System Prompt</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">108 words</span>
+</div>
+<p class="card-detail">670 characters</p>
+<div class="card-path">products/templates/ai-prompts/system_prompt_assistant.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">JSON Output Enforcer Prompt</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">95 words</span>
+</div>
+<p class="card-detail">617 characters</p>
+<div class="card-path">products/templates/ai-prompts/json_output_enforcer.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">JSON Transformer Utility</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">122 words</span>
+</div>
+<p class="card-detail">1,093 characters</p>
+<div class="card-path">products/templates/python-automation/json_transformer.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Lightweight Cron Job Scheduler</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">121 words</span>
+</div>
+<p class="card-detail">1,251 characters</p>
+<div class="card-path">products/templates/python-automation/cron_scheduler.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">OMNIBUS Configuration Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">68 words</span>
+</div>
+<p class="card-detail">798 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/omnibus_config.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Persona-Based Prompt Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">103 words</span>
+</div>
+<p class="card-detail">717 characters</p>
+<div class="card-path">products/templates/ai-prompts/persona_template.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Python CI/CD Test Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">87 words</span>
+</div>
+<p class="card-detail">751 characters</p>
+<div class="card-path">products/templates/github-actions/ci_python_test.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">REST API Client with Retry Logic</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">128 words</span>
+</div>
+<p class="card-detail">1,446 characters</p>
+<div class="card-path">products/templates/python-automation/api_client_rest.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Scheduled Data Fetch via GitHub Actions Cron</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">91 words</span>
+</div>
+<p class="card-detail">770 characters</p>
+<div class="card-path">products/templates/github-actions/scheduled_data_fetch.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Security Dependency Scan</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">76 words</span>
+</div>
+<p class="card-detail">679 characters</p>
+<div class="card-path">products/templates/github-actions/security_scan.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">SolarPunk Engine Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">94 words</span>
+</div>
+<p class="card-detail">931 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/engine_template.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Stale Issue Auto-Closer</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">74 words</span>
+</div>
+<p class="card-detail">658 characters</p>
+<div class="card-path">products/templates/github-actions/stale_issue_closer.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Structured Output Parser Prompt</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">94 words</span>
+</div>
+<p class="card-detail">609 characters</p>
+<div class="card-path">products/templates/ai-prompts/output_parser.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Web Scraper with Requests + BeautifulSoup</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">128 words</span>
+</div>
+<p class="card-detail">1,191 characters</p>
+<div class="card-path">products/templates/python-automation/web_scraper_requests.md</div>
+</div>
+</div>
+</div>
+</section>
+<section class="category" id="fractal-variants">
+<div class="category-header">
+<h2>Fractal Variants</h2>
+<span class="category-count">40 products</span>
+</div>
+<p class="category-desc">Specialized variations generated from base templates by the fractal engine</p>
+<div class="product-grid">
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Academic Paper Metadata Scraper</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">97 words</span>
+</div>
+<p class="card-detail">950 characters</p>
+<div class="card-path">products/templates/python-automation/variants/scraper_academic_papers.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Aggregator Engine Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">101 words</span>
+</div>
+<p class="card-detail">839 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/variants/engine_aggregator_engine.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">CLI Tool Code Generator</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">66 words</span>
+</div>
+<p class="card-detail">514 characters</p>
+<div class="card-path">products/templates/ai-prompts/variants/codegen_cli_tool.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Coding Tutor System Prompt</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">69 words</span>
+</div>
+<p class="card-detail">534 characters</p>
+<div class="card-path">products/templates/ai-prompts/variants/system_prompt_coding_tutor.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Content Pipeline Wire Pattern</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">64 words</span>
+</div>
+<p class="card-detail">696 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/variants/wire_content_wire.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Cryptocurrency Price API Client</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">91 words</span>
+</div>
+<p class="card-detail">893 characters</p>
+<div class="card-path">products/templates/python-automation/variants/api_client_crypto_api.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Daily JSON Backup Cron</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">98 words</span>
+</div>
+<p class="card-detail">858 characters</p>
+<div class="card-path">products/templates/github-actions/variants/cron_daily_backup.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Data Scientist System Prompt</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">74 words</span>
+</div>
+<p class="card-detail">572 characters</p>
+<div class="card-path">products/templates/ai-prompts/variants/system_prompt_data_scientist.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Data Transformer Engine Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">97 words</span>
+</div>
+<p class="card-detail">819 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/variants/engine_transformer_engine.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Database Sync ETL Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">92 words</span>
+</div>
+<p class="card-detail">785 characters</p>
+<div class="card-path">products/templates/python-automation/variants/etl_database_sync.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Discord Bot Code Generator</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">61 words</span>
+</div>
+<p class="card-detail">476 characters</p>
+<div class="card-path">products/templates/ai-prompts/variants/codegen_discord_bot.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Docker Build and Test Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">75 words</span>
+</div>
+<p class="card-detail">652 characters</p>
+<div class="card-path">products/templates/github-actions/variants/ci_docker.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">E-Commerce Product Scraper</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">94 words</span>
+</div>
+<p class="card-detail">883 characters</p>
+<div class="card-path">products/templates/python-automation/variants/scraper_ecommerce.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Email Data ETL Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">95 words</span>
+</div>
+<p class="card-detail">809 characters</p>
+<div class="card-path">products/templates/python-automation/variants/etl_email_parser.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">FastAPI Endpoint Generator</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">64 words</span>
+</div>
+<p class="card-detail">503 characters</p>
+<div class="card-path">products/templates/ai-prompts/variants/codegen_fastapi_endpoint.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Feedback Loop Wire Pattern</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">64 words</span>
+</div>
+<p class="card-detail">694 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/variants/wire_feedback_wire.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">GitHub API Client</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">85 words</span>
+</div>
+<p class="card-detail">824 characters</p>
+<div class="card-path">products/templates/python-automation/variants/api_client_github_api.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Go CI/CD Test Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">78 words</span>
+</div>
+<p class="card-detail">633 characters</p>
+<div class="card-path">products/templates/github-actions/variants/ci_go.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Government Open Data Scraper</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">94 words</span>
+</div>
+<p class="card-detail">936 characters</p>
+<div class="card-path">products/templates/python-automation/variants/scraper_government_data.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Health Monitoring Wire Pattern</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">66 words</span>
+</div>
+<p class="card-detail">703 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/variants/wire_health_wire.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Hourly Health Check Cron</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">98 words</span>
+</div>
+<p class="card-detail">873 characters</p>
+<div class="card-path">products/templates/github-actions/variants/cron_hourly_health.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Log File ETL Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">98 words</span>
+</div>
+<p class="card-detail">825 characters</p>
+<div class="card-path">products/templates/python-automation/variants/etl_log_processor.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Monitor Engine Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">98 words</span>
+</div>
+<p class="card-detail">806 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/variants/engine_monitor_engine.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Monthly Data Cleanup Cron</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">98 words</span>
+</div>
+<p class="card-detail">877 characters</p>
+<div class="card-path">products/templates/github-actions/variants/cron_monthly_cleanup.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Multi-CSV Merger ETL Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">97 words</span>
+</div>
+<p class="card-detail">808 characters</p>
+<div class="card-path">products/templates/python-automation/variants/etl_csv_merger.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Nested JSON Normalizer ETL</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">93 words</span>
+</div>
+<p class="card-detail">810 characters</p>
+<div class="card-path">products/templates/python-automation/variants/etl_json_normalizer.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">News Article Scraper</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">97 words</span>
+</div>
+<p class="card-detail">890 characters</p>
+<div class="card-path">products/templates/python-automation/variants/scraper_news.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Node.js CI/CD Test Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">78 words</span>
+</div>
+<p class="card-detail">657 characters</p>
+<div class="card-path">products/templates/github-actions/variants/ci_node_js.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Product Manager System Prompt</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">71 words</span>
+</div>
+<p class="card-detail">579 characters</p>
+<div class="card-path">products/templates/ai-prompts/variants/system_prompt_product_manager.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Publisher Engine Template</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">93 words</span>
+</div>
+<p class="card-detail">793 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/variants/engine_publisher_engine.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">RSS Feed API Client</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">88 words</span>
+</div>
+<p class="card-detail">835 characters</p>
+<div class="card-path">products/templates/python-automation/variants/api_client_rss_feed.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Revenue Pipeline Wire Pattern</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">66 words</span>
+</div>
+<p class="card-detail">725 characters</p>
+<div class="card-path">products/templates/solarpunk-configs/variants/wire_revenue_wire.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Rust CI/CD Test Pipeline</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">71 words</span>
+</div>
+<p class="card-detail">620 characters</p>
+<div class="card-path">products/templates/github-actions/variants/ci_rust.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Security Auditor System Prompt</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">71 words</span>
+</div>
+<p class="card-detail">543 characters</p>
+<div class="card-path">products/templates/ai-prompts/variants/system_prompt_security_auditor.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Social Media Profile Scraper</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">95 words</span>
+</div>
+<p class="card-detail">926 characters</p>
+<div class="card-path">products/templates/python-automation/variants/scraper_social_media.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Technical Writer System Prompt</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">70 words</span>
+</div>
+<p class="card-detail">536 characters</p>
+<div class="card-path">products/templates/ai-prompts/variants/system_prompt_technical_writer.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Test Suite Code Generator</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">66 words</span>
+</div>
+<p class="card-detail">498 characters</p>
+<div class="card-path">products/templates/ai-prompts/variants/codegen_test_suite.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Translation API Client</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">83 words</span>
+</div>
+<p class="card-detail">883 characters</p>
+<div class="card-path">products/templates/python-automation/variants/api_client_translation_api.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Weather API Client</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">83 words</span>
+</div>
+<p class="card-detail">875 characters</p>
+<div class="card-path">products/templates/python-automation/variants/api_client_weather_api.md</div>
+</div>
+</div>
+<div class="product-card">
+<div class="card-accent"></div>
+<div class="card-body">
+<h3 class="card-title">Weekly Analytics Report Cron</h3>
+<div class="card-meta">
+<span class="price-tag">$1.00</span>
+<span class="word-count">98 words</span>
+</div>
+<p class="card-detail">885 characters</p>
+<div class="card-path">products/templates/github-actions/variants/cron_weekly_report.md</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="catalog-footer">
+<div class="footer-inner">
+<p class="ethics">99% mutual aid / 1% infrastructure</p>
+<p>Every dollar flows to crisis zones and community resilience.</p>
+<p class="gen-time">Catalog generated: 2026-04-04 15:53 UTC</p>
+</div>
+</footer>
+</body>
+</html>
