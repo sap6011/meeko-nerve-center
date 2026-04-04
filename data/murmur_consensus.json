@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-28T03:31:48.388557+00:00",
-  "flock_energy": 0.45,
+  "timestamp": "2026-04-04T03:27:38.021370+00:00",
+  "flock_energy": 0.25,
   "engines_reporting": 4,
   "hot_engines": [
-    "SENTINEL",
     "SCAM_SHIELD"
   ],
   "cold_engines": [
     "OMNIBRAIN",
+    "SENTINEL",
     "EMAIL_BRAIN"
   ],
   "hot_edges": [
@@ -20,29 +20,35 @@
       "HEALTH_BOOSTER"
     ],
     [
+      "SENTINEL",
+      "REPAIR_CORE"
+    ],
+    [
       "EMAIL_BRAIN",
       "BRIEFING_ENGINE"
     ]
   ],
-  "consensus_focus": "integrity",
+  "consensus_focus": "general",
   "focus_votes": {
-    "integrity": 1.0,
     "general": 0.8
   },
   "murmur_message": [
-    "Flock is steady \u2014 maintain current trajectory"
+    "Flock energy is low \u2014 consolidate and repair"
   ],
   "mutation_weights": {
     "SCAM_SHIELD.py": 0.8,
     "BRIEFING_ENGINE.py": 0.5,
     "HEALTH_BOOSTER.py": 0.5,
+    "REPAIR_CORE.py": 0.5,
     "AFFILIATE_MAXIMIZER.py": 0.1,
     "AGENT_GUMROAD_BUILDER.py": 0.1,
     "AGENT_LINK_VERIFIER.py": 0.1,
     "AGENT_TWEET_WRITER.py": 0.1,
     "AI_CLIENT.py": 0.1,
     "AI_WATCHER.py": 0.1,
+    "AMPLIFY_ENGINE.py": 0.1,
     "ANALYTICS_ENGINE.py": 0.1,
+    "APOPTOSIS.py": 0.1,
     "ARCHITECT.py": 0.1,
     "ART_CATALOG.py": 0.1,
     "ART_GENERATOR.py": 0.1,
@@ -54,15 +60,12 @@
     "AUTO_HEALER.py": 0.1,
     "AUTO_RUNNER.py": 0.1,
     "BIG_BRAIN_ORACLE.py": 0.1,
+    "BIOLUMINESCENCE.py": 0.1,
     "BLUESKY_ENGINE.py": 0.1,
     "BOTTLENECK_SCANNER.py": 0.1,
     "BRAND_LEGAL.py": 0.1,
     "BRAVE_BRIDGE.py": 0.1,
-    "BRAVE_BROWSER_ENGINE.py": 0.1,
-    "BRIDGE_BUILDER.py": 0.1,
-    "BROADCAST_PROTOCOL.py": 0.1,
-    "BUSINESS_FACTORY.py": 0.1,
-    "CALENDAR_BRAIN.py": 0.1
+    "BRAVE_BROWSER_ENGINE.py": 0.1
   },
   "signals": {
     "OMNIBRAIN": {
@@ -81,12 +84,14 @@
     "SENTINEL": {
       "engine": "SENTINEL",
       "status": "alert",
-      "energy": 1.0,
-      "finding": "UNKNOWN \u2014 0 syntax failures",
-      "neighbors_needed": [],
+      "energy": 0.2,
+      "finding": "ISSUES_FOUND \u2014 37 syntax failures",
+      "neighbors_needed": [
+        "REPAIR_CORE"
+      ],
       "payload": {
-        "health": "UNKNOWN",
-        "failures": 0
+        "health": "ISSUES_FOUND",
+        "failures": 37
       }
     },
     "EMAIL_BRAIN": {

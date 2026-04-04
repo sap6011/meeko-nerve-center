@@ -15,12 +15,14 @@
   "SENTINEL": {
     "engine": "SENTINEL",
     "status": "alert",
-    "energy": 1.0,
-    "finding": "UNKNOWN \u2014 0 syntax failures",
-    "neighbors_needed": [],
+    "energy": 0.2,
+    "finding": "ISSUES_FOUND \u2014 37 syntax failures",
+    "neighbors_needed": [
+      "REPAIR_CORE"
+    ],
     "payload": {
-      "health": "UNKNOWN",
-      "failures": 0
+      "health": "ISSUES_FOUND",
+      "failures": 37
     }
   },
   "EMAIL_BRAIN": {

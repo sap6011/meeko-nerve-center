@@ -1,7 +1,84 @@
 {
-  "last_updated": "2026-04-04T01:05:12.154090+00:00",
-  "waterways": [],
-  "alerts": [],
-  "status": "monitoring",
-  "source": "BRIDGE_BUILDER synthesis"
+  "generated_at": "2026-04-04T07:43:29.589180+00:00",
+  "gauge_site": "USGS-04208000 \u2014 Cuyahoga River at Akron, OH",
+  "dam_project": "Gorge Dam Removal / Cuyahoga River restoration",
+  "water_quality": {
+    "source": "USGS Water Quality Portal",
+    "url": "https://waterqualitydata.us/data/Result/search/?siteid=USGS-04208000&mimeType=json",
+    "recent_readings": {
+      "error": "HTTP Error 406: Not Acceptable",
+      "source": "USGS Water Quality Portal"
+    }
+  },
+  "epa_facilities": {
+    "source": "EPA ECHO",
+    "url": "https://echo.epa.gov/api/facilities/search?p_st=OH&p_city=Akron&output=JSON",
+    "summary": {
+      "total_facilities": 0,
+      "facilities_with_violations": 0,
+      "sample_facilities": []
+    }
+  },
+  "flow_data": {
+    "source": "USGS Instantaneous Values REST API",
+    "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=04208000&parameterCd=00060,00065&siteStatus=active",
+    "readings": {
+      "error": "'str' object has no attribute 'get'",
+      "raw_keys": [
+        "name",
+        "declaredType",
+        "scope",
+        "value",
+        "nil",
+        "globalScope",
+        "typeSubstituted"
+      ]
+    }
+  },
+  "regulatory_news": {
+    "source": "Federal Register API",
+    "url": "https://www.federalregister.gov/api/v1/articles.json?conditions[term]=Gorge+Dam+Cuyahoga&per_page=5&order=newest",
+    "gorge_dam_articles": [
+      {
+        "title": "Vessel Incidental Discharge National Standards of Performance",
+        "date": "2024-10-09",
+        "agency": null,
+        "url": "https://www.federalregister.gov/documents/2024/10/09/2024-22013/vessel-incidental-discharge-national-standards-of-performance",
+        "type": "Rule",
+        "abstract": "The U.S. Environmental Protection Agency (EPA) is promulgating a regulation under the Vessel Incidental Discharge Act that establishes Federal standards of performance for marine pollution control devices for discharges incidental to the normal operation of primarily non- Armed Forces and non-recrea"
+      },
+      {
+        "title": "Announcement of Funding Awards; December 2022",
+        "date": "2023-07-17",
+        "agency": null,
+        "url": "https://www.federalregister.gov/documents/2023/07/17/2023-14774/announcement-of-funding-awards-december-2022",
+        "type": "Notice",
+        "abstract": "In accordance with section 102(a)(4)(C) of the Department of Housing and Urban Development Reform Act of 1989, this announcement notifies the public of funding decisions made by the Department in competitions for funding under the Notices of Funding Opportunity (NOFOs) and Notices for the following "
+      },
+      {
+        "title": "Vessel Incidental Discharge National Standards of Performance",
+        "date": "2020-10-26",
+        "agency": null,
+        "url": "https://www.federalregister.gov/documents/2020/10/26/2020-22385/vessel-incidental-discharge-national-standards-of-performance",
+        "type": "Proposed Rule",
+        "abstract": "The U.S. Environmental Protection Agency (EPA) is publishing for public comment a proposed rule under the Vessel Incidental Discharge Act that would establish national standards of performance for marine pollution control devices for discharges incidental to the normal operation of primarily non-mil"
+      },
+      {
+        "title": "Federal Property Suitable as Facilities To Assist the Homeless",
+        "date": "2012-02-10",
+        "agency": null,
+        "url": "https://www.federalregister.gov/documents/2012/02/10/2012-2721/federal-property-suitable-as-facilities-to-assist-the-homeless",
+        "type": "Notice",
+        "abstract": "This Notice identifies unutilized, underutilized, excess, and surplus Federal property reviewed by HUD for suitability for possible use to assist the homeless."
+      },
+      {
+        "title": "Federal Property Suitable as Facilities To Assist the Homeless",
+        "date": "2000-02-25",
+        "agency": null,
+        "url": "https://www.federalregister.gov/documents/2000/02/25/00-4312/federal-property-suitable-as-facilities-to-assist-the-homeless",
+        "type": "Notice",
+        "abstract": "This Notice identifies unutilized, underutilized, excess, and surplus Federal property reviewed by HUD for suitability for possible use to assist the homeless."
+      }
+    ]
+  }
 }
