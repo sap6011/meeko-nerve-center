@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v36 — GAP FILLER + DEBUG DOCTOR (316 engines, 5015 wires)
+OMNIBUS v38 — AUTO_GENESIS + Ollama-first AI (322 engines, 4909 wires, chimera 78/100)
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
