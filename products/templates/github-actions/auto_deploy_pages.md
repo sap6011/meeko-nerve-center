@@ -1,0 +1,34 @@
+# Auto Deploy to GitHub Pages
+
+Deploy a static site on every push to main.
+
+```yaml
+name: Deploy to Pages
+on:
+  push:
+    branches: [main]
+    paths: ['docs/**', '*.html', '*.css']
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```

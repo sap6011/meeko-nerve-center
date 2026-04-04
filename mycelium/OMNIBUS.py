@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v31 — IMMUNE SYSTEM + CORTEX + SIGNAL INTEGRITY + PRODUCT FORGE + TEMPORAL CORTEX
+OMNIBUS v32 — MICRO PRODUCT FACTORY + EVENT RELAY + FRACTAL REPLICATOR
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -214,6 +214,9 @@ def ctx():
         "cortex":           rj("cortex_analysis.json"),
         "temporal":         rj("temporal_analysis.json"),
         "product_forge":    rj("product_forge_report.json"),
+        "micro_factory":    rj("micro_product_factory_report.json"),
+        "fractal_replicator": rj("fractal_replicator_report.json"),
+        "event_relay":      rj("event_relay_report.json"),
         "engines_ok":       results["ok"][:],
         "engines_failed":   results["failed"][:],
     }
@@ -395,6 +398,9 @@ def L6():
     eng("PRODUCT_FORGE",           timeout=120)  # v31: generate actual digital products
     eng("CORTEX",                  timeout=180)  # v31: AI reasoning layer -- the system thinks
     eng("CONTENT_AUTOPILOT",       timeout=120)  # v31: infinite content machine -- articles + social
+    eng("MICRO_PRODUCT_FACTORY",   timeout=120)  # v32: template pack assembly line (4 domains, 32 files)
+    eng("FRACTAL_REPLICATOR",      timeout=120)  # v32: one template x N domains = N product variants
+    eng("EVENT_RELAY",             timeout=60)   # v32: auto-git event-driven trigger system (DRY_RUN)
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")
