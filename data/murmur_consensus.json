@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-03T03:39:51.096886+00:00",
-  "flock_energy": 0.45,
+  "timestamp": "2026-04-04T03:27:38.021370+00:00",
+  "flock_energy": 0.25,
   "engines_reporting": 4,
   "hot_engines": [
-    "SENTINEL",
     "SCAM_SHIELD"
   ],
   "cold_engines": [
     "OMNIBRAIN",
+    "SENTINEL",
     "EMAIL_BRAIN"
   ],
   "hot_edges": [
@@ -20,22 +20,26 @@
       "HEALTH_BOOSTER"
     ],
     [
+      "SENTINEL",
+      "REPAIR_CORE"
+    ],
+    [
       "EMAIL_BRAIN",
       "BRIEFING_ENGINE"
     ]
   ],
-  "consensus_focus": "integrity",
+  "consensus_focus": "general",
   "focus_votes": {
-    "integrity": 1.0,
     "general": 0.8
   },
   "murmur_message": [
-    "Flock is steady \u2014 maintain current trajectory"
+    "Flock energy is low \u2014 consolidate and repair"
   ],
   "mutation_weights": {
     "SCAM_SHIELD.py": 0.8,
     "BRIEFING_ENGINE.py": 0.5,
     "HEALTH_BOOSTER.py": 0.5,
+    "REPAIR_CORE.py": 0.5,
     "AFFILIATE_MAXIMIZER.py": 0.1,
     "AGENT_GUMROAD_BUILDER.py": 0.1,
     "AGENT_LINK_VERIFIER.py": 0.1,
@@ -61,8 +65,7 @@
     "BOTTLENECK_SCANNER.py": 0.1,
     "BRAND_LEGAL.py": 0.1,
     "BRAVE_BRIDGE.py": 0.1,
-    "BRAVE_BROWSER_ENGINE.py": 0.1,
-    "BRIDGE_BUILDER.py": 0.1
+    "BRAVE_BROWSER_ENGINE.py": 0.1
   },
   "signals": {
     "OMNIBRAIN": {
@@ -81,12 +84,14 @@
     "SENTINEL": {
       "engine": "SENTINEL",
       "status": "alert",
-      "energy": 1.0,
-      "finding": "UNKNOWN \u2014 0 syntax failures",
-      "neighbors_needed": [],
+      "energy": 0.2,
+      "finding": "ISSUES_FOUND \u2014 37 syntax failures",
+      "neighbors_needed": [
+        "REPAIR_CORE"
+      ],
       "payload": {
-        "health": "UNKNOWN",
-        "failures": 0
+        "health": "ISSUES_FOUND",
+        "failures": 37
       }
     },
     "EMAIL_BRAIN": {
