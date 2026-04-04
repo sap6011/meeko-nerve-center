@@ -1,27 +1,27 @@
 {
-  "timestamp": "2026-04-04T19:25:54.817915+00:00",
-  "claimed_wires": 5018,
-  "audited_wires": 5018,
+  "timestamp": "2026-04-04T20:28:02.169246+00:00",
+  "claimed_wires": 4909,
+  "audited_wires": 4909,
   "wire_classifications": {
-    "REAL": 4694,
-    "THIN": 290,
-    "STUB": 20,
-    "DEAD": 14,
+    "REAL": 4523,
+    "THIN": 280,
+    "STUB": 89,
+    "DEAD": 17,
     "STALE": 0
   },
-  "real_wires": 4694,
-  "thin_wires": 290,
-  "stub_wires": 20,
-  "dead_wires": 14,
+  "real_wires": 4523,
+  "thin_wires": 280,
+  "stub_wires": 89,
+  "dead_wires": 17,
   "stale_wires": 0,
-  "honest_real_count": 4984,
-  "honest_percentage": 99,
-  "unique_data_files": 442,
+  "honest_real_count": 4803,
+  "honest_percentage": 97,
+  "unique_data_files": 444,
   "file_classifications": {
-    "REAL": 188,
-    "THIN": 111,
-    "STUB": 15,
-    "DEAD": 128
+    "DEAD": 123,
+    "REAL": 187,
+    "THIN": 117,
+    "STUB": 17
   },
   "top_real_engines": [
     {
@@ -147,23 +147,25 @@
       }
     },
     {
-      "name": "AUTO_HEALER",
-      "total_score": 3,
-      "max_possible": 3,
+      "name": "BOTTLENECK_SCANNER",
+      "total_score": 15,
+      "max_possible": 15,
       "percentage": 100,
-      "writes": 0,
-      "reads": 1,
-      "write_quality": {},
+      "writes": 2,
+      "reads": 3,
+      "write_quality": {
+        "REAL": 2
+      },
       "read_quality": {
-        "REAL": 1
+        "REAL": 3
       }
     }
   ],
-  "zero_real_engines": 10,
+  "zero_real_engines": 15,
   "engine_scores_summary": {
-    "total": 316,
-    "above_50pct": 275,
-    "above_0pct": 306,
-    "at_0pct": 10
+    "total": 322,
+    "above_50pct": 273,
+    "above_0pct": 307,
+    "at_0pct": 15
   }
 }

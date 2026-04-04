@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-04T19:25:57.301805+00:00",
+  "timestamp": "2026-04-04T20:27:22.806967+00:00",
   "bridges_attempted": 64,
-  "bridges_built": 15,
-  "bridges_failed": 49,
+  "bridges_built": 16,
+  "bridges_failed": 48,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
@@ -39,36 +39,36 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 316 pass, 0 fail out of 316 engines",
-      "pass": 316,
+      "detail": "Local sentinel: 322 pass, 0 fail out of 322 engines",
+      "pass": 322,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 484 nodes, 5018 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 484,
-      "edges": 5018,
+      "detail": "Knowledge graph: 494 nodes, 4909 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 494,
+      "edges": 4909,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          326
+          325
         ],
         [
           "OMNIBUS",
-          199
+          201
         ],
         [
           "FIRST_SALE_NOTIFIER",
-          177
+          174
         ],
         [
           "REVENUE_LOOP",
-          151
+          148
         ],
         [
           "METRICS_DASHBOARD",
-          134
+          132
         ]
       ],
       "target": "knowledge_graph.json"
@@ -91,7 +91,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 316 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 322 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -100,9 +100,9 @@
       "target": "tweets_queue.txt"
     },
     {
-      "target": "daemon_task.xml",
-      "status": "ERROR",
-      "detail": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+      "status": "BRIDGED",
+      "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json",
+      "target": "daemon_task.xml"
     },
     {
       "status": "ALREADY_EXISTS",
@@ -111,17 +111,17 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 316",
+      "detail": "Healed 0, scanned 322",
       "target": "nanobot_heal_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Leaderboard: 1 mutations, 1 gens",
+      "detail": "Leaderboard: 7 mutations, 13 gens",
       "target": "mutation_leaderboard.json"
     },
     {
-      "status": "NO_SOURCE",
-      "detail": "polymarket_scan.json not found -- run POLYMARKET_SCANNER",
+      "status": "ALREADY_EXISTS",
+      "detail": "Markets scanned: 100, edges: 41",
       "target": "polymarket_scan.json"
     },
     {
@@ -226,7 +226,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (316 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (322 pass)",
       "target": "sentinel_scan.json"
     },
     {

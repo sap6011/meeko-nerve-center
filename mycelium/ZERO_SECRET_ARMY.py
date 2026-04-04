@@ -46,6 +46,10 @@ SKIP_ENGINES = {
     "CORTEX",                   # orchestrator -- AI-heavy analysis
     "CONTENT_AUTOPILOT",        # AI-heavy -- timeouts without Ollama
     "NARRATOR",                 # AI-heavy -- timeouts without Ollama
+    "KNOWLEDGE_WEAVER",         # AI-heavy -- needs LLM for code generation
+    "KOFI_PAYMENT_TRACKER",     # AI-heavy -- ask_json() times out without LLM
+    "OLLAMA_BRIDGE",            # needs local Ollama running
+    "AFFILIATE_MAXIMIZER",      # AI-heavy -- ask_json() on every 3rd cycle
     "LIVE_WIRE",                # heavy scan -- already run before army
     "__init__",
     "AI_CLIENT",                # library, not an engine
@@ -53,7 +57,7 @@ SKIP_ENGINES = {
 }
 
 # Max engines per run to avoid overwhelming the machine
-MAX_PER_RUN = 50
+MAX_PER_RUN = 100
 ENGINE_TIMEOUT = 60  # seconds per engine
 
 
