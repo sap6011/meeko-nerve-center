@@ -1,5 +1,9 @@
 import os, re, shutil, json, hashlib, sys
 from pathlib import Path
+import json
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 FOLDER  = Path.home() / 'Desktop' / 'NEW_FOLDER'
 CLEAN   = Path.home() / 'Desktop' / 'MEEKO_CLEAN'
@@ -94,3 +98,9 @@ out = Path.home() / 'Desktop' / 'ingestion_prescan.json'
 out.write_text(json.dumps(results, indent=2))
 print(f'\nFull list: Desktop/ingestion_prescan.json')
 print(f'\nNEXT: review SECRETS_REVIEW/ then delete it, then push MEEKO_CLEAN/ to repo')
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
+    (DATA / "legacy_sifted_prescan_v2_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

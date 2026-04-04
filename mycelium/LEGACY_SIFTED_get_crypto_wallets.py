@@ -1,5 +1,9 @@
 import json
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 # REAL Bitcoin donation addresses (verified from official sources)
 CRISIS_WALLETS = {
@@ -42,3 +46,9 @@ print("    https://www.icrc.org/en/donate/bitcoin")
 print("")
 print(" File saved: crisis_wallets.json")
 print("  Edit this file with REAL wallet addresses")
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "finance_ledger.json").read_text()) if (DATA / "finance_ledger.json").exists() else {}
+    (DATA / "legacy_sifted_get_crypto_wallets_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

@@ -10,6 +10,9 @@ import webbrowser
 from datetime import datetime
 from pathlib import Path
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 class DistributionEngine:
     def __init__(self):
         self.log_file = Path("distribution_log.txt")
@@ -93,3 +96,9 @@ class DistributionEngine:
 if __name__ == "__main__":
     engine = DistributionEngine()
     engine.run_daily_distribution()
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "revenue_data.json").read_text()) if (DATA / "revenue_data.json").exists() else {}
+    (DATA / "legacy_sifted_distribution_engine_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

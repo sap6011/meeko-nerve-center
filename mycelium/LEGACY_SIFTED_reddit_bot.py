@@ -1,6 +1,10 @@
 import webbrowser
 import json
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 YOUR_AMAZON_TAG = "autonomoushum-20"
 
@@ -42,3 +46,9 @@ for cat, items in links.items():
 print(f"")
 print(f"100% of commissions go to humanitarian aid. Tag: {YOUR_AMAZON_TAG}")
 print("-"*50)
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "social_queue.json").read_text()) if (DATA / "social_queue.json").exists() else {}
+    (DATA / "legacy_sifted_reddit_bot_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

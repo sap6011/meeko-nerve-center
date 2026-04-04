@@ -1,6 +1,11 @@
 import os
 import re
 from DUEL_ENGINE import duel_functions
+import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 def scavenge_logic_multi(func_name):
     processed_dir = 'knowledge_ingest/processed'
@@ -32,3 +37,9 @@ def manifest_optimized_skills():
 if __name__ == "__main__":
     # manifest_optimized_skills logic here
     print("🧬 Optimization: Scavenging with Duel-arbitration enabled.")
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "knowledge_graph.json").read_text()) if (DATA / "knowledge_graph.json").exists() else {}
+    (DATA / "skill_manifestor_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

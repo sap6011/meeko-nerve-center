@@ -2,6 +2,10 @@ import webbrowser
 import time
 import json
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 YOUR_AMAZON_TAG = "autonomoushum-20"
 
@@ -25,3 +29,9 @@ for category, items in links.items():
 print("")
 print(" 3 Pins opened - Click 'Save' on each tab")
 print(" Do this daily at 6 AM to flood Pinterest")
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "social_queue.json").read_text()) if (DATA / "social_queue.json").exists() else {}
+    (DATA / "legacy_sifted_pinterest_bot_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

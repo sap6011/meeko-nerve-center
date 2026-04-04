@@ -129,3 +129,5 @@ if __name__ == "__main__":
     print("\n" + "=" * 50)
     print(" AI READY TO COORDINATE HUMANITARIAN AID")
     print(" Transparent, blockchain-verified, AI-optimized")
+
+    (DATA / "legacy_sifted_crisis_response_ai_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

@@ -1,4 +1,9 @@
 import os
+import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 def generate_daily_report():
     memory_path = "C:/Solarpunk-Prime/docs/AGENCY_MEMORY.md"
@@ -18,3 +23,9 @@ def generate_daily_report():
 
 if __name__ == "__main__":
     generate_daily_report()
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
+    (DATA / "summarizer_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

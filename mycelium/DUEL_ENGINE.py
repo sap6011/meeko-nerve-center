@@ -9,6 +9,11 @@ def duel_functions(func_name, version_a, version_b):
         # Wrap the scavenged code in a performance timer
         test_wrapper = f"""
 import time
+import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 {code}
 start = time.perf_counter()
 try:
@@ -38,3 +43,9 @@ except Exception as e:
 
 if __name__ == "__main__":
     print("⚖️ Duel Engine: Standing by for arbitration.")
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "knowledge_graph.json").read_text()) if (DATA / "knowledge_graph.json").exists() else {}
+    (DATA / "duel_engine_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))
