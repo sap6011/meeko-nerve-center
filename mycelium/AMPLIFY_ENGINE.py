@@ -109,10 +109,11 @@ def post_hash(platform, text):
 # ── context loaders ──────────────────────────────────────────────────
 
 def load_context():
-    """Pull live data from resource kits, crisis signals, survival telegrams."""
+    """Pull live data from resource kits, crisis signals, survival telegrams, amplification queue."""
     kits = load_json(DATA / "resource_kits.json", {})
     crisis = load_json(DATA / "crisis_signals.json", {})
     telegrams = load_json(DATA / "survival_telegrams.json", {})
+    amp_queue = load_json(DATA / "amplification_queue.json", {})
 
     active_kits = []
     for k in kits.get("kits", []):
@@ -132,6 +133,8 @@ def load_context():
     total_telegrams = telegrams.get("total_telegrams", 0)
     total_bytes = telegrams.get("total_bytes", 0)
 
+    queued_posts = amp_queue.get("posts", amp_queue.get("queue", []))
+
     return {
         "kit_count": len(active_kits),
         "kits": active_kits,
@@ -139,6 +142,7 @@ def load_context():
         "critical_signals": len(critical_signals),
         "telegram_count": total_telegrams,
         "telegram_bytes": total_bytes,
+        "queued_amplifications": len(queued_posts),
     }
 
 

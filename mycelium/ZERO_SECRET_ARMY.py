@@ -33,17 +33,27 @@ MYCELIUM = Path("mycelium")
 
 # Engines to skip (they're orchestrators, not individual runners)
 SKIP_ENGINES = {
-    "OMNIBUS",          # the orchestrator itself
-    "ZERO_SECRET_ARMY", # that's us
-    "TASK_FACTORY",     # runs separately
-    "AUTO_BUILDER",     # runs separately
+    "OMNIBUS",                  # the orchestrator itself
+    "ZERO_SECRET_ARMY",         # that's us
+    "TASK_FACTORY",             # runs separately
+    "AUTO_BUILDER",             # runs separately
+    "AUTO_EXECUTOR",            # orchestrator -- runs TASK_FACTORY loop
+    "CHIMERA_EVOLUTION_ENGINE", # orchestrator -- runs full pipeline
+    "CHAIN_ORCHESTRATOR",       # orchestrator -- chains multiple engines
+    "BOTTLENECK_SCANNER",       # orchestrator -- runs all engines to measure
+    "DEBUG_DOCTOR",             # orchestrator -- re-runs failed engines
+    "ARCHITECT",                # orchestrator -- plans multi-engine work
+    "CORTEX",                   # orchestrator -- AI-heavy analysis
+    "CONTENT_AUTOPILOT",        # AI-heavy -- timeouts without Ollama
+    "NARRATOR",                 # AI-heavy -- timeouts without Ollama
+    "LIVE_WIRE",                # heavy scan -- already run before army
     "__init__",
-    "AI_CLIENT",        # library, not an engine
-    "NANO_AGENT",       # library
+    "AI_CLIENT",                # library, not an engine
+    "NANO_AGENT",               # library
 }
 
 # Max engines per run to avoid overwhelming the machine
-MAX_PER_RUN = 40
+MAX_PER_RUN = 50
 ENGINE_TIMEOUT = 60  # seconds per engine
 
 

@@ -49,8 +49,12 @@ def load_ledger():
     path = DATA / "proof_ledger.json"
     if path.exists():
         try:
-            return json.loads(path.read_text())
-        except:
+            data = json.loads(path.read_text())
+            if isinstance(data, list) and len(data) > 0:
+                data = data[0]
+            if isinstance(data, dict):
+                return data
+        except Exception:
             pass
     return {
         "total_sales": 0.0,

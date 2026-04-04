@@ -167,10 +167,14 @@ def phase_score(pre_scan, post_scan, bridge_report, heal_report, mutation_info):
     hunger_delta = pre_hungry - post_hungry
     scores["hunger_reduction"] = min(100, max(0, 50 + hunger_delta * 15))
 
-    # Bridge success rate
+    # Bridge success rate -- "already has data" counts as success (data IS flowing)
     bridges_built = bridge_report.get("bridges_built", 0)
+    bridges_failed = bridge_report.get("bridges_failed", 0)
     bridges_attempted = bridge_report.get("bridges_attempted", 1)
-    scores["bridge_rate"] = int((bridges_built / max(1, bridges_attempted)) * 100)
+    already_has_data = sum(1 for r in bridge_report.get("results", [])
+                          if "already has data" in str(r.get("detail", "")))
+    effective_success = bridges_built + already_has_data
+    scores["bridge_rate"] = min(100, int((effective_success / max(1, bridges_attempted)) * 100))
 
     # Heal rate
     healed = heal_report.get("healed", 0)
