@@ -1,0 +1,12 @@
+{
+  "drafts": [
+    {
+      "engine": "BIG_BRAIN_ORACLE",
+      "generated_at": "2026-04-04T14:45:24.388587+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How BIG_BRAIN_ORACLE Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What BIG_BRAIN_ORACLE Does\n\nBIG_BRAIN_ORACLE.py — Asks Claude the biggest strategic questions about the system.\n\nBIG_BRAIN_ORACLE.py — Asks Claude the biggest strategic questions about the system.\n\n## The Numbers\n\n- **3 functions** across 185 lines of Python\n- **Reads:** revenue_inbox.json, brain_state.json, brand_legal_state.json\n- **Writes:** oracle_insights.json, revenue_inbox.json, omnibrain_seed.json\n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nBIG_BRAIN_ORACLE reads from revenue_inbox.json, brain_state.json, brand_legal_state.json and writes to oracle_insights.json, revenue_inbox.json, omnibrain_seed.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/BIG_BRAIN_ORACLE.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1497,
+      "status": "draft",
+      "ai_generated": true
+    }
+  ]
+}

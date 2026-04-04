@@ -394,6 +394,7 @@ def L6():
     eng("TEMPORAL_CORTEX",         timeout=60)   # v31: git history analysis for self-awareness
     eng("PRODUCT_FORGE",           timeout=120)  # v31: generate actual digital products
     eng("CORTEX",                  timeout=180)  # v31: AI reasoning layer -- the system thinks
+    eng("CONTENT_AUTOPILOT",       timeout=120)  # v31: infinite content machine -- articles + social
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")
