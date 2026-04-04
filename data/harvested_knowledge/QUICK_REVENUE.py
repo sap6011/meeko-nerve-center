@@ -23,7 +23,7 @@ Honest answer after reading system state:
      This engine generates the bio and README snippet that drives it.
 
 The 10x multiplier when you're ready:
-  os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")") + GUMROAD_ACCESS_TOKEN + X_API_KEY
+  os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")") + GUMROAD_ACCESS_TOKEN + X_API_KEY
 
 Outputs:
   docs/quick_revenue.html  -- action dashboard, copy-paste ready
@@ -239,7 +239,7 @@ def run():
         'border-radius:12px;padding:20px;margin-top:24px">'
         '<p style="font-size:10px;letter-spacing:.2em;color:rgba(255,165,0,.6);margin-bottom:10px">10X MULTIPLIER WHEN READY</p>'
         '<p style="font-size:12px;color:rgba(222,234,225,.65);line-height:1.9">'
-        '<span style="color:#ff9030">os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")</span> &rarr; SELF_BUILDER resumes, new revenue engines auto-written<br>'
+        '<span style="color:#ff9030">os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")</span> &rarr; SELF_BUILDER resumes, new revenue engines auto-written<br>'
         '<span style="color:#ff9030">GUMROAD_ACCESS_TOKEN</span> &rarr; 6 products auto-published, searchable by 100K+ buyers<br>'
         '<span style="color:#ff9030">X_API_KEY</span> &rarr; 88 queued posts start distributing, one per cycle<br>'
         '</p>'

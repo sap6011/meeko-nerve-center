@@ -93,7 +93,7 @@ REVENUE: {spec['revenue_mechanism']}
 
 RULES:
 - Imports: only stdlib + requests + (from AI_CLIENT import ask, ask_json, ask_json_list)
-- Available env vars: os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")"), GMAIL_ADDRESS, GMAIL_APP_PASSWORD, HF_TOKEN, GITHUB_TOKEN
+- Available env vars: os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")"), GMAIL_ADDRESS, GMAIL_APP_PASSWORD, HF_TOKEN, GITHUB_TOKEN
 - Must have: run() function + if __name__=="__main__": run()
 - Saves state to: data/{spec['engine_name'].lower()}_state.json
 - Never crashes — wrap everything in try/except
