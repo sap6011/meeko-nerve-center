@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v29 — CHIMERA EVOLUTION + HEMISPHERE BRAIN + RELAY BATON
+OMNIBUS v30 — OBSERVATORY + FRACTAL GENESIS + VALUE ROUTER
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -206,6 +206,9 @@ def ctx():
         "bridge_report":    rj("bridge_report.json"),
         "hemisphere":       rj("hemisphere_state.json"),
         "relay_baton":      rj("relay_baton.json"),
+        "observatory":      rj("observatory_report.json"),
+        "fractal_genesis":  rj("fractal_genesis_report.json"),
+        "value_router":     rj("value_router_report.json"),
         "engines_ok":       results["ok"][:],
         "engines_failed":   results["failed"][:],
     }
@@ -378,6 +381,9 @@ def L6():
     eng("SYNERGY_FORGE",            timeout=60)   # v29: generates mutations from viable skills
     eng("MUTATION_VAULT",           timeout=60)   # v29: scores + archives evolution data
     eng("CHIMERA_EVOLUTION_ENGINE", timeout=600); save_ctx()  # v29: master evolution loop
+    eng("DATA_FLOW_OBSERVATORY",   timeout=180)  # v30: god's-eye view of all data flows
+    eng("FRACTAL_GENESIS_ENGINE",  timeout=180)  # v30: auto-generate engines from gap analysis
+    eng("EXTERNAL_VALUE_ROUTER",   timeout=120)  # v30: route capabilities to ethical revenue
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")
