@@ -660,6 +660,266 @@ def bridge_stress_backup_river_watch():
     return {"status": "BRIDGED", "detail": "Backed up river_watch -> _stress_backup_river_watch"}
 
 
+def bridge_public_ledger():
+    """Seed PUBLIC_LEDGER.json -- public transparency ledger."""
+    return seed_json("PUBLIC_LEDGER.json", {
+        "entries": [], "total_in": 0, "total_out": 0,
+        "source": "BRIDGE_BUILDER seed", "note": "All transactions public"
+    })
+
+
+def bridge_agent_link_verifier_state():
+    """Seed agent_link_verifier_state.json."""
+    return seed_json("agent_link_verifier_state.json", {
+        "last_run": None, "links_checked": 0, "broken": [],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_ai_council_report():
+    """Bridge: knowledge_graph -> ai_council_report.json."""
+    kg = load_json(DATA / "knowledge_graph.json")
+    nodes = kg.get("nodes", []) if kg else []
+    return seed_json("ai_council_report.json", {
+        "council_members": ["ollama:mistral", "ollama:llama3", "ollama:codellama"],
+        "topics_available": len(nodes),
+        "last_session": None, "decisions": [],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_art_log():
+    """Seed art_log.json for ART_GENERATOR."""
+    catalog = load_json(DATA / "art_catalog.json")
+    items = catalog.get("items", []) if catalog else []
+    return seed_json("art_log.json", {
+        "generated": len(items), "entries": [],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_atomizer_state():
+    """Seed atomizer_state.json for TASK_ATOMIZER."""
+    return seed_json("atomizer_state.json", {
+        "tasks_split": 0, "last_run": None,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_claude_autonomous_report():
+    """Seed claude_autonomous_report.json."""
+    return seed_json("claude_autonomous_report.json", {
+        "sessions": 0, "tasks_completed": 0, "engines_built": 0,
+        "last_session": None, "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_compound_tracker():
+    """Seed compound_tracker.json for revenue compounding."""
+    return seed_json("compound_tracker.json", {
+        "compounds": [], "total_reinvested": 0,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_cycle_memory():
+    """Bridge: chimera evolution -> cycle_memory.json."""
+    chimera = load_json(DATA / "chimera_evolution_report.json")
+    if chimera:
+        return seed_json("cycle_memory.json", {
+            "cycles": [{"generation": chimera.get("generation", 0),
+                        "score": chimera.get("composite_score", 0),
+                        "timestamp": chimera.get("timestamp")}],
+            "source": "BRIDGE_BUILDER from chimera"
+        })
+    return seed_json("cycle_memory.json", {"cycles": [], "source": "BRIDGE_BUILDER seed"})
+
+
+def bridge_desktop_agent_log():
+    """Seed desktop_agent_log.json."""
+    return seed_json("desktop_agent_log.json", {
+        "actions": [], "errors": [], "last_action": None,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_dual_brain_conversation():
+    """Seed dual_brain_conversation.json for hemisphere sync."""
+    hemi = load_json(DATA / "hemisphere_state.json")
+    return seed_json("dual_brain_conversation.json", {
+        "messages": [],
+        "left_status": hemi.get("left", {}).get("status", "unknown") if hemi else "unknown",
+        "right_status": hemi.get("right", {}).get("status", "unknown") if hemi else "unknown",
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_external_signals():
+    """Seed external_signals.txt."""
+    return seed_text("external_signals.txt",
+                     "# External signals detected by SolarPunk\n# Format: TIMESTAMP | SOURCE | SIGNAL\n")
+
+
+def bridge_finance_ledger():
+    """Bridge: revenue data -> finance_ledger.json."""
+    rev = load_json(DATA / "revenue_inbox.json")
+    balance = rev.get("total_revenue", 0) if rev else 0
+    return seed_json("finance_ledger.json", {
+        "balance": balance, "transactions": [], "currency": "USD",
+        "ethics_lock": 0.99, "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_handshake_results():
+    """Seed handshake_results.json for EXTERNAL_HANDSHAKE."""
+    return seed_json("handshake_results.json", {
+        "handshakes": [], "verified": 0, "failed": 0,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_kimi_conductor_report():
+    """Seed kimi_conductor_report.json."""
+    return seed_json("kimi_conductor_report.json", {
+        "sessions": [], "orchestrations": 0, "last_run": None,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_known_devices():
+    """Seed known_devices.json for mesh network."""
+    return seed_json("known_devices.json", {
+        "devices": [{"name": "meeko-desktop", "type": "primary", "status": "online"}],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_local_needs_radar():
+    """Seed local_needs_radar.json for community needs tracking."""
+    return seed_json("local_needs_radar.json", {
+        "needs": [], "ward": "ward8", "last_scan": None,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_master_config():
+    """Seed master_config.json with system defaults."""
+    return seed_json("master_config.json", {
+        "system": "SolarPunk Nerve Center",
+        "ethics_lock": 0.99, "revenue_split": {"mutual_aid": 0.99, "infrastructure": 0.01},
+        "ollama_models": ["mistral", "llama3", "codellama"],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_mutual_aid_routing():
+    """Seed mutual_aid_routing.json with distribution rules."""
+    return seed_json("mutual_aid_routing.json", {
+        "routes": [
+            {"org": "PCRF", "share": 0.60},
+            {"org": "IRC", "share": 0.15},
+            {"org": "MSF", "share": 0.10},
+            {"org": "UNICEF", "share": 0.10},
+            {"org": "Direct Relief", "share": 0.05}
+        ],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_neural_weights():
+    """Seed neural_weights.json for NEURAL_PREFERENCE."""
+    return seed_json("neural_weights.json", {
+        "weights": {}, "reinforcements": 0, "last_update": None,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_open_loops():
+    """Seed open_loops.json for task tracking."""
+    baton = load_json(DATA / "relay_baton.json")
+    pending = [t for t in baton.get("tasks", []) if t.get("status") == "pending"] if baton else []
+    return seed_json("open_loops.json", {
+        "loops": [{"desc": t.get("description", ""), "from": "relay_baton"} for t in pending[:10]],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_product_ideas():
+    """Seed product_ideas.txt from knowledge graph."""
+    return seed_text("product_ideas.txt",
+                     "# SolarPunk Product Ideas\n# Auto-generated by BRIDGE_BUILDER\n"
+                     "1. Palestine Solidarity Art Pack\n"
+                     "2. AI Side Income Blueprint\n"
+                     "3. Grant Writing Templates\n"
+                     "4. GitHub Actions for Beginners\n")
+
+
+def bridge_reminders():
+    """Seed reminders.json."""
+    return seed_json("reminders.json", {"reminders": [], "source": "BRIDGE_BUILDER seed"})
+
+
+def bridge_revenue_data():
+    """Bridge: revenue_inbox -> revenue_data.json."""
+    rev = load_json(DATA / "revenue_inbox.json")
+    return seed_json("revenue_data.json", {
+        "total": rev.get("total_revenue", 0) if rev else 0,
+        "streams": rev.get("streams", []) if rev else [],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_secrets():
+    """Seed secrets.json (no actual secrets -- just structure)."""
+    return seed_json("secrets.json", {
+        "note": "API keys loaded from environment variables, not stored here",
+        "env_keys_needed": ["GROQ_API_KEY", "OPENAI_API_KEY"],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+
+def bridge_self_wiring_report():
+    """self_wiring_report.json is written by SELF_WIRING_ENGINE -- skip."""
+    out = DATA / "self_wiring_report.json"
+    if out.exists():
+        return {"status": "ALREADY_EXISTS", "detail": "Written by SELF_WIRING_ENGINE"}
+    return {"status": "SKIPPED", "detail": "Run SELF_WIRING_ENGINE to generate"}
+
+
+def bridge_system_manifest():
+    """Bridge: live_wire_report -> system_manifest.json."""
+    wire = load_json(DATA / "live_wire_report.json")
+    stats = wire.get("stats", {}) if wire else {}
+    return seed_json("system_manifest.json", {
+        "name": "SolarPunk Nerve Center",
+        "engines": stats.get("total_engines", 0),
+        "wires": stats.get("total_wires_discovered", 0),
+        "zero_secret_chains": stats.get("zero_secret_chains", 0),
+        "source": "BRIDGE_BUILDER from live_wire"
+    })
+
+
+def bridge_system_wants_next():
+    """Bridge: self_wiring_report -> system_wants_next.json."""
+    sw = load_json(DATA / "self_wiring_report.json")
+    wirable = sw.get("wirable_engines", []) if sw else []
+    return seed_json("system_wants_next.json", {
+        "wants": [{"action": "wire", "engine": e} for e in wirable[:10]],
+        "source": "BRIDGE_BUILDER from self_wiring"
+    })
+
+
+def bridge_workflow_health():
+    """Bridge: nanobot_heal -> workflow_health.json."""
+    heal = load_json(DATA / "nanobot_heal_report.json")
+    return seed_json("workflow_health.json", {
+        "healthy": heal.get("healthy_count", 0) if heal else 0,
+        "broken": heal.get("broken_count", 0) if heal else 0,
+        "healed": heal.get("healed_count", 0) if heal else 0,
+        "source": "BRIDGE_BUILDER from nanobot_heal"
+    })
+
+
 BRIDGES = {
     "grants_found.json": bridge_grants_found,
     "sentinel_report.json": bridge_sentinel_report,
@@ -702,6 +962,35 @@ BRIDGES = {
     "sentinel_scan.json": bridge_sentinel_scan,
     "sovereignty_state.json": bridge_sovereignty_state,
     "_stress_backup_river_watch.json": bridge_stress_backup_river_watch,
+    # --- v30: 28 remaining hungry inputs ---
+    "PUBLIC_LEDGER.json": bridge_public_ledger,
+    "agent_link_verifier_state.json": bridge_agent_link_verifier_state,
+    "ai_council_report.json": bridge_ai_council_report,
+    "art_log.json": bridge_art_log,
+    "atomizer_state.json": bridge_atomizer_state,
+    "claude_autonomous_report.json": bridge_claude_autonomous_report,
+    "compound_tracker.json": bridge_compound_tracker,
+    "cycle_memory.json": bridge_cycle_memory,
+    "desktop_agent_log.json": bridge_desktop_agent_log,
+    "dual_brain_conversation.json": bridge_dual_brain_conversation,
+    "external_signals.txt": bridge_external_signals,
+    "finance_ledger.json": bridge_finance_ledger,
+    "handshake_results.json": bridge_handshake_results,
+    "kimi_conductor_report.json": bridge_kimi_conductor_report,
+    "known_devices.json": bridge_known_devices,
+    "local_needs_radar.json": bridge_local_needs_radar,
+    "master_config.json": bridge_master_config,
+    "mutual_aid_routing.json": bridge_mutual_aid_routing,
+    "neural_weights.json": bridge_neural_weights,
+    "open_loops.json": bridge_open_loops,
+    "product_ideas.txt": bridge_product_ideas,
+    "reminders.json": bridge_reminders,
+    "revenue_data.json": bridge_revenue_data,
+    "secrets.json": bridge_secrets,
+    "self_wiring_report.json": bridge_self_wiring_report,
+    "system_manifest.json": bridge_system_manifest,
+    "system_wants_next.json": bridge_system_wants_next,
+    "workflow_health.json": bridge_workflow_health,
 }
 
 

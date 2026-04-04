@@ -1,9 +1,18 @@
 {
-  "timestamp": "2026-04-03T15:10:40.195677+00:00",
-  "bridges_attempted": 36,
+  "timestamp": "2026-04-04T01:05:12.190216+00:00",
+  "bridges_attempted": 64,
   "bridges_built": 17,
-  "bridges_failed": 19,
-  "unbridged_inputs": [],
+  "bridges_failed": 47,
+  "unbridged_inputs": [
+    "consolidated_knowledge.json",
+    "filename.json",
+    "guardian_log.json",
+    "guardian_status.json",
+    "loop_fund.json",
+    "new_sales.json",
+    "outreach_summary.json",
+    "pending_art.json"
+  ],
   "results": [
     {
       "status": "BRIDGED",
@@ -13,36 +22,36 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 284 pass, 0 fail out of 284 engines",
-      "pass": 284,
+      "detail": "Local sentinel: 285 pass, 0 fail out of 285 engines",
+      "pass": 285,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 360 nodes, 774 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 360,
-      "edges": 774,
+      "detail": "Knowledge graph: 408 nodes, 1107 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 408,
+      "edges": 1107,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          106
+          148
+        ],
+        [
+          "OMNIBUS",
+          112
         ],
         [
           "FIRST_SALE_NOTIFIER",
-          64
+          80
         ],
         [
           "REVENUE_LOOP",
-          44
+          54
         ],
         [
           "DEV_TO_PUBLISHER",
-          41
-        ],
-        [
-          "MURMURATION_RELAY",
-          40
+          52
         ]
       ],
       "target": "knowledge_graph.json"
@@ -65,7 +74,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 284 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 285 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -80,12 +89,12 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 3, score 54/100",
+      "detail": "Chimera gen 4, score 53/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 284",
+      "detail": "Healed 0, scanned 285",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -200,7 +209,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (284 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (285 pass)",
       "target": "sentinel_scan.json"
     },
     {
@@ -212,6 +221,146 @@
       "status": "BRIDGED",
       "detail": "Backed up river_watch -> _stress_backup_river_watch",
       "target": "_stress_backup_river_watch.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "PUBLIC_LEDGER.json already has data",
+      "target": "PUBLIC_LEDGER.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "agent_link_verifier_state.json already has data",
+      "target": "agent_link_verifier_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "ai_council_report.json already has data",
+      "target": "ai_council_report.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "art_log.json already has data",
+      "target": "art_log.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "atomizer_state.json already has data",
+      "target": "atomizer_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "claude_autonomous_report.json already has data",
+      "target": "claude_autonomous_report.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "compound_tracker.json already has data",
+      "target": "compound_tracker.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "cycle_memory.json already has data",
+      "target": "cycle_memory.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "desktop_agent_log.json already has data",
+      "target": "desktop_agent_log.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "dual_brain_conversation.json already has data",
+      "target": "dual_brain_conversation.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "external_signals.txt already has data",
+      "target": "external_signals.txt"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "finance_ledger.json already has data",
+      "target": "finance_ledger.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "handshake_results.json already has data",
+      "target": "handshake_results.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "kimi_conductor_report.json already has data",
+      "target": "kimi_conductor_report.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "known_devices.json already has data",
+      "target": "known_devices.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "local_needs_radar.json already has data",
+      "target": "local_needs_radar.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "master_config.json already has data",
+      "target": "master_config.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "mutual_aid_routing.json already has data",
+      "target": "mutual_aid_routing.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "neural_weights.json already has data",
+      "target": "neural_weights.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "open_loops.json already has data",
+      "target": "open_loops.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "product_ideas.txt already has data",
+      "target": "product_ideas.txt"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "reminders.json already has data",
+      "target": "reminders.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "revenue_data.json already has data",
+      "target": "revenue_data.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "secrets.json already has data",
+      "target": "secrets.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "Written by SELF_WIRING_ENGINE",
+      "target": "self_wiring_report.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "system_manifest.json already has data",
+      "target": "system_manifest.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "system_wants_next.json already has data",
+      "target": "system_wants_next.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "workflow_health.json already has data",
+      "target": "workflow_health.json"
     }
   ],
   "note": "Successes AND failures documented. Both are useful."

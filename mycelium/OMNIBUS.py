@@ -331,6 +331,7 @@ def L4():
     eng("AFFILIATE_MAXIMIZER", timeout=60)
     eng("STORE_BUILDER",       timeout=90)
     eng("LIVE_WIRE",            timeout=180)  # v29: scan topology before bridging
+    eng("SELF_WIRING_ENGINE",  timeout=120)  # v29: auto-wire isolated engines
     eng("BRIDGE_BUILDER",      timeout=90)
     eng("EMAIL_OUTREACH",      timeout=120)
     eng("VIRALITY_ENGINE",     timeout=60)
