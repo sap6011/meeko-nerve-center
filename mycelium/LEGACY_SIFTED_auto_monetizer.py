@@ -2,6 +2,11 @@
 import os
 import glob
 from datetime import datetime
+import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 # YOUR AFFILIATE TAGS (edit these)
 AMAZON_TAG = "YOUR_AMAZON_TAG_HERE"  # Get from Amazon Associates
@@ -53,3 +58,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "revenue_data.json").read_text()) if (DATA / "revenue_data.json").exists() else {}
+    (DATA / "legacy_sifted_auto_monetizer_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

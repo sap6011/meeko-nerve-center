@@ -11,6 +11,10 @@ import requests
 from datetime import datetime, timedelta
 from typing import List, Dict
 import os
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 class AutonomousContentGenerator:
     def __init__(self, niche: str, api_key: str = None):
@@ -179,8 +183,9 @@ class AutonomousContentGenerator:
     
     def run_daily_automation(self):
         """Main automation loop - call this daily"""
-        print(f"🤖 Starting autonomous content generation for: {self.niche}")
-        print(f"⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        knowledge_graph = json.loads((DATA / "knowledge_graph.json").read_text()) if (DATA / "knowledge_graph.json").exists() else {}
+        print(f"Starting autonomous content generation for: {self.niche}")
+        print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         
         # Generate ideas if none exist
         if not self.content_calendar:
@@ -211,10 +216,12 @@ class AutonomousContentGenerator:
             with open(filename, 'w') as f:
                 json.dump(output, f, indent=2)
             
-            print(f"✅ Content saved to: {filename}")
+            print(f"Content saved to: {filename}")
+            (DATA / "legacy_sifted_auto_content_system_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "article": output["article"]["title"]}, indent=2))
             return output
         else:
-            print("ℹ️ No article scheduled for today")
+            print("No article scheduled for today")
+            (DATA / "legacy_sifted_auto_content_system_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "article": None}, indent=2))
             return None
 
 # Usage

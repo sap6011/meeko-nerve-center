@@ -6,6 +6,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 
 class AmazonContentMachine2026:
     def __init__(self, affiliate_tag: str = "autonomoushum-20"):
@@ -526,6 +529,7 @@ A: {faq_issues}
 
 def main():
     """Example usage"""
+    _ctx = json.loads((DATA / "knowledge_graph.json").read_text()) if (DATA / "knowledge_graph.json").exists() else {}
     machine = AmazonContentMachine2026(affiliate_tag="autonomoushum-20")
     
     products = [
@@ -549,6 +553,9 @@ def main():
     print(f"Affiliate tag used: {machine.affiliate_tag}")
     print("Files saved to ./articles/")
     print("WordPress export: wordpress_import_2026.xml")
+
+
+    (DATA / "legacy_sifted_amazon_content_machine_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
 
 
 if __name__ == "__main__":

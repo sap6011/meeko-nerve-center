@@ -46,6 +46,24 @@ DATA_READ_PATTERNS = [
     r'open\(["\']data/([^"\']+)',
     # .read_text() on a data path
     r'(?:data/|DATA\s*/\s*["\'])([^"\']+)["\'].*?\.read_text',
+    # ROOT / "data" / "something" or DATA_PATH / "something" (engines using ROOT pattern)
+    r'(?:ROOT|DATA_PATH|VAULT)\s*/\s*["\'](?:data/|vault/)?([^"\']+\.json)',
+    # DATA_DIR / "file.json" pattern (used by GUARDIAN and others)
+    r'(?:DATA_DIR|LOG_DIR|OUT_DIR|REPORT_DIR|STATE_DIR)\s*/\s*["\']([^"\']+\.(?:json|txt|md))',
+    # Hardcoded string paths: 'data/file.json' or "data/file.json" in any context
+    r'["\']data/([^"\']+\.(?:json|txt|md))["\']',
+    # Hardcoded vault paths: 'vault/file.json'
+    r'["\']vault/([^"\']+\.json)["\']',
+    # os.path.join("data", "file.json") or os.path.join(something, "data", ...)
+    r'os\.path\.join\([^)]*["\']data["\'][^)]*["\']([^"\']+\.json)["\']',
+    # rj("filename.json") helper function (used in OMNIBUS and others)
+    r'rj\(["\']([^"\']+\.json)',
+    # Custom load/read helper: load("file.json"), read_data("file.json"), ld("file.json")
+    r'(?:load|read_data|ld|read_state)\s*\(\s*["\']([^"\']+\.(?:json|txt|md))["\']',
+    # self.state_file / self.load_data("file.json") class patterns
+    r'load_data\(\s*["\']([^"\']+\.(?:json|txt|md))["\']',
+    # STATE_DIR.glob("pattern*.json") reads
+    r'(?:STATE_DIR|DATA_DIR|DATA)\s*\.glob\(\s*["\']([^"\']*\*[^"\']*\.json)["\']',
 ]
 
 DATA_WRITE_PATTERNS = [
@@ -53,6 +71,16 @@ DATA_WRITE_PATTERNS = [
     r'(?:data/|DATA\s*/\s*["\'])([^"\']+\.json)["\'].*?\.write_text',
     # out = DATA / "something.json" ... out.write_text
     r'(?:DATA\s*/\s*["\'])([^"\']+\.json)',
+    # ROOT / "data" / "something.json" writes
+    r'(?:ROOT|DATA_PATH)\s*/\s*["\'](?:data/)?([^"\']+\.json)',
+    # DATA_DIR / "file.json" writes
+    r'(?:DATA_DIR|LOG_DIR|OUT_DIR|REPORT_DIR|STATE_DIR)\s*/\s*["\']([^"\']+\.(?:json|txt|md))',
+    # open("data/something", "w") writes
+    r'open\(["\']data/([^"\']+\.(?:json|txt|md))["\'],\s*["\']w',
+    # Hardcoded path writes: 'data/file.json' in write contexts
+    r'["\']data/([^"\']+\.json)["\'].*?\.write_text',
+    # Custom save/write helper: save("file.json", data), write_state("file.json")
+    r'(?:save|write_state|write_data|ws)\s*\(\s*["\']([^"\']+\.(?:json|txt|md))["\']',
 ]
 
 API_KEY_PATTERNS = [
@@ -109,6 +137,36 @@ def scan_engine(filepath):
 
     # Also check for direct write patterns
     for match in re.finditer(r'(?:DATA\s*/\s*["\'])([^"\']+\.json)["\'].*?\.write_text', source, re.DOTALL):
+        fname = match.group(1)
+        if fname not in info["writes"]:
+            info["writes"].append(fname)
+
+    # Detect (DATA / "file.json").write_text(...) inline pattern
+    for match in re.finditer(r'\(DATA\s*/\s*["\']([^"\']+\.(?:json|txt|md))["\'].*?\)\.write_text', source):
+        fname = match.group(1)
+        if fname not in info["writes"]:
+            info["writes"].append(fname)
+
+    # Detect save_json/write_json/wj helper calls: save_json(DATA / "file.json", ...)
+    for match in re.finditer(r'(?:save_json|write_json|wj|dump_json)\s*\(\s*(?:DATA|Path\(["\']data["\'])\s*/\s*["\']([^"\']+\.json)', source):
+        fname = match.group(1)
+        if fname not in info["writes"]:
+            info["writes"].append(fname)
+
+    # Detect save_json("data/file.json", ...) with hardcoded string path
+    for match in re.finditer(r'(?:save_json|write_json|wj|dump_json)\s*\(\s*["\']data/([^"\']+\.json)', source):
+        fname = match.group(1)
+        if fname not in info["writes"]:
+            info["writes"].append(fname)
+
+    # Detect custom save/write helpers: save("file.json", data)
+    for match in re.finditer(r'(?:save|write_state|write_data|ws)\s*\(\s*["\']([^"\']+\.(?:json|txt|md))["\']', source):
+        fname = match.group(1)
+        if fname not in info["writes"]:
+            info["writes"].append(fname)
+
+    # Detect DATA_DIR / STATE_DIR writes
+    for match in re.finditer(r'(?:DATA_DIR|STATE_DIR|LOG_DIR|OUT_DIR|REPORT_DIR)\s*/\s*["\']([^"\']+\.(?:json|txt|md))', source):
         fname = match.group(1)
         if fname not in info["writes"]:
             info["writes"].append(fname)

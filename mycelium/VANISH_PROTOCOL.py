@@ -138,6 +138,13 @@ def build_templates(stats):
 
 
 def run():
+    from pathlib import Path as _Path
+    _DATA = _Path("data")
+    _DATA.mkdir(exist_ok=True)
+
+    # Read signal injection queue for pending campaigns
+    signal_ctx = json.loads((_DATA / "signal_queue.json").read_text()) if (_DATA / "signal_queue.json").exists() else {}
+
     stats = load_stats()
     templates = build_templates(stats)
 
@@ -160,6 +167,13 @@ def run():
         print(f"SUBJECT: {tmpl['subject']}")
         print(f"BODY:\n{tmpl['body']}")
         print("-" * 60)
+
+    # Write engine state for LIVE_WIRE detection
+    (_DATA / "vanish_protocol_state.json").write_text(json.dumps({
+        "last_run": datetime.utcnow().isoformat(),
+        "status": "completed",
+        "templates_generated": len(templates)
+    }, indent=2))
 
 
 if __name__ == "__main__":

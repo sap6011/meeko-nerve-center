@@ -12,6 +12,9 @@ import requests
 from pathlib import Path
 from datetime import datetime
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 class AutonomousDeployer:
     def __init__(self, config_file="deployment_config.json"):
         self.config = self.load_or_create_config(config_file)
@@ -93,8 +96,9 @@ class AutonomousDeployer:
     
     def run_full_deployment(self):
         """Execute complete autonomous deployment"""
+        deploy_state = json.loads((DATA / "deploy_state.json").read_text()) if (DATA / "deploy_state.json").exists() else {}
         self.log("=" * 60)
-        self.log("🚀 STARTING FULL AUTONOMOUS DEPLOYMENT")
+        self.log("STARTING FULL AUTONOMOUS DEPLOYMENT")
         self.log("=" * 60)
         
         steps = [
@@ -494,3 +498,4 @@ Press Enter to continue or Ctrl+C to exit...
     
     input()
     deployer.run_full_deployment()
+    (DATA / "legacy_sifted_full_autonomous_deploy_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok"}, indent=2))

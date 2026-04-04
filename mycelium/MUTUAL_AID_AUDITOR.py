@@ -69,7 +69,7 @@ def self_correct(
             log.info(f"Self-correction: confident after {passes} pass(es)")
             return {"result": result, "passes": passes, "confident": True}
 
-        log.warning(f"Self-correction pass {passes}: {verdict['reason']} — retrying...")
+        log.warning(f"Self-correction pass {passes}: {verdict['reason']} -- retrying...")
         context["previous_attempt"] = result
         context["critique"]         = verdict["reason"]
 
@@ -153,7 +153,7 @@ def route_aid(amount: float, source: str, metadata: dict = None) -> dict:
     }
 
     _append_ledger(receipt)
-    log.info(f"Routed ${amount:.2f}: ${local_share:.2f} → local aid | ${solar_share:.2f} → SolarPunk")
+    log.info(f"Routed ${amount:.2f}: ${local_share:.2f} -> local aid | ${solar_share:.2f} -> SolarPunk")
     return receipt
 
 
@@ -194,7 +194,7 @@ def get_aid_summary() -> dict:
 def _audit_revenue_pipeline() -> Pipeline:
     """
     Build the revenue audit pipeline:
-    Load transactions → Validate routing → Self-correct errors → Log result
+    Load transactions -> Validate routing -> Self-correct errors -> Log result
     """
 
     def load_transactions(ctx: dict) -> dict:
@@ -296,12 +296,18 @@ def start_daemon():
 
 
 if __name__ == "__main__":
-    # Run one audit immediately, then daemon mode
-    run_audit()
-    t = threading.Thread(target=start_daemon, daemon=True)
-    t.start()
-    try:
-        while True:
-            time.sleep(60)
-    except KeyboardInterrupt:
-        log.info("Auditor standing down.")
+    # Run one audit cycle (non-blocking for swarm engine use).
+    # Pass --daemon flag to run the infinite audit loop.
+    import sys
+    if "--daemon" in sys.argv:
+        run_audit()
+        t = threading.Thread(target=start_daemon, daemon=True)
+        t.start()
+        try:
+            while True:
+                time.sleep(60)
+        except KeyboardInterrupt:
+            log.info("Auditor standing down.")
+    else:
+        run_audit()
+        log.info("Single audit cycle complete.")

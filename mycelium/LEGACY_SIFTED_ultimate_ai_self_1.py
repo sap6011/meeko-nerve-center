@@ -38,7 +38,11 @@ import threading
 import time
 import traceback
 from datetime import datetime
+from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 # ── Optional: psutil for richer system metrics ────────────────────────────────
 try:
@@ -1397,6 +1401,8 @@ def make_prometheus_sink(prefix: str = "ultimateai") -> LogSink:
 # SELF-TEST — python ultimate_ai_self.py
 # ═══════════════════════════════════════════════════════════════════════════════
 if __name__ == "__main__":
+    _ctx = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
+
     import urllib.request
     import urllib.error
 
@@ -1585,5 +1591,7 @@ if __name__ == "__main__":
     # independently of the app version when the shape changes.
 """)
 
+
+    (DATA / "legacy_sifted_ultimate_ai_self_1_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
 
     # ── [A] Pip guard test ────────────────────────────────────────────────────

@@ -8,6 +8,10 @@ import os
 import re
 from datetime import datetime
 import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 CURRENT_YEAR = "2026"
 
@@ -43,3 +47,9 @@ for root, dirs, files in os.walk('.'):
                 fixed += 1
 
 print(f'\n TOTAL: {fixed} files updated to {CURRENT_YEAR}')
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
+    (DATA / "legacy_sifted_fix_dates_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

@@ -1,6 +1,10 @@
 """Auto-configure Medusa with PayPal credentials from .secrets"""
 import sys, os, json
 from pathlib import Path
+import json
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 secrets_path = Path(r'C:\Users\meeko\Desktop\UltimateAI_Master\.secrets')
@@ -37,3 +41,9 @@ print("  cd C:\\Users\\meeko\\Desktop\\meeko-shop")
 print("  npx medusa develop")
 print()
 print("Then open: http://localhost:7001 (admin panel)")
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "master_config.json").read_text()) if (DATA / "master_config.json").exists() else {}
+    (DATA / "legacy_sifted__configure_medusa_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

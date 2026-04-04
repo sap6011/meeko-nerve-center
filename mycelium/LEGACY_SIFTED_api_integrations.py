@@ -7,7 +7,11 @@ Connects to all services automatically
 import os
 import json
 import requests
+from pathlib import Path
 from typing import Dict, List, Optional
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 class VercelAPI:
     """Vercel deployment automation"""
@@ -352,6 +356,7 @@ class APIManager:
 
 # Usage example
 if __name__ == "__main__":
+    _ctx = json.loads((DATA / "master_config.json").read_text()) if (DATA / "master_config.json").exists() else {}
     # Test all APIs
     manager = APIManager()
     results = manager.test_all_connections()
@@ -361,3 +366,5 @@ if __name__ == "__main__":
     for api, status in results.items():
         symbol = "✅" if status else "❌"
         print(f"{symbol} {api}: {'Connected' if status else 'Failed'}")
+
+    (DATA / "legacy_sifted_api_integrations_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

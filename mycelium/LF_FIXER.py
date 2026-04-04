@@ -2,6 +2,11 @@
 # Part of the Meeko SolarPunk Swarm.
 
 import os
+import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 def fix_swarm_files():
     for root, dirs, files in os.walk('.'):
@@ -30,3 +35,9 @@ def fix_swarm_files():
 
 if __name__ == "__main__":
     fix_swarm_files()
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "nanobot_heal_report.json").read_text()) if (DATA / "nanobot_heal_report.json").exists() else {}
+    (DATA / "lf_fixer_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

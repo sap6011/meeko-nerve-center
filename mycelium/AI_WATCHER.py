@@ -17,7 +17,7 @@ from email.mime.multipart import MIMEMultipart
 DATA=Path("data"); DATA.mkdir(exist_ok=True)
 GMAIL=os.environ.get("GMAIL_ADDRESS","")
 GPWD=os.environ.get("GMAIL_APP_PASSWORD","")
-API=os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")
+API=os.environ.get("ANTHROPIC_API_KEY", "").strip()
 HF_TOKEN=os.environ.get("HF_TOKEN","")
 GH_TOKEN=os.environ.get("GITHUB_TOKEN","")
 

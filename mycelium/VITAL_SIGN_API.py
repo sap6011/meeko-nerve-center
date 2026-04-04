@@ -60,9 +60,42 @@ def gather_wins():
     if isinstance(grants, list) and len(grants) > 0:
         wins.append({"type": "grants_discovered", "value": len(grants), "source": "fund_scout"})
 
-    # Sort by value descending, take top 5
+    # Chimera evolution data
+    chimera = load_json(DATA / "chimera_evolution_report.json")
+    if isinstance(chimera, dict):
+        score = chimera.get("composite_score", 0)
+        gen = chimera.get("generation", 0)
+        if score > 0:
+            wins.append({"type": "evolution_score", "value": score, "source": "chimera"})
+        if gen > 0:
+            wins.append({"type": "evolution_generation", "value": gen, "source": "chimera"})
+
+    # Nanobot heal data
+    nanobot = load_json(DATA / "nanobot_heal_report.json")
+    if isinstance(nanobot, dict):
+        scanned = nanobot.get("scanned", 0)
+        if scanned > 0:
+            wins.append({"type": "engines_scanned_clean", "value": nanobot.get("syntax_ok", 0), "source": "nanobot"})
+
+    # Live wire topology
+    wire = load_json(DATA / "live_wire_report.json")
+    if isinstance(wire, dict):
+        stats = wire.get("stats", {})
+        wires = stats.get("total_wires_discovered", 0)
+        if wires > 0:
+            wins.append({"type": "live_wires", "value": wires, "source": "live_wire"})
+            wins.append({"type": "zero_secret_chains", "value": stats.get("zero_secret_chains", 0), "source": "live_wire"})
+
+    # Polymarket scan
+    poly = load_json(DATA / "polymarket_scan.json")
+    if isinstance(poly, dict):
+        edges = poly.get("edges_found", 0)
+        if edges > 0:
+            wins.append({"type": "market_edges_found", "value": edges, "source": "polymarket"})
+
+    # Sort by value descending, take top 8
     wins.sort(key=lambda w: w.get("value", 0), reverse=True)
-    return wins[:5]
+    return wins[:8]
 
 
 def gather_river():
@@ -92,12 +125,27 @@ def build_vital_sign():
     """Assemble the full vital sign."""
     now = datetime.now(timezone.utc)
 
+    chimera = load_json(DATA / "chimera_evolution_report.json")
+    hemisphere = load_json(DATA / "hemisphere_state.json")
+
     vital = {
         "node": "SolarPunk Node-01",
         "location": "Cuyahoga Falls, Ohio",
         "timestamp": now.isoformat(),
         "alive": True,
         "infrastructure": gather_engine_stats(),
+        "evolution": {
+            "generation": chimera.get("generation", 0),
+            "composite_score": chimera.get("composite_score", 0),
+            "best_ever": chimera.get("best_ever_score", 0),
+            "wires": chimera.get("post_scan_stats", {}).get("total_wires_discovered", 0),
+            "zero_secret_chains": chimera.get("post_scan_stats", {}).get("zero_secret_chains", 0),
+        } if chimera else {"status": "awaiting_first_cycle"},
+        "hemispheres": {
+            "left": hemisphere.get("left", {}).get("status", "unknown"),
+            "right": hemisphere.get("right", {}).get("status", "unknown"),
+            "last_sync": hemisphere.get("last_sync"),
+        } if hemisphere else {"status": "not_initialized"},
         "top_wins": gather_wins(),
         "river": gather_river(),
         "links": {

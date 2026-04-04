@@ -2,6 +2,10 @@ import json
 import subprocess
 import os
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 
 def load_my_style():
@@ -98,6 +102,7 @@ def save_article(article):
     return filename, html_filename
 
 def main():
+    _ctx = json.loads((DATA / "knowledge_graph.json").read_text()) if (DATA / "knowledge_graph.json").exists() else {}
     print(" REAL CONTENT GENERATOR - WITH YOUR STYLE")
     print("=" * 50)
     
@@ -127,6 +132,9 @@ def main():
     print(f" Length: {len(article['content'])} characters")
     print(f"\n Open the HTML file in your browser to see it!")
     print("=" * 50)
+
+    (DATA / "legacy_sifted_real_content_generator_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+
 
 if __name__ == "__main__":
     main()

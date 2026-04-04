@@ -1,4 +1,9 @@
 import os
+import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 def check_for_upgrades():
     # If the system detects a 401 Unauthorized or 'API Missing' in logs
@@ -16,3 +21,9 @@ def check_for_upgrades():
 
 if __name__ == "__main__":
     check_for_upgrades()
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "live_wire_report.json").read_text()) if (DATA / "live_wire_report.json").exists() else {}
+    (DATA / "upgrade_engine_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

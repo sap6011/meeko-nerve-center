@@ -383,7 +383,7 @@ def run():
     contacted_emails = set(already.keys())
     existing_names = [t["name"] for t in OUTREACH_TARGETS]
 
-    # discover new targets via AI (runs when os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")") is set)
+    # discover new targets via AI (runs when ANTHROPIC_API_KEY is set)
     new_ai_targets = discover_new_targets_via_ai(existing_names)
     all_targets = OUTREACH_TARGETS + new_ai_targets
 
@@ -448,6 +448,14 @@ def run():
         "drafts_this_cycle": [d["org_name"] for d in new_drafts]
     }
     (DATA_DIR / "outreach_summary.json").write_text(json.dumps(summary, indent=2))
+
+    # Write engine state for LIVE_WIRE detection
+    (DATA_DIR / "outreach_engine_state.json").write_text(json.dumps({
+        "last_run": datetime.datetime.now().isoformat(),
+        "status": "completed",
+        "drafts_created": len(new_drafts),
+        "total_contacted": len(already)
+    }, indent=2))
     print(f"✅ OUTREACH_ENGINE complete — {len(new_drafts)} new drafts, {len(already)} total contacted")
 
 

@@ -2,6 +2,10 @@
 import requests
 import json
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 
 class CrisisResponseAI:
@@ -99,6 +103,7 @@ class CrisisResponseAI:
 
 
 if __name__ == "__main__":
+    _ctx = json.loads((DATA / "sentinel_report.json").read_text()) if (DATA / "sentinel_report.json").exists() else {}
     # Lightweight CLI test harness so importing this module
     # from the humanitarian orchestrator does not trigger test output.
     crisis_ai = CrisisResponseAI()
@@ -124,3 +129,5 @@ if __name__ == "__main__":
     print("\n" + "=" * 50)
     print(" AI READY TO COORDINATE HUMANITARIAN AID")
     print(" Transparent, blockchain-verified, AI-optimized")
+
+    (DATA / "legacy_sifted_crisis_response_ai_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

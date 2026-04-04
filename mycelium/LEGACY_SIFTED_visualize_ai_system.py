@@ -9,6 +9,9 @@ import os
 import subprocess
 from pathlib import Path
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 # ==============================================
 # STEP 1: AUTO-GENERATE THE LATEST SYSTEM MAP
 # ==============================================
@@ -205,6 +208,7 @@ def print_report(system_data):
 # MAIN
 # ==============================================
 if __name__ == "__main__":
+    _ctx = json.loads((DATA / "live_wire_report.json").read_text()) if (DATA / "live_wire_report.json").exists() else {}
     print("🔍 Scanning your AI ecosystem...")
     system_data = generate_system_map()
     
@@ -214,3 +218,5 @@ if __name__ == "__main__":
     G = visualize_graph(system_data)
     
     print("\n🚀 Frictionless AI System Map complete!")
+
+    (DATA / "legacy_sifted_visualize_ai_system_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

@@ -9,6 +9,10 @@ import random
 from datetime import datetime, timedelta
 from typing import Dict, List
 import os
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 class MoneyTracker:
     def __init__(self):
@@ -357,19 +361,28 @@ class MoneyTracker:
         print(f"✅ Dashboard saved: {dashboard_file}")
         print(f"✅ Revenue data saved: {data_file}")
 
-# Usage
-if __name__ == "__main__":
+def run():
+    """Main entry point with data I/O wiring."""
+    revenue_data = json.loads((DATA / "revenue_data.json").read_text()) if (DATA / "revenue_data.json").exists() else {}
+
     tracker = MoneyTracker()
-    
+
     # Generate sample data
     data = tracker.generate_sample_data(90)
-    
+
     # Save dashboard
     tracker.save_dashboard(data)
-    
+
     # Print opportunities
-    print("\n🎯 Top Optimization Opportunities:")
+    print("\nTop Optimization Opportunities:")
     for opp in tracker.generate_optimization_opportunities(data):
         print(f"\n[{opp['priority']}] {opp['area']}")
         print(f"  Impact: {opp['potential_impact']}")
         print(f"  Action: {opp['recommendation']}")
+
+    (DATA / "legacy_sifted_money_tracker_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok"}, indent=2))
+
+
+# Usage
+if __name__ == "__main__":
+    run()

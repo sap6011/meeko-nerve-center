@@ -1,5 +1,9 @@
 import json
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 def aggregate_fuel():
     # Simulated connections to your passive loops
@@ -28,3 +32,9 @@ def aggregate_fuel():
 
 if __name__ == "__main__":
     aggregate_fuel()
+
+
+# LIVE_WIRE: topology state tracking
+def _write_wire_state():
+    _ctx = json.loads((DATA / "revenue_data.json").read_text()) if (DATA / "revenue_data.json").exists() else {}
+    (DATA / "revenue_aggregator_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

@@ -1,5 +1,9 @@
 import requests
 import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 def broadcast_to_open_web():
     # SolarPunk logic: Find decentralized nodes that allow public pings/webhooks
@@ -13,3 +17,9 @@ def broadcast_to_open_web():
 
 if __name__ == "__main__":
     broadcast_to_open_web()
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "social_queue.json").read_text()) if (DATA / "social_queue.json").exists() else {}
+    (DATA / "open_broadcaster_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-04-04T06:15:07.623235+00:00",
+  "topology_before": {
+    "engines": 285,
+    "wires": 2024,
+    "zero_secret_chains": 995
+  },
+  "isolated_count": 52,
+  "potential_connections": 0,
+  "high_confidence_connections": 0,
+  "state_files_seeded": 0,
+  "low_wire_suggestions": 3,
+  "categories": {
+    "library": 1,
+    "stub": 6,
+    "wirable": 5,
+    "system": 40
+  },
+  "top_connections": [],
+  "seeded_files": [],
+  "suggestions": [
+    {
+      "engine": "FINANCIAL_MAPPER",
+      "type": "needs_output",
+      "detail": "Reads ['finance_ledger.json'] but produces no output file",
+      "suggestion": "Add writes to data/financial_mapper_output.json"
+    },
+    {
+      "engine": "FUND_SCOUT",
+      "type": "needs_output",
+      "detail": "Reads ['fund_scout_results.json'] but produces no output file",
+      "suggestion": "Add writes to data/fund_scout_output.json"
+    },
+    {
+      "engine": "NANO_AGENT",
+      "type": "needs_output",
+      "detail": "Reads ['ctx.json', 'knowledge_weaver_state.json'] but produces no output file",
+      "suggestion": "Add writes to data/nano_agent_output.json"
+    }
+  ],
+  "wirable_engines": [
+    "LEGACY_SIFTED_api_integrations",
+    "LEGACY_SIFTED_pinterest_bot",
+    "LEGACY_SIFTED_real_content_generator",
+    "LEGACY_SIFTED_reddit_bot",
+    "LEGACY_SIFTED_social_media_bot"
+  ]
+}

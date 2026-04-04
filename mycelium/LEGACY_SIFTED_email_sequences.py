@@ -9,6 +9,10 @@ import json
 import random
 from datetime import datetime, timedelta
 from typing import List, Dict
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 class EmailAutomation:
     def __init__(self, brand_name: str, niche: str):
@@ -367,22 +371,31 @@ class EmailAutomation:
         print(f"✅ Segmentation rules saved: {segmentation_file}")
         print(f"✅ Mailchimp format saved: {mailchimp_file}")
 
-# Usage
-if __name__ == "__main__":
+def run():
+    """Main entry point with data I/O wiring."""
+    email_config = json.loads((DATA / "email_config.json").read_text()) if (DATA / "email_config.json").exists() else {}
+
     email_system = EmailAutomation(
-        brand_name="ProductivityPro",
-        niche="productivity"
+        brand_name=email_config.get("brand_name", "ProductivityPro"),
+        niche=email_config.get("niche", "productivity")
     )
-    
+
     # Generate sequences
     welcome_sequence = email_system.generate_welcome_sequence()
     broadcast_emails = email_system.generate_broadcast_emails(10)
-    
+
     # Save everything
     email_system.save_sequences(welcome_sequence, broadcast_emails)
-    
-    print(f"\n📧 Generated {len(welcome_sequence)} welcome emails")
-    print(f"📧 Generated {len(broadcast_emails)} broadcast emails")
-    print("\n🎯 Segmentation strategy:")
+
+    print(f"\nGenerated {len(welcome_sequence)} welcome emails")
+    print(f"Generated {len(broadcast_emails)} broadcast emails")
+    print("\nSegmentation strategy:")
     for segment in email_system.generate_segmentation_rules()["segments"]:
         print(f"  - {segment['name']}: {segment['email_frequency']} emails")
+
+    (DATA / "legacy_sifted_email_sequences_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "welcome_count": len(welcome_sequence), "broadcast_count": len(broadcast_emails)}, indent=2))
+
+
+# Usage
+if __name__ == "__main__":
+    run()

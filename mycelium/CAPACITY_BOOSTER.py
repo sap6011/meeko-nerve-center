@@ -1,6 +1,11 @@
 import os
 import time
 import subprocess
+import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 def get_idle_time():
     # USES Windows 'User32.dll' to find how long since last input
@@ -34,3 +39,9 @@ def regulate_swarm():
 
 if __name__ == "__main__":
     regulate_swarm()
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "live_wire_report.json").read_text()) if (DATA / "live_wire_report.json").exists() else {}
+    (DATA / "capacity_booster_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

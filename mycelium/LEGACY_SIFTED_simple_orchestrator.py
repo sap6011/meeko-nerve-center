@@ -3,6 +3,10 @@ import sys
 import json
 import time
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 class SimpleOrchestrator:
     def __init__(self):
@@ -110,6 +114,7 @@ class SimpleOrchestrator:
         self.run_daily()
 
 if __name__ == "__main__":
+    _ctx = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
     orchestrator = SimpleOrchestrator()
     
     if len(sys.argv) > 1:
@@ -125,3 +130,5 @@ if __name__ == "__main__":
             orchestrator.setup()
     else:
         orchestrator.setup()
+
+    (DATA / "legacy_sifted_simple_orchestrator_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

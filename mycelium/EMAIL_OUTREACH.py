@@ -39,18 +39,8 @@ GITHUB = "https://github.com/meekotharaccoon-cell/meeko-nerve-center"
 # Real targets — public contact emails from their own sites
 # People whose beat this actually matches
 TARGETS = [
-    {
-        "name": "TLDR Newsletter",
-        "email": "tips@tldr.tech",
-        "beat": "AI tools, indie projects, developer tools",
-        "tag": "newsletter",
-    },
-    {
-        "name": "Hacker Newsletter",
-        "email": "tips@hackernewsletter.com",
-        "beat": "HN community, indie projects, open source",
-        "tag": "newsletter",
-    },
+    # REMOVED: tips@tldr.tech — address bounces (550 5.1.1)
+    # REMOVED: tips@hackernewsletter.com — address bounces (550 5.1.1)
     {
         "name": "Ben's Bites",
         "email": "hi@bensbites.co",

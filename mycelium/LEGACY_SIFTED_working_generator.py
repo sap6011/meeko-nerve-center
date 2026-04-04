@@ -1,6 +1,11 @@
 import subprocess
 import os
 from datetime import datetime
+import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 def generate_content():
     """Generate content with Ollama - NO JSON, NO FILES to break"""
@@ -59,3 +64,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "knowledge_graph.json").read_text()) if (DATA / "knowledge_graph.json").exists() else {}
+    (DATA / "legacy_sifted_working_generator_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

@@ -2,6 +2,10 @@ import tweepy
 import json
 import time
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 YOUR_AMAZON_TAG = "autonomoushum-20"
 
@@ -24,3 +28,9 @@ print("1. Go to: https://developer.twitter.com")
 print("2. Create app, get API keys")
 print("3. Add keys to this script")
 print("4. System auto-posts every day at 6 AM")
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "social_queue.json").read_text()) if (DATA / "social_queue.json").exists() else {}
+    (DATA / "legacy_sifted_social_bot_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

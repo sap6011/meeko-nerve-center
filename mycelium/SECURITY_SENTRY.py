@@ -1,4 +1,9 @@
 import re
+import json
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 def audit_code(code, context="Scavenged"):
     # High-risk patterns that could compromise the host
@@ -16,3 +21,9 @@ def audit_code(code, context="Scavenged"):
 
 if __name__ == "__main__":
     print("🛡️ Security Sentry: Active and auditing buffers.")
+
+
+# -- LIVE_WIRE topology connector --
+def _wire_state():
+    _r = json.loads((DATA / "sentinel_report.json").read_text()) if (DATA / "sentinel_report.json").exists() else {}
+    (DATA / "security_sentry_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))

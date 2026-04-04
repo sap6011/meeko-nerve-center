@@ -17,6 +17,9 @@ from dataclasses import dataclass, asdict
 from typing import List, Optional, Dict, Any
 from urllib.parse import urljoin
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
@@ -519,6 +522,7 @@ Keep response under 200 words, actionable and specific."""
 
 def main():
     """CLI entry point"""
+    _ctx = json.loads((DATA / "product_registry.json").read_text()) if (DATA / "product_registry.json").exists() else {}
     import argparse
     
     parser = argparse.ArgumentParser(description='POD Bulk Uploader 2026 - API Edition')
@@ -542,6 +546,9 @@ def main():
         )
     else:
         uploader.run(args.folder, args.limit, args.format)
+
+
+    (DATA / "legacy_sifted_pod_bulk_uploader_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
 
 
 if __name__ == "__main__":

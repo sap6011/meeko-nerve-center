@@ -23,12 +23,18 @@ When this is dark, the organism sleeps.
 """
 import os, json, re
 import urllib.request, urllib.error
+from pathlib import Path
+import json
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 # ── Keys ──────────────────────────────────────────────────────────────────────
 GROQ_KEY      = os.environ.get("GROQ_API_KEY", "").strip()
-ANTHROPIC_KEY = os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")
+ANTHROPIC_KEY = os.environ.get("ANTHROPIC_API_KEY", "").strip()
 HF_TOKEN      = os.environ.get("HF_TOKEN", "").strip()
 OPENROUTER_KEY = os.environ.get("OPENROUTER_KEY", "").strip()
+OLLAMA_URL     = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 
 # ── Model configs ─────────────────────────────────────────────────────────────
 GROQ_MODELS = [
@@ -101,7 +107,7 @@ def _ask_groq(messages, max_tokens=2000, system=None):
 def _ask_anthropic(messages, max_tokens=2000, system=None):
     """Anthropic Claude — premium, use when quality matters."""
     if not ANTHROPIC_KEY:
-        raise RuntimeError("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")") not set")
+        raise RuntimeError("ANTHROPIC_API_KEY not set")
 
     body = {"model": ANTHROPIC_MODEL, "max_tokens": max_tokens, "messages": messages}
     if system:
@@ -186,6 +192,48 @@ def _ask_hf(messages, max_tokens=2000, system=None):
     raise RuntimeError(f"All HF models failed. Last: {last_err}")
 
 
+def _ask_ollama(messages, max_tokens=2000, system=None):
+    """Ollama -- local LLM, zero cost, always available when COMPUTETOR is on."""
+    try:
+        full = []
+        if system:
+            full.append({"role": "system", "content": system})
+        full.extend(messages)
+
+        body = {
+            "model": "mycelium:latest",
+            "messages": full,
+            "stream": False,
+            "options": {"temperature": 0.7, "num_predict": max_tokens},
+        }
+        data = json.dumps(body).encode("utf-8")
+        req = urllib.request.Request(
+            f"{OLLAMA_URL}/api/chat",
+            data=data,
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=300) as r:
+            raw = r.read().decode("utf-8", errors="replace")
+            resp = json.loads(raw)
+        text = resp.get("message", {}).get("content", "")
+        # Safe print for Windows cp1252 consoles
+        safe_text_len = len(text)
+        print(f"  [AI] Ollama/mycelium OK ({safe_text_len}c)")
+        return text
+    except Exception as e:
+        raise RuntimeError(f"Ollama failed: {e}")
+
+
+def _ollama_available():
+    """Check if Ollama is running locally."""
+    try:
+        req = urllib.request.Request(f"{OLLAMA_URL}/api/tags")
+        with urllib.request.urlopen(req, timeout=3) as r:
+            return True
+    except Exception:
+        return False
+
+
 # ── Priority chain: FREE first, paid second, scraps last ─────────────────────
 
 def ask(messages, max_tokens=2000, system=None, prefer_quality=False):
@@ -202,6 +250,7 @@ def ask(messages, max_tokens=2000, system=None, prefer_quality=False):
             ("groq",      _ask_groq),
             ("openrouter", _ask_openrouter),
             ("hf",        _ask_hf),
+            ("ollama",    _ask_ollama),
         ]
     else:
         chain = [
@@ -209,6 +258,7 @@ def ask(messages, max_tokens=2000, system=None, prefer_quality=False):
             ("openrouter", _ask_openrouter),
             ("anthropic", _ask_anthropic),
             ("hf",        _ask_hf),
+            ("ollama",    _ask_ollama),
         ]
 
     last_err = None
@@ -218,6 +268,7 @@ def ask(messages, max_tokens=2000, system=None, prefer_quality=False):
             "anthropic": bool(ANTHROPIC_KEY),
             "openrouter": bool(OPENROUTER_KEY),
             "hf": bool(HF_TOKEN),
+            "ollama": _ollama_available(),
         }[name]
         if not key_present:
             continue
@@ -277,15 +328,16 @@ def ask_code(prompt, language="python", max_tokens=3000):
 
 
 def ai_available():
-    return bool(GROQ_KEY or ANTHROPIC_KEY or HF_TOKEN or OPENROUTER_KEY)
+    return bool(GROQ_KEY or ANTHROPIC_KEY or HF_TOKEN or OPENROUTER_KEY or _ollama_available())
 
 
 def ai_backend():
     """Return name of primary available backend."""
-    if GROQ_KEY:      return "groq"
-    if ANTHROPIC_KEY: return "anthropic"
-    if OPENROUTER_KEY: return "openrouter"
-    if HF_TOKEN:      return "huggingface"
+    if GROQ_KEY:        return "groq"
+    if ANTHROPIC_KEY:   return "anthropic"
+    if OPENROUTER_KEY:  return "openrouter"
+    if HF_TOKEN:        return "huggingface"
+    if _ollama_available(): return "ollama"
     return "none"
 
 
@@ -296,6 +348,7 @@ def ai_status():
         "anthropic":  bool(ANTHROPIC_KEY),
         "openrouter": bool(OPENROUTER_KEY),
         "hf":         bool(HF_TOKEN),
+        "ollama":     _ollama_available(),
         "primary":    ai_backend(),
         "available":  ai_available(),
     }
@@ -303,13 +356,20 @@ def ai_status():
 
 if __name__ == "__main__":
     status = ai_status()
-    print(f"AI_CLIENT — primary: {status['primary']}")
-    print(f"  Groq: {'✅' if status['groq'] else '❌'}  "
-          f"Anthropic: {'✅' if status['anthropic'] else '❌'}  "
-          f"OpenRouter: {'✅' if status['openrouter'] else '❌'}  "
-          f"HF: {'✅' if status['hf'] else '❌'}")
+    print(f"AI_CLIENT -- primary: {status['primary']}")
+    print(f"  Groq: {'ON' if status['groq'] else 'OFF'}  "
+          f"Anthropic: {'ON' if status['anthropic'] else 'OFF'}  "
+          f"OpenRouter: {'ON' if status['openrouter'] else 'OFF'}  "
+          f"HF: {'ON' if status['hf'] else 'OFF'}  "
+          f"Ollama: {'ON' if status.get('ollama') else 'OFF'}")
     if ai_available():
         r = ask([{"role": "user", "content": "Say exactly: SolarPunk AI online. The loop runs."}], max_tokens=30)
         print(f"  Test: {r}")
     else:
         print("  ❌ No AI backend available")
+
+
+# LIVE_WIRE: topology state tracking
+def _write_wire_state():
+    _ctx = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
+    (DATA / "ai_client_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

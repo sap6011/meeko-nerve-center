@@ -1,185 +1,67 @@
-﻿<!DOCTYPE html>
-    <html lang="en">
-    <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SolarPunk Node-01 — $16M of AI Infrastructure. Free Forever.</title>
-<meta name="description" content="Autonomous AI node routing money by algorithm. 20% to local food banks. 15% to Gaza. $16M commercial value. MIT licensed. Zero monthly cost.">
-<meta property="og:title" content="SolarPunk Node-01 — $16M of AI Infrastructure. Free Forever.">
-<meta property="og:description" content="Autonomous AI node. 90+ agents. $0/month. 20% of all revenue hard-coded to local food banks. $16M commercial value given away free. Cuyahoga Falls, Ohio.">
-<meta property="og:url" content="https://meekotharaccoon-cell.github.io/meeko-nerve-center/">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SolarPunk Node-01 — $16M of AI Infrastructure. Free Forever.">
-<meta name="twitter:description" content="Autonomous AI. 90+ agents. $0/month. 20% to food banks. MIT licensed. One desktop in Ohio.">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Meeko Nerve Center: Mission Control</title>
 <style>
-        body { background: #0a0e14; color: #00ffcc; font-family: 'Courier New', monospace; padding: 50px; }
-        .node { border-left: 3px solid #00ffcc; padding-left: 20px; margin-bottom: 20px; }
-        h1 { text-transform: uppercase; letter-spacing: 5px; }
-    </style><style>
-    @keyframes pulse-glow {
-        0% { box-shadow: 0 0 5px #00ff9d, inset 0 0 5px #00ff9d; }
-        50% { box-shadow: 0 0 20px #00ff9d, inset 0 0 10px #00ff9d; }
-        100% { box-shadow: 0 0 5px #00ff9d, inset 0 0 5px #00ff9d; }
-    }
-    #solar-meter {
-        animation: pulse-glow 2s infinite ease-in-out;
-        border: 2px solid #00ff9d !important;
-        background: rgba(0,0,0,0.9) !important;
-        text-shadow: 0 0 8px #00ff9d;
-    }
-    #community-bar {
-        box-shadow: 0 0 10px #00ff9d;
-        transition: width 0.5s ease-in-out;
-    }
-</style><style>
-    @keyframes pulse-glow {
-        0% { box-shadow: 0 0 5px #00ff9d, inset 0 0 5px #00ff9d; }
-        50% { box-shadow: 0 0 20px #00ff9d, inset 0 0 10px #00ff9d; }
-        100% { box-shadow: 0 0 5px #00ff9d, inset 0 0 5px #00ff9d; }
-    }
-    #solar-meter {
-        animation: pulse-glow 2s infinite ease-in-out;
-        border: 2px solid #00ff9d !important;
-        background: rgba(0,0,0,0.9) !important;
-        text-shadow: 0 0 8px #00ff9d;
-    }
-    #res-val { color: #00ff9d; font-weight: bold; }
-</style></head>
-    <body>
-        <h1>ðŸŒ¿ Meeko Nerve Center: Mission Control</h1>
-        <div id="stats">Active Nodes: 0</div>
-        <hr>
-        <h2>Latest Insights</h2>
-        
-            <hr>
-    <div id="manifesto" style="max-width: 600px; line-height: 1.6;">
-        <h2>?? The SolarPunk Mandate</h2>
-        <p>This node operates on a <strong>70/30 Mutual Aid Split</strong>. 70% of all captured value is redirected to crisis zones and mutual aid efforts (PCRF/Gaza), while 30% maintains the digital infrastructure.</p>
-        <ul>
-            <li><strong>Post-Scarcity:</strong> Building tools that make resources abundant.</li>
-            <li><strong>Radical Transparency:</strong> Every cent is hashed and verified.</li>
-            <li><strong>Autonomous Aid:</strong> The machine works for humanity, not for profit.</li>
-        </ul>
-        <p><em>"We are the ancestors of a future that works."</em></p>
-    </div>
-<div id="verification-vault">
-        <h3>??? Verified Receipt Vault (SHA256)</h3>
-        <ul id="hash-list"><li>Loading verified hashes...</li></ul>
-    </div>
-    <script>
-        async function loadHashes() {
-            try {
-                const res = await fetch("receipts/hashes.json");
-                const hashes = await res.json();
-                const list = document.getElementById("hash-list");
-                list.innerHTML = "";
-                Object.entries(hashes).forEach(([file, hash]) => {
-                    const li = document.createElement("li");
-                    li.style.marginBottom = "10px";
-                    li.innerHTML = \<a href="receipts/\" target="_blank" style="color:#238636; font-weight:bold;">\</a><br>
-                                   <small style="color:#8b949e; word-break:break-all;">HASH: \</small>\;
-                    list.appendChild(li);
-                });
-            } catch (e) { document.getElementById("hash-list").innerText = "Vault pending first upload."; }
-        }
-        loadHashes();
-    </script>
-        <hr>
-    <div id="manifesto" style="max-width: 600px; line-height: 1.6;">
-        <h2>?? The SolarPunk Mandate</h2>
-        <p>This node operates on a <strong>70/30 Mutual Aid Split</strong>. 70% of all captured value is redirected to crisis zones and mutual aid efforts (PCRF/Gaza), while 30% maintains the digital infrastructure.</p>
-        <ul>
-            <li><strong>Post-Scarcity:</strong> Building tools that make resources abundant.</li>
-            <li><strong>Radical Transparency:</strong> Every cent is hashed and verified.</li>
-            <li><strong>Autonomous Aid:</strong> The machine works for humanity, not for profit.</li>
-        </ul>
-        <p><em>"We are the ancestors of a future that works."</em></p>
-    </div>
-<div id="verification-vault">
-        <h3>??? Verified Receipt Vault (SHA256)</h3>
-        <ul id="hash-list"><li>Loading verified hashes...</li></ul>
-    </div>
-    <script>
-        async function loadHashes() {
-            try {
-                const res = await fetch("receipts/hashes.json");
-                const hashes = await res.json();
-                const list = document.getElementById("hash-list");
-                list.innerHTML = "";
-                Object.entries(hashes).forEach(([file, hash]) => {
-                    const li = document.createElement("li");
-                    li.style.marginBottom = "10px";
-                    li.innerHTML = \<a href="receipts/\" target="_blank" style="color:#238636; font-weight:bold;">\</a><br>
-                                   <small style="color:#8b949e; word-break:break-all;">HASH: \</small>\;
-                    list.appendChild(li);
-                });
-            } catch (e) { document.getElementById("hash-list").innerText = "Vault pending first upload."; }
-        }
-        loadHashes();
-    </script>
-    <hr>
-        <hr>
-    <div id="grant-fulfillment">
-        <h3>?? System Fueling (Active Grant Proposals)</h3>
-        <p>SolarPunk is autonomously seeking resources to scale the 70/30 mandate.</p>
-        <table style="width:100%; border-collapse: collapse; font-size: 0.9em;">
-            <tr style="border-bottom: 2px solid #238636; text-align: left;">
-                <th style="padding: 10px;">Target</th>
-                <th>Amount</th>
-                <th>Focus</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td style="padding: 10px;">Mozilla Democracy x AI</td>
-                <td>$50k - $300k</td>
-                <td>Institutional Trust</td>
-                <td style="color: #f1e05a;">? DISPATCH PREPARED</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px;">Youth Climate Justice</td>
-                <td>$40,000</td>
-                <td>Mutual Aid Impact</td>
-                <td style="color: #238636;">? PROPOSAL LOCKED</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px;">UNICEF Venture Fund</td>
-                <td>$100,000</td>
-                <td>Frontier Tech/Open Source</td>
-                <td style="color: #8b949e;">? SCOUTING PHASE</td>
-            </tr>
-        </table>
-    </div>
-<div id="share-the-pulse">
-        <h3>?? Spread the Mycelium</h3>
-        <p>Give this code to others to display our live impact on their site:</p>
-        <pre style="background: #161b22; padding: 10px; border-radius: 5px; overflow-x: auto;">
-&lt;div id="solarpunk-interconnect"&gt;&lt;/div&gt;
-&lt;script src="https://meekotharaccoon-cell.github.io/meeko-nerve-center/interconnect.js"&gt;&lt;/script&gt;
-        </pre>
-    </div>
-    <div id="emergency-kits-banner" style="background: #1a0a0a; border: 2px solid #ff4444; padding: 20px; border-radius: 8px; margin-top: 30px; text-align: center;">
-        <h3 style="color: #ff4444; margin-top: 0;">EMERGENCY RESOURCE KITS</h3>
-        <p style="color: #c9d1d9; font-size: 0.95em; max-width: 600px; margin: 0 auto 15px;">Free survival guides for internet shutdowns, displacement, and medical emergencies. Built from live crisis data. No login. No paywall.</p>
-        <a href="emergency_kits.html" style="display: inline-block; background: #ff4444; color: #fff; padding: 10px 28px; border-radius: 6px; font-weight: bold; text-decoration: none; font-family: 'Courier New', monospace; letter-spacing: 0.1em;">ACCESS EMERGENCY KITS &rarr;</a>
-    </div>
-    <div id="social-pulse" style="background: #1c2128; border: 1px solid #444; padding: 15px; border-radius: 8px; margin-top: 20px;">
-        <h4 style="color: #238636; margin-top: 0;">?? Live Broadcast Status</h4>
-        <p style="font-size: 0.85em; color: #8b949e;">Next Automated Pulse: 18:00 (Dusk)</p>
-        <div style="font-family: monospace; color: #c9d1d9;">> ALL SYSTEMS SOVEREIGN. THE MYCELIUM IS SPREADING.</div>
-    </div>
-    <div id="solar-meter" style="position:fixed;bottom:10px;right:10px;background:#000;color:#00ff9d;border:1px solid #00ff9d;padding:10px;font-family:monospace;z-index:9999;border-radius:5px;font-size:12px;">
-        RESONANCE: <span id="res-val">99% Community / 1% Node</span>
-        <div style="width:100px;height:5px;background:#222;margin-top:5px;"><div style="width:99%;height:100%;background:#00ff9d;"></div></div>
-    </div>
+    body { background: #0a0e14; color: #00ffcc; font-family: 'Courier New', monospace; padding: 30px; }
+    .node { border-left: 3px solid #00ffcc; padding-left: 15px; margin-bottom: 12px; font-size: 13px; }
+    h1 { text-transform: uppercase; letter-spacing: 5px; text-align: center; }
+    h2 { color: #4cff8c; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-top: 30px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+    .stat { background: #111820; border: 1px solid #1a3a2a; border-radius: 8px; padding: 15px; text-align: center; }
+    .stat .val { font-size: 32px; font-weight: bold; }
+    .stat .label { font-size: 11px; color: #668877; margin-top: 5px; }
+    .hemi { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; text-align: center; margin: 20px 0; }
+    .hemi-node { background: #111820; border: 1px solid #1a3a2a; border-radius: 50%; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; flex-direction: column; margin: 0 auto; }
+    .sync-arrow { color: #4cff8c; font-size: 24px; }
+    .sub { color: #668877; font-size: 11px; }
+    hr { border: none; border-top: 1px solid #1a3a2a; margin: 25px 0; }
+</style>
+</head>
+<body>
+<h1>Meeko Nerve Center: Mission Control</h1>
+<p style="text-align:center" class="sub">2026-04-03 15:09 UTC | Generation 3</p>
+
+<div class="grid">
+  <div class="stat"><div class="val">284</div><div class="label">Engines</div></div>
+  <div class="stat"><div class="val">770</div><div class="label">Live Wires</div></div>
+  <div class="stat"><div class="val">290</div><div class="label">Zero-Secret Chains</div></div>
+  <div class="stat"><div class="val">54/100</div><div class="label">Evolution Score (best: 56)</div></div>
+  <div class="stat"><div class="val">284/284</div><div class="label">Health (clean/total)</div></div>
+  <div class="stat"><div class="val">4/4</div><div class="label">Products Ready</div></div>
+</div>
+
+<h2>Hemisphere Brain</h2>
+<div class="hemi">
+  <div class="hemi-node">
+    <div style="font-size:14px">LEFT</div>
+    <div style="font-size:11px">Local Machine</div>
+    <div class="sub">active</div>
+  </div>
+  <div class="sync-arrow">&lt;-- SYNC --&gt;</div>
+  <div class="hemi-node">
+    <div style="font-size:14px">RIGHT</div>
+    <div style="font-size:11px">GitHub Repo</div>
+    <div class="sub">active</div>
+  </div>
+</div>
+<p class="sub" style="text-align:center">Last sync: 2026-04-03T15:09:30.417953+00:00 | Relay: claude (3 tasks)</p>
+
+<hr>
+<h2>Knowledge Graph: Top Hubs</h2>
+<div class='node'><strong>BRIDGE_BUILDER</strong> -- 102 connections</div><div class='node'><strong>FIRST_SALE_NOTIFIER</strong> -- 64 connections</div><div class='node'><strong>REVENUE_LOOP</strong> -- 44 connections</div><div class='node'><strong>DEV_TO_PUBLISHER</strong> -- 41 connections</div><div class='node'><strong>MURMURATION_RELAY</strong> -- 40 connections</div><div class='node'><strong>REVENUE_FLYWHEEL</strong> -- 37 connections</div><div class='node'><strong>BROADCAST_PROTOCOL</strong> -- 37 connections</div><div class='node'><strong>WEEKEND_PULSE</strong> -- 36 connections</div><div class='node'><strong>BRAVE_BRIDGE</strong> -- 35 connections</div><div class='node'><strong>AUTONOMOUS_PUBLISHER</strong> -- 34 connections</div>
+
+<hr>
+<h2>Market Intelligence (0 markets, 0 edges)</h2>
+<div class="node">Run POLYMARKET_SCANNER to populate</div>
+
+<hr>
+<p class="sub" style="text-align:center">
+  Ethics: 99% mutual aid / 1% node fuel |
+  <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center" style="color:#4cff8c">Source Code</a> |
+  <a href="evolution.html" style="color:#4cff8c">Evolution Dashboard</a> |
+  <a href="api/vital.json" style="color:#4cff8c">Vital Sign API</a>
+</p>
 </body>
-    </html>
-    
-
-
-
-
-
-
-
-
+</html>

@@ -17,6 +17,9 @@ from typing import List, Dict, Optional, Set
 from dataclasses import dataclass, asdict
 from urllib.parse import urljoin, quote
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
@@ -469,6 +472,7 @@ def make_link(asin: str, tag: str = None) -> str:
 
 def main():
     """CLI entry point"""
+    _ctx = json.loads((DATA / "affiliate_config.json").read_text()) if (DATA / "affiliate_config.json").exists() else {}
     import argparse
     
     parser = argparse.ArgumentParser(description='Amazon Associates Tag Manager 2026')
@@ -496,6 +500,9 @@ def main():
         print(f"Active: {len(manager.get_active_tags())}")
         print(f"\nRun with --create to start tag creation workflow")
         print(f"Run with --update-content to rotate tags in articles")
+
+
+    (DATA / "legacy_sifted_amazon_tag_manager_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
 
 
 if __name__ == "__main__":

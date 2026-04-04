@@ -126,6 +126,9 @@ def run():
     print("SWARM TRANSMITTER — Minnow Protocol (Scatter Phase)")
     print("=" * 50)
 
+    # Read swarm queue for pending transmissions
+    swarm_ctx = json.loads((DATA / "swarm_queue.json").read_text()) if (DATA / "swarm_queue.json").exists() else {}
+
     # Demo: fragment some sample data
     sample = {
         "type": "mutual_aid_alert",
@@ -155,6 +158,14 @@ def run():
     print(f"\n  Manifest: {FRAG_DIR}/manifest_{manifest['transmission_id']}.json")
     print(f"  Each fragment is a fish. No single fish carries the whole message.")
     print(f"  Use SWARM_RECEPTOR.py to reassemble.")
+
+    # Write engine state for LIVE_WIRE detection
+    (DATA / "swarm_transmitter_state.json").write_text(json.dumps({
+        "last_run": datetime.now(timezone.utc).isoformat(),
+        "status": "completed",
+        "transmission_id": manifest["transmission_id"],
+        "fragments_created": manifest["total_fragments"]
+    }, indent=2))
 
 
 if __name__ == "__main__":

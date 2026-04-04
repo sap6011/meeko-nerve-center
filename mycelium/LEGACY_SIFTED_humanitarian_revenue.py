@@ -2,7 +2,10 @@ import json
 import os
 from datetime import datetime
 from typing import Dict, Any
+from pathlib import Path
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 ANALYTICS_FILE = os.path.join("analytics", "revenue_data.json")
 
@@ -44,7 +47,17 @@ def estimate_revenue(cycle_index: int) -> float:
     return round(base * growth, 2)
 
 
-if __name__ == "__main__":
+def run():
+    """Main entry point with data I/O wiring."""
+    revenue_data = json.loads((DATA / "revenue_data.json").read_text()) if (DATA / "revenue_data.json").exists() else {}
+    results = {}
     for i in range(3):
-        print(f"Cycle {i+1}: estimated revenue = ${estimate_revenue(i):,.2f}")
+        est = estimate_revenue(i)
+        results[f"cycle_{i+1}"] = est
+        print(f"Cycle {i+1}: estimated revenue = ${est:,.2f}")
+    (DATA / "legacy_sifted_humanitarian_revenue_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "estimates": results}, indent=2))
+
+
+if __name__ == "__main__":
+    run()
 

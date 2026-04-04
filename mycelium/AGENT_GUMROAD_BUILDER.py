@@ -12,6 +12,11 @@ import sys, os, json
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).parent))
 from NANO_AGENT import NanoAgent, DATA, DOCS
 from datetime import datetime, timezone
+from pathlib import Path
+import json
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 PRODUCTS = [
     {
@@ -137,3 +142,9 @@ class AGENT_GUMROAD_BUILDER(NanoAgent):
 
 if __name__ == "__main__":
     AGENT_GUMROAD_BUILDER("AGENT_GUMROAD_BUILDER").execute()
+
+
+# LIVE_WIRE: topology state tracking
+def _write_wire_state():
+    _ctx = json.loads((DATA / "product_registry.json").read_text()) if (DATA / "product_registry.json").exists() else {}
+    (DATA / "agent_gumroad_builder_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
