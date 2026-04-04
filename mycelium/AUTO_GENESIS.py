@@ -37,7 +37,7 @@ MYCELIUM = Path("mycelium")
 
 MAX_CYCLES = 3  # per invocation (prevents runaway)
 IMPROVEMENT_THRESHOLD = 0  # continue if any metric improves
-ENGINE_TIMEOUT = 300  # seconds per phase
+ENGINE_TIMEOUT = 600  # seconds per phase (army needs time for 85+ engines w/ Ollama)
 
 
 def load_json(path):
