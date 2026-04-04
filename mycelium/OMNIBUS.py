@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v32 — MICRO PRODUCT FACTORY + EVENT RELAY + FRACTAL REPLICATOR
+OMNIBUS v33 — RESOURCE ALLOCATOR + CREDENTIAL SENSOR
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -217,6 +217,8 @@ def ctx():
         "micro_factory":    rj("micro_product_factory_report.json"),
         "fractal_replicator": rj("fractal_replicator_report.json"),
         "event_relay":      rj("event_relay_report.json"),
+        "resource_allocator": rj("resource_allocator_plan.json"),
+        "credential_sensor": rj("credential_sensor_report.json"),
         "engines_ok":       results["ok"][:],
         "engines_failed":   results["failed"][:],
     }
@@ -401,6 +403,8 @@ def L6():
     eng("MICRO_PRODUCT_FACTORY",   timeout=120)  # v32: template pack assembly line (4 domains, 32 files)
     eng("FRACTAL_REPLICATOR",      timeout=120)  # v32: one template x N domains = N product variants
     eng("EVENT_RELAY",             timeout=60)   # v32: auto-git event-driven trigger system (DRY_RUN)
+    eng("RESOURCE_ALLOCATOR",      timeout=30)   # v33: strategic $100 infrastructure investment plan
+    eng("CREDENTIAL_SENSOR",       timeout=30)   # v33: auto-detect new API keys, report unblocked engines
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")

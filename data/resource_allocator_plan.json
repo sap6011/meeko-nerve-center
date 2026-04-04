@@ -1,0 +1,323 @@
+{
+  "generated_at": "2026-04-04T15:20:58.430687+00:00",
+  "budget": 100.0,
+  "configured": [],
+  "missing": [
+    "custom-domain",
+    "kofi-gold",
+    "vps-hosting",
+    "devto-api",
+    "bluesky-app-password",
+    "github-token",
+    "groq-api-key",
+    "notion-integration"
+  ],
+  "allocation": {
+    "plan": [
+      {
+        "id": "devto-api",
+        "name": "Dev.to API Key (free but needs account setup)",
+        "cost": 0.0,
+        "phase": "FREE -- do this NOW",
+        "engines_unlocked": 2,
+        "monthly_potential": 30.0,
+        "setup_time": "5 minutes",
+        "buy_url": "https://dev.to/settings/extensions (API Keys section)"
+      },
+      {
+        "id": "bluesky-app-password",
+        "name": "Bluesky App Password (free)",
+        "cost": 0.0,
+        "phase": "FREE -- do this NOW",
+        "engines_unlocked": 3,
+        "monthly_potential": 20.0,
+        "setup_time": "5 minutes",
+        "buy_url": "https://bsky.app/settings/app-passwords"
+      },
+      {
+        "id": "github-token",
+        "name": "GitHub Personal Access Token (free)",
+        "cost": 0.0,
+        "phase": "FREE -- do this NOW",
+        "engines_unlocked": 7,
+        "monthly_potential": 15.0,
+        "setup_time": "5 minutes",
+        "buy_url": "https://github.com/settings/tokens"
+      },
+      {
+        "id": "groq-api-key",
+        "name": "Groq API Key (free tier = 30 req/min)",
+        "cost": 0.0,
+        "phase": "FREE -- do this NOW",
+        "engines_unlocked": 5,
+        "monthly_potential": 40.0,
+        "setup_time": "5 minutes",
+        "buy_url": "https://console.groq.com/keys"
+      },
+      {
+        "id": "notion-integration",
+        "name": "Notion API Integration (free with existing account)",
+        "cost": 0.0,
+        "phase": "FREE -- do this NOW",
+        "engines_unlocked": 1,
+        "monthly_potential": 0.0,
+        "setup_time": "10 minutes",
+        "buy_url": "https://www.notion.so/my-integrations"
+      },
+      {
+        "id": "custom-domain",
+        "name": "Custom Domain (solarpunk.dev or similar)",
+        "cost": 12.0,
+        "phase": "BUY -- high ROI",
+        "engines_unlocked": 5,
+        "monthly_potential": 50.0,
+        "setup_time": "15 minutes",
+        "buy_url": "https://www.namecheap.com or https://porkbun.com"
+      },
+      {
+        "id": "kofi-gold",
+        "name": "Ko-fi Gold (real storefront + 0% fees)",
+        "cost": 6.0,
+        "phase": "BUY -- high ROI",
+        "engines_unlocked": 5,
+        "monthly_potential": 100.0,
+        "setup_time": "20 minutes",
+        "buy_url": "https://ko-fi.com/gold"
+      },
+      {
+        "id": "vps-hosting",
+        "name": "Cheap VPS -- SolarPunk runs 24/7 (Hetzner/Contabo)",
+        "cost": 5.0,
+        "phase": "BUY -- high ROI",
+        "engines_unlocked": 5,
+        "monthly_potential": 200.0,
+        "setup_time": "30 minutes",
+        "buy_url": "https://www.hetzner.com/cloud or https://contabo.com"
+      }
+    ],
+    "reserve": [
+      {
+        "allocation": "Content boost",
+        "amount": 30.0,
+        "description": "Promoted dev.to articles or Bluesky ads to drive initial traffic"
+      },
+      {
+        "allocation": "Emergency reserve",
+        "amount": 47.0,
+        "description": "Keep for domain renewals, VPS months, or opportunity purchases"
+      }
+    ],
+    "total_cost": 53.0,
+    "remaining_budget": 47.0,
+    "engines_unlocked": 33,
+    "monthly_revenue_potential": 455.0,
+    "annual_revenue_potential": 5460.0,
+    "roi_on_100": 54.6
+  },
+  "investments": [
+    {
+      "id": "custom-domain",
+      "name": "Custom Domain (solarpunk.dev or similar)",
+      "cost": 12.0,
+      "category": "infrastructure",
+      "priority": 1,
+      "engines_unlocked": [
+        "STOREFRONT_BUILDER",
+        "LANDING_DEPLOYER",
+        "LINK_PAGE",
+        "NANOSHOP_ENGINE",
+        "SEO (all engines)"
+      ],
+      "revenue_enabled": "All product sales get a real URL. SEO starts working. Looks professional instead of github.io. Every product link, every social post, every article points to YOUR domain.",
+      "roi_reasoning": "Every engine that generates links benefits. $12 unlocks the entire storefront stack. This is the single highest-ROI purchase.",
+      "monthly_revenue_potential": 50.0,
+      "roi_multiplier": 50.0,
+      "buy_url": "https://www.namecheap.com or https://porkbun.com",
+      "setup_time": "15 minutes",
+      "wires_to": [
+        "STOREFRONT_BUILDER",
+        "NANOSHOP_ENGINE",
+        "LINK_PAGE",
+        "LANDING_DEPLOYER",
+        "CONTENT_AUTOPILOT",
+        "DEV_TO_PUBLISHER"
+      ]
+    },
+    {
+      "id": "kofi-gold",
+      "name": "Ko-fi Gold (real storefront + 0% fees)",
+      "cost": 6.0,
+      "category": "storefront",
+      "priority": 2,
+      "engines_unlocked": [
+        "PRODUCT_FORGE",
+        "MICRO_PRODUCT_FACTORY",
+        "FRACTAL_REPLICATOR",
+        "GUMROAD_AUTO_QUEUE (redirect to Ko-fi)",
+        "QUICK_REVENUE"
+      ],
+      "revenue_enabled": "Sell template packs, guides, and ebook directly. Ko-fi Gold = 0% platform fee (vs Gumroad 10%). Accept donations AND sell products. 72 templates + 40 variants + 6 guides = ready to list NOW.",
+      "roi_reasoning": "You already have 118 product files ready. Ko-fi Gold lets you sell them with 0% fees. One $12 ebook sale = 2x the monthly cost.",
+      "monthly_revenue_potential": 100.0,
+      "roi_multiplier": 16.7,
+      "buy_url": "https://ko-fi.com/gold",
+      "setup_time": "20 minutes",
+      "wires_to": [
+        "PRODUCT_FORGE",
+        "MICRO_PRODUCT_FACTORY",
+        "FRACTAL_REPLICATOR",
+        "QUICK_REVENUE",
+        "NANOSHOP_ENGINE"
+      ]
+    },
+    {
+      "id": "vps-hosting",
+      "name": "Cheap VPS -- SolarPunk runs 24/7 (Hetzner/Contabo)",
+      "cost": 5.0,
+      "category": "infrastructure",
+      "priority": 3,
+      "engines_unlocked": [
+        "OMNIBUS (runs every hour instead of manually)",
+        "EVENT_RELAY (LIVE mode, auto-push)",
+        "CONTENT_AUTOPILOT (generates articles while you sleep)",
+        "WEEKEND_PULSE (actually runs on weekends)",
+        "CRON_SCHEDULER (real cron jobs)"
+      ],
+      "revenue_enabled": "OMNIBUS runs hourly. Content generated 24/7. Products created while sleeping. Event relay pushes automatically. The system truly becomes autonomous -- not dependent on laptop.",
+      "roi_reasoning": "$5/month turns SolarPunk from 'runs when Meeko remembers' to 'runs every hour forever'. Content autopilot alone generates 1 article/hour = 720 articles/month for SEO.",
+      "monthly_revenue_potential": 200.0,
+      "roi_multiplier": 40.0,
+      "buy_url": "https://www.hetzner.com/cloud or https://contabo.com",
+      "setup_time": "30 minutes",
+      "wires_to": [
+        "OMNIBUS",
+        "EVENT_RELAY",
+        "CONTENT_AUTOPILOT",
+        "WEEKEND_PULSE",
+        "NIGHTLY_DIGEST"
+      ]
+    },
+    {
+      "id": "devto-api",
+      "name": "Dev.to API Key (free but needs account setup)",
+      "cost": 0.0,
+      "category": "distribution",
+      "priority": 4,
+      "engines_unlocked": [
+        "DEV_TO_PUBLISHER",
+        "CONTENT_AUTOPILOT (auto-publish)"
+      ],
+      "revenue_enabled": "Auto-publish articles to dev.to. Each article links to shop. Dev.to has 500K+ monthly developers. Free traffic forever.",
+      "roi_reasoning": "Free. Just needs 5 minutes to get the API key. Unlocks the entire content-to-traffic pipeline.",
+      "monthly_revenue_potential": 30.0,
+      "roi_multiplier": 999.0,
+      "buy_url": "https://dev.to/settings/extensions (API Keys section)",
+      "setup_time": "5 minutes",
+      "wires_to": [
+        "DEV_TO_PUBLISHER",
+        "CONTENT_AUTOPILOT"
+      ]
+    },
+    {
+      "id": "bluesky-app-password",
+      "name": "Bluesky App Password (free)",
+      "cost": 0.0,
+      "category": "distribution",
+      "priority": 5,
+      "engines_unlocked": [
+        "BLUESKY_ENGINE",
+        "SOCIAL_PROMOTER",
+        "AMPLIFY_ENGINE"
+      ],
+      "revenue_enabled": "Auto-post to Bluesky. Growing developer audience. Each post links to products/articles.",
+      "roi_reasoning": "Free. 5 minutes. Unlocks 3 social engines.",
+      "monthly_revenue_potential": 20.0,
+      "roi_multiplier": 999.0,
+      "buy_url": "https://bsky.app/settings/app-passwords",
+      "setup_time": "5 minutes",
+      "wires_to": [
+        "BLUESKY_ENGINE",
+        "SOCIAL_PROMOTER",
+        "AMPLIFY_ENGINE"
+      ]
+    },
+    {
+      "id": "github-token",
+      "name": "GitHub Personal Access Token (free)",
+      "cost": 0.0,
+      "category": "infrastructure",
+      "priority": 6,
+      "engines_unlocked": [
+        "GITHUB_POSTER",
+        "GITHUB_RELEASES_PUBLISHER",
+        "ANALYTICS_ENGINE",
+        "REPO_SPIDER",
+        "FORK_SCANNER",
+        "SIGNAL_BOOST",
+        "EVENT_RELAY (auto-PR creation)"
+      ],
+      "revenue_enabled": "Auto-create GitHub releases for products. Track repo analytics. Auto-create PRs. Signal Boost creates permanent public records.",
+      "roi_reasoning": "Free. 5 minutes. Unlocks 7 engines that are currently SKIP-ing.",
+      "monthly_revenue_potential": 15.0,
+      "roi_multiplier": 999.0,
+      "buy_url": "https://github.com/settings/tokens",
+      "setup_time": "5 minutes",
+      "wires_to": [
+        "GITHUB_POSTER",
+        "GITHUB_RELEASES_PUBLISHER",
+        "ANALYTICS_ENGINE",
+        "REPO_SPIDER",
+        "FORK_SCANNER",
+        "SIGNAL_BOOST",
+        "EVENT_RELAY"
+      ]
+    },
+    {
+      "id": "groq-api-key",
+      "name": "Groq API Key (free tier = 30 req/min)",
+      "cost": 0.0,
+      "category": "ai",
+      "priority": 7,
+      "engines_unlocked": [
+        "CORTEX",
+        "CONTENT_AUTOPILOT (AI-generated articles)",
+        "PDF_GENERATOR",
+        "PASSIVE_INCOME_ARCHITECT",
+        "ETSY_SEO_ENGINE"
+      ],
+      "revenue_enabled": "AI-generated content instead of templates. Better articles = more traffic = more sales. Cortex gets real reasoning instead of rule-based.",
+      "roi_reasoning": "Free. Groq's free tier is generous (30 req/min). Massively upgrades content quality across all AI-dependent engines.",
+      "monthly_revenue_potential": 40.0,
+      "roi_multiplier": 999.0,
+      "buy_url": "https://console.groq.com/keys",
+      "setup_time": "5 minutes",
+      "wires_to": [
+        "CORTEX",
+        "CONTENT_AUTOPILOT",
+        "PDF_GENERATOR",
+        "PASSIVE_INCOME_ARCHITECT",
+        "ETSY_SEO_ENGINE"
+      ]
+    },
+    {
+      "id": "notion-integration",
+      "name": "Notion API Integration (free with existing account)",
+      "cost": 0.0,
+      "category": "dashboard",
+      "priority": 8,
+      "engines_unlocked": [
+        "NOTION_NERVE_CENTER"
+      ],
+      "revenue_enabled": "Live dashboard of entire system state. Visual tracking of products, revenue, health.",
+      "roi_reasoning": "Free if you have Notion. Visual command center for the system.",
+      "monthly_revenue_potential": 0.0,
+      "roi_multiplier": 0.0,
+      "buy_url": "https://www.notion.so/my-integrations",
+      "setup_time": "10 minutes",
+      "wires_to": [
+        "NOTION_NERVE_CENTER"
+      ]
+    }
+  ],
+  "total_engines_blocked": 33
+}
