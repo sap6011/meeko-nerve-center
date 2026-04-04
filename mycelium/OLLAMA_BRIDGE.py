@@ -274,6 +274,26 @@ def semantic_similarity(text_a: str, text_b: str) -> float:
     return dot / (mag_a * mag_b)
 
 
+# === LIVE_WIRE topology wiring ===
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
+
+def run():
+    """Run health check and write state for LIVE_WIRE topology."""
+    bridge = OllamaBridge()
+    health = bridge.health_check()
+    # Read hemisphere state for context
+    _hemi = json.loads((DATA / "hemisphere_state.json").read_text()) if (DATA / "hemisphere_state.json").exists() else {}
+    (DATA / "ollama_bridge_state.json").write_text(json.dumps({
+        "last_run": __import__("datetime").datetime.now().isoformat(),
+        "reachable": health.get("reachable", False),
+        "models": health.get("models_loaded", []),
+        "preferred": health.get("preferred_model", "none"),
+    }, indent=2))
+    return health
+
+
 # === CLI ===
 
 if __name__ == "__main__":

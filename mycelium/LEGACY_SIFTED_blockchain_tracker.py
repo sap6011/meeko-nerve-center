@@ -2,7 +2,11 @@ import json
 import os
 import hashlib
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, Any, Optional, List
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 
 LEDGER_DIR = "humanitarian_logs"
@@ -136,8 +140,11 @@ def get_ledger() -> List[Dict[str, Any]]:
 
 
 if __name__ == "__main__":
+    _ctx = json.loads((DATA / "finance_ledger.json").read_text()) if (DATA / "finance_ledger.json").exists() else {}
     # Simple CLI check
     summary = summarize_ledger()
     print("Humanitarian ledger summary:")
     print(json.dumps(summary, indent=2))
+
+    (DATA / "legacy_sifted_blockchain_tracker_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
 

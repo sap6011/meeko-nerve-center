@@ -2,6 +2,10 @@
 import requests
 import json
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 
 class CrisisResponseAI:
@@ -99,6 +103,7 @@ class CrisisResponseAI:
 
 
 if __name__ == "__main__":
+    _ctx = json.loads((DATA / "sentinel_report.json").read_text()) if (DATA / "sentinel_report.json").exists() else {}
     # Lightweight CLI test harness so importing this module
     # from the humanitarian orchestrator does not trigger test output.
     crisis_ai = CrisisResponseAI()

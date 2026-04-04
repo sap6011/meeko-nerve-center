@@ -1,335 +1,29 @@
 {
-  "timestamp": "2026-04-04T06:04:39.556399+00:00",
+  "timestamp": "2026-04-04T06:15:07.623235+00:00",
   "topology_before": {
     "engines": 285,
-    "wires": 1448,
-    "zero_secret_chains": 656
+    "wires": 2024,
+    "zero_secret_chains": 995
   },
-  "isolated_count": 74,
-  "potential_connections": 51,
-  "high_confidence_connections": 51,
+  "isolated_count": 52,
+  "potential_connections": 0,
+  "high_confidence_connections": 0,
   "state_files_seeded": 0,
-  "low_wire_suggestions": 9,
+  "low_wire_suggestions": 3,
   "categories": {
-    "library": 7,
+    "library": 1,
     "stub": 6,
-    "wirable": 16,
-    "system": 45
+    "wirable": 5,
+    "system": 40
   },
-  "top_connections": [
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "nightly_digest_last.json",
-      "overlap_keywords": [
-        "email",
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.8999999999999999,
-      "direction": "read"
-    },
-    {
-      "engine": "README_GENERATOR",
-      "data_file": "email_brain_state.json",
-      "overlap_keywords": [
-        "brain",
-        "email",
-        "revenue"
-      ],
-      "confidence": 0.8999999999999999,
-      "direction": "read"
-    },
-    {
-      "engine": "README_GENERATOR",
-      "data_file": "loop_context.json",
-      "overlap_keywords": [
-        "brain",
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.8999999999999999,
-      "direction": "read"
-    },
-    {
-      "engine": "README_GENERATOR",
-      "data_file": "nightly_digest_last.json",
-      "overlap_keywords": [
-        "email",
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.8999999999999999,
-      "direction": "read"
-    },
-    {
-      "engine": "README_GENERATOR",
-      "data_file": "quick_revenue.json",
-      "overlap_keywords": [
-        "brain",
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.8999999999999999,
-      "direction": "read"
-    },
-    {
-      "engine": "AGENT_GUMROAD_BUILDER",
-      "data_file": "email_brain_state.json",
-      "overlap_keywords": [
-        "email",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "AGENT_GUMROAD_BUILDER",
-      "data_file": "nightly_digest_last.json",
-      "overlap_keywords": [
-        "email",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "AGENT_GUMROAD_BUILDER",
-      "data_file": "revenue_optimizer_state.json",
-      "overlap_keywords": [
-        "email",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "ECONOMY_CHAIN",
-      "data_file": "email_brain_state.json",
-      "overlap_keywords": [
-        "email",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "ECONOMY_CHAIN",
-      "data_file": "nightly_digest_last.json",
-      "overlap_keywords": [
-        "email",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "ECONOMY_CHAIN",
-      "data_file": "revenue_optimizer_state.json",
-      "overlap_keywords": [
-        "email",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "claude_briefing.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "cycle_delta.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "email_brain_state.json",
-      "overlap_keywords": [
-        "email",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "health_report.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "loop_context.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "nightly_digest_state.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "proof_state.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "quick_revenue.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "revenue_optimizer_state.json",
-      "overlap_keywords": [
-        "email",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "GMAIL_BRIDGE",
-      "data_file": "revenue_state.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "LEGACY_SIFTED_ultimate_ai_self",
-      "data_file": "knowledge_chain_synthesis.json",
-      "overlap_keywords": [
-        "health",
-        "knowledge"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "LEGACY_SIFTED_ultimate_ai_self_1",
-      "data_file": "knowledge_chain_synthesis.json",
-      "overlap_keywords": [
-        "health",
-        "knowledge"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "OLLAMA_BRIDGE",
-      "data_file": "claude_briefing.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "OLLAMA_BRIDGE",
-      "data_file": "cycle_delta.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "OLLAMA_BRIDGE",
-      "data_file": "health_report.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "OLLAMA_BRIDGE",
-      "data_file": "loop_context.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "OLLAMA_BRIDGE",
-      "data_file": "nightly_digest_last.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "OLLAMA_BRIDGE",
-      "data_file": "nightly_digest_state.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    },
-    {
-      "engine": "OLLAMA_BRIDGE",
-      "data_file": "proof_state.json",
-      "overlap_keywords": [
-        "health",
-        "revenue"
-      ],
-      "confidence": 0.6,
-      "direction": "read"
-    }
-  ],
+  "top_connections": [],
   "seeded_files": [],
   "suggestions": [
     {
-      "engine": "CORRUPTION_SENTINEL",
+      "engine": "FINANCIAL_MAPPER",
       "type": "needs_output",
-      "detail": "Reads ['sentinel_scan.json'] but produces no output file",
-      "suggestion": "Add writes to data/corruption_sentinel_output.json"
+      "detail": "Reads ['finance_ledger.json'] but produces no output file",
+      "suggestion": "Add writes to data/financial_mapper_output.json"
     },
     {
       "engine": "FUND_SCOUT",
@@ -338,64 +32,17 @@
       "suggestion": "Add writes to data/fund_scout_output.json"
     },
     {
-      "engine": "knowledge_dispatch",
+      "engine": "NANO_AGENT",
       "type": "needs_output",
-      "detail": "Reads ['consolidated_knowledge.json', 'omnibrain_seed.json'] but produces no output file",
-      "suggestion": "Add writes to data/knowledge_dispatch_output.json"
-    },
-    {
-      "engine": "NEURAL_PREFERENCE",
-      "type": "needs_output",
-      "detail": "Reads ['finance_ledger.json', 'knowledge_graph.json', 'neural_weights.json'] but produces no output file",
-      "suggestion": "Add writes to data/neural_preference_output.json"
-    },
-    {
-      "engine": "NEURAL_WEAVER",
-      "type": "needs_output",
-      "detail": "Reads ['knowledge_graph.json'] but produces no output file",
-      "suggestion": "Add writes to data/neural_weaver_output.json"
-    },
-    {
-      "engine": "REVENUE_RECYCLER",
-      "type": "needs_output",
-      "detail": "Reads ['revenue_data.json'] but produces no output file",
-      "suggestion": "Add writes to data/revenue_recycler_output.json"
-    },
-    {
-      "engine": "SYNAPSE_BUILDER",
-      "type": "needs_output",
-      "detail": "Reads ['knowledge_graph.json', 'knowledge_bank.txt'] but produces no output file",
-      "suggestion": "Add writes to data/synapse_builder_output.json"
-    },
-    {
-      "engine": "SYSTEM_MAPPER",
-      "type": "needs_output",
-      "detail": "Reads ['knowledge_graph.json'] but produces no output file",
-      "suggestion": "Add writes to data/system_mapper_output.json"
-    },
-    {
-      "engine": "VALUE_GENERATOR",
-      "type": "needs_output",
-      "detail": "Reads ['knowledge_graph.json', 'pending_publication.txt'] but produces no output file",
-      "suggestion": "Add writes to data/value_generator_output.json"
+      "detail": "Reads ['ctx.json', 'knowledge_weaver_state.json'] but produces no output file",
+      "suggestion": "Add writes to data/nano_agent_output.json"
     }
   ],
   "wirable_engines": [
-    "ECONOMY_CHAIN",
-    "GAZA_ROSE_PAYOUT",
-    "LEGACY_SIFTED_amazon_content_machine",
     "LEGACY_SIFTED_api_integrations",
     "LEGACY_SIFTED_pinterest_bot",
-    "LEGACY_SIFTED_pod_bulk_uploader",
-    "LEGACY_SIFTED_PROMOTER_AGENT",
     "LEGACY_SIFTED_real_content_generator",
     "LEGACY_SIFTED_reddit_bot",
-    "LEGACY_SIFTED_social_media_bot",
-    "LEGACY_SIFTED_ultimate_ai_self",
-    "LEGACY_SIFTED_ultimate_ai_self_1",
-    "README_GENERATOR",
-    "revenue_aggregator",
-    "swarm_scout",
-    "SYSTEM_SIFTER"
+    "LEGACY_SIFTED_social_media_bot"
   ]
 }

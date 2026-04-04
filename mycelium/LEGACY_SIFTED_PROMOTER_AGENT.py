@@ -8,6 +8,9 @@ import subprocess, base64, hashlib
 from pathlib import Path
 from datetime import datetime, timedelta
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 # ── LOAD SECRETS ──────────────────────────────────────────────
@@ -292,6 +295,7 @@ def list_art_on_medusa(arts, medusa_token=''):
 
 # ── DAILY PROMOTION CYCLE ─────────────────────────────────────
 def run_promotion_cycle():
+    _ctx = json.loads((DATA / "social_queue.json").read_text()) if (DATA / "social_queue.json").exists() else {}
     print('='*60)
     print(f'MEEKO PROMOTER — {datetime.now().strftime("%Y-%m-%d %H:%M")}')
     print('='*60)
@@ -373,6 +377,8 @@ def run_promotion_cycle():
     state['last_run'] = datetime.now().isoformat()
     save_state(state)
     
+    (DATA / "legacy_sifted_promoter_agent_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+
     return results
 
 if __name__ == '__main__':

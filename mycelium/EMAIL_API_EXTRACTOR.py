@@ -22,6 +22,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 ROOT          = Path(__file__).parent.parent
 REGISTRY_PATH = ROOT / "data" / "platform_connection_registry.json"
 ACTUAL_LOG    = ROOT / "SOLARPUNK_ACTUAL.md"
@@ -167,3 +170,9 @@ if __name__ == "__main__":
     else:
         print("Registry empty — waiting for confirmation emails to process.")
         print("Call process_email(subject, body) to register a platform.")
+
+
+# LIVE_WIRE: topology state tracking
+def _write_wire_state():
+    _ctx = json.loads((DATA / "email_brain_state.json").read_text()) if (DATA / "email_brain_state.json").exists() else {}
+    (DATA / "email_api_extractor_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

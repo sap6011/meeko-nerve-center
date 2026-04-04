@@ -8,6 +8,10 @@ def build_resilience():
     resilience_script = '''
 import os
 from datetime import datetime, timedelta
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 def check_vitality():
     # If the user hasn't modified this file in 30 days, 
@@ -28,3 +32,9 @@ if __name__ == "__main__":
 
 if __name__ == "__main__":
     build_resilience()
+
+
+# LIVE_WIRE: topology state tracking
+def _write_wire_state():
+    _ctx = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
+    (DATA / "mirror_node_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

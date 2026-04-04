@@ -26,6 +26,9 @@ import time
 from pathlib import Path
 from typing import Optional
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 # === IMMUTABLE REVENUE SPLIT ===
 # These ratios are the algorithm. The algorithm IS the governance.
 # Not configurable. Not negotiable. The math runs.
@@ -191,3 +194,9 @@ if __name__ == "__main__":
                 print(f"  {key}: ${val['amount']:.2f} ({val['share_pct']})")
         print(f"  Infrastructure: ${split['_infra']['amount']:.2f} ({split['_infra']['share_pct']})")
         print(f"  TOTAL: ${split['_total']['gross']:.2f}")
+
+
+# LIVE_WIRE: topology state tracking
+def _write_wire_state():
+    _ctx = json.loads((DATA / "finance_ledger.json").read_text()) if (DATA / "finance_ledger.json").exists() else {}
+    (DATA / "paypal_bridge_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

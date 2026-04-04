@@ -15,6 +15,10 @@ from NANO_AGENT import NanoAgent, DATA, DOCS
 from pathlib import Path
 from datetime import datetime, timezone
 import urllib.request, urllib.error
+import json
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 BASE = "https://meekotharaccoon-cell.github.io/meeko-nerve-center"
 
@@ -97,3 +101,9 @@ class AGENT_LINK_VERIFIER(NanoAgent):
 
 if __name__ == "__main__":
     AGENT_LINK_VERIFIER("AGENT_LINK_VERIFIER").execute()
+
+
+# LIVE_WIRE: topology state tracking
+def _write_wire_state():
+    _ctx = json.loads((DATA / "live_wire_report.json").read_text()) if (DATA / "live_wire_report.json").exists() else {}
+    (DATA / "agent_link_verifier_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

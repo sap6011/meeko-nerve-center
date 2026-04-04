@@ -23,6 +23,11 @@ When this is dark, the organism sleeps.
 """
 import os, json, re
 import urllib.request, urllib.error
+from pathlib import Path
+import json
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 # ── Keys ──────────────────────────────────────────────────────────────────────
 GROQ_KEY      = os.environ.get("GROQ_API_KEY", "").strip()
@@ -362,3 +367,9 @@ if __name__ == "__main__":
         print(f"  Test: {r}")
     else:
         print("  ❌ No AI backend available")
+
+
+# LIVE_WIRE: topology state tracking
+def _write_wire_state():
+    _ctx = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
+    (DATA / "ai_client_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

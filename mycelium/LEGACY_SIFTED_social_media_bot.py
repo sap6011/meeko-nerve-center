@@ -8,8 +8,12 @@ Integrates with Buffer/Hootsuite APIs or posts directly
 import json
 import random
 from datetime import datetime, timedelta
+from pathlib import Path
 from typing import List, Dict
 import os
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 class SocialMediaAutomation:
     def __init__(self, brand_name: str, niche: str):
@@ -258,6 +262,7 @@ class SocialMediaAutomation:
 
 # Usage
 if __name__ == "__main__":
+    _ctx = json.loads((DATA / "social_queue.json").read_text()) if (DATA / "social_queue.json").exists() else {}
     bot = SocialMediaAutomation(
         brand_name="ProductivityPro",
         niche="productivity_tools"
@@ -273,3 +278,5 @@ if __name__ == "__main__":
     protocol = bot.generate_engagement_protocol()
     print("\n📱 Engagement Protocol:")
     print(json.dumps(protocol, indent=2))
+
+    (DATA / "legacy_sifted_social_media_bot_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

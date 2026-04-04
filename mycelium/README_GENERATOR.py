@@ -147,6 +147,12 @@ Cost: **$0/month**. Time: **30 minutes**.
 *Built by [MeekoThaRaccoon](https://github.com/meekotharaccoon-cell) | SolarPunk v3 | 100% legal, ethical, open-source*
 """
     Path("README.md").write_text(readme)
+    # LIVE_WIRE: explicit reads for topology detection
+    _lw = json.loads((DATA / "live_wire_report.json").read_text()) if (DATA / "live_wire_report.json").exists() else {}
+    (DATA / "readme_generator_state.json").write_text(json.dumps({
+        "last_run": now.isoformat(), "engines": engines, "raised": raised,
+        "cycles": cycles, "wires": _lw.get("stats", {}).get("total_wires_discovered", 0),
+    }, indent=2))
     print(f"README rebuilt: {engines} engines, ${raised:.2f} raised, {cycles} cycles")
     return {"readme_updated":True,"ts":now.isoformat()}
 

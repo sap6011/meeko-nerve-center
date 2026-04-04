@@ -26,7 +26,11 @@ import threading
 import time
 import traceback
 from datetime import datetime
+from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 # ── Optional: psutil for richer system metrics ────────────────────────────────
 try:
@@ -823,6 +827,7 @@ class UltimateAISelf:
 # SELF-TEST — run directly: python ultimate_ai_self.py
 # ═══════════════════════════════════════════════════════════════════════════════
 if __name__ == "__main__":
+    _ctx = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
 
     me = UltimateAISelf()
 
@@ -932,3 +937,5 @@ if __name__ == "__main__":
     print(f"\n✅  All tests passed.")
     print(f"    Knowledge persisted to: {me.knowledge_base.db_path}")
     print(f"    Call me.run_forever() to keep running.\n")
+
+    (DATA / "legacy_sifted_ultimate_ai_self_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

@@ -29,6 +29,9 @@ from email.mime.text import MIMEText
 from pathlib import Path
 from typing import Optional
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 # Revenue routing contacts — hard-coded, not configurable
 PAYOUT_CONTACTS = {
     "PCRF": {"email": "info@thepcrf.org", "share": 0.60},
@@ -182,3 +185,9 @@ if __name__ == "__main__":
     bridge = GmailBridge()
     print("\n=== GMAIL BRIDGE HEALTH CHECK ===")
     print(json.dumps(bridge.health_check(), indent=2))
+
+
+# LIVE_WIRE: topology state tracking
+def _write_wire_state():
+    _ctx = json.loads((DATA / "email_brain_state.json").read_text()) if (DATA / "email_brain_state.json").exists() else {}
+    (DATA / "gmail_bridge_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))

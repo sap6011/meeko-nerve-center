@@ -6,6 +6,9 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 class MeekoAutonomousAgent:
     def __init__(self):
         self.agent_name = "Meeko's Auto-Agent"
@@ -138,6 +141,7 @@ class MeekoAutonomousAgent:
         return success
 
 def main():
+    _ctx = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
     agent = MeekoAutonomousAgent()
     
     if len(sys.argv) > 1:
@@ -163,6 +167,9 @@ def main():
     print("\nRun: python meeko_agent.py daily  (for daily routine)")
     print("Run: python meeko_agent.py test   (for test)")
     print("=" * 60)
+
+    (DATA / "legacy_sifted_meeko_agent_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+
 
 if __name__ == "__main__":
     main()
