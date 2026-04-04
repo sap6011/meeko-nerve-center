@@ -24,6 +24,7 @@ Reads: data/task_queue.json, data/auto_executor_state.json
 Writes: data/auto_executor_state.json, data/auto_executor_log.json
 """
 import json
+import os
 import subprocess
 import sys
 import time

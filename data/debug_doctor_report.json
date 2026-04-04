@@ -1,13 +1,22 @@
 {
-  "generated_at": "2026-04-04T16:40:28.919333+00:00",
-  "total_failures": 19,
-  "fixed": 10,
+  "generated_at": "2026-04-04T18:48:59.969259+00:00",
+  "total_failures": 40,
+  "fixed": 29,
   "fixable": 0,
-  "unfixable": 9,
+  "unfixable": 11,
   "diagnoses": [
     {
+      "engine": "BRIDGE_BUILDER",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
       "engine": "FIRST_SALE_NOTIFIER",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
       "diagnosis": "FIXED_BY_UTF8",
       "fixed": true,
       "fixable": false,
@@ -16,7 +25,16 @@
     },
     {
       "engine": "AFFILIATE_MAXIMIZER",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
+      "diagnosis": "TIMEOUT",
+      "fixed": false,
+      "fixable": false,
+      "details": "Engine takes >30s. Likely waiting for AI/network.",
+      "error": ""
+    },
+    {
+      "engine": "DESKTOP_ORCHESTRATOR",
+      "original_status": "ERROR",
       "diagnosis": "FIXED_BY_UTF8",
       "fixed": true,
       "fixable": false,
@@ -24,8 +42,8 @@
       "error": ""
     },
     {
-      "engine": "DESKTOP_ORCHESTRATOR",
-      "original_status": "FAIL",
+      "engine": "PRODUCT_FORGE",
+      "original_status": "ERROR",
       "diagnosis": "FIXED_BY_UTF8",
       "fixed": true,
       "fixable": false,
@@ -34,7 +52,7 @@
     },
     {
       "engine": "BRAVE_BRIDGE",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
       "diagnosis": "FIXED_BY_UTF8",
       "fixed": true,
       "fixable": false,
@@ -43,7 +61,16 @@
     },
     {
       "engine": "BRAVE_BROWSER_ENGINE",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "CLAUDE_BRIDGE",
+      "original_status": "ERROR",
       "diagnosis": "FIXED_BY_UTF8",
       "fixed": true,
       "fixable": false,
@@ -52,16 +79,43 @@
     },
     {
       "engine": "CONTENT_AUTOPILOT",
-      "original_status": "TIMEOUT",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "LIVE_WIRE",
+      "original_status": "ERROR",
       "diagnosis": "TIMEOUT",
       "fixed": false,
       "fixable": false,
       "details": "Engine takes >30s. Likely waiting for AI/network.",
+      "error": ""
+    },
+    {
+      "engine": "MICRO_PRODUCT_FACTORY",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "MYCELIUM_NETWORK",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
       "error": ""
     },
     {
       "engine": "NARRATOR",
-      "original_status": "TIMEOUT",
+      "original_status": "ERROR",
       "diagnosis": "TIMEOUT",
       "fixed": false,
       "fixable": false,
@@ -69,8 +123,26 @@
       "error": ""
     },
     {
+      "engine": "PLUGIN_REGISTRY",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "PRODUCT_FACTORY",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
       "engine": "PROOF_LEDGER",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
       "diagnosis": "ATTRIBUTE_ERROR",
       "fixed": false,
       "fixable": false,
@@ -79,7 +151,7 @@
     },
     {
       "engine": "SOLARPUNK_LEGAL",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
       "diagnosis": "FIXED_BY_UTF8",
       "fixed": true,
       "fixable": false,
@@ -88,7 +160,16 @@
     },
     {
       "engine": "ARCHITECT",
-      "original_status": "TIMEOUT",
+      "original_status": "ERROR",
+      "diagnosis": "TIMEOUT",
+      "fixed": false,
+      "fixable": false,
+      "details": "Engine takes >30s. Likely waiting for AI/network.",
+      "error": ""
+    },
+    {
+      "engine": "AUTO_EXECUTOR",
+      "original_status": "ERROR",
       "diagnosis": "TIMEOUT",
       "fixed": false,
       "fixable": false,
@@ -97,7 +178,7 @@
     },
     {
       "engine": "BOTTLENECK_SCANNER",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
       "diagnosis": "TIMEOUT",
       "fixed": false,
       "fixable": false,
@@ -106,7 +187,7 @@
     },
     {
       "engine": "CHAIN_ORCHESTRATOR",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
       "diagnosis": "TIMEOUT",
       "fixed": false,
       "fixable": false,
@@ -115,7 +196,7 @@
     },
     {
       "engine": "CHIMERA_EVOLUTION_ENGINE",
-      "original_status": "TIMEOUT",
+      "original_status": "ERROR",
       "diagnosis": "TIMEOUT",
       "fixed": false,
       "fixable": false,
@@ -124,7 +205,7 @@
     },
     {
       "engine": "CONTRIBUTOR_REGISTRY",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
       "diagnosis": "FIXED_BY_UTF8",
       "fixed": true,
       "fixable": false,
@@ -133,7 +214,16 @@
     },
     {
       "engine": "CORTEX",
-      "original_status": "TIMEOUT",
+      "original_status": "ERROR",
+      "diagnosis": "TIMEOUT",
+      "fixed": false,
+      "fixable": false,
+      "details": "Engine takes >30s. Likely waiting for AI/network.",
+      "error": ""
+    },
+    {
+      "engine": "CREDENTIAL_SENSOR",
+      "original_status": "ERROR",
       "diagnosis": "FIXED_BY_UTF8",
       "fixed": true,
       "fixable": false,
@@ -141,8 +231,44 @@
       "error": ""
     },
     {
+      "engine": "CYCLE_MEMORY",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "daily_pulse",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "DATA_FLOW_OBSERVATORY",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "DEBUG_DOCTOR",
+      "original_status": "ERROR",
+      "diagnosis": "TIMEOUT",
+      "fixed": false,
+      "fixable": false,
+      "details": "Engine takes >30s. Likely waiting for AI/network.",
+      "error": ""
+    },
+    {
       "engine": "DESKTOP_BLUEPRINT_SCANNER",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
       "diagnosis": "FIXED_BY_UTF8",
       "fixed": true,
       "fixable": false,
@@ -151,7 +277,7 @@
     },
     {
       "engine": "DUPLICATE_DELETER",
-      "original_status": "FAIL",
+      "original_status": "ERROR",
       "diagnosis": "FIXED_BY_UTF8",
       "fixed": true,
       "fixable": false,
@@ -159,22 +285,85 @@
       "error": ""
     },
     {
-      "engine": "KNOWLEDGE_WEAVER",
-      "original_status": "TIMEOUT",
-      "diagnosis": "TIMEOUT",
-      "fixed": false,
+      "engine": "ECOLOGICAL_GRANT_SYNTHESIZER",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
       "fixable": false,
-      "details": "Engine takes >30s. Likely waiting for AI/network.",
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
       "error": ""
     },
     {
-      "engine": "KOFI_PAYMENT_TRACKER",
-      "original_status": "FAIL",
-      "diagnosis": "ATTRIBUTE_ERROR",
-      "fixed": false,
+      "engine": "EXTERNAL_VALUE_ROUTER",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
       "fixable": false,
-      "details": "Code expects different data type",
-      "error": "Traceback (most recent call last):\n  File \"C:\\Users\\meeko\\Desktop\\meeko-nerve-center\\meeko-nerve-center\\.claude\\worktrees\\elegant-euler\\mycelium\\KOFI_PAYMENT_TRACKER.py\", line 169, in <module>\n    run"
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "GENERATED_EVOLUTION_TRACKER",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "GENERATED_KNOWLEDGE_TRACKER",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "GENERATED_PLUGIN_REGISTRY_CONSUMER",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "GENERATED_SECRETS_CHECKER_CONSUMER",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "GENERATED_SECURITY_TRACKER",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "IMMUNE_SYSTEM",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
+    },
+    {
+      "engine": "KNOWLEDGE_DISTILLER",
+      "original_status": "ERROR",
+      "diagnosis": "FIXED_BY_UTF8",
+      "fixed": true,
+      "fixable": false,
+      "details": "Engine works with PYTHONIOENCODING=utf-8",
+      "error": ""
     }
   ]
 }

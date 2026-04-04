@@ -20,6 +20,7 @@ Reads: data/live_wire_report.json, data/zero_secret_army_state.json
 Writes: data/zero_secret_army_state.json, data/zero_secret_army_report.json
 """
 import json
+import os
 import subprocess
 import sys
 import time
@@ -107,9 +108,10 @@ def run_engine(name, path, timeout=ENGINE_TIMEOUT):
             errors="replace",
         )
         elapsed = time.time() - start
-        # Get last meaningful line of output
+        # Get last meaningful line of output (sanitize for Windows cp1252)
         output_lines = [l.strip() for l in result.stdout.split("\n") if l.strip()]
         last_line = output_lines[-1] if output_lines else ""
+        last_line = last_line.encode("ascii", errors="replace").decode("ascii")
 
         return {
             "status": "OK" if result.returncode == 0 else "FAIL",

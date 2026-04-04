@@ -1,7 +1,199 @@
 {
-  "last_updated": "2026-04-04T06:19:31.835579+00:00",
-  "blueprints": [],
-  "scripts_found": 285,
-  "note": "Populated from sentinel data. Full scan requires local run.",
-  "source": "BRIDGE_BUILDER synthesis"
+  "last_scan": "2026-04-04T18:48:05.451537+00:00",
+  "scanned_by": "local",
+  "total": 15,
+  "active": 6,
+  "needs_update": 7,
+  "uncharted": 1,
+  "recommendations": [
+    "Update MASTER_LAUNCH.bat: update to call MASTER_CONNECT.ps1 instead",
+    "Update MEEKO_LAUNCH.bat: update paths to current SolarPunk structure",
+    "Update EVOLVE.bat: wire into SolarPunk SELF_BUILDER cycle instead",
+    "Update DAILY_LAUNCH.py: absorb into CYCLE_MEMORY + HEALTH_BOOSTER \u2014 daily logic already in OMNIBUS",
+    "Update CLAUDE_ENGINE.py: wire into AI_CLIENT.py \u2014 already in mycelium",
+    "Update CLEANUP_AND_BRIDGE.py: wire cleanup into AUTO_HEALER cycle",
+    "Archive DESKTOP_AGENT_clean.py: superseded",
+    "Update prescan.py: absorb into GUARDIAN health check",
+    "Review Solar-Node.ps1: 15 lines \u2014 unknown purpose",
+    "\u26a0\ufe0f  Run BRAVE_DEBUG_LAUNCHER.bat to enable SolarPunk browser control"
+  ],
+  "blueprints": [
+    {
+      "name": "SOLARPUNK.bat",
+      "purpose": "Main desktop launcher \u2014 starts solarpunk_agent.py",
+      "status": "active",
+      "connections": [
+        "solarpunk_agent.py",
+        "GitHub:meeko-nerve-center"
+      ],
+      "action": "keep \u2014 primary entry point",
+      "found": true,
+      "size_bytes": 3031,
+      "lines": 70,
+      "last_modified": "2026-03-05T21:13:45.608515+00:00",
+      "references_secrets": [
+        "GITHUB_TOKEN"
+      ]
+    },
+    {
+      "name": "BRAVE_DEBUG_LAUNCHER.bat",
+      "purpose": "Starts Brave with CDP debug port 9222 \u2014 bridges SolarPunk to browser",
+      "status": "active",
+      "connections": [
+        "BRAVE_BROWSER_ENGINE.py",
+        "CDP:9222"
+      ],
+      "action": "keep \u2014 run this before SOLARPUNK.bat for full browser control",
+      "found": true,
+      "size_bytes": 1458,
+      "lines": 43,
+      "last_modified": "2026-03-12T20:20:54.096546+00:00"
+    },
+    {
+      "name": "MASTER_CONNECT.ps1",
+      "purpose": "Master connector \u2014 syncs repo, starts Brave, installs deps, creates startup task",
+      "status": "active",
+      "connections": [
+        "GitHub:meeko-nerve-center",
+        "Brave:9222",
+        "Windows:TaskScheduler"
+      ],
+      "action": "keep \u2014 the one script that wires everything together",
+      "run_as_admin": true,
+      "found": true,
+      "size_bytes": 10713,
+      "lines": 227,
+      "last_modified": "2026-03-14T22:46:59.236130+00:00",
+      "references_secrets": [
+        "X_API_KEY"
+      ]
+    },
+    {
+      "name": "MASTER_LAUNCH.bat",
+      "purpose": "Legacy master launcher batch file",
+      "status": "needs_update",
+      "connections": [],
+      "action": "update to call MASTER_CONNECT.ps1 instead",
+      "found": true,
+      "size_bytes": 2986,
+      "lines": 119,
+      "last_modified": "2026-02-18T12:09:02.423744+00:00"
+    },
+    {
+      "name": "MEEKO_LAUNCH.bat",
+      "purpose": "Meeko system launcher",
+      "status": "needs_update",
+      "connections": [],
+      "action": "update paths to current SolarPunk structure",
+      "found": true,
+      "size_bytes": 3048,
+      "lines": 71,
+      "last_modified": "2026-02-18T23:19:15.319532+00:00"
+    },
+    {
+      "name": "EVOLVE.bat",
+      "purpose": "Runs evolution cycle on the system",
+      "status": "needs_update",
+      "connections": [
+        "UltimateAI_Master"
+      ],
+      "action": "wire into SolarPunk SELF_BUILDER cycle instead",
+      "found": true,
+      "size_bytes": 1994,
+      "lines": 48,
+      "last_modified": "2026-03-03T15:37:20.883129+00:00"
+    },
+    {
+      "name": "DAILY_LAUNCH.py",
+      "purpose": "Daily launch sequence \u2014 Ollama, evolution, analytics, CrewAI, Gaza Rose",
+      "status": "needs_update",
+      "connections": [
+        "Ollama:11434",
+        "UltimateAI_Master",
+        "Gaza Rose DB"
+      ],
+      "action": "absorb into CYCLE_MEMORY + HEALTH_BOOSTER \u2014 daily logic already in OMNIBUS",
+      "found": false
+    },
+    {
+      "name": "solarpunk_agent.py",
+      "purpose": "Desktop agent \u2014 pulls tasks from GitHub, opens browser, copies to clipboard",
+      "status": "active",
+      "connections": [
+        "GitHub:meeko-nerve-center",
+        "webbrowser",
+        "clipboard"
+      ],
+      "action": "keep \u2014 primary desktop loop agent",
+      "found": false
+    },
+    {
+      "name": "CLAUDE_ENGINE.py",
+      "purpose": "Desktop Claude API caller",
+      "status": "needs_update",
+      "connections": [
+        "Anthropic API"
+      ],
+      "action": "wire into AI_CLIENT.py \u2014 already in mycelium",
+      "found": false
+    },
+    {
+      "name": "CLEANUP_AND_BRIDGE.py",
+      "purpose": "Cleans up old files and bridges local\u2192GitHub",
+      "status": "needs_update",
+      "connections": [
+        "GitHub"
+      ],
+      "action": "wire cleanup into AUTO_HEALER cycle",
+      "found": false
+    },
+    {
+      "name": "DESKTOP_AGENT_clean.py",
+      "purpose": "Clean version of desktop agent",
+      "status": "superseded",
+      "connections": [],
+      "action": "merged \u2014 solarpunk_agent.py is the active version",
+      "found": false
+    },
+    {
+      "name": "DO_WHAT_YOU_CAN.py",
+      "purpose": "Fixes dispatch.yml, pushes self-healing CI, syncs secrets to atomic-agents repos, builds free_data.py",
+      "status": "active",
+      "connections": [
+        "GitHub:atomic-agents-*",
+        ".secrets file",
+        "gh CLI"
+      ],
+      "action": "keep \u2014 runs the investment HQ systems",
+      "found": false
+    },
+    {
+      "name": "LOCAL_GITHUB_BRIDGE.py",
+      "purpose": "Bridges local data \u2192 GitHub commits",
+      "status": "active",
+      "connections": [
+        "GitHub:meeko-nerve-center",
+        "GITHUB_TOKEN"
+      ],
+      "action": "keep \u2014 solarpunk_agent.py uses this pattern",
+      "found": false
+    },
+    {
+      "name": "prescan.py",
+      "purpose": "Pre-scan before running main agent",
+      "status": "needs_update",
+      "connections": [],
+      "action": "absorb into GUARDIAN health check",
+      "found": false
+    },
+    {
+      "name": "Solar-Node.ps1",
+      "purpose": "Unknown script (15 lines)",
+      "status": "uncharted",
+      "found": true,
+      "size_bytes": 659,
+      "lines": 15,
+      "action": "scan and integrate or archive"
+    }
+  ]
 }
