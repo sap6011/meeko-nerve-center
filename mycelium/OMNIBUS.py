@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v30 — OBSERVATORY + FRACTAL GENESIS + VALUE ROUTER
+OMNIBUS v31 — IMMUNE SYSTEM + CORTEX + SIGNAL INTEGRITY + PRODUCT FORGE + TEMPORAL CORTEX
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -209,6 +209,11 @@ def ctx():
         "observatory":      rj("observatory_report.json"),
         "fractal_genesis":  rj("fractal_genesis_report.json"),
         "value_router":     rj("value_router_report.json"),
+        "immune_system":    rj("immune_system_report.json"),
+        "signal_integrity": rj("signal_integrity_report.json"),
+        "cortex":           rj("cortex_analysis.json"),
+        "temporal":         rj("temporal_analysis.json"),
+        "product_forge":    rj("product_forge_report.json"),
         "engines_ok":       results["ok"][:],
         "engines_failed":   results["failed"][:],
     }
@@ -384,6 +389,11 @@ def L6():
     eng("DATA_FLOW_OBSERVATORY",   timeout=180)  # v30: god's-eye view of all data flows
     eng("FRACTAL_GENESIS_ENGINE",  timeout=180)  # v30: auto-generate engines from gap analysis
     eng("EXTERNAL_VALUE_ROUTER",   timeout=120)  # v30: route capabilities to ethical revenue
+    eng("IMMUNE_SYSTEM",           timeout=120)  # v31: active defense against SIA corruption
+    eng("SIGNAL_INTEGRITY",        timeout=120)  # v31: honest audit of real vs stub wires
+    eng("TEMPORAL_CORTEX",         timeout=60)   # v31: git history analysis for self-awareness
+    eng("PRODUCT_FORGE",           timeout=120)  # v31: generate actual digital products
+    eng("CORTEX",                  timeout=180)  # v31: AI reasoning layer -- the system thinks
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")
