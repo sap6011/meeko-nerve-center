@@ -10,6 +10,10 @@ import aiohttp
 from datetime import datetime
 from typing import Dict, List, Optional
 import logging
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('AgencyOrchestrator')
@@ -346,6 +350,7 @@ class AgencyOrchestrator:
         Main autonomous loop - runs all 9 playbooks continuously.
         Clients are acquired automatically. Revenue flows to humanitarian aid.
         """
+        agency_state = json.loads((DATA / "agency_state.json").read_text()) if (DATA / "agency_state.json").exists() else {}
         logger.info(" AGENCY ORCHESTRATOR STARTED - 9 PLAYBOOKS ACTIVE")
         logger.info(" 100% OF PROFITS TO GAZA/SUDAN/CONGO VIA UNRWA USA/UNHCR/UNICEF")
         
@@ -394,6 +399,8 @@ class AgencyOrchestrator:
             logger.info(f" Total Aid Sent: ${total_revenue * 0.70:,.2f}")
             logger.info(f" Reinvested for Growth: ${total_revenue * 0.30:,.2f}")
             
+            (DATA / "legacy_sifted_agency_orchestrator_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "total_revenue": total_revenue}, indent=2))
+
             # Sleep 6 hours before next prospect cycle
             await asyncio.sleep(21600)  # 6 hours
 

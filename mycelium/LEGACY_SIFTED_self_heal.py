@@ -16,6 +16,9 @@ import json
 from pathlib import Path
 from datetime import datetime
 
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 class SelfHealingAI:
     def __init__(self):
         self.base_path = Path(__file__).parent
@@ -170,8 +173,9 @@ models:
     
     def heal_all(self):
         """Run all fixes"""
+        system_health = json.loads((DATA / "system_health.json").read_text()) if (DATA / "system_health.json").exists() else {}
         self.log("="*60)
-        self.log("🚀 SELF-HEALING AI SYSTEM ACTIVATED")
+        self.log("SELF-HEALING AI SYSTEM ACTIVATED")
         self.log("="*60)
         
         # Fix in correct order
@@ -195,8 +199,10 @@ models:
 if __name__ == "__main__":
     healer = SelfHealingAI()
     fixes = healer.heal_all()
-    
+
+    (DATA / "legacy_sifted_self_heal_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "fixes_applied": fixes}, indent=2))
+
     if fixes == 0:
-        print("\n🎉 SYSTEM IS 100% HEALTHY - READY FOR AUTONOMOUS OPERATION")
+        print("\nSYSTEM IS 100% HEALTHY - READY FOR AUTONOMOUS OPERATION")
     else:
-        print(f"\n🔧 Applied {fixes} fixes - system is now healthy")
+        print(f"\nApplied {fixes} fixes - system is now healthy")

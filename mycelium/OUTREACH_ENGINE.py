@@ -448,6 +448,14 @@ def run():
         "drafts_this_cycle": [d["org_name"] for d in new_drafts]
     }
     (DATA_DIR / "outreach_summary.json").write_text(json.dumps(summary, indent=2))
+
+    # Write engine state for LIVE_WIRE detection
+    (DATA_DIR / "outreach_engine_state.json").write_text(json.dumps({
+        "last_run": datetime.datetime.now().isoformat(),
+        "status": "completed",
+        "drafts_created": len(new_drafts),
+        "total_contacted": len(already)
+    }, indent=2))
     print(f"✅ OUTREACH_ENGINE complete — {len(new_drafts)} new drafts, {len(already)} total contacted")
 
 

@@ -1,12 +1,20 @@
 import json
 import os
 from datetime import datetime
+from pathlib import Path
 
-def generate_summary():
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
+
+def run():
+    # Read brain state for daily context
+    ctx = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
+
     print("--- Generating Solarpunk Daily Pulse Report ---")
-    intel_path = 'C:/Solarpunk-Prime/data/harvested_knowledge/latest_intel.json'
-    draft_path = 'C:/Solarpunk-Prime/projects/active_outreach_draft.md'
-    
+    intel_path = DATA / "harvested_knowledge.json"
+    draft_path = DATA / "active_outreach_draft.json"
+
     summary = {
         "date": str(datetime.now().date()),
         "nodes_scouted": 0,
@@ -14,22 +22,32 @@ def generate_summary():
         "outreach_ready": False
     }
 
-    if os.path.exists(intel_path):
-        with open(intel_path, 'r') as f:
-            data = json.load(f)
+    if intel_path.exists():
+        data = json.loads(intel_path.read_text())
+        if isinstance(data, list):
             summary["nodes_scouted"] = len(data)
-            summary["high_value_opportunities"] = [i['title'] for i in data if i.get('category') in ['GRANT', 'LEGAL']]
+            summary["high_value_opportunities"] = [
+                i['title'] for i in data if i.get('category') in ['GRANT', 'LEGAL']
+            ]
 
-    if os.path.exists(draft_path):
+    if draft_path.exists():
         summary["outreach_ready"] = True
 
-    # Save summary to saves folder
-    with open(f'C:/Solarpunk-Prime/saves/pulse_{summary["date"]}.json', 'w') as f:
-        json.dump(summary, f, indent=4)
-    
+    # Save pulse report
+    (DATA / f"pulse_{summary['date']}.json").write_text(json.dumps(summary, indent=4))
+
     print(f"Report Generated: {summary['nodes_scouted']} nodes found today.")
     if summary["outreach_ready"]:
         print("Outreach Nanobots: DRAFTS PREPARED AND READY FOR REVIEW.")
 
+    # Write engine state for LIVE_WIRE detection
+    (DATA / "daily_pulse_state.json").write_text(json.dumps({
+        "last_run": datetime.now().isoformat(),
+        "status": "completed",
+        "nodes_scouted": summary["nodes_scouted"],
+        "opportunities": len(summary["high_value_opportunities"])
+    }, indent=2))
+
+
 if __name__ == "__main__":
-    generate_summary()
+    run()

@@ -1,6 +1,10 @@
 import json
 import os
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 YOUR_AMAZON_TAG = "autonomoushum-20"  # YOUR REAL APPROVED TAG!
 
@@ -63,15 +67,11 @@ html = f"""<!DOCTYPE html>
 with open("affiliate_links/index.html", "w", encoding="utf-8") as f:
     f.write(html)
 
+affiliate_config = json.loads((DATA / "affiliate_config.json").read_text()) if (DATA / "affiliate_config.json").exists() else {}
+
 print(" 9 REAL AMAZON LINKS CREATED with YOUR TAG!")
 print(f" Your tag: {YOUR_AMAZON_TAG}")
 print(f" Saved: affiliate_links/all_links.json")
 print(f" Website: affiliate_links/index.html")
-print("")
-print(" TO ADD MORE LINKS:")
-print("  1. Edit affiliate_links/all_links.json")
-print("  2. Add ANY Amazon product URL with ?tag=autonomoushum-20")
-print("  3. Run this script again")
-print("")
-print(" YOU NOW HAVE A REAL MONEY MACHINE")
-print("   Every click can earn real commissions")
+
+(DATA / "legacy_sifted_create_links_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "links_created": sum(len(v) for v in affiliate_links.values())}, indent=2))

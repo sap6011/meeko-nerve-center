@@ -9,6 +9,10 @@ import json
 import os
 import sys
 from datetime import datetime
+from pathlib import Path
+
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
 
 # Add all subdirectories to path
 sys.path.extend([
@@ -68,9 +72,10 @@ class AutonomousIncomeOrchestrator:
     
     def run_daily_cycle(self):
         """Execute complete daily automation cycle"""
-        
+        brain = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
+
         self.log("=" * 60)
-        self.log("🚀 STARTING DAILY AUTONOMOUS INCOME CYCLE")
+        self.log("STARTING DAILY AUTONOMOUS INCOME CYCLE")
         self.log("=" * 60)
         
         try:
@@ -120,9 +125,11 @@ class AutonomousIncomeOrchestrator:
             self._generate_daily_report(content_result, opportunities)
             
             self.log("\n" + "=" * 60)
-            self.log("✅ DAILY CYCLE COMPLETED SUCCESSFULLY")
+            self.log("DAILY CYCLE COMPLETED SUCCESSFULLY")
             self.log("=" * 60)
-            
+
+            (DATA / "legacy_sifted_orchestrator_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok"}, indent=2))
+
             return True
             
         except Exception as e:

@@ -27,6 +27,10 @@ ROOT       = Path(__file__).parent.parent
 MIRROR_DIR = ROOT / "data" / "corporate_mirrors"
 ACTUAL_LOG = ROOT / "SOLARPUNK_ACTUAL.md"
 
+# ── LIVE_WIRE-compatible data path ──────────────────────────────────────────
+DATA = Path("data")
+DATA.mkdir(exist_ok=True)
+
 log = logging.getLogger("corporate_mirror")
 
 
@@ -198,9 +202,40 @@ def print_report(company_key: str):
     print(f"{'='*60}\n")
 
 
+def _write_state(results: dict):
+    """Write LIVE_WIRE-detectable state file with mirror summary."""
+    # Read brain state for context
+    brain = {}
+    brain_path = DATA / "brain_state.json"
+    if brain_path.exists():
+        try:
+            brain = json.loads(brain_path.read_text())
+        except Exception:
+            pass
+
+    state = {
+        "engine": "CORPORATE_MIRROR",
+        "ts": datetime.utcnow().isoformat(),
+        "mirrors_generated": len(results),
+        "companies": list(results.keys()),
+        "top_gains": [
+            {
+                "company": m.company,
+                "gain_per_worker": m.gain_per_worker,
+                "multiplier": m.salary_multiplier,
+            }
+            for m in sorted(results.values(), key=lambda m: m.gain_per_worker, reverse=True)[:3]
+        ],
+        "brain_cycle": brain.get("cycle", 0),
+        "status": "active",
+    }
+    (DATA / "corporate_mirror_state.json").write_text(json.dumps(state, indent=2))
+
+
 if __name__ == "__main__":
     print("Generating SolarPunk mirrors for all known S&P 500 companies...\n")
     results = generate_all()
+    _write_state(results)
     print(f"\nGenerated {len(results)} corporate mirrors.")
     print(f"Saved to: {MIRROR_DIR}")
     print("\nTop 3 biggest worker gains:")
