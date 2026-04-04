@@ -55,6 +55,9 @@ def execute_command(command, timeout=TASK_TIMEOUT):
     """Execute a shell command and return results."""
     start = time.time()
     try:
+        env = os.environ.copy()
+        env["PYTHONIOENCODING"] = "utf-8"
+        env["PYTHONUTF8"] = "1"
         # Handle compound commands (&&)
         if "&&" in command:
             parts = [p.strip() for p in command.split("&&")]
@@ -76,6 +79,7 @@ def execute_command(command, timeout=TASK_TIMEOUT):
                     text=True,
                     timeout=timeout,
                     cwd=str(Path.cwd()),
+                    env=env,
                     errors="replace",
                 )
                 output_lines = [l for l in result.stdout.split("\n") if l.strip()]

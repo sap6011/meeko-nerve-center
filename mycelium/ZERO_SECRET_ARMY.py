@@ -94,12 +94,16 @@ def run_engine(name, path, timeout=ENGINE_TIMEOUT):
     """Run a single engine and capture results."""
     start = time.time()
     try:
+        env = os.environ.copy()
+        env["PYTHONIOENCODING"] = "utf-8"
+        env["PYTHONUTF8"] = "1"
         result = subprocess.run(
             [sys.executable, path],
             capture_output=True,
             text=True,
             timeout=timeout,
             cwd=str(Path.cwd()),
+            env=env,
             errors="replace",
         )
         elapsed = time.time() - start

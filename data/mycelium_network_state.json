@@ -1,234 +1,309 @@
 {
-  "timestamp": "2026-03-27T18:49:18.846135+00:00",
+  "timestamp": "2026-04-04T16:16:52.609066+00:00",
   "protocol": "mycelium-network-v1",
   "nutrient_routing": {
-    "total_nodes": 244,
-    "producers": 86,
-    "consumers": 28,
+    "total_nodes": 314,
+    "producers": 213,
+    "consumers": 98,
     "top_producers": [
       {
         "name": "BRIDGE_BUILDER",
-        "level": 23.5,
+        "level": 139.5,
         "role": "producer",
-        "writes": 10,
-        "reads": 16,
-        "downstream_dependents": 36,
-        "upstream_feeders": 33
-      },
-      {
-        "name": "DISPATCH_HANDLER",
-        "level": 20.0,
-        "role": "producer",
-        "writes": 4,
-        "reads": 4,
-        "downstream_dependents": 21,
-        "upstream_feeders": 10
+        "writes": 16,
+        "reads": 27,
+        "downstream_dependents": 198,
+        "upstream_feeders": 127
       },
       {
         "name": "FIRST_SALE_NOTIFIER",
-        "level": 19.0,
+        "level": 68.0,
         "role": "producer",
         "writes": 5,
         "reads": 8,
-        "downstream_dependents": 30,
-        "upstream_feeders": 26
+        "downstream_dependents": 103,
+        "upstream_feeders": 74
+      },
+      {
+        "name": "DISPATCH_HANDLER",
+        "level": 61.5,
+        "role": "producer",
+        "writes": 4,
+        "reads": 4,
+        "downstream_dependents": 82,
+        "upstream_feeders": 49
       },
       {
         "name": "REVENUE_LOOP",
-        "level": 17.0,
+        "level": 59.0,
         "role": "producer",
         "writes": 5,
-        "reads": 5,
-        "downstream_dependents": 20,
-        "upstream_feeders": 16
+        "reads": 6,
+        "downstream_dependents": 87,
+        "upstream_feeders": 64
       },
       {
-        "name": "EMAIL_BRAIN",
-        "level": 15.5,
+        "name": "HEALTH_BOOSTER",
+        "level": 49.0,
         "role": "producer",
-        "writes": 5,
-        "reads": 5,
-        "downstream_dependents": 13,
-        "upstream_feeders": 5
+        "writes": 3,
+        "reads": 3,
+        "downstream_dependents": 69,
+        "upstream_feeders": 46
       }
     ],
     "steepest_gradients": [
       {
         "from": "BRIDGE_BUILDER",
-        "to": "VITAL_SIGN_API",
-        "via": "brain_state.json",
-        "gradient": 30.0,
-        "src_level": 23.5,
-        "dst_level": -6.5
+        "to": "OMNIBUS",
+        "via": "live_wire_report.json",
+        "gradient": 273.5,
+        "src_level": 139.5,
+        "dst_level": -134.0
       },
       {
         "from": "BRIDGE_BUILDER",
-        "to": "VITAL_SIGN_API",
-        "via": "sentinel_report.json",
-        "gradient": 30.0,
-        "src_level": 23.5,
-        "dst_level": -6.5
+        "to": "OMNIBUS",
+        "via": "brain_state.json",
+        "gradient": 273.5,
+        "src_level": 139.5,
+        "dst_level": -134.0
       },
       {
         "from": "BRIDGE_BUILDER",
-        "to": "SYNTHESIS_FACTORY",
-        "via": "brain_state.json",
-        "gradient": 27.5,
-        "src_level": 23.5,
-        "dst_level": -4.0
-      },
-      {
-        "from": "DISPATCH_HANDLER",
-        "to": "STORE_BUILDER",
-        "via": "revenue_inbox.json",
-        "gradient": 27.5,
-        "src_level": 20.0,
-        "dst_level": -7.5
+        "to": "OMNIBUS",
+        "via": "bridge_report.json",
+        "gradient": 273.5,
+        "src_level": 139.5,
+        "dst_level": -134.0
       },
       {
         "from": "BRIDGE_BUILDER",
-        "to": "SYNERGY_SCOUT",
-        "via": "knowledge_graph.json",
-        "gradient": 27.0,
-        "src_level": 23.5,
-        "dst_level": -3.5
+        "to": "OMNIBUS",
+        "via": "desktop_daemon_state.json",
+        "gradient": 273.5,
+        "src_level": 139.5,
+        "dst_level": -134.0
       },
       {
         "from": "BRIDGE_BUILDER",
-        "to": "SYNAPSE",
-        "via": "brain_state.json",
-        "gradient": 27.0,
-        "src_level": 23.5,
-        "dst_level": -3.5
+        "to": "OMNIBUS",
+        "via": "chimera_evolution_report.json",
+        "gradient": 273.5,
+        "src_level": 139.5,
+        "dst_level": -134.0
       },
       {
-        "from": "DISPATCH_HANDLER",
-        "to": "VITAL_SIGN_API",
-        "via": "brain_state.json",
-        "gradient": 26.5,
-        "src_level": 20.0,
-        "dst_level": -6.5
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "mutation_vault.json",
+        "gradient": 273.5,
+        "src_level": 139.5,
+        "dst_level": -134.0
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "product_registry.json",
+        "gradient": 273.5,
+        "src_level": 139.5,
+        "dst_level": -134.0
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
-        "to": "STORE_BUILDER",
-        "via": "revenue_inbox.json",
-        "gradient": 26.5,
-        "src_level": 19.0,
-        "dst_level": -7.5
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "VALUE_GENERATOR",
-        "via": "knowledge_graph.json",
-        "gradient": 26.0,
-        "src_level": 23.5,
-        "dst_level": -2.5
+        "to": "OMNIBUS",
+        "via": "brain_state.json",
+        "gradient": 202.0,
+        "src_level": 68.0,
+        "dst_level": -134.0
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
-        "to": "VITAL_SIGN_API",
-        "via": "brain_state.json",
-        "gradient": 25.5,
-        "src_level": 19.0,
-        "dst_level": -6.5
+        "to": "OMNIBUS",
+        "via": "first_sale_state.json",
+        "gradient": 202.0,
+        "src_level": 68.0,
+        "dst_level": -134.0
+      },
+      {
+        "from": "FIRST_SALE_NOTIFIER",
+        "to": "OMNIBUS",
+        "via": "revenue_inbox.json",
+        "gradient": 202.0,
+        "src_level": 68.0,
+        "dst_level": -134.0
       }
     ]
   },
   "adaptive_growth": {
-    "total_wires": 442,
-    "strengthen": 442,
-    "monitor": 0,
-    "prune": 0
+    "total_wires": 4996,
+    "strengthen": 4915,
+    "monitor": 18,
+    "prune": 63
   },
   "anastomosis": {
-    "broken_wires": 0,
-    "hungry_inputs": 17,
+    "broken_wires": 63,
+    "hungry_inputs": 61,
     "breaks": [
       {
-        "type": "hungry_input",
-        "file": "SOCIAL_QUEUE.txt",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "AUTO_HEALER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "brave_browser_state.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "AUTONOMOUS_TESTER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "conversion_log.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "DEEP_RESEARCHER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "grants_found.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "EVOLUTION_VIEWER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "knowledge_bank.txt",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "EXTERNAL_VALUE_ROUTER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "neuron_a_report.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "neuron_b_report.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "OFFLINE_BRAIN",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "newsletter_subscribers.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "OMNIBUS",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "pending_publication.txt",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "PASSIVE_INCOME_ARCHITECT",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "quick_revenue.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "REPO_SPIDER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "resurrections.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "SWARM_TOOLBOX",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "something",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "SYNERGY_SCOUT",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "sponsors_inbox.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "CROSS_POLLINATOR",
+        "to": "TASK_ATOMIZER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "storefront_builder_state.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "to": "AUTO_HEALER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "synergy_mutations.txt",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "to": "AUTONOMOUS_TESTER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "system_directive.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "to": "CROSS_POLLINATOR",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "|DATA\\s*/\\s*[",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "to": "DEEP_RESEARCHER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
+      },
+      {
+        "type": "broken_wire",
+        "from": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "to": "EVOLUTION_VIEWER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
+      },
+      {
+        "type": "broken_wire",
+        "from": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "to": "EXTERNAL_VALUE_ROUTER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
+      },
+      {
+        "type": "broken_wire",
+        "from": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "to": "OFFLINE_BRAIN",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       }
     ]
   },
@@ -239,86 +314,91 @@
   },
   "signals": [
     {
-      "type": "PEST_ALERT",
-      "severity": "medium",
-      "message": "1 engines failing syntax checks",
-      "source": "sentinel",
+      "type": "DROUGHT_WARNING",
+      "severity": "high",
+      "message": "50 producer connections broken",
+      "source": "nutrient_routing",
       "affected": [
-        "SWARM_TOOLBOX.py"
+        "SWARM_TOOLBOX",
+        "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "PASSIVE_INCOME_ARCHITECT",
+        "REPO_SPIDER"
       ],
-      "biology": "Bark beetle attack detected -- VOC warning sent to neighbors"
+      "biology": "Major root system damaged -- nutrient flow disrupted downstream"
     },
     {
       "type": "NUTRIENT_DEFICIT",
       "severity": "medium",
-      "message": "8 engines severely nutrient-depleted",
+      "message": "61 engines severely nutrient-depleted",
       "source": "nutrient_routing",
       "affected": [
-        "GRANT_APPLICANT",
-        "PROOF_LEDGER",
-        "RESONANCE_CONVERTER",
-        "STORE_BUILDER",
-        "SYNAPSE",
-        "SYNERGY_SCOUT",
-        "SYNTHESIS_FACTORY",
-        "VITAL_SIGN_API"
+        "AGENT_TWEET_WRITER",
+        "ai_council",
+        "AMPLIFY_ENGINE",
+        "ARCHITECT",
+        "AUTO_HEALER",
+        "AUTONOMOUS_TESTER",
+        "AUTONOMY_PROOF",
+        "BIG_BRAIN_ORACLE",
+        "BIOLUMINESCENCE",
+        "CATALOG_GENERATOR"
       ],
       "biology": "Shaded understory trees need carbon transfer from canopy"
     },
     {
       "type": "NETWORK_PULSE",
       "severity": "info",
-      "message": "Network health: 100% (442/442 wires healthy)",
+      "message": "Network health: 98% (4915/4996 wires healthy)",
       "source": "mycelium_network",
       "biology": "Seasonal growth assessment -- overall forest vitality check"
     }
   ],
   "reciprocal_rewards": {
-    "mutualists": 48,
-    "balanced": 176,
-    "consumers": 5,
-    "inert": 15,
+    "mutualists": 185,
+    "balanced": 57,
+    "consumers": 27,
+    "inert": 45,
     "top_mutualists": [
       {
-        "name": "SOCIAL_DASHBOARD",
-        "reciprocity": 12.0,
+        "name": "AI_CLIENT",
+        "reciprocity": 30.5,
         "role": "mutualist",
-        "giving": 12,
-        "taking": 1
-      },
-      {
-        "name": "AGENT_TWEET_WRITER",
-        "reciprocity": 10.0,
-        "role": "mutualist",
-        "giving": 1,
-        "taking": 0
-      },
-      {
-        "name": "DEV_TO_PUBLISHER",
-        "reciprocity": 7.33,
-        "role": "mutualist",
-        "giving": 22,
-        "taking": 3
-      },
-      {
-        "name": "SOCIAL_PROMOTER",
-        "reciprocity": 6.5,
-        "role": "mutualist",
-        "giving": 13,
+        "giving": 61,
         "taking": 2
       },
       {
-        "name": "DISPATCH_HANDLER",
-        "reciprocity": 6.25,
+        "name": "archivist",
+        "reciprocity": 30.5,
         "role": "mutualist",
-        "giving": 25,
-        "taking": 4
+        "giving": 61,
+        "taking": 2
+      },
+      {
+        "name": "AUTO_RUNNER",
+        "reciprocity": 30.5,
+        "role": "mutualist",
+        "giving": 61,
+        "taking": 2
+      },
+      {
+        "name": "CORPORATE_MIRROR",
+        "reciprocity": 30.5,
+        "role": "mutualist",
+        "giving": 61,
+        "taking": 2
+      },
+      {
+        "name": "DESKTOP_HARVESTER",
+        "reciprocity": 30.5,
+        "role": "mutualist",
+        "giving": 61,
+        "taking": 2
       }
     ]
   },
   "network_memory": {
-    "cycles_tracked": 5,
-    "new_connections": 0,
+    "cycles_tracked": 6,
+    "new_connections": 4416,
     "persisted": 414,
     "lost": 0
   },

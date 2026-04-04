@@ -1,27 +1,27 @@
 {
-  "timestamp": "2026-04-04T15:00:38.004682+00:00",
-  "claimed_wires": 4723,
-  "audited_wires": 4723,
+  "timestamp": "2026-04-04T16:43:12.772127+00:00",
+  "claimed_wires": 5015,
+  "audited_wires": 5015,
   "wire_classifications": {
-    "REAL": 4452,
-    "THIN": 225,
+    "REAL": 4693,
+    "THIN": 288,
     "STUB": 20,
-    "DEAD": 26,
+    "DEAD": 14,
     "STALE": 0
   },
-  "real_wires": 4452,
-  "thin_wires": 225,
+  "real_wires": 4693,
+  "thin_wires": 288,
   "stub_wires": 20,
-  "dead_wires": 26,
+  "dead_wires": 14,
   "stale_wires": 0,
-  "honest_real_count": 4677,
+  "honest_real_count": 4981,
   "honest_percentage": 99,
-  "unique_data_files": 412,
+  "unique_data_files": 442,
   "file_classifications": {
-    "REAL": 170,
-    "THIN": 86,
-    "STUB": 4,
-    "DEAD": 152
+    "REAL": 187,
+    "THIN": 112,
+    "DEAD": 128,
+    "STUB": 15
   },
   "top_real_engines": [
     {
@@ -78,18 +78,6 @@
       },
       "read_quality": {
         "REAL": 1
-      }
-    },
-    {
-      "name": "AMPLIFY_ENGINE",
-      "total_score": 15,
-      "max_possible": 15,
-      "percentage": 100,
-      "writes": 0,
-      "reads": 5,
-      "write_quality": {},
-      "read_quality": {
-        "REAL": 5
       }
     },
     {
@@ -157,13 +145,25 @@
       "read_quality": {
         "REAL": 1
       }
+    },
+    {
+      "name": "AUTO_HEALER",
+      "total_score": 3,
+      "max_possible": 3,
+      "percentage": 100,
+      "writes": 0,
+      "reads": 1,
+      "write_quality": {},
+      "read_quality": {
+        "REAL": 1
+      }
     }
   ],
-  "zero_real_engines": 13,
+  "zero_real_engines": 10,
   "engine_scores_summary": {
-    "total": 302,
-    "above_50pct": 255,
-    "above_0pct": 289,
-    "at_0pct": 13
+    "total": 316,
+    "above_50pct": 275,
+    "above_0pct": 306,
+    "at_0pct": 10
   }
 }

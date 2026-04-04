@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-04T15:05:48.576990+00:00",
+  "timestamp": "2026-04-04T16:42:36.305669+00:00",
   "bridges_attempted": 64,
   "bridges_built": 17,
   "bridges_failed": 47,
@@ -8,7 +8,9 @@
     "*_report.json",
     "active_outreach_draft.json",
     "aggregated_summary.json",
+    "bundle_forge_state.json",
     "business_*.json",
+    "catalog_generator_state.json",
     "chimera_score.json",
     "content_harvest_state.json",
     "dev_to_publisher_state.json",
@@ -37,36 +39,36 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 304 pass, 0 fail out of 304 engines",
-      "pass": 304,
+      "detail": "Local sentinel: 316 pass, 0 fail out of 316 engines",
+      "pass": 316,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 460 nodes, 4730 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 460,
-      "edges": 4730,
+      "detail": "Knowledge graph: 482 nodes, 5015 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 482,
+      "edges": 5015,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          309
+          326
         ],
         [
           "OMNIBUS",
-          186
+          197
         ],
         [
           "FIRST_SALE_NOTIFIER",
-          174
+          177
         ],
         [
           "REVENUE_LOOP",
-          148
+          151
         ],
         [
-          "DISPATCH_HANDLER",
-          129
+          "METRICS_DASHBOARD",
+          134
         ]
       ],
       "target": "knowledge_graph.json"
@@ -89,7 +91,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 304 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 316 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -109,7 +111,7 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 302",
+      "detail": "Healed 0, scanned 316",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -118,8 +120,8 @@
       "target": "mutation_leaderboard.json"
     },
     {
-      "status": "NO_SOURCE",
-      "detail": "polymarket_scan.json not found -- run POLYMARKET_SCANNER",
+      "status": "ALREADY_EXISTS",
+      "detail": "Markets scanned: 100, edges: 41",
       "target": "polymarket_scan.json"
     },
     {
@@ -224,7 +226,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (304 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (316 pass)",
       "target": "sentinel_scan.json"
     },
     {
