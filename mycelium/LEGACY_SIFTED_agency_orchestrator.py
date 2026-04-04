@@ -46,7 +46,7 @@ class AgencyOrchestrator:
             "instantly": os.getenv("INSTANTLY_API_KEY"),
             
             # Playbook 3: Content Agency
-            "claude": os.environ.get("ANTHROPIC_API_KEY", "").strip(),
+            "claude": os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip(),
             "surfer": os.getenv("SURFERSEO_KEY"),
             "wordpress": os.getenv("WP_URL"),
             
