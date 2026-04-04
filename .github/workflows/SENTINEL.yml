@@ -209,6 +209,7 @@ jobs:
           PYEOF
 
       - name: Commit SENTINEL results
+        if: github.ref == 'refs/heads/main'
         run: |
           REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           git config user.name 'SENTINEL'
