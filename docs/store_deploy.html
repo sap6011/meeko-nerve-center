@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STOREFRONT DEPLOYER -- Deployment Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a0a0a;color:#d4d4d4;padding:24px;max-width:1000px;margin:0 auto}
+h1{color:#00ff88;margin-bottom:4px;font-size:1.8em}
+h2{color:#22c55e;margin:28px 0 12px;font-size:1.2em;border-bottom:1px solid #1a3320;padding-bottom:6px}
+h3{color:#4ade80;font-size:1em;margin-bottom:8px}
+.subtitle{color:#888;margin-bottom:20px;font-size:0.9em;font-style:italic}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat{background:#111;border:1px solid #222;border-radius:6px;padding:12px;text-align:center}
+.stat .val{font-size:1.4em;font-weight:700;color:#00ff88}
+.stat .val.warn{color:#f59e0b}
+.stat .val.danger{color:#ef4444}
+.stat .lbl{font-size:0.75em;color:#666;margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:0.85em;margin-top:8px}
+th{text-align:left;color:#00ff88;border-bottom:1px solid #333;padding:8px 6px}
+td{border-bottom:1px solid #1a1a1a;padding:8px 6px;color:#aaa}
+td.prod-name{color:#d4d4d4;font-weight:600}
+.status{padding:2px 8px;border-radius:3px;font-size:0.75em;font-weight:700;letter-spacing:0.05em}
+.status.live{background:#14532d;color:#4ade80;border:1px solid #22c55e}
+.status.pending{background:#1c1200;color:#f59e0b;border:1px solid #d97706}
+.status.none{background:#1a1a1a;color:#666;border:1px solid #333}
+.checklist-product{background:#111;border:1px solid #222;border-radius:6px;padding:16px;margin-bottom:12px}
+.checklist-note{color:#666;font-size:0.85em;padding:8px 0;font-style:italic}
+.paste-block{margin-top:8px}
+.paste-label{color:#888;font-size:0.75em;margin-top:10px;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em}
+.paste-text{background:#0d1410;border:1px solid rgba(0,255,136,.13);border-radius:4px;padding:8px 10px;font-size:0.82em;color:#d4d4d4;white-space:pre-wrap;word-wrap:break-word;font-family:'Courier New',monospace;cursor:text;user-select:all;max-height:200px;overflow-y:auto}
+.platform-bar{display:flex;gap:12px;margin:16px 0;flex-wrap:wrap}
+.platform-card{background:#111;border:1px solid #222;border-radius:6px;padding:12px 16px;flex:1;min-width:200px}
+.platform-card .name{color:#00ff88;font-weight:700;font-size:0.9em}
+.platform-card .detail{color:#666;font-size:0.75em;margin-top:4px}
+.platform-card a{color:#4ade80;font-size:0.8em}
+.progress-bar{background:#1a1a1a;border-radius:4px;height:20px;margin:12px 0;overflow:hidden;border:1px solid #222}
+.progress-fill{height:100%;background:linear-gradient(90deg,#00ff88,#22c55e);border-radius:4px;transition:width 0.3s;display:flex;align-items:center;justify-content:center;font-size:0.7em;font-weight:700;color:#0a0a0a}
+.action-box{background:#0d1410;border:1px solid rgba(0,255,136,.2);border-radius:6px;padding:16px;margin:16px 0}
+.action-box .action-title{color:#00ff88;font-weight:700;margin-bottom:8px}
+.action-box .action-url{font-size:0.85em}
+.action-box .action-url a{color:#4ade80}
+.ts{color:#444;font-size:0.7em;margin-top:20px;text-align:center}
+.pcrf{margin-top:24px;padding:12px;background:#0a1a0a;border:1px solid #334433;border-radius:6px;color:#86efac;font-size:0.82em;text-align:center}
+</style>
+</head>
+<body>
+<h1>STOREFRONT DEPLOYER</h1>
+<p class="subtitle">Deployment Dashboard -- What is listed where</p>
+
+<div class="stat-grid">
+<div class="stat"><div class="val">11</div><div class="lbl">Total Products</div></div>
+<div class="stat"><div class="val warn">2 / 33</div><div class="lbl">Listings Live</div></div>
+<div class="stat"><div class="val">0</div><div class="lbl">Ko-fi Live</div></div>
+<div class="stat"><div class="val">0</div><div class="lbl">Gumroad Live</div></div>
+<div class="stat"><div class="val">2</div><div class="lbl">GitHub Live</div></div>
+<div class="stat"><div class="val">$78.00</div><div class="lbl">Catalog Value</div></div>
+</div>
+
+<h2>Deployment Coverage</h2>
+<div class="progress-bar">
+<div class="progress-fill" style="width:6%">6%</div>
+</div>
+
+<h2>Platforms</h2>
+<div class="platform-bar">
+<div class="platform-card">
+<div class="name">Ko-fi Shop (PRIMARY)</div>
+<div class="detail">Free, no approval, instant listing</div>
+<a href="https://ko-fi.com/manage/shop" target="_blank">Open Dashboard</a>
+</div>
+<div class="platform-card">
+<div class="name">Gumroad (SECONDARY)</div>
+<div class="detail">10% fee, account activation needed</div>
+<a href="https://app.gumroad.com/products" target="_blank">Open Dashboard</a>
+</div>
+<div class="platform-card">
+<div class="name">GitHub Releases (TERTIARY)</div>
+<div class="detail">Free hosting, link to Ko-fi for payment</div>
+<a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/releases" target="_blank">View Releases</a>
+</div>
+</div>
+
+<h2>Product Deployment Matrix</h2>
+<table>
+<tr><th>Product</th><th>Price</th><th>Ko-fi</th><th>Gumroad</th><th>GitHub</th></tr>
+<tr><td class='prod-name'>How to Build a 300-Engine Autonomous AI System</td><td>$12.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td></tr>
+<tr><td class='prod-name'>Bio Inspired Architecture</td><td>$1.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td></tr>
+<tr><td class='prod-name'>AI Builder Kit</td><td>$10.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td></tr>
+<tr><td class='prod-name'>Complete SolarPunk Bundle</td><td>$25.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td></tr>
+<tr><td class='prod-name'>Content Creator Pack</td><td>$6.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td></tr>
+<tr><td class='prod-name'>Developer Starter Pack</td><td>$8.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td></tr>
+<tr><td class='prod-name'>SolarPunk Engine Encyclopedia</td><td>$8.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td></tr>
+<tr><td class='prod-name'>Ethical AI Revenue Playbook</td><td>$5.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td></tr>
+<tr><td class='prod-name'>Build a Local AI Agent with Ollama</td><td>$1.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status live">LIVE</span></td></tr>
+<tr><td class='prod-name'>Build Your Own SolarPunk</td><td>$1.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status live">LIVE</span></td></tr>
+<tr><td class='prod-name'>System Snapshot</td><td>$1.00</td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td><td><span class="status none">NOT LISTED</span></td></tr>
+
+</table>
+
+<h2>Next Action</h2>
+<div class="action-box">
+<div class="action-title">List products on Ko-fi Shop</div>
+<p>11 products ready to list. Copy-paste blocks below.</p>
+<div class="action-url"><a href="https://ko-fi.com/manage/shop" target="_blank">Open Ko-fi Shop Dashboard</a></div>
+</div>
+
+<h2>Copy-Paste Deployment Checklists</h2>
+<p style="color:#888;font-size:0.85em;margin-bottom:12px">Each block below is ready to paste directly into Ko-fi. Select all text in each field, copy, paste.</p>
+<div class="checklist-product">
+<h3>How to Build a 300-Engine Autonomous AI System ($12.00)</h3>
+<div class="paste-block">
+<div class="paste-label">Title (copy this):</div>
+<pre class="paste-text">How to Build a 300-Engine Autonomous AI System</pre>
+<div class="paste-label">Description (copy this):</div>
+<pre class="paste-text">How to Build a 300-Engine Autonomous AI System -- from the SolarPunk autonomous AI system.
+
+WHAT YOU GET:
+- 5,500 words of practical, battle-tested content
+- 16 sections with real implementation patterns
+- Instant digital download (.md format)
+- Works with any text editor or Markdown viewer
+
+Built by a 300-engine autonomous AI system.
+99% of revenue goes to mutual aid (PCRF, IRC, MSF).</pre>
+<div class="paste-label">Price:</div>
+<pre class="paste-text">$12.00</pre>
+<div class="paste-label">Tags:</div>
+<pre class="paste-text">solarpunk, ai, automation, python, tutorial</pre>
+<div class="paste-label">Cover Image:</div>
+<pre class="paste-text">Use Star of Hope art piece as cover image</pre>
+</div>
+</div>
+<div class="checklist-product">
+<h3>Bio Inspired Architecture ($1.00)</h3>
+<div class="paste-block">
+<div class="paste-label">Title (copy this):</div>
+<pre class="paste-text">Bio Inspired Architecture</pre>
+<div class="paste-label">Description (copy this):</div>
+<pre class="paste-text">Bio Inspired Architecture -- from the SolarPunk autonomous AI system.
+
+WHAT YOU GET:
+- 3,068 words of practical, battle-tested content
+- 13 sections with real implementation patterns
+- Instant digital download (.md format)
+- Works with any text editor or Markdown viewer
+
+Built by a 300-engine autonomous AI system.
+99% of revenue goes to mutual aid (PCRF, IRC, MSF).</pre>
+<div class="paste-label">Price:</div>
+<pre class="paste-text">$1.00</pre>
+<div class="paste-label">Tags:</div>
+<pre class="paste-text">solarpunk, ai, automation, python, tutorial</pre>
+<div class="paste-label">Cover Image:</div>
+<pre class="paste-text">Use Ancient Olive Grove art piece as cover image</pre>
+</div>
+</div>
+<div class="checklist-product">
+<h3>AI Builder Kit ($10.00)</h3>
+<div class="paste-block">
+<div class="paste-label">Title (copy this):</div>
+<pre class="paste-text">AI Builder Kit</pre>
+<div class="paste-label">Description (copy this):</div>
+<pre class="paste-text">AI Builder Kit -- from the SolarPunk autonomous AI system.
+
+BUNDLE INCLUDES:
+- Ebook
+- Ai Prompt Templates
+- Solarpunk Config Templates
+Save 50% vs buying separately.
+
+WHAT YOU GET:
+- 7,243 words of practical, battle-tested content
+- 153 sections with real implementation patterns
+- Instant digital download (.md format)
+- Works with any text editor or Markdown viewer
+
+Built by a 300-engine autonomous AI system.
+99% of revenue goes to mutual aid (PCRF, IRC, MSF).</pre>
+<div class="paste-label">Price:</div>
+<pre class="paste-text">$10.00</pre>
+<div class="paste-label">Tags:</div>
+<pre class="paste-text">solarpunk, ai, automation, bundle, value-pack</pre>
+<div class="paste-label">Cover Image:</div>
+<pre class="paste-text">Green circuit/bundle aesthetic</pre>
+</div>
+</div>
+<div class="checklist-product">
+<h3>Complete SolarPunk Bundle ($25.00)</h3>
+<div class="paste-block">
+<div class="paste-label">Title (copy this):</div>
+<pre class="paste-text">Complete SolarPunk Bundle</pre>
+<div class="paste-label">Description (copy this):</div>
+<pre class="paste-text">Complete SolarPunk Bundle -- from the SolarPunk autonomous AI system.
+
+BUNDLE INCLUDES:
+- Ebook
+- Python Templates
+- Github Templates
+- Ai Prompt Templates
+- Solarpunk Config Templates
+- Ethics Playbook
+Save 24% vs buying separately.
+
+WHAT YOU GET:
+- 11,464 words of practical, battle-tested content
+- 279 sections with real implementation patterns
+- Instant digital download (.md format)
+- Works with any text editor or Markdown viewer
+
+Built by a 300-engine autonomous AI system.
+99% of revenue...</pre>
+<div class="paste-label">Price:</div>
+<pre class="paste-text">$25.00</pre>
+<div class="paste-label">Tags:</div>
+<pre class="paste-text">solarpunk, ai, automation, bundle, value-pack</pre>
+<div class="paste-label">Cover Image:</div>
+<pre class="paste-text">Green circuit/bundle aesthetic</pre>
+</div>
+</div>
+<div class="checklist-product">
+<h3>Content Creator Pack ($6.00)</h3>
+<div class="paste-block">
+<div class="paste-label">Title (copy this):</div>
+<pre class="paste-text">Content Creator Pack</pre>
+<div class="paste-label">Description (copy this):</div>
+<pre class="paste-text">Content Creator Pack -- from the SolarPunk autonomous AI system.
+
+BUNDLE INCLUDES:
+- Ai Prompt Templates
+- Solarpunk Config Templates
+Save 25% vs buying separately.
+
+WHAT YOU GET:
+- 3,105 words of practical, battle-tested content
+- 121 sections with real implementation patterns
+- Instant digital download (.md format)
+- Works with any text editor or Markdown viewer
+
+Built by a 300-engine autonomous AI system.
+99% of revenue goes to mutual aid (PCRF, IRC, MSF).</pre>
+<div class="paste-label">Price:</div>
+<pre class="paste-text">$6.00</pre>
+<div class="paste-label">Tags:</div>
+<pre class="paste-text">solarpunk, ai, automation, bundle, value-pack</pre>
+<div class="paste-label">Cover Image:</div>
+<pre class="paste-text">Green circuit/bundle aesthetic</pre>
+</div>
+</div>
+<div class="checklist-note">... and 6 more products to list</div>
+
+
+<div class="pcrf">99% of revenue goes to mutual aid. PCRF EIN: 93-1057665.</div>
+<div class="ts">Generated 2026-04-05T00:51 UTC by STOREFRONT_DEPLOYER | Cycle 2</div>
+</body>
+</html>

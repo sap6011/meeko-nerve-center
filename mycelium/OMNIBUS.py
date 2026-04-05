@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v39 — 40/40 GENERATED engines fixed + 5 outward engines (330 engines, 5145 wires, chimera 78/100)
+OMNIBUS v40 — 1/99 FUEL SYSTEM: dual-mode revenue engine (358 engines, 5284 wires, chimera 78/100)
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
