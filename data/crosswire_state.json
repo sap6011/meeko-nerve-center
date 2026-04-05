@@ -1,7 +1,7 @@
 {
   "engine": "DUAL_SYSTEM_CROSSWIRE",
   "created_at": "2026-04-05T01:08:45.697654+00:00",
-  "cycles": 13,
+  "cycles": 14,
   "announced_products": [
     "autonomous-system-guide",
     "bio-inspired-architecture",
@@ -15,11 +15,11 @@
     "solarpunk-starter",
     "system-snapshot"
   ],
-  "last_run": "2026-04-05T17:59:29.287483+00:00",
+  "last_run": "2026-04-05T18:11:40.849122+00:00",
   "last_results": {
     "content_to_social": {
-      "injected": 5,
-      "total_posts": 224
+      "injected": 0,
+      "total_posts": 254
     },
     "revenue_to_both": {
       "total_earned": 0.0,
@@ -62,20 +62,20 @@
       "note": "No grants found yet"
     },
     "report": {
-      "active_wires": 4,
-      "idle_wires": 3,
-      "total_items_flowing": 12,
+      "active_wires": 3,
+      "idle_wires": 4,
+      "total_items_flowing": 7,
       "gaps": 1
     }
   },
-  "last_elapsed_s": 0.007,
+  "last_elapsed_s": 0.006,
   "cross_connections": [
     {
       "wire": "CONTENT -> SOCIAL",
       "from": "growth_flywheel_content.json",
       "to": "social_queue.json",
-      "status": "active",
-      "items_flowing": 5
+      "status": "idle",
+      "items_flowing": 0
     },
     {
       "wire": "REVENUE -> BOTH",
@@ -141,7 +141,7 @@
       "engine": "SOCIAL_DASHBOARD",
       "description": "Social post queue",
       "status": "active",
-      "size": 63937
+      "size": 70474
     },
     {
       "file": "fuel_plan.json",

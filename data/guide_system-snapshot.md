@@ -86,31 +86,31 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
-- GENERATED_SWARM_COORDINATOR_CONSUMER -> OMNIBUS via `swarm_state.json` (zero-secrets)
-- GENERATED_SWARM_COORDINATOR_CONSUMER -> SWARM_COORDINATOR via `swarm_state.json`
-- SWARM_COORDINATOR -> GENERATED_SWARM_COORDINATOR_CONSUMER via `swarm_state.json`
-- SWARM_COORDINATOR -> OMNIBUS via `swarm_state.json`
+- PASSIVE_INCOME_ARCHITECT -> OMNIBUS via `passive_income_state.json`
+- MICRO_PRODUCT_FACTORY -> OMNIBUS via `micro_product_factory_report.json` (zero-secrets)
 - EMAIL_BRAIN -> CALENDAR_BRAIN via `appointments_inbox.json`
-- RESOURCE_ALLOCATOR -> GENERATED_RESOURCE_ALLOCATOR_CONSUMER via `resource_allocator_state.json` (zero-secrets)
-- GENERATED_HUMAN_PAYOUT_CONSUMER -> AUTONOMY_PROOF via `payout_ledger.json` (zero-secrets)
-- GENERATED_HUMAN_PAYOUT_CONSUMER -> HUMAN_PAYOUT via `payout_ledger.json`
-- GENERATED_HUMAN_PAYOUT_CONSUMER -> OMNIBUS via `payout_ledger.json` (zero-secrets)
-- GENERATED_HUMAN_PAYOUT_CONSUMER -> PAYPAL_PAYOUT via `payout_ledger.json`
-- HUMAN_PAYOUT -> AUTONOMY_PROOF via `payout_ledger.json`
-- HUMAN_PAYOUT -> GENERATED_HUMAN_PAYOUT_CONSUMER via `payout_ledger.json`
-- HUMAN_PAYOUT -> OMNIBUS via `payout_ledger.json`
-- HUMAN_PAYOUT -> PAYPAL_PAYOUT via `payout_ledger.json`
-- PAYPAL_PAYOUT -> AUTONOMY_PROOF via `payout_ledger.json`
-- PAYPAL_PAYOUT -> GENERATED_HUMAN_PAYOUT_CONSUMER via `payout_ledger.json`
-- PAYPAL_PAYOUT -> HUMAN_PAYOUT via `payout_ledger.json`
-- PAYPAL_PAYOUT -> OMNIBUS via `payout_ledger.json`
-- GENERATED_TRANSFER_NEEDED_POPULATOR -> NIGHTLY_DIGEST via `transfer_needed.json`
-- GENERATED_TRANSFER_NEEDED_POPULATOR -> PROOF_LEDGER via `transfer_needed.json` (zero-secrets)
-- PROOF_LEDGER -> GENERATED_TRANSFER_NEEDED_POPULATOR via `transfer_needed.json` (zero-secrets)
-- PROOF_LEDGER -> NIGHTLY_DIGEST via `transfer_needed.json`
-- CYCLE_MEMORY -> GENERATED_CYCLE_MEMORY_CONSUMER via `cycle_ledger.json` (zero-secrets)
-- GENERATED_CYCLE_MEMORY_CONSUMER -> CYCLE_MEMORY via `cycle_ledger.json` (zero-secrets)
-- REVENUE_FLYWHEEL -> ARCHITECT via `flywheel_summary.json`
+- ART_CATALOG -> BRIDGE_BUILDER via `art_catalog.json` (zero-secrets)
+- ART_CATALOG -> GENERATED_ART_CATALOG_CONSUMER via `art_catalog.json` (zero-secrets)
+- ART_CATALOG -> STOREFRONT_DEPLOYER via `art_catalog.json` (zero-secrets)
+- GENERATED_ART_CATALOG_CONSUMER -> ART_CATALOG via `art_catalog.json` (zero-secrets)
+- GENERATED_ART_CATALOG_CONSUMER -> BRIDGE_BUILDER via `art_catalog.json` (zero-secrets)
+- GENERATED_ART_CATALOG_CONSUMER -> STOREFRONT_DEPLOYER via `art_catalog.json` (zero-secrets)
+- SUBSTACK_ENGINE -> GROWTH_CHAIN via `substack_state.json`
+- MEMORY_PALACE -> GENERATED_MEMORY_PALACE_CONSUMER via `lessons.json` (zero-secrets)
+- LEGACY_SIFTED_auto_monetizer -> EXTERNAL_VALUE_ROUTER via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_auto_monetizer -> LEGACY_SIFTED_distribution_engine via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_auto_monetizer -> LEGACY_SIFTED_humanitarian_revenue via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_auto_monetizer -> LEGACY_SIFTED_humanitarian_revenue_engine via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_auto_monetizer -> LEGACY_SIFTED_money_tracker via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_auto_monetizer -> REVENUE_RECYCLER via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_auto_monetizer -> revenue_aggregator via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_distribution_engine -> EXTERNAL_VALUE_ROUTER via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_distribution_engine -> LEGACY_SIFTED_auto_monetizer via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_distribution_engine -> LEGACY_SIFTED_humanitarian_revenue via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_distribution_engine -> LEGACY_SIFTED_humanitarian_revenue_engine via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_distribution_engine -> LEGACY_SIFTED_money_tracker via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_distribution_engine -> REVENUE_RECYCLER via `revenue_data.json` (zero-secrets)
+- LEGACY_SIFTED_distribution_engine -> revenue_aggregator via `revenue_data.json` (zero-secrets)
 - ... and 5769 more connections
 
 ## Knowledge Graph
@@ -131,7 +131,7 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-05 17:59 UTC
+- **Generated**: 2026-04-05 18:11 UTC
 - **Data source**: data/live_wire_report.json
 - **Engines scanned**: 389
 
