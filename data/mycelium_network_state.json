@@ -1,28 +1,37 @@
 {
-  "timestamp": "2026-04-05T00:57:10.897903+00:00",
+  "timestamp": "2026-04-05T12:31:22.996002+00:00",
   "protocol": "mycelium-network-v1",
   "nutrient_routing": {
-    "total_nodes": 359,
-    "producers": 245,
-    "consumers": 106,
+    "total_nodes": 379,
+    "producers": 263,
+    "consumers": 109,
     "top_producers": [
       {
         "name": "BRIDGE_BUILDER",
-        "level": 153.5,
+        "level": 156.5,
         "role": "producer",
         "writes": 16,
         "reads": 27,
-        "downstream_dependents": 214,
-        "upstream_feeders": 131
+        "downstream_dependents": 220,
+        "upstream_feeders": 137
       },
       {
         "name": "FIRST_SALE_NOTIFIER",
-        "level": 70.0,
+        "level": 72.0,
         "role": "producer",
         "writes": 5,
         "reads": 8,
-        "downstream_dependents": 105,
-        "upstream_feeders": 74
+        "downstream_dependents": 108,
+        "upstream_feeders": 76
+      },
+      {
+        "name": "REVENUE_LOOP",
+        "level": 63.0,
+        "role": "producer",
+        "writes": 5,
+        "reads": 6,
+        "downstream_dependents": 92,
+        "upstream_feeders": 66
       },
       {
         "name": "DISPATCH_HANDLER",
@@ -32,15 +41,6 @@
         "reads": 4,
         "downstream_dependents": 81,
         "upstream_feeders": 48
-      },
-      {
-        "name": "REVENUE_LOOP",
-        "level": 61.0,
-        "role": "producer",
-        "writes": 5,
-        "reads": 6,
-        "downstream_dependents": 89,
-        "upstream_feeders": 64
       },
       {
         "name": "HEALTH_BOOSTER",
@@ -56,95 +56,103 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
+        "via": "chimera_evolution_report.json",
+        "gradient": 304.5,
+        "src_level": 156.5,
+        "dst_level": -148.0
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
         "via": "bridge_report.json",
-        "gradient": 297.5,
-        "src_level": 153.5,
-        "dst_level": -144.0
+        "gradient": 304.5,
+        "src_level": 156.5,
+        "dst_level": -148.0
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "desktop_daemon_state.json",
-        "gradient": 297.5,
-        "src_level": 153.5,
-        "dst_level": -144.0
+        "gradient": 304.5,
+        "src_level": 156.5,
+        "dst_level": -148.0
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "brain_state.json",
+        "gradient": 304.5,
+        "src_level": 156.5,
+        "dst_level": -148.0
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "product_registry.json",
-        "gradient": 297.5,
-        "src_level": 153.5,
-        "dst_level": -144.0
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "brain_state.json",
-        "gradient": 297.5,
-        "src_level": 153.5,
-        "dst_level": -144.0
+        "gradient": 304.5,
+        "src_level": 156.5,
+        "dst_level": -148.0
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "mutation_vault.json",
-        "gradient": 297.5,
-        "src_level": 153.5,
-        "dst_level": -144.0
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "chimera_evolution_report.json",
-        "gradient": 297.5,
-        "src_level": 153.5,
-        "dst_level": -144.0
+        "gradient": 304.5,
+        "src_level": 156.5,
+        "dst_level": -148.0
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "live_wire_report.json",
-        "gradient": 297.5,
-        "src_level": 153.5,
-        "dst_level": -144.0
+        "gradient": 304.5,
+        "src_level": 156.5,
+        "dst_level": -148.0
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
         "via": "first_sale_state.json",
-        "gradient": 214.0,
-        "src_level": 70.0,
-        "dst_level": -144.0
+        "gradient": 220.0,
+        "src_level": 72.0,
+        "dst_level": -148.0
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
         "via": "brain_state.json",
-        "gradient": 214.0,
-        "src_level": 70.0,
-        "dst_level": -144.0
+        "gradient": 220.0,
+        "src_level": 72.0,
+        "dst_level": -148.0
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
         "via": "revenue_inbox.json",
-        "gradient": 214.0,
-        "src_level": 70.0,
-        "dst_level": -144.0
+        "gradient": 220.0,
+        "src_level": 72.0,
+        "dst_level": -148.0
       }
     ]
   },
   "adaptive_growth": {
-    "total_wires": 5339,
-    "strengthen": 5322,
-    "monitor": 17,
-    "prune": 0
+    "total_wires": 5669,
+    "strengthen": 5634,
+    "monitor": 34,
+    "prune": 1
   },
   "anastomosis": {
-    "broken_wires": 0,
+    "broken_wires": 1,
     "hungry_inputs": 60,
     "breaks": [
+      {
+        "type": "broken_wire",
+        "from": "DESKTOP_DAEMON",
+        "to": "GENERATED_DAEMON_TASK_XML_POPULATOR",
+        "via": "daemon_task.xml",
+        "status": "READ_ERROR",
+        "healing": "BRIDGE_BUILDER should regenerate daemon_task.xml"
+      },
       {
         "type": "hungry_input",
         "file": "*.json",
@@ -239,11 +247,6 @@
         "type": "hungry_input",
         "file": "cycle_memory.json",
         "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "desktop_agent_log.json",
-        "healing": "Create seed data or bridge from existing source"
       }
     ]
   },
@@ -253,6 +256,35 @@
     "targets": []
   },
   "signals": [
+    {
+      "type": "PEST_ALERT",
+      "severity": "medium",
+      "message": "10 engines failing syntax checks",
+      "source": "sentinel",
+      "affected": [
+        "AI_WATCHER.py",
+        "CAPABILITY_SCANNER.py",
+        "ART_GENERATOR.py",
+        "GRANT_HUNTER.py",
+        "AI_CLIENT.py",
+        "NANO_AGENT.py",
+        "DESKTOP_DAEMON.py",
+        "INCOME_ARCHITECT.py",
+        "CONNECTION_FORGE.py",
+        "LEGACY_SIFTED_agency_orchestrator.py"
+      ],
+      "biology": "Bark beetle attack detected -- VOC warning sent to neighbors"
+    },
+    {
+      "type": "DROUGHT_WARNING",
+      "severity": "high",
+      "message": "1 producer connections broken",
+      "source": "nutrient_routing",
+      "affected": [
+        "DESKTOP_DAEMON"
+      ],
+      "biology": "Major root system damaged -- nutrient flow disrupted downstream"
+    },
     {
       "type": "NUTRIENT_DEFICIT",
       "severity": "medium",
@@ -275,17 +307,24 @@
     {
       "type": "NETWORK_PULSE",
       "severity": "info",
-      "message": "Network health: 100% (5322/5339 wires healthy)",
+      "message": "Network health: 99% (5634/5669 wires healthy)",
       "source": "mycelium_network",
       "biology": "Seasonal growth assessment -- overall forest vitality check"
     }
   ],
   "reciprocal_rewards": {
-    "mutualists": 209,
-    "balanced": 74,
-    "consumers": 31,
-    "inert": 45,
+    "mutualists": 224,
+    "balanced": 82,
+    "consumers": 27,
+    "inert": 46,
     "top_mutualists": [
+      {
+        "name": "SOCIAL_DASHBOARD",
+        "reciprocity": 33.0,
+        "role": "mutualist",
+        "giving": 33,
+        "taking": 1
+      },
       {
         "name": "AI_CLIENT",
         "reciprocity": 30.5,
@@ -313,20 +352,13 @@
         "role": "mutualist",
         "giving": 60,
         "taking": 2
-      },
-      {
-        "name": "DUPLICATE_STRIKER",
-        "reciprocity": 30.0,
-        "role": "mutualist",
-        "giving": 60,
-        "taking": 2
       }
     ]
   },
   "network_memory": {
-    "cycles_tracked": 32,
-    "new_connections": 53,
-    "persisted": 5093,
+    "cycles_tracked": 38,
+    "new_connections": 6,
+    "persisted": 5447,
     "lost": 0
   },
   "biology_notes": {

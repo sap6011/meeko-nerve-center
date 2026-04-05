@@ -21,25 +21,13 @@
     "file": "AGENT_TWEET_WRITER.py",
     "line": 60,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5            context ="
   },
   {
     "file": "AGENT_TWEET_WRITER.py",
     "line": 60,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "AGENT_TWEET_WRITER.py",
-    "line": 60,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "AGENT_TWEET_WRITER.py",
-    "line": 60,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"):\u21b5          "
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5     "
   },
   {
     "file": "AGENT_TWEET_WRITER.py",
@@ -49,51 +37,21 @@
   },
   {
     "file": "AI_CLIENT.py",
-    "line": 29,
+    "line": 34,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5HF_TOKEN      = os.env"
   },
   {
     "file": "AI_CLIENT.py",
-    "line": 29,
+    "line": 110,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") not set\")\u21b5\u21b5    body = {\"model\": ANTH"
   },
   {
     "file": "AI_CLIENT.py",
-    "line": 29,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "AI_CLIENT.py",
-    "line": 29,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5HF_TOKEN   "
-  },
-  {
-    "file": "AI_CLIENT.py",
-    "line": 104,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "AI_CLIENT.py",
-    "line": 104,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "AI_CLIENT.py",
-    "line": 104,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") no"
-  },
-  {
-    "file": "AI_CLIENT.py",
-    "line": 104,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") not set\")\u21b5\u21b5    body = {\""
+    "line": 34,
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5HF_TOK"
   },
   {
     "file": "AI_CLIENT.py",
@@ -105,25 +63,13 @@
     "file": "AI_WATCHER.py",
     "line": 20,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5HF_TOKEN=os.environ.ge"
   },
   {
     "file": "AI_WATCHER.py",
     "line": 20,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "AI_WATCHER.py",
-    "line": 20,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "AI_WATCHER.py",
-    "line": 20,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5HF_TOKEN=os"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5HF_TOK"
   },
   {
     "file": "AMPLIFY_ENGINE.py",
@@ -147,25 +93,13 @@
     "file": "ART_GENERATOR.py",
     "line": 123,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5    pending_f = DATA_D"
   },
   {
     "file": "ART_GENERATOR.py",
     "line": 123,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "ART_GENERATOR.py",
-    "line": 123,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "ART_GENERATOR.py",
-    "line": 123,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5    pending"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5    pe"
   },
   {
     "file": "AUTONOMOUS_PUBLISHER.py",
@@ -186,76 +120,40 @@
     "snippet": "=======\u21b5Builds docs/proof.html: a timestamped, publicly accessible page\u21b5that pro"
   },
   {
-    "file": "BIG_BRAIN_ORACLE.py",
-    "line": 18,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "file": "AUTO_EXECUTOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Reads the task queue from TASK_FACTORY and executes every task\u21b5marked as"
+  },
+  {
+    "file": "AUTO_GENESIS.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5The cycle that launches itself and never stops:\u21b5\u21b5  1. LIVE_WIRE scans to"
   },
   {
     "file": "BIG_BRAIN_ORACLE.py",
     "line": 18,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "BIG_BRAIN_ORACLE.py",
-    "line": 18,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "BIG_BRAIN_ORACLE.py",
-    "line": 18,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5\"\"\"\u21b5import "
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\u21b5\"\"\"\u21b5import os, json, requests\u21b5from p"
   },
   {
     "file": "BIG_BRAIN_ORACLE.py",
     "line": 27,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5MODEL = \"claude-sonnet"
+  },
+  {
+    "file": "BIG_BRAIN_ORACLE.py",
+    "line": 135,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") not set\")\u21b5        (DATA / \"oracle_st"
   },
   {
     "file": "BIG_BRAIN_ORACLE.py",
     "line": 27,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "BIG_BRAIN_ORACLE.py",
-    "line": 27,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "BIG_BRAIN_ORACLE.py",
-    "line": 27,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5MODEL = \"cl"
-  },
-  {
-    "file": "BIG_BRAIN_ORACLE.py",
-    "line": 135,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "BIG_BRAIN_ORACLE.py",
-    "line": 135,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "BIG_BRAIN_ORACLE.py",
-    "line": 135,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") no"
-  },
-  {
-    "file": "BIG_BRAIN_ORACLE.py",
-    "line": 135,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") not set\")\u21b5        (DATA "
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5MODEL "
   },
   {
     "file": "BIOLUMINESCENCE.py",
@@ -273,121 +171,31 @@
     "file": "BOTTLENECK_SCANNER.py",
     "line": 23,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 23,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 23,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\": "
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 23,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\":    {\"impact\": \"CRITICA"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\":    {\"impact\": \"CRITICAL\", \"unlocks"
   },
   {
     "file": "BOTTLENECK_SCANNER.py",
     "line": 64,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 64,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 64,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 64,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5                      "
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5                              \"X_A"
   },
   {
     "file": "BOTTLENECK_SCANNER.py",
     "line": 110,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 110,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 110,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5"
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 110,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5    if anthropic and n"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\u21b5    if anthropic and not anthropic"
   },
   {
     "file": "BOTTLENECK_SCANNER.py",
     "line": 114,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 114,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 114,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 114,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5            \"descripti"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5            \"description\": \"All Cl"
   },
   {
     "file": "BOTTLENECK_SCANNER.py",
     "line": 116,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 116,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 116,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
-  },
-  {
-    "file": "BOTTLENECK_SCANNER.py",
-    "line": 116,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5            \"revenue_i"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5            \"revenue_impact\": \"$0/"
   },
   {
     "file": "BRAVE_BRIDGE.py",
@@ -411,31 +219,25 @@
     "file": "BRIEFING_ENGINE.py",
     "line": 19,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5def load():\u21b5    f=DAT"
   },
   {
     "file": "BRIEFING_ENGINE.py",
     "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "BRIEFING_ENGINE.py",
-    "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "BRIEFING_ENGINE.py",
-    "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5\u21b5def load()"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5def l"
   },
   {
     "file": "BROADCAST_PROTOCOL.py",
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5Takes SolarPunk's research papers, sovereignty state, and system health\u21b5"
+  },
+  {
+    "file": "BUNDLE_FORGE.py",
+    "line": 7,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Reads all individual products and template packs, then generates curated"
   },
   {
     "file": "BUSINESS_FACTORY.py",
@@ -447,127 +249,55 @@
     "file": "CAPABILITY_SCANNER.py",
     "line": 33,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip() else \"blocked\",\u21b5      "
+  },
+  {
+    "file": "CAPABILITY_SCANNER.py",
+    "line": 35,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5            \"blocks\": [\"SELF_BUILD"
+  },
+  {
+    "file": "CAPABILITY_SCANNER.py",
+    "line": 71,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5            \"blocks\": [\"SYNTHESIS_"
+  },
+  {
+    "file": "CAPABILITY_SCANNER.py",
+    "line": 101,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\" if not os.environ.get(\"os.getenv(\"o"
+  },
+  {
+    "file": "CAPABILITY_SCANNER.py",
+    "line": 101,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip() else\u21b5        \"GUMROAD_"
   },
   {
     "file": "CAPABILITY_SCANNER.py",
     "line": 33,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 33,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 33,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\") else \"block"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 35,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 35,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 35,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 35,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5            \"blocks\": "
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 71,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 71,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 71,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 71,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5            \"blocks\": "
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip() else \""
   },
   {
     "file": "CAPABILITY_SCANNER.py",
     "line": 101,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 101,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 101,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\" i"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 101,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\" if not os.getenv(\"os.ge"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 101,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 101,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 101,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "CAPABILITY_SCANNER.py",
-    "line": 101,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\") else\u21b5      "
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip() else\u21b5 "
   },
   {
     "file": "CAPABILITY_SCANNER.py",
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5Runs every cycle. Checks every channel against reality.\u21b5Not what engines"
+  },
+  {
+    "file": "CATALOG_GENERATOR.py",
+    "line": 7,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Reads the product registry and all product markdown files, then generate"
   },
   {
     "file": "CHAOS_TEST.py",
@@ -594,6 +324,12 @@
     "snippet": "=======\u21b5NATURE'S BLUEPRINT: Chemotaxis.\u21b5\u21b5E. coli can't see, can't think, has no "
   },
   {
+    "file": "CHIMERA_EVOLUTION_ENGINE.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Wires together:\u21b5  - CHIMERA_CORE's 99/1 ethics lock\u21b5  - LIVE_WIRE's topo"
+  },
+  {
     "file": "CIRCADIAN_RHYTHM.py",
     "line": 4,
     "pattern": "unresolved git merge conflict (======= marker)",
@@ -603,49 +339,19 @@
     "file": "CLAUDE_ENGINE.py",
     "line": 84,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5        priorities.ap"
+  },
+  {
+    "file": "CLAUDE_ENGINE.py",
+    "line": 87,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5            \"why\": \"SELF_BUILDER, "
   },
   {
     "file": "CLAUDE_ENGINE.py",
     "line": 84,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "CLAUDE_ENGINE.py",
-    "line": 84,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "CLAUDE_ENGINE.py",
-    "line": 84,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"):\u21b5        pr"
-  },
-  {
-    "file": "CLAUDE_ENGINE.py",
-    "line": 87,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "CLAUDE_ENGINE.py",
-    "line": 87,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "CLAUDE_ENGINE.py",
-    "line": 87,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
-  },
-  {
-    "file": "CLAUDE_ENGINE.py",
-    "line": 87,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5            \"why\": \"SE"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5     "
   },
   {
     "file": "CLAUDE_ENGINE.py",
@@ -657,25 +363,19 @@
     "file": "CONNECTION_FORGE.py",
     "line": 19,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5GH_REPO=\"meekotharacco"
   },
   {
     "file": "CONNECTION_FORGE.py",
     "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5GH_REP"
   },
   {
-    "file": "CONNECTION_FORGE.py",
-    "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "CONNECTION_FORGE.py",
-    "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5GH_REPO=\"me"
+    "file": "CONTENT_AUTOPILOT.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Every OMNIBUS cycle, this engine:\u21b5  1. Picks a random engine from myceli"
   },
   {
     "file": "CORPORATE_MIRROR.py",
@@ -685,135 +385,63 @@
   },
   {
     "file": "CORPORATE_MIRROR.py",
-    "line": 145,
+    "line": 149,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().isoformat(),\u21b5        ceo_overhead_per_worker     = round(ceo_p"
   },
   {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 16,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "file": "CORPORATE_MIRROR.py",
+    "line": 218,
+    "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+    "snippet": "datetime.utcnow().isoformat(),\u21b5        \"mirrors_generated\": len(results),\u21b5      "
   },
   {
     "file": "CORRUPTION_SENTINEL.py",
     "line": 16,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 16,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 16,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\") self-assign"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") self-assignment\u21b5  5. PowerShell arti"
   },
   {
     "file": "CORRUPTION_SENTINEL.py",
     "line": 31,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 31,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 31,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") se"
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 31,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") self-assignment\u21b5    (r'o"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") self-assignment\u21b5    (r'''os.getenv(\""
   },
   {
     "file": "CORRUPTION_SENTINEL.py",
     "line": 32,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\\s*=\\s*os.getenv(\"os.getenv(\"ANTHROPI"
   },
   {
     "file": "CORRUPTION_SENTINEL.py",
     "line": 32,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")''', 'bare os.getenv(\"os.getenv(\"ANTH"
   },
   {
     "file": "CORRUPTION_SENTINEL.py",
     "line": 32,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\\s*"
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\\s*=\\s*os.getenv(\"os.gete"
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")', "
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")', \"bare os.getenv(\"os.ge"
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") se"
-  },
-  {
-    "file": "CORRUPTION_SENTINEL.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") self-assignment\"),\u21b5    #"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") self-assignment'),\u21b5    # PowerShell "
   },
   {
     "file": "CORRUPTION_SENTINEL.py",
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5Scans all mycelium engines for known corruption patterns BEFORE commit.\u21b5"
+  },
+  {
+    "file": "CORTEX.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5295 engines. 4,489 wires. Zero intelligence.\u21b5\u21b5Every engine in this syste"
+  },
+  {
+    "file": "CREDENTIAL_SENSOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Scans environment variables and config files for newly added credentials"
   },
   {
     "file": "CRISIS_MONITOR.py",
@@ -825,25 +453,13 @@
     "file": "CRYPTO_WATCHER.py",
     "line": 22,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5# Tokens relevant to "
   },
   {
     "file": "CRYPTO_WATCHER.py",
     "line": 22,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "CRYPTO_WATCHER.py",
-    "line": 22,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "CRYPTO_WATCHER.py",
-    "line": 22,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5\u21b5# Tokens r"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5# Tok"
   },
   {
     "file": "CYCLE_MEMORY.py",
@@ -858,6 +474,18 @@
     "snippet": "=======\u21b5When the system goes quiet (nights, weekends, NLnet review prep),\u21b5DARK_W"
   },
   {
+    "file": "DATA_FLOW_OBSERVATORY.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Gemini was right: holding 4,030 wires in your head is impossible.\u21b5This e"
+  },
+  {
+    "file": "DEBUG_DOCTOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Reads the ZERO_SECRET_ARMY report and diagnoses why engines failed.\u21b5Comm"
+  },
+  {
     "file": "DESKTOP_AGENT.py",
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
@@ -867,25 +495,7 @@
     "file": "DESKTOP_BLUEPRINT_SCANNER.py",
     "line": 153,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "DESKTOP_BLUEPRINT_SCANNER.py",
-    "line": 153,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "DESKTOP_BLUEPRINT_SCANNER.py",
-    "line": 153,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
-  },
-  {
-    "file": "DESKTOP_BLUEPRINT_SCANNER.py",
-    "line": 153,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5                      "
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5                             \"GUMR"
   },
   {
     "file": "DESKTOP_BLUEPRINT_SCANNER.py",
@@ -897,121 +507,37 @@
     "file": "DESKTOP_DAEMON.py",
     "line": 47,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5# \u2500\u2500 SOLARPUNK SYSTEM"
+  },
+  {
+    "file": "DESKTOP_DAEMON.py",
+    "line": 163,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") not set\"\u21b5\u21b5    model    = MODEL_HEAVY"
+  },
+  {
+    "file": "DESKTOP_DAEMON.py",
+    "line": 322,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") not set\")\u21b5        log(\"  Windows: $e"
+  },
+  {
+    "file": "DESKTOP_DAEMON.py",
+    "line": 323,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")='sk-ant-...'\")\u21b5        log(\"  Or add"
+  },
+  {
+    "file": "DESKTOP_DAEMON.py",
+    "line": 485,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") to env for full Claude brain\")\u21b5\u21b5\u21b5# \u2500"
   },
   {
     "file": "DESKTOP_DAEMON.py",
     "line": 47,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 47,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 47,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5\u21b5# \u2500\u2500 SOLAR"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 163,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 163,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 163,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") no"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 163,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") not set\"\u21b5\u21b5    model    ="
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 322,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 322,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 322,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") no"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 322,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") not set\")\u21b5        log(\" "
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 323,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 323,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 323,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")='s"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 323,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")='sk-ant-...'\")\u21b5        l"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 486,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 486,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 486,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") to"
-  },
-  {
-    "file": "DESKTOP_DAEMON.py",
-    "line": 486,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") to env for full Claude b"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5# \u2500\u2500 "
   },
   {
     "file": "DESKTOP_ORCHESTRATOR.py",
@@ -1039,19 +565,19 @@
   },
   {
     "file": "EMAIL_API_EXTRACTOR.py",
-    "line": 97,
+    "line": 100,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().isoformat()}\u21b5\u21b5    for link in links:\u21b5        if link not in re"
   },
   {
     "file": "EMAIL_API_EXTRACTOR.py",
-    "line": 102,
+    "line": 105,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().isoformat()\u21b5            registry[platform][\"source_email\"] = s"
   },
   {
     "file": "EMAIL_API_EXTRACTOR.py",
-    "line": 115,
+    "line": 118,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5    entry = f\"\\n**[EMAIL-API"
   },
@@ -1065,31 +591,37 @@
     "file": "ETSY_SEO_ENGINE.py",
     "line": 16,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5OUT     = Path(\"data/e"
   },
   {
     "file": "ETSY_SEO_ENGINE.py",
     "line": 16,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5OUT   "
   },
   {
-    "file": "ETSY_SEO_ENGINE.py",
-    "line": 16,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
+    "file": "EVENT_RELAY.py",
+    "line": 7,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Monitors system state files and triggers actions based on changes.\u21b5Check"
   },
   {
-    "file": "ETSY_SEO_ENGINE.py",
-    "line": 16,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5OUT     = P"
+    "file": "EVOLUTION_VIEWER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Generates docs/evolution.html showing real evolution data from:\u21b5  - chim"
   },
   {
     "file": "EXECUTIVE_BRIEFING.py",
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5Synthesizes the full system state, stress test results, research papers,"
+  },
+  {
+    "file": "EXTERNAL_VALUE_ROUTER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b54,030 wires are useless if none of them connect to REVENUE.\u21b5This engine "
   },
   {
     "file": "FIRST_CONTACT.py",
@@ -1107,25 +639,25 @@
     "file": "FORK_SCANNER.py",
     "line": 25,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5OWNER        = \"meekot"
   },
   {
     "file": "FORK_SCANNER.py",
     "line": 25,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5OWNER "
   },
   {
-    "file": "FORK_SCANNER.py",
-    "line": 25,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
+    "file": "FRACTAL_GENESIS_ENGINE.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Gemini nailed it: What's the point of 4,000 wires if they aren't making\u21b5"
   },
   {
-    "file": "FORK_SCANNER.py",
-    "line": 25,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5OWNER      "
+    "file": "FRACTAL_REPLICATOR.py",
+    "line": 7,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Takes one template and generates domain-specific variants.\u21b5A single web "
   },
   {
     "file": "FREE_API_ENGINE.py",
@@ -1138,6 +670,12 @@
     "line": 3,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5Task 3 of Startup Audit: Autonomous Fund-Seeker\u21b5\u21b5Automates discovery of "
+  },
+  {
+    "file": "GAP_FILLER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Reads the wire topology to find data files that engines READ\u21b5but no engi"
   },
   {
     "file": "GAZA_ROSE_PAYOUT.py",
@@ -1170,58 +708,316 @@
     "snippet": "datetime.utcnow().strftime(\"%Y-%m-%d %H:%M:%S UTC\")\u21b5    entry = (\u21b5        f\"\\n**"
   },
   {
+    "file": "GENERATED_AI_CLIENT_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from AI_CLIENT and generates actiona"
+  },
+  {
+    "file": "GENERATED_BRAND_LEGAL_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from BRAND_LEGAL and generates actio"
+  },
+  {
+    "file": "GENERATED_BRIDGE_BUILDER_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from BRIDGE_BUILDER and generates ac"
+  },
+  {
+    "file": "GENERATED_CONTENT_HARVESTER_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from CONTENT_HARVESTER and generates"
+  },
+  {
+    "file": "GENERATED_CYCLE_MEMORY_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from CYCLE_MEMORY and generates acti"
+  },
+  {
+    "file": "GENERATED_DAEMON_TASK_XML_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates daemon_task.xml with real data to revive dead flow\u21b5\u21b5T"
+  },
+  {
+    "file": "GENERATED_DEBUG_DOCTOR_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from DEBUG_DOCTOR and generates acti"
+  },
+  {
+    "file": "GENERATED_DESKTOP_DAEMON_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from DESKTOP_DAEMON and generates ac"
+  },
+  {
+    "file": "GENERATED_DEV_TO_PUBLISHER_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from DEV_TO_PUBLISHER and generates "
+  },
+  {
+    "file": "GENERATED_ECONOMY_CHAIN_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from ECONOMY_CHAIN and generates act"
+  },
+  {
+    "file": "GENERATED_ETSY_SEO_ENGINE_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from ETSY_SEO_ENGINE and generates a"
+  },
+  {
+    "file": "GENERATED_EVOLUTION_TRACKER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Tracks evolution signals across the nervous system\u21b5\u21b5This engine"
+  },
+  {
+    "file": "GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from EXTERNAL_VALUE_ROUTER and gener"
+  },
+  {
+    "file": "GENERATED_FRACTAL_REPLICATOR_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from FRACTAL_REPLICATOR and generate"
+  },
+  {
+    "file": "GENERATED_GRANTS_FOUND_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates grants_found.json with real data to revive dead flow\u21b5"
+  },
+  {
+    "file": "GENERATED_GRANT_TRIGGER_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates grant_trigger.json with real data to revive dead flow"
+  },
+  {
+    "file": "GENERATED_GROWTH_CHAIN_STATE_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates growth_chain_state.json with real data to revive dead"
+  },
+  {
+    "file": "GENERATED_GUMROAD_AUTH_FAILURE_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates gumroad_auth_failure.json with real data to revive de"
+  },
+  {
+    "file": "GENERATED_GUMROAD_ENGINE_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from GUMROAD_ENGINE and generates ac"
+  },
+  {
+    "file": "GENERATED_IMMUNE_SYSTEM_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from IMMUNE_SYSTEM and generates act"
+  },
+  {
+    "file": "GENERATED_INBOUND_SIGNALS_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates inbound_signals.json with real data to revive dead fl"
+  },
+  {
+    "file": "GENERATED_INPUT_FILE_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates input_file.json with real data to revive dead flow\u21b5\u21b5T"
+  },
+  {
+    "file": "GENERATED_KNOWLEDGE_TRACKER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Tracks knowledge signals across the nervous system\u21b5\u21b5This engine"
+  },
+  {
+    "file": "GENERATED_NANOSHOP_STATE_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates nanoshop_state.json with real data to revive dead flo"
+  },
+  {
+    "file": "GENERATED_NEWSLETTER_STATE_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates newsletter_state.json with real data to revive dead f"
+  },
+  {
+    "file": "GENERATED_OUTPUT_FILE_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates output_file.json with real data to revive dead flow\u21b5\u21b5"
+  },
+  {
+    "file": "GENERATED_PLUGIN_MANIFESTS_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates plugin_manifests.json with real data to revive dead f"
+  },
+  {
+    "file": "GENERATED_PLUGIN_REGISTRY_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from PLUGIN_REGISTRY and generates a"
+  },
+  {
+    "file": "GENERATED_POLYMARKET_SCANNER_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from POLYMARKET_SCANNER and generate"
+  },
+  {
+    "file": "GENERATED_PRODUCT_DELIVERY_ENGINE_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from PRODUCT_DELIVERY_ENGINE and gen"
+  },
+  {
+    "file": "GENERATED_PRODUCT_FORGE_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from PRODUCT_FORGE and generates act"
+  },
+  {
+    "file": "GENERATED_QUORUM_SENSE_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from QUORUM_SENSE and generates acti"
+  },
+  {
+    "file": "GENERATED_RESONANCE_CONVERTER_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from RESONANCE_CONVERTER and generat"
+  },
+  {
+    "file": "GENERATED_RESOURCE_ALLOCATOR_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from RESOURCE_ALLOCATOR and generate"
+  },
+  {
+    "file": "GENERATED_RESOURCE_KIT_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from RESOURCE_KIT and generates acti"
+  },
+  {
+    "file": "GENERATED_REVENUE_AUDIT_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from REVENUE_AUDIT and generates act"
+  },
+  {
+    "file": "GENERATED_REVENUE_FLYWHEEL_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from REVENUE_FLYWHEEL and generates "
+  },
+  {
+    "file": "GENERATED_SECRETS_CHECKER_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from SECRETS_CHECKER and generates a"
+  },
+  {
+    "file": "GENERATED_SECURITY_TRACKER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Tracks security signals across the nervous system\u21b5\u21b5This engine "
+  },
+  {
+    "file": "GENERATED_SELF_BUILDER_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from SELF_BUILDER and generates acti"
+  },
+  {
+    "file": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates self_builder_queue.json with real data to revive dead"
+  },
+  {
+    "file": "GENERATED_SIGNAL_BOOST_LOG_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates signal_boost_log.json with real data to revive dead f"
+  },
+  {
+    "file": "GENERATED_TASK_FACTORY_CONSUMER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Consumes high-value output from TASK_FACTORY and generates acti"
+  },
+  {
+    "file": "GENERATED_TRANSFER_NEEDED_POPULATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Purpose: Populates transfer_needed.json with real data to revive dead fl"
+  },
+  {
+    "file": "GITHUB_DISCUSSIONS_PUBLISHER.py",
+    "line": 7,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Generates three kinds of Discussion posts:\u21b5  1. Product launches  -- fro"
+  },
+  {
     "file": "GITHUB_RELEASES_PUBLISHER.py",
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5Takes generated guides from product_registry.json and uploads them as\u21b5Gi"
   },
   {
-    "file": "GRANT_APPLICANT.py",
-    "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "file": "GITHUB_RELEASE_DEPLOYER.py",
+    "line": 7,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Reads every .md product from products/ and cross-references data/product"
   },
   {
     "file": "GRANT_APPLICANT.py",
     "line": 19,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5PROFILE={\u21b5    \"projec"
   },
   {
     "file": "GRANT_APPLICANT.py",
     "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "GRANT_APPLICANT.py",
-    "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5\u21b5PROFILE={\u21b5"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5PROFI"
   },
   {
     "file": "GRANT_HUNTER.py",
     "line": 14,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5GRANTS=[\u21b5    {\"name\":"
   },
   {
     "file": "GRANT_HUNTER.py",
     "line": 14,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5GRANT"
   },
   {
-    "file": "GRANT_HUNTER.py",
-    "line": 14,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "GRANT_HUNTER.py",
-    "line": 14,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5\u21b5GRANTS=[\u21b5 "
+    "file": "GROWTH_FLYWHEEL.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5\u21b5The flywheel: Content -> Traffic -> Signups -> Revenue -> More Content "
   },
   {
     "file": "GUARDIAN.py",
@@ -1245,121 +1041,43 @@
     "file": "HEALTH_BOOSTER.py",
     "line": 11,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 11,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 11,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 11,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\") valid\u21b5  15 "
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") valid\u21b5  15 \u2014 Shop page deployed\u21b5  10"
   },
   {
     "file": "HEALTH_BOOSTER.py",
     "line": 30,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 30,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 30,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\": "
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 30,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\":    {\"pts\": 15, \"catego"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\":    {\"pts\": 15, \"category\": \"AI Bra"
   },
   {
     "file": "HEALTH_BOOSTER.py",
     "line": 41,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5    if not key:\u21b5      "
+  },
+  {
+    "file": "HEALTH_BOOSTER.py",
+    "line": 43,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") not set\"\u21b5    try:\u21b5        r = reques"
+  },
+  {
+    "file": "HEALTH_BOOSTER.py",
+    "line": 81,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\u21b5\u21b5    # File checks\u21b5    if (DOCS / "
   },
   {
     "file": "HEALTH_BOOSTER.py",
     "line": 41,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5    if"
   },
   {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 41,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 41,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5    if not "
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 43,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 43,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 43,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") no"
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 43,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") not set\"\u21b5    try:\u21b5      "
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 81,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 81,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 81,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5"
-  },
-  {
-    "file": "HEALTH_BOOSTER.py",
-    "line": 81,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5\u21b5    # File checks\u21b5   "
+    "file": "HEMISPHERE_SYNC.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5The SolarPunk brain has two hemispheres:\u21b5\u21b5  LEFT HEMISPHERE: Local machi"
   },
   {
     "file": "HOMEOSTASIS.py",
@@ -1371,49 +1089,19 @@
     "file": "HUMAN_CONNECTOR.py",
     "line": 19,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5SOLARPUNK_INTRO=\"\"\"So"
+  },
+  {
+    "file": "HUMAN_CONNECTOR.py",
+    "line": 42,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") (get from console.anthropic.com)\u21b5   "
   },
   {
     "file": "HUMAN_CONNECTOR.py",
     "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "HUMAN_CONNECTOR.py",
-    "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "HUMAN_CONNECTOR.py",
-    "line": 19,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5\u21b5SOLARPUNK_"
-  },
-  {
-    "file": "HUMAN_CONNECTOR.py",
-    "line": 42,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "HUMAN_CONNECTOR.py",
-    "line": 42,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "HUMAN_CONNECTOR.py",
-    "line": 42,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "HUMAN_CONNECTOR.py",
-    "line": 42,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")(get from co"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5SOLAR"
   },
   {
     "file": "HUMAN_PAYOUT.py",
@@ -1428,28 +1116,40 @@
     "snippet": "=======\u21b5NATURE'S BLUEPRINT: The human immune system.\u21b5\u21b5When your body fights a vi"
   },
   {
-    "file": "INCOME_ARCHITECT.py",
-    "line": 73,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "file": "IMMUNE_SYSTEM.py",
+    "line": 111,
+    "pattern": "unresolved git merge conflict",
+    "snippet": "<<<<<<< HEAD\\n(.*?)\\n=======\\n.*?\\n>>>>>>> [^\\n]+\\n',\u21b5        re.DOTALL\u21b5    )\u21b5  "
+  },
+  {
+    "file": "IMMUNE_SYSTEM.py",
+    "line": 150,
+    "pattern": "unresolved git merge conflict",
+    "snippet": "<<<<<<< HEAD', source))\u21b5    if conflicts:\u21b5        issues.append({\"type\": \"merge_"
+  },
+  {
+    "file": "IMMUNE_SYSTEM.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5SIA's Nanobot Self-Heal loop has been wrapping os.environ.get() in\u21b5neste"
+  },
+  {
+    "file": "INBOUND_LISTENER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Watches our repo for new stars, forks, issues, traffic, and referrers.\u21b5D"
   },
   {
     "file": "INCOME_ARCHITECT.py",
     "line": 73,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5    state = load_loop_"
   },
   {
     "file": "INCOME_ARCHITECT.py",
     "line": 73,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "INCOME_ARCHITECT.py",
-    "line": 73,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5    state ="
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5    st"
   },
   {
     "file": "KALEIDOSCOPE_SHIELD.py",
@@ -1482,6 +1182,12 @@
     "snippet": "datetime.utcnow().isoformat()}\")\u21b5\u21b5\u21b5# \u2500\u2500 Main \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500"
   },
   {
+    "file": "KNOWLEDGE_DISTILLER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Scans every engine in mycelium/, extracts metadata (docstrings,\u21b5function"
+  },
+  {
     "file": "KNOWLEDGE_PULSE.py",
     "line": 4,
     "pattern": "unresolved git merge conflict (======= marker)",
@@ -1491,25 +1197,7 @@
     "file": "KNOWLEDGE_WEAVER.py",
     "line": 96,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "KNOWLEDGE_WEAVER.py",
-    "line": 96,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "KNOWLEDGE_WEAVER.py",
-    "line": 96,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "KNOWLEDGE_WEAVER.py",
-    "line": 96,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"), GMAIL_ADDR"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"), GMAIL_ADDRESS, GMAIL_APP_PASSWORD, "
   },
   {
     "file": "KNOWLEDGE_WEAVER.py",
@@ -1525,37 +1213,25 @@
   },
   {
     "file": "LEGACY_SIFTED_agency_orchestrator.py",
-    "line": 45,
+    "line": 49,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(),\u21b5            \"surfer\":"
   },
   {
     "file": "LEGACY_SIFTED_agency_orchestrator.py",
-    "line": 45,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "LEGACY_SIFTED_agency_orchestrator.py",
-    "line": 45,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "LEGACY_SIFTED_agency_orchestrator.py",
-    "line": 45,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"),\u21b5          "
+    "line": 49,
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(),\u21b5     "
   },
   {
     "file": "LEGACY_SIFTED_amazon_tag_manager.py",
-    "line": 125,
+    "line": 128,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5\u21b5URL: https://affiliate-program.amazon.com/home/account/tag/manage\u21b5\u21b5STEP"
   },
   {
     "file": "LEGACY_SIFTED_blockchain_tracker.py",
-    "line": 66,
+    "line": 70,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().isoformat() + \"Z\",\u21b5        \"zone\": zone,\u21b5        \"organization"
   },
@@ -1597,25 +1273,25 @@
   },
   {
     "file": "LEGACY_SIFTED_visualize_ai_system.py",
-    "line": 12,
+    "line": 15,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5# STEP 1: AUTO-GENERATE THE LATEST SYSTEM MAP\u21b5# ========================"
   },
   {
     "file": "LEGACY_SIFTED_visualize_ai_system.py",
-    "line": 14,
+    "line": 17,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5def generate_system_map():\u21b5    \"\"\"PowerShell command to scan your system"
   },
   {
     "file": "LEGACY_SIFTED_visualize_ai_system.py",
-    "line": 59,
+    "line": 62,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5# STEP 2: VISUALIZE AS GRAPH\u21b5# ========================================="
   },
   {
     "file": "LEGACY_SIFTED_visualize_ai_system.py",
-    "line": 61,
+    "line": 64,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5def visualize_graph(system_data):\u21b5    try:\u21b5        import networkx as nx"
   },
@@ -1653,7 +1329,7 @@
     "file": "LEGACY_SIFTED_visualize_ai_system.py",
     "line": 206,
     "pattern": "unresolved git merge conflict (======= marker)",
-    "snippet": "=======\u21b5if __name__ == \"__main__\":\u21b5    print(\"\ud83d\udd0d Scanning your AI ecosystem...\")\u21b5"
+    "snippet": "=======\u21b5if __name__ == \"__main__\":\u21b5    _ctx = json.loads((DATA / \"live_wire_repo"
   },
   {
     "file": "LIVE_WIRE.py",
@@ -1695,73 +1371,37 @@
     "file": "MEMORY_PALACE.py",
     "line": 96,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "MEMORY_PALACE.py",
-    "line": 96,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "MEMORY_PALACE.py",
-    "line": 96,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
-  },
-  {
-    "file": "MEMORY_PALACE.py",
-    "line": 96,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5            \"priority\""
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5            \"priority\": \"critical\""
   },
   {
     "file": "MEMORY_PALACE.py",
     "line": 98,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "MEMORY_PALACE.py",
-    "line": 98,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "MEMORY_PALACE.py",
-    "line": 98,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"})"
-  },
-  {
-    "file": "MEMORY_PALACE.py",
-    "line": 98,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"})\u21b5    if patterns.get(\""
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\"})\u21b5    if patterns.get(\"revenue_even"
   },
   {
     "file": "MEMORY_PALACE.py",
     "line": 110,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5                \"priority\": \"criti"
   },
   {
-    "file": "MEMORY_PALACE.py",
-    "line": 110,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
+    "file": "METRICS_DASHBOARD.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Generates a real-time HTML dashboard showing the full state of SolarPunk"
   },
   {
-    "file": "MEMORY_PALACE.py",
-    "line": 110,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
+    "file": "MICRO_PRODUCT_FACTORY.py",
+    "line": 7,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Generates markdown template packs across 4 domains in seconds.\u21b5Each temp"
   },
   {
-    "file": "MEMORY_PALACE.py",
-    "line": 110,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5                \"prior"
+    "file": "MISSION_CONTROL.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Generates docs/index.html with live data from ALL subsystems:\u21b5  - Knowle"
   },
   {
     "file": "MURMURATION_RELAY.py",
@@ -1774,6 +1414,12 @@
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5Meeko's concept: Instead of blocking threats, REDIRECT them into a\u21b5self-"
+  },
+  {
+    "file": "MUTATION_VAULT.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Stores every mutation the system generates, scores them against\u21b5actual t"
   },
   {
     "file": "MUTUAL_AID_AUDITOR.py",
@@ -1806,6 +1452,24 @@
     "snippet": "=======\u21b5Real mycelium (fungal networks) do things that SolarPunk should copy:\u21b5\u21b5 "
   },
   {
+    "file": "NANOBOT_HEALER.py",
+    "line": 12,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(...)\")\u21b5  2. Missing encoding parameters (crashes on Windows"
+  },
+  {
+    "file": "NANOBOT_HEALER.py",
+    "line": 58,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ACTUAL_KEY\")\")\")\")\u21b5    fixed = source\u21b5    chang"
+  },
+  {
+    "file": "NANOBOT_HEALER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Scans all engines for defects and auto-fixes common patterns.\u21b5\u21b5Biology: "
+  },
+  {
     "file": "NANOSHOP_ENGINE.py",
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
@@ -1815,49 +1479,19 @@
     "file": "NANO_AGENT.py",
     "line": 100,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5        if not key:\u21b5  "
+  },
+  {
+    "file": "NANO_AGENT.py",
+    "line": 102,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") not set\")\u21b5            return \"\"\u21b5    "
   },
   {
     "file": "NANO_AGENT.py",
     "line": 100,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "NANO_AGENT.py",
-    "line": 100,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "NANO_AGENT.py",
-    "line": 100,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5        if "
-  },
-  {
-    "file": "NANO_AGENT.py",
-    "line": 102,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "NANO_AGENT.py",
-    "line": 102,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "NANO_AGENT.py",
-    "line": 102,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") no"
-  },
-  {
-    "file": "NANO_AGENT.py",
-    "line": 102,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") not set\")\u21b5            re"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5      "
   },
   {
     "file": "NANO_AGENT.py",
@@ -1875,73 +1509,43 @@
     "file": "NEURON_B.py",
     "line": 14,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") = os.environ.get(\"os.getenv(\"os.gete"
   },
   {
     "file": "NEURON_B.py",
     "line": 14,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5def main():\u21b5    print"
+  },
+  {
+    "file": "NEURON_B.py",
+    "line": 26,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5        report = {\u21b5  "
+  },
+  {
+    "file": "NEURON_B.py",
+    "line": 59,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(), \"anthropic-version\":\""
   },
   {
     "file": "NEURON_B.py",
     "line": 14,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "NEURON_B.py",
-    "line": 14,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"),\u21b5\u21b5def main("
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5def m"
   },
   {
     "file": "NEURON_B.py",
     "line": 26,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "NEURON_B.py",
-    "line": 26,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "NEURON_B.py",
-    "line": 26,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "NEURON_B.py",
-    "line": 26,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"):\u21b5        re"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5     "
   },
   {
     "file": "NEURON_B.py",
     "line": 59,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "NEURON_B.py",
-    "line": 59,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "NEURON_B.py",
-    "line": 59,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "NEURON_B.py",
-    "line": 59,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"), \"anthropic"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(), \"anth"
   },
   {
     "file": "NEUROPLASTICITY.py",
@@ -1953,25 +1557,13 @@
     "file": "NEWSLETTER_ENGINE.py",
     "line": 26,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5GMAIL_USER = os.enviro"
   },
   {
     "file": "NEWSLETTER_ENGINE.py",
     "line": 26,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "NEWSLETTER_ENGINE.py",
-    "line": 26,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "NEWSLETTER_ENGINE.py",
-    "line": 26,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5GMAIL_USER "
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5GMAIL_"
   },
   {
     "file": "NIGHTLY_DIGEST.py",
@@ -1999,61 +1591,37 @@
   },
   {
     "file": "OUTREACH_ENGINE.py",
-    "line": 386,
+    "line": 385,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") is set)\u21b5    new_ai_targets = discove"
   },
   {
     "file": "OUTREACH_ENGINE.py",
-    "line": 386,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "OUTREACH_ENGINE.py",
-    "line": 386,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "OUTREACH_ENGINE.py",
-    "line": 386,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\""
-  },
-  {
-    "file": "OUTREACH_ENGINE.py",
-    "line": 386,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\") is set)\u21b5    new_ai_t"
-  },
-  {
-    "file": "OUTREACH_ENGINE.py",
-    "line": 318,
+    "line": 317,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}\",\u21b5        f\"Count: {len(drafts"
   },
   {
     "file": "OUTREACH_ENGINE.py",
-    "line": 361,
+    "line": 360,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().isoformat(),\u21b5        \"status\": \"draft_ready\"\u21b5    }\u21b5    slug = "
   },
   {
     "file": "OUTREACH_ENGINE.py",
-    "line": 418,
+    "line": 417,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().isoformat(),\u21b5            \"status\": \"draft_saved\"\u21b5        }\u21b5   "
   },
   {
     "file": "OUTREACH_ENGINE.py",
-    "line": 427,
+    "line": 426,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().isoformat(),\u21b5            \"subject\": subject\u21b5        }\u21b5\u21b5       "
   },
   {
     "file": "OUTREACH_ENGINE.py",
-    "line": 444,
+    "line": 443,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().isoformat(),\u21b5        \"total_contacted\": len(already),\u21b5        "
   },
@@ -2061,25 +1629,13 @@
     "file": "PASSIVE_INCOME_ARCHITECT.py",
     "line": 47,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()),\u21b5    \"huggingface\":  "
   },
   {
     "file": "PASSIVE_INCOME_ARCHITECT.py",
     "line": 47,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "PASSIVE_INCOME_ARCHITECT.py",
-    "line": 47,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "PASSIVE_INCOME_ARCHITECT.py",
-    "line": 47,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")),\u21b5    \"hugg"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()),\u21b5    "
   },
   {
     "file": "PASSIVE_INCOME_ARCHITECT.py",
@@ -2100,6 +1656,12 @@
     "snippet": "=======\u21b5SolarPunk is a protocol, not a product.\u21b5This engine manages external eng"
   },
   {
+    "file": "POLYMARKET_SCANNER.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Reads live market data from Polymarket's Gamma API (no auth needed).\u21b5Ide"
+  },
+  {
     "file": "PRODUCT_DELIVERY_ENGINE.py",
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
@@ -2110,6 +1672,12 @@
     "line": 4,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5Previous product generation required an API key (all content was \"HTTP 4"
+  },
+  {
+    "file": "PRODUCT_FORGE.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5The Value Router found opportunities. The brain scored them. Nothing\u21b5was"
   },
   {
     "file": "PROOF_LEDGER.py",
@@ -2145,49 +1713,13 @@
     "file": "QUICK_REVENUE.py",
     "line": 29,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "QUICK_REVENUE.py",
-    "line": 29,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "QUICK_REVENUE.py",
-    "line": 29,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "QUICK_REVENUE.py",
-    "line": 29,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\") + GUMROAD_A"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") + GUMROAD_ACCESS_TOKEN + X_API_KEY\u21b5\u21b5"
   },
   {
     "file": "QUICK_REVENUE.py",
     "line": 245,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "QUICK_REVENUE.py",
-    "line": 245,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "QUICK_REVENUE.py",
-    "line": 245,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "QUICK_REVENUE.py",
-    "line": 245,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")</span> &rar"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")</span> &rarr; AI content generation,"
   },
   {
     "file": "QUICK_REVENUE.py",
@@ -2205,25 +1737,13 @@
     "file": "README_GENERATOR.py",
     "line": 139,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")`, `GMAIL_ADDRESS`, `GMAIL_APP_PASSWO"
   },
   {
-    "file": "README_GENERATOR.py",
-    "line": 139,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "README_GENERATOR.py",
-    "line": 139,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "README_GENERATOR.py",
-    "line": 139,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")`, `GMAIL_AD"
+    "file": "RELAY_BATON.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5The relay system ensures work NEVER stops:\u21b5\u21b5  1. When Claude hits a cont"
   },
   {
     "file": "RESEARCH_WRITER.py",
@@ -2235,31 +1755,37 @@
     "file": "RESONANCE_CONVERTER.py",
     "line": 44,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5MODEL   = \"claude-haik"
   },
   {
     "file": "RESONANCE_CONVERTER.py",
     "line": 44,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "RESONANCE_CONVERTER.py",
-    "line": 44,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "RESONANCE_CONVERTER.py",
-    "line": 44,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5MODEL   = \""
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5MODEL "
   },
   {
     "file": "RESONANCE_ENGINE.py",
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5Built because Claude, asked \"what do you want to build?\", said:\u21b5\u21b5  The s"
+  },
+  {
+    "file": "RESOURCE_ALLOCATOR.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Maps the optimal allocation of real money to buy the bridges between\u21b5Sol"
+  },
+  {
+    "file": "RESOURCE_ALLOCATOR.py",
+    "line": 48,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5# THE INVESTMENT MAP\u21b5# Each item: what to buy, what it costs, what engin"
+  },
+  {
+    "file": "RESOURCE_ALLOCATOR.py",
+    "line": 52,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5\u21b5INVESTMENTS = [\u21b5    {\u21b5        \"id\": \"custom-domain\",\u21b5        \"name\": \"C"
   },
   {
     "file": "RESOURCE_KIT.py",
@@ -2277,25 +1803,13 @@
     "file": "REVENUE_FLYWHEEL.py",
     "line": 21,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5# Revenue stream defi"
   },
   {
     "file": "REVENUE_FLYWHEEL.py",
     "line": 21,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "REVENUE_FLYWHEEL.py",
-    "line": 21,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "REVENUE_FLYWHEEL.py",
-    "line": 21,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5\u21b5# Revenue "
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5# Rev"
   },
   {
     "file": "REVENUE_LOOP.py",
@@ -2313,73 +1827,25 @@
     "file": "SCAM_SHIELD.py",
     "line": 20,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5SCAM_SIGNALS=[\u21b5    \"c"
   },
   {
     "file": "SCAM_SHIELD.py",
     "line": 20,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "SCAM_SHIELD.py",
-    "line": 20,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "SCAM_SHIELD.py",
-    "line": 20,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5\u21b5SCAM_SIGNA"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5\u21b5SCAM_"
   },
   {
     "file": "SECRETS_CHECKER.py",
     "line": 21,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "SECRETS_CHECKER.py",
-    "line": 21,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "SECRETS_CHECKER.py",
-    "line": 21,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\": "
-  },
-  {
-    "file": "SECRETS_CHECKER.py",
-    "line": 21,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\": {\u21b5        \"required\": "
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\": {\u21b5        \"required\": True, \"categ"
   },
   {
     "file": "SECRETS_CHECKER.py",
     "line": 32,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "SECRETS_CHECKER.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "SECRETS_CHECKER.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
-  },
-  {
-    "file": "SECRETS_CHECKER.py",
-    "line": 32,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5        ],\u21b5        \"en"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5        ],\u21b5        \"engines\": [\"AI"
   },
   {
     "file": "SELF_BUILDER.py",
@@ -2391,25 +1857,7 @@
     "file": "SELF_PORTRAIT.py",
     "line": 131,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "SELF_PORTRAIT.py",
-    "line": 131,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "SELF_PORTRAIT.py",
-    "line": 131,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") po"
-  },
-  {
-    "file": "SELF_PORTRAIT.py",
-    "line": 131,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") powers the brain. \"\u21b5    "
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") powers the brain. \"\u21b5            f\"GU"
   },
   {
     "file": "SELF_PORTRAIT.py",
@@ -2418,10 +1866,22 @@
     "snippet": "=======\u21b5Built because Claude, when asked \"what do you want to build?\", answered:"
   },
   {
+    "file": "SELF_WIRING_ENGINE.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5This is the engine that makes Claude LESS NECESSARY.\u21b5\u21b5Instead of needing"
+  },
+  {
     "file": "SIGNAL_BOOST.py",
     "line": 4,
     "pattern": "unresolved git merge conflict (======= marker)",
     "snippet": "=======\u21b5When CRISIS_MONITOR detects a CRITICAL signal, this engine creates\u21b5a Git"
+  },
+  {
+    "file": "SIGNAL_INTEGRITY.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b54,489 wires sounds impressive. But how many carry REAL data?\u21b5\u21b5Most engin"
   },
   {
     "file": "SOCIAL_PROMOTER.py",
@@ -2472,6 +1932,12 @@
     "snippet": "=======\u21b5Reads product_registry.json + system_directive.json and rebuilds the\u21b5sho"
   },
   {
+    "file": "STOREFRONT_COPY.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Generates copy-paste-ready product listings for Ko-fi, Gumroad, and Etsy"
+  },
+  {
     "file": "STORE_BUILDER.py",
     "line": 7,
     "pattern": "unresolved git merge conflict (======= marker)",
@@ -2481,25 +1947,7 @@
     "file": "STRESS_TEST.py",
     "line": 130,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "STRESS_TEST.py",
-    "line": 130,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "STRESS_TEST.py",
-    "line": 130,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\\\\\""
-  },
-  {
-    "file": "STRESS_TEST.py",
-    "line": 130,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\\\\\")\")'\u21b5    corrupt_code "
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")))'  # test corruption pattern\u21b5    co"
   },
   {
     "file": "STRESS_TEST.py",
@@ -2511,25 +1959,13 @@
     "file": "SUBSTACK_ENGINE.py",
     "line": 20,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5SUBSTACK_EMAIL=os.envi"
   },
   {
     "file": "SUBSTACK_ENGINE.py",
     "line": 20,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "SUBSTACK_ENGINE.py",
-    "line": 20,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "SUBSTACK_ENGINE.py",
-    "line": 20,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5SUBSTACK_EM"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5SUBSTA"
   },
   {
     "file": "SWARM_COORDINATOR.py",
@@ -2547,25 +1983,7 @@
     "file": "SWARM_TOOLBOX.py",
     "line": 50,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "SWARM_TOOLBOX.py",
-    "line": 50,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "SWARM_TOOLBOX.py",
-    "line": 50,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\" i"
-  },
-  {
-    "file": "SWARM_TOOLBOX.py",
-    "line": 50,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\" in code\u21b5    info[\"saves"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\" in code\u21b5    info[\"saves_data\"] = \"D"
   },
   {
     "file": "SWARM_TOOLBOX.py",
@@ -2589,121 +2007,55 @@
     "file": "SYNAPSE.py",
     "line": 16,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5GMAIL_ADDRESS      = o"
+  },
+  {
+    "file": "SYNAPSE.py",
+    "line": 49,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5        score = min(1"
+  },
+  {
+    "file": "SYNAPSE.py",
+    "line": 54,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\",\u21b5            \"next_run_priority\": b"
+  },
+  {
+    "file": "SYNAPSE.py",
+    "line": 55,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\"),\u21b5            \"passive_income_progr"
+  },
+  {
+    "file": "SYNAPSE.py",
+    "line": 70,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(), \"anthropic-version\":\""
   },
   {
     "file": "SYNAPSE.py",
     "line": 16,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 16,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 16,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5GMAIL_ADDRE"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5GMAIL_"
   },
   {
     "file": "SYNAPSE.py",
     "line": 49,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 49,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 49,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 49,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"):\u21b5        sc"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 54,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 54,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 54,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 54,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\",\u21b5            \"next_run_"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 55,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 55,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 55,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"),"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 55,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"),\u21b5            \"passive_"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5     "
   },
   {
     "file": "SYNAPSE.py",
     "line": 70,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(), \"anth"
   },
   {
-    "file": "SYNAPSE.py",
-    "line": 70,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 70,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "SYNAPSE.py",
-    "line": 70,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"), \"anthropic"
+    "file": "TASK_FACTORY.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Reads the entire system state and generates concrete tasks that\u21b5can be c"
   },
   {
     "file": "TELEGRAM_RELAY.py",
@@ -2712,58 +2064,34 @@
     "snippet": "=======\u21b5RESOURCE_KIT generates the survival telegrams.\u21b5This engine makes them DE"
   },
   {
+    "file": "TEMPORAL_CORTEX.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5A brain without memory is just a reflex machine. SolarPunk has been\u21b5runn"
+  },
+  {
     "file": "VANISH_PROTOCOL.py",
-    "line": 145,
+    "line": 152,
     "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
     "snippet": "datetime.utcnow().isoformat() + \"Z\",\u21b5        \"stats_used\": stats,\u21b5        \"templ"
   },
   {
-    "file": "VIRALITY_ENGINE.py",
-    "line": 9,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "file": "VANISH_PROTOCOL.py",
+    "line": 173,
+    "pattern": "deprecated datetime.utcnow() \u2014 use datetime.now(timezone.utc)",
+    "snippet": "datetime.utcnow().isoformat(),\u21b5        \"status\": \"completed\",\u21b5        \"templates"
   },
   {
     "file": "VIRALITY_ENGINE.py",
     "line": 9,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "VIRALITY_ENGINE.py",
-    "line": 9,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "VIRALITY_ENGINE.py",
-    "line": 9,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\") 401). So I "
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") 401). So I ran the cycle myself.\u21b5\u21b5AR"
   },
   {
     "file": "VIRALITY_ENGINE.py",
     "line": 130,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "VIRALITY_ENGINE.py",
-    "line": 130,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "VIRALITY_ENGINE.py",
-    "line": 130,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "VIRALITY_ENGINE.py",
-    "line": 130,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\") for self-ex"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") for self-expansion, Gumroad token fo"
   },
   {
     "file": "VIRALITY_ENGINE.py",
@@ -2790,220 +2118,112 @@
     "snippet": "=======\u21b5On 2026-03-27, a Claude session spawned in a shallow worktree branch,\u21b5sa"
   },
   {
-    "file": "ai_council.py",
-    "line": 24,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "file": "ZERO_SECRET_ARMY.py",
+    "line": 4,
+    "pattern": "unresolved git merge conflict (======= marker)",
+    "snippet": "=======\u21b5Reads the wire topology to find every engine that:\u21b5  1. Needs zero API k"
   },
   {
     "file": "ai_council.py",
     "line": 24,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 24,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 24,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"),\u21b5  GH_PAT /"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\"),\u21b5  GH_PAT / GITHUB_TOKEN\u21b5\u21b5Optional ("
   },
   {
     "file": "ai_council.py",
     "line": 36,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") = os.environ.get(\"os.getenv(\"os.gete"
   },
   {
     "file": "ai_council.py",
     "line": 36,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5KIMI_API_KEY      = os"
+  },
+  {
+    "file": "ai_council.py",
+    "line": 273,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5        print(\"os.get"
+  },
+  {
+    "file": "ai_council.py",
+    "line": 274,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\") not set\")\u21b5        sys.exit(1)\u21b5    pr"
+  },
+  {
+    "file": "ai_council.py",
+    "line": 279,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(),\u21b5                 \"ant"
+  },
+  {
+    "file": "ai_council.py",
+    "line": 366,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5        return None\u21b5 "
+  },
+  {
+    "file": "ai_council.py",
+    "line": 376,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(),\u21b5                 \"ant"
+  },
+  {
+    "file": "ai_council.py",
+    "line": 467,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5        return None\u21b5 "
+  },
+  {
+    "file": "ai_council.py",
+    "line": 477,
+    "pattern": "nested os.getenv wrapping",
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(),\u21b5                 \"ant"
   },
   {
     "file": "ai_council.py",
     "line": 36,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 36,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"),\u21b5KIMI_API_K"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5KIMI_A"
   },
   {
     "file": "ai_council.py",
     "line": 273,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "ai_council.py",
-    "line": 273,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 273,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 273,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"):\u21b5        pr"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 274,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "ai_council.py",
-    "line": 274,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 274,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") no"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 274,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\") not set\")\u21b5        sys.ex"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5     "
   },
   {
     "file": "ai_council.py",
     "line": 279,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "ai_council.py",
-    "line": 279,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 279,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 279,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"),\u21b5          "
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(),\u21b5     "
   },
   {
     "file": "ai_council.py",
     "line": 366,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "ai_council.py",
-    "line": 366,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 366,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 366,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"):\u21b5        re"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5     "
   },
   {
     "file": "ai_council.py",
     "line": 376,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "ai_council.py",
-    "line": 376,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 376,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 376,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"),\u21b5          "
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(),\u21b5     "
   },
   {
     "file": "ai_council.py",
     "line": 467,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "ai_council.py",
-    "line": 467,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 467,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 467,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"):\u21b5        re"
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip():\u21b5     "
   },
   {
     "file": "ai_council.py",
     "line": 477,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "ai_council.py",
-    "line": 477,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 477,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "ai_council.py",
-    "line": 477,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\"),\u21b5          "
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip(),\u21b5     "
   },
   {
     "file": "ai_council.py",
@@ -3015,49 +2235,19 @@
     "file": "knowledge_dispatch.py",
     "line": 44,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
-  },
-  {
-    "file": "knowledge_dispatch.py",
-    "line": 44,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_"
-  },
-  {
-    "file": "knowledge_dispatch.py",
-    "line": 44,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\" i"
-  },
-  {
-    "file": "knowledge_dispatch.py",
-    "line": 44,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\" in code,\u21b5              "
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\" in code,\u21b5                \"saves_dat"
   },
   {
     "file": "knowledge_dispatch.py",
     "line": 89,
     "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os."
+    "snippet": "os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5    corpus  = load_all"
   },
   {
     "file": "knowledge_dispatch.py",
     "line": 89,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANT"
-  },
-  {
-    "file": "knowledge_dispatch.py",
-    "line": 89,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")"
-  },
-  {
-    "file": "knowledge_dispatch.py",
-    "line": 89,
-    "pattern": "nested os.getenv wrapping",
-    "snippet": "os.getenv(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\")\")\")\")\")\")\")\u21b5    corpus "
+    "pattern": "nested os.environ.get wrapping",
+    "snippet": "os.environ.get(\"os.getenv(\"os.getenv(\"ANTHROPIC_API_KEY\")\")\", \"\").strip()\u21b5    co"
   },
   {
     "file": "knowledge_dispatch.py",

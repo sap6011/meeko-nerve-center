@@ -8,7 +8,7 @@ Diagnoses every known blocker. Reports what needs human action.
 Updates health score in brain_state.json.
 
 Health score (100 pts):
-  20 — os.getenv("ANTHROPIC_API_KEY") valid
+  20 — os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip() valid
   15 — Shop page deployed
   10 — Gumroad listings created
   10 — Social media credentials
@@ -27,7 +27,7 @@ DOCS  = Path("docs")
 DATA.mkdir(exist_ok=True)
 
 SECRETS_NEEDED = {
-    "os.getenv("ANTHROPIC_API_KEY")":    {"pts": 15, "category": "AI Brain", "how": "console.anthropic.com -> API Keys"},
+    "os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()":    {"pts": 15, "category": "AI Brain", "how": "console.anthropic.com -> API Keys"},
     "GUMROAD_ACCESS_TOKEN": {"pts": 10, "category": "Revenue",  "how": "gumroad.com → Settings → Advanced → Access Token"},
     "GMAIL_ADDRESS":        {"pts":  5, "category": "Delivery", "how": "Your Gmail address"},
     "GMAIL_APP_PASSWORD":   {"pts":  5, "category": "Delivery", "how": "Google Account → Security → App Passwords"},
@@ -38,9 +38,9 @@ SECRETS_NEEDED = {
 }
 
 def check_api_key():
-    key = os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()
+    key = os.environ.get("os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()", "").strip()
     if not key:
-        return False, "os.getenv("ANTHROPIC_API_KEY") not set"
+        return False, "os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip() not set"
     try:
         r = requests.post("https://api.anthropic.com/v1/messages",
             headers={"x-api-key": key, "anthropic-version": "2023-06-01",
@@ -78,7 +78,7 @@ def score_and_report():
         achievements.append(f"[OK] Anthropic API: {api_msg}")
     else:
         issues.append(f"🔴 CRITICAL: {api_msg} — All AI features disabled")
-        fixes.append("Go to anthropic.com/console -> API Keys -> Create new key -> Add as os.getenv("ANTHROPIC_API_KEY")")
+        fixes.append("Go to anthropic.com/console -> API Keys -> Create new key -> Add as os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()
 
     # File checks
     if (DOCS / "index.html").exists():

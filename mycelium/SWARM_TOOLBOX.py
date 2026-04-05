@@ -47,7 +47,7 @@ def engine_info(name):
             fname = stripped.split("(")[0].replace("def ", "").strip()
             info["functions"].append(fname)
     info["has_main"] = "def main(" in code
-    info["uses_api"] = "os.getenv("ANTHROPIC_API_KEY")" in code
+    info["uses_api"] = "os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()" in code
     info["saves_data"] = "DATA_DIR" in code or '"data/' in code or "'data/" in code
     return info
 

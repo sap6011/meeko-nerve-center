@@ -1,7 +1,7 @@
 {
   "engine": "DUAL_SYSTEM_CROSSWIRE",
   "created_at": "2026-04-05T01:08:45.697654+00:00",
-  "cycles": 3,
+  "cycles": 9,
   "announced_products": [
     "autonomous-system-guide",
     "bio-inspired-architecture",
@@ -15,11 +15,11 @@
     "solarpunk-starter",
     "system-snapshot"
   ],
-  "last_run": "2026-04-05T01:09:18.364390+00:00",
+  "last_run": "2026-04-05T12:31:22.071489+00:00",
   "last_results": {
     "content_to_social": {
-      "injected": 0,
-      "total_posts": 69
+      "injected": 5,
+      "total_posts": 279
     },
     "revenue_to_both": {
       "total_earned": 0.0,
@@ -28,7 +28,7 @@
     },
     "fuel_to_growth": {
       "injected": 0,
-      "total_tasks": 13
+      "total_tasks": 30
     },
     "storefront_to_signal": {
       "new_products_announced": 0,
@@ -62,20 +62,20 @@
       "note": "No grants found yet"
     },
     "report": {
-      "active_wires": 3,
-      "idle_wires": 4,
-      "total_items_flowing": 7,
+      "active_wires": 4,
+      "idle_wires": 3,
+      "total_items_flowing": 12,
       "gaps": 1
     }
   },
-  "last_elapsed_s": 0.014,
+  "last_elapsed_s": 0.007,
   "cross_connections": [
     {
       "wire": "CONTENT -> SOCIAL",
       "from": "growth_flywheel_content.json",
       "to": "social_queue.json",
-      "status": "idle",
-      "items_flowing": 0
+      "status": "active",
+      "items_flowing": 5
     },
     {
       "wire": "REVENUE -> BOTH",
@@ -134,56 +134,56 @@
       "engine": "GROWTH_FLYWHEEL",
       "description": "Content for distribution",
       "status": "active",
-      "size": 15956
+      "size": 15781
     },
     {
       "file": "social_queue.json",
       "engine": "SOCIAL_DASHBOARD",
       "description": "Social post queue",
       "status": "active",
-      "size": 23558
+      "size": 78435
     },
     {
       "file": "fuel_plan.json",
       "engine": "FUEL_CORE",
       "description": "Growth plan and blockers",
       "status": "active",
-      "size": 8359
+      "size": 8103
     },
     {
       "file": "economy_chain_ledger.json",
       "engine": "ECONOMY_CHAIN",
       "description": "Revenue routing ledger",
       "status": "active",
-      "size": 510
+      "size": 480
     },
     {
       "file": "revenue_routing.json",
       "engine": "REVENUE_SPLITTER",
       "description": "Active routing table",
       "status": "active",
-      "size": 3372
+      "size": 3263
     },
     {
       "file": "storefront_listings.json",
       "engine": "STOREFRONT_DEPLOYER",
       "description": "Product listings",
       "status": "active",
-      "size": 22662
+      "size": 22559
     },
     {
       "file": "signal_chain_state.json",
       "engine": "SIGNAL_CHAIN",
       "description": "Signal processing state",
       "status": "active",
-      "size": 2434
+      "size": 2618
     },
     {
       "file": "chimera_evolution_report.json",
       "engine": "CHIMERA_EVOLUTION",
       "description": "Fitness scoring",
       "status": "active",
-      "size": 1298
+      "size": 1247
     },
     {
       "file": "grants_found.json",
@@ -197,28 +197,28 @@
       "engine": "SELF_BUILDER",
       "description": "Automated task queue",
       "status": "active",
-      "size": 6264
+      "size": 11444
     },
     {
       "file": "telegram_relay.json",
       "engine": "TELEGRAM_BRIDGE",
       "description": "Telegram notifications",
       "status": "active",
-      "size": 35230
+      "size": 34582
     },
     {
       "file": "kofi_tracker_state.json",
       "engine": "KOFI_PAYMENT_TRACKER",
       "description": "Ko-fi payment state",
       "status": "active",
-      "size": 190
+      "size": 182
     },
     {
       "file": "proof_ledger.json",
       "engine": "PROOF_LEDGER",
       "description": "Revenue proof chain",
       "status": "active",
-      "size": 471
+      "size": 459
     }
   ],
   "mantra": "Two systems. One mission. This engine makes them talk."
