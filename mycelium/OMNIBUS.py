@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v30 — OBSERVATORY + FRACTAL GENESIS + VALUE ROUTER
+OMNIBUS v43 — DIGITAL SATURATION: 94 pages, 5 releases, 2 discussions, 2 email drafts, 367 artifacts (366+ engines, 5476 wires)
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -209,6 +209,26 @@ def ctx():
         "observatory":      rj("observatory_report.json"),
         "fractal_genesis":  rj("fractal_genesis_report.json"),
         "value_router":     rj("value_router_report.json"),
+        "immune_system":    rj("immune_system_report.json"),
+        "signal_integrity": rj("signal_integrity_report.json"),
+        "cortex":           rj("cortex_analysis.json"),
+        "temporal":         rj("temporal_analysis.json"),
+        "product_forge":    rj("product_forge_report.json"),
+        "micro_factory":    rj("micro_product_factory_report.json"),
+        "fractal_replicator": rj("fractal_replicator_report.json"),
+        "event_relay":      rj("event_relay_report.json"),
+        "resource_allocator": rj("resource_allocator_plan.json"),
+        "credential_sensor": rj("credential_sensor_report.json"),
+        "knowledge_distiller": rj("knowledge_distiller_state.json"),
+        "bundle_forge":     rj("bundle_forge_state.json"),
+        "catalog":          rj("catalog_generator_state.json"),
+        "dashboard":        rj("metrics_dashboard_state.json"),
+        "storefront":       rj("storefront_copy_state.json"),
+        "task_factory":     rj("task_factory_state.json"),
+        "auto_executor":    rj("auto_executor_state.json"),
+        "zero_secret_army": rj("zero_secret_army_report.json"),
+        "gap_filler":       rj("gap_filler_state.json"),
+        "debug_doctor":     rj("debug_doctor_report.json"),
         "engines_ok":       results["ok"][:],
         "engines_failed":   results["failed"][:],
     }
@@ -384,6 +404,27 @@ def L6():
     eng("DATA_FLOW_OBSERVATORY",   timeout=180)  # v30: god's-eye view of all data flows
     eng("FRACTAL_GENESIS_ENGINE",  timeout=180)  # v30: auto-generate engines from gap analysis
     eng("EXTERNAL_VALUE_ROUTER",   timeout=120)  # v30: route capabilities to ethical revenue
+    eng("IMMUNE_SYSTEM",           timeout=120)  # v31: active defense against SIA corruption
+    eng("SIGNAL_INTEGRITY",        timeout=120)  # v31: honest audit of real vs stub wires
+    eng("TEMPORAL_CORTEX",         timeout=60)   # v31: git history analysis for self-awareness
+    eng("PRODUCT_FORGE",           timeout=120)  # v31: generate actual digital products
+    eng("CORTEX",                  timeout=180)  # v31: AI reasoning layer -- the system thinks
+    eng("CONTENT_AUTOPILOT",       timeout=120)  # v31: infinite content machine -- articles + social
+    eng("MICRO_PRODUCT_FACTORY",   timeout=120)  # v32: template pack assembly line (4 domains, 32 files)
+    eng("FRACTAL_REPLICATOR",      timeout=120)  # v32: one template x N domains = N product variants
+    eng("EVENT_RELAY",             timeout=60)   # v32: auto-git event-driven trigger system (DRY_RUN)
+    eng("RESOURCE_ALLOCATOR",      timeout=30)   # v33: strategic $100 infrastructure investment plan
+    eng("CREDENTIAL_SENSOR",       timeout=30)   # v33: auto-detect new API keys, report unblocked engines
+    eng("KNOWLEDGE_DISTILLER",     timeout=120)  # v34: engine encyclopedia product ($8)
+    eng("BUNDLE_FORGE",            timeout=120)  # v34: themed product bundles ($6-$25)
+    eng("CATALOG_GENERATOR",       timeout=60)   # v34: HTML product catalog for GitHub Pages
+    eng("METRICS_DASHBOARD",       timeout=60)   # v34: live HTML system dashboard
+    eng("STOREFRONT_COPY",         timeout=60)   # v34: ready-to-paste Ko-fi/Gumroad listings
+    eng("TASK_FACTORY",            timeout=30)   # v35: generate autonomous tasks from system state
+    eng("AUTO_EXECUTOR",           timeout=300)  # v35: execute all autonomous tasks
+    eng("ZERO_SECRET_ARMY",        timeout=300)  # v35: deploy all 82 zero-secret engines
+    eng("GAP_FILLER",              timeout=30)   # v36: seed missing data files so engines don't crash
+    eng("DEBUG_DOCTOR",            timeout=120)  # v36: diagnose failures, fix UTF-8, log unfixable
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")

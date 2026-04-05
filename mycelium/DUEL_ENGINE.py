@@ -8,7 +8,6 @@ def duel_functions(func_name, version_a, version_b):
         test_file = f'data/temp_duel_{version}.py'
         # Wrap the scavenged code in a performance timer
         test_wrapper = f"""
-import time
 import json
 from pathlib import Path
 

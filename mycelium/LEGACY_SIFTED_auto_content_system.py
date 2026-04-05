@@ -210,7 +210,6 @@ class AutonomousContentGenerator:
             }
             
             # Save to file
-            import os
             output_dir = os.path.dirname(os.path.abspath(__file__))
             filename = f"{output_dir}/output_{today}.json"
             with open(filename, 'w') as f:

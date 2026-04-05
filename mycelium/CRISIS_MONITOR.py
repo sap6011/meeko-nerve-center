@@ -207,7 +207,6 @@ def fetch_reliefweb(limit=15):
 # ── Source: GDELT ───────────────────────────────────────────────────────────
 def fetch_gdelt(limit=15):
     """GDELT Global Event Database — free crisis event monitoring."""
-    import requests
     signals = []
     try:
         r = requests.get(
@@ -236,7 +235,6 @@ def fetch_gdelt(limit=15):
 # ── Source: Reddit crisis subreddits ────────────────────────────────────────
 def fetch_reddit_crisis(limit=5):
     """Monitor crisis subreddits for ground-level human signals."""
-    import requests
     subs = ["Gaza", "Sudan", "Palestine", "HumanRights", "YemeniCrisis",
             "Congo", "Rojava", "worldnews"]
     signals = []
@@ -269,8 +267,6 @@ def fetch_reddit_crisis(limit=5):
 # ── Source: Wikipedia Current Events ──────────────────────────────────────
 def fetch_wikipedia_current(limit=20):
     """Wikipedia Current Events portal — free, no API key, always available."""
-    import requests
-    import re
     signals = []
     try:
         today = datetime.now(timezone.utc)

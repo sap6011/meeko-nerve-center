@@ -55,7 +55,7 @@ def build_html(queue_data):
 
     for p in queue_data.get("posts", []):
         sent = p.get("sent", False) and p.get("send_result", {}).get("success", False)
-        biz_posts.append((p["platform"], p["text"], p.get("live_url"), sent, p.get("niche","?")))
+        biz_posts.append((p.get("platform", p.get("source", "?")), p.get("text", ""), p.get("live_url"), sent, p.get("niche", "?")))
 
     total_ready = sum(1 for *_, sent, _ in art_posts + biz_posts if not sent)
     total_sent = sum(1 for *_, sent, _ in art_posts + biz_posts if sent)

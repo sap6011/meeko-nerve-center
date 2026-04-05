@@ -390,6 +390,8 @@ def bridge_synergy_mutations():
             if isinstance(m, dict):
                 lines.append(f"- {m.get('name', 'unknown')}")
     out = DATA / "synergy_mutations.txt"
+    if out.exists() and out.stat().st_size > 50:
+        return {"status": "FAILED", "detail": "synergy_mutations.txt already has data"}
     out.write_text("\n".join(lines))
     return {"status": "BRIDGED", "detail": f"Synergy mutations seeded ({len(lines)} lines)"}
 

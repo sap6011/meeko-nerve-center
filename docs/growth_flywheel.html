@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GROWTH FLYWHEEL -- SolarPunk Distribution Engine</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#050a05;color:#d4d4d4;padding:24px;max-width:960px;margin:0 auto}
+h1{color:#4ade80;margin-bottom:4px;font-size:1.8em}
+h2{color:#86efac;margin:28px 0 12px;font-size:1.15em;border-bottom:1px solid #1a3a1a;padding-bottom:6px}
+.subtitle{color:#888;margin-bottom:20px;font-size:0.9em;font-style:italic}
+
+.score-ring{text-align:center;margin:20px auto;width:120px;height:120px;border-radius:50%;border:4px solid #fbbf24;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-ring .val{font-size:2em;font-weight:700;color:#fbbf24}
+.score-ring .lbl{font-size:0.65em;color:#888}
+
+.flywheel-diagram{display:flex;align-items:center;justify-content:center;gap:6px;margin:20px 0;flex-wrap:wrap}
+.fw-stage{background:#0a1a0a;border:1px solid #1a3a1a;border-radius:8px;padding:10px 14px;text-align:center;font-size:0.8em;font-weight:600;min-width:80px}
+.fw-stage span{display:block;font-size:0.8em;font-weight:400;color:#888;margin-top:2px}
+.fw-content{color:#60a5fa;border-color:#1e3a5f}
+.fw-traffic{color:#fbbf24;border-color:#4a3a0a}
+.fw-signups{color:#c084fc;border-color:#3a1a4a}
+.fw-revenue{color:#4ade80;border-color:#1a3a1a}
+.fw-arrow{color:#555;font-size:0.8em}
+
+.stage{margin-bottom:14px}
+.stage-header{display:flex;justify-content:space-between;margin-bottom:4px}
+.stage-name{font-size:0.75em;color:#aaa;letter-spacing:0.05em}
+.stage-score{font-size:0.75em;color:#888}
+.bar{background:#1a1a1a;height:8px;border-radius:4px;overflow:hidden}
+.bar .fill{height:100%;border-radius:4px;transition:width 0.3s}
+.stage-detail{font-size:0.7em;color:#666;margin-top:2px}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
+.stat{background:#0a1a0a;border:1px solid #1a3a1a;border-radius:6px;padding:12px;text-align:center}
+.stat .val{font-size:1.3em;font-weight:700;color:#4ade80}
+.stat .lbl{font-size:0.7em;color:#666;margin-top:4px}
+
+table{width:100%;border-collapse:collapse;font-size:0.78em;margin-top:8px}
+th{text-align:left;color:#4ade80;border-bottom:1px solid #1a3a1a;padding:6px}
+td{border-bottom:1px solid #111;padding:6px;color:#aaa}
+.badge{font-size:0.7em;padding:2px 8px;border-radius:3px}
+.badge.done{background:#14532d;color:#4ade80}
+.badge.pending{background:#1a1a00;color:#fbbf24}
+
+.kw{display:inline-block;background:#0a1a0a;border:1px solid #1a3a1a;border-radius:4px;padding:3px 8px;margin:3px;font-size:0.75em;color:#86efac}
+
+.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}
+.content-card{background:#0a1a0a;border:1px solid #1a3a1a;border-radius:6px;padding:12px}
+.content-card .ch{font-size:0.7em;color:#4ade80;letter-spacing:0.05em;margin-bottom:4px}
+.content-card .num{font-size:1.4em;font-weight:700;color:#d4d4d4}
+.content-card .det{font-size:0.7em;color:#666;margin-top:2px}
+
+.mission{margin-top:32px;padding:12px;background:#0a1a0a;border:1px solid #1a3a1a;border-radius:6px;color:#86efac;font-size:0.82em;text-align:center}
+.ts{color:#333;font-size:0.7em;margin-top:20px;text-align:center}
+a{color:#4ade80}
+</style>
+</head>
+<body>
+<h1>GROWTH FLYWHEEL</h1>
+<p class="subtitle">Content -> Traffic -> Signups -> Revenue -> More Content -> ...</p>
+
+<div class="score-ring">
+<div class="val">22</div>
+<div class="lbl">STARTING</div>
+</div>
+
+<div class="flywheel-diagram"><div class="fw-stage fw-content">CONTENT<br><span>22 pieces</span></div><div class="fw-arrow">--&gt;</div><div class="fw-stage fw-traffic">TRAFFIC<br><span>0 stars</span></div><div class="fw-arrow">--&gt;</div><div class="fw-stage fw-signups">SIGNUPS<br><span>growing</span></div><div class="fw-arrow">--&gt;</div><div class="fw-stage fw-revenue">REVENUE<br><span>$0.00</span></div><div class="fw-arrow">--&gt; loop</div></div>
+
+<h2>Flywheel Health</h2>
+<div class="stage"><div class="stage-header"><span class="stage-name">CONTENT</span><span class="stage-score">22/25</span></div><div class="bar"><div class="fill" style="width:88%;background:#4ade80"></div></div><div class="stage-detail">22 pieces generated</div></div>
+<div class="stage"><div class="stage-header"><span class="stage-name">DISTRIBUTION</span><span class="stage-score">0/25</span></div><div class="bar"><div class="fill" style="width:0%;background:#f87171"></div></div><div class="stage-detail">0 pieces published</div></div>
+<div class="stage"><div class="stage-header"><span class="stage-name">TRAFFIC</span><span class="stage-score">0/25</span></div><div class="bar"><div class="fill" style="width:0%;background:#f87171"></div></div><div class="stage-detail">0 stars, 0 forks</div></div>
+<div class="stage"><div class="stage-header"><span class="stage-name">REVENUE</span><span class="stage-score">0/25</span></div><div class="bar"><div class="fill" style="width:0%;background:#f87171"></div></div><div class="stage-detail">$0.00 earned</div></div>
+
+
+<h2>Content Pipeline</h2>
+<div class="stat-grid">
+<div class="stat"><div class="val">110</div><div class="lbl">Total Pieces</div></div>
+<div class="stat"><div class="val">0</div><div class="lbl">Published</div></div>
+<div class="stat"><div class="val">0.0%%</div><div class="lbl">Publish Rate</div></div>
+<div class="stat"><div class="val">$0.0000</div><div class="lbl">Rev / Content</div></div>
+</div>
+
+<div class="content-grid">
+<div class="content-card"><div class="ch">GITHUB DISCUSSIONS</div><div class="num">3</div><div class="det">announcements, status, retros</div></div>
+<div class="content-card"><div class="ch">TWITTER/X THREADS</div><div class="num">4</div><div class="det">launch, mission, technical, BTS</div></div>
+<div class="content-card"><div class="ch">REDDIT POSTS</div><div class="num">3</div><div class="det">r/solarpunk, r/opensource, r/sideproject</div></div>
+<div class="content-card"><div class="ch">DEV.TO ARTICLES</div><div class="num">2</div><div class="det">technical deep-dives</div></div>
+<div class="content-card"><div class="ch">KO-FI UPDATES</div><div class="num">2</div><div class="det">progress + mission posts</div></div>
+</div>
+
+<h2>7-Day Distribution Calendar</h2>
+<table>
+<tr><th>Day</th><th>Weekday</th><th>Theme</th><th>Focus</th><th>Channels</th><th>Status</th></tr>
+<tr><td>Day 1</td><td>Sunday</td><td><strong>Product Launch</strong></td><td>Announce products across all channels -- the store is live, </td><td>GitHub Discussions, Twitter/X, Ko-fi</td><td><span class="badge pending">pending</span></td></tr>
+<tr><td>Day 2</td><td>Monday</td><td><strong>Technical Deep-Dive</strong></td><td>Show builders how it works -- earn trust through transparenc</td><td>Dev.to, Twitter/X, Reddit r/opensource</td><td><span class="badge pending">pending</span></td></tr>
+<tr><td>Day 3</td><td>Tuesday</td><td><strong>Mission & Ethics</strong></td><td>Tell the 99/1 story -- why the system exists</td><td>Twitter/X, Reddit r/solarpunk, Ko-fi</td><td><span class="badge pending">pending</span></td></tr>
+<tr><td>Day 4</td><td>Wednesday</td><td><strong>Community Engagement</strong></td><td>Ask questions, invite participation, build relationships</td><td>GitHub Discussions, Reddit r/SideProject, Twitter/X</td><td><span class="badge pending">pending</span></td></tr>
+<tr><td>Day 5</td><td>Thursday</td><td><strong>Behind the Scenes</strong></td><td>Show the system running -- process transparency builds trust</td><td>Twitter/X, Dev.to, GitHub Discussions</td><td><span class="badge pending">pending</span></td></tr>
+<tr><td>Day 6</td><td>Friday</td><td><strong>Product Showcase</strong></td><td>Feature a different product -- rotate through the catalog</td><td>Twitter/X, Ko-fi, Reddit r/SideProject</td><td><span class="badge pending">pending</span></td></tr>
+<tr><td>Day 7</td><td>Saturday</td><td><strong>Week in Review</strong></td><td>System growth metrics -- transparency report</td><td>GitHub Discussions, Twitter/X, Ko-fi</td><td><span class="badge pending">pending</span></td></tr>
+
+</table>
+
+<h2>SEO Keywords (81 total)</h2>
+<div style="margin:8px 0"><span class="kw">solarpunk ai system</span><span class="kw">autonomous ai mutual aid</span><span class="kw">self-healing python automation</span><span class="kw">build your own ai agent</span><span class="kw">ethical ai revenue</span><span class="kw">open source ai business</span><span class="kw">github actions autonomous system</span><span class="kw">ai products for charity</span><span class="kw">self-expanding ai architecture</span><span class="kw">zero cost ai infrastructure</span></div>
+
+<div class="mission">
+99%% of every dollar -> mutual aid. PCRF 60%% | IRC 15%% | MSF 10%% | UNICEF 10%% | Direct Relief 5%%<br>
+The flywheel spins to fund relief. That is the endgame.
+</div>
+
+<div class="ts">
+Generated 2026-04-05T00:57 UTC by GROWTH_FLYWHEEL |
+<a href="fuel.html">Fuel Core</a> |
+<a href="store.html">Store</a> |
+<a href="proof.html">Proof</a> |
+<a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">GitHub</a>
+</div>
+</body>
+</html>

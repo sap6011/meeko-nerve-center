@@ -1,32 +1,30 @@
 {
-  "timestamp": "2026-03-28T14:57:56.640499+00:00",
+  "timestamp": "2026-04-04T15:06:36.143280+00:00",
   "version": "1.0",
   "pattern": "homeostasis",
-  "planetary_health": 89,
+  "planetary_health": 74,
   "status": "HEALTHY",
   "message": "System healthy with minor adjustments needed.",
   "vitals": {
-    "engine_count": 269,
-    "crisis_signals": 29,
-    "active_sources": 1,
-    "source_list": [
-      "reddit"
-    ],
+    "engine_count": 304,
+    "crisis_signals": 0,
+    "active_sources": 0,
+    "source_list": [],
     "trigger_rate": 0,
-    "handshake_queue": 6,
+    "handshake_queue": 0,
     "amplification_posts": 8,
     "immune_patterns": 2,
-    "information_voids": 14,
+    "information_voids": 19,
     "silence_events": 0,
-    "spore_count": 17,
-    "global_quorum": 13,
+    "spore_count": 10,
+    "global_quorum": 0,
     "active_quorums": 2,
     "sovereignty": "?"
   },
   "diagnoses": [
     {
       "vital": "engine_count",
-      "value": 269,
+      "value": 304,
       "unit": "engines",
       "range": "250-500",
       "status": "NORMAL",
@@ -34,15 +32,15 @@
     },
     {
       "vital": "crisis_signals",
-      "value": 29,
+      "value": 0,
       "unit": "signals/scan",
       "range": "5-100",
-      "status": "NORMAL",
-      "deduction": 0
+      "status": "CRITICAL",
+      "deduction": 15
     },
     {
       "vital": "active_sources",
-      "value": 1,
+      "value": 0,
       "unit": "data sources",
       "range": "2-6",
       "status": "CRITICAL",
@@ -58,7 +56,7 @@
     },
     {
       "vital": "handshake_queue",
-      "value": 6,
+      "value": 0,
       "unit": "queued emails",
       "range": "0-20",
       "status": "NORMAL",
@@ -82,7 +80,7 @@
     },
     {
       "vital": "information_voids",
-      "value": 14,
+      "value": 19,
       "unit": "critical voids",
       "range": "0-10",
       "status": "HIGH",
@@ -98,7 +96,7 @@
     },
     {
       "vital": "spore_count",
-      "value": 17,
+      "value": 10,
       "unit": "spores/cycle",
       "range": "5-100",
       "status": "NORMAL",
@@ -107,11 +105,24 @@
   ],
   "prescriptions": [
     {
+      "vital": "crisis_signals",
+      "condition": "Only 0 signals detected",
+      "prescription": "ADD_DATA_SOURCES",
+      "actions": [
+        "Add Wikipedia Current Events scanning",
+        "Increase Reddit subreddit list",
+        "Check if ReliefWeb API registration is available",
+        "Add Al Jazeera RSS feed",
+        "Add BBC World Service RSS feed"
+      ],
+      "urgency": "HIGH"
+    },
+    {
       "vital": "active_sources",
-      "condition": "Only 1 data sources active (need >= 2)",
+      "condition": "Only 0 data sources active (need >= 2)",
       "prescription": "DIVERSIFY_SOURCES",
       "actions": [
-        "Current sources: reddit",
+        "Current sources: ",
         "Add backup RSS feeds for each primary source",
         "Enable Wikipedia Current Events fallback",
         "Consider adding Twitter/X API if available"
@@ -120,7 +131,7 @@
     },
     {
       "vital": "information_voids",
-      "condition": "14 critical information voids",
+      "condition": "19 critical information voids",
       "prescription": "INCREASE_COVERAGE",
       "actions": [
         "Route AMPLIFY_ENGINE toward void regions",
@@ -131,9 +142,9 @@
     }
   ],
   "stats": {
-    "normal_count": 8,
+    "normal_count": 7,
     "warning_count": 1,
-    "critical_count": 1,
-    "prescription_count": 2
+    "critical_count": 2,
+    "prescription_count": 3
   }
 }

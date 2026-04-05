@@ -1,36 +1,29 @@
 {
-  "timestamp": "2026-04-04T11:06:41.579729+00:00",
-  "gaps_found": 15,
+  "timestamp": "2026-04-05T00:57:15.454674+00:00",
+  "gaps_found": 14,
   "specs_generated": 10,
-  "engines_created": 7,
-  "engines_skipped": 3,
+  "engines_created": 4,
+  "engines_skipped": 6,
   "created_engines": [
-    "GENERATED_SECRETS_CHECKER_CONSUMER",
-    "GENERATED_PLUGIN_REGISTRY_CONSUMER",
-    "GENERATED_SECURITY_TRACKER",
-    "GENERATED_EVOLUTION_TRACKER",
-    "GENERATED_KNOWLEDGE_TRACKER",
-    "GENERATED_TRANSFER_NEEDED_POPULATOR",
-    "GENERATED_SELF_BUILDER_QUEUE_POPULATOR"
+    "GENERATED_DAEMON_TASK_XML_POPULATOR",
+    "GENERATED_SIGNAL_BOOST_LOG_POPULATOR",
+    "GENERATED_GRANT_TRIGGER_POPULATOR",
+    "GENERATED_GROWTH_CHAIN_STATE_POPULATOR"
   ],
   "gaps": [
     {
       "type": "high_value_dead_end",
-      "engine": "SECRETS_CHECKER",
+      "engine": "EXTERNAL_VALUE_ROUTER",
       "outputs": [
-        "secrets_checker_state.json"
+        "value_opportunities.json",
+        "value_router_report.json"
       ],
-      "suggestion": "Build consumer for SECRETS_CHECKER's high-value output"
+      "suggestion": "Build consumer for EXTERNAL_VALUE_ROUTER's high-value output"
     },
     {
-      "type": "high_value_dead_end",
-      "engine": "PLUGIN_REGISTRY",
-      "outputs": [
-        "plugin_registry.json",
-        "plugin_manifests.json",
-        "contributor_registry.json"
-      ],
-      "suggestion": "Build consumer for PLUGIN_REGISTRY's high-value output"
+      "type": "missing_category",
+      "category": "knowledge",
+      "suggestion": "Build engine to generate knowledge data flows"
     },
     {
       "type": "missing_category",
@@ -43,89 +36,84 @@
       "suggestion": "Build engine to generate evolution data flows"
     },
     {
-      "type": "missing_category",
-      "category": "knowledge",
-      "suggestion": "Build engine to generate knowledge data flows"
+      "type": "dead_flow",
+      "via": "daemon_task.xml",
+      "from": "DESKTOP_DAEMON",
+      "to": "GENERATED_DESKTOP_DAEMON_CONSUMER",
+      "suggestion": "Populate daemon_task.xml with real data from DESKTOP_DAEMON"
+    },
+    {
+      "type": "dead_flow",
+      "via": "signal_boost_log.json",
+      "from": "SIGNAL_BOOST",
+      "to": "WEEKEND_PULSE",
+      "suggestion": "Populate signal_boost_log.json with real data from SIGNAL_BOOST"
+    },
+    {
+      "type": "dead_flow",
+      "via": "grant_trigger.json",
+      "from": "GENERATED_REVENUE_FLYWHEEL_CONSUMER",
+      "to": "REVENUE_FLYWHEEL",
+      "suggestion": "Populate grant_trigger.json with real data from GENERATED_REVENUE_FLYWHEEL_CONSUMER"
+    },
+    {
+      "type": "dead_flow",
+      "via": "grant_trigger.json",
+      "from": "REVENUE_FLYWHEEL",
+      "to": "GENERATED_REVENUE_FLYWHEEL_CONSUMER",
+      "suggestion": "Populate grant_trigger.json with real data from REVENUE_FLYWHEEL"
+    },
+    {
+      "type": "dead_flow",
+      "via": "growth_chain_state.json",
+      "from": "GROWTH_CHAIN",
+      "to": "CHAIN_ORCHESTRATOR",
+      "suggestion": "Populate growth_chain_state.json with real data from GROWTH_CHAIN"
+    },
+    {
+      "type": "dead_flow",
+      "via": "growth_chain_state.json",
+      "from": "GROWTH_CHAIN",
+      "to": "GROWTH_FLYWHEEL",
+      "suggestion": "Populate growth_chain_state.json with real data from GROWTH_CHAIN"
+    },
+    {
+      "type": "dead_flow",
+      "via": "growth_chain_state.json",
+      "from": "GROWTH_CHAIN",
+      "to": "KNOWLEDGE_CHAIN",
+      "suggestion": "Populate growth_chain_state.json with real data from GROWTH_CHAIN"
+    },
+    {
+      "type": "dead_flow",
+      "via": "transfer_needed.json",
+      "from": "GENERATED_TRANSFER_NEEDED_POPULATOR",
+      "to": "NIGHTLY_DIGEST",
+      "suggestion": "Populate transfer_needed.json with real data from GENERATED_TRANSFER_NEEDED_POPULATOR"
+    },
+    {
+      "type": "dead_flow",
+      "via": "transfer_needed.json",
+      "from": "GENERATED_TRANSFER_NEEDED_POPULATOR",
+      "to": "PROOF_LEDGER",
+      "suggestion": "Populate transfer_needed.json with real data from GENERATED_TRANSFER_NEEDED_POPULATOR"
     },
     {
       "type": "dead_flow",
       "via": "transfer_needed.json",
       "from": "PROOF_LEDGER",
-      "to": "NIGHTLY_DIGEST",
+      "to": "GENERATED_TRANSFER_NEEDED_POPULATOR",
       "suggestion": "Populate transfer_needed.json with real data from PROOF_LEDGER"
-    },
-    {
-      "type": "dead_flow",
-      "via": "self_builder_queue.json",
-      "from": "CROSS_POLLINATOR",
-      "to": "AUTO_HEALER",
-      "suggestion": "Populate self_builder_queue.json with real data from CROSS_POLLINATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "self_builder_queue.json",
-      "from": "CROSS_POLLINATOR",
-      "to": "AUTONOMOUS_TESTER",
-      "suggestion": "Populate self_builder_queue.json with real data from CROSS_POLLINATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "self_builder_queue.json",
-      "from": "CROSS_POLLINATOR",
-      "to": "DEEP_RESEARCHER",
-      "suggestion": "Populate self_builder_queue.json with real data from CROSS_POLLINATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "self_builder_queue.json",
-      "from": "CROSS_POLLINATOR",
-      "to": "EVOLUTION_VIEWER",
-      "suggestion": "Populate self_builder_queue.json with real data from CROSS_POLLINATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "self_builder_queue.json",
-      "from": "CROSS_POLLINATOR",
-      "to": "OFFLINE_BRAIN",
-      "suggestion": "Populate self_builder_queue.json with real data from CROSS_POLLINATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "self_builder_queue.json",
-      "from": "CROSS_POLLINATOR",
-      "to": "OMNIBUS",
-      "suggestion": "Populate self_builder_queue.json with real data from CROSS_POLLINATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "self_builder_queue.json",
-      "from": "CROSS_POLLINATOR",
-      "to": "PASSIVE_INCOME_ARCHITECT",
-      "suggestion": "Populate self_builder_queue.json with real data from CROSS_POLLINATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "self_builder_queue.json",
-      "from": "CROSS_POLLINATOR",
-      "to": "REPO_SPIDER",
-      "suggestion": "Populate self_builder_queue.json with real data from CROSS_POLLINATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "self_builder_queue.json",
-      "from": "CROSS_POLLINATOR",
-      "to": "SWARM_TOOLBOX",
-      "suggestion": "Populate self_builder_queue.json with real data from CROSS_POLLINATOR"
     }
   ],
   "specs": [
     {
-      "name": "GENERATED_SECRETS_CHECKER_CONSUMER",
-      "purpose": "Consumes high-value output from SECRETS_CHECKER and generates actionable insights"
+      "name": "GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER",
+      "purpose": "Consumes high-value output from EXTERNAL_VALUE_ROUTER and generates actionable insights"
     },
     {
-      "name": "GENERATED_PLUGIN_REGISTRY_CONSUMER",
-      "purpose": "Consumes high-value output from PLUGIN_REGISTRY and generates actionable insights"
+      "name": "GENERATED_KNOWLEDGE_TRACKER",
+      "purpose": "Tracks knowledge signals across the nervous system"
     },
     {
       "name": "GENERATED_SECURITY_TRACKER",
@@ -136,28 +124,28 @@
       "purpose": "Tracks evolution signals across the nervous system"
     },
     {
-      "name": "GENERATED_KNOWLEDGE_TRACKER",
-      "purpose": "Tracks knowledge signals across the nervous system"
+      "name": "GENERATED_DAEMON_TASK_XML_POPULATOR",
+      "purpose": "Populates daemon_task.xml with real data to revive dead flow"
     },
     {
-      "name": "GENERATED_TRANSFER_NEEDED_POPULATOR",
-      "purpose": "Populates transfer_needed.json with real data to revive dead flow"
+      "name": "GENERATED_SIGNAL_BOOST_LOG_POPULATOR",
+      "purpose": "Populates signal_boost_log.json with real data to revive dead flow"
     },
     {
-      "name": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
-      "purpose": "Populates self_builder_queue.json with real data to revive dead flow"
+      "name": "GENERATED_GRANT_TRIGGER_POPULATOR",
+      "purpose": "Populates grant_trigger.json with real data to revive dead flow"
     },
     {
-      "name": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
-      "purpose": "Populates self_builder_queue.json with real data to revive dead flow"
+      "name": "GENERATED_GRANT_TRIGGER_POPULATOR",
+      "purpose": "Populates grant_trigger.json with real data to revive dead flow"
     },
     {
-      "name": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
-      "purpose": "Populates self_builder_queue.json with real data to revive dead flow"
+      "name": "GENERATED_GROWTH_CHAIN_STATE_POPULATOR",
+      "purpose": "Populates growth_chain_state.json with real data to revive dead flow"
     },
     {
-      "name": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
-      "purpose": "Populates self_builder_queue.json with real data to revive dead flow"
+      "name": "GENERATED_GROWTH_CHAIN_STATE_POPULATOR",
+      "purpose": "Populates growth_chain_state.json with real data to revive dead flow"
     }
   ]
 }

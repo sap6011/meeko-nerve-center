@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Changelog - SolarPunk Autonomous AI System | Version History v38-v42</title>
+<meta name="description" content="Version history for the SolarPunk autonomous AI system. Track every major update from OMNIBUS v38 through v42: AUTO_GENESIS, Ollama-first AI, product forge, and chimera evolution.">
+<meta name="keywords" content="SolarPunk changelog, autonomous AI updates, version history, OMNIBUS versions, AI system evolution">
+<meta property="og:title" content="SolarPunk Changelog - Version History">
+<meta property="og:description" content="Every major update from v38 to v42. Track the evolution of a 366-engine autonomous AI system.">
+<meta property="og:url" content="https://meekotharaccoon-cell.github.io/meeko-nerve-center/changelog.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SolarPunk Changelog">
+<meta name="twitter:description" content="Version history of the autonomous AI system that builds itself.">
+<link rel="canonical" href="https://meekotharaccoon-cell.github.io/meeko-nerve-center/changelog.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SolarPunk Changelog: Version History from v38 to v42",
+  "description": "Complete version history for the SolarPunk OMNIBUS orchestrator, from v38 through v42.",
+  "author": {"@type": "Organization", "name": "SolarPunk"},
+  "datePublished": "2026-04-04",
+  "publisher": {"@type": "Organization", "name": "SolarPunk"}
+}
+</script>
+<style>
+  body { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.7; margin: 0; padding: 0; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+  h1 { color: #58a6ff; font-size: 2.4em; text-align: center; margin-bottom: 10px; }
+  h2 { color: #3fb950; font-size: 1.6em; margin-top: 50px; border-bottom: 1px solid #21262d; padding-bottom: 10px; }
+  h3 { color: #58a6ff; font-size: 1.2em; margin-top: 20px; }
+  p { font-size: 1.05em; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .subtitle { text-align: center; color: #8b949e; font-size: 1.1em; margin-bottom: 40px; }
+  .version { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 30px; margin: 25px 0; }
+  .version-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 15px; }
+  .version-tag { background: #238636; color: #fff; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 1.3em; }
+  .version-tag.current { background: #58a6ff; }
+  .version-tag.future { background: #30363d; color: #8b949e; }
+  .version-date { color: #8b949e; font-size: 0.95em; }
+  .version-title { color: #e6edf3; font-size: 1.2em; font-weight: bold; margin-bottom: 15px; }
+  .change-list { padding-left: 20px; }
+  .change-list li { margin-bottom: 8px; }
+  .tag-added { background: #0e2a10; color: #3fb950; padding: 1px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
+  .tag-changed { background: #2d1600; color: #d29922; padding: 1px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
+  .tag-fixed { background: #2d0000; color: #da3633; padding: 1px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
+  .tag-removed { background: #1c0e3a; color: #d2a8ff; padding: 1px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
+  .metrics { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px; padding-top: 15px; border-top: 1px solid #21262d; }
+  .metric { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 8px 15px; font-size: 0.9em; }
+  .metric strong { color: #3fb950; }
+  nav { background: #161b22; border-bottom: 1px solid #30363d; padding: 15px 0; text-align: center; }
+  nav a { color: #58a6ff; margin: 0 15px; font-size: 0.95em; }
+  .footer { border-top: 1px solid #21262d; margin-top: 60px; padding-top: 30px; text-align: center; color: #8b949e; font-size: 0.9em; }
+  .footer a { color: #3fb950; }
+  .cta { background: linear-gradient(135deg, #238636, #1a7f37); color: #fff; padding: 15px 30px; border-radius: 8px; display: inline-block; font-weight: bold; margin: 10px; text-decoration: none; }
+  .cta:hover { text-decoration: none; opacity: 0.9; }
+  ul { padding-left: 25px; }
+  li { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Dashboard</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="mission.html">Mission</a>
+  <a href="products/index.html">Products</a>
+  <a href="for-developers.html">Developers</a>
+  <a href="transparency.html">Transparency</a>
+  <a href="faq.html">FAQ</a>
+</nav>
+<div class="container">
+
+<h1>Changelog</h1>
+<p class="subtitle">Version history of the SolarPunk OMNIBUS orchestrator and major system milestones.</p>
+
+<div class="version">
+  <div class="version-header">
+    <span class="version-tag future">v42</span>
+    <span class="version-date">Planned -- Q2 2026</span>
+  </div>
+  <div class="version-title">Revenue Activation & Multi-Platform Distribution</div>
+  <ul class="change-list">
+    <li><span class="tag-added">PLANNED</span> Multi-platform product distribution (Gumroad, Lemon Squeezy, direct downloads)</li>
+    <li><span class="tag-added">PLANNED</span> Automated payment verification and proof ledger updating</li>
+    <li><span class="tag-added">PLANNED</span> First Dollar Engine with real-time sale detection</li>
+    <li><span class="tag-added">PLANNED</span> Social media amplification for product launches</li>
+    <li><span class="tag-added">PLANNED</span> Newsletter integration with automated content dispatch</li>
+    <li><span class="tag-changed">PLANNED</span> Revenue routing automation -- PCRF donations triggered on receipt</li>
+  </ul>
+  <div class="metrics">
+    <div class="metric">Target: <strong>First revenue</strong></div>
+    <div class="metric">Target: <strong>400+ engines</strong></div>
+  </div>
+</div>
+
+<div class="version">
+  <div class="version-header">
+    <span class="version-tag future">v41</span>
+    <span class="version-date">Planned -- April 2026</span>
+  </div>
+  <div class="version-title">Web Saturation & SEO Offensive</div>
+  <ul class="change-list">
+    <li><span class="tag-added">PLANNED</span> 10+ new HTML pages for SEO saturation (how-it-works, mission, FAQ, developer guide, etc.)</li>
+    <li><span class="tag-added">PLANNED</span> JSON-LD structured data on all pages for rich search results</li>
+    <li><span class="tag-added">PLANNED</span> Product catalog page with full inventory and buy buttons</li>
+    <li><span class="tag-added">PLANNED</span> Cross-linking mesh between all pages for internal link juice</li>
+    <li><span class="tag-added">PLANNED</span> Glossary with 50+ terms for long-tail keyword capture</li>
+    <li><span class="tag-added">PLANNED</span> Comparison page positioning against other autonomous AI systems</li>
+    <li><span class="tag-changed">PLANNED</span> Sitemap.xml update with all new pages</li>
+  </ul>
+  <div class="metrics">
+    <div class="metric">Target: <strong>20+ indexed pages</strong></div>
+    <div class="metric">Target: <strong>100+ internal links</strong></div>
+  </div>
+</div>
+
+<div class="version">
+  <div class="version-header">
+    <span class="version-tag">v40</span>
+    <span class="version-date">March-April 2026</span>
+  </div>
+  <div class="version-title">Product Forge & Bundle System</div>
+  <ul class="change-list">
+    <li><span class="tag-added">ADDED</span> Knowledge Distiller engine -- scans all engines and generates the Engine Encyclopedia</li>
+    <li><span class="tag-added">ADDED</span> Product Forge -- automated product creation from system knowledge</li>
+    <li><span class="tag-added">ADDED</span> Bundle system -- 4 bundles combining individual products with savings</li>
+    <li><span class="tag-added">ADDED</span> Template packs: Python Automation (15 variants), GitHub Actions (8 variants), AI Prompts (9 variants), SolarPunk Configs (8 variants)</li>
+    <li><span class="tag-added">ADDED</span> Ethical AI Revenue Playbook product</li>
+    <li><span class="tag-added">ADDED</span> Product Registry with validation, word counts, and quality checks</li>
+    <li><span class="tag-changed">CHANGED</span> Product count from 4 to 11 (7 new products)</li>
+    <li><span class="tag-fixed">FIXED</span> Product validation pipeline -- catches incomplete or malformed products before listing</li>
+  </ul>
+  <div class="metrics">
+    <div class="metric">Engines: <strong>~320</strong></div>
+    <div class="metric">Products: <strong>11</strong></div>
+    <div class="metric">Templates: <strong>40 variants</strong></div>
+  </div>
+</div>
+
+<div class="version">
+  <div class="version-header">
+    <span class="version-tag">v39</span>
+    <span class="version-date">March 2026</span>
+  </div>
+  <div class="version-title">Nanobot Heal & Immune System</div>
+  <ul class="change-list">
+    <li><span class="tag-added">ADDED</span> Nanobot Self-Heal system -- automatic engine repair when failures detected</li>
+    <li><span class="tag-added">ADDED</span> Immune System -- threat detection, antibody generation, immune memory</li>
+    <li><span class="tag-added">ADDED</span> Quarantine Log -- malformed engines isolated until repaired</li>
+    <li><span class="tag-added">ADDED</span> Credential Sensor -- continuous scanning for leaked API keys</li>
+    <li><span class="tag-added">ADDED</span> Secrets Checker -- pre-commit and runtime secret detection</li>
+    <li><span class="tag-added">ADDED</span> Chimera Evolution Engine -- mutation tracking and fitness leaderboard</li>
+    <li><span class="tag-changed">CHANGED</span> Health monitoring from manual to continuous automated scanning</li>
+    <li><span class="tag-fixed">FIXED</span> Circular dependency detection in wire topology</li>
+    <li><span class="tag-fixed">FIXED</span> Engine crash recovery -- graceful restart instead of full cycle abort</li>
+  </ul>
+  <div class="metrics">
+    <div class="metric">Engines: <strong>~284</strong></div>
+    <div class="metric">Zero-Secret: <strong>~250</strong></div>
+    <div class="metric">Wires: <strong>~770</strong></div>
+  </div>
+</div>
+
+<div class="version">
+  <div class="version-header">
+    <span class="version-tag current">v38</span>
+    <span class="version-date">February-March 2026</span>
+  </div>
+  <div class="version-title">AUTO_GENESIS Perpetual Loop + Ollama-First AI</div>
+  <ul class="change-list">
+    <li><span class="tag-added">ADDED</span> AUTO_GENESIS perpetual loop -- the system now self-evolves continuously</li>
+    <li><span class="tag-added">ADDED</span> Ollama-first AI inference -- local model used before any cloud API fallback</li>
+    <li><span class="tag-added">ADDED</span> FRACTAL_GENESIS_ENGINE -- discovers gaps and generates new engines with local AI</li>
+    <li><span class="tag-added">ADDED</span> LIVE_WIRE_SCANNER -- automatic topology mapping of all engine connections</li>
+    <li><span class="tag-added">ADDED</span> Zero-Secret Army classification -- engines tagged by API key requirements</li>
+    <li><span class="tag-added">ADDED</span> Hemisphere Brain -- local machine (left) + GitHub repo (right) sync architecture</li>
+    <li><span class="tag-added">ADDED</span> Dashboard generator with vital signs API at api/vital.json</li>
+    <li><span class="tag-added">ADDED</span> GitHub Pages deployment for public dashboards and products</li>
+    <li><span class="tag-added">ADDED</span> First 4 digital products: SolarPunk Starter, Local AI Agent, System Snapshot, Bio-Inspired Architecture</li>
+    <li><span class="tag-changed">CHANGED</span> OMNIBUS rewritten as master orchestrator running full AUTO_GENESIS cycle</li>
+    <li><span class="tag-changed">CHANGED</span> Revenue routing hardcoded with 99/1 ethics lock</li>
+    <li><span class="tag-removed">REMOVED</span> Legacy dependency on external AI APIs for core operations</li>
+  </ul>
+  <div class="metrics">
+    <div class="metric">Engines: <strong>284</strong></div>
+    <div class="metric">Wires: <strong>770</strong></div>
+    <div class="metric">Zero-Secret: <strong>290 chains</strong></div>
+    <div class="metric">Products: <strong>4</strong></div>
+  </div>
+</div>
+
+<h2>What the Version Numbers Mean</h2>
+<p>The OMNIBUS version number (v38, v39, etc.) represents major milestones in the orchestrator's evolution. Between major versions, the system continuously evolves through AUTO_GENESIS cycles -- adding engines, creating wires, healing failures. The version number increments when there is a significant architectural change to the OMNIBUS itself.</p>
+
+<h2>How to Track Changes</h2>
+<ul>
+  <li><strong>Git log:</strong> Every change is a commit. Run <code>git log --oneline</code> on the <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">repository</a> for the full history.</li>
+  <li><strong>Dashboard:</strong> The <a href="index.html">Mission Control dashboard</a> shows current engine/wire counts in real time.</li>
+  <li><strong>Vital signs:</strong> Query <a href="api/vital.json">api/vital.json</a> for the latest metrics.</li>
+  <li><strong>Transparency report:</strong> The <a href="transparency.html">transparency report</a> provides detailed breakdowns.</li>
+</ul>
+
+<h2>Related Pages</h2>
+<ul>
+  <li><a href="how-it-works.html">How It Works</a> -- understand the AUTO_GENESIS loop driving these changes</li>
+  <li><a href="glossary.html">Glossary</a> -- terms used in this changelog explained</li>
+  <li><a href="transparency.html">Transparency Report</a> -- current system metrics</li>
+  <li><a href="compare.html">How SolarPunk Compares</a> -- what makes this architecture unique</li>
+  <li><a href="for-developers.html">Developer Guide</a> -- contribute to the next version</li>
+</ul>
+
+<div style="text-align: center; margin: 40px 0;">
+  <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center" class="cta">View Full Git History</a>
+  <a href="products/index.html" class="cta">Browse Products</a>
+</div>
+
+<div class="footer">
+  <p><strong>SolarPunk</strong> -- An autonomous digital organism routing 99% of revenue to mutual aid.</p>
+  <p>
+    <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">GitHub</a> |
+    <a href="proof.html">Proof Ledger</a> |
+    <a href="dashboard.html">Live Dashboard</a> |
+    <a href="index.html">Mission Control</a>
+  </p>
+  <p style="margin-top: 15px; font-size: 0.85em;">Every dollar is tracked. Every engine is open source. Every wire is verifiable.</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
   "run_id": "23094569687",
-  "health_score": 64,
+  "health_score": 26,
   "stats": {
     "engines_total": 115,
     "data_files": 152,
@@ -18,5 +18,19 @@
   },
   "generated_at": "2026-03-14T19:18:38.372379+00:00",
   "total_loops_completed": 8,
-  "last_loop": "2026-04-04T12:59:35.773359"
+  "last_loop": "2026-04-04T12:59:35.773359",
+  "health_status": "BOOTSTRAPPING",
+  "health_checked_at": "2026-04-04T15:12:00.830038+00:00",
+  "blockers": [
+    "\ud83d\udd34 CRITICAL: ANTHROPIC_API_KEY not set \u2014 All AI features disabled",
+    "\u26a0\ufe0f AI Brain: 1 secret(s) missing \u2192 -15 pts potential",
+    "\u26a0\ufe0f Revenue: 1 secret(s) missing \u2192 -10 pts potential",
+    "\u26a0\ufe0f Delivery: 2 secret(s) missing \u2192 -10 pts potential",
+    "\u26a0\ufe0f Art: 1 secret(s) missing \u2192 -5 pts potential"
+  ],
+  "next_fixes": [
+    "Go to anthropic.com/console -> API Keys -> Create new key -> Add as ANTHROPIC_API_KEY",
+    "Add ANTHROPIC_API_KEY: console.anthropic.com -> API Keys",
+    "Add GUMROAD_ACCESS_TOKEN: gumroad.com \u2192 Settings \u2192 Advanced \u2192 Access Token"
+  ]
 }

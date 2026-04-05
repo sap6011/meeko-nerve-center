@@ -173,7 +173,6 @@ class AutonomousDeployer:
         # This would connect to local SD instance
         # For now, create placeholder script
         sd_script = """
-import requests
 
 # Connect to local Stable Diffusion (AUTOMATIC1111)
 SD_URL = "http://localhost:7860"
@@ -366,7 +365,6 @@ generate_image(
             return
         
         # Import email sequences
-        import json
         sequences_file = self.project_dir / 'email_automation' / 'mailchimp_import.json'
         
         if sequences_file.exists():
@@ -421,7 +419,6 @@ generate_image(
         
         if buffer_token and buffer_token != 'YOUR_BUFFER_TOKEN':
             # Use Buffer API
-            import json
             calendar_file = self.project_dir / 'social_automation' / 'buffer_social_calendar.json'
             
             if calendar_file.exists():

@@ -1,20 +1,33 @@
 {
-  "timestamp": "2026-04-04T06:19:31.885396+00:00",
+  "timestamp": "2026-04-05T01:10:40.105416+00:00",
   "bridges_attempted": 64,
-  "bridges_built": 17,
-  "bridges_failed": 47,
+  "bridges_built": 16,
+  "bridges_failed": 48,
   "unbridged_inputs": [
     "*.json",
+    "*_report.json",
     "active_outreach_draft.json",
+    "aggregated_summary.json",
+    "bundle_forge_state.json",
     "business_*.json",
+    "catalog_generator_state.json",
+    "chimera_score.json",
     "content_harvest_state.json",
     "dev_to_publisher_state.json",
     "email_agent_exchange_state.json",
+    "event_relay_state.json",
     "filename.json",
+    "fractal_replicator_tracking.json",
     "gumroad*.json",
     "harvested_knowledge.json",
+    "monitor_alerts.json",
+    "monitored_resource.json",
     "pattern*.json",
-    "vanish_protocol_state.json"
+    "publish_log.json",
+    "raw_input.json",
+    "transformed_output.json",
+    "vanish_protocol_state.json",
+    "{r}"
   ],
   "results": [
     {
@@ -25,36 +38,36 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 285 pass, 0 fail out of 285 engines",
-      "pass": 285,
+      "detail": "Local sentinel: 360 pass, 0 fail out of 360 engines",
+      "pass": 360,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 425 nodes, 4030 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 425,
-      "edges": 4030,
+      "detail": "Knowledge graph: 547 nodes, 5391 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 547,
+      "edges": 5391,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          284
+          347
         ],
         [
           "OMNIBUS",
-          167
+          214
         ],
         [
           "FIRST_SALE_NOTIFIER",
-          164
+          179
         ],
         [
           "REVENUE_LOOP",
-          138
+          153
         ],
         [
-          "DISPATCH_HANDLER",
-          121
+          "METRICS_DASHBOARD",
+          135
         ]
       ],
       "target": "knowledge_graph.json"
@@ -77,7 +90,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 285 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 360 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -92,22 +105,22 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 7, score 59/100",
+      "detail": "Chimera gen 19, score 79/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 285",
+      "detail": "Healed 0, scanned 360",
       "target": "nanobot_heal_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Leaderboard: 1 mutations, 1 gens",
+      "detail": "Leaderboard: 13 mutations, 17 gens",
       "target": "mutation_leaderboard.json"
     },
     {
-      "status": "NO_SOURCE",
-      "detail": "polymarket_scan.json not found -- run POLYMARKET_SCANNER",
+      "status": "ALREADY_EXISTS",
+      "detail": "Markets scanned: 100, edges: 41",
       "target": "polymarket_scan.json"
     },
     {
@@ -181,8 +194,8 @@
       "target": "storefront_builder_state.json"
     },
     {
-      "status": "BRIDGED",
-      "detail": "Synergy mutations seeded (3 lines)",
+      "status": "FAILED",
+      "detail": "synergy_mutations.txt already has data",
       "target": "synergy_mutations.txt"
     },
     {
@@ -212,7 +225,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (285 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (360 pass)",
       "target": "sentinel_scan.json"
     },
     {

@@ -19,7 +19,6 @@ if __name__ == "__main__": check_market()
 """
     # 2. THE GHOST PATH (Web Scavenger)
     scavenger_logic = """
-import requests
 def raid_web():
     print("🕸️ Ghost Path: Nano-bots crawling for GitHub/StackOverflow logic patterns...")
 if __name__ == "__main__": raid_web()

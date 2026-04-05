@@ -220,10 +220,7 @@ Reads: {", ".join(spec["reads"])}
 Writes: data/{writes_file}
 Zero secrets needed. Auto-generated. Auto-wired.
 """
-import json
-from pathlib import Path
-from datetime import datetime, timezone
-
+''' + "import json\nimport time\nfrom pathlib import Path\nfrom datetime import datetime, timezone\n" + f'''
 DATA = Path("data")
 DATA.mkdir(exist_ok=True)
 

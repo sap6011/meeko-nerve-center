@@ -6,8 +6,6 @@ def build_resilience():
     build_dir = "C:/Solarpunk-Prime/projects/autobuild"
     
     resilience_script = '''
-import os
-from datetime import datetime, timedelta
 from pathlib import Path
 
 DATA = Path("data")

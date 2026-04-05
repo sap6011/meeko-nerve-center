@@ -247,18 +247,18 @@ def ask(messages, max_tokens=2000, system=None, prefer_quality=False):
     if prefer_quality:
         chain = [
             ("anthropic", _ask_anthropic),
+            ("ollama",    _ask_ollama),
             ("groq",      _ask_groq),
             ("openrouter", _ask_openrouter),
             ("hf",        _ask_hf),
-            ("ollama",    _ask_ollama),
         ]
     else:
         chain = [
+            ("ollama",    _ask_ollama),
             ("groq",      _ask_groq),
             ("openrouter", _ask_openrouter),
             ("anthropic", _ask_anthropic),
             ("hf",        _ask_hf),
-            ("ollama",    _ask_ollama),
         ]
 
     last_err = None

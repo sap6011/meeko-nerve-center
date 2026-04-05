@@ -36,6 +36,9 @@ def load_system_state():
         "sentinel": "sentinel_scan.json",
         "registry": "swarm_registry.json",
         "live_wire": "live_wire_report.json",
+        "crisis_signals": "crisis_signals.json",
+        "crisis_triggers": "crisis_triggers.json",
+        "aid_routing": "aid_routing.json",
     }
     for key, fname in files.items():
         p = DATA / fname
