@@ -1327,6 +1327,36 @@ def bridge_internet_signals():
         "gathered_at": "", "source": "BRIDGE_BUILDER seed"
     })
 
+def bridge_usb_bridge_state():
+    """Bridge: USB_BRIDGE -> usb_bridge_state.json."""
+    return seed_json("usb_bridge_state.json", {
+        "engine": "USB_BRIDGE", "cycles": 0,
+        "total_synced": 0, "total_archived": 0,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_usb_catalog():
+    """Bridge: USB_BRIDGE -> usb_catalog.json."""
+    return seed_json("usb_catalog.json", {
+        "total_files": 0, "total_size": 0, "by_type": {},
+        "large_files": [], "directories": [],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_usb_ingest():
+    """Bridge: USB_BRIDGE -> usb_ingest.json."""
+    return seed_json("usb_ingest.json", {
+        "pdfs": [], "legal_docs": [], "playbooks": [],
+        "images": [], "code_archives": [],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_disk_health():
+    """Bridge: USB_BRIDGE -> disk_health.json."""
+    return seed_json("disk_health.json", {
+        "drives": {}, "source": "BRIDGE_BUILDER seed"
+    })
+
 def bridge_solarpunk_legal_declaration():
     """Bridge: solarpunk_legal -> solarpunk_legal_declaration.txt."""
     sl = DATA / "solarpunk_legal_declaration.txt"
@@ -1470,6 +1500,11 @@ BRIDGES = {
     "autopilot_state.json": bridge_autopilot_state,
     "internet_bridge_state.json": bridge_internet_bridge_state,
     "internet_signals.json": bridge_internet_signals,
+    # --- v48: USB_BRIDGE ---
+    "usb_bridge_state.json": bridge_usb_bridge_state,
+    "usb_catalog.json": bridge_usb_catalog,
+    "usb_ingest.json": bridge_usb_ingest,
+    "disk_health.json": bridge_disk_health,
 }
 
 

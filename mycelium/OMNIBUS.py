@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v47 — SOLARPUNK_AUTOPILOT + INTERNET_BRIDGE: self-healing internet-connected loop
+OMNIBUS v48 — USB_BRIDGE + NANOBOT_HEALER kill: living USB port, corruption loop dead
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -437,6 +437,7 @@ def L6():
     eng("AUTONOMOUS_GAP_CLOSER",   timeout=120)  # v46: find and close gaps without human intervention
     eng("INTERNET_BRIDGE",          timeout=120)  # v47: gather web signals, publish status/signals pages
     eng("SOLARPUNK_AUTOPILOT",      timeout=600)  # v47: master loop — scan, heal, bridge, wire, evolve, publish
+    eng("USB_BRIDGE",               timeout=180)  # v48: living USB port — catalog, sync, archive, ingest, disk health
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")

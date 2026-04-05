@@ -48,6 +48,15 @@ jobs:
         run: python mycelium/SOLARPUNK_AUTOPILOT.py
         continue-on-error: true
 
+      - name: "Phase 2.5: USB_BRIDGE — Sync, Archive, Ingest (skip in CI)"
+        run: |
+          if [ -d "/e/" ] || [ -d "E:/" ]; then
+            python mycelium/USB_BRIDGE.py
+          else
+            echo "USB not available in CI — skipping"
+          fi
+        continue-on-error: true
+
       - name: "Phase 3: Commit and push"
         run: |
           git add data/*.json data/*.txt docs/*.html docs/*.json mycelium/data/*.json 2>/dev/null || true

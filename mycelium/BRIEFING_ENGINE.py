@@ -40,7 +40,9 @@ def gather_all():
                  ("health_advisory.txt","health_advisory"),
                  ("growth_flywheel_calendar.json","flywheel_calendar"),
                  ("storefront_deployer_checklists.json","deployer_checklists"),
-                 ("solarpunk_legal_declaration.txt","legal_declaration")]:
+                 ("solarpunk_legal_declaration.txt","legal_declaration"),
+                 ("disk_health.json","disk_health"),
+                 ("usb_bridge_state.json","usb_bridge")]:
         fp=DATA/fn
         if fp.exists():
             try:
