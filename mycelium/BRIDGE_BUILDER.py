@@ -922,6 +922,181 @@ def bridge_workflow_health():
     })
 
 
+# --- v44: Dual Economy + Digital Saturation Bridges ---
+
+def bridge_fuel_core_state():
+    """Bridge: revenue signals -> fuel_core_state.json."""
+    economy = load_json(DATA / "economy_chain_ledger.json")
+    return seed_json("fuel_core_state.json", {
+        "phase": "IGNITION", "lifetime_revenue": 0,
+        "allocation": {"product_dev": 0.35, "storefronts": 0.25, "marketing": 0.20, "tools": 0.10, "legal": 0.09, "pcrf": 0.01},
+        "source": "BRIDGE_BUILDER from economy_chain"
+    })
+
+def bridge_fuel_plan():
+    """Bridge: fuel_core_state -> fuel_plan.json."""
+    return seed_json("fuel_plan.json", {
+        "priorities": ["list products on Ko-fi", "post on social media", "submit to HN"],
+        "blockers": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_revenue_splitter_state():
+    """Bridge: economy -> revenue_splitter_state.json."""
+    return seed_json("revenue_splitter_state.json", {
+        "phase": "IGNITION", "lifetime_revenue": 0,
+        "active_system": "1/99", "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_revenue_routing():
+    """Bridge: revenue_splitter -> revenue_routing.json."""
+    return seed_json("revenue_routing.json", {
+        "mode": "IGNITION", "growth_pct": 100, "giving_pct": 0,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_storefront_deployer_state():
+    """Bridge: product_registry -> storefront_deployer_state.json."""
+    return seed_json("storefront_deployer_state.json", {
+        "products_listed": 0, "platforms": ["kofi", "github"],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_storefront_deployer_listings():
+    """Bridge: product_registry -> storefront_deployer_listings.json."""
+    reg = load_json(DATA / "product_registry.json")
+    products = reg.get("products", []) if reg else []
+    return seed_json("storefront_deployer_listings.json", {
+        "listings": [{"name": p.get("name", "product"), "price": "$1", "platform": "kofi"} for p in products[:11]],
+        "source": "BRIDGE_BUILDER from product_registry"
+    })
+
+def bridge_storefront_deployer_checklists():
+    """Bridge: -> storefront_deployer_checklists.json."""
+    return seed_json("storefront_deployer_checklists.json", {
+        "checklists": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_growth_flywheel_state():
+    """Bridge: -> growth_flywheel_state.json."""
+    return seed_json("growth_flywheel_state.json", {
+        "content_pieces": 0, "channels": 5, "seo_keywords": 0,
+        "health_score": 0, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_growth_flywheel_calendar():
+    """Bridge: -> growth_flywheel_calendar.json."""
+    return seed_json("growth_flywheel_calendar.json", {
+        "days": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_growth_flywheel_content():
+    """Bridge: -> growth_flywheel_content.json."""
+    return seed_json("growth_flywheel_content.json", {
+        "pieces": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_human_task_board():
+    """Bridge: data/*.json scan -> human_task_board.json."""
+    return seed_json("human_task_board.json", {
+        "tasks": [], "categories": ["REVENUE", "INFRASTRUCTURE", "OUTREACH", "CONTENT", "LEGAL", "GRANTS"],
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_crosswire_state():
+    """Bridge: -> crosswire_state.json."""
+    return seed_json("crosswire_state.json", {
+        "connections": 7, "active": True, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_revenue_flow():
+    """Bridge: economy + splitter -> revenue_flow.json."""
+    return seed_json("revenue_flow.json", {
+        "total_in": 0, "total_out": 0, "phase": "IGNITION",
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_autopilot_executor_state():
+    """Bridge: -> autopilot_executor_state.json."""
+    return seed_json("autopilot_executor_state.json", {
+        "actions_taken": 0, "pages_generated": 0,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_email_templates():
+    """Bridge: growth_flywheel -> email_templates.json."""
+    return seed_json("email_templates.json", {
+        "templates": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_kofi_ready_listings():
+    """Bridge: storefront_deployer -> kofi_ready_listings.json."""
+    return seed_json("kofi_ready_listings.json", {
+        "listings": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_image_descriptions():
+    """Bridge: art_catalog -> image_descriptions.json."""
+    return seed_json("image_descriptions.json", {
+        "descriptions": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_discussion_drafts():
+    """Bridge: growth_flywheel -> discussion_drafts.json."""
+    return seed_json("discussion_drafts.json", {
+        "drafts": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_digital_saturation_state():
+    """Bridge: multi-channel scan -> digital_saturation_state.json."""
+    return seed_json("digital_saturation_state.json", {
+        "composite_score": 0, "channels": {},
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_saturation_gaps():
+    """Bridge: saturation scan -> saturation_gaps.json."""
+    return seed_json("saturation_gaps.json", {
+        "gaps": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_storefront_listings():
+    """Bridge: product_registry -> storefront_listings.json."""
+    reg = load_json(DATA / "product_registry.json")
+    products = reg.get("products", []) if reg else []
+    return seed_json("storefront_listings.json", {
+        "listings": [{"name": p.get("name", ""), "price": 1} for p in products[:11]],
+        "source": "BRIDGE_BUILDER from product_registry"
+    })
+
+def bridge_signal_chain_state():
+    """Bridge: -> signal_chain_state.json."""
+    return seed_json("signal_chain_state.json", {
+        "signals": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_signal_chain_queue():
+    """Bridge: -> signal_chain_queue.json."""
+    return seed_json("signal_chain_queue.json", [])
+
+def bridge_telegram_relay():
+    """Bridge: human_task_board -> telegram_relay.json."""
+    return seed_json("telegram_relay.json", {
+        "messages": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_article_drafts():
+    """Bridge: growth_flywheel -> article_drafts.json."""
+    return seed_json("article_drafts.json", {
+        "drafts": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_virality_posts():
+    """Bridge: -> virality_posts.json."""
+    return seed_json("virality_posts.json", {
+        "posts": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+
 BRIDGES = {
     "grants_found.json": bridge_grants_found,
     "sentinel_report.json": bridge_sentinel_report,
@@ -993,6 +1168,33 @@ BRIDGES = {
     "system_manifest.json": bridge_system_manifest,
     "system_wants_next.json": bridge_system_wants_next,
     "workflow_health.json": bridge_workflow_health,
+    # --- v44: Dual Economy + Digital Saturation Bridges ---
+    "fuel_core_state.json": bridge_fuel_core_state,
+    "fuel_plan.json": bridge_fuel_plan,
+    "revenue_splitter_state.json": bridge_revenue_splitter_state,
+    "revenue_routing.json": bridge_revenue_routing,
+    "storefront_deployer_state.json": bridge_storefront_deployer_state,
+    "storefront_deployer_listings.json": bridge_storefront_deployer_listings,
+    "storefront_deployer_checklists.json": bridge_storefront_deployer_checklists,
+    "growth_flywheel_state.json": bridge_growth_flywheel_state,
+    "growth_flywheel_calendar.json": bridge_growth_flywheel_calendar,
+    "growth_flywheel_content.json": bridge_growth_flywheel_content,
+    "human_task_board.json": bridge_human_task_board,
+    "crosswire_state.json": bridge_crosswire_state,
+    "revenue_flow.json": bridge_revenue_flow,
+    "autopilot_executor_state.json": bridge_autopilot_executor_state,
+    "email_templates.json": bridge_email_templates,
+    "kofi_ready_listings.json": bridge_kofi_ready_listings,
+    "image_descriptions.json": bridge_image_descriptions,
+    "discussion_drafts.json": bridge_discussion_drafts,
+    "digital_saturation_state.json": bridge_digital_saturation_state,
+    "saturation_gaps.json": bridge_saturation_gaps,
+    "storefront_listings.json": bridge_storefront_listings,
+    "signal_chain_state.json": bridge_signal_chain_state,
+    "signal_chain_queue.json": bridge_signal_chain_queue,
+    "telegram_relay.json": bridge_telegram_relay,
+    "article_drafts.json": bridge_article_drafts,
+    "virality_posts.json": bridge_virality_posts,
 }
 
 
