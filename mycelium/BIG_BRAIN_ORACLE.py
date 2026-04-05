@@ -15,7 +15,7 @@ Then:
   - Seeds data/omnibrain_seed.json with top actions
   - Generates ENGINE_IDEAS for SELF_BUILDER to build
 
-Secrets: os.getenv("os.getenv("ANTHROPIC_API_KEY")")
+Secrets: os.environ.get("ANTHROPIC_API_KEY", "").strip()
 """
 import os, json, requests
 from pathlib import Path
@@ -24,7 +24,7 @@ from datetime import datetime, timezone
 DATA = Path("data"); DATA.mkdir(exist_ok=True)
 MYCELIUM = Path("mycelium")
 
-ANTHROPIC_KEY = os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()
+ANTHROPIC_KEY = os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()
 MODEL = "claude-sonnet-4-6"
 
 
@@ -123,7 +123,7 @@ Respond ONLY as JSON (no markdown):
         if s >= 0:
             return json.loads(text[s:e])
     except Exception as ex:
-        print(f"  ❌ Oracle error: {ex}")
+        print(f"  [FAIL] Oracle error: {ex}")
     return None
 
 
@@ -132,7 +132,7 @@ def run():
     now = datetime.now(timezone.utc).isoformat()
 
     if not ANTHROPIC_KEY:
-        print("  os.getenv("os.getenv("ANTHROPIC_API_KEY")") not set")
+        print("  os.environ.get("ANTHROPIC_API_KEY", "").strip() not set")
         (DATA / "oracle_state.json").write_text(json.dumps({"last_run": now, "status": "no_key"}, indent=2))
         return
 
@@ -141,7 +141,7 @@ def run():
 
     insights = ask_oracle(ctx)
     if not insights:
-        print("  ❌ Oracle returned no insights")
+        print("  [FAIL] Oracle returned no insights")
         return
 
     # Save to oracle history

@@ -1,29 +1,56 @@
 {
-  "timestamp": "2026-04-05T00:57:15.454674+00:00",
-  "gaps_found": 14,
+  "timestamp": "2026-04-05T06:54:37.991937+00:00",
+  "gaps_found": 17,
   "specs_generated": 10,
-  "engines_created": 4,
-  "engines_skipped": 6,
+  "engines_created": 2,
+  "engines_skipped": 8,
   "created_engines": [
-    "GENERATED_DAEMON_TASK_XML_POPULATOR",
-    "GENERATED_SIGNAL_BOOST_LOG_POPULATOR",
-    "GENERATED_GRANT_TRIGGER_POPULATOR",
-    "GENERATED_GROWTH_CHAIN_STATE_POPULATOR"
+    "GENERATED_MEMORY_PALACE_CONSUMER",
+    "GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR"
   ],
   "gaps": [
     {
       "type": "high_value_dead_end",
-      "engine": "EXTERNAL_VALUE_ROUTER",
+      "engine": "MEMORY_PALACE",
       "outputs": [
-        "value_opportunities.json",
-        "value_router_report.json"
+        "memory_palace.json",
+        "lessons.json",
+        "growth_curve.json"
       ],
-      "suggestion": "Build consumer for EXTERNAL_VALUE_ROUTER's high-value output"
+      "suggestion": "Build consumer for MEMORY_PALACE's high-value output"
+    },
+    {
+      "type": "high_value_dead_end",
+      "engine": "DEV_TO_PUBLISHER",
+      "outputs": [
+        "social_queue.json",
+        "devto_state.json",
+        "omnibus_last.json"
+      ],
+      "suggestion": "Build consumer for DEV_TO_PUBLISHER's high-value output"
+    },
+    {
+      "type": "high_value_dead_end",
+      "engine": "RESOURCE_ALLOCATOR",
+      "outputs": [
+        "resource_allocator_plan.json",
+        "resource_allocator_state.json"
+      ],
+      "suggestion": "Build consumer for RESOURCE_ALLOCATOR's high-value output"
+    },
+    {
+      "type": "high_value_dead_end",
+      "engine": "AUTONOMOUS_PUBLISHER",
+      "outputs": [
+        "social_queue.json",
+        "autonomous_publisher_state.json"
+      ],
+      "suggestion": "Build consumer for AUTONOMOUS_PUBLISHER's high-value output"
     },
     {
       "type": "missing_category",
-      "category": "knowledge",
-      "suggestion": "Build engine to generate knowledge data flows"
+      "category": "evolution",
+      "suggestion": "Build engine to generate evolution data flows"
     },
     {
       "type": "missing_category",
@@ -32,120 +59,120 @@
     },
     {
       "type": "missing_category",
-      "category": "evolution",
-      "suggestion": "Build engine to generate evolution data flows"
+      "category": "knowledge",
+      "suggestion": "Build engine to generate knowledge data flows"
     },
     {
       "type": "dead_flow",
-      "via": "daemon_task.xml",
+      "via": "claude_tasks_queue.json",
+      "from": "CLAUDE_BRIDGE",
+      "to": "DESKTOP_DAEMON",
+      "suggestion": "Populate claude_tasks_queue.json with real data from CLAUDE_BRIDGE"
+    },
+    {
+      "type": "dead_flow",
+      "via": "claude_tasks_queue.json",
+      "from": "CLAUDE_BRIDGE",
+      "to": "GENERATED_DESKTOP_DAEMON_CONSUMER",
+      "suggestion": "Populate claude_tasks_queue.json with real data from CLAUDE_BRIDGE"
+    },
+    {
+      "type": "dead_flow",
+      "via": "claude_tasks_queue.json",
+      "from": "CLAUDE_BRIDGE",
+      "to": "GENERATED_RESONANCE_CONVERTER_CONSUMER",
+      "suggestion": "Populate claude_tasks_queue.json with real data from CLAUDE_BRIDGE"
+    },
+    {
+      "type": "dead_flow",
+      "via": "claude_tasks_queue.json",
+      "from": "CLAUDE_BRIDGE",
+      "to": "OMNIBUS",
+      "suggestion": "Populate claude_tasks_queue.json with real data from CLAUDE_BRIDGE"
+    },
+    {
+      "type": "dead_flow",
+      "via": "claude_tasks_queue.json",
+      "from": "CLAUDE_BRIDGE",
+      "to": "RESONANCE_CONVERTER",
+      "suggestion": "Populate claude_tasks_queue.json with real data from CLAUDE_BRIDGE"
+    },
+    {
+      "type": "dead_flow",
+      "via": "claude_tasks_queue.json",
+      "from": "DESKTOP_DAEMON",
+      "to": "CLAUDE_BRIDGE",
+      "suggestion": "Populate claude_tasks_queue.json with real data from DESKTOP_DAEMON"
+    },
+    {
+      "type": "dead_flow",
+      "via": "claude_tasks_queue.json",
       "from": "DESKTOP_DAEMON",
       "to": "GENERATED_DESKTOP_DAEMON_CONSUMER",
-      "suggestion": "Populate daemon_task.xml with real data from DESKTOP_DAEMON"
+      "suggestion": "Populate claude_tasks_queue.json with real data from DESKTOP_DAEMON"
     },
     {
       "type": "dead_flow",
-      "via": "signal_boost_log.json",
-      "from": "SIGNAL_BOOST",
-      "to": "WEEKEND_PULSE",
-      "suggestion": "Populate signal_boost_log.json with real data from SIGNAL_BOOST"
+      "via": "claude_tasks_queue.json",
+      "from": "DESKTOP_DAEMON",
+      "to": "GENERATED_RESONANCE_CONVERTER_CONSUMER",
+      "suggestion": "Populate claude_tasks_queue.json with real data from DESKTOP_DAEMON"
     },
     {
       "type": "dead_flow",
-      "via": "grant_trigger.json",
-      "from": "GENERATED_REVENUE_FLYWHEEL_CONSUMER",
-      "to": "REVENUE_FLYWHEEL",
-      "suggestion": "Populate grant_trigger.json with real data from GENERATED_REVENUE_FLYWHEEL_CONSUMER"
+      "via": "claude_tasks_queue.json",
+      "from": "DESKTOP_DAEMON",
+      "to": "OMNIBUS",
+      "suggestion": "Populate claude_tasks_queue.json with real data from DESKTOP_DAEMON"
     },
     {
       "type": "dead_flow",
-      "via": "grant_trigger.json",
-      "from": "REVENUE_FLYWHEEL",
-      "to": "GENERATED_REVENUE_FLYWHEEL_CONSUMER",
-      "suggestion": "Populate grant_trigger.json with real data from REVENUE_FLYWHEEL"
-    },
-    {
-      "type": "dead_flow",
-      "via": "growth_chain_state.json",
-      "from": "GROWTH_CHAIN",
-      "to": "CHAIN_ORCHESTRATOR",
-      "suggestion": "Populate growth_chain_state.json with real data from GROWTH_CHAIN"
-    },
-    {
-      "type": "dead_flow",
-      "via": "growth_chain_state.json",
-      "from": "GROWTH_CHAIN",
-      "to": "GROWTH_FLYWHEEL",
-      "suggestion": "Populate growth_chain_state.json with real data from GROWTH_CHAIN"
-    },
-    {
-      "type": "dead_flow",
-      "via": "growth_chain_state.json",
-      "from": "GROWTH_CHAIN",
-      "to": "KNOWLEDGE_CHAIN",
-      "suggestion": "Populate growth_chain_state.json with real data from GROWTH_CHAIN"
-    },
-    {
-      "type": "dead_flow",
-      "via": "transfer_needed.json",
-      "from": "GENERATED_TRANSFER_NEEDED_POPULATOR",
-      "to": "NIGHTLY_DIGEST",
-      "suggestion": "Populate transfer_needed.json with real data from GENERATED_TRANSFER_NEEDED_POPULATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "transfer_needed.json",
-      "from": "GENERATED_TRANSFER_NEEDED_POPULATOR",
-      "to": "PROOF_LEDGER",
-      "suggestion": "Populate transfer_needed.json with real data from GENERATED_TRANSFER_NEEDED_POPULATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "transfer_needed.json",
-      "from": "PROOF_LEDGER",
-      "to": "GENERATED_TRANSFER_NEEDED_POPULATOR",
-      "suggestion": "Populate transfer_needed.json with real data from PROOF_LEDGER"
+      "via": "claude_tasks_queue.json",
+      "from": "DESKTOP_DAEMON",
+      "to": "RESONANCE_CONVERTER",
+      "suggestion": "Populate claude_tasks_queue.json with real data from DESKTOP_DAEMON"
     }
   ],
   "specs": [
     {
-      "name": "GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER",
-      "purpose": "Consumes high-value output from EXTERNAL_VALUE_ROUTER and generates actionable insights"
+      "name": "GENERATED_MEMORY_PALACE_CONSUMER",
+      "purpose": "Consumes high-value output from MEMORY_PALACE and generates actionable insights"
     },
     {
-      "name": "GENERATED_KNOWLEDGE_TRACKER",
-      "purpose": "Tracks knowledge signals across the nervous system"
+      "name": "GENERATED_DEV_TO_PUBLISHER_CONSUMER",
+      "purpose": "Consumes high-value output from DEV_TO_PUBLISHER and generates actionable insights"
     },
     {
-      "name": "GENERATED_SECURITY_TRACKER",
-      "purpose": "Tracks security signals across the nervous system"
+      "name": "GENERATED_RESOURCE_ALLOCATOR_CONSUMER",
+      "purpose": "Consumes high-value output from RESOURCE_ALLOCATOR and generates actionable insights"
+    },
+    {
+      "name": "GENERATED_AUTONOMOUS_PUBLISHER_CONSUMER",
+      "purpose": "Consumes high-value output from AUTONOMOUS_PUBLISHER and generates actionable insights"
     },
     {
       "name": "GENERATED_EVOLUTION_TRACKER",
       "purpose": "Tracks evolution signals across the nervous system"
     },
     {
-      "name": "GENERATED_DAEMON_TASK_XML_POPULATOR",
-      "purpose": "Populates daemon_task.xml with real data to revive dead flow"
+      "name": "GENERATED_SECURITY_TRACKER",
+      "purpose": "Tracks security signals across the nervous system"
     },
     {
-      "name": "GENERATED_SIGNAL_BOOST_LOG_POPULATOR",
-      "purpose": "Populates signal_boost_log.json with real data to revive dead flow"
+      "name": "GENERATED_KNOWLEDGE_TRACKER",
+      "purpose": "Tracks knowledge signals across the nervous system"
     },
     {
-      "name": "GENERATED_GRANT_TRIGGER_POPULATOR",
-      "purpose": "Populates grant_trigger.json with real data to revive dead flow"
+      "name": "GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR",
+      "purpose": "Populates claude_tasks_queue.json with real data to revive dead flow"
     },
     {
-      "name": "GENERATED_GRANT_TRIGGER_POPULATOR",
-      "purpose": "Populates grant_trigger.json with real data to revive dead flow"
+      "name": "GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR",
+      "purpose": "Populates claude_tasks_queue.json with real data to revive dead flow"
     },
     {
-      "name": "GENERATED_GROWTH_CHAIN_STATE_POPULATOR",
-      "purpose": "Populates growth_chain_state.json with real data to revive dead flow"
-    },
-    {
-      "name": "GENERATED_GROWTH_CHAIN_STATE_POPULATOR",
-      "purpose": "Populates growth_chain_state.json with real data to revive dead flow"
+      "name": "GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR",
+      "purpose": "Populates claude_tasks_queue.json with real data to revive dead flow"
     }
   ]
 }

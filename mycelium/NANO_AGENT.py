@@ -64,7 +64,7 @@ class NanoAgent:
         result["ts"]      = datetime.now(timezone.utc).isoformat()
         result["log"]     = self.log
         self.state_file.write_text(json.dumps(result, indent=2, default=str))
-        icon = "✅" if result["status"] == "ok" else "❌"
+        icon = "[OK]" if result["status"] == "ok" else "[FAIL]"
         print(f"{icon} {self.name} ({result['elapsed']}s) — {result.get('summary', result['status'])}")
         return result
 
@@ -97,9 +97,9 @@ class NanoAgent:
         Call Claude. Returns text or empty string if API key missing.
         Never crashes OMNIBUS — silently degrades.
         """
-        key = os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()
+        key = os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()
         if not key:
-            self._log("os.getenv("os.getenv("ANTHROPIC_API_KEY")") not set")
+            self._log("os.environ.get("ANTHROPIC_API_KEY", "").strip() not set")
             return ""
         try:
             import anthropic

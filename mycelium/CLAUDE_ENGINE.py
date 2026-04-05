@@ -81,10 +81,10 @@ def run():
     # Priority actions for next LIVE session
     priorities = []
 
-    if not os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip():
+    if not os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip():
         priorities.append({
             "priority": 1,
-            "action": "Add os.getenv("os.getenv("ANTHROPIC_API_KEY")")",
+            "action": "Add os.environ.get("ANTHROPIC_API_KEY", "").strip()",
             "why": "SELF_BUILDER, KNOWLEDGE_WEAVER, REVENUE_OPTIMIZER, ARCHITECT all dead. System cannot self-expand.",
             "how": "anthropic.com/console → API Keys → copy key → github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions → New secret",
             "unlocks": ["SELF_BUILDER", "KNOWLEDGE_WEAVER", "REVENUE_OPTIMIZER", "ARCHITECT", "NEURON_B"],
@@ -159,7 +159,7 @@ def run():
   </div>"""
 
     if not pri_html:
-        pri_html = '<div style="color:#00ff88;padding:20px;text-align:center">✅ No critical blockers — system is fully operational</div>'
+        pri_html = '<div style="color:#00ff88;padding:20px;text-align:center">[OK] No critical blockers — system is fully operational</div>'
 
     caps_html = "".join([f'<li style="margin-bottom:6px;color:rgba(222,234,225,.7);font-size:12px">⚡ {c}</li>' for c in live_capabilities])
 

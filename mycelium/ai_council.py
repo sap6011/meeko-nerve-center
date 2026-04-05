@@ -21,7 +21,7 @@ Compatible with existing reports:
   data/ai_council_report.json         (unified synthesis — new)
 
 Required:
-  os.getenv("os.getenv("ANTHROPIC_API_KEY")"),
+  os.environ.get("ANTHROPIC_API_KEY", "").strip(),
   GH_PAT / GITHUB_TOKEN
 
 Optional (upgrades CHALLENGER from Claude to Kimi):
@@ -33,7 +33,7 @@ from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # ── Config ─────────────────────────────────────────────────────────────────
-os.getenv("os.getenv("ANTHROPIC_API_KEY")") = os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()
+os.environ.get("ANTHROPIC_API_KEY", "").strip() = os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()
 KIMI_API_KEY      = os.environ.get("KIMI_API_KEY", "")
 GH_TOKEN          = os.environ.get("GH_PAT", os.environ.get("GITHUB_TOKEN", ""))
 REPO_OWNER        = os.environ.get("GITHUB_REPOSITORY_OWNER", "meekotharaccoon-cell")
@@ -270,13 +270,13 @@ RETURN ONLY valid JSON — nothing else, no preamble, no markdown fences:
 }"""
 
 def call_analyst(context_str):
-    if not os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip():
-        print("os.getenv("os.getenv("ANTHROPIC_API_KEY")") not set")
+    if not os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip():
+        print("os.environ.get("ANTHROPIC_API_KEY", "").strip() not set")
         sys.exit(1)
     print("  🔬 ANALYST reading system...")
     r = requests.post(
         "https://api.anthropic.com/v1/messages",
-        headers={"x-api-key": os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip(),
+        headers={"x-api-key": os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip(),
                  "anthropic-version": "2023-06-01",
                  "content-type": "application/json"},
         json={"model": "claude-sonnet-4-20250514",
@@ -286,7 +286,7 @@ def call_analyst(context_str):
                             "content": f"Audit this system. Return JSON only.\n\n{context_str}"}]},
         timeout=120)
     if r.status_code != 200:
-        print(f"  ❌ Analyst API error {r.status_code}: {r.text[:300]}")
+        print(f"  [FAIL] Analyst API error {r.status_code}: {r.text[:300]}")
         sys.exit(1)
     raw = "".join(b.get("text", "") for b in r.json().get("content", []))
     print(f"  ✓ Analyst: {len(raw):,} chars")
@@ -363,7 +363,7 @@ RETURN ONLY valid JSON — nothing else, no preamble, no markdown fences:
 
 def call_challenger_claude(analyst_report_str, context_str):
     """Claude acting as Challenger."""
-    if not os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip():
+    if not os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip():
         return None
     print("  🥊 CHALLENGER (Claude) reading analyst's report...")
     user_content = (
@@ -373,7 +373,7 @@ def call_challenger_claude(analyst_report_str, context_str):
     )
     r = requests.post(
         "https://api.anthropic.com/v1/messages",
-        headers={"x-api-key": os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip(),
+        headers={"x-api-key": os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip(),
                  "anthropic-version": "2023-06-01",
                  "content-type": "application/json"},
         json={"model": "claude-sonnet-4-20250514",
@@ -382,7 +382,7 @@ def call_challenger_claude(analyst_report_str, context_str):
               "messages": [{"role": "user", "content": user_content}]},
         timeout=120)
     if r.status_code != 200:
-        print(f"  ❌ Challenger API error {r.status_code}: {r.text[:300]}")
+        print(f"  [FAIL] Challenger API error {r.status_code}: {r.text[:300]}")
         return None
     raw = "".join(b.get("text", "") for b in r.json().get("content", []))
     print(f"  ✓ Challenger (Claude): {len(raw):,} chars")
@@ -411,7 +411,7 @@ def call_challenger_kimi(analyst_report_str, context_str):
               ]},
         timeout=120)
     if r.status_code != 200:
-        print(f"  ❌ Kimi error {r.status_code}: {r.text[:300]}")
+        print(f"  [FAIL] Kimi error {r.status_code}: {r.text[:300]}")
         return None
     raw = r.json()["choices"][0]["message"]["content"]
     print(f"  ✓ Challenger (Kimi): {len(raw):,} chars")
@@ -464,7 +464,7 @@ RETURN ONLY valid JSON:
 }"""
 
 def call_analyst_round2(analyst_r1_str, challenger_str):
-    if not os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip():
+    if not os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip():
         return None
     print("  🔬 ANALYST responding to Challenger (round 2)...")
     user_content = (
@@ -474,7 +474,7 @@ def call_analyst_round2(analyst_r1_str, challenger_str):
     )
     r = requests.post(
         "https://api.anthropic.com/v1/messages",
-        headers={"x-api-key": os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip(),
+        headers={"x-api-key": os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip(),
                  "anthropic-version": "2023-06-01",
                  "content-type": "application/json"},
         json={"model": "claude-sonnet-4-20250514",
@@ -483,7 +483,7 @@ def call_analyst_round2(analyst_r1_str, challenger_str):
               "messages": [{"role": "user", "content": user_content}]},
         timeout=90)
     if r.status_code != 200:
-        print(f"  ❌ Round 2 error: {r.status_code}")
+        print(f"  [FAIL] Round 2 error: {r.status_code}")
         return None
     raw = "".join(b.get("text", "") for b in r.json().get("content", []))
     print(f"  ✓ Analyst R2: {len(raw):,} chars")
@@ -527,7 +527,7 @@ def apply_fixes(changes, label="council"):
             print(f"    ✓ {msg}")
         else:
             failed.append(path)
-            print(f"    ❌ {resp.get('message', '?')}")
+            print(f"    [FAIL] {resp.get('message', '?')}")
     return applied, failed
 
 
@@ -553,7 +553,7 @@ def main():
     print("=" * 60)
 
     if not GH_TOKEN:
-        print("❌ GH_PAT / GITHUB_TOKEN not set")
+        print("[FAIL] GH_PAT / GITHUB_TOKEN not set")
         sys.exit(1)
 
     # ── Step 1: Collect context ──────────────────────────────────────────
@@ -724,7 +724,7 @@ def main():
 
     # ── Summary ──────────────────────────────────────────────────────────
     print("\n" + "=" * 60)
-    print(f"✅ COUNCIL COMPLETE — run {run_id}")
+    print(f"[OK] COUNCIL COMPLETE — run {run_id}")
     print(f"   {len(findings)} analyst findings + {len(new_finds)} challenger new finds")
     print(f"   {len(disagrees)} challenged | {len(adopted)} adopted | {len(applied)} fixes applied")
     print(f"\n📊 FINAL SUMMARY:\n{r2.get('final_summary', '(no summary)')}")

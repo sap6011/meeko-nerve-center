@@ -44,7 +44,7 @@ POLL_INTERVAL  = 15          # seconds between queue checks
 MAX_LOG_LINES  = 200
 MODEL          = "claude-haiku-4-5-20251001"   # fast + cheap for most tasks
 MODEL_HEAVY    = "claude-sonnet-4-6"            # for tasks flagged heavy=True
-API_KEY        = os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()
+API_KEY        = os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()
 
 # ── SOLARPUNK SYSTEM CONTEXT ───────────────────────────────────────────────
 SYSTEM_CONTEXT = """
@@ -160,7 +160,7 @@ def build_context():
 # ── CLAUDE API ─────────────────────────────────────────────────────────────
 def call_claude(prompt, heavy=False, conversation_history=None):
     if not API_KEY:
-        return None, "os.getenv("os.getenv("ANTHROPIC_API_KEY")") not set"
+        return None, "os.environ.get("ANTHROPIC_API_KEY", "").strip() not set"
 
     model    = MODEL_HEAVY if heavy else MODEL
     messages = (conversation_history or []) + [{"role": "user", "content": prompt}]
@@ -319,8 +319,8 @@ def run_loop():
 
     log("DESKTOP_DAEMON started. SolarPunk is local and alive.")
     if not API_KEY:
-        log("WARNING: os.getenv("os.getenv("ANTHROPIC_API_KEY")") not set")
-        log("  Windows: $env:os.getenv("os.getenv("ANTHROPIC_API_KEY")")='sk-ant-...'")
+        log("WARNING: os.environ.get("ANTHROPIC_API_KEY", "").strip() not set")
+        log("  Windows: $env:os.environ.get("ANTHROPIC_API_KEY", "").strip()='sk-ant-...'")
         log("  Or add to repo root .env file")
 
     polls = 0
@@ -480,9 +480,9 @@ def install_autostart():
         print(f"Install failed: {err}")
         print(f"Run manually: python {script_path}")
     else:
-        print("✅ SolarPunk-Daemon installed as Windows scheduled task")
+        print("[OK] SolarPunk-Daemon installed as Windows scheduled task")
         print("   Auto-starts at every login, restarts on crash")
-        print(f"   Add os.getenv("os.getenv("ANTHROPIC_API_KEY")") to env for full Claude brain")
+        print(f"   Add os.environ.get("ANTHROPIC_API_KEY", "").strip() to env for full Claude brain")
 
 
 # ── ENTRY POINT ────────────────────────────────────────────────────────────

@@ -37,43 +37,43 @@ class AgencyOrchestrator:
         # API Credentials (loaded from environment)
         self.apis = {
             # Playbook 1: Website Agency
-            "namecheap": os.getenv("NAMECHEAP_API_KEY"),
-            "godaddy": os.getenv("GODADDY_API_KEY"),
-            "vercel": os.getenv("VERCEL_TOKEN"),
+            "namecheap": os.environ.get("NAMECHEAP_API_KEY", "").strip(),
+            "godaddy": os.environ.get("GODADDY_API_KEY", "").strip(),
+            "vercel": os.environ.get("VERCEL_TOKEN", "").strip(),
             
             # Playbook 2: Social Prospecting  
-            "apollo": os.getenv("APOLLO_API_KEY"),
-            "instantly": os.getenv("INSTANTLY_API_KEY"),
+            "apollo": os.environ.get("APOLLO_API_KEY", "").strip(),
+            "instantly": os.environ.get("INSTANTLY_API_KEY", "").strip(),
             
             # Playbook 3: Content Agency
-            "claude": os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip(),
-            "surfer": os.getenv("SURFERSEO_KEY"),
-            "wordpress": os.getenv("WP_URL"),
+            "claude": os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip(),
+            "surfer": os.environ.get("SURFERSEO_KEY", "").strip(),
+            "wordpress": os.environ.get("WP_URL", "").strip(),
             
             # Playbook 4: SEO Agency
-            "ahrefs": os.getenv("AHREFS_TOKEN"),
-            "semrush": os.getenv("SEMRUSH_KEY"),
+            "ahrefs": os.environ.get("AHREFS_TOKEN", "").strip(),
+            "semrush": os.environ.get("SEMRUSH_KEY", "").strip(),
             
             # Playbook 5: Email Agency
-            "mailchimp": os.getenv("MAILCHIMP_API_KEY"),
-            "klaviyo": os.getenv("KLAVIYO_API_KEY"),
-            "mailgun": os.getenv("MAILGUN_API_KEY"),
+            "mailchimp": os.environ.get("MAILCHIMP_API_KEY", "").strip(),
+            "klaviyo": os.environ.get("KLAVIYO_API_KEY", "").strip(),
+            "mailgun": os.environ.get("MAILGUN_API_KEY", "").strip(),
             
             # Playbook 6: Social Media
-            "buffer": os.getenv("BUFFER_TOKEN"),
-            "brandwatch": os.getenv("BRANDWATCH_TOKEN"),
+            "buffer": os.environ.get("BUFFER_TOKEN", "").strip(),
+            "brandwatch": os.environ.get("BRANDWATCH_TOKEN", "").strip(),
             
             # Playbook 7: Video Agency
-            "heygen": os.getenv("HEYGEN_API_KEY"),
-            "runway": os.getenv("RUNWAY_API_KEY"),
+            "heygen": os.environ.get("HEYGEN_API_KEY", "").strip(),
+            "runway": os.environ.get("RUNWAY_API_KEY", "").strip(),
             
             # Playbook 8: Audio Agency
-            "elevenlabs": os.getenv("ELEVENLABS_API_KEY"),
-            "descript": os.getenv("DESCRIPT_API_KEY"),
+            "elevenlabs": os.environ.get("ELEVENLABS_API_KEY", "").strip(),
+            "descript": os.environ.get("DESCRIPT_API_KEY", "").strip(),
             
             # Playbook 9: Ecommerce Agency
-            "shopify": os.getenv("SHOPIFY_ACCESS_TOKEN"),
-            "stripe": os.getenv("STRIPE_API_KEY"),
+            "shopify": os.environ.get("SHOPIFY_ACCESS_TOKEN", "").strip(),
+            "stripe": os.environ.get("STRIPE_API_KEY", "").strip(),
         }
         
     def _load_humanitarian_system(self):

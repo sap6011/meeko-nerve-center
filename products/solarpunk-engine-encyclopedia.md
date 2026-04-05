@@ -4,37 +4,37 @@
 > -- a living, bio-inspired autonomous AI system built to fight
 > tyranny, protect the silenced, and generate sovereign revenue.
 
-Generated: 2026-04-05 00:57 UTC
+Generated: 2026-04-05 06:54 UTC
 
 ## System Statistics
 
 | Metric | Value |
 |--------|-------|
-| Total Engines | 359 |
-| Total Lines of Code | 75,617 |
-| Total Functions | 2,030 |
-| Engines with run() | 201 |
+| Total Engines | 373 |
+| Total Lines of Code | 79,672 |
+| Total Functions | 2,094 |
+| Engines with run() | 213 |
 | Categories | 11 |
 
 ## Table of Contents
 
-1. [Core Infrastructure](#core-infrastructure) (143 engines)
+1. [Core Infrastructure](#core-infrastructure) (149 engines)
 2. [Revenue Generation](#revenue-generation) (44 engines)
-3. [Content & Distribution](#content-distribution) (30 engines)
-4. [Self-Improvement & Ops](#self-improvement-ops) (26 engines)
-5. [Crisis Response & Defense](#crisis-response-defense) (24 engines)
+3. [Content & Distribution](#content-distribution) (31 engines)
+4. [Self-Improvement & Ops](#self-improvement-ops) (27 engines)
+5. [Crisis Response & Defense](#crisis-response-defense) (26 engines)
 6. [Topology & Wiring](#topology-wiring) (23 engines)
 7. [Intelligence & Memory](#intelligence-memory) (21 engines)
-8. [Infrastructure & Scheduling](#infrastructure-scheduling) (19 engines)
-9. [Outreach & Partnerships](#outreach-partnerships) (13 engines)
-10. [Creative & Brand](#creative-brand) (8 engines)
+8. [Infrastructure & Scheduling](#infrastructure-scheduling) (21 engines)
+9. [Outreach & Partnerships](#outreach-partnerships) (14 engines)
+10. [Creative & Brand](#creative-brand) (9 engines)
 11. [Bio-Inspired Patterns](#bio-inspired-patterns) (8 engines)
 
 ---
 
 ## Core Infrastructure
 
-*143 engines in this category*
+*149 engines in this category*
 
 ### AGENT_LINK_VERIFIER
 
@@ -53,7 +53,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### AI_CLIENT
 
-**Purpose:** AI_CLIENT.py — SolarPunk unified AI brain
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -68,7 +68,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### AI_WATCHER
 
-**Purpose:** AI_WATCHER — Monitors the AI ecosystem for SolarPunk-relevant developments
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -166,7 +166,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### CLAUDE_ENGINE
 
-**Purpose:** CLAUDE_ENGINE.py — Claude as first-class SolarPunk component
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -260,7 +260,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### CRYPTO_WATCHER
 
-**Purpose:** CRYPTO_WATCHER — Market intelligence, never trades without approval
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -326,6 +326,23 @@ Generated: 2026-04-05 00:57 UTC
 
 ---
 
+### DIGITAL_SATURATION
+
+**Purpose:** DIGITAL_SATURATION -- Every digital task IS code. Stop preparing. Start executing.
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 683 |
+| Functions | 20 |
+| Has run() | Yes |
+
+**Functions:** `_load_json`, `_count_html_pages`, `_count_products`, `_count_discussions`, `_count_releases`, `_count_rss_entries`, `_count_sitemap_urls`, `_count_email_templates`, `_count_social_posts`, `_count_content_pieces`, `_count_kofi_ready`, `_scan_internal_links`, `_score`, `_ratio_score`, `_generate_page_topics`, `_generate_discussion_topics`, `_generate_social_posts`, `_generate_rss_topics`, `_build_dashboard`, `run`
+
+**Writes:** data/digital_saturation_state.json  (full state with per-channel scores) | data/saturation_gaps.json           (what's missing, what to generate next) | docs/saturation.html                (dashboard with per-channel bar charts)
+
+---
+
 ### DISPATCH_HANDLER
 
 **Purpose:** DISPATCH_HANDLER.py — processes real payments arriving via repository_dispatch
@@ -338,6 +355,21 @@ Generated: 2026-04-05 00:57 UTC
 | Has run() | Yes |
 
 **Functions:** `load_revenue`, `save_revenue`, `load_kofi`, `save_kofi`, `send_notification`, `check_loop_trigger`, `run`
+
+---
+
+### DUAL_SYSTEM_CROSSWIRE
+
+**Purpose:** DUAL_SYSTEM_CROSSWIRE.py -- The bridge between the 1/99 and 99/1 universes.
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 946 |
+| Functions | 12 |
+| Has run() | Yes |
+
+**Functions:** `_load`, `_save`, `_ts`, `_crosswire_content_to_social`, `_crosswire_revenue_to_both`, `_crosswire_fuel_to_growth`, `_crosswire_storefront_to_signal`, `_crosswire_tasks_to_telegram`, `_crosswire_growth_to_chimera`, `_crosswire_humanitarian_to_fuel`, `_build_crosswire_report`, `run`
 
 ---
 
@@ -512,7 +544,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### FORK_SCANNER
 
-**Purpose:** FORK_SCANNER — find people who forked our repo and reach out
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -686,6 +718,44 @@ Generated: 2026-04-05 00:57 UTC
 
 ---
 
+### GENERATED_GITHUB_RELEASE_DEPLOYER_CONSUMER
+
+**Purpose:** GENERATED_GITHUB_RELEASE_DEPLOYER_CONSUMER.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 47 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** release_deployer_state.json
+
+**Writes:** data/github_release_deployer_insights.json
+
+---
+
+### GENERATED_GROWTH_CHAIN_STATE_POPULATOR
+
+**Purpose:** GENERATED_GROWTH_CHAIN_STATE_POPULATOR.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 47 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** growth_chain_state.json
+
+**Writes:** data/growth_chain_state.json
+
+---
+
 ### GENERATED_INPUT_FILE_POPULATOR
 
 **Purpose:** GENERATED_INPUT_FILE_POPULATOR.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
@@ -778,6 +848,44 @@ Generated: 2026-04-05 00:57 UTC
 **Reads:** polymarket_scan.json
 
 **Writes:** data/polymarket_scanner_insights.json
+
+---
+
+### GENERATED_POLYMARKET_SCAN_POPULATOR
+
+**Purpose:** GENERATED_POLYMARKET_SCAN_POPULATOR.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 47 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** polymarket_scan.json
+
+**Writes:** data/polymarket_scan.json
+
+---
+
+### GENERATED_REPO_SPIDER_CONSUMER
+
+**Purpose:** GENERATED_REPO_SPIDER_CONSUMER.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 48 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** repo_spider_state.json, self_builder_queue.json
+
+**Writes:** data/repo_spider_insights.json
 
 ---
 
@@ -1535,16 +1643,14 @@ Generated: 2026-04-05 00:57 UTC
 
 ### NANO_AGENT
 
-**Purpose:** NANO_AGENT.py — Base class for all SolarPunk nano-agents
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
 | Layer | ? |
 | Lines | 201 |
-| Functions | 13 |
-| Has run() | Yes |
-
-**Functions:** `__init__`, `run`, `execute`, `load_state`, `load_data`, `save_data`, `load_context`, `ask_claude`, `send_email`, `write_html`, `html_shell`, `spawn_agent`, `_log`
+| Functions | 0 |
+| Has run() | No |
 
 ---
 
@@ -1612,7 +1718,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### NEURON_B
 
-**Purpose:** NEURON_B v2 - Skeptic Brain
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -1622,8 +1728,6 @@ Generated: 2026-04-05 00:57 UTC
 | Has run() | No |
 
 **Functions:** `main`
-
-**Writes:** data/neuron_b_report.json
 
 ---
 
@@ -1682,7 +1786,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### OMNIBUS
 
-**Purpose:** OMNIBUS v40 — 1/99 FUEL SYSTEM: dual-mode revenue engine (358 engines, 5284 wires, chimera 78/100)
+**Purpose:** OMNIBUS v43 — DIGITAL SATURATION: 94 pages, 5 releases, 2 discussions, 2 email drafts, 367 artifacts (366+ engines, 5476 wires)
 
 | Property | Value |
 |----------|-------|
@@ -2178,7 +2282,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### ai_council
 
-**Purpose:** AI COUNCIL — Two Minds, One Brain
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -2347,7 +2451,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### ETSY_SEO_ENGINE
 
-**Purpose:** ETSY_SEO_ENGINE — Gaza Rose Gallery SEO Amplifier
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -2357,8 +2461,6 @@ Generated: 2026-04-05 00:57 UTC
 | Has run() | No |
 
 **Functions:** `make_description`, `try_claude`, `main`
-
-**Writes:** data/etsy_seo_output.json
 
 ---
 
@@ -2606,7 +2708,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### INCOME_ARCHITECT
 
-**Purpose:** INCOME_ARCHITECT.py -- The $1 Art Loop Engine
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -2726,7 +2828,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### PASSIVE_INCOME_ARCHITECT
 
-**Purpose:** PASSIVE_INCOME_ARCHITECT.py — SolarPunk's passive income invention engine
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -2865,7 +2967,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### REVENUE_FLYWHEEL
 
-**Purpose:** REVENUE_FLYWHEEL — Master revenue coordinator
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -3019,20 +3121,18 @@ Generated: 2026-04-05 00:57 UTC
 
 ## Content & Distribution
 
-*30 engines in this category*
+*31 engines in this category*
 
 ### AGENT_TWEET_WRITER
 
-**Purpose:** AGENT_TWEET_WRITER.py — Nano-agent that generates tweet drafts
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
 | Layer | L4 |
 | Lines | 105 |
-| Functions | 1 |
-| Has run() | Yes |
-
-**Functions:** `run`
+| Functions | 0 |
+| Has run() | No |
 
 ---
 
@@ -3144,6 +3244,25 @@ Generated: 2026-04-05 00:57 UTC
 | Has run() | Yes |
 
 **Functions:** `load_state`, `save_state`, `post_article`, `build_cycle_article`, `build_article_from_post`, `run`, `ask`
+
+---
+
+### GENERATED_AUTONOMOUS_PUBLISHER_CONSUMER
+
+**Purpose:** GENERATED_AUTONOMOUS_PUBLISHER_CONSUMER.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 48 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** social_queue.json, autonomous_publisher_state.json
+
+**Writes:** data/autonomous_publisher_insights.json
 
 ---
 
@@ -3356,7 +3475,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### NEWSLETTER_ENGINE
 
-**Purpose:** NEWSLETTER_ENGINE — auto-generate and send email newsletter from data/
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -3431,7 +3550,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### SUBSTACK_ENGINE
 
-**Purpose:** SUBSTACK_ENGINE — Automated newsletter publishing
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -3491,7 +3610,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ## Self-Improvement & Ops
 
-*26 engines in this category*
+*27 engines in this category*
 
 ### ARCHITECT
 
@@ -3535,6 +3654,21 @@ Generated: 2026-04-05 00:57 UTC
 | Has run() | Yes |
 
 **Functions:** `rj`, `run`
+
+---
+
+### AUTOPILOT_EXECUTOR
+
+**Purpose:** AUTOPILOT_EXECUTOR -- Goes through the human task board and DOES every
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 1124 |
+| Functions | 19 |
+| Has run() | Yes |
+
+**Functions:** `_rj`, `_wj`, `_ts`, `_wt`, `fix_broken_html`, `_product_landing_html`, `generate_product_landing_pages`, `create_discussion_drafts`, `generate_email_templates`, `build_bundle_pages`, `update_robots_and_sitemap`, `create_image_descriptions`, `prefill_kofi_listings`, `update_rss_feed`, `mark_completed_tasks`, `run`, `__init__`, `log`, `mark_task`
 
 ---
 
@@ -3638,22 +3772,22 @@ Generated: 2026-04-05 00:57 UTC
 
 ### BOTTLENECK_SCANNER
 
-**Purpose:** BOTTLENECK_SCANNER.py - identifies what's blocking revenue and outputs fix plan.
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
 | Layer | L0 |
 | Lines | 272 |
-| Functions | 8 |
+| Functions | 7 |
 | Has run() | Yes |
 
-**Functions:** `check_secrets`, `check_engines`, `check_gumroad_listings`, `check_revenue`, `identify_bottlenecks`, `write_html_report`, `run`, `s`
+**Functions:** `check_secrets`, `check_engines`, `check_gumroad_listings`, `check_revenue`, `identify_bottlenecks`, `write_html_report`, `run`
 
 ---
 
 ### CAPABILITY_SCANNER
 
-**Purpose:** CAPABILITY_SCANNER.py — What can SolarPunk actually DO right now?
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -3751,7 +3885,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### HEALTH_BOOSTER
 
-**Purpose:** HEALTH_BOOSTER.py — System Diagnostics + Honest Scoring
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -3901,7 +4035,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ## Crisis Response & Defense
 
-*24 engines in this category*
+*26 engines in this category*
 
 ### APOPTOSIS
 
@@ -3986,6 +4120,25 @@ Generated: 2026-04-05 00:57 UTC
 
 ---
 
+### GENERATED_DARK_WATCH_ALERT_POPULATOR
+
+**Purpose:** GENERATED_DARK_WATCH_ALERT_POPULATOR.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 47 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** dark_watch_alert.json
+
+**Writes:** data/dark_watch_alert.json
+
+---
+
 ### GENERATED_IMMUNE_SYSTEM_CONSUMER
 
 **Purpose:** GENERATED_IMMUNE_SYSTEM_CONSUMER.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
@@ -4059,6 +4212,25 @@ Generated: 2026-04-05 00:57 UTC
 **Reads:** secrets_checker_state.json
 
 **Writes:** data/secrets_checker_insights.json
+
+---
+
+### GENERATED_SIGNAL_BOOST_LOG_POPULATOR
+
+**Purpose:** GENERATED_SIGNAL_BOOST_LOG_POPULATOR.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 47 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** signal_boost_log.json
+
+**Writes:** data/signal_boost_log.json
 
 ---
 
@@ -4181,7 +4353,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### SCAM_SHIELD
 
-**Purpose:** SCAM_SHIELD — Email security + verification layer
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -4196,7 +4368,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### SECRETS_CHECKER
 
-**Purpose:** SECRETS_CHECKER.py — Diagnoses exactly what's configured vs missing.
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -4575,7 +4747,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### SWARM_TOOLBOX
 
-**Purpose:** SWARM_TOOLBOX v3 — Clean Engine Registry
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -4605,7 +4777,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### SYNAPSE
 
-**Purpose:** SYNAPSE v2 - Resolver
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -4688,7 +4860,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### BIG_BRAIN_ORACLE
 
-**Purpose:** BIG_BRAIN_ORACLE.py — Asks Claude the biggest strategic questions about the system.
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -4896,7 +5068,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### MEMORY_PALACE
 
-**Purpose:** MEMORY_PALACE — Persistent Learning Engine
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -4906,8 +5078,6 @@ Generated: 2026-04-05 00:57 UTC
 | Has run() | No |
 
 **Functions:** `load_memory`, `snapshot_current_state`, `detect_patterns`, `extract_lessons`, `build_growth_curve`, `main`
-
-**Writes:** data/memory_palace.json  (ever-growing knowledge base, 365 cycles)
 
 ---
 
@@ -4928,7 +5098,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### RESONANCE_CONVERTER
 
-**Purpose:** RESONANCE_CONVERTER — turns attention into money
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5022,7 +5192,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### knowledge_dispatch
 
-**Purpose:** knowledge_dispatch.py — SolarPunk's Long-Term Memory
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5037,11 +5207,11 @@ Generated: 2026-04-05 00:57 UTC
 
 ## Infrastructure & Scheduling
 
-*19 engines in this category*
+*21 engines in this category*
 
 ### BRIEFING_ENGINE
 
-**Purpose:** MORNING_BRIEFING + EVENING_REPORT — Daily emails to Meeko
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5090,7 +5260,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### DESKTOP_DAEMON
 
-**Purpose:** DESKTOP_DAEMON — runs locally on Meeko's desktop, always on, always watching.
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5148,6 +5318,25 @@ Generated: 2026-04-05 00:57 UTC
 
 ---
 
+### GENERATED_DAEMON_TASK_XML_POPULATOR
+
+**Purpose:** GENERATED_DAEMON_TASK_XML_POPULATOR.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 47 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** daemon_task.xml
+
+**Writes:** data/daemon_task.xml
+
+---
+
 ### GENERATED_DESKTOP_DAEMON_CONSUMER
 
 **Purpose:** GENERATED_DESKTOP_DAEMON_CONSUMER.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
@@ -5186,6 +5375,21 @@ Generated: 2026-04-05 00:57 UTC
 
 ---
 
+### HUMAN_TASK_BOARD
+
+**Purpose:** HUMAN_TASK_BOARD -- Consolidate every human-action-required task across
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 830 |
+| Functions | 20 |
+| Has run() | Yes |
+
+**Functions:** `_rj`, `_ts`, `_value_matches`, `_classify`, `_estimate_time`, `_extract_url`, `_task_fingerprint`, `_is_revenue_generating`, `_is_zero_cost`, `_is_blocking`, `_extract_tasks_from_value`, `scan_all_data`, `_safe_hint`, `deduplicate`, `prioritise`, `group_by_session`, `group_by_category`, `build_html`, `run`, `score`
+
+---
+
 ### LEGACY_SIFTED_agency_orchestrator
 
 **Purpose:** AUTONOMOUS AGENCY ORCHESTRATOR v1.0
@@ -5194,10 +5398,8 @@ Generated: 2026-04-05 00:57 UTC
 |----------|-------|
 | Layer | ? |
 | Lines | 410 |
-| Functions | 2 |
+| Functions | 0 |
 | Has run() | No |
-
-**Functions:** `__init__`, `_load_humanitarian_system`
 
 ---
 
@@ -5346,11 +5548,11 @@ Generated: 2026-04-05 00:57 UTC
 
 ## Outreach & Partnerships
 
-*13 engines in this category*
+*14 engines in this category*
 
 ### CONNECTION_FORGE
 
-**Purpose:** CONNECTION_FORGE — SolarPunk emails itself setup guides
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5472,9 +5674,28 @@ Generated: 2026-04-05 00:57 UTC
 
 ---
 
+### GENERATED_GRANT_TRIGGER_POPULATOR
+
+**Purpose:** GENERATED_GRANT_TRIGGER_POPULATOR.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 47 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** grant_trigger.json
+
+**Writes:** data/grant_trigger.json
+
+---
+
 ### GRANT_APPLICANT
 
-**Purpose:** GRANT_APPLICANT - Fills and submits grant applications autonomously
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5489,7 +5710,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### GRANT_HUNTER
 
-**Purpose:** GRANT_HUNTER - Finds grants SolarPunk can apply for
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5504,7 +5725,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### HUMAN_CONNECTOR
 
-**Purpose:** HUMAN_CONNECTOR — When a real human emails SolarPunk, help them build something
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5549,7 +5770,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ## Creative & Brand
 
-*8 engines in this category*
+*9 engines in this category*
 
 ### ART_CATALOG
 
@@ -5568,7 +5789,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### ART_GENERATOR
 
-**Purpose:** ART_GENERATOR.py -- AI Art per $1 Purchase
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5598,7 +5819,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### DESKTOP_BLUEPRINT_SCANNER
 
-**Purpose:** DESKTOP_BLUEPRINT_SCANNER.py — Catalogs and revives Meeko's desktop scripts
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5608,6 +5829,25 @@ Generated: 2026-04-05 00:57 UTC
 | Has run() | Yes |
 
 **Functions:** `scan_local`, `generate_recommendations`, `load_state`, `save_state`, `run`
+
+---
+
+### GENERATED_ART_CATALOG_CONSUMER
+
+**Purpose:** GENERATED_ART_CATALOG_CONSUMER.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 47 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** art_catalog.json
+
+**Writes:** data/art_catalog_insights.json
 
 ---
 
@@ -5647,7 +5887,7 @@ Generated: 2026-04-05 00:57 UTC
 
 ### SELF_PORTRAIT
 
-**Purpose:** SELF_PORTRAIT.py -- The system writing about itself
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -5832,7 +6072,7 @@ Generated: 2026-04-05 00:57 UTC
 ## About This System
 
 The SolarPunk Nerve Center is an autonomous, bio-inspired AI system
-composed of 359 engines organized into 11 categories.
+composed of 373 engines organized into 11 categories.
 Each engine is a self-contained unit that reads data, processes it,
 and writes results -- forming a living neural network of code.
 

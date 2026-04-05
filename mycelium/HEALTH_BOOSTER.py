@@ -8,7 +8,7 @@ Diagnoses every known blocker. Reports what needs human action.
 Updates health score in brain_state.json.
 
 Health score (100 pts):
-  20 — os.getenv("os.getenv("ANTHROPIC_API_KEY")") valid
+  20 — os.environ.get("ANTHROPIC_API_KEY", "").strip() valid
   15 — Shop page deployed
   10 — Gumroad listings created
   10 — Social media credentials
@@ -27,7 +27,7 @@ DOCS  = Path("docs")
 DATA.mkdir(exist_ok=True)
 
 SECRETS_NEEDED = {
-    "os.getenv("os.getenv("ANTHROPIC_API_KEY")")":    {"pts": 15, "category": "AI Brain", "how": "console.anthropic.com -> API Keys"},
+    "os.environ.get("ANTHROPIC_API_KEY", "").strip()":    {"pts": 15, "category": "AI Brain", "how": "console.anthropic.com -> API Keys"},
     "GUMROAD_ACCESS_TOKEN": {"pts": 10, "category": "Revenue",  "how": "gumroad.com → Settings → Advanced → Access Token"},
     "GMAIL_ADDRESS":        {"pts":  5, "category": "Delivery", "how": "Your Gmail address"},
     "GMAIL_APP_PASSWORD":   {"pts":  5, "category": "Delivery", "how": "Google Account → Security → App Passwords"},
@@ -38,9 +38,9 @@ SECRETS_NEEDED = {
 }
 
 def check_api_key():
-    key = os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()
+    key = os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()
     if not key:
-        return False, "os.getenv("os.getenv("ANTHROPIC_API_KEY")") not set"
+        return False, "os.environ.get("ANTHROPIC_API_KEY", "").strip() not set"
     try:
         r = requests.post("https://api.anthropic.com/v1/messages",
             headers={"x-api-key": key, "anthropic-version": "2023-06-01",
@@ -75,26 +75,26 @@ def score_and_report():
     api_ok, api_msg = check_api_key()
     if api_ok:
         score += 20
-        achievements.append(f"✅ Anthropic API: {api_msg}")
+        achievements.append(f"[OK] Anthropic API: {api_msg}")
     else:
         issues.append(f"🔴 CRITICAL: {api_msg} — All AI features disabled")
-        fixes.append("Go to anthropic.com/console -> API Keys -> Create new key -> Add as os.getenv("os.getenv("ANTHROPIC_API_KEY")")")
+        fixes.append("Go to anthropic.com/console -> API Keys -> Create new key -> Add as os.environ.get("ANTHROPIC_API_KEY", "").strip()
 
     # File checks
     if (DOCS / "index.html").exists():
         score += 15
-        achievements.append("✅ Shop page: docs/index.html deployed")
+        achievements.append("[OK] Shop page: docs/index.html deployed")
     else:
         issues.append("🔴 Shop page missing — docs/index.html not found")
 
     for fname, pts, label in [("links.html", 3, "Links page"), ("dashboard.html", 3, "Dashboard")]:
         if (DOCS / fname).exists():
             score += pts
-            achievements.append(f"✅ {label}: docs/{fname} exists")
+            achievements.append(f"[OK] {label}: docs/{fname} exists")
 
     if (DATA / "flywheel_state.json").exists():
         score += 5
-        achievements.append("✅ Data pipeline: flywheel_state.json exists")
+        achievements.append("[OK] Data pipeline: flywheel_state.json exists")
 
     # Secret checks
     missing_secrets = []
@@ -102,7 +102,7 @@ def score_and_report():
         val = os.environ.get(secret, "")
         if val and len(val) > 3:
             score += info["pts"]
-            achievements.append(f"✅ {secret}: configured")
+            achievements.append(f"[OK] {secret}: configured")
         else:
             missing_secrets.append({**info, "secret": secret})
 
@@ -119,7 +119,7 @@ def score_and_report():
     has_revenue, gaza_total, sales = check_revenue()
     if has_revenue:
         score += 15
-        achievements.append(f"✅ REVENUE: {sales} sales | ${gaza_total:.2f} to Gaza 🎉")
+        achievements.append(f"[OK] REVENUE: {sales} sales | ${gaza_total:.2f} to Gaza 🎉")
     else:
         issues.append("💰 No revenue yet — shop needs human promotion")
         fixes.append("Share shop URL: meekotharaccoon-cell.github.io/meeko-nerve-center")

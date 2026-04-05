@@ -16,7 +16,7 @@ from email.mime.multipart import MIMEMultipart
 DATA=Path("data"); DATA.mkdir(exist_ok=True)
 GMAIL=os.environ.get("GMAIL_ADDRESS","")
 GPWD=os.environ.get("GMAIL_APP_PASSWORD","")
-API=os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()
+API=os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()
 
 PROFILE={
     "project":"SolarPunk / Gaza Rose Gallery",

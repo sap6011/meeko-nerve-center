@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-05T01:10:40.105416+00:00",
+  "timestamp": "2026-04-05T06:54:56.759185+00:00",
   "bridges_attempted": 64,
-  "bridges_built": 16,
-  "bridges_failed": 48,
+  "bridges_built": 15,
+  "bridges_failed": 49,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
@@ -38,36 +38,36 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 360 pass, 0 fail out of 360 engines",
-      "pass": 360,
-      "fail": 0,
+      "detail": "Local sentinel: 339 pass, 36 fail out of 375 engines",
+      "pass": 339,
+      "fail": 36,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 547 nodes, 5391 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 547,
-      "edges": 5391,
+      "detail": "Knowledge graph: 571 nodes, 5647 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 571,
+      "edges": 5647,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          347
+          357
         ],
         [
           "OMNIBUS",
-          214
+          221
         ],
         [
           "FIRST_SALE_NOTIFIER",
-          179
+          184
         ],
         [
           "REVENUE_LOOP",
-          153
+          158
         ],
         [
           "METRICS_DASHBOARD",
-          135
+          136
         ]
       ],
       "target": "knowledge_graph.json"
@@ -85,12 +85,12 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "River watch: 0 alerts, 0 waterways",
+      "detail": "River watch: 1 alerts, 0 waterways",
       "target": "river_watch.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 360 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 375 scripts, 10 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -99,18 +99,18 @@
       "target": "tweets_queue.txt"
     },
     {
-      "status": "BRIDGED",
-      "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json",
-      "target": "daemon_task.xml"
+      "target": "daemon_task.xml",
+      "status": "ERROR",
+      "detail": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 19, score 79/100",
+      "detail": "Chimera gen 24, score 61/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 360",
+      "detail": "Healed 0, scanned 375",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -119,8 +119,8 @@
       "target": "mutation_leaderboard.json"
     },
     {
-      "status": "ALREADY_EXISTS",
-      "detail": "Markets scanned: 100, edges: 41",
+      "status": "NO_SOURCE",
+      "detail": "polymarket_scan.json not found -- run POLYMARKET_SCANNER",
       "target": "polymarket_scan.json"
     },
     {
@@ -225,7 +225,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (360 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (339 pass)",
       "target": "sentinel_scan.json"
     },
     {

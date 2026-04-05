@@ -57,7 +57,7 @@ class AGENT_TWEET_WRITER(NanoAgent):
         ts = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
         # Use Claude if available for fresh content
-        if os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip():
+        if os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip():
             context = f"""SolarPunk stats: cycles={stats['cycles']}, health={stats['health']}/100, emails={stats['emails_out']}, engines_built={stats['engines_built']}
 Today's date: {ts}"""
             prompt = f"""Write a 4-tweet Twitter thread about the SolarPunk autonomous AI system. 
