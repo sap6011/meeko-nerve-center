@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-05T19:01:44.464886+00:00",
+  "timestamp": "2026-04-05T19:11:52.326685+00:00",
   "bridges_attempted": 121,
-  "bridges_built": 15,
-  "bridges_failed": 106,
+  "bridges_built": 14,
+  "bridges_failed": 107,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
@@ -22,9 +22,9 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 358 pass, 34 fail out of 392 engines",
-      "pass": 358,
-      "fail": 34,
+      "detail": "Local sentinel: 391 pass, 1 fail out of 392 engines",
+      "pass": 391,
+      "fail": 1,
       "target": "sentinel_report.json"
     },
     {
@@ -74,7 +74,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 392 scripts, 10 need repair",
+      "detail": "Desktop blueprints: 392 scripts, 1 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -83,13 +83,13 @@
       "detail": "'str' object does not support item assignment"
     },
     {
-      "status": "BRIDGED",
-      "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json",
-      "target": "daemon_task.xml"
+      "target": "daemon_task.xml",
+      "status": "ERROR",
+      "detail": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 34, score 78/100",
+      "detail": "Chimera gen 35, score 56/100",
       "target": "chimera_evolution_report.json"
     },
     {
@@ -209,7 +209,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (358 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (391 pass)",
       "target": "sentinel_scan.json"
     },
     {

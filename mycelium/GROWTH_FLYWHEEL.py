@@ -449,7 +449,7 @@ def _generate_content(products, system_stats, fuel_plan):
             "    # Process\n"
             "    result = do_work(signals)\n"
             "    # Write outputs\n"
-            "    (DATA / 'output.json').write_text(json.dumps(result, indent=2))\n\n"
+            "    (DATA / 'output.json').write_text(json.dumps(result, indent=2), encoding="utf-8")\n\n"
             "if __name__ == '__main__':\n"
             "    run()\n"
             "```\n\n"
