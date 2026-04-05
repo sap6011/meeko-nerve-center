@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer Guide - SolarPunk Open Source AI System | Fork, Run, Contribute</title>
+<meta name="description" content="Developer guide for the SolarPunk autonomous AI system. Learn how to fork the repo, run locally, add engines, contribute code, and build on top of 366 self-wiring engines.">
+<meta name="keywords" content="open source AI system, contribute to AI, fork autonomous AI, developer guide AI, python AI engine, self-healing AI code">
+<meta property="og:title" content="SolarPunk Developer Guide - Open Source Autonomous AI">
+<meta property="og:description" content="Fork it. Run it. Build on it. A 366-engine autonomous AI system you can contribute to and customize.">
+<meta property="og:url" content="https://meekotharaccoon-cell.github.io/meeko-nerve-center/for-developers.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SolarPunk Developer Guide">
+<meta name="twitter:description" content="Open source autonomous AI system. 366 engines, 5,476 wires, zero API keys. Fork and run.">
+<link rel="canonical" href="https://meekotharaccoon-cell.github.io/meeko-nerve-center/for-developers.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "SolarPunk Developer Guide: Fork, Run, and Contribute",
+  "description": "Complete developer guide for the SolarPunk autonomous AI system. Covers forking, local setup, engine creation, and contribution workflow.",
+  "author": {"@type": "Organization", "name": "SolarPunk"},
+  "datePublished": "2026-04-04",
+  "publisher": {"@type": "Organization", "name": "SolarPunk"}
+}
+</script>
+<style>
+  body { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.7; margin: 0; padding: 0; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+  h1 { color: #58a6ff; font-size: 2.4em; text-align: center; margin-bottom: 10px; }
+  h2 { color: #3fb950; font-size: 1.6em; margin-top: 50px; border-bottom: 1px solid #21262d; padding-bottom: 10px; }
+  h3 { color: #58a6ff; font-size: 1.2em; margin-top: 30px; }
+  p { font-size: 1.05em; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .subtitle { text-align: center; color: #8b949e; font-size: 1.1em; margin-bottom: 40px; }
+  .code-block { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; font-family: 'Courier New', monospace; font-size: 0.9em; color: #e6edf3; overflow-x: auto; margin: 15px 0; white-space: pre; }
+  .code-inline { background: #21262d; padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.9em; }
+  .step { background: #161b22; border-left: 4px solid #3fb950; padding: 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+  .step-num { color: #3fb950; font-weight: bold; font-size: 1.3em; }
+  .requirements { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+  .req-item { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 15px; text-align: center; }
+  .req-item strong { color: #3fb950; display: block; margin-bottom: 5px; }
+  nav { background: #161b22; border-bottom: 1px solid #30363d; padding: 15px 0; text-align: center; }
+  nav a { color: #58a6ff; margin: 0 15px; font-size: 0.95em; }
+  .footer { border-top: 1px solid #21262d; margin-top: 60px; padding-top: 30px; text-align: center; color: #8b949e; font-size: 0.9em; }
+  .footer a { color: #3fb950; }
+  .cta { background: linear-gradient(135deg, #238636, #1a7f37); color: #fff; padding: 15px 30px; border-radius: 8px; display: inline-block; font-weight: bold; margin: 10px; text-decoration: none; }
+  .cta:hover { text-decoration: none; opacity: 0.9; }
+  ul, ol { padding-left: 25px; }
+  li { margin-bottom: 10px; }
+  .warning { background: #2d1600; border: 1px solid #d29922; border-radius: 8px; padding: 15px 20px; margin: 20px 0; }
+  .warning strong { color: #d29922; }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+  th { background: #161b22; color: #3fb950; text-align: left; padding: 12px; border: 1px solid #30363d; }
+  td { padding: 12px; border: 1px solid #30363d; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Dashboard</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="mission.html">Mission</a>
+  <a href="products/index.html">Products</a>
+  <a href="for-developers.html"><strong>Developers</strong></a>
+  <a href="transparency.html">Transparency</a>
+  <a href="faq.html">FAQ</a>
+</nav>
+<div class="container">
+
+<h1>Developer Guide</h1>
+<p class="subtitle">Fork it. Run it. Build on it. Contribute to a 366-engine autonomous AI system.</p>
+
+<h2>Requirements</h2>
+<div class="requirements">
+  <div class="req-item"><strong>Python 3.10+</strong>Engine runtime</div>
+  <div class="req-item"><strong>Ollama</strong>Local AI inference</div>
+  <div class="req-item"><strong>Git</strong>Version control</div>
+  <div class="req-item"><strong>~2GB RAM</strong>Minimum for core</div>
+</div>
+<p>That's all you need for the zero-secret core (283 engines). Optional API keys unlock additional engines for web search, social media, and external integrations.</p>
+
+<h2>Quick Start: Fork & Run</h2>
+
+<div class="step">
+  <span class="step-num">Step 1:</span> <strong>Clone the repository</strong>
+  <div class="code-block">git clone https://github.com/meekotharaccoon-cell/meeko-nerve-center.git
+cd meeko-nerve-center</div>
+</div>
+
+<div class="step">
+  <span class="step-num">Step 2:</span> <strong>Install Ollama</strong>
+  <div class="code-block"># Linux/Mac
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Windows
+# Download from https://ollama.ai/download
+
+# Pull a model
+ollama pull llama3.2</div>
+</div>
+
+<div class="step">
+  <span class="step-num">Step 3:</span> <strong>Run a single engine</strong>
+  <div class="code-block">cd mycelium
+python LIVE_WIRE_SCANNER.py</div>
+  <p>This runs the wire scanner, which maps all engine connections and writes results to <span class="code-inline">data/live_wire_report.json</span>.</p>
+</div>
+
+<div class="step">
+  <span class="step-num">Step 4:</span> <strong>Run the full OMNIBUS cycle</strong>
+  <div class="code-block">python OMNIBUS.py</div>
+  <p>This executes the complete AUTO_GENESIS loop: scan, discover, generate, wire, heal, evolve. One cycle typically takes 5-15 minutes depending on gap count and model speed.</p>
+</div>
+
+<h2>Project Structure</h2>
+<div class="code-block">meeko-nerve-center/
+  mycelium/           # All engines live here (366 .py files)
+  data/               # Shared state (JSON data files, 424 connected)
+  docs/               # GitHub Pages site (dashboards, products)
+  products/           # Product content (guides, templates, bundles)
+  AUTO_EXEC.ps1       # Windows auto-execution script
+  OMNIBUS.py          # Master orchestrator (not in mycelium/)
+  data/live_wire_report.json    # Wire topology map
+  data/system_health.json       # Current health status
+  data/chimera_evolution_report.json  # Evolution metrics</div>
+
+<h2>How to Write an Engine</h2>
+<p>Every engine follows the same pattern: read inputs, process, write outputs. Here is the minimal template:</p>
+
+<div class="code-block">"""
+MY_NEW_ENGINE.py
+Description: What this engine does
+Inputs: data/some_input.json
+Outputs: data/my_output.json
+Zero-Secret: True
+"""
+import json
+import os
+from datetime import datetime, timezone
+
+DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
+
+def run():
+    # Read input
+    input_path = os.path.join(DATA_DIR, 'some_input.json')
+    if os.path.exists(input_path):
+        with open(input_path, 'r') as f:
+            data = json.load(f)
+    else:
+        data = {}
+
+    # Process
+    result = {
+        "processed_at": datetime.now(timezone.utc).isoformat(),
+        "input_records": len(data),
+        "status": "ok"
+    }
+
+    # Write output
+    output_path = os.path.join(DATA_DIR, 'my_output.json')
+    with open(output_path, 'w') as f:
+        json.dump(result, f, indent=2)
+
+    return result
+
+if __name__ == '__main__':
+    print(run())</div>
+
+<h3>Engine Naming Conventions</h3>
+<table>
+  <tr><th>Pattern</th><th>Meaning</th><th>Example</th></tr>
+  <tr><td>ALL_CAPS.py</td><td>Standalone engine</td><td>REVENUE_MONITOR.py</td></tr>
+  <tr><td>GENERATED_*.py</td><td>Auto-generated by AUTO_GENESIS</td><td>GENERATED_SELF_BUILDER_CONSUMER.py</td></tr>
+  <tr><td>LEGACY_SIFTED_*.py</td><td>Migrated from legacy codebase</td><td>LEGACY_SIFTED_money_tracker.py</td></tr>
+</table>
+
+<h3>Key Rules</h3>
+<ul>
+  <li>Always include a <span class="code-inline">run()</span> function -- this is what the orchestrator calls</li>
+  <li>Declare inputs/outputs in the module docstring so the wire scanner can find them</li>
+  <li>Use <span class="code-inline">data/</span> for all state -- never hardcode absolute paths</li>
+  <li>Handle missing input files gracefully (the file may not exist yet on first run)</li>
+  <li>Write valid JSON to output files -- malformed output triggers the immune system</li>
+  <li>Set <span class="code-inline">Zero-Secret: True</span> if no API keys are needed</li>
+</ul>
+
+<div class="warning">
+  <strong>Warning:</strong> Never commit API keys, tokens, or credentials to the repository. The SECRETS_CHECKER engine scans for leaked secrets and will flag violations. Use environment variables for any sensitive values.
+</div>
+
+<h2>How Wiring Works</h2>
+<p>You do not need to manually wire engines. The <span class="code-inline">LIVE_WIRE_SCANNER</span> automatically detects connections:</p>
+<ol>
+  <li>It scans each engine's source code for file reads (json.load, open(), etc.)</li>
+  <li>It scans for file writes (json.dump, open('w'), etc.)</li>
+  <li>When Engine A writes <span class="code-inline">data/foo.json</span> and Engine B reads <span class="code-inline">data/foo.json</span>, a wire is created</li>
+  <li>Wires are classified as zero-secret or keyed based on whether either engine requires API keys</li>
+</ol>
+<p>After adding a new engine, run the wire scanner to see it appear in the topology:</p>
+<div class="code-block">python mycelium/LIVE_WIRE_SCANNER.py
+# Check the result:
+python -c "import json; d=json.load(open('data/live_wire_report.json')); print(f'Total wires: {d[\"stats\"][\"total_wires_discovered\"]}')"</div>
+
+<h2>Contributing</h2>
+<h3>Pull Request Workflow</h3>
+<ol>
+  <li>Fork the repository on GitHub</li>
+  <li>Create a feature branch: <span class="code-inline">git checkout -b my-new-engine</span></li>
+  <li>Write your engine in <span class="code-inline">mycelium/</span></li>
+  <li>Test it locally: <span class="code-inline">python mycelium/MY_ENGINE.py</span></li>
+  <li>Run the wire scanner to verify connectivity</li>
+  <li>Commit and push</li>
+  <li>Open a pull request against <span class="code-inline">main</span></li>
+</ol>
+
+<h3>Ideas for New Engines</h3>
+<ul>
+  <li><strong>Data enrichment:</strong> Engines that read existing data files and add derived insights</li>
+  <li><strong>Content generation:</strong> Engines that produce blog posts, social media content, or documentation</li>
+  <li><strong>Health monitoring:</strong> Engines that check system health metrics and alert on anomalies</li>
+  <li><strong>Revenue streams:</strong> Engines that discover and integrate new platforms for product distribution</li>
+  <li><strong>Crisis detection:</strong> Engines that monitor news feeds for humanitarian emergencies</li>
+  <li><strong>Translation:</strong> Engines that translate content into additional languages</li>
+</ul>
+
+<h2>Customizing Revenue Routing</h2>
+<p>If you fork SolarPunk for your own cause, update the aid routing configuration:</p>
+<div class="code-block"># data/aid_routing.json
+{
+  "primary_beneficiary": "YOUR_CHARITY_NAME",
+  "primary_url": "https://your-charity.org/donate",
+  "split": {"mutual_aid": 0.99, "operational": 0.01},
+  "verified": true
+}</div>
+
+<h2>Architecture Deep Dives</h2>
+<ul>
+  <li><a href="how-it-works.html">How It Works</a> -- full AUTO_GENESIS loop explanation</li>
+  <li><a href="glossary.html">Glossary</a> -- 50+ terms defined</li>
+  <li><a href="compare.html">How SolarPunk Compares</a> -- architectural differences from other AI systems</li>
+  <li><a href="changelog.html">Changelog</a> -- version history and what changed</li>
+  <li><a href="products/index.html">Engine Encyclopedia</a> -- complete reference of all 359 scanned engines ($8)</li>
+</ul>
+
+<div style="text-align: center; margin: 40px 0;">
+  <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center" class="cta">Fork on GitHub</a>
+  <a href="products/index.html" class="cta">Buy the Engine Encyclopedia</a>
+</div>
+
+<div class="footer">
+  <p><strong>SolarPunk</strong> -- An autonomous digital organism routing 99% of revenue to mutual aid.</p>
+  <p>
+    <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">GitHub</a> |
+    <a href="proof.html">Proof Ledger</a> |
+    <a href="dashboard.html">Live Dashboard</a> |
+    <a href="index.html">Mission Control</a>
+  </p>
+  <p style="margin-top: 15px; font-size: 0.85em;">Every dollar is tracked. Every engine is open source. Every wire is verifiable.</p>
+</div>
+
+</div>
+</body>
+</html>
