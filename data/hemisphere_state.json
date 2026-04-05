@@ -1,21 +1,21 @@
 {
-  "timestamp": "2026-04-05T00:15:25.966770+00:00",
+  "timestamp": "2026-04-05T22:16:46.267745+00:00",
   "left": {
     "name": "local_machine",
     "status": "active",
-    "timestamp": "2026-04-05T00:15:25.126387+00:00",
+    "timestamp": "2026-04-05T22:16:45.901204+00:00",
     "ollama_models": [
+      "deepseek-r1:8b",
       "llama3:latest",
-      "mycelium:latest",
-      "mistral:latest",
-      "codellama:latest",
       "llama3.2:latest",
-      "nomic-embed-text:latest"
+      "mycelium:latest",
+      "nomic-embed-text:latest",
+      "qwen2.5-coder:7b"
     ],
     "ollama_status": "online",
     "python": "3.12.10",
-    "local_engines": 354,
-    "data_files": 375,
+    "local_engines": 394,
+    "data_files": 444,
     "capabilities": [
       "local_llm_inference",
       "has_live_wire_report",
@@ -26,36 +26,30 @@
   "right": {
     "name": "github_repo",
     "status": "active",
-    "timestamp": "2026-04-05T00:15:25.208559+00:00",
-    "uncommitted_changes": 356,
+    "timestamp": "2026-04-05T22:16:45.984606+00:00",
+    "uncommitted_changes": 28,
     "git_status": "dirty",
     "changes_breakdown": {
-      "modified": 257,
-      "untracked": 97,
-      "deleted": 2
+      "modified": 25,
+      "untracked": 3,
+      "deleted": 0
     },
-    "ahead_of_remote": 32,
+    "ahead_of_remote": 0,
     "behind_remote": 0,
-    "sync_status": "ahead:32 behind:0",
-    "branch": "claude/elegant-euler",
-    "workflows": 39
+    "sync_status": "in_sync",
+    "branch": "main",
+    "workflows": 38
   },
   "sync_gaps": [
     {
       "type": "local_not_pushed",
-      "detail": "356 local changes not committed",
+      "detail": "28 local changes not committed",
       "action": "git add + git commit + git push",
-      "severity": "warning"
-    },
-    {
-      "type": "commits_not_pushed",
-      "detail": "32 commits not pushed to remote",
-      "action": "git push origin main",
       "severity": "warning"
     }
   ],
-  "gap_count": 2,
-  "last_sync": "2026-04-05T00:15:25.966770+00:00",
+  "gap_count": 1,
+  "last_sync": "2026-04-05T22:16:46.267745+00:00",
   "architecture": {
     "left": "Local machine (Ollama, filesystem, Claude Code, MCP servers)",
     "right": "GitHub repo (Actions, Pages, git history, global access)",

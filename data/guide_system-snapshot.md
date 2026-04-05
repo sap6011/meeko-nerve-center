@@ -86,31 +86,31 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
-- CRYPTO_WATCHER -> GENERATED_CRYPTO_WATCHER_CONSUMER via `crypto_state.json`
-- CRYPTO_WATCHER -> SELF_PORTRAIT via `crypto_state.json`
-- GENERATED_CRYPTO_WATCHER_CONSUMER -> CRYPTO_WATCHER via `crypto_state.json`
-- GENERATED_CRYPTO_WATCHER_CONSUMER -> SELF_PORTRAIT via `crypto_state.json` (zero-secrets)
-- GITHUB_DISCUSSIONS_PUBLISHER -> DIGITAL_SATURATION via `discussions_publisher_state.json`
-- CONTENT_AUTOPILOT -> DIGITAL_SATURATION via `article_drafts.json` (zero-secrets)
-- CONTENT_AUTOPILOT -> EVENT_RELAY via `article_drafts.json`
-- CONTENT_AUTOPILOT -> TASK_FACTORY via `article_drafts.json` (zero-secrets)
-- RELAY_BATON -> BRIDGE_BUILDER via `relay_baton.json` (zero-secrets)
-- RELAY_BATON -> MISSION_CONTROL via `relay_baton.json` (zero-secrets)
-- RELAY_BATON -> OMNIBUS via `relay_baton.json` (zero-secrets)
-- STRESS_TEST -> EXECUTIVE_BRIEFING via `stress_test_results.json`
-- WORKTREE_ANCHOR -> DARK_WATCH via `worktree_anchor.json`
-- WORKTREE_ANCHOR -> WEEKEND_PULSE via `worktree_anchor.json` (zero-secrets)
-- AGENT_LINK_VERIFIER -> OMNIBUS via `agent_link_verifier_state.json` (zero-secrets)
-- FRACTAL_REPLICATOR -> GENERATED_FRACTAL_REPLICATOR_CONSUMER via `fractal_replicator_report.json` (zero-secrets)
-- FRACTAL_REPLICATOR -> OMNIBUS via `fractal_replicator_report.json` (zero-secrets)
-- GENERATED_FRACTAL_REPLICATOR_CONSUMER -> FRACTAL_REPLICATOR via `fractal_replicator_report.json` (zero-secrets)
-- GENERATED_FRACTAL_REPLICATOR_CONSUMER -> OMNIBUS via `fractal_replicator_report.json` (zero-secrets)
-- GENERATED_PLUGIN_REGISTRY_CONSUMER -> OMNIBUS via `plugin_registry.json` (zero-secrets)
-- GENERATED_PLUGIN_REGISTRY_CONSUMER -> PLUGIN_REGISTRY via `plugin_registry.json` (zero-secrets)
-- PLUGIN_REGISTRY -> GENERATED_PLUGIN_REGISTRY_CONSUMER via `plugin_registry.json` (zero-secrets)
-- PLUGIN_REGISTRY -> OMNIBUS via `plugin_registry.json` (zero-secrets)
-- GENERATED_TRANSFER_NEEDED_POPULATOR -> NIGHTLY_DIGEST via `transfer_needed.json`
-- GENERATED_TRANSFER_NEEDED_POPULATOR -> PROOF_LEDGER via `transfer_needed.json` (zero-secrets)
+- BIG_BRAIN_ORACLE -> AUTONOMY_PROOF via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> BOTTLENECK_SCANNER via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> BRIDGE_BUILDER via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> CLAUDE_ENGINE via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> CYCLE_MEMORY via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> DISPATCH_HANDLER via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> EMAIL_BRAIN via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> FIRST_CONTACT via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> FIRST_SALE_NOTIFIER via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> GENERATED_QUICK_REVENUE_CONSUMER via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> GRANT_APPLICANT via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> KOFI_PAYMENT_TRACKER via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> OMNIBUS via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> PROOF_LEDGER via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> QUICK_REVENUE via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> SELF_PORTRAIT via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> SOLARPUNK_LEGAL via `revenue_inbox.json`
+- BIG_BRAIN_ORACLE -> STORE_BUILDER via `revenue_inbox.json`
+- DISPATCH_HANDLER -> AUTONOMY_PROOF via `revenue_inbox.json`
+- DISPATCH_HANDLER -> BIG_BRAIN_ORACLE via `revenue_inbox.json`
+- DISPATCH_HANDLER -> BOTTLENECK_SCANNER via `revenue_inbox.json`
+- DISPATCH_HANDLER -> BRIDGE_BUILDER via `revenue_inbox.json`
+- DISPATCH_HANDLER -> CLAUDE_ENGINE via `revenue_inbox.json`
+- DISPATCH_HANDLER -> CYCLE_MEMORY via `revenue_inbox.json`
+- DISPATCH_HANDLER -> EMAIL_BRAIN via `revenue_inbox.json`
 - ... and 5856 more connections
 
 ## Knowledge Graph
@@ -131,7 +131,7 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-05 22:09 UTC
+- **Generated**: 2026-04-05 22:16 UTC
 - **Data source**: data/live_wire_report.json
 - **Engines scanned**: 394
 

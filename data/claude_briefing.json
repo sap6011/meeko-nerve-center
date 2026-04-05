@@ -1,14 +1,37 @@
 {
-  "generated_at": "2026-03-14T19:18:57.993650+00:00",
+  "generated_at": "2026-04-05T22:16:28.244649+00:00",
   "system_version": "OMNIBUS v10",
-  "health": 40,
+  "health": 100,
   "total_revenue": 0,
   "outreach_sent": 0,
   "atoms_created": 612,
   "engines_ok_last_cycle": 94,
   "engines_failed_last_cycle": 3,
   "engines_auto_built": [],
-  "priorities": [],
+  "priorities": [
+    {
+      "priority": 1,
+      "action": "Add ANTHROPIC_API_KEY",
+      "why": "SELF_BUILDER, KNOWLEDGE_WEAVER, REVENUE_OPTIMIZER, ARCHITECT all dead. System cannot self-expand.",
+      "how": "anthropic.com/console \u2192 API Keys \u2192 copy key \u2192 github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions \u2192 New secret",
+      "unlocks": [
+        "SELF_BUILDER",
+        "KNOWLEDGE_WEAVER",
+        "REVENUE_OPTIMIZER",
+        "ARCHITECT",
+        "NEURON_B"
+      ]
+    },
+    {
+      "priority": 2,
+      "action": "Add GUMROAD_ACCESS_TOKEN to GitHub Secrets",
+      "why": "6 products queued, $0 published. Store exists, nothing for sale.",
+      "how": "gumroad.com \u2192 Settings \u2192 Advanced \u2192 Access Token \u2192 GitHub Secrets",
+      "unlocks": [
+        "GUMROAD_ENGINE \u2014 publishes 6 queued products immediately"
+      ]
+    }
+  ],
   "live_capabilities": [
     "Read full system state (all data/*.json files)",
     "Write and commit new Python engines directly to GitHub",
