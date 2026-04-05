@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolarPunk Node - Scan to Install</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    background: #0a0a0a; color: #e0e0e0;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px 20px;
+  }
+  h1 {
+    color: #00ff88; font-size: 2.2em; letter-spacing: 4px;
+    margin-bottom: 8px; text-align: center;
+  }
+  .sub { color: #555; font-size: 0.85em; margin-bottom: 40px; text-align: center; }
+  .qr-frame {
+    background: #111; border: 2px solid #00ff8840;
+    border-radius: 16px; padding: 24px;
+    box-shadow: 0 0 60px #00ff8815;
+  }
+  .qr-frame img {
+    display: block; border-radius: 8px;
+  }
+  .url {
+    color: #00ff88; font-size: 0.75em; text-align: center;
+    margin-top: 24px; word-break: break-all;
+    padding: 12px; background: #111; border-radius: 8px;
+    border: 1px solid #00ff8820;
+  }
+  .instructions {
+    margin-top: 32px; text-align: center;
+    color: #666; font-size: 0.8em; line-height: 1.8;
+  }
+  .instructions strong { color: #00ff88; }
+  .stats {
+    display: flex; gap: 32px; margin-top: 32px;
+    text-align: center;
+  }
+  .stat .num { color: #00ff88; font-size: 2em; font-weight: bold; }
+  .stat .label { color: #555; font-size: 0.7em; }
+  footer {
+    margin-top: 40px; color: #333; font-size: 0.6em; text-align: center;
+  }
+  @media print {
+    body { background: white; color: black; }
+    h1 { color: black; }
+    .qr-frame { border-color: black; box-shadow: none; }
+    .sub, .instructions, footer { color: #666; }
+    .stat .num { color: black; }
+  }
+</style>
+</head>
+<body>
+
+<h1>SOLARPUNK NODE</h1>
+<div class="sub">Scan with your phone camera to install</div>
+
+<div class="qr-frame">
+  <img id="qrImg" alt="QR Code">
+</div>
+
+<div class="url" id="nodeUrl"></div>
+
+<div class="instructions">
+  <strong>1.</strong> Point your iPhone camera at the QR code<br>
+  <strong>2.</strong> Tap the notification to open SolarPunk<br>
+  <strong>3.</strong> Tap "Add to Home Screen" from the share menu<br>
+  <strong>4.</strong> Open SolarPunk from your home screen<br>
+  <strong>5.</strong> Pair with your desktop using the Trust tab
+</div>
+
+<div class="stats" id="stats">
+  <div class="stat"><div class="num" id="sEngines">--</div><div class="label">ENGINES</div></div>
+  <div class="stat"><div class="num" id="sWires">--</div><div class="label">WIRES</div></div>
+  <div class="stat"><div class="num" id="sEthics">99%</div><div class="label">MUTUAL AID</div></div>
+</div>
+
+<footer>SolarPunk Nerve Center | github.com/meekotharaccoon-cell/meeko-nerve-center</footer>
+
+<script>
+const url = 'https://meekotharaccoon-cell.github.io/meeko-nerve-center/node/';
+const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}&bgcolor=0a0a0a&color=00ff88&format=png`;
+
+document.getElementById('qrImg').src = qrSrc;
+document.getElementById('nodeUrl').textContent = url;
+
+// Load live stats
+fetch('https://raw.githubusercontent.com/meekotharaccoon-cell/meeko-nerve-center/main/data/live_wire_report.json')
+  .then(r => r.json())
+  .then(d => {
+    const s = d.stats || {};
+    document.getElementById('sEngines').textContent = s.total_engines || '--';
+    document.getElementById('sWires').textContent = (s.total_wires_discovered || 0).toLocaleString();
+  })
+  .catch(() => {});
+</script>
+</body>
+</html>

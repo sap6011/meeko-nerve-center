@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SolarPunk">
+<meta name="theme-color" content="#00ff88">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>SolarPunk Node</title>
+<style>
+  :root { --green: #00ff88; --dim: #00ff8840; --bg: #0a0a0a; --card: #111; --text: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pulse { animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  /* Header */
+  header {
+    padding: 20px 16px 10px; text-align: center;
+    border-bottom: 1px solid var(--dim);
+  }
+  header h1 { color: var(--green); font-size: 1.4em; letter-spacing: 2px; }
+  header .sub { color: #888; font-size: 0.7em; margin-top: 4px; }
+  .status-dot {
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; margin-right: 6px;
+    background: var(--green); box-shadow: 0 0 8px var(--green);
+  }
+  .status-dot.offline { background: #ff4444; box-shadow: 0 0 8px #ff4444; }
+
+  /* Device Trust Banner */
+  .trust-banner {
+    margin: 12px 16px; padding: 12px;
+    background: linear-gradient(135deg, #001a0d, #002211);
+    border: 1px solid var(--dim); border-radius: 8px;
+    font-size: 0.75em; text-align: center;
+  }
+  .trust-banner .device-id { color: var(--green); font-weight: bold; }
+  .trust-banner .paired { color: #888; }
+
+  /* Nav Tabs */
+  nav {
+    display: flex; gap: 0; border-bottom: 1px solid #222;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+  nav button {
+    flex: 1; padding: 10px 8px; background: none; border: none;
+    color: #666; font-family: inherit; font-size: 0.7em;
+    border-bottom: 2px solid transparent; cursor: pointer;
+    white-space: nowrap; min-width: 70px;
+  }
+  nav button.active { color: var(--green); border-bottom-color: var(--green); }
+
+  /* Panels */
+  .panel { display: none; padding: 16px; animation: slideUp 0.3s ease; }
+  .panel.active { display: block; }
+
+  /* Cards */
+  .card {
+    background: var(--card); border: 1px solid #222;
+    border-radius: 8px; padding: 14px; margin-bottom: 12px;
+  }
+  .card h3 { color: var(--green); font-size: 0.85em; margin-bottom: 8px; }
+  .card .val { font-size: 1.8em; color: #fff; font-weight: bold; }
+  .card .label { color: #666; font-size: 0.7em; }
+
+  /* Stats Grid */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card { text-align: center; }
+
+  /* Wire List */
+  .wire-item {
+    padding: 8px 0; border-bottom: 1px solid #1a1a1a;
+    font-size: 0.75em; display: flex; justify-content: space-between;
+  }
+  .wire-from { color: var(--green); }
+  .wire-to { color: #888; }
+  .wire-via { color: #555; font-size: 0.85em; }
+
+  /* Pairing */
+  .pair-code {
+    font-size: 2.5em; letter-spacing: 12px; text-align: center;
+    color: var(--green); padding: 20px; font-weight: bold;
+    background: #0a1a0f; border-radius: 8px; margin: 16px 0;
+    border: 1px dashed var(--dim);
+  }
+  .pair-input {
+    width: 100%; padding: 14px; font-size: 1.2em; text-align: center;
+    background: #111; border: 1px solid #333; border-radius: 8px;
+    color: var(--green); font-family: inherit; letter-spacing: 8px;
+  }
+  .pair-input:focus { outline: none; border-color: var(--green); }
+
+  /* Buttons */
+  .btn {
+    display: block; width: 100%; padding: 14px;
+    background: var(--green); color: #000; border: none;
+    border-radius: 8px; font-family: inherit; font-size: 0.9em;
+    font-weight: bold; cursor: pointer; margin-top: 12px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn.secondary { background: #222; color: var(--green); border: 1px solid var(--dim); }
+  .btn.danger { background: #331111; color: #ff4444; border: 1px solid #ff444440; }
+
+  /* QR Section */
+  .qr-container { text-align: center; padding: 20px 0; }
+  .qr-container canvas { border-radius: 12px; }
+  .qr-url { color: #555; font-size: 0.65em; word-break: break-all; margin-top: 8px; }
+
+  /* Log */
+  .log { font-size: 0.7em; max-height: 300px; overflow-y: auto; }
+  .log-entry { padding: 4px 0; border-bottom: 1px solid #111; }
+  .log-time { color: #555; }
+  .log-msg { color: var(--text); }
+  .log-ok { color: var(--green); }
+  .log-err { color: #ff4444; }
+
+  /* Ethics Bar */
+  .ethics-bar {
+    height: 4px; background: #222; border-radius: 2px;
+    margin: 8px 0; overflow: hidden;
+  }
+  .ethics-fill {
+    height: 100%; background: var(--green); border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  /* Footer */
+  footer {
+    padding: 20px 16px; text-align: center;
+    color: #333; font-size: 0.6em;
+    border-top: 1px solid #111;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span class="status-dot pulse" id="statusDot"></span>SOLARPUNK NODE</h1>
+  <div class="sub" id="headerSub">Initializing...</div>
+</header>
+
+<div class="trust-banner" id="trustBanner">
+  <div class="device-id" id="deviceId">---</div>
+  <div class="paired" id="pairStatus">Unpaired</div>
+</div>
+
+<nav id="nav">
+  <button class="active" data-tab="dashboard">Status</button>
+  <button data-tab="wires">Wires</button>
+  <button data-tab="trust">Trust</button>
+  <button data-tab="qr">QR</button>
+  <button data-tab="log">Log</button>
+</nav>
+
+<!-- DASHBOARD -->
+<div class="panel active" id="dashboard">
+  <div class="stats-grid">
+    <div class="card stat-card">
+      <div class="val" id="engineCount">--</div>
+      <div class="label">ENGINES</div>
+    </div>
+    <div class="card stat-card">
+      <div class="val" id="wireCount">--</div>
+      <div class="label">WIRES</div>
+    </div>
+    <div class="card stat-card">
+      <div class="val" id="zsChains">--</div>
+      <div class="label">ZS CHAINS</div>
+    </div>
+    <div class="card stat-card">
+      <div class="val" id="chimeraScore">--</div>
+      <div class="label">CHIMERA</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <h3>ETHICS LOCK</h3>
+    <div style="display:flex;justify-content:space-between;font-size:0.8em">
+      <span>99% Mutual Aid</span><span>1% Node Fuel</span>
+    </div>
+    <div class="ethics-bar"><div class="ethics-fill" style="width:99%"></div></div>
+  </div>
+
+  <div class="card">
+    <h3>BRAIN (Ollama)</h3>
+    <div id="brainStatus" style="font-size:0.8em;color:#888">Checking...</div>
+  </div>
+
+  <div class="card">
+    <h3>LAST CYCLE</h3>
+    <div id="lastCycle" style="font-size:0.8em;color:#888">Loading...</div>
+  </div>
+
+  <button class="btn" onclick="syncNow()">SYNC NOW</button>
+  <button class="btn secondary" onclick="runCycle()">FIRE CYCLE</button>
+</div>
+
+<!-- WIRES -->
+<div class="panel" id="wires">
+  <div class="card">
+    <h3>LIVE WIRE TOPOLOGY</h3>
+    <div id="wireList" style="max-height:400px;overflow-y:auto">Loading...</div>
+  </div>
+</div>
+
+<!-- TRUST / PAIRING -->
+<div class="panel" id="trust">
+  <div class="card">
+    <h3>DEVICE TRUST</h3>
+    <p style="font-size:0.8em;color:#888;margin-bottom:12px">
+      This device is a SolarPunk node. Pair it with your desktop to create
+      a two-factor trust chain. Your phone becomes the key, your desktop becomes the lock.
+    </p>
+    <div style="font-size:0.75em;color:#555;margin-bottom:8px">THIS DEVICE</div>
+    <div id="trustDeviceInfo" style="font-size:0.8em"></div>
+  </div>
+
+  <div class="card" id="pairingCard">
+    <h3>PAIR WITH DESKTOP</h3>
+    <div id="pairingUI"></div>
+  </div>
+
+  <div class="card">
+    <h3>PAIRED DEVICES</h3>
+    <div id="pairedList" style="font-size:0.8em;color:#888">None</div>
+  </div>
+
+  <button class="btn danger" onclick="revokeAllTrust()" style="margin-top:12px">
+    REVOKE ALL TRUST
+  </button>
+</div>
+
+<!-- QR CODE -->
+<div class="panel" id="qr">
+  <div class="card">
+    <h3>SHARE THIS NODE</h3>
+    <p style="font-size:0.75em;color:#888;margin-bottom:12px">
+      Scan this QR code from any device to install SolarPunk Node.
+    </p>
+    <div class="qr-container">
+      <canvas id="qrCanvas"></canvas>
+      <div class="qr-url" id="qrUrl"></div>
+    </div>
+    <button class="btn" onclick="shareNode()">SHARE</button>
+  </div>
+</div>
+
+<!-- LOG -->
+<div class="panel" id="log">
+  <div class="card">
+    <h3>SYSTEM LOG</h3>
+    <div class="log" id="logEntries"></div>
+  </div>
+  <button class="btn secondary" onclick="clearLog()">CLEAR LOG</button>
+</div>
+
+<footer>
+  SolarPunk Node v49 | 99% Mutual Aid | The Math Runs
+</footer>
+
+<script>
+// =====================================================================
+// SOLARPUNK NODE — PWA CORE
+// =====================================================================
+
+const REPO = 'meekotharaccoon-cell/meeko-nerve-center';
+const RAW  = `https://raw.githubusercontent.com/${REPO}/main`;
+const API  = `https://api.github.com/repos/${REPO}`;
+
+// --- Service Worker Registration ---
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js')
+    .then(r => log('Service worker registered', 'ok'))
+    .catch(e => log('SW failed: ' + e.message, 'err'));
+}
+
+// --- Device Identity ---
+function getDeviceId() {
+  let id = localStorage.getItem('sp_device_id');
+  if (!id) {
+    id = 'SP-' + crypto.randomUUID().split('-')[0].toUpperCase();
+    localStorage.setItem('sp_device_id', id);
+  }
+  return id;
+}
+
+function getDeviceFingerprint() {
+  const ua = navigator.userAgent;
+  const platform = navigator.platform || 'unknown';
+  const lang = navigator.language;
+  const screens = `${screen.width}x${screen.height}`;
+  const touch = 'ontouchstart' in window;
+  return {
+    id: getDeviceId(),
+    platform,
+    screens,
+    touch,
+    lang,
+    type: touch ? (screen.width < 768 ? 'phone' : 'tablet') : 'desktop',
+    created: localStorage.getItem('sp_device_created') || (() => {
+      const d = new Date().toISOString();
+      localStorage.setItem('sp_device_created', d);
+      return d;
+    })(),
+  };
+}
+
+// --- Pairing System ---
+function generatePairCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = '';
+  for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+  return code;
+}
+
+function initPairing() {
+  const device = getDeviceFingerprint();
+  const pairs = JSON.parse(localStorage.getItem('sp_paired_devices') || '[]');
+
+  // Device info
+  document.getElementById('trustDeviceInfo').innerHTML = `
+    <div style="color:var(--green)">${device.id}</div>
+    <div style="color:#555;font-size:0.9em">${device.type} | ${device.platform} | ${device.screens}</div>
+    <div style="color:#555;font-size:0.9em">Created: ${new Date(device.created).toLocaleDateString()}</div>
+  `;
+
+  // Pairing UI
+  const pairUI = document.getElementById('pairingUI');
+  if (device.type === 'phone' || device.type === 'tablet') {
+    // Phone: show input to enter desktop's code
+    pairUI.innerHTML = `
+      <p style="font-size:0.8em;color:#888;margin-bottom:12px">
+        Enter the code shown on your desktop:
+      </p>
+      <input class="pair-input" id="pairInput" maxlength="6" placeholder="------"
+             autocomplete="off" autocorrect="off" autocapitalize="characters">
+      <button class="btn" onclick="submitPairCode()">PAIR</button>
+    `;
+  } else {
+    // Desktop: show code for phone to enter
+    const code = localStorage.getItem('sp_pair_code') || generatePairCode();
+    localStorage.setItem('sp_pair_code', code);
+    pairUI.innerHTML = `
+      <p style="font-size:0.8em;color:#888;margin-bottom:12px">
+        Enter this code on your phone:
+      </p>
+      <div class="pair-code">${code}</div>
+      <button class="btn secondary" onclick="newPairCode()">GENERATE NEW CODE</button>
+    `;
+  }
+
+  // Paired devices list
+  const pairedList = document.getElementById('pairedList');
+  if (pairs.length > 0) {
+    pairedList.innerHTML = pairs.map(p => `
+      <div class="wire-item">
+        <span class="wire-from">${p.id}</span>
+        <span class="wire-to">${p.type} | ${new Date(p.paired_at).toLocaleDateString()}</span>
+      </div>
+    `).join('');
+  }
+
+  // Trust banner
+  document.getElementById('deviceId').textContent = device.id;
+  document.getElementById('pairStatus').textContent =
+    pairs.length > 0 ? `Paired with ${pairs.length} device(s)` : 'Unpaired';
+}
+
+function submitPairCode() {
+  const code = document.getElementById('pairInput').value.toUpperCase();
+  if (code.length !== 6) return;
+  const device = getDeviceFingerprint();
+  const pairs = JSON.parse(localStorage.getItem('sp_paired_devices') || '[]');
+
+  // Create the pairing
+  pairs.push({
+    id: 'DESKTOP-' + code,
+    type: 'desktop',
+    code: code,
+    paired_at: new Date().toISOString(),
+    paired_by: device.id,
+  });
+  localStorage.setItem('sp_paired_devices', JSON.stringify(pairs));
+  log(`Paired with DESKTOP-${code}`, 'ok');
+  initPairing();
+
+  // Vibrate on success
+  if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+}
+
+function newPairCode() {
+  const code = generatePairCode();
+  localStorage.setItem('sp_pair_code', code);
+  initPairing();
+}
+
+function revokeAllTrust() {
+  if (confirm('Revoke all device pairings?')) {
+    localStorage.removeItem('sp_paired_devices');
+    localStorage.removeItem('sp_pair_code');
+    log('All trust revoked', 'err');
+    initPairing();
+  }
+}
+
+// --- Data Sync ---
+async function fetchData(file) {
+  try {
+    const r = await fetch(`${RAW}/data/${file}?t=${Date.now()}`);
+    if (!r.ok) throw new Error(r.status);
+    return await r.json();
+  } catch(e) {
+    log(`Fetch ${file}: ${e.message}`, 'err');
+    return null;
+  }
+}
+
+async function syncNow() {
+  log('Syncing...', 'ok');
+  document.getElementById('headerSub').textContent = 'Syncing...';
+
+  const [lw, ch, bs] = await Promise.all([
+    fetchData('live_wire_report.json'),
+    fetchData('chimera_evolution_report.json'),
+    fetchData('brain_state.json'),
+  ]);
+
+  // Update dashboard
+  if (lw && lw.stats) {
+    const s = lw.stats;
+    document.getElementById('engineCount').textContent = s.total_engines || '--';
+    document.getElementById('wireCount').textContent = (s.total_wires_discovered || 0).toLocaleString();
+    document.getElementById('zsChains').textContent = (s.zero_secret_chains || 0).toLocaleString();
+
+    // Cache for offline
+    localStorage.setItem('sp_cache_lw', JSON.stringify(s));
+  }
+
+  if (ch) {
+    document.getElementById('chimeraScore').textContent = (ch.composite_score || '--') + '/100';
+    document.getElementById('lastCycle').innerHTML = `
+      Gen ${ch.generation || '?'} | Score ${ch.composite_score || '?'}/100<br>
+      <span style="color:#555">${ch.timestamp ? new Date(ch.timestamp).toLocaleString() : '---'}</span>
+    `;
+  }
+
+  if (bs) {
+    document.getElementById('brainStatus').textContent =
+      `Health: ${bs.health_score || '?'}% | ${bs.ai_backend || 'unknown'}`;
+  }
+
+  // Wires
+  if (lw && lw.wires) {
+    const wireList = document.getElementById('wireList');
+    const sample = lw.wires.slice(0, 100);
+    wireList.innerHTML = `<div style="color:#555;font-size:0.7em;margin-bottom:8px">${lw.wires.length} total wires (showing 100)</div>` +
+      sample.map(w => `
+        <div class="wire-item">
+          <span class="wire-from">${w.from}</span>
+          <span class="wire-via">${w.via}</span>
+          <span class="wire-to">${w.to}</span>
+        </div>
+      `).join('');
+  }
+
+  // Status
+  document.getElementById('statusDot').className = 'status-dot pulse';
+  document.getElementById('headerSub').textContent =
+    `Node ${getDeviceId()} | Last sync: ${new Date().toLocaleTimeString()}`;
+
+  log(`Sync complete | ${document.getElementById('engineCount').textContent} engines`, 'ok');
+
+  // Request persistent storage
+  if (navigator.storage && navigator.storage.persist) {
+    const persisted = await navigator.storage.persist();
+    if (persisted) log('Persistent storage granted', 'ok');
+  }
+}
+
+function runCycle() {
+  log('Remote cycle trigger not yet connected', 'err');
+  log('Run from desktop: python mycelium/OMNIBUS.py', 'ok');
+}
+
+// --- Logging ---
+function log(msg, type = '') {
+  const entries = document.getElementById('logEntries');
+  const time = new Date().toLocaleTimeString();
+  const cls = type === 'ok' ? 'log-ok' : type === 'err' ? 'log-err' : 'log-msg';
+  entries.innerHTML = `<div class="log-entry"><span class="log-time">${time}</span> <span class="${cls}">${msg}</span></div>` + entries.innerHTML;
+
+  // Keep in localStorage
+  const logs = JSON.parse(localStorage.getItem('sp_logs') || '[]');
+  logs.unshift({ time, msg, type });
+  if (logs.length > 200) logs.length = 200;
+  localStorage.setItem('sp_logs', JSON.stringify(logs));
+}
+
+function clearLog() {
+  document.getElementById('logEntries').innerHTML = '';
+  localStorage.removeItem('sp_logs');
+  log('Log cleared', 'ok');
+}
+
+function loadCachedLogs() {
+  const logs = JSON.parse(localStorage.getItem('sp_logs') || '[]');
+  const entries = document.getElementById('logEntries');
+  logs.forEach(l => {
+    const cls = l.type === 'ok' ? 'log-ok' : l.type === 'err' ? 'log-err' : 'log-msg';
+    entries.innerHTML += `<div class="log-entry"><span class="log-time">${l.time}</span> <span class="${cls}">${l.msg}</span></div>`;
+  });
+}
+
+// --- QR Code Generator (inline, no deps) ---
+function generateQR(canvas, text, size = 256) {
+  // Minimal QR using canvas — uses API for now, generates via Google Charts
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, size, size);
+    ctx.drawImage(img, 0, 0, size, size);
+  };
+  img.src = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(text)}&bgcolor=0a0a0a&color=00ff88&format=png`;
+  document.getElementById('qrUrl').textContent = text;
+}
+
+// --- Share ---
+async function shareNode() {
+  const url = `https://meekotharaccoon-cell.github.io/meeko-nerve-center/node/`;
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: 'SolarPunk Node',
+        text: 'Autonomous mutual aid infrastructure. 99% to crisis zones.',
+        url: url,
+      });
+      log('Shared via system share', 'ok');
+    } catch(e) { /* cancelled */ }
+  } else {
+    await navigator.clipboard.writeText(url);
+    log('URL copied to clipboard', 'ok');
+  }
+}
+
+// --- Tab Navigation ---
+document.getElementById('nav').addEventListener('click', e => {
+  if (e.target.tagName !== 'BUTTON') return;
+  const tab = e.target.dataset.tab;
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById(tab).classList.add('active');
+});
+
+// --- Load cached data for offline ---
+function loadCached() {
+  const s = JSON.parse(localStorage.getItem('sp_cache_lw') || '{}');
+  if (s.total_engines) {
+    document.getElementById('engineCount').textContent = s.total_engines;
+    document.getElementById('wireCount').textContent = (s.total_wires_discovered || 0).toLocaleString();
+    document.getElementById('zsChains').textContent = (s.zero_secret_chains || 0).toLocaleString();
+  }
+}
+
+// --- Init ---
+window.addEventListener('load', () => {
+  log('SolarPunk Node initializing...', 'ok');
+  loadCached();
+  loadCachedLogs();
+  initPairing();
+
+  // Generate QR
+  const nodeUrl = `https://meekotharaccoon-cell.github.io/meeko-nerve-center/node/`;
+  generateQR(document.getElementById('qrCanvas'), nodeUrl, 280);
+
+  // Auto-sync
+  syncNow();
+
+  // Re-sync every 5 minutes
+  setInterval(syncNow, 5 * 60 * 1000);
+
+  // Install prompt
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    log('Install prompt available', 'ok');
+
+    // Add install button
+    const btn = document.createElement('button');
+    btn.className = 'btn';
+    btn.textContent = 'INSTALL SOLARPUNK';
+    btn.style.margin = '12px 16px';
+    btn.onclick = async () => {
+      deferredPrompt.prompt();
+      const result = await deferredPrompt.userChoice;
+      log(`Install: ${result.outcome}`, result.outcome === 'accepted' ? 'ok' : 'err');
+      btn.remove();
+    };
+    document.querySelector('header').after(btn);
+  });
+
+  log('Node online: ' + getDeviceId(), 'ok');
+});
+
+// --- Online/Offline detection ---
+window.addEventListener('online', () => {
+  document.getElementById('statusDot').className = 'status-dot pulse';
+  log('Connection restored', 'ok');
+  syncNow();
+});
+window.addEventListener('offline', () => {
+  document.getElementById('statusDot').className = 'status-dot offline';
+  log('Offline mode', 'err');
+});
+</script>
+</body>
+</html>
