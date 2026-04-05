@@ -254,6 +254,7 @@ def _gather_revenue_signals():
     gumroad   = _load("gumroad_listings.json", {})
     proof     = _load("proof_ledger.json", {})
     quick_rev = _load("quick_revenue.json", {})
+    rev_flow  = _load("revenue_flow.json", {})
 
     products = registry.get("products", {})
 
@@ -262,6 +263,7 @@ def _gather_revenue_signals():
         float(kofi.get("total_verified", 0)),
         float(proof.get("total_sales", 0)),
         float(quick_rev.get("total_revenue", 0)),
+        float(rev_flow.get("total_unified", 0)),
         0.0,
     )
 

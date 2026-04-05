@@ -35,7 +35,12 @@ def gather_all():
                  ("sponsors_state.json","sponsors"),("brain_state.json","brain"),
                  ("crypto_state.json","crypto"),("scam_shield_state.json","scam"),
                  ("personal_flagged.json","personal"),("email_drafts.json","drafts"),
-                 ("substack_draft.txt","substack_preview")]:
+                 ("substack_draft.txt","substack_preview"),
+                 ("revenue_flow.json","revenue_flow"),
+                 ("health_advisory.txt","health_advisory"),
+                 ("growth_flywheel_calendar.json","flywheel_calendar"),
+                 ("storefront_deployer_checklists.json","deployer_checklists"),
+                 ("solarpunk_legal_declaration.txt","legal_declaration")]:
         fp=DATA/fn
         if fp.exists():
             try:

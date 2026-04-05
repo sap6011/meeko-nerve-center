@@ -115,6 +115,17 @@ def score_and_report():
         for s in secrets:
             fixes.append(f"Add {s['secret']}: {s['how']}")
 
+    # Health advisory from DESKTOP_DAEMON
+    advisory_file = DATA / "health_advisory.txt"
+    if advisory_file.exists():
+        try:
+            advisory = advisory_file.read_text()[:500]
+            if advisory.strip():
+                achievements.append("[OK] Health advisory present from DESKTOP_DAEMON")
+                score += 2
+        except:
+            pass
+
     # Revenue check
     has_revenue, gaza_total, sales = check_revenue()
     if has_revenue:
