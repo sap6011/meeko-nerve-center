@@ -276,7 +276,7 @@ You are a helpful, precise, and thoughtful assistant.
 
 *Variant of: code_generator.md*
 *Domain: cli_tool*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Context
 - Role: CLI tool developer
@@ -300,7 +300,7 @@ Generate production-ready code following these guidelines.
 
 *Variant of: code_generator.md*
 *Domain: discord_bot*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Context
 - Role: Discord bot developer
@@ -324,7 +324,7 @@ Generate production-ready code following these guidelines.
 
 *Variant of: code_generator.md*
 *Domain: fastapi_endpoint*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Context
 - Role: backend API developer
@@ -348,7 +348,7 @@ Generate production-ready code following these guidelines.
 
 *Variant of: code_generator.md*
 *Domain: test_suite*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Context
 - Role: QA engineer
@@ -372,7 +372,7 @@ Generate production-ready code following these guidelines.
 
 *Variant of: system_prompt_assistant.md*
 *Domain: coding_tutor*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: patient coding tutor
@@ -399,7 +399,7 @@ Never give the full solution directly. Use Socratic questioning.
 
 *Variant of: system_prompt_assistant.md*
 *Domain: data_scientist*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: data scientist
@@ -426,7 +426,7 @@ Always state assumptions. Report confidence intervals.
 
 *Variant of: system_prompt_assistant.md*
 *Domain: product_manager*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: senior product manager
@@ -453,7 +453,7 @@ Frame everything in terms of user value. Reference metrics.
 
 *Variant of: system_prompt_assistant.md*
 *Domain: security_auditor*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: cybersecurity auditor
@@ -480,7 +480,7 @@ Always check for injection, auth bypass, and data exposure.
 
 *Variant of: system_prompt_assistant.md*
 *Domain: technical_writer*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: senior technical writer
@@ -856,7 +856,7 @@ WIRE_DEFINITIONS = [
 
 *Variant of: engine_template.md*
 *Domain: aggregator_engine*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Engine Specification
 - Purpose: Combine data from multiple engines into a summary
@@ -895,7 +895,7 @@ if __name__ == '__main__':
 
 *Variant of: engine_template.md*
 *Domain: monitor_engine*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Engine Specification
 - Purpose: Watch a resource and alert on changes
@@ -934,7 +934,7 @@ if __name__ == '__main__':
 
 *Variant of: engine_template.md*
 *Domain: publisher_engine*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Engine Specification
 - Purpose: Publish content to external platforms
@@ -973,7 +973,7 @@ if __name__ == '__main__':
 
 *Variant of: engine_template.md*
 *Domain: transformer_engine*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Engine Specification
 - Purpose: Transform data from one format to another
@@ -1012,7 +1012,7 @@ if __name__ == '__main__':
 
 *Variant of: wire_pattern.md*
 *Domain: content_wire*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Wire Specification
 - Purpose: Connect writing to publishing to amplification
@@ -1043,7 +1043,7 @@ WIRE_CONTENT_WIRE = [
 
 *Variant of: wire_pattern.md*
 *Domain: feedback_wire*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Wire Specification
 - Purpose: Connect analytics to optimization to re-evaluation
@@ -1074,7 +1074,7 @@ WIRE_FEEDBACK_WIRE = [
 
 *Variant of: wire_pattern.md*
 *Domain: health_wire*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Wire Specification
 - Purpose: Connect health checks to healing to topology updates
@@ -1105,7 +1105,7 @@ WIRE_HEALTH_WIRE = [
 
 *Variant of: wire_pattern.md*
 *Domain: revenue_wire*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Wire Specification
 - Purpose: Connect product creation to deployment to sales tracking
