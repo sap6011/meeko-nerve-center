@@ -15,7 +15,7 @@ def process_locally():
         print("🧠 Local Brain: Analyzing harvested seeds...")
         response = requests.post('http://localhost:11434/api/generate', 
             json={
-                "model": "mistral",
+                "model": "llama3.3",
                 "prompt": f"Based on these tech updates, suggest 1 SolarPunk automation project: {content[-1000:]}",
                 "stream": False
             })

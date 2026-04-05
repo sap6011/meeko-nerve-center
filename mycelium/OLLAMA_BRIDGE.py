@@ -4,12 +4,12 @@ OLLAMA_BRIDGE.py — Local LLM inference bridge for SolarPunk Nerve Center
 Connects the mycelium engine system to Ollama (localhost:11434)
 
 Available models:
-  - mycelium:latest   → Custom SolarPunk model (4.1GB) — system reasoning
-  - llama3:latest     → General purpose (4.4GB) — content generation
-  - codellama:latest  → Code generation (3.6GB) — engine synthesis
-  - mistral:latest    → Fast reasoning (4.1GB) — triage & routing
-  - llama3.2:latest   → Lightweight (1.9GB) — quick tasks
-  - nomic-embed-text  → Embeddings (261MB) — semantic search
+  - mycelium:latest        → Custom SolarPunk model (4.4GB) — system reasoning
+  - llama3.3:latest        → General purpose (4.7GB) — content generation
+  - qwen2.5-coder:7b      → Code generation (4.7GB) — engine synthesis
+  - deepseek-r1:8b         → Deep reasoning (4.9GB) — analysis & planning
+  - llama3.2:latest        → Lightweight (2.0GB) — quick tasks
+  - nomic-embed-text       → Embeddings (274MB) — semantic search
 
 Usage:
   from OLLAMA_BRIDGE import OllamaBridge
@@ -35,10 +35,11 @@ OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 
 # Model routing table — maps task types to optimal models
 MODEL_ROUTES = {
-    "system": "mycelium:latest",       # Custom SolarPunk reasoning
-    "content": "llama3:latest",         # Blog posts, outreach, grants
-    "code": "codellama:latest",         # Engine generation, debugging
-    "triage": "mistral:latest",         # Quick decisions, routing
+    "system": "mycelium:latest",        # Custom SolarPunk reasoning
+    "content": "llama3.3:latest",       # Blog posts, outreach, grants
+    "code": "qwen2.5-coder:7b",        # Engine generation, debugging
+    "reason": "deepseek-r1:8b",        # Deep analysis, planning, evaluation
+    "triage": "llama3.3:latest",        # Quick decisions, routing
     "quick": "llama3.2:latest",         # Lightweight fast tasks
     "embed": "nomic-embed-text:latest", # Semantic embeddings
 }

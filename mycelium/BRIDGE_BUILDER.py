@@ -809,7 +809,7 @@ def bridge_master_config():
     return seed_json("master_config.json", {
         "system": "SolarPunk Nerve Center",
         "ethics_lock": 0.99, "revenue_split": {"mutual_aid": 0.99, "infrastructure": 0.01},
-        "ollama_models": ["mistral", "llama3", "codellama"],
+        "ollama_models": ["llama3.3", "qwen2.5-coder:7b", "deepseek-r1:8b", "mycelium", "llama3.2"],
         "source": "BRIDGE_BUILDER seed"
     })
 
