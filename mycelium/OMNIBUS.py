@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v48 — USB_BRIDGE + NANOBOT_HEALER kill: living USB port, corruption loop dead
+OMNIBUS v49 — brain wiring: task-aware Ollama routing, OLLAMA_BRIDGE↔AI_CLIENT connected
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
