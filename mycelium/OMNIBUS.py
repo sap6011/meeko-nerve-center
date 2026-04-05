@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v46 — Systemic encoding fix (530 files), orphan wiring, 389 engines, AUTONOMOUS_GAP_CLOSER
+OMNIBUS v47 — SOLARPUNK_AUTOPILOT + INTERNET_BRIDGE: self-healing internet-connected loop
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -435,6 +435,8 @@ def L6():
     eng("GAP_FILLER",              timeout=30)   # v36: seed missing data files so engines don't crash
     eng("DEBUG_DOCTOR",            timeout=120)  # v36: diagnose failures, fix UTF-8, log unfixable
     eng("AUTONOMOUS_GAP_CLOSER",   timeout=120)  # v46: find and close gaps without human intervention
+    eng("INTERNET_BRIDGE",          timeout=120)  # v47: gather web signals, publish status/signals pages
+    eng("SOLARPUNK_AUTOPILOT",      timeout=600)  # v47: master loop — scan, heal, bridge, wire, evolve, publish
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")

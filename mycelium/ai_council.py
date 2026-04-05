@@ -21,7 +21,7 @@ Compatible with existing reports:
   data/ai_council_report.json         (unified synthesis — new)
 
 Required:
-  os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip(),
+  os.environ.get("ANTHROPIC_API_KEY", "").strip(),
   GH_PAT / GITHUB_TOKEN
 
 Optional (upgrades CHALLENGER from Claude to Kimi):
@@ -33,7 +33,7 @@ from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # ── Config ─────────────────────────────────────────────────────────────────
-os.getenv("ANTHROPIC_API_KEY") = os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()
+api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
 KIMI_API_KEY      = os.environ.get("KIMI_API_KEY", "")
 GH_TOKEN          = os.environ.get("GH_PAT", os.environ.get("GITHUB_TOKEN", ""))
 REPO_OWNER        = os.environ.get("GITHUB_REPOSITORY_OWNER", "meekotharaccoon-cell")
@@ -270,8 +270,8 @@ RETURN ONLY valid JSON — nothing else, no preamble, no markdown fences:
 }"""
 
 def call_analyst(context_str):
-    if not os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip():
-        print("os.getenv("ANTHROPIC_API_KEY") not set")
+    if not os.environ.get("ANTHROPIC_API_KEY", "").strip():
+        print("ANTHROPIC_API_KEY not set")
         sys.exit(1)
     print("  🔬 ANALYST reading system...")
     r = requests.post(
@@ -363,7 +363,7 @@ RETURN ONLY valid JSON — nothing else, no preamble, no markdown fences:
 
 def call_challenger_claude(analyst_report_str, context_str):
     """Claude acting as Challenger."""
-    if not os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip():
+    if not os.environ.get("ANTHROPIC_API_KEY", "").strip():
         return None
     print("  🥊 CHALLENGER (Claude) reading analyst's report...")
     user_content = (
@@ -464,7 +464,7 @@ RETURN ONLY valid JSON:
 }"""
 
 def call_analyst_round2(analyst_r1_str, challenger_str):
-    if not os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip():
+    if not os.environ.get("ANTHROPIC_API_KEY", "").strip():
         return None
     print("  🔬 ANALYST responding to Challenger (round 2)...")
     user_content = (

@@ -1,0 +1,65 @@
+name: "SOLARPUNK AUTOPILOT — Self-Healing Internet-Connected Loop"
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # Every 6 hours
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'mycelium/SOLARPUNK_AUTOPILOT.py'
+      - 'mycelium/INTERNET_BRIDGE.py'
+
+permissions:
+  contents: write
+  discussions: write
+
+env:
+  PYTHONPATH: mycelium
+  PYTHONIOENCODING: utf-8
+
+jobs:
+  autopilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install requests==2.33.0
+
+      - name: Configure git
+        run: |
+          git config user.name 'SolarPunk Autopilot'
+          git config user.email 'autopilot@meeko-nerve-center'
+          mkdir -p data docs mycelium/data
+
+      - name: "Phase 1: INTERNET_BRIDGE — Gather signals from the web"
+        run: python mycelium/INTERNET_BRIDGE.py
+        continue-on-error: true
+
+      - name: "Phase 2: SOLARPUNK_AUTOPILOT — Scan, Heal, Bridge, Wire, Evolve"
+        run: python mycelium/SOLARPUNK_AUTOPILOT.py
+        continue-on-error: true
+
+      - name: "Phase 3: Commit and push"
+        run: |
+          git add data/*.json data/*.txt docs/*.html docs/*.json mycelium/data/*.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "SIA: Autopilot Cycle [Automated]
+
+            INTERNET_BRIDGE gathered signals. SOLARPUNK_AUTOPILOT healed, bridged, wired.
+            Zero human intervention. The loop never stops."
+            git push || {
+              git pull --rebase origin main
+              git push
+            }
+          fi

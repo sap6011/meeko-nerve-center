@@ -11,7 +11,7 @@ import os, json, requests
 from pathlib import Path
 from datetime import datetime, timezone
 
-os.getenv("ANTHROPIC_API_KEY") = os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()
+api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
 
 def main():
     print("NEURON_B v2 - Skeptic Brain starting...")
@@ -23,7 +23,7 @@ def main():
     if not a_report:
         a_report = {"opportunities":[],"builder_thesis":"No NEURON_A data","priority_build":""}
 
-    if not os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip():
+    if not os.environ.get("ANTHROPIC_API_KEY", "").strip():
         report = {
             "vetted_opportunities": a_report.get("opportunities",[]),
             "killed_ideas": [],
