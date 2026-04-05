@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "engine": "MACHINE_REVENUE",
+  "last_run": "2026-04-05T17:27:51.989961+00:00",
+  "streams": {
+    "bounty_hunter": {
+      "opportunities": 4,
+      "platforms": [
+        "algora",
+        "huntr",
+        "github_security"
+      ],
+      "status": "queued \u2014 needs Algora/huntr registration"
+    },
+    "security_scanner": {
+      "app_name": "SolarPunk Health Monitor",
+      "status": "spec ready \u2014 needs GitHub Org + Stripe Connect"
+    },
+    "agent_services": {
+      "services": 3,
+      "total_price_per_scan": 0.4,
+      "status": "catalog ready \u2014 needs Stripe Connect + deployment"
+    },
+    "affiliate_loop": {
+      "products_linked": 17,
+      "categories": [
+        "diy_tech",
+        "grow",
+        "learn_code",
+        "resilience",
+        "solarpunk_lit",
+        "solarpunk_tech",
+        "solidarity"
+      ],
+      "amazon_tag": "autonomoushum-20",
+      "status": "active \u2014 links ready for injection"
+    }
+  },
+  "human_tasks_pending": 6,
+  "human_tasks": [
+    {
+      "task": "Create GitHub Organization for SolarPunk",
+      "time": "2 minutes",
+      "url": "https://github.com/organizations/plan",
+      "why": "Required for GitHub Marketplace paid apps",
+      "unlocks": [
+        "GitHub Marketplace App",
+        "GitHub Sponsors for Org"
+      ]
+    },
+    {
+      "task": "Set up Stripe Connect account",
+      "time": "8 minutes",
+      "url": "https://dashboard.stripe.com/register",
+      "why": "Required for Marketplace payouts, Algora bounties, huntr bounties",
+      "unlocks": [
+        "All bounty payouts",
+        "ACP service payments",
+        "Marketplace revenue"
+      ]
+    },
+    {
+      "task": "Register on Algora",
+      "time": "1 minute",
+      "url": "https://algora.io",
+      "why": "Claim bounties for open source contributions",
+      "unlocks": [
+        "$50-500 per merged PR"
+      ]
+    },
+    {
+      "task": "Register on huntr",
+      "time": "1 minute",
+      "url": "https://huntr.com",
+      "why": "Submit AI/ML security vulnerabilities for bounties",
+      "unlocks": [
+        "$100-5000 per vulnerability found"
+      ]
+    },
+    {
+      "task": "Enable GitHub Sponsors",
+      "time": "3 minutes",
+      "url": "https://github.com/sponsors",
+      "why": "Accept donations from developers who use SolarPunk",
+      "unlocks": [
+        "Recurring developer sponsorships"
+      ]
+    },
+    {
+      "task": "Apply to GitHub Secure Open Source Fund",
+      "time": "5 minutes",
+      "url": "https://github.com/open-source/github-secure-open-source-fund",
+      "why": "$10,000 one-shot grant for security-focused open source",
+      "unlocks": [
+        "$10K if accepted"
+      ]
+    }
+  ],
+  "affiliate_links": [
+    {
+      "product_id": "solar_panels",
+      "url": "https://www.amazon.com/s?k=portable+solar+panel+camping&tag=autonomoushum-20",
+      "category": "solarpunk_tech",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "solar_charger",
+      "url": "https://www.amazon.com/s?k=solar+phone+charger&tag=autonomoushum-20",
+      "category": "solarpunk_tech",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "solar_lights",
+      "url": "https://www.amazon.com/s?k=solar+garden+lights&tag=autonomoushum-20",
+      "category": "solarpunk_tech",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "palestine_joe_sacco",
+      "url": "https://www.amazon.com/dp/1560974523?tag=autonomoushum-20",
+      "category": "solidarity",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "mutual_aid_spade",
+      "url": "https://www.amazon.com/s?k=mutual+aid+dean+spade&tag=autonomoushum-20",
+      "category": "solidarity",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "freedom_is_constant",
+      "url": "https://www.amazon.com/s?k=freedom+constant+struggle+angela+davis&tag=autonomoushum-20",
+      "category": "solidarity",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "raspberry_pi",
+      "url": "https://www.amazon.com/s?k=raspberry+pi+5+kit&tag=autonomoushum-20",
+      "category": "diy_tech",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "arduino_starter",
+      "url": "https://www.amazon.com/s?k=arduino+starter+kit&tag=autonomoushum-20",
+      "category": "diy_tech",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "python_crash_course",
+      "url": "https://www.amazon.com/s?k=python+crash+course+matthes&tag=autonomoushum-20",
+      "category": "learn_code",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "automate_boring",
+      "url": "https://www.amazon.com/dp/1593279922?tag=autonomoushum-20",
+      "category": "learn_code",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "solarpunk_anthology",
+      "url": "https://www.amazon.com/s?k=solarpunk+anthology&tag=autonomoushum-20",
+      "category": "solarpunk_lit",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "ministry_future",
+      "url": "https://www.amazon.com/s?k=ministry+for+the+future+kim+stanley+robinson&tag=autonomoushum-20",
+      "category": "solarpunk_lit",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "parable_sower",
+      "url": "https://www.amazon.com/s?k=parable+sower+octavia+butler&tag=autonomoushum-20",
+      "category": "solarpunk_lit",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "braiding_sweetgrass",
+      "url": "https://www.amazon.com/s?k=braiding+sweetgrass+kimmerer&tag=autonomoushum-20",
+      "category": "solarpunk_lit",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "seed_starter",
+      "url": "https://www.amazon.com/s?k=seed+starter+kit+organic&tag=autonomoushum-20",
+      "category": "grow",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "composting_guide",
+      "url": "https://www.amazon.com/s?k=composting+beginner+guide&tag=autonomoushum-20",
+      "category": "grow",
+      "tag": "autonomoushum-20"
+    },
+    {
+      "product_id": "water_filter",
+      "url": "https://www.amazon.com/s?k=portable+water+filter&tag=autonomoushum-20",
+      "category": "resilience",
+      "tag": "autonomoushum-20"
+    }
+  ],
+  "revenue_projection": {
+    "monthly_low": 315,
+    "monthly_high": 7050,
+    "to_mutual_aid_pct": 0.99
+  }
+}

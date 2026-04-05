@@ -1245,6 +1245,31 @@ def bridge_vanish_protocol_state():
     })
 
 
+# --- v45: MACHINE_REVENUE Bridges ---
+
+def bridge_machine_revenue_state():
+    """Bridge: -> machine_revenue_state.json."""
+    return seed_json("machine_revenue_state.json", {
+        "version": 1, "engine": "MACHINE_REVENUE",
+        "streams": {}, "human_tasks_pending": 6,
+        "source": "BRIDGE_BUILDER — run MACHINE_REVENUE to populate"
+    })
+
+def bridge_bounty_queue():
+    """Bridge: -> bounty_queue.json."""
+    return seed_json("bounty_queue.json", {
+        "version": 1, "total_opportunities": 0, "opportunities": [],
+        "source": "BRIDGE_BUILDER — run MACHINE_REVENUE to scan"
+    })
+
+def bridge_agent_service_catalog():
+    """Bridge: -> agent_service_catalog.json."""
+    return seed_json("agent_service_catalog.json", {
+        "provider": {"name": "SolarPunk"},
+        "services": [], "source": "BRIDGE_BUILDER — run MACHINE_REVENUE to populate"
+    })
+
+
 BRIDGES = {
     "grants_found.json": bridge_grants_found,
     "sentinel_report.json": bridge_sentinel_report,
@@ -1366,6 +1391,10 @@ BRIDGES = {
     "raw_input.json": bridge_raw_input,
     "transformed_output.json": bridge_transformed_output,
     "vanish_protocol_state.json": bridge_vanish_protocol_state,
+    # --- v45: MACHINE_REVENUE Bridges ---
+    "machine_revenue_state.json": bridge_machine_revenue_state,
+    "bounty_queue.json": bridge_bounty_queue,
+    "agent_service_catalog.json": bridge_agent_service_catalog,
 }
 
 

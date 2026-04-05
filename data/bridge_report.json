@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-05T17:09:58.659139+00:00",
-  "bridges_attempted": 111,
+  "timestamp": "2026-04-05T17:30:17.418707+00:00",
+  "bridges_attempted": 114,
   "bridges_built": 16,
-  "bridges_failed": 95,
+  "bridges_failed": 98,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
@@ -21,15 +21,15 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 388 pass, 0 fail out of 388 engines",
-      "pass": 388,
+      "detail": "Local sentinel: 389 pass, 0 fail out of 389 engines",
+      "pass": 389,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 591 nodes, 5794 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 591,
+      "detail": "Knowledge graph: 592 nodes, 5794 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 592,
       "edges": 5794,
       "top_hubs": [
         [
@@ -73,7 +73,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 388 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 389 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -88,12 +88,12 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 28, score 56/100",
+      "detail": "Chimera gen 29, score 78/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 388",
+      "detail": "Healed 0, scanned 389",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -208,7 +208,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (388 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (389 pass)",
       "target": "sentinel_scan.json"
     },
     {
@@ -595,6 +595,21 @@
       "status": "ALREADY_EXISTS",
       "detail": "vanish_protocol_state.json already has data",
       "target": "vanish_protocol_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "machine_revenue_state.json already has data",
+      "target": "machine_revenue_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "bounty_queue.json already has data",
+      "target": "bounty_queue.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "agent_service_catalog.json already has data",
+      "target": "agent_service_catalog.json"
     }
   ],
   "note": "Successes AND failures documented. Both are useful."
