@@ -439,6 +439,7 @@ def L6():
     eng("SOLARPUNK_AUTOPILOT",      timeout=600)  # v47: master loop — scan, heal, bridge, wire, evolve, publish
     eng("USB_BRIDGE",               timeout=180)  # v48: living USB port — catalog, sync, archive, ingest, disk health
     eng("WALLET_BRIDGE",             timeout=60)   # v49: Phantom wallet + BAT + Solana monitoring
+    eng("PRICE_ORACLE",              timeout=30)   # v49: multi-source price feeds + spread detection
     eng("DIRECT_WIRE",              timeout=120)  # v49: frictionless commit — compile, commit, push, sync USB
 
     health   = rj("brain_state.json").get("health_score", 0)

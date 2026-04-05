@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-04-05T23:20:52.541630+00:00",
+  "protocol": "price-oracle-v1",
+  "sources": [
+    {
+      "source": "coingecko",
+      "SOL": 81.22,
+      "ETH": 2111.13,
+      "BTC": 68846,
+      "BAT": 0.094635,
+      "SOL_24h": 0.5135244078452581,
+      "ETH_24h": 2.2294368435663965,
+      "BTC_24h": 2.2281131895414545,
+      "BAT_24h": -0.5749697329185696,
+      "fetched_at": "2026-04-05T23:20:52.005652+00:00"
+    },
+    {
+      "source": "coinpaprika",
+      "fetched_at": "2026-04-05T23:20:52.323479+00:00",
+      "BTC": 68802.15906859214,
+      "BTC_24h": 2.299999952316284,
+      "ETH": 2117.9192064053423,
+      "ETH_24h": 2.6500000953674316,
+      "SOL": 81.9563186983325,
+      "SOL_24h": 1.5299999713897705,
+      "BAT": 0.09500653607908895,
+      "BAT_24h": -0.5600000023841858
+    }
+  ],
+  "spreads": {
+    "SOL": {
+      "prices": {
+        "coingecko": 81.22,
+        "coinpaprika": 81.9563186983325
+      },
+      "min": 81.22,
+      "max": 81.9563186983325,
+      "spread_usd": 0.7363,
+      "spread_pct": 0.9066,
+      "actionable": false
+    },
+    "ETH": {
+      "prices": {
+        "coingecko": 2111.13,
+        "coinpaprika": 2117.9192064053423
+      },
+      "min": 2111.13,
+      "max": 2117.9192064053423,
+      "spread_usd": 6.7892,
+      "spread_pct": 0.3216,
+      "actionable": false
+    },
+    "BTC": {
+      "prices": {
+        "coingecko": 68846,
+        "coinpaprika": 68802.15906859214
+      },
+      "min": 68802.15906859214,
+      "max": 68846,
+      "spread_usd": 43.8409,
+      "spread_pct": 0.0637,
+      "actionable": false
+    },
+    "BAT": {
+      "prices": {
+        "coingecko": 0.094635,
+        "coinpaprika": 0.09500653607908895
+      },
+      "min": 0.094635,
+      "max": 0.09500653607908895,
+      "spread_usd": 0.0004,
+      "spread_pct": 0.3926,
+      "actionable": false
+    }
+  },
+  "jupiter": {
+    "sol_to_usdc_rate": 81.7866,
+    "price_impact": "0",
+    "routes": 1
+  },
+  "prices_avg": {
+    "SOL": 81.5882,
+    "ETH": 2114.5246,
+    "BTC": 68824.0795,
+    "BAT": 0.0948
+  },
+  "actionable_spreads": 0,
+  "portfolio_value": 9.7
+}
