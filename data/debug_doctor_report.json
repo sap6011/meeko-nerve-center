@@ -1,10 +1,46 @@
 {
-  "generated_at": "2026-04-05T00:57:16.191679+00:00",
-  "total_failures": 4,
+  "generated_at": "2026-04-05T15:45:42.449375+00:00",
+  "total_failures": 13,
   "fixed": 0,
-  "fixable": 0,
-  "unfixable": 4,
+  "fixable": 1,
+  "unfixable": 12,
   "diagnoses": [
+    {
+      "engine": "FIRST_SALE_NOTIFIER",
+      "original_status": "FAIL",
+      "diagnosis": "UNKNOWN",
+      "fixed": false,
+      "fixable": false,
+      "details": "Unrecognized error pattern",
+      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/FIRST_SALE_NOTIFIER.py\", line 25, in <module>\n    from AI_CLIENT import ask\n  File \"/home/ru"
+    },
+    {
+      "engine": "AFFILIATE_MAXIMIZER",
+      "original_status": "FAIL",
+      "diagnosis": "UNKNOWN",
+      "fixed": false,
+      "fixable": false,
+      "details": "Unrecognized error pattern",
+      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/AFFILIATE_MAXIMIZER.py\", line 18, in <module>\n    from AI_CLIENT import ask, ask_json\n  File"
+    },
+    {
+      "engine": "DESKTOP_ORCHESTRATOR",
+      "original_status": "FAIL",
+      "diagnosis": "UNKNOWN",
+      "fixed": false,
+      "fixable": false,
+      "details": "Unrecognized error pattern",
+      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/DESKTOP_ORCHESTRATOR.py\", line 42, in <module>\n    from AI_CLIENT import ask\n  File \"/home/r"
+    },
+    {
+      "engine": "CONTENT_AUTOPILOT",
+      "original_status": "FAIL",
+      "diagnosis": "UNKNOWN",
+      "fixed": false,
+      "fixable": false,
+      "details": "Unrecognized error pattern",
+      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/CONTENT_AUTOPILOT.py\", line 39, in <module>\n    from AI_CLIENT import ask, ai_available\n  Fi"
+    },
     {
       "engine": "NARRATOR",
       "original_status": "FAIL",
@@ -12,7 +48,43 @@
       "fixed": false,
       "fixable": false,
       "details": "Unrecognized error pattern",
-      "error": "File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/NARRATOR.py\", line 123, in generate_story\n    story = ask([{\"role\": \"user\", \"content\": prompt}], max_tokens=300)\n            ^^^^"
+      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/NARRATOR.py\", line 26, in <module>\n    from AI_CLIENT import ask, ai_available\n  File \"/home"
+    },
+    {
+      "engine": "PLUGIN_REGISTRY",
+      "original_status": "FAIL",
+      "diagnosis": "UNKNOWN",
+      "fixed": false,
+      "fixable": false,
+      "details": "Unrecognized error pattern",
+      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/PLUGIN_REGISTRY.py\", line 31, in <module>\n    from AI_CLIENT import ask_json\n  File \"/home/r"
+    },
+    {
+      "engine": "GENERATED_CRYPTO_WATCHER_CONSUMER",
+      "original_status": "FAIL",
+      "diagnosis": "CORRUPT_JSON",
+      "fixed": false,
+      "fixable": true,
+      "details": "A data file has corrupt JSON",
+      "error": "ode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n"
+    },
+    {
+      "engine": "KOFI_PAYMENT_TRACKER",
+      "original_status": "FAIL",
+      "diagnosis": "UNKNOWN",
+      "fixed": false,
+      "fixable": false,
+      "details": "Unrecognized error pattern",
+      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/KOFI_PAYMENT_TRACKER.py\", line 22, in <module>\n    from AI_CLIENT import ask_json\n  File \"/h"
+    },
+    {
+      "engine": "LANDING_DEPLOYER",
+      "original_status": "FAIL",
+      "diagnosis": "UNKNOWN",
+      "fixed": false,
+      "fixable": false,
+      "details": "Unrecognized error pattern",
+      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/LANDING_DEPLOYER.py\", line 25, in <module>\n    from AI_CLIENT import ask\n  File \"/home/runne"
     },
     {
       "engine": "OLLAMA_BRIDGE",
@@ -22,6 +94,15 @@
       "fixable": false,
       "details": "Unrecognized error pattern",
       "error": ""
+    },
+    {
+      "engine": "SIGNAL_CHAIN",
+      "original_status": "FAIL",
+      "diagnosis": "UNKNOWN",
+      "fixed": false,
+      "fixable": false,
+      "details": "Unrecognized error pattern",
+      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/SIGNAL_CHAIN.py\", line 177, in <module>\n    if __name__ == \"__main__\": run()\n               "
     },
     {
       "engine": "scout_bot",

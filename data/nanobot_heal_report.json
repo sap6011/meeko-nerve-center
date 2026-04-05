@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-04-05T01:59:50.293486+00:00",
-  "scanned": 367,
-  "syntax_ok": 331,
+  "timestamp": "2026-04-05T15:46:00.595269+00:00",
+  "scanned": 377,
+  "syntax_ok": 341,
   "syntax_errors": 36,
   "healed": 0,
   "failed_to_heal": 36,
@@ -16,10 +16,7 @@
       "engine": "AI_CLIENT.py",
       "error_before": "  File \"mycelium/AI_CLIENT.py\", line 34\n    ANTHROPIC_KEY = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n",
       "healed": false,
-      "changes": [
-        "replaced Unicode symbols for Windows compatibility"
-      ],
-      "error_after": "  File \"mycelium/AI_CLIENT.py\", line 34\n    ANTHROPIC_KEY = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n"
+      "changes": []
     },
     {
       "engine": "AI_WATCHER.py",
@@ -37,10 +34,7 @@
       "engine": "BIG_BRAIN_ORACLE.py",
       "error_before": "  File \"mycelium/BIG_BRAIN_ORACLE.py\", line 27\n    ANTHROPIC_KEY = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n",
       "healed": false,
-      "changes": [
-        "replaced Unicode symbols for Windows compatibility"
-      ],
-      "error_after": "  File \"mycelium/BIG_BRAIN_ORACLE.py\", line 27\n    ANTHROPIC_KEY = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n"
+      "changes": []
     },
     {
       "engine": "BOTTLENECK_SCANNER.py",
@@ -64,10 +58,7 @@
       "engine": "CLAUDE_ENGINE.py",
       "error_before": "  File \"mycelium/CLAUDE_ENGINE.py\", line 84\n    if not os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip():\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n",
       "healed": false,
-      "changes": [
-        "replaced Unicode symbols for Windows compatibility"
-      ],
-      "error_after": "  File \"mycelium/CLAUDE_ENGINE.py\", line 84\n    if not os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip():\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n"
+      "changes": []
     },
     {
       "engine": "CONNECTION_FORGE.py",
@@ -85,19 +76,13 @@
       "engine": "DESKTOP_BLUEPRINT_SCANNER.py",
       "error_before": "  File \"mycelium/DESKTOP_BLUEPRINT_SCANNER.py\", line 153\n    for word in [\"GITHUB_TOKEN\", \"os.getenv(\"ANTHROPIC_API_KEY\")\",\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n",
       "healed": false,
-      "changes": [
-        "replaced Unicode symbols for Windows compatibility"
-      ],
-      "error_after": "  File \"mycelium/DESKTOP_BLUEPRINT_SCANNER.py\", line 153\n    for word in [\"GITHUB_TOKEN\", \"os.getenv(\"ANTHROPIC_API_KEY\")\",\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n"
+      "changes": []
     },
     {
       "engine": "DESKTOP_DAEMON.py",
       "error_before": "  File \"mycelium/DESKTOP_DAEMON.py\", line 47\n    API_KEY        = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n",
       "healed": false,
-      "changes": [
-        "replaced Unicode symbols for Windows compatibility"
-      ],
-      "error_after": "  File \"mycelium/DESKTOP_DAEMON.py\", line 47\n    API_KEY        = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n"
+      "changes": []
     },
     {
       "engine": "ETSY_SEO_ENGINE.py",
@@ -127,10 +112,7 @@
       "engine": "HEALTH_BOOSTER.py",
       "error_before": "  File \"mycelium/HEALTH_BOOSTER.py\", line 30\n    \"os.getenv(\"ANTHROPIC_API_KEY\")\":    {\"pts\": 15, \"category\": \"AI Brain\", \"how\": \"console.anthropic.com -> API Keys\"},\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n",
       "healed": false,
-      "changes": [
-        "replaced Unicode symbols for Windows compatibility"
-      ],
-      "error_after": "  File \"mycelium/HEALTH_BOOSTER.py\", line 30\n    \"os.getenv(\"ANTHROPIC_API_KEY\")\":    {\"pts\": 15, \"category\": \"AI Brain\", \"how\": \"console.anthropic.com -> API Keys\"},\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n"
+      "changes": []
     },
     {
       "engine": "HUMAN_CONNECTOR.py",
@@ -160,10 +142,7 @@
       "engine": "NANO_AGENT.py",
       "error_before": "  File \"mycelium/NANO_AGENT.py\", line 100\n    key = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n",
       "healed": false,
-      "changes": [
-        "replaced Unicode symbols for Windows compatibility"
-      ],
-      "error_after": "  File \"mycelium/NANO_AGENT.py\", line 100\n    key = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n"
+      "changes": []
     },
     {
       "engine": "NEURON_B.py",
@@ -205,10 +184,7 @@
       "engine": "SECRETS_CHECKER.py",
       "error_before": "  File \"mycelium/SECRETS_CHECKER.py\", line 21\n    \"os.getenv(\"ANTHROPIC_API_KEY\")\": {\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n",
       "healed": false,
-      "changes": [
-        "replaced Unicode symbols for Windows compatibility"
-      ],
-      "error_after": "  File \"mycelium/SECRETS_CHECKER.py\", line 21\n    \"os.getenv(\"ANTHROPIC_API_KEY\")\": {\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n"
+      "changes": []
     },
     {
       "engine": "SELF_PORTRAIT.py",
@@ -238,10 +214,7 @@
       "engine": "ai_council.py",
       "error_before": "  File \"mycelium/ai_council.py\", line 36\n    os.getenv(\"ANTHROPIC_API_KEY\") = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n",
       "healed": false,
-      "changes": [
-        "replaced Unicode symbols for Windows compatibility"
-      ],
-      "error_after": "  File \"mycelium/ai_council.py\", line 36\n    os.getenv(\"ANTHROPIC_API_KEY\") = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?\n"
+      "changes": []
     },
     {
       "engine": "knowledge_dispatch.py",

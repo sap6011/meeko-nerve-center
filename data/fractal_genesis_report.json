@@ -1,29 +1,60 @@
 {
-  "timestamp": "2026-04-05T00:57:15.454674+00:00",
-  "gaps_found": 14,
+  "timestamp": "2026-04-05T15:45:41.689495+00:00",
+  "gaps_found": 18,
   "specs_generated": 10,
-  "engines_created": 4,
-  "engines_skipped": 6,
+  "engines_created": 3,
+  "engines_skipped": 7,
   "created_engines": [
-    "GENERATED_DAEMON_TASK_XML_POPULATOR",
-    "GENERATED_SIGNAL_BOOST_LOG_POPULATOR",
-    "GENERATED_GRANT_TRIGGER_POPULATOR",
-    "GENERATED_GROWTH_CHAIN_STATE_POPULATOR"
+    "GENERATED_DATA_FLOW_OBSERVATORY_CONSUMER",
+    "GENERATED_QUICK_REVENUE_CONSUMER",
+    "GENERATED_GROWTH_FLYWHEEL_CONSUMER"
   ],
   "gaps": [
     {
       "type": "high_value_dead_end",
-      "engine": "EXTERNAL_VALUE_ROUTER",
+      "engine": "DEBUG_DOCTOR",
       "outputs": [
-        "value_opportunities.json",
-        "value_router_report.json"
+        "debug_doctor_state.json",
+        "debug_doctor_report.json"
       ],
-      "suggestion": "Build consumer for EXTERNAL_VALUE_ROUTER's high-value output"
+      "suggestion": "Build consumer for DEBUG_DOCTOR's high-value output"
     },
     {
-      "type": "missing_category",
-      "category": "knowledge",
-      "suggestion": "Build engine to generate knowledge data flows"
+      "type": "high_value_dead_end",
+      "engine": "DATA_FLOW_OBSERVATORY",
+      "outputs": [
+        "live_wire_report.json",
+        "observatory_report.json"
+      ],
+      "suggestion": "Build consumer for DATA_FLOW_OBSERVATORY's high-value output"
+    },
+    {
+      "type": "high_value_dead_end",
+      "engine": "QUICK_REVENUE",
+      "outputs": [
+        "revenue_inbox.json",
+        "quick_revenue.json"
+      ],
+      "suggestion": "Build consumer for QUICK_REVENUE's high-value output"
+    },
+    {
+      "type": "high_value_dead_end",
+      "engine": "GROWTH_FLYWHEEL",
+      "outputs": [
+        "input.json",
+        "output.json",
+        "growth_flywheel_state.json"
+      ],
+      "suggestion": "Build consumer for GROWTH_FLYWHEEL's high-value output"
+    },
+    {
+      "type": "high_value_dead_end",
+      "engine": "IMMUNE_SYSTEM",
+      "outputs": [
+        "quarantine_log.json",
+        "immune_system_report.json"
+      ],
+      "suggestion": "Build consumer for IMMUNE_SYSTEM's high-value output"
     },
     {
       "type": "missing_category",
@@ -36,6 +67,18 @@
       "suggestion": "Build engine to generate evolution data flows"
     },
     {
+      "type": "missing_category",
+      "category": "knowledge",
+      "suggestion": "Build engine to generate knowledge data flows"
+    },
+    {
+      "type": "dead_flow",
+      "via": "daemon_task.xml",
+      "from": "DESKTOP_DAEMON",
+      "to": "GENERATED_DAEMON_TASK_XML_POPULATOR",
+      "suggestion": "Populate daemon_task.xml with real data from DESKTOP_DAEMON"
+    },
+    {
       "type": "dead_flow",
       "via": "daemon_task.xml",
       "from": "DESKTOP_DAEMON",
@@ -44,76 +87,81 @@
     },
     {
       "type": "dead_flow",
-      "via": "signal_boost_log.json",
-      "from": "SIGNAL_BOOST",
-      "to": "WEEKEND_PULSE",
-      "suggestion": "Populate signal_boost_log.json with real data from SIGNAL_BOOST"
+      "via": "crypto_summary.txt",
+      "from": "CRYPTO_WATCHER",
+      "to": "GENERATED_CRYPTO_WATCHER_CONSUMER",
+      "suggestion": "Populate crypto_summary.txt with real data from CRYPTO_WATCHER"
     },
     {
       "type": "dead_flow",
-      "via": "grant_trigger.json",
-      "from": "GENERATED_REVENUE_FLYWHEEL_CONSUMER",
-      "to": "REVENUE_FLYWHEEL",
-      "suggestion": "Populate grant_trigger.json with real data from GENERATED_REVENUE_FLYWHEEL_CONSUMER"
+      "via": "polymarket_scan.json",
+      "from": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
+      "to": "BRIDGE_BUILDER",
+      "suggestion": "Populate polymarket_scan.json with real data from GENERATED_POLYMARKET_SCANNER_CONSUMER"
     },
     {
       "type": "dead_flow",
-      "via": "grant_trigger.json",
-      "from": "REVENUE_FLYWHEEL",
-      "to": "GENERATED_REVENUE_FLYWHEEL_CONSUMER",
-      "suggestion": "Populate grant_trigger.json with real data from REVENUE_FLYWHEEL"
+      "via": "polymarket_scan.json",
+      "from": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
+      "to": "MISSION_CONTROL",
+      "suggestion": "Populate polymarket_scan.json with real data from GENERATED_POLYMARKET_SCANNER_CONSUMER"
     },
     {
       "type": "dead_flow",
-      "via": "growth_chain_state.json",
-      "from": "GROWTH_CHAIN",
-      "to": "CHAIN_ORCHESTRATOR",
-      "suggestion": "Populate growth_chain_state.json with real data from GROWTH_CHAIN"
+      "via": "polymarket_scan.json",
+      "from": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
+      "to": "OMNIBUS",
+      "suggestion": "Populate polymarket_scan.json with real data from GENERATED_POLYMARKET_SCANNER_CONSUMER"
     },
     {
       "type": "dead_flow",
-      "via": "growth_chain_state.json",
-      "from": "GROWTH_CHAIN",
-      "to": "GROWTH_FLYWHEEL",
-      "suggestion": "Populate growth_chain_state.json with real data from GROWTH_CHAIN"
+      "via": "polymarket_scan.json",
+      "from": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
+      "to": "POLYMARKET_SCANNER",
+      "suggestion": "Populate polymarket_scan.json with real data from GENERATED_POLYMARKET_SCANNER_CONSUMER"
     },
     {
       "type": "dead_flow",
-      "via": "growth_chain_state.json",
-      "from": "GROWTH_CHAIN",
-      "to": "KNOWLEDGE_CHAIN",
-      "suggestion": "Populate growth_chain_state.json with real data from GROWTH_CHAIN"
+      "via": "polymarket_scan.json",
+      "from": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
+      "to": "VITAL_SIGN_API",
+      "suggestion": "Populate polymarket_scan.json with real data from GENERATED_POLYMARKET_SCANNER_CONSUMER"
     },
     {
       "type": "dead_flow",
-      "via": "transfer_needed.json",
-      "from": "GENERATED_TRANSFER_NEEDED_POPULATOR",
-      "to": "NIGHTLY_DIGEST",
-      "suggestion": "Populate transfer_needed.json with real data from GENERATED_TRANSFER_NEEDED_POPULATOR"
+      "via": "polymarket_scan.json",
+      "from": "POLYMARKET_SCANNER",
+      "to": "BRIDGE_BUILDER",
+      "suggestion": "Populate polymarket_scan.json with real data from POLYMARKET_SCANNER"
     },
     {
       "type": "dead_flow",
-      "via": "transfer_needed.json",
-      "from": "GENERATED_TRANSFER_NEEDED_POPULATOR",
-      "to": "PROOF_LEDGER",
-      "suggestion": "Populate transfer_needed.json with real data from GENERATED_TRANSFER_NEEDED_POPULATOR"
-    },
-    {
-      "type": "dead_flow",
-      "via": "transfer_needed.json",
-      "from": "PROOF_LEDGER",
-      "to": "GENERATED_TRANSFER_NEEDED_POPULATOR",
-      "suggestion": "Populate transfer_needed.json with real data from PROOF_LEDGER"
+      "via": "polymarket_scan.json",
+      "from": "POLYMARKET_SCANNER",
+      "to": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
+      "suggestion": "Populate polymarket_scan.json with real data from POLYMARKET_SCANNER"
     }
   ],
   "specs": [
     {
-      "name": "GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER",
-      "purpose": "Consumes high-value output from EXTERNAL_VALUE_ROUTER and generates actionable insights"
+      "name": "GENERATED_DEBUG_DOCTOR_CONSUMER",
+      "purpose": "Consumes high-value output from DEBUG_DOCTOR and generates actionable insights"
     },
     {
-      "name": "GENERATED_KNOWLEDGE_TRACKER",
-      "purpose": "Tracks knowledge signals across the nervous system"
+      "name": "GENERATED_DATA_FLOW_OBSERVATORY_CONSUMER",
+      "purpose": "Consumes high-value output from DATA_FLOW_OBSERVATORY and generates actionable insights"
+    },
+    {
+      "name": "GENERATED_QUICK_REVENUE_CONSUMER",
+      "purpose": "Consumes high-value output from QUICK_REVENUE and generates actionable insights"
+    },
+    {
+      "name": "GENERATED_GROWTH_FLYWHEEL_CONSUMER",
+      "purpose": "Consumes high-value output from GROWTH_FLYWHEEL and generates actionable insights"
+    },
+    {
+      "name": "GENERATED_IMMUNE_SYSTEM_CONSUMER",
+      "purpose": "Consumes high-value output from IMMUNE_SYSTEM and generates actionable insights"
     },
     {
       "name": "GENERATED_SECURITY_TRACKER",
@@ -124,28 +172,16 @@
       "purpose": "Tracks evolution signals across the nervous system"
     },
     {
+      "name": "GENERATED_KNOWLEDGE_TRACKER",
+      "purpose": "Tracks knowledge signals across the nervous system"
+    },
+    {
       "name": "GENERATED_DAEMON_TASK_XML_POPULATOR",
       "purpose": "Populates daemon_task.xml with real data to revive dead flow"
     },
     {
-      "name": "GENERATED_SIGNAL_BOOST_LOG_POPULATOR",
-      "purpose": "Populates signal_boost_log.json with real data to revive dead flow"
-    },
-    {
-      "name": "GENERATED_GRANT_TRIGGER_POPULATOR",
-      "purpose": "Populates grant_trigger.json with real data to revive dead flow"
-    },
-    {
-      "name": "GENERATED_GRANT_TRIGGER_POPULATOR",
-      "purpose": "Populates grant_trigger.json with real data to revive dead flow"
-    },
-    {
-      "name": "GENERATED_GROWTH_CHAIN_STATE_POPULATOR",
-      "purpose": "Populates growth_chain_state.json with real data to revive dead flow"
-    },
-    {
-      "name": "GENERATED_GROWTH_CHAIN_STATE_POPULATOR",
-      "purpose": "Populates growth_chain_state.json with real data to revive dead flow"
+      "name": "GENERATED_DAEMON_TASK_XML_POPULATOR",
+      "purpose": "Populates daemon_task.xml with real data to revive dead flow"
     }
   ]
 }
