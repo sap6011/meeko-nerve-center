@@ -300,19 +300,27 @@ def build_verified_contacts(outreach_targets: list, bounce_registry: list) -> di
 
     for org in outreach_targets:
         email = org.get("email", "")
-        is_bounced = email.lower() in bounced_emails
+        is_bounced = email.lower() in bounced_emails if email else False
+        is_form_only = org.get("form_only", False)
 
-        verification = verify_email(email) if email else {"status": "missing"}
+        if is_form_only or not email:
+            verification = {"status": "form_only"}
+        else:
+            verification = verify_email(email)
 
         contact = {
             "org_name": org["name"],
             "email": email,
             "category": org.get("category", "unknown"),
-            "verification": verification["status"] if not is_bounced else "bounced",
-            "mx_verified": verification.get("domain_verified", False) and not is_bounced,
+            "verification": "bounced" if is_bounced else verification["status"],
+            "mx_verified": verification.get("domain_verified", False) and not is_bounced and not is_form_only,
             "previously_bounced": is_bounced,
+            "form_only": is_form_only,
             "url": org.get("url", ""),
             "angle": org.get("angle", ""),
+            "source": org.get("source", ""),
+            "contact_name": org.get("contact_name", ""),
+            "alt_emails": org.get("alt_emails", []),
             "checked_at": datetime.now(timezone.utc).isoformat(),
         }
 
@@ -325,11 +333,12 @@ def build_verified_contacts(outreach_targets: list, bounce_registry: list) -> di
                 f"hello@{domain}",
                 f"press@{domain}",
             ]
-            # Remove the bounced email from suggestions
             contact["suggested_alternatives"] = [
                 a for a in contact["suggested_alternatives"] if a.lower() != email.lower()
             ]
             contacts["bounced"] += 1
+        elif is_form_only:
+            contacts["unverified"] += 1  # count form-only as unverified
         elif verification.get("status") == "verified":
             contacts["verified"] += 1
         else:
@@ -475,39 +484,58 @@ def run():
     # Fallback: load targets from outreach state or use embedded list
     targets = outreach_state.get("targets", [])
     if not targets:
-        # Minimal embedded target list (the full list lives in OUTREACH_ENGINE)
+        # Verified target list — emails sourced from official org websites (2026-04-05)
         targets = [
-            {"name": "PCRF", "email": "info@pcrf.net", "category": "recipient_org",
-             "why": "60% of revenue", "url": "https://pcrf.net"},
-            {"name": "International Rescue Committee", "email": "info@rescue.org",
-             "category": "recipient_org", "why": "15% of revenue", "url": "https://rescue.org"},
-            {"name": "Médecins Sans Frontières", "email": "info@msf.org",
-             "category": "recipient_org", "why": "10% of revenue", "url": "https://msf.org"},
-            {"name": "UNICEF", "email": "donate@unicef.org",
-             "category": "recipient_org", "why": "10% of revenue", "url": "https://unicef.org"},
-            {"name": "Direct Relief", "email": "info@directrelief.org",
+            # ── Recipient orgs (the orgs SolarPunk funds) ─────────────────
+            {"name": "PCRF", "email": "giving@pcrf.net", "category": "recipient_org",
+             "why": "60% of revenue", "url": "https://pcrf.net",
+             "source": "pcrf.net/contact-us", "alt_emails": ["pcrf1@pcrf.net", "media@pcrf.net"]},
+            {"name": "International Rescue Committee", "email": "partnerships@rescue.org",
+             "category": "recipient_org", "why": "15% of revenue",
+             "url": "https://rescue.org",
+             "source": "rescue.org/become-corporate-partner"},
+            {"name": "Médecins Sans Frontières", "email": "corporate.donations@newyork.msf.org",
+             "category": "recipient_org", "why": "10% of revenue",
+             "url": "https://doctorswithoutborders.org",
+             "source": "doctorswithoutborders.org/get-involved/ways-give/corporate-partnerships"},
+            {"name": "UNICEF USA", "email": "",  # form only: unicefusa.org/partnerships/proposal-submissions
+             "category": "recipient_org", "why": "10% of revenue",
+             "url": "https://unicefusa.org",
+             "source": "unicefusa.org — no email, web form only", "form_only": True},
+            {"name": "Direct Relief", "email": "matching@directrelief.org",
              "category": "recipient_org", "why": "5% of revenue",
-             "url": "https://directrelief.org"},
-            {"name": "IRUSA", "email": "info@irusa.org",
+             "url": "https://directrelief.org",
+             "source": "directrelief.org/get-involved/donation-matching"},
+            {"name": "Islamic Relief USA", "email": "mahammam@irusa.org",
              "category": "recipient_org", "why": "Islamic Relief USA",
-             "url": "https://irusa.org"},
-            {"name": "UNRWA", "email": "info@unrwa.org",
+             "url": "https://irusa.org",
+             "source": "irusa.org/corporate-and-foundation-partnerships",
+             "contact_name": "Mohammed Ahammam, Corporate Gifts Manager",
+             "alt_emails": ["donorcare@irusa.org"]},
+            {"name": "UNRWA USA", "email": "",  # form only: unrwausa.org/contact
              "category": "recipient_org", "why": "UN agency for Palestine refugees",
-             "url": "https://unrwa.org"},
-            {"name": "Medical Aid for Palestinians", "email": "info@map.org.uk",
+             "url": "https://unrwausa.org",
+             "source": "unrwausa.org — no email, web form only", "form_only": True},
+            {"name": "Medical Aid for Palestinians", "email": "philanthropy@map-uk.org",
              "category": "recipient_org", "why": "Medical aid in Palestine",
-             "url": "https://map.org.uk"},
+             "url": "https://map.org.uk",
+             "source": "map.org.uk/how-to-help/partner-with-us",
+             "alt_emails": ["info@map.org.uk", "fundraising@map-uk.org"]},
+            # ── Grant funding ─────────────────────────────────────────────
             {"name": "Mozilla Foundation", "email": "grantmaking@mozillafoundation.org",
              "category": "grant_funding",
              "why": "Democracy x AI Incubator — $50K", "url": "https://mozillafoundation.org"},
+            # ── Disability justice ────────────────────────────────────────
             {"name": "Stimpunks Foundation", "email": "stimpunks@stimpunks.org",
              "category": "disability_justice",
              "why": "Mutual aid for neurodivergent/disabled people",
              "url": "https://stimpunks.org"},
+            # ── Humanitarian tech ─────────────────────────────────────────
             {"name": "Tech for Palestine", "email": "info@techforpalestine.org",
              "category": "humanitarian_tech",
              "why": "Tech incubator for Palestine projects",
              "url": "https://techforpalestine.org"},
+            # ── Digital rights ────────────────────────────────────────────
             {"name": "Electronic Frontier Foundation", "email": "info@eff.org",
              "category": "digital_rights",
              "why": "Civil liberties in digital realm", "url": "https://eff.org"},
