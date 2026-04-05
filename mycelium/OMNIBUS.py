@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v43 — DIGITAL SATURATION: 94 pages, 5 releases, 2 discussions, 2 email drafts, 367 artifacts (366+ engines, 5476 wires)
+OMNIBUS v44 — FULL WIRING: 26 new bridges, wiki LIVE, 13 discussions, 6 releases, Dev.to + 94 pages (366+ engines, 5500+ wires)
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation

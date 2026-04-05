@@ -1,58 +1,58 @@
 {
-  "last_updated": "2026-04-05T12:31:47.851717+00:00",
+  "last_updated": "2026-04-05T15:41:04.439765+00:00",
   "blueprints": [
     {
-      "name": "AI_WATCHER.py",
+      "name": "AGENT_TWEET_WRITER.py",
       "status": "needs_repair",
-      "error": "  File \"mycelium/AI_WATCHER.py\", line 20\n    API=os.environ.get(\"os.environ.get(\"os.getenv(\"ANTHROPI"
-    },
-    {
-      "name": "CAPABILITY_SCANNER.py",
-      "status": "needs_repair",
-      "error": "  File \"mycelium/CAPABILITY_SCANNER.py\", line 33\n    \"status\": \"active\" if os.environ.get(\"os.enviro"
-    },
-    {
-      "name": "ART_GENERATOR.py",
-      "status": "needs_repair",
-      "error": "  File \"mycelium/ART_GENERATOR.py\", line 123\n    api_key = os.environ.get(\"os.environ.get(\"os.getenv"
-    },
-    {
-      "name": "GRANT_HUNTER.py",
-      "status": "needs_repair",
-      "error": "  File \"mycelium/GRANT_HUNTER.py\", line 14\n    API=os.environ.get(\"os.environ.get(\"os.getenv(\"ANTHRO"
+      "error": "  File \"mycelium\\AGENT_TWEET_WRITER.py\", line 60\n    if os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY"
     },
     {
       "name": "AI_CLIENT.py",
       "status": "needs_repair",
-      "error": "  File \"mycelium/AI_CLIENT.py\", line 34\n    ANTHROPIC_KEY = os.environ.get(\"os.environ.get(\"os.geten"
+      "error": "  File \"mycelium\\AI_CLIENT.py\", line 34\n    ANTHROPIC_KEY = os.environ.get(\"os.getenv(\"ANTHROPIC_API"
     },
     {
-      "name": "NANO_AGENT.py",
+      "name": "ai_council.py",
       "status": "needs_repair",
-      "error": "  File \"mycelium/NANO_AGENT.py\", line 100\n    key = os.environ.get(\"os.environ.get(\"os.getenv(\"ANTHR"
+      "error": "  File \"mycelium\\ai_council.py\", line 36\n    os.getenv(\"ANTHROPIC_API_KEY\") = os.environ.get(\"os.get"
     },
     {
-      "name": "DESKTOP_DAEMON.py",
+      "name": "AI_WATCHER.py",
       "status": "needs_repair",
-      "error": "  File \"mycelium/DESKTOP_DAEMON.py\", line 47\n    API_KEY        = os.environ.get(\"os.environ.get(\"os"
+      "error": "  File \"mycelium\\AI_WATCHER.py\", line 20\n    API=os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\""
     },
     {
-      "name": "INCOME_ARCHITECT.py",
+      "name": "ART_GENERATOR.py",
       "status": "needs_repair",
-      "error": "  File \"mycelium/INCOME_ARCHITECT.py\", line 73\n    api_key = os.environ.get(\"os.environ.get(\"os.gete"
+      "error": "  File \"mycelium\\ART_GENERATOR.py\", line 123\n    api_key = os.environ.get(\"os.getenv(\"ANTHROPIC_API_"
     },
     {
-      "name": "CONNECTION_FORGE.py",
+      "name": "BIG_BRAIN_ORACLE.py",
       "status": "needs_repair",
-      "error": "  File \"mycelium/CONNECTION_FORGE.py\", line 19\n    API=os.environ.get(\"os.environ.get(\"os.getenv(\"AN"
+      "error": "  File \"mycelium\\BIG_BRAIN_ORACLE.py\", line 27\n    ANTHROPIC_KEY = os.environ.get(\"os.getenv(\"ANTHRO"
     },
     {
-      "name": "LEGACY_SIFTED_agency_orchestrator.py",
+      "name": "BOTTLENECK_SCANNER.py",
       "status": "needs_repair",
-      "error": "  File \"mycelium/LEGACY_SIFTED_agency_orchestrator.py\", line 49\n    \"claude\": os.environ.get(\"os.env"
+      "error": "  File \"mycelium\\BOTTLENECK_SCANNER.py\", line 23\n    \"os.getenv(\"ANTHROPIC_API_KEY\")\":    {\"impact\":"
+    },
+    {
+      "name": "BRIEFING_ENGINE.py",
+      "status": "needs_repair",
+      "error": "  File \"mycelium\\BRIEFING_ENGINE.py\", line 19\n    API=os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")"
+    },
+    {
+      "name": "CAPABILITY_SCANNER.py",
+      "status": "needs_repair",
+      "error": "  File \"mycelium\\CAPABILITY_SCANNER.py\", line 33\n    \"status\": \"active\" if os.environ.get(\"os.getenv"
+    },
+    {
+      "name": "CLAUDE_ENGINE.py",
+      "status": "needs_repair",
+      "error": "  File \"mycelium\\CLAUDE_ENGINE.py\", line 84\n    if not os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\""
     }
   ],
-  "scripts_found": 379,
+  "scripts_found": 367,
   "note": "Populated from sentinel data. Full scan requires local run.",
   "source": "BRIDGE_BUILDER synthesis"
 }
