@@ -215,6 +215,101 @@ def update_ledger(entry):
     _save(LEDGER_FILE, ledger)
 
 
+def check_eth_balance(address):
+    """Check ETH balance via public RPC. No API key needed."""
+    payload = json.dumps({
+        "jsonrpc": "2.0", "id": 1,
+        "method": "eth_getBalance",
+        "params": [address, "latest"],
+    }).encode()
+    endpoints = [
+        "https://eth.llamarpc.com",
+        "https://rpc.ankr.com/eth",
+        "https://ethereum-rpc.publicnode.com",
+    ]
+    for ep in endpoints:
+        try:
+            req = urllib.request.Request(ep, data=payload,
+                                         headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=10) as r:
+                result = json.loads(r.read().decode())
+                hex_val = result.get("result", "0x0")
+                return int(hex_val, 16) / 1e18
+        except Exception:
+            continue
+    return None
+
+
+def check_btc_balance(address):
+    """Check BTC balance via public blockchain API. No key needed."""
+    try:
+        url = f"https://blockchain.info/q/addressbalance/{address}"
+        req = urllib.request.Request(url)
+        req.add_header("User-Agent", "SolarPunk/1.0")
+        with urllib.request.urlopen(req, timeout=10) as r:
+            satoshis = int(r.read().decode().strip())
+            return satoshis / 1e8
+    except Exception:
+        return None
+
+
+def check_all_wallets(config):
+    """Check all wallets from config. Returns full multi-chain report."""
+    wallets = config.get("wallets", {})
+    report = {}
+
+    for name, w in wallets.items():
+        chain = w.get("chain", "unknown")
+        addr = w.get("address", "")
+        label = w.get("label", name)
+
+        print(f"[WALLET_BRIDGE] Checking {label} ({chain}): {addr[:10]}...{addr[-6:]}")
+
+        entry = {"address": addr, "chain": chain, "label": label}
+
+        if chain == "solana":
+            sol = get_sol_balance(addr)
+            tokens = get_token_accounts(addr)
+            entry["sol_balance"] = sol
+            entry["tokens"] = tokens
+            entry["alerts"] = []
+            if sol is not None and sol < 0.01:
+                entry["alerts"].append("LOW_GAS: SOL < 0.01")
+            has_bat = any(t.get("symbol") == "BAT" for t in tokens)
+            if not has_bat:
+                entry["alerts"].append("NO_BAT_ATA: Create token account for Brave Rewards")
+            if sol is not None:
+                print(f"[WALLET_BRIDGE]   SOL: {sol:.6f}")
+            for t in tokens:
+                if t.get("balance", 0) > 0:
+                    print(f"[WALLET_BRIDGE]   {t['symbol']}: {t['balance']}")
+
+        elif chain == "ethereum":
+            eth = check_eth_balance(addr)
+            entry["eth_balance"] = eth
+            if eth is not None:
+                print(f"[WALLET_BRIDGE]   ETH: {eth:.6f}")
+            # Same address on L2s
+            for l2 in w.get("also_on", []):
+                entry[f"{l2}_note"] = f"Same address on {l2} — check via {l2} explorer"
+
+        elif chain == "bitcoin":
+            btc = check_btc_balance(addr)
+            entry["btc_balance"] = btc
+            entry["type"] = w.get("type", "unknown")
+            if btc is not None:
+                print(f"[WALLET_BRIDGE]   BTC: {btc:.8f}")
+
+        else:
+            entry["note"] = "Chain not auto-checked — manual verification"
+            print(f"[WALLET_BRIDGE]   (chain '{chain}' — skipping auto-check)")
+
+        entry["checked_at"] = datetime.now(timezone.utc).isoformat()
+        report[name] = entry
+
+    return report
+
+
 def brave_rewards_status():
     """Check Brave Rewards connection status from BRAVE_BRIDGE data."""
     brave_state = _load(DATA / "brave_browser_state.json")
@@ -222,21 +317,17 @@ def brave_rewards_status():
         "brave_detected": brave_state.get("initialized", False),
         "brave_running": brave_state.get("status") != "brave_not_running",
         "cycles": brave_state.get("cycles", 0),
-        "note": "Connect Brave Rewards to Phantom: brave://rewards → Connect → Phantom",
+        "note": "Connect Brave Rewards to Phantom: brave://rewards -> Connect -> Phantom",
     }
 
 
 def run(primary_address=None, secondary_address=None):
     """Engine entry point for OMNIBUS.
 
-    If no addresses provided, just reports general status.
-    Set addresses in data/wallet_config.json:
-    {
-      "primary": "YOUR_SOLANA_ADDRESS_HERE",
-      "secondary": "YOUR_SECOND_SOLANA_ADDRESS_HERE"
-    }
+    Reads all wallet addresses from data/wallet_config.json and checks
+    balances across Solana, Ethereum, Bitcoin, and L2s. No API keys needed.
     """
-    print("[WALLET_BRIDGE] Starting wallet check cycle...")
+    print("[WALLET_BRIDGE] Starting multi-chain wallet scan...")
 
     # Load config
     config = _load(DATA / "wallet_config.json")
@@ -245,41 +336,48 @@ def run(primary_address=None, secondary_address=None):
 
     state = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "protocol": "wallet-bridge-v1",
+        "protocol": "wallet-bridge-v2",
         "status": "active",
     }
 
-    # Check primary wallet
-    if primary:
+    # Multi-chain wallet scan
+    if config.get("wallets"):
+        state["wallets"] = check_all_wallets(config)
+        print(f"[WALLET_BRIDGE] Scanned {len(state['wallets'])} wallets across all chains")
+    elif primary:
+        # Fallback to single-wallet mode
         state["primary"] = check_wallet(primary, "MeekoTheRaccoon")
     else:
-        state["primary"] = {"status": "not_configured", "note": "Set primary address in data/wallet_config.json"}
-        print("[WALLET_BRIDGE] No primary wallet configured — set address in data/wallet_config.json")
+        state["primary"] = {"status": "not_configured"}
+        print("[WALLET_BRIDGE] No wallets configured")
 
-    # Check secondary wallet
-    if secondary:
-        state["secondary"] = check_wallet(secondary, "MeekoThaRaccoon")
-        # Generate consolidation plan if both exist
-        if primary:
-            state["consolidation"] = consolidation_plan(primary, secondary)
-    else:
-        state["secondary"] = {"status": "not_configured"}
+    # Check secondary for consolidation
+    if secondary and primary:
+        state["consolidation"] = consolidation_plan(primary, secondary)
 
     # Brave Rewards status
     state["brave_rewards"] = brave_rewards_status()
 
-    # Connection guide
-    state["setup_guide"] = {
-        "step_1": "Open Phantom on desktop → copy your Solana address",
-        "step_2": "Put it in data/wallet_config.json as 'primary'",
-        "step_3": "Open Brave → brave://rewards → Connect account → Phantom",
-        "step_4": "BAT earnings now flow to your Phantom wallet on Solana",
-        "step_5": "Import phone wallet seed into desktop Phantom → send all tokens to primary",
-        "step_6": "SolarPunk monitors everything automatically each cycle",
+    # Summary
+    total_chains = len(config.get("wallets", {}))
+    state["summary"] = {
+        "owner": config.get("owner", "unknown"),
+        "total_wallets": total_chains,
+        "chains": list(set(w.get("chain") for w in config.get("wallets", {}).values())),
     }
 
     _save(STATE_FILE, state)
-    print(f"[WALLET_BRIDGE] Cycle complete — state saved")
+    _save(BALANCE_FILE, state.get("wallets", {}))
+
+    # Log to PUBLIC_LEDGER
+    update_ledger({
+        "type": "wallet_scan",
+        "timestamp": state["timestamp"],
+        "wallets_checked": total_chains,
+        "owner": config.get("owner"),
+    })
+
+    print(f"[WALLET_BRIDGE] Multi-chain scan complete — {total_chains} wallets checked")
     return state
 
 

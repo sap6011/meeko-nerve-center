@@ -1,9 +1,42 @@
 {
-  "primary": null,
-  "primary_label": "MeekoTheRaccoon (desktop Phantom)",
+  "owner": "MeekoTheRaccoon",
+  "note": "PUBLIC addresses only. No private keys ever stored. SolarPunk monitors these.",
+  "wallets": {
+    "solana": {
+      "address": "Gg3MpT7osGaDvuN3CZzgGTTTSkgFP14kBgdN46pajGAJ",
+      "chain": "solana",
+      "label": "Phantom SOL",
+      "brave_rewards_target": true,
+      "rpc": "https://api.mainnet-beta.solana.com"
+    },
+    "ethereum": {
+      "address": "0x2bDe119A46d69A1C3CDc00D994687578DeE21654",
+      "chain": "ethereum",
+      "label": "Phantom ETH/Polygon/Base (same address all EVM)",
+      "also_on": ["polygon", "base", "arbitrum", "optimism"],
+      "rpc": "https://eth.llamarpc.com"
+    },
+    "bitcoin_taproot": {
+      "address": "bc1ppmp8e7n8zlxzuafllpdjpdaxmfrrvr46r4jylg6pf38433m4f0ssjeqpah",
+      "chain": "bitcoin",
+      "type": "taproot",
+      "label": "Phantom BTC Taproot"
+    },
+    "bitcoin_segwit": {
+      "address": "bc1qka74n62h3zk9mcv8v8xjtjtwehmnm24w3pfzzr",
+      "chain": "bitcoin",
+      "type": "segwit",
+      "label": "Phantom BTC SegWit"
+    },
+    "multichain_0x": {
+      "address": "0x809a5b852ac54f064606057a6e6736be63c305540f4d5aa3e1faf64fd3aaf0a1",
+      "chain": "unknown",
+      "label": "Extended address (Starknet or L2)",
+      "note": "64-byte address — likely Starknet or similar"
+    }
+  },
+  "primary": "Gg3MpT7osGaDvuN3CZzgGTTTSkgFP14kBgdN46pajGAJ",
   "secondary": null,
-  "secondary_label": "MeekoThaRaccoon (phone Phantom)",
-  "setup": "Paste your Solana wallet addresses here. Open Phantom → copy address.",
-  "brave_rewards": "Connect at brave://rewards → Connect account → Phantom",
-  "note": "SolarPunk reads this to monitor your wallets. No private keys ever stored."
+  "secondary_label": "MeekoThaRaccoon (phone — consolidate into primary)",
+  "brave_rewards": "Connect at brave://rewards → Connect account → Phantom → uses SOL address"
 }

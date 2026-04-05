@@ -193,6 +193,11 @@
   </div>
 
   <div class="card">
+    <h3>WALLET (Multi-Chain)</h3>
+    <div id="walletStatus" style="font-size:0.8em;color:#888">Loading...</div>
+  </div>
+
+  <div class="card">
     <h3>BRAIN (Ollama)</h3>
     <div id="brainStatus" style="font-size:0.8em;color:#888">Checking...</div>
   </div>
@@ -525,10 +530,11 @@ async function syncNow() {
   log('Syncing...', 'ok');
   document.getElementById('headerSub').textContent = 'Syncing...';
 
-  const [lw, ch, bs] = await Promise.all([
+  const [lw, ch, bs, wb] = await Promise.all([
     fetchData('live_wire_report.json'),
     fetchData('chimera_evolution_report.json'),
     fetchData('brain_state.json'),
+    fetchData('wallet_balances.json'),
   ]);
 
   // Update dashboard
@@ -553,6 +559,28 @@ async function syncNow() {
   if (bs) {
     document.getElementById('brainStatus').textContent =
       `Health: ${bs.health_score || '?'}% | ${bs.ai_backend || 'unknown'}`;
+  }
+
+  // Wallet balances
+  if (wb) {
+    let html = '';
+    for (const [name, w] of Object.entries(wb)) {
+      const chain = w.chain || '?';
+      const addr = w.address || '';
+      const short = addr.length > 12 ? addr.slice(0,6) + '...' + addr.slice(-4) : addr;
+      let bal = '';
+      if (w.sol_balance !== undefined && w.sol_balance !== null) bal = `${w.sol_balance.toFixed(4)} SOL`;
+      else if (w.eth_balance !== undefined && w.eth_balance !== null) bal = `${w.eth_balance.toFixed(6)} ETH`;
+      else if (w.btc_balance !== undefined && w.btc_balance !== null) bal = `${w.btc_balance.toFixed(8)} BTC`;
+      else bal = 'N/A';
+      const tokens = (w.tokens || []).filter(t => t.balance > 0).map(t => `${t.balance} ${t.symbol}`).join(', ');
+      html += `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #1a1a1a">`;
+      html += `<span style="color:var(--green)">${chain.toUpperCase()}</span>`;
+      html += `<span style="color:#888">${bal}</span>`;
+      html += `</div>`;
+      if (tokens) html += `<div style="font-size:0.85em;color:#555;padding:2px 0">${tokens}</div>`;
+    }
+    document.getElementById('walletStatus').innerHTML = html || 'No wallet data yet';
   }
 
   // Wires

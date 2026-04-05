@@ -1,26 +1,73 @@
 {
-  "timestamp": "2026-04-05T23:02:54.386398+00:00",
-  "protocol": "wallet-bridge-v1",
+  "timestamp": "2026-04-05T23:11:55.419606+00:00",
+  "protocol": "wallet-bridge-v2",
   "status": "active",
-  "primary": {
-    "status": "not_configured",
-    "note": "Set primary address in data/wallet_config.json"
-  },
-  "secondary": {
-    "status": "not_configured"
+  "wallets": {
+    "solana": {
+      "address": "Gg3MpT7osGaDvuN3CZzgGTTTSkgFP14kBgdN46pajGAJ",
+      "chain": "solana",
+      "label": "Phantom SOL",
+      "sol_balance": 0.118849036,
+      "tokens": [
+        {
+          "mint": "EPeUFDgHRxs9xxEPVaL6kfGQvCon7jmAWKVUHuux1Tpz",
+          "balance": 0.0,
+          "decimals": 8,
+          "symbol": "BAT"
+        }
+      ],
+      "alerts": [],
+      "checked_at": "2026-04-05T23:11:55.887844+00:00"
+    },
+    "ethereum": {
+      "address": "0x2bDe119A46d69A1C3CDc00D994687578DeE21654",
+      "chain": "ethereum",
+      "label": "Phantom ETH/Polygon/Base (same address all EVM)",
+      "eth_balance": 0.0,
+      "polygon_note": "Same address on polygon \u2014 check via polygon explorer",
+      "base_note": "Same address on base \u2014 check via base explorer",
+      "arbitrum_note": "Same address on arbitrum \u2014 check via arbitrum explorer",
+      "optimism_note": "Same address on optimism \u2014 check via optimism explorer",
+      "checked_at": "2026-04-05T23:12:06.196803+00:00"
+    },
+    "bitcoin_taproot": {
+      "address": "bc1ppmp8e7n8zlxzuafllpdjpdaxmfrrvr46r4jylg6pf38433m4f0ssjeqpah",
+      "chain": "bitcoin",
+      "label": "Phantom BTC Taproot",
+      "btc_balance": 0.0,
+      "type": "taproot",
+      "checked_at": "2026-04-05T23:12:06.465903+00:00"
+    },
+    "bitcoin_segwit": {
+      "address": "bc1qka74n62h3zk9mcv8v8xjtjtwehmnm24w3pfzzr",
+      "chain": "bitcoin",
+      "label": "Phantom BTC SegWit",
+      "btc_balance": 0.0,
+      "type": "segwit",
+      "checked_at": "2026-04-05T23:12:06.682786+00:00"
+    },
+    "multichain_0x": {
+      "address": "0x809a5b852ac54f064606057a6e6736be63c305540f4d5aa3e1faf64fd3aaf0a1",
+      "chain": "unknown",
+      "label": "Extended address (Starknet or L2)",
+      "note": "Chain not auto-checked \u2014 manual verification",
+      "checked_at": "2026-04-05T23:12:06.682786+00:00"
+    }
   },
   "brave_rewards": {
     "brave_detected": true,
     "brave_running": false,
     "cycles": 47,
-    "note": "Connect Brave Rewards to Phantom: brave://rewards \u2192 Connect \u2192 Phantom"
+    "note": "Connect Brave Rewards to Phantom: brave://rewards -> Connect -> Phantom"
   },
-  "setup_guide": {
-    "step_1": "Open Phantom on desktop \u2192 copy your Solana address",
-    "step_2": "Put it in data/wallet_config.json as 'primary'",
-    "step_3": "Open Brave \u2192 brave://rewards \u2192 Connect account \u2192 Phantom",
-    "step_4": "BAT earnings now flow to your Phantom wallet on Solana",
-    "step_5": "Import phone wallet seed into desktop Phantom \u2192 send all tokens to primary",
-    "step_6": "SolarPunk monitors everything automatically each cycle"
+  "summary": {
+    "owner": "MeekoTheRaccoon",
+    "total_wallets": 5,
+    "chains": [
+      "ethereum",
+      "bitcoin",
+      "unknown",
+      "solana"
+    ]
   }
 }
