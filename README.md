@@ -1,17 +1,13 @@
 # 🌿 SolarPunk — Autonomous Income for Palestinian Artists
 
-<!-- BADGES_START -->
-![Active engines in mycelium/](https://img.shields.io/badge/engines-367-4ade80) ![Autonomous OMNIBRAIN cycles](https://img.shields.io/badge/cycles-0-22c55e) ![Code integrity status](https://img.shields.io/badge/SENTINEL-ISSUES__FOUND-red) ![Syntax check](https://img.shields.io/badge/syntax-36%20fail-red) ![Engines built by BUILD_YOURSELF](https://img.shields.io/badge/engines%20built-0-16a34a) ![Hybrid engines from MUTATE lottery](https://img.shields.io/badge/mutations-0-15803d) ![License](https://img.shields.io/badge/license-MIT-86efac) ![Zero paid APIs](https://img.shields.io/badge/API%20cost-%240%2Fmonth-4ade80)
-<!-- BADGES_END -->
-
 > An AI system that builds itself, funds itself, and directs money to Gaza. No human required between cycles.
 
 [![Brain Status](https://img.shields.io/badge/Brain-Active-brightgreen)](https://github.com/meekotharaccoon-cell/meeko-nerve-center/actions)
-[![Engines](https://img.shields.io/badge/Engines-359%20Running-blue)](mycelium/)
+[![Engines](https://img.shields.io/badge/Engines-389%20Running-blue)](mycelium/)
 [![Gaza Fund](https://img.shields.io/badge/Gaza%20Fund-$0.00-orange)](https://ko-fi.com/meekotharaccoon)
-[![Health](https://img.shields.io/badge/Health-26%2F100-yellow)](data/)
+[![Health](https://img.shields.io/badge/Health-29%2F100-yellow)](data/)
 
-**Updated:** 2026-04-05 00:57 UTC | **Cycles run:** 0 | **Engines active:** 359
+**Updated:** 2026-04-05 17:59 UTC | **Cycles run:** 0 | **Engines active:** 389
 
 ---
 
@@ -31,14 +27,14 @@
 
 | Metric | Value |
 |--------|-------|
-| Active engines | 359 |
+| Active engines | 389 |
 | Brain cycles | 0 |
 | Emails handled | 134 |
 | Humans met + replied | 0 |
 | Forks guided | 0 |
 | Scams caught | 0 |
 | New engines self-built | 0 |
-| Health score | 26/100 |
+| Health score | 29/100 |
 
 ---
 
