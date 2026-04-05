@@ -372,7 +372,6 @@ Auto-inserts rotating tags into new content
 Generated: {datetime.now().isoformat()}
 """
 
-import random
 
 # Active tags (auto-generated from amazon_tags.json)
 ACTIVE_TAGS = {active_tags}

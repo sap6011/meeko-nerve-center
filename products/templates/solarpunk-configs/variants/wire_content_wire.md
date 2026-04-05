@@ -2,7 +2,7 @@
 
 *Variant of: wire_pattern.md*
 *Domain: content_wire*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Wire Specification
 - Purpose: Connect writing to publishing to amplification

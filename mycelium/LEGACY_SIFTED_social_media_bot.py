@@ -237,7 +237,6 @@ class SocialMediaAutomation:
     
     def save_calendar(self, calendar: Dict, filename: str = None):
         """Save content calendar to file"""
-        import os
         
         if filename is None:
             filename = f"social_calendar_{datetime.now().strftime('%Y%m%d')}.json"

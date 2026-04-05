@@ -3,7 +3,7 @@
 
 ---
 
-**Price:** $1.00 · **A SolarPunk Guide** · 15% goes to Gaza via PCRF (EIN 93-1057665)
+**Price:** $1.00 · **A SolarPunk Guide** · 99% goes to Gaza via PCRF (EIN 93-1057665)
 
 ---
 
@@ -14,109 +14,109 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 
 ## System Topology
 
-- **Total engines**: 244
-- **Wire connections**: 442
-- **Zero-secret chains**: 115 (work without any API keys)
-- **Orphan outputs**: 2 (data written but never read)
-- **Hungry inputs**: 17 (data needed but not yet produced)
+- **Total engines**: 351
+- **Wire connections**: 5180
+- **Zero-secret chains**: 3564 (work without any API keys)
+- **Orphan outputs**: 5 (data written but never read)
+- **Hungry inputs**: 61 (data needed but not yet produced)
 
 ## Engine Categories
 
-### Zero-Secret Engines (170 total)
+### Zero-Secret Engines (268 total)
 These engines run without any API keys or credentials:
 
 - **AFFILIATE_MAXIMIZER** -- reads: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json, writes: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json
-- **AGENT_GUMROAD_BUILDER** -- reads: nothing, writes: nothing
-- **AGENT_LINK_VERIFIER** -- reads: nothing, writes: nothing
-- **ARCHITECT** -- reads: architect_state.json, architect_plan.json, writes: architect_state.json, architect_plan.json
+- **AGENT_GUMROAD_BUILDER** -- reads: product_registry.json, agent_gumroad_builder_state.json, writes: product_registry.json, agent_gumroad_builder_state.json
+- **AGENT_LINK_VERIFIER** -- reads: live_wire_report.json, agent_link_verifier_state.json, writes: live_wire_report.json, agent_link_verifier_state.json
+- **AMPLIFY_ENGINE** -- reads: amplification_posts.json, amplify_cooldown.json, resource_kits.json, crisis_signals.json, survival_telegrams.json, amplification_queue.json, writes: nothing
+- **APOPTOSIS** -- reads: apoptosis_report.json, pheromone_map.json, pathway_strength.json, writes: apoptosis_report.json
+- **ARCHITECT** -- reads: architect_state.json, architect_plan.json, omnibus_last.json, email_exchange_state.json, brain_state.json, flywheel_summary.json, self_builder_state.json, business_factory_state.json, kofi_tracker_state.json, writes: architect_state.json, architect_plan.json
 - **ART_CATALOG** -- reads: art_catalog.json, writes: art_catalog.json
 - **AUTONOMOUS_TESTER** -- reads: self_builder_queue.json, writes: nothing
-- **AUTONOMY_PROOF** -- reads: proof_state.json, writes: proof_state.json
-- **AUTO_ARCHITECT** -- reads: nothing, writes: nothing
-- **AUTO_DOCS** -- reads: nothing, writes: nothing
-- **AUTO_HEALER** -- reads: nothing, writes: nothing
-- **AUTO_RUNNER** -- reads: nothing, writes: nothing
-- **BIG_BRAIN_ORACLE** -- reads: revenue_inbox.json, brain_state.json, brand_legal_state.json, gumroad_engine_state.json, oracle_state.json, oracle_insights.json, omnibrain_seed.json, writes: oracle_insights.json, revenue_inbox.json, omnibrain_seed.json, oracle_state.json
+- **AUTONOMY_PROOF** -- reads: proof_state.json, omnibus_last.json, brain_state.json, revenue_inbox.json, payout_ledger.json, capability_map.json, knowledge_weaver_state.json, outreach_state.json, atomizer_state.json, writes: proof_state.json
+- **AUTO_ARCHITECT** -- reads: synergy_mutations.txt, writes: nothing
+- **AUTO_DOCS** -- reads: synergy_mutations.txt, writes: nothing
+- **AUTO_EXECUTOR** -- reads: auto_executor_state.json, task_queue.json, auto_executor_log.json, writes: auto_executor_state.json, auto_executor_log.json
+- **AUTO_GENESIS** -- reads: live_wire_report.json, zero_secret_army_report.json, chimera_evolution_report.json, auto_genesis_state.json, auto_genesis_log.json, writes: auto_genesis_state.json, auto_genesis_log.json
+- **AUTO_HEALER** -- reads: self_builder_queue.json, writes: nothing
+- **AUTO_RUNNER** -- reads: brain_state.json, auto_runner_state.json, writes: brain_state.json, auto_runner_state.json
+- **BIOLUMINESCENCE** -- reads: bioluminescence.json, silence_alerts.json, crisis_signals.json, crisis_monitor_history.json, survival_telegrams.json, social_queue.json, writes: bioluminescence.json, silence_alerts.json
 - **BOTTLENECK_SCANNER** -- reads: gumroad_listings.json, revenue_inbox.json, bottleneck_report.json, writes: gumroad_listings.json, bottleneck_report.json
 - **BRAND_LEGAL** -- reads: brand_legal_state.json, writes: brand_legal_state.json
 - **BRAVE_BRIDGE** -- reads: brave_bridge_state.json, desktop_blueprints.json, social_queue.json, writes: social_queue.json, brave_bridge_state.json, desktop_blueprints.json
-- **BRAVE_BROWSER_ENGINE** -- reads: gumroad_listings.json, brave_browser_state.json, brave_connection.json, writes: gumroad_listings.json, brave_connection.json
-- **BRIDGE_BUILDER** -- reads: fund_scout_results.json, grants_found.json, sentinel_report.json, live_wire_report.json, knowledge_graph.json, brain_state.json, revenue_inbox.json, quick_revenue.json, bridge_report.json, mutation_vault.json, product_registry.json, newsletter_archive.json, river_watch.json, desktop_blueprints.json, social_queue.json, desktop_daemon_state.json, writes: bridge_report.json, fund_scout_results.json, sentinel_report.json, live_wire_report.json, brain_state.json, knowledge_graph.json, mutation_vault.json, product_registry.json, social_queue.json, desktop_daemon_state.json
-- **CAPACITY_BOOSTER** -- reads: nothing, writes: nothing
-- **CHAIN_ORCHESTRATOR** -- reads: chain_synthesis.json, chain_orchestrator_state.json, writes: chain_synthesis.json, chain_orchestrator_state.json
-- **CHAOS_TEST** -- reads: nothing, writes: nothing
-- **CLAUDE_BRIDGE** -- reads: claude_bridge_state.json, claude_tasks_queue.json, claude_task_results.json, writes: claude_bridge_state.json, claude_tasks_queue.json, claude_task_results.json
-- **CODE_COLLATER** -- reads: nothing, writes: nothing
-- **COMMAND_CENTER** -- reads: nothing, writes: nothing
-- **CONTENT_HARVESTER** -- reads: content_harvest.json, writes: content_harvest.json
-- **CONTRIBUTOR_REGISTRY** -- reads: contributor_registry.json, payout_queue.json, writes: contributor_registry.json, payout_queue.json
-- **CORPORATE_MIRROR** -- reads: nothing, writes: nothing
-- **CROSS_POLLINATOR** -- reads: nothing, writes: nothing
-- **CYCLE_MEMORY** -- reads: cycle_ledger.json, cycle_delta.json, writes: cycle_ledger.json, cycle_delta.json
-- **DEEP_RESEARCHER** -- reads: self_builder_queue.json, writes: nothing
-- **DESKTOP_BLUEPRINT_SCANNER** -- reads: desktop_blueprints_state.json, desktop_blueprints.json, writes: desktop_blueprints_state.json, desktop_blueprints.json
-- ... and 140 more
+- **BRAVE_BROWSER_ENGINE** -- reads: gumroad_listings.json, brave_browser_state.json, brave_connection.json, writes: gumroad_listings.json, brave_connection.json, brave_browser_state.json
+- **BRIDGE_BUILDER** -- reads: fund_scout_results.json, grants_found.json, sentinel_report.json, live_wire_report.json, knowledge_graph.json, brain_state.json, revenue_inbox.json, quick_revenue.json, bridge_report.json, mutation_vault.json, product_registry.json, newsletter_archive.json, river_watch.json, desktop_blueprints.json, social_queue.json, desktop_daemon_state.json, chimera_evolution_report.json, nanobot_heal_report.json, mutation_leaderboard.json, polymarket_scan.json, flywheel_summary.json, sentinel_scan.json, _stress_backup_river_watch.json, art_catalog.json, hemisphere_state.json, relay_baton.json, self_wiring_report.json, writes: bridge_report.json, fund_scout_results.json, sentinel_report.json, live_wire_report.json, brain_state.json, knowledge_graph.json, mutation_vault.json, product_registry.json, social_queue.json, desktop_daemon_state.json, chimera_evolution_report.json, river_watch.json, newsletter_archive.json, desktop_blueprints.json, sentinel_scan.json, _stress_backup_river_watch.json
+- **BROADCAST_PROTOCOL** -- reads: social_queue.json, newsletter_archive.json, github_discussion_draft.json, rss_publisher_state.json, devto_draft.json, broadcast_state.json, research_brief.json, writes: social_queue.json, newsletter_archive.json, rss_publisher_state.json, github_discussion_draft.json, devto_draft.json, broadcast_state.json, research_brief.json
+- **BUNDLE_FORGE** -- reads: product_registry.json, writes: product_registry.json
+- **CAPACITY_BOOSTER** -- reads: live_wire_report.json, capacity_booster_state.json, writes: live_wire_report.json, capacity_booster_state.json
+- **CATALOG_GENERATOR** -- reads: product_registry.json, catalog_generator_state.json, writes: nothing
+- **CHAIN_ORCHESTRATOR** -- reads: chain_synthesis.json, chain_orchestrator_state.json, economy_chain_ledger.json, signal_chain_state.json, knowledge_chain_synthesis.json, growth_chain_state.json, writes: chain_synthesis.json, chain_orchestrator_state.json
+- **CHAOS_TEST** -- reads: master_config.json, writes: nothing
+- **CHEMOTAXIS** -- reads: chemotaxis_state.json, crisis_signals.json, osmosis_routing.json, bioluminescence.json, spore_dispersal.json, amplification_posts.json, ngo_handshakes.json, immune_memory.json, writes: chemotaxis_state.json
+- **CHIMERA_EVOLUTION_ENGINE** -- reads: live_wire_report.json, nanobot_heal_report.json, bridge_report.json, mutation_vault.json, chimera_evolution_report.json, writes: mutation_vault.json, chimera_evolution_report.json
+- **CIRCADIAN_RHYTHM** -- reads: circadian_state.json, writes: circadian_state.json
+- ... and 238 more
 
-### Engines Needing API Keys (74 total)
+### Engines Needing API Keys (83 total)
 These engines unlock when you add credentials:
 
 - **AGENT_TWEET_WRITER** -- needs: ANTHROPIC_API_KEY
-- **AI_CLIENT** -- needs: GROQ_API_KEY, HF_TOKEN, ANTHROPIC_API_KEY
-- **AI_WATCHER** -- needs: GMAIL_APP_PASSWORD, HF_TOKEN, GITHUB_TOKEN, ANTHROPIC_API_KEY
+- **AI_CLIENT** -- needs: GROQ_API_KEY, ANTHROPIC_API_KEY, HF_TOKEN
+- **AI_WATCHER** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY, HF_TOKEN, GITHUB_TOKEN
 - **ANALYTICS_ENGINE** -- needs: GITHUB_TOKEN
 - **ART_GENERATOR** -- needs: HF_TOKEN, GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
 - **AUTONOMOUS_PUBLISHER** -- needs: BLUESKY_APP_PASSWORD, DEVTO_API_KEY, MASTODON_ACCESS_TOKEN, X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET, GITHUB_TOKEN
+- **BIG_BRAIN_ORACLE** -- needs: ANTHROPIC_API_KEY
 - **BLUESKY_ENGINE** -- needs: BLUESKY_APP_PASSWORD
 - **BRIEFING_ENGINE** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
 - **BUSINESS_FACTORY** -- needs: GMAIL_APP_PASSWORD
 - **CALENDAR_BRAIN** -- needs: GMAIL_APP_PASSWORD
-- **CAPABILITY_SCANNER** -- needs: GMAIL_APP_PASSWORD, GUMROAD_ACCESS_TOKEN, X_API_KEY
+- **CAPABILITY_SCANNER** -- needs: ANTHROPIC_API_KEY, GMAIL_APP_PASSWORD, GUMROAD_ACCESS_TOKEN, X_API_KEY
 - **CLAUDE_ENGINE** -- needs: ANTHROPIC_API_KEY
-- **CONNECTION_FORGE** -- needs: GMAIL_APP_PASSWORD, GUMROAD_ACCESS_TOKEN, HF_TOKEN, X_API_KEY, ANTHROPIC_API_KEY
+- **CONNECTION_FORGE** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY, GUMROAD_ACCESS_TOKEN, HF_TOKEN, X_API_KEY
+- **CRISIS_MONITOR** -- needs: GMAIL_APP_PASSWORD
 - **CRYPTO_WATCHER** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
+- **DARK_WATCH** -- needs: GMAIL_APP_PASSWORD
 - **DESKTOP_AGENT** -- needs: GITHUB_TOKEN
+- **DESKTOP_DAEMON** -- needs: ANTHROPIC_API_KEY
 - **DEV_TO_PUBLISHER** -- needs: DEVTO_API_KEY
-- **DISPATCH_HANDLER** -- needs: GMAIL_APP_PASSWORD
-- **EMAIL_AGENT_EXCHANGE** -- needs: GMAIL_APP_PASSWORD
-- **EMAIL_BRAIN** -- needs: GMAIL_APP_PASSWORD
-- **EMAIL_OUTREACH** -- needs: GMAIL_APP_PASSWORD
-- ... and 54 more
+- ... and 63 more
 
 ## Live Wire Connections (Sample)
 
 These are real data flows between engines:
 
-- CLAUDE_BRIDGE -> DESKTOP_DAEMON via `claude_task_results.json` (zero-secrets)
-- ETSY_SEO_ENGINE -> STORE_BUILDER via `etsy_seo_output.json`
-- BRIDGE_BUILDER -> MISSION_CONTROL via `knowledge_graph.json` (zero-secrets)
-- BRIDGE_BUILDER -> PRODUCT_FACTORY via `knowledge_graph.json` (zero-secrets)
-- BRIDGE_BUILDER -> SYNAPSE_BUILDER via `knowledge_graph.json` (zero-secrets)
-- BRIDGE_BUILDER -> SYNERGY_SCOUT via `knowledge_graph.json` (zero-secrets)
-- BRIDGE_BUILDER -> VALUE_GENERATOR via `knowledge_graph.json` (zero-secrets)
-- BRAVE_BRIDGE -> BRIDGE_BUILDER via `desktop_blueprints.json` (zero-secrets)
-- BRAVE_BRIDGE -> DESKTOP_BLUEPRINT_SCANNER via `desktop_blueprints.json` (zero-secrets)
-- BRAVE_BRIDGE -> DESKTOP_ORCHESTRATOR via `desktop_blueprints.json` (zero-secrets)
-- DESKTOP_BLUEPRINT_SCANNER -> BRAVE_BRIDGE via `desktop_blueprints.json` (zero-secrets)
-- DESKTOP_BLUEPRINT_SCANNER -> BRIDGE_BUILDER via `desktop_blueprints.json` (zero-secrets)
-- DESKTOP_BLUEPRINT_SCANNER -> DESKTOP_ORCHESTRATOR via `desktop_blueprints.json` (zero-secrets)
-- DESKTOP_ORCHESTRATOR -> BRAVE_BRIDGE via `desktop_blueprints.json` (zero-secrets)
-- DESKTOP_ORCHESTRATOR -> BRIDGE_BUILDER via `desktop_blueprints.json` (zero-secrets)
-- DESKTOP_ORCHESTRATOR -> DESKTOP_BLUEPRINT_SCANNER via `desktop_blueprints.json` (zero-secrets)
-- DISPATCH_HANDLER -> FIRST_SALE_NOTIFIER via `kofi_state.json`
-- DISPATCH_HANDLER -> KOFI_ENGINE via `kofi_state.json`
-- KOFI_ENGINE -> DISPATCH_HANDLER via `kofi_state.json`
-- KOFI_ENGINE -> FIRST_SALE_NOTIFIER via `kofi_state.json`
-- BRIDGE_BUILDER -> BIG_BRAIN_ORACLE via `brain_state.json` (zero-secrets)
-- BRIDGE_BUILDER -> DISPATCH_HANDLER via `brain_state.json`
-- BRIDGE_BUILDER -> FIRST_SALE_NOTIFIER via `brain_state.json` (zero-secrets)
-- BRIDGE_BUILDER -> HEALTH_BOOSTER via `brain_state.json` (zero-secrets)
-- BRIDGE_BUILDER -> REVENUE_LOOP via `brain_state.json`
-- ... and 417 more connections
+- EMAIL_AGENT_EXCHANGE -> ARCHITECT via `email_exchange_state.json`
+- EMAIL_AGENT_EXCHANGE -> FIRST_CONTACT via `email_exchange_state.json`
+- EMAIL_AGENT_EXCHANGE -> KOFI_PAYMENT_TRACKER via `email_exchange_state.json`
+- EMAIL_AGENT_EXCHANGE -> NIGHTLY_DIGEST via `email_exchange_state.json`
+- EMAIL_AGENT_EXCHANGE -> OMNIBUS via `email_exchange_state.json`
+- KOFI_PAYMENT_TRACKER -> ARCHITECT via `email_exchange_state.json` (zero-secrets)
+- KOFI_PAYMENT_TRACKER -> EMAIL_AGENT_EXCHANGE via `email_exchange_state.json`
+- KOFI_PAYMENT_TRACKER -> FIRST_CONTACT via `email_exchange_state.json`
+- KOFI_PAYMENT_TRACKER -> NIGHTLY_DIGEST via `email_exchange_state.json`
+- KOFI_PAYMENT_TRACKER -> OMNIBUS via `email_exchange_state.json` (zero-secrets)
+- CRISIS_MONITOR -> CHEMOTAXIS via `ngo_handshakes.json`
+- CRISIS_MONITOR -> EMAIL_OUTREACH via `ngo_handshakes.json`
+- CRISIS_MONITOR -> HOMEOSTASIS via `ngo_handshakes.json`
+- CRISIS_MONITOR -> IMMUNE_MEMORY via `ngo_handshakes.json`
+- CRISIS_MONITOR -> WEEKEND_PULSE via `ngo_handshakes.json`
+- EMAIL_OUTREACH -> CHEMOTAXIS via `ngo_handshakes.json`
+- EMAIL_OUTREACH -> CRISIS_MONITOR via `ngo_handshakes.json`
+- EMAIL_OUTREACH -> HOMEOSTASIS via `ngo_handshakes.json`
+- EMAIL_OUTREACH -> IMMUNE_MEMORY via `ngo_handshakes.json`
+- EMAIL_OUTREACH -> WEEKEND_PULSE via `ngo_handshakes.json`
+- CRISIS_MONITOR -> AMPLIFY_ENGINE via `crisis_signals.json`
+- CRISIS_MONITOR -> BIOLUMINESCENCE via `crisis_signals.json`
+- CRISIS_MONITOR -> CHEMOTAXIS via `crisis_signals.json`
+- CRISIS_MONITOR -> DARK_WATCH via `crisis_signals.json`
+- CRISIS_MONITOR -> GITHUB_DISCUSSIONS_PUBLISHER via `crisis_signals.json`
+- ... and 5155 more connections
 
 ## Knowledge Graph
 
-- **282 nodes** (engines, data files, concepts)
-- **442 edges** (connections between them)
+- **530 nodes** (engines, data files, concepts)
+- **500 edges** (connections between them)
 
 ## What This Means
 
@@ -125,15 +125,15 @@ This system demonstrates that autonomous software can:
 2. Feed its own needs (BRIDGE_BUILDER creates data for hungry inputs)
 3. Monitor its own health (VITAL_SIGN_API publishes metrics)
 4. Generate its own products (you're reading one right now)
-5. Route revenue to causes (15% hard-coded to PCRF)
+5. Route revenue to causes (99% hard-coded to PCRF)
 
 Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-03-27 18:49 UTC
+- **Generated**: 2026-04-05 00:06 UTC
 - **Data source**: data/live_wire_report.json
-- **Engines scanned**: 244
+- **Engines scanned**: 351
 
 ---
 *Built autonomously. Funded for Gaza. Running forever.*

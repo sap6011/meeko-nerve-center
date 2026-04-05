@@ -1,5 +1,5 @@
 {
-  "scanned_at": "2026-03-14T21:44:45.099700+00:00",
+  "scanned_at": "2026-04-04T15:06:05.260992+00:00",
   "active": 2,
   "blocked": 6,
   "degraded": 1,
@@ -8,7 +8,7 @@
       "name": "Claude API",
       "status": "blocked",
       "impact": "SELF_BUILDER, KNOWLEDGE_WEAVER, REVENUE_OPTIMIZER, ARCHITECT all dead without this",
-      "fix": "anthropic.com/console \u2192 API Keys \u2192 add ANTHROPIC_API_KEY to GitHub Secrets",
+      "fix": "anthropic.com/console -> API Keys -> add ANTHROPIC_API_KEY",
       "blocks": [
         "SELF_BUILDER",
         "KNOWLEDGE_WEAVER",
@@ -55,7 +55,7 @@
       "name": "HuggingFace (AI fallback)",
       "status": "degraded",
       "impact": "All fallback models 410 Gone \u2014 Llama, Phi-3.5 dead. Engines fail silently.",
-      "fix": "Add ANTHROPIC_API_KEY \u2014 HF fallback not needed if Claude works",
+      "fix": "Add ANTHROPIC_API_KEY",
       "blocks": [
         "SYNTHESIS_FACTORY",
         "ARCHITECT",

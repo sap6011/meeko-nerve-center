@@ -2,7 +2,7 @@
 
 *Variant of: system_prompt_assistant.md*
 *Domain: technical_writer*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: senior technical writer

@@ -2,7 +2,7 @@
 
 *Variant of: data_pipeline_etl.md*
 *Domain: email_parser*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Pipeline
 - Source: N/A (local .eml files)

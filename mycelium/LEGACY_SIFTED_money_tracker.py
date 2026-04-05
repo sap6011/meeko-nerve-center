@@ -344,7 +344,6 @@ class MoneyTracker:
     
     def save_dashboard(self, data: Dict):
         """Save dashboard HTML file"""
-        import os
         
         html = self.create_dashboard_html(data)
         output_dir = os.path.dirname(os.path.abspath(__file__))

@@ -2,7 +2,7 @@
 
 *Variant of: web_scraper_requests.md*
 *Domain: academic_papers*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Target
 - URL: `https://api.semanticscholar.org/graph/v1/paper/search`

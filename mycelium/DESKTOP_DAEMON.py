@@ -394,7 +394,6 @@ def queue_task(prompt, priority=5, heavy=False, action=None,
     Add a task to the daemon queue from any SolarPunk engine.
 
     Examples:
-        from DESKTOP_DAEMON import queue_task
 
         # Ask Claude something
         queue_task("Draft a grant email to Mozilla", priority=1, source="GRANT_HUNTER")

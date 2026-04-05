@@ -1,17 +1,9 @@
 {
-  "timestamp": "2026-03-28T13:40:08.933456+00:00",
+  "timestamp": "2026-04-04T15:06:35.998069+00:00",
   "version": "1.0",
   "pattern": "osmosis",
   "philosophy": "Help flows from high concentration to low. The gradient is suffering.",
-  "signal_counts": {
-    "palestine": 2,
-    "yemen": 4,
-    "syria": 1,
-    "sudan": 1,
-    "west bank": 1,
-    "congo": 3,
-    "ukraine": 1
-  },
+  "signal_counts": {},
   "attention_debts": [
     {
       "region": "gaza",
@@ -19,6 +11,26 @@
       "expected_signals": 8,
       "actual_signals": 0,
       "deficit": 8,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
+      "region": "palestine",
+      "conflict_type": "occupation",
+      "expected_signals": 5,
+      "actual_signals": 0,
+      "deficit": 5,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
+      "region": "sudan",
+      "conflict_type": "civil war",
+      "expected_signals": 6,
+      "actual_signals": 0,
+      "deficit": 6,
       "debt_ratio": 1.0,
       "attention_debt": 100,
       "verdict": "CRITICAL VOID"
@@ -34,11 +46,31 @@
       "verdict": "CRITICAL VOID"
     },
     {
+      "region": "congo",
+      "conflict_type": "armed conflict",
+      "expected_signals": 3,
+      "actual_signals": 0,
+      "deficit": 3,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
       "region": "drc",
       "conflict_type": "armed conflict",
       "expected_signals": 3,
       "actual_signals": 0,
       "deficit": 3,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
+      "region": "yemen",
+      "conflict_type": "civil war/famine",
+      "expected_signals": 4,
+      "actual_signals": 0,
+      "deficit": 4,
       "debt_ratio": 1.0,
       "attention_debt": 100,
       "verdict": "CRITICAL VOID"
@@ -94,6 +126,26 @@
       "verdict": "CRITICAL VOID"
     },
     {
+      "region": "syria",
+      "conflict_type": "civil war",
+      "expected_signals": 3,
+      "actual_signals": 0,
+      "deficit": 3,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
+      "region": "ukraine",
+      "conflict_type": "invasion",
+      "expected_signals": 5,
+      "actual_signals": 0,
+      "deficit": 5,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
       "region": "haiti",
       "conflict_type": "gang violence/collapse",
       "expected_signals": 2,
@@ -134,54 +186,14 @@
       "verdict": "CRITICAL VOID"
     },
     {
-      "region": "sudan",
-      "conflict_type": "civil war",
-      "expected_signals": 6,
-      "actual_signals": 1,
-      "deficit": 5,
-      "debt_ratio": 0.83,
-      "attention_debt": 83,
-      "verdict": "CRITICAL VOID"
-    },
-    {
-      "region": "ukraine",
-      "conflict_type": "invasion",
-      "expected_signals": 5,
-      "actual_signals": 1,
-      "deficit": 4,
-      "debt_ratio": 0.8,
-      "attention_debt": 80,
-      "verdict": "CRITICAL VOID"
-    },
-    {
       "region": "west bank",
       "conflict_type": "settler violence/occupation",
       "expected_signals": 4,
-      "actual_signals": 1,
-      "deficit": 3,
-      "debt_ratio": 0.75,
-      "attention_debt": 75,
-      "verdict": "SIGNIFICANT VOID"
-    },
-    {
-      "region": "syria",
-      "conflict_type": "civil war",
-      "expected_signals": 3,
-      "actual_signals": 1,
-      "deficit": 2,
-      "debt_ratio": 0.67,
-      "attention_debt": 67,
-      "verdict": "SIGNIFICANT VOID"
-    },
-    {
-      "region": "palestine",
-      "conflict_type": "occupation",
-      "expected_signals": 5,
-      "actual_signals": 2,
-      "deficit": 3,
-      "debt_ratio": 0.6,
-      "attention_debt": 60,
-      "verdict": "SIGNIFICANT VOID"
+      "actual_signals": 0,
+      "deficit": 4,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
     }
   ],
   "information_voids": [
@@ -196,6 +208,26 @@
       "verdict": "CRITICAL VOID"
     },
     {
+      "region": "palestine",
+      "conflict_type": "occupation",
+      "expected_signals": 5,
+      "actual_signals": 0,
+      "deficit": 5,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
+      "region": "sudan",
+      "conflict_type": "civil war",
+      "expected_signals": 6,
+      "actual_signals": 0,
+      "deficit": 6,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
       "region": "darfur",
       "conflict_type": "genocide",
       "expected_signals": 4,
@@ -206,11 +238,31 @@
       "verdict": "CRITICAL VOID"
     },
     {
+      "region": "congo",
+      "conflict_type": "armed conflict",
+      "expected_signals": 3,
+      "actual_signals": 0,
+      "deficit": 3,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
       "region": "drc",
       "conflict_type": "armed conflict",
       "expected_signals": 3,
       "actual_signals": 0,
       "deficit": 3,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
+      "region": "yemen",
+      "conflict_type": "civil war/famine",
+      "expected_signals": 4,
+      "actual_signals": 0,
+      "deficit": 4,
       "debt_ratio": 1.0,
       "attention_debt": 100,
       "verdict": "CRITICAL VOID"
@@ -266,6 +318,26 @@
       "verdict": "CRITICAL VOID"
     },
     {
+      "region": "syria",
+      "conflict_type": "civil war",
+      "expected_signals": 3,
+      "actual_signals": 0,
+      "deficit": 3,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
+      "region": "ukraine",
+      "conflict_type": "invasion",
+      "expected_signals": 5,
+      "actual_signals": 0,
+      "deficit": 5,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
+    },
+    {
       "region": "haiti",
       "conflict_type": "gang violence/collapse",
       "expected_signals": 2,
@@ -306,54 +378,14 @@
       "verdict": "CRITICAL VOID"
     },
     {
-      "region": "sudan",
-      "conflict_type": "civil war",
-      "expected_signals": 6,
-      "actual_signals": 1,
-      "deficit": 5,
-      "debt_ratio": 0.83,
-      "attention_debt": 83,
-      "verdict": "CRITICAL VOID"
-    },
-    {
-      "region": "ukraine",
-      "conflict_type": "invasion",
-      "expected_signals": 5,
-      "actual_signals": 1,
-      "deficit": 4,
-      "debt_ratio": 0.8,
-      "attention_debt": 80,
-      "verdict": "CRITICAL VOID"
-    },
-    {
       "region": "west bank",
       "conflict_type": "settler violence/occupation",
       "expected_signals": 4,
-      "actual_signals": 1,
-      "deficit": 3,
-      "debt_ratio": 0.75,
-      "attention_debt": 75,
-      "verdict": "SIGNIFICANT VOID"
-    },
-    {
-      "region": "syria",
-      "conflict_type": "civil war",
-      "expected_signals": 3,
-      "actual_signals": 1,
-      "deficit": 2,
-      "debt_ratio": 0.67,
-      "attention_debt": 67,
-      "verdict": "SIGNIFICANT VOID"
-    },
-    {
-      "region": "palestine",
-      "conflict_type": "occupation",
-      "expected_signals": 5,
-      "actual_signals": 2,
-      "deficit": 3,
-      "debt_ratio": 0.6,
-      "attention_debt": 60,
-      "verdict": "SIGNIFICANT VOID"
+      "actual_signals": 0,
+      "deficit": 4,
+      "debt_ratio": 1.0,
+      "attention_debt": 100,
+      "verdict": "CRITICAL VOID"
     }
   ],
   "routing_directives": [
@@ -362,7 +394,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "bombardment/siege",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -385,11 +417,65 @@
       ]
     },
     {
+      "region": "palestine",
+      "severity": "CRITICAL VOID",
+      "attention_debt": 100,
+      "conflict_type": "occupation",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
+      "actions": [
+        {
+          "type": "AMPLIFY",
+          "message": "UNDER-COVERED CRISIS: Palestine (occupation). Only 0 signals detected vs 5 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
+          "priority": "HIGH"
+        },
+        {
+          "type": "SEARCH",
+          "note": "Actively search for more data about palestine",
+          "targets": [
+            "wikipedia",
+            "reddit",
+            "gdelt"
+          ]
+        },
+        {
+          "type": "RESOURCE_KIT",
+          "note": "Ensure survival kits are prepared for palestine-relevant crisis type"
+        }
+      ]
+    },
+    {
+      "region": "sudan",
+      "severity": "CRITICAL VOID",
+      "attention_debt": 100,
+      "conflict_type": "civil war",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
+      "actions": [
+        {
+          "type": "AMPLIFY",
+          "message": "UNDER-COVERED CRISIS: Sudan (civil war). Only 0 signals detected vs 6 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
+          "priority": "HIGH"
+        },
+        {
+          "type": "SEARCH",
+          "note": "Actively search for more data about sudan",
+          "targets": [
+            "wikipedia",
+            "reddit",
+            "gdelt"
+          ]
+        },
+        {
+          "type": "RESOURCE_KIT",
+          "note": "Ensure survival kits are prepared for sudan-relevant crisis type"
+        }
+      ]
+    },
+    {
       "region": "darfur",
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "genocide",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -412,11 +498,38 @@
       ]
     },
     {
+      "region": "congo",
+      "severity": "CRITICAL VOID",
+      "attention_debt": 100,
+      "conflict_type": "armed conflict",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
+      "actions": [
+        {
+          "type": "AMPLIFY",
+          "message": "UNDER-COVERED CRISIS: Congo (armed conflict). Only 0 signals detected vs 3 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
+          "priority": "HIGH"
+        },
+        {
+          "type": "SEARCH",
+          "note": "Actively search for more data about congo",
+          "targets": [
+            "wikipedia",
+            "reddit",
+            "gdelt"
+          ]
+        },
+        {
+          "type": "RESOURCE_KIT",
+          "note": "Ensure survival kits are prepared for congo-relevant crisis type"
+        }
+      ]
+    },
+    {
       "region": "drc",
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "armed conflict",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -439,11 +552,38 @@
       ]
     },
     {
+      "region": "yemen",
+      "severity": "CRITICAL VOID",
+      "attention_debt": 100,
+      "conflict_type": "civil war/famine",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
+      "actions": [
+        {
+          "type": "AMPLIFY",
+          "message": "UNDER-COVERED CRISIS: Yemen (civil war/famine). Only 0 signals detected vs 4 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
+          "priority": "HIGH"
+        },
+        {
+          "type": "SEARCH",
+          "note": "Actively search for more data about yemen",
+          "targets": [
+            "wikipedia",
+            "reddit",
+            "gdelt"
+          ]
+        },
+        {
+          "type": "RESOURCE_KIT",
+          "note": "Ensure survival kits are prepared for yemen-relevant crisis type"
+        }
+      ]
+    },
+    {
       "region": "myanmar",
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "military coup",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -470,7 +610,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "cultural genocide",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -497,7 +637,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "detention camps",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -524,7 +664,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "civil war",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -551,7 +691,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "civil conflict",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -574,11 +714,65 @@
       ]
     },
     {
+      "region": "syria",
+      "severity": "CRITICAL VOID",
+      "attention_debt": 100,
+      "conflict_type": "civil war",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
+      "actions": [
+        {
+          "type": "AMPLIFY",
+          "message": "UNDER-COVERED CRISIS: Syria (civil war). Only 0 signals detected vs 3 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
+          "priority": "HIGH"
+        },
+        {
+          "type": "SEARCH",
+          "note": "Actively search for more data about syria",
+          "targets": [
+            "wikipedia",
+            "reddit",
+            "gdelt"
+          ]
+        },
+        {
+          "type": "RESOURCE_KIT",
+          "note": "Ensure survival kits are prepared for syria-relevant crisis type"
+        }
+      ]
+    },
+    {
+      "region": "ukraine",
+      "severity": "CRITICAL VOID",
+      "attention_debt": 100,
+      "conflict_type": "invasion",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
+      "actions": [
+        {
+          "type": "AMPLIFY",
+          "message": "UNDER-COVERED CRISIS: Ukraine (invasion). Only 0 signals detected vs 5 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
+          "priority": "HIGH"
+        },
+        {
+          "type": "SEARCH",
+          "note": "Actively search for more data about ukraine",
+          "targets": [
+            "wikipedia",
+            "reddit",
+            "gdelt"
+          ]
+        },
+        {
+          "type": "RESOURCE_KIT",
+          "note": "Ensure survival kits are prepared for ukraine-relevant crisis type"
+        }
+      ]
+    },
+    {
       "region": "haiti",
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "gang violence/collapse",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -605,7 +799,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "al-Shabaab/famine",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -632,7 +826,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "genocide/displacement",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -659,7 +853,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "Taliban/women's rights",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -682,98 +876,29 @@
       ]
     },
     {
-      "region": "sudan",
-      "severity": "CRITICAL VOID",
-      "attention_debt": 83,
-      "conflict_type": "civil war",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
-      "actions": [
-        {
-          "type": "AMPLIFY",
-          "message": "UNDER-COVERED CRISIS: Sudan (civil war). Only 1 signals detected vs 6 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
-          "priority": "HIGH"
-        },
-        {
-          "type": "SEARCH",
-          "note": "Actively search for more data about sudan",
-          "targets": [
-            "wikipedia",
-            "reddit",
-            "gdelt"
-          ]
-        },
-        {
-          "type": "RESOURCE_KIT",
-          "note": "Ensure survival kits are prepared for sudan-relevant crisis type"
-        }
-      ]
-    },
-    {
-      "region": "ukraine",
-      "severity": "CRITICAL VOID",
-      "attention_debt": 80,
-      "conflict_type": "invasion",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
-      "actions": [
-        {
-          "type": "AMPLIFY",
-          "message": "UNDER-COVERED CRISIS: Ukraine (invasion). Only 1 signals detected vs 5 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
-          "priority": "HIGH"
-        },
-        {
-          "type": "SEARCH",
-          "note": "Actively search for more data about ukraine",
-          "targets": [
-            "wikipedia",
-            "reddit",
-            "gdelt"
-          ]
-        },
-        {
-          "type": "RESOURCE_KIT",
-          "note": "Ensure survival kits are prepared for ukraine-relevant crisis type"
-        }
-      ]
-    },
-    {
       "region": "west bank",
-      "severity": "SIGNIFICANT VOID",
-      "attention_debt": 75,
+      "severity": "CRITICAL VOID",
+      "attention_debt": 100,
       "conflict_type": "settler violence/occupation",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
+      "timestamp": "2026-04-04T15:06:35.998069+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
-          "message": "Under-covered: West Bank (settler violence/occupation). Signal deficit: 3 below baseline.",
-          "priority": "MEDIUM"
-        }
-      ]
-    },
-    {
-      "region": "syria",
-      "severity": "SIGNIFICANT VOID",
-      "attention_debt": 67,
-      "conflict_type": "civil war",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
-      "actions": [
+          "message": "UNDER-COVERED CRISIS: West Bank (settler violence/occupation). Only 0 signals detected vs 4 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
+          "priority": "HIGH"
+        },
         {
-          "type": "AMPLIFY",
-          "message": "Under-covered: Syria (civil war). Signal deficit: 2 below baseline.",
-          "priority": "MEDIUM"
-        }
-      ]
-    },
-    {
-      "region": "palestine",
-      "severity": "SIGNIFICANT VOID",
-      "attention_debt": 60,
-      "conflict_type": "occupation",
-      "timestamp": "2026-03-28T13:40:08.932457+00:00",
-      "actions": [
+          "type": "SEARCH",
+          "note": "Actively search for more data about west bank",
+          "targets": [
+            "wikipedia",
+            "reddit",
+            "gdelt"
+          ]
+        },
         {
-          "type": "AMPLIFY",
-          "message": "Under-covered: Palestine (occupation). Signal deficit: 3 below baseline.",
-          "priority": "MEDIUM"
+          "type": "RESOURCE_KIT",
+          "note": "Ensure survival kits are prepared for west bank-relevant crisis type"
         }
       ]
     }
@@ -781,34 +906,34 @@
   "coverage_equity": {
     "region_shares": {
       "gaza": 0.0,
-      "palestine": 15.4,
-      "sudan": 7.7,
+      "palestine": 0.0,
+      "sudan": 0.0,
       "darfur": 0.0,
-      "congo": 23.1,
+      "congo": 0.0,
       "drc": 0.0,
-      "yemen": 30.8,
+      "yemen": 0.0,
       "myanmar": 0.0,
       "uyghur": 0.0,
       "xinjiang": 0.0,
       "tigray": 0.0,
       "ethiopia": 0.0,
-      "syria": 7.7,
-      "ukraine": 7.7,
+      "syria": 0.0,
+      "ukraine": 0.0,
       "haiti": 0.0,
       "somalia": 0.0,
       "rohingya": 0.0,
       "afghanistan": 0.0,
-      "west bank": 7.7
+      "west bank": 0.0
     },
-    "gini_coefficient": 0.745,
-    "interpretation": "highly unequal",
-    "most_covered": "yemen",
+    "gini_coefficient": 0,
+    "interpretation": "relatively equal",
+    "most_covered": "gaza",
     "least_covered": "gaza"
   },
   "stats": {
     "regions_monitored": 19,
-    "voids_detected": 17,
-    "critical_voids": 14,
-    "directives_generated": 17
+    "voids_detected": 19,
+    "critical_voids": 19,
+    "directives_generated": 19
   }
 }

@@ -2,7 +2,7 @@
 
 *Variant of: api_client_rest.md*
 *Domain: rss_feed*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## API Details
 - Base URL: `https://example.com/feed.xml`

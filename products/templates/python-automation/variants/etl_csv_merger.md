@@ -2,7 +2,7 @@
 
 *Variant of: data_pipeline_etl.md*
 *Domain: csv_merger*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Pipeline
 - Source: N/A (local CSV files)

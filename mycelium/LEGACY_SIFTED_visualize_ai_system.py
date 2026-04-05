@@ -70,9 +70,6 @@ def visualize_graph(system_data):
     except ImportError:
         print("📦 Installing required packages...")
         subprocess.run(["pip", "install", "networkx", "matplotlib"])
-        import networkx as nx
-        import matplotlib.pyplot as plt
-        import matplotlib.patches as mpatches
 
     G = nx.DiGraph()
     

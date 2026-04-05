@@ -2,7 +2,7 @@
 
 *Variant of: wire_pattern.md*
 *Domain: feedback_wire*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Wire Specification
 - Purpose: Connect analytics to optimization to re-evaluation

@@ -2,7 +2,7 @@
 
 *Variant of: scheduled_data_fetch.md*
 *Domain: hourly_health*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Schedule
 - Cron: `'0 * * * *'`

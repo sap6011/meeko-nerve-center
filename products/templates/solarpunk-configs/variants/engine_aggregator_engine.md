@@ -2,7 +2,7 @@
 
 *Variant of: engine_template.md*
 *Domain: aggregator_engine*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Engine Specification
 - Purpose: Combine data from multiple engines into a summary

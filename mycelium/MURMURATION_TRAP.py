@@ -106,8 +106,6 @@ if __name__ == "__main__":
     # Decoy that creates an infinite redirect loop
     redirect_code = '''#!/usr/bin/env python3
 """INTERNAL: Service mesh router"""
-import json
-from pathlib import Path
 
 def get_admin_endpoint():
     config = json.loads(Path("data/admin_panel_config.json").read_text())

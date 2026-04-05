@@ -2,7 +2,7 @@
 
 *Variant of: engine_template.md*
 *Domain: monitor_engine*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Engine Specification
 - Purpose: Watch a resource and alert on changes

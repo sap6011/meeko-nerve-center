@@ -264,7 +264,6 @@ https://meekotharaccoon-cell.github.io/meeko-nerve-center/"""
         return subject, body
 
     try:
-        import anthropic
         client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
         prompt = f"""Write an outreach email from Meeko (meekotharaccoon@gmail.com) to {org['name']}.

@@ -2,7 +2,7 @@
 
 *Variant of: api_client_rest.md*
 *Domain: weather_api*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## API Details
 - Base URL: `https://api.openweathermap.org/data/2.5`
