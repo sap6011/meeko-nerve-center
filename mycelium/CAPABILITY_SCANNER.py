@@ -30,9 +30,9 @@ def scan():
     caps = {
         "anthropic_api": {
             "name": "Claude API",
-            "status": "active" if os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip() else "blocked",
+            "status": "active" if os.environ.get("os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()", "").strip() else "blocked",
             "impact": "SELF_BUILDER, KNOWLEDGE_WEAVER, REVENUE_OPTIMIZER, ARCHITECT all dead without this",
-            "fix": "anthropic.com/console -> API Keys -> add os.environ.get("ANTHROPIC_API_KEY", "").strip()",
+            "fix": "anthropic.com/console -> API Keys -> add os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()",
             "blocks": ["SELF_BUILDER", "KNOWLEDGE_WEAVER", "REVENUE_OPTIMIZER", "NEURON_B"],
         },
         "gmail": {
@@ -68,7 +68,7 @@ def scan():
             "name": "HuggingFace (AI fallback)",
             "status": "degraded",
             "impact": "All fallback models 410 Gone — Llama, Phi-3.5 dead. Engines fail silently.",
-            "fix": "Add os.environ.get("ANTHROPIC_API_KEY", "").strip()",
+            "fix": "Add os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()",
             "blocks": ["SYNTHESIS_FACTORY", "ARCHITECT", "EMAIL_BRAIN classification"],
         },
         "github_pages": {
@@ -98,7 +98,7 @@ def scan():
     degraded = [k for k, v in caps.items() if v["status"] == "degraded"]
 
     priority = (
-        "os.environ.get("ANTHROPIC_API_KEY", "").strip()" if not os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip() else
+        "os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()" if not os.environ.get("os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()", "").strip() else
         "GUMROAD_ACCESS_TOKEN" if not os.environ.get("GUMROAD_ACCESS_TOKEN") else
         "X_API_KEY"
     )

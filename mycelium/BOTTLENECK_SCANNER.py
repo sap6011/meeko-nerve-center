@@ -20,7 +20,7 @@ DOCS = Path("docs"); DOCS.mkdir(exist_ok=True)
 
 def check_secrets():
     secrets = {
-        "os.environ.get("ANTHROPIC_API_KEY", "").strip()":    {"impact": "CRITICAL", "unlocks": ["AI brain, self-builder, knowledge weaver"]},
+        "os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()":    {"impact": "CRITICAL", "unlocks": ["AI brain, self-builder, knowledge weaver"]},
         "GUMROAD_SECRET":       {"impact": "CRITICAL", "unlocks": ["10 queued products publishing"]},
         "GMAIL_ADDRESS":        {"impact": "HIGH",     "unlocks": ["email briefings", "outreach"]},
         "GMAIL_APP_PASSWORD":   {"impact": "HIGH",     "unlocks": ["email sending — MUST be App Password not account password"]},
@@ -61,7 +61,7 @@ def check_engines():
             syntax_ok = r.returncode == 0
         except Exception:
             syntax_ok = False
-        needs = [s for s in ["os.environ.get("ANTHROPIC_API_KEY", "").strip()",
+        needs = [s for s in ["os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()",
                               "X_API_KEY","PAYPAL_CLIENT_ID","REDDIT_CLIENT_ID"] if s in code]
         results.append({"name": f.name, "size": f.stat().st_size,
                          "syntax_ok": syntax_ok, "needs_secrets": needs})
@@ -107,13 +107,13 @@ def identify_bottlenecks(secrets, engines, gumroad, revenue):
     def s(name):
         return next((x for x in secrets if x["name"] == name), None)
 
-    anthropic = s("os.environ.get("ANTHROPIC_API_KEY", "").strip()
+    anthropic = s("os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()
     if anthropic and not anthropic["present"]:
         bottlenecks.append({
             "id": f"BN-{bn_id:03d}", "severity": "CRITICAL",
-            "title": "os.environ.get("ANTHROPIC_API_KEY", "").strip()",
+            "title": "os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()",
             "description": "All Claude-powered engines fail. SELF_BUILDER, KNOWLEDGE_WEAVER, SYNTHESIS_FACTORY output nothing.",
-            "fix": "console.anthropic.com -> API Keys -> Create -> GitHub Secret: os.environ.get("ANTHROPIC_API_KEY", "").strip()",
+            "fix": "console.anthropic.com -> API Keys -> Create -> GitHub Secret: os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()",
             "revenue_impact": "$0/day (AI brain offline)", "status": "PENDING"
         }); bn_id += 1
 
