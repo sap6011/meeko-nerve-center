@@ -131,6 +131,8 @@ TASK_ROUTING = {
     "post_content":       ["chrome_mcp", "brave_browser", "windows_mcp", "github_cli", "apify_browser"],
     "list_product":       ["chrome_mcp", "brave_browser", "windows_mcp", "apify_browser"],
     "send_email":         ["gmail_mcp"],
+    "verify_email":       ["gmail_mcp"],  # EMAIL_INTELLIGENCE: bounce detection via search
+    "outreach_campaign":  ["gmail_mcp"],  # EMAIL_INTELLIGENCE: personalized outreach
     "create_discussion":  ["github_cli", "github_mcp"],
     "create_release":     ["github_cli", "github_mcp"],
     "create_wiki":        ["github_cli"],  # via wiki git repo

@@ -1097,6 +1097,45 @@ def bridge_virality_posts():
     })
 
 
+# --- v45: EMAIL_INTELLIGENCE Bridges ---
+
+def bridge_email_intelligence_state():
+    """Bridge: outreach + email brain -> email_intelligence_state.json."""
+    outreach = load_json(DATA / "outreach_engine_state.json")
+    brain = load_json(DATA / "email_brain_state.json")
+    return seed_json("email_intelligence_state.json", {
+        "version": 1, "engine": "EMAIL_INTELLIGENCE",
+        "contacts_summary": {"total": 0, "verified": 0, "bounced": 0, "unverified": 0},
+        "queue_summary": {"total_queued": 0},
+        "source": "BRIDGE_BUILDER from outreach + email_brain"
+    })
+
+def bridge_verified_contacts():
+    """Bridge: outreach targets -> verified_contacts.json."""
+    outreach = load_json(DATA / "outreach_engine_state.json")
+    return seed_json("verified_contacts.json", {
+        "version": 2, "total": 0, "verified": 0, "bounced": 0,
+        "contacts": [],
+        "source": "BRIDGE_BUILDER — run EMAIL_INTELLIGENCE to populate"
+    })
+
+def bridge_outreach_queue():
+    """Bridge: verified contacts -> outreach_queue.json."""
+    contacts = load_json(DATA / "verified_contacts.json")
+    return seed_json("outreach_queue.json", {
+        "version": 1, "total_queued": 0, "priority_order": [],
+        "source": "BRIDGE_BUILDER — run EMAIL_INTELLIGENCE to populate"
+    })
+
+def bridge_bounce_registry():
+    """Bridge: email brain bounces -> bounce_registry.json."""
+    brain = load_json(DATA / "email_brain_state.json")
+    return seed_json("bounce_registry.json", {
+        "version": 1, "total_bounces": 0, "bounces": [],
+        "source": "BRIDGE_BUILDER — run EMAIL_INTELLIGENCE to detect bounces"
+    })
+
+
 BRIDGES = {
     "grants_found.json": bridge_grants_found,
     "sentinel_report.json": bridge_sentinel_report,
@@ -1195,6 +1234,11 @@ BRIDGES = {
     "telegram_relay.json": bridge_telegram_relay,
     "article_drafts.json": bridge_article_drafts,
     "virality_posts.json": bridge_virality_posts,
+    # --- v45: EMAIL_INTELLIGENCE Bridges ---
+    "email_intelligence_state.json": bridge_email_intelligence_state,
+    "verified_contacts.json": bridge_verified_contacts,
+    "outreach_queue.json": bridge_outreach_queue,
+    "bounce_registry.json": bridge_bounce_registry,
 }
 
 
