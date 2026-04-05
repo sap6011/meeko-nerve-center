@@ -219,15 +219,15 @@
   <div class="card">
     <h3>DEVICE TRUST</h3>
     <p style="font-size:0.8em;color:#888;margin-bottom:12px">
-      This device is a SolarPunk node. Pair it with your desktop to create
-      a two-factor trust chain. Your phone becomes the key, your desktop becomes the lock.
+      Both devices add each other's ID. When both sides confirm, trust is MUTUAL.
+      Your phone is the key, your desktop is the lock. Neither works without the other.
     </p>
     <div style="font-size:0.75em;color:#555;margin-bottom:8px">THIS DEVICE</div>
     <div id="trustDeviceInfo" style="font-size:0.8em"></div>
   </div>
 
   <div class="card" id="pairingCard">
-    <h3>PAIR WITH DESKTOP</h3>
+    <h3>PAIR WITH ANOTHER DEVICE</h3>
     <div id="pairingUI"></div>
   </div>
 
@@ -317,6 +317,13 @@ function getDeviceFingerprint() {
 }
 
 // --- Pairing System ---
+// Both devices talk through data/known_devices.json in the repo.
+// Pairing flow:
+//   1. BOTH devices show their own ID and a code input
+//   2. Phone enters desktop ID, desktop enters phone ID
+//   3. Both store locally AND check the shared device registry
+//   4. When both sides have each other's ID, trust is confirmed
+
 function generatePairCode() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   let code = '';
@@ -324,84 +331,172 @@ function generatePairCode() {
   return code;
 }
 
-function initPairing() {
-  const device = getDeviceFingerprint();
-  const pairs = JSON.parse(localStorage.getItem('sp_paired_devices') || '[]');
+// Fetch the shared device registry from the repo
+async function fetchDeviceRegistry() {
+  try {
+    const r = await fetch(`${RAW}/data/known_devices.json?t=${Date.now()}`);
+    if (!r.ok) return { devices: [], pairs: [] };
+    return await r.json();
+  } catch(e) {
+    return { devices: [], pairs: [] };
+  }
+}
 
-  // Device info
+async function initPairing() {
+  const device = getDeviceFingerprint();
+  const localPairs = JSON.parse(localStorage.getItem('sp_paired_devices') || '[]');
+
+  // Fetch shared registry to check if both sides confirmed
+  const registry = await fetchDeviceRegistry();
+  const registryDevices = registry.devices || [];
+  const registryPairs = registry.pairs || [];
+
+  // Check if THIS device is in the registry
+  const meInRegistry = registryDevices.find(d => d.id === device.id);
+  // Check if any registry pair includes this device
+  const myPairs = registryPairs.filter(p =>
+    p.device_a === device.id || p.device_b === device.id
+  );
+
+  // Merge: local pairs + registry pairs
+  const allPairs = [...localPairs];
+  myPairs.forEach(rp => {
+    const otherId = rp.device_a === device.id ? rp.device_b : rp.device_a;
+    if (!allPairs.find(lp => lp.id === otherId)) {
+      allPairs.push({
+        id: otherId,
+        type: rp.device_a === device.id ? 'remote' : 'remote',
+        paired_at: rp.paired_at,
+        confirmed: true,
+      });
+    }
+  });
+
+  // Device info display
   document.getElementById('trustDeviceInfo').innerHTML = `
-    <div style="color:var(--green)">${device.id}</div>
+    <div style="color:var(--green);font-size:1.2em;letter-spacing:2px;margin-bottom:4px">${device.id}</div>
     <div style="color:#555;font-size:0.9em">${device.type} | ${device.platform} | ${device.screens}</div>
     <div style="color:#555;font-size:0.9em">Created: ${new Date(device.created).toLocaleDateString()}</div>
+    ${meInRegistry ? '<div style="color:var(--green);font-size:0.85em;margin-top:4px">Registered in SolarPunk</div>' : '<div style="color:#ff8800;font-size:0.85em;margin-top:4px">Not yet registered (run DIRECT_WIRE)</div>'}
   `;
 
-  // Pairing UI
+  // UNIVERSAL pairing UI — same on all devices
   const pairUI = document.getElementById('pairingUI');
-  if (device.type === 'phone' || device.type === 'tablet') {
-    // Phone: show input to enter desktop's code
-    pairUI.innerHTML = `
-      <p style="font-size:0.8em;color:#888;margin-bottom:12px">
-        Enter the code shown on your desktop:
-      </p>
-      <input class="pair-input" id="pairInput" maxlength="6" placeholder="------"
-             autocomplete="off" autocorrect="off" autocapitalize="characters">
-      <button class="btn" onclick="submitPairCode()">PAIR</button>
-    `;
-  } else {
-    // Desktop: show code for phone to enter
-    const code = localStorage.getItem('sp_pair_code') || generatePairCode();
-    localStorage.setItem('sp_pair_code', code);
-    pairUI.innerHTML = `
-      <p style="font-size:0.8em;color:#888;margin-bottom:12px">
-        Enter this code on your phone:
-      </p>
-      <div class="pair-code">${code}</div>
-      <button class="btn secondary" onclick="newPairCode()">GENERATE NEW CODE</button>
-    `;
-  }
+  pairUI.innerHTML = `
+    <p style="font-size:0.8em;color:#888;margin-bottom:12px">
+      Enter the other device's ID to pair.<br>
+      <span style="color:#555">Your ID: <strong style="color:var(--green)">${device.id}</strong> (tell the other device)</span>
+    </p>
+    <input class="pair-input" id="pairInput" maxlength="12" placeholder="SP-XXXXXXXX"
+           autocomplete="off" autocorrect="off" autocapitalize="characters"
+           value="SP-">
+    <button class="btn" onclick="submitPairById()">PAIR BY ID</button>
+    <div style="text-align:center;color:#333;font-size:0.7em;margin:12px 0">OR</div>
+    <p style="font-size:0.75em;color:#555;margin-bottom:8px">
+      Quick pair: enter a shared code both devices agree on
+    </p>
+    <input class="pair-input" id="pairCodeInput" maxlength="6" placeholder="------"
+           autocomplete="off" autocorrect="off" autocapitalize="characters"
+           style="font-size:1em">
+    <button class="btn secondary" onclick="submitPairByCode()">PAIR BY CODE</button>
+  `;
 
   // Paired devices list
   const pairedList = document.getElementById('pairedList');
-  if (pairs.length > 0) {
-    pairedList.innerHTML = pairs.map(p => `
-      <div class="wire-item">
-        <span class="wire-from">${p.id}</span>
-        <span class="wire-to">${p.type} | ${new Date(p.paired_at).toLocaleDateString()}</span>
-      </div>
-    `).join('');
+  if (allPairs.length > 0) {
+    pairedList.innerHTML = allPairs.map(p => {
+      // Check if mutual — both sides have each other
+      const otherConfirmed = registryPairs.some(rp =>
+        (rp.device_a === device.id && rp.device_b === p.id) ||
+        (rp.device_b === device.id && rp.device_a === p.id)
+      );
+      const localConfirmed = localPairs.some(lp => lp.id === p.id);
+      const status = (otherConfirmed || p.confirmed)
+        ? '<span style="color:var(--green)">MUTUAL TRUST</span>'
+        : localConfirmed
+          ? '<span style="color:#ff8800">WAITING (other device needs to add your ID)</span>'
+          : '<span style="color:#888">LOCAL ONLY</span>';
+      return `
+        <div class="wire-item" style="flex-direction:column;gap:4px">
+          <div style="display:flex;justify-content:space-between;width:100%">
+            <span class="wire-from">${p.id}</span>
+            <span class="wire-to">${p.type || 'device'}</span>
+          </div>
+          <div style="font-size:0.85em">${status}</div>
+        </div>
+      `;
+    }).join('');
+  } else {
+    pairedList.innerHTML = '<div style="color:#555">No paired devices. Enter the other device\'s ID above.</div>';
   }
 
   // Trust banner
   document.getElementById('deviceId').textContent = device.id;
+  const mutualCount = allPairs.filter(p => p.confirmed ||
+    registryPairs.some(rp =>
+      (rp.device_a === device.id && rp.device_b === p.id) ||
+      (rp.device_b === device.id && rp.device_a === p.id)
+    )
+  ).length;
   document.getElementById('pairStatus').textContent =
-    pairs.length > 0 ? `Paired with ${pairs.length} device(s)` : 'Unpaired';
+    mutualCount > 0 ? `MUTUAL TRUST: ${mutualCount} device(s)`
+    : allPairs.length > 0 ? `${allPairs.length} paired (awaiting mutual confirm)`
+    : 'Unpaired';
 }
 
-function submitPairCode() {
-  const code = document.getElementById('pairInput').value.toUpperCase();
-  if (code.length !== 6) return;
+function submitPairById() {
+  const input = document.getElementById('pairInput').value.toUpperCase().trim();
+  if (!input.startsWith('SP-') || input.length < 5) {
+    log('Invalid device ID — must be SP-XXXXXXXX', 'err');
+    return;
+  }
+  const device = getDeviceFingerprint();
+  if (input === device.id) {
+    log('Cannot pair with yourself', 'err');
+    return;
+  }
+  const pairs = JSON.parse(localStorage.getItem('sp_paired_devices') || '[]');
+  if (pairs.find(p => p.id === input)) {
+    log(`Already paired with ${input}`, 'err');
+    return;
+  }
+  pairs.push({
+    id: input,
+    type: 'device',
+    paired_at: new Date().toISOString(),
+    paired_by: device.id,
+    method: 'id',
+  });
+  localStorage.setItem('sp_paired_devices', JSON.stringify(pairs));
+  log(`Paired with ${input} — tell them to add YOUR ID: ${device.id}`, 'ok');
+  if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+  initPairing();
+}
+
+function submitPairByCode() {
+  const code = document.getElementById('pairCodeInput').value.toUpperCase().trim();
+  if (code.length < 4) {
+    log('Code must be at least 4 characters', 'err');
+    return;
+  }
   const device = getDeviceFingerprint();
   const pairs = JSON.parse(localStorage.getItem('sp_paired_devices') || '[]');
-
-  // Create the pairing
+  const pairId = 'CODE-' + code;
+  if (pairs.find(p => p.id === pairId)) {
+    log(`Already paired with code ${code}`, 'err');
+    return;
+  }
   pairs.push({
-    id: 'DESKTOP-' + code,
-    type: 'desktop',
+    id: pairId,
+    type: 'shared-code',
     code: code,
     paired_at: new Date().toISOString(),
     paired_by: device.id,
+    method: 'code',
   });
   localStorage.setItem('sp_paired_devices', JSON.stringify(pairs));
-  log(`Paired with DESKTOP-${code}`, 'ok');
-  initPairing();
-
-  // Vibrate on success
+  log(`Paired via code ${code} — enter SAME code on other device`, 'ok');
   if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-}
-
-function newPairCode() {
-  const code = generatePairCode();
-  localStorage.setItem('sp_pair_code', code);
   initPairing();
 }
 

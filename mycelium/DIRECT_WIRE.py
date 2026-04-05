@@ -223,6 +223,56 @@ def wire(message=None, pull_first=False, sync=False, full=False):
     return results
 
 
+def pair_device(device_id, device_type="phone"):
+    """Register a device pairing in known_devices.json.
+
+    Usage: python DIRECT_WIRE.py --pair SP-XXXXXXXX
+    Both devices must add each other for MUTUAL TRUST.
+    """
+    registry_path = DATA / "known_devices.json"
+    try:
+        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    except Exception:
+        registry = {"devices": [], "pairs": []}
+
+    if "devices" not in registry:
+        registry["devices"] = []
+    if "pairs" not in registry:
+        registry["pairs"] = []
+
+    # Get desktop's own ID
+    desktop_id = "MEEKO-DESKTOP"
+
+    # Add the new device if not already registered
+    if not any(d.get("id") == device_id for d in registry["devices"]):
+        registry["devices"].append({
+            "id": device_id,
+            "type": device_type,
+            "status": "trusted",
+            "registered": datetime.now().isoformat(),
+        })
+        print(f"[DIRECT_WIRE] Registered device: {device_id}")
+
+    # Create the pair if not already paired
+    pair_exists = any(
+        (p.get("device_a") == desktop_id and p.get("device_b") == device_id) or
+        (p.get("device_a") == device_id and p.get("device_b") == desktop_id)
+        for p in registry["pairs"]
+    )
+    if not pair_exists:
+        registry["pairs"].append({
+            "device_a": desktop_id,
+            "device_b": device_id,
+            "paired_at": datetime.now().isoformat(),
+            "trust": "mutual",
+        })
+        print(f"[DIRECT_WIRE] Paired: {desktop_id} <-> {device_id}")
+
+    registry_path.write_text(json.dumps(registry, indent=2), encoding="utf-8")
+    print(f"[DIRECT_WIRE] Device registry updated — {len(registry['devices'])} devices, {len(registry['pairs'])} pairs")
+    return registry
+
+
 def run():
     """Engine entry point for OMNIBUS."""
     return wire(full=True)
@@ -234,6 +284,17 @@ if __name__ == "__main__":
 
     if "--help" in args or "-h" in args:
         print(__doc__)
+        sys.exit(0)
+
+    # Device pairing
+    if "--pair" in args:
+        idx = args.index("--pair")
+        if idx + 1 < len(args):
+            pair_device(args[idx + 1].upper())
+            # Auto-commit and push the pairing
+            wire(message=f"trust: paired device {args[idx + 1].upper()}")
+        else:
+            print("Usage: python DIRECT_WIRE.py --pair SP-XXXXXXXX")
         sys.exit(0)
 
     do_pull = "--pull" in args or "--full" in args
