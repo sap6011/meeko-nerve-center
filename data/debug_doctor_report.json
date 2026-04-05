@@ -1,10 +1,28 @@
 {
-  "generated_at": "2026-04-05T19:32:35.725847+00:00",
-  "total_failures": 5,
+  "generated_at": "2026-04-05T22:11:05.572834+00:00",
+  "total_failures": 6,
   "fixed": 0,
   "fixable": 1,
-  "unfixable": 4,
+  "unfixable": 5,
   "diagnoses": [
+    {
+      "engine": "GROWTH_FLYWHEEL",
+      "original_status": "FAIL",
+      "diagnosis": "UNKNOWN",
+      "fixed": false,
+      "fixable": false,
+      "details": "Unrecognized error pattern",
+      "error": "  File \"C:\\Users\\meeko\\Desktop\\meeko-nerve-center\\meeko-nerve-center\\.claude\\worktrees\\elegant-euler\\mycelium\\GROWTH_FLYWHEEL.py\", line 423\n    \"# How I Built a %d-Engine Autonomous AI System on $0 In"
+    },
+    {
+      "engine": "USB_BRIDGE",
+      "original_status": "TIMEOUT",
+      "diagnosis": "TIMEOUT",
+      "fixed": false,
+      "fixable": false,
+      "details": "Engine takes >30s. Likely waiting for AI/network.",
+      "error": ""
+    },
     {
       "engine": "PRODUCT_FORGE",
       "original_status": "FAIL",
@@ -12,7 +30,7 @@
       "fixed": false,
       "fixable": false,
       "details": "Unrecognized error pattern",
-      "error": "e-center/mycelium/PRODUCT_FORGE.py\", line 373, in <module>\n    run()\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/PRODUCT_FORGE.py\", line 327, in run\n    template = forge_e"
+      "error": "e \"C:\\Users\\meeko\\Desktop\\meeko-nerve-center\\meeko-nerve-center\\.claude\\worktrees\\elegant-euler\\mycelium\\PRODUCT_FORGE.py\", line 327, in run\n    template = forge_engine_template()\n               ^^^^^"
     },
     {
       "engine": "NARRATOR",
@@ -21,7 +39,7 @@
       "fixed": false,
       "fixable": false,
       "details": "Unrecognized error pattern",
-      "error": "File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/NARRATOR.py\", line 123, in generate_story\n    story = ask([{\"role\": \"user\", \"content\": prompt}], max_tokens=300)\n            ^^^^"
+      "error": "mycelium\\NARRATOR.py\", line 123, in generate_story\n    story = ask([{\"role\": \"user\", \"content\": prompt}], max_tokens=300)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "
     },
     {
       "engine": "GENERATED_CRYPTO_WATCHER_CONSUMER",
@@ -30,16 +48,7 @@
       "fixed": false,
       "fixable": true,
       "details": "A data file has corrupt JSON",
-      "error": "ode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n"
-    },
-    {
-      "engine": "OLLAMA_BRIDGE",
-      "original_status": "FAIL",
-      "diagnosis": "UNKNOWN",
-      "fixed": false,
-      "fixable": false,
-      "details": "Unrecognized error pattern",
-      "error": ""
+      "error": "          ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\meeko\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\json\\decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n    "
     },
     {
       "engine": "SIGNAL_CHAIN",
@@ -48,7 +57,7 @@
       "fixed": false,
       "fixable": false,
       "details": "Unrecognized error pattern",
-      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/SIGNAL_CHAIN.py\", line 177, in <module>\n    if __name__ == \"__main__\": run()\n               "
+      "error": "l last):\n  File \"C:\\Users\\meeko\\Desktop\\meeko-nerve-center\\meeko-nerve-center\\.claude\\worktrees\\elegant-euler\\mycelium\\SIGNAL_CHAIN.py\", line 177, in <module>\n    if __name__ == \"__main__\": run()\n    "
     }
   ]
 }

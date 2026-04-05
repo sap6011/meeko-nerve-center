@@ -1,7 +1,7 @@
 {
   "engine": "EVENT_RELAY",
   "mode": "DRY RUN",
-  "started_at": "2026-04-04T15:04:14.949887+00:00",
+  "started_at": "2026-04-05T22:05:51.638396+00:00",
   "checks": {
     "cortex_directive": {
       "found": true,
@@ -17,24 +17,140 @@
     "article_drafts": {
       "found": false,
       "ready_count": 0,
-      "total_count": 1,
-      "detail": "0 of 1 articles are ready"
+      "total_count": 49,
+      "detail": "0 of 49 articles are ready"
     },
     "git_status": {
-      "products_changed": 1,
-      "data_changed": 24,
-      "other_changed": 20,
+      "products_changed": 5,
+      "data_changed": 138,
+      "other_changed": 52,
       "details": {
         "products": [
           {
-            "status": "??",
-            "file": "products/templates/"
+            "status": "M",
+            "file": "products/autonomous-system-guide.md"
+          },
+          {
+            "status": "M",
+            "file": "products/templates/ai-prompts/manifest.json"
+          },
+          {
+            "status": "M",
+            "file": "products/templates/github-actions/manifest.json"
+          },
+          {
+            "status": "M",
+            "file": "products/templates/python-automation/manifest.json"
+          },
+          {
+            "status": "M",
+            "file": "products/templates/solarpunk-configs/manifest.json"
           }
         ],
         "data": [
           {
             "status": "M",
+            "file": "data/_stress_backup_river_watch.json"
+          },
+          {
+            "status": "M",
+            "file": "data/agent_gumroad_builder_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/agent_link_verifier_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/agent_service_catalog.json"
+          },
+          {
+            "status": "M",
+            "file": "data/agent_tweet_writer_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/ai_watcher_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/aid_routing.json"
+          },
+          {
+            "status": "M",
+            "file": "data/amplification_posts.json"
+          },
+          {
+            "status": "M",
+            "file": "data/amplification_queue.json"
+          },
+          {
+            "status": "M",
+            "file": "data/amplify_cooldown.json"
+          },
+          {
+            "status": "M",
+            "file": "data/apoptosis_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/architect_plan.json"
+          },
+          {
+            "status": "M",
+            "file": "data/architect_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/art_catalog.json"
+          },
+          {
+            "status": "M",
+            "file": "data/article_drafts.json"
+          },
+          {
+            "status": "M",
+            "file": "data/asks_queue.json"
+          },
+          {
+            "status": "M",
+            "file": "data/autonomous_publisher_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/autopilot_executor_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/bioluminescence.json"
+          },
+          {
+            "status": "M",
+            "file": "data/bounce_registry.json"
+          },
+          {
+            "status": "M",
+            "file": "data/bounty_queue.json"
+          },
+          {
+            "status": "M",
+            "file": "data/brain_state.json"
+          },
+          {
+            "status": "M",
             "file": "data/bridge_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/calendar_brain_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/capability_map.json"
+          },
+          {
+            "status": "M",
+            "file": "data/chemotaxis_state.json"
           },
           {
             "status": "M",
@@ -42,11 +158,159 @@
           },
           {
             "status": "M",
+            "file": "data/circadian_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/connection_forge_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/content_autopilot_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/content_harvest.json"
+          },
+          {
+            "status": "M",
+            "file": "data/cortex_analysis.json"
+          },
+          {
+            "status": "M",
+            "file": "data/cortex_directive.json"
+          },
+          {
+            "status": "M",
+            "file": "data/crisis_monitor_history.json"
+          },
+          {
+            "status": "M",
+            "file": "data/crisis_signals.json"
+          },
+          {
+            "status": "M",
+            "file": "data/crisis_triggers.json"
+          },
+          {
+            "status": "M",
+            "file": "data/crypto_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/crypto_summary.txt"
+          },
+          {
+            "status": "M",
+            "file": "data/ctx.json"
+          },
+          {
+            "status": "M",
+            "file": "data/cycle_delta.json"
+          },
+          {
+            "status": "M",
+            "file": "data/cycle_ledger.json"
+          },
+          {
+            "status": "M",
             "file": "data/desktop_blueprints.json"
           },
           {
             "status": "M",
+            "file": "data/desktop_daemon_log.json"
+          },
+          {
+            "status": "M",
             "file": "data/desktop_daemon_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/email_brain_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/email_intelligence_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/email_templates.json"
+          },
+          {
+            "status": "M",
+            "file": "data/etsy_seo_output.json"
+          },
+          {
+            "status": "M",
+            "file": "data/flywheel_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/fractal_genesis_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/fractal_replicator_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/fractal_replicator_tracking.json"
+          },
+          {
+            "status": "M",
+            "file": "data/free_api_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/fuel_core_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/fuel_plan.json"
+          },
+          {
+            "status": "M",
+            "file": "data/github_poster_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/grant_hunter_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/gumroad_catalog.json"
+          },
+          {
+            "status": "M",
+            "file": "data/gumroad_listings.json"
+          },
+          {
+            "status": "M",
+            "file": "data/health_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/homeostasis.json"
+          },
+          {
+            "status": "M",
+            "file": "data/human_connector_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/human_task_board.json"
+          },
+          {
+            "status": "M",
+            "file": "data/image_descriptions.json"
+          },
+          {
+            "status": "M",
+            "file": "data/immune_memory.json"
+          },
+          {
+            "status": "M",
+            "file": "data/immune_responses.json"
           },
           {
             "status": "M",
@@ -58,11 +322,51 @@
           },
           {
             "status": "M",
+            "file": "data/knowledge_chain_synthesis.json"
+          },
+          {
+            "status": "M",
             "file": "data/knowledge_graph.json"
           },
           {
             "status": "M",
+            "file": "data/knowledge_pulses.json"
+          },
+          {
+            "status": "M",
+            "file": "data/knowledge_weaver_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/kofi_ready_listings.json"
+          },
+          {
+            "status": "M",
+            "file": "data/kofi_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/kofi_tracker_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/link_verifier_state.json"
+          },
+          {
+            "status": "M",
             "file": "data/live_wire_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/machine_revenue_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/micro_product_factory_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/mutation_leaderboard.json"
           },
           {
             "status": "M",
@@ -74,7 +378,71 @@
           },
           {
             "status": "M",
+            "file": "data/neuron_a_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/neuron_b_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/neuroplasticity.json"
+          },
+          {
+            "status": "M",
             "file": "data/newsletter_archive.json"
+          },
+          {
+            "status": "M",
+            "file": "data/ngo_handshakes.json"
+          },
+          {
+            "status": "M",
+            "file": "data/notion_sync_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/observatory_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/osmosis_routing.json"
+          },
+          {
+            "status": "M",
+            "file": "data/outreach_queue.json"
+          },
+          {
+            "status": "M",
+            "file": "data/outreach_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/pathway_strength.json"
+          },
+          {
+            "status": "M",
+            "file": "data/pdf_generator_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/pheromone_map.json"
+          },
+          {
+            "status": "M",
+            "file": "data/plugin_registry.json"
+          },
+          {
+            "status": "M",
+            "file": "data/product_registry.json"
+          },
+          {
+            "status": "M",
+            "file": "data/proof_ledger.json"
+          },
+          {
+            "status": "M",
+            "file": "data/proof_ledger_state.json"
           },
           {
             "status": "M",
@@ -86,7 +454,43 @@
           },
           {
             "status": "M",
+            "file": "data/resonance_converter_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/resonance_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/resource_kits.json"
+          },
+          {
+            "status": "M",
+            "file": "data/revenue_audit.json"
+          },
+          {
+            "status": "M",
+            "file": "data/revenue_optimizer_state.json"
+          },
+          {
+            "status": "M",
             "file": "data/river_watch.json"
+          },
+          {
+            "status": "M",
+            "file": "data/scam_shield_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/self_builder_queue.json"
+          },
+          {
+            "status": "M",
+            "file": "data/self_builder_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/self_wiring_report.json"
           },
           {
             "status": "M",
@@ -102,89 +506,257 @@
           },
           {
             "status": "M",
+            "file": "data/social_promoter_state.json"
+          },
+          {
+            "status": "M",
             "file": "data/social_queue.json"
+          },
+          {
+            "status": "M",
+            "file": "data/spore_dispersal.json"
+          },
+          {
+            "status": "M",
+            "file": "data/spore_manifest.json"
+          },
+          {
+            "status": "M",
+            "file": "data/stigmergy_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/store_builder_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/storefront_deployer_checklists.json"
+          },
+          {
+            "status": "M",
+            "file": "data/storefront_deployer_listings.json"
+          },
+          {
+            "status": "M",
+            "file": "data/storefront_deployer_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/substack_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/survival_telegrams.json"
+          },
+          {
+            "status": "M",
+            "file": "data/swarm_state.json"
+          },
+          {
+            "status": "M",
+            "file": "data/symbiogenesis_state.json"
           },
           {
             "status": "M",
             "file": "data/synergy_mutations.txt"
           },
           {
-            "status": "??",
-            "file": "data/event_relay_report.json"
+            "status": "M",
+            "file": "data/system_health.json"
+          },
+          {
+            "status": "M",
+            "file": "data/telegram_relay.json"
+          },
+          {
+            "status": "M",
+            "file": "data/temporal_analysis.json"
+          },
+          {
+            "status": "M",
+            "file": "data/value_opportunities.json"
+          },
+          {
+            "status": "M",
+            "file": "data/value_router_report.json"
+          },
+          {
+            "status": "M",
+            "file": "data/verified_contacts.json"
+          },
+          {
+            "status": "M",
+            "file": "data/virality_posts.json"
+          },
+          {
+            "status": "M",
+            "file": "data/worktree_anchor.json"
           },
           {
             "status": "??",
-            "file": "data/event_relay_state.json"
+            "file": "data/oracle_state.json"
           },
           {
             "status": "??",
-            "file": "data/fractal_replicator_report.json"
-          },
-          {
-            "status": "??",
-            "file": "data/fractal_replicator_tracking.json"
-          },
-          {
-            "status": "??",
-            "file": "data/micro_product_factory_report.json"
+            "file": "data/polymarket_scan.json"
           }
         ],
         "other": [
           {
             "status": "M",
-            "file": "ata/_stress_backup_river_watch.json"
+            "file": "github/FUNDING.yml"
           },
           {
             "status": "M",
-            "file": "mycelium/CRISIS_MONITOR.py"
+            "file": "docs/amplify.html"
           },
           {
             "status": "M",
-            "file": "mycelium/DESKTOP_DAEMON.py"
+            "file": "docs/capabilities.html"
           },
           {
             "status": "M",
-            "file": "mycelium/DUEL_ENGINE.py"
+            "file": "docs/crisis_dashboard.html"
           },
           {
             "status": "M",
-            "file": "mycelium/FRACTAL_GENESIS_ENGINE.py"
+            "file": "docs/emergency_kits.html"
           },
           {
             "status": "M",
-            "file": "mycelium/LEGACY_SIFTED_amazon_tag_manager.py"
+            "file": "docs/feed.xml"
           },
           {
             "status": "M",
-            "file": "mycelium/LEGACY_SIFTED_auto_content_system.py"
+            "file": "docs/first_contact.html"
           },
           {
             "status": "M",
-            "file": "mycelium/LEGACY_SIFTED_full_autonomous_deploy.py"
+            "file": "docs/fuel.html"
           },
           {
             "status": "M",
-            "file": "mycelium/LEGACY_SIFTED_money_tracker.py"
+            "file": "docs/kits/displacement-survival.md"
           },
           {
             "status": "M",
-            "file": "mycelium/LEGACY_SIFTED_social_media_bot.py"
+            "file": "docs/kits/displacement-survival.txt"
           },
           {
             "status": "M",
-            "file": "mycelium/LEGACY_SIFTED_visualize_ai_system.py"
+            "file": "docs/kits/documentation-safety.md"
           },
           {
             "status": "M",
-            "file": "mycelium/MURMURATION_TRAP.py"
+            "file": "docs/kits/documentation-safety.txt"
           },
           {
             "status": "M",
-            "file": "mycelium/OUTREACH_ENGINE.py"
+            "file": "docs/kits/internet-shutdown.md"
           },
           {
             "status": "M",
-            "file": "mycelium/TRIFECTA_CORE.py"
+            "file": "docs/kits/internet-shutdown.txt"
+          },
+          {
+            "status": "M",
+            "file": "docs/kits/medical-emergency.md"
+          },
+          {
+            "status": "M",
+            "file": "docs/kits/medical-emergency.txt"
+          },
+          {
+            "status": "M",
+            "file": "docs/kits/press-freedom.md"
+          },
+          {
+            "status": "M",
+            "file": "docs/kits/press-freedom.txt"
+          },
+          {
+            "status": "M",
+            "file": "docs/kits/relay-ready/displacement-survival-gist.txt"
+          },
+          {
+            "status": "M",
+            "file": "docs/kits/relay-ready/documentation-safety-gist.txt"
+          },
+          {
+            "status": "M",
+            "file": "docs/kits/relay-ready/internet-shutdown-gist.txt"
+          },
+          {
+            "status": "M",
+            "file": "docs/kits/relay-ready/medical-emergency-gist.txt"
+          },
+          {
+            "status": "M",
+            "file": "docs/kits/relay-ready/press-freedom-gist.txt"
+          },
+          {
+            "status": "M",
+            "file": "docs/kofi.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/launch.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/links.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/memory.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/observatory.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/opportunities.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/optimizer.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/plugins.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/quick_revenue.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/resonance.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/sitemap.xml"
+          },
+          {
+            "status": "M",
+            "file": "docs/social.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/sponsor.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/store.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/store_deploy.html"
+          },
+          {
+            "status": "M",
+            "file": "docs/weaver.html"
           },
           {
             "status": "M",
@@ -195,20 +767,48 @@
             "file": "mycelium/__pycache__/NANO_AGENT.cpython-312.pyc"
           },
           {
-            "status": "M",
-            "file": "mycelium/mirror_node.py"
+            "status": "??",
+            "file": "\"data/business_ai_tools_mega_pack_\\342\\200\\224_apr_2026.json\""
           },
           {
             "status": "??",
-            "file": "mycelium/EVENT_RELAY.py"
+            "file": "docs/ai-tools-mega-pack---apr-2026/"
           },
           {
             "status": "??",
-            "file": "mycelium/FRACTAL_REPLICATOR.py"
+            "file": "docs/api/index.html"
           },
           {
             "status": "??",
-            "file": "mycelium/MICRO_PRODUCT_FACTORY.py"
+            "file": "docs/grants/index.html"
+          },
+          {
+            "status": "??",
+            "file": "docs/kits/index.html"
+          },
+          {
+            "status": "??",
+            "file": "docs/nanoshop-index.json"
+          },
+          {
+            "status": "??",
+            "file": "docs/ns/"
+          },
+          {
+            "status": "??",
+            "file": "docs/receipts/index.html"
+          },
+          {
+            "status": "??",
+            "file": "docs/research/index.html"
+          },
+          {
+            "status": "??",
+            "file": "docs/starter_kit/index.html"
+          },
+          {
+            "status": "??",
+            "file": "docs/wisdom_library/index.html"
           }
         ]
       }
@@ -219,9 +819,13 @@
       "action": "commit_products",
       "dry_run": true,
       "would_stage": [
-        "products/templates/"
+        "products/autonomous-system-guide.md",
+        "products/templates/ai-prompts/manifest.json",
+        "products/templates/github-actions/manifest.json",
+        "products/templates/python-automation/manifest.json",
+        "products/templates/solarpunk-configs/manifest.json"
       ],
-      "would_commit_message": "feat: add 1 new product templates"
+      "would_commit_message": "feat: add 5 new product templates"
     }
   ],
   "summary": {
@@ -231,5 +835,5 @@
     "actions_dry_run": 1,
     "actions_skipped": 0
   },
-  "completed_at": "2026-04-04T15:04:15.145214+00:00"
+  "completed_at": "2026-04-05T22:05:52.089327+00:00"
 }

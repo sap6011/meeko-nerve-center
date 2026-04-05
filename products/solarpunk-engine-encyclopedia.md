@@ -4,21 +4,21 @@
 > -- a living, bio-inspired autonomous AI system built to fight
 > tyranny, protect the silenced, and generate sovereign revenue.
 
-Generated: 2026-04-05 19:32 UTC
+Generated: 2026-04-05 22:10 UTC
 
 ## System Statistics
 
 | Metric | Value |
 |--------|-------|
-| Total Engines | 393 |
-| Total Lines of Code | 84,391 |
-| Total Functions | 2,265 |
-| Engines with run() | 235 |
+| Total Engines | 394 |
+| Total Lines of Code | 84,746 |
+| Total Functions | 2,278 |
+| Engines with run() | 236 |
 | Categories | 11 |
 
 ## Table of Contents
 
-1. [Core Infrastructure](#core-infrastructure) (157 engines)
+1. [Core Infrastructure](#core-infrastructure) (158 engines)
 2. [Revenue Generation](#revenue-generation) (48 engines)
 3. [Content & Distribution](#content-distribution) (31 engines)
 4. [Self-Improvement & Ops](#self-improvement-ops) (29 engines)
@@ -34,7 +34,7 @@ Generated: 2026-04-05 19:32 UTC
 
 ## Core Infrastructure
 
-*157 engines in this category*
+*158 engines in this category*
 
 ### AGENT_LINK_VERIFIER
 
@@ -58,11 +58,11 @@ Generated: 2026-04-05 19:32 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 376 |
-| Functions | 15 |
+| Lines | 481 |
+| Functions | 20 |
 | Has run() | No |
 
-**Functions:** `_call`, `_ask_groq`, `_ask_anthropic`, `_ask_openrouter`, `_ask_hf`, `_ask_ollama`, `_ollama_available`, `ask`, `ask_json`, `ask_json_list`, `ask_code`, `ai_available`, `ai_backend`, `ai_status`, `_write_wire_state`
+**Functions:** `_call`, `_ask_groq`, `_ask_anthropic`, `_ask_openrouter`, `_ask_hf`, `_ollama_pick_model`, `_ask_ollama`, `_ollama_available`, `ask`, `ask_json`, `ask_json_list`, `ask_code`, `ai_available`, `ai_backend`, `ai_status`, `_get_bridge`, `ask_embed`, `ask_embed_batch`, `ask_local`, `_write_wire_state`
 
 ---
 
@@ -355,6 +355,21 @@ Generated: 2026-04-05 19:32 UTC
 **Functions:** `_load_json`, `_count_html_pages`, `_count_products`, `_count_discussions`, `_count_releases`, `_count_rss_entries`, `_count_sitemap_urls`, `_count_email_templates`, `_count_social_posts`, `_count_content_pieces`, `_count_kofi_ready`, `_scan_internal_links`, `_score`, `_ratio_score`, `_generate_page_topics`, `_generate_discussion_topics`, `_generate_social_posts`, `_generate_rss_topics`, `_build_dashboard`, `run`
 
 **Writes:** data/digital_saturation_state.json  (full state with per-channel scores) | data/saturation_gaps.json           (what's missing, what to generate next) | docs/saturation.html                (dashboard with per-channel bar charts)
+
+---
+
+### DIRECT_WIRE
+
+**Purpose:** DIRECT_WIRE.py — Frictionless commit pipeline for SolarPunk
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 248 |
+| Functions | 8 |
+| Has run() | Yes |
+
+**Functions:** `_run`, `compile_check`, `git_status`, `pull_latest`, `commit_and_push`, `sync_usb`, `wire`, `run`
 
 ---
 
@@ -1222,7 +1237,7 @@ Generated: 2026-04-05 19:32 UTC
 
 ### GROWTH_FLYWHEEL
 
-**Purpose:** GROWTH_FLYWHEEL.py -- The marketing/distribution engine of the 1/99 system.
+**Purpose:** *(no docstring)*
 
 | Property | Value |
 |----------|-------|
@@ -1938,12 +1953,12 @@ Generated: 2026-04-05 19:32 UTC
 
 ### OMNIBUS
 
-**Purpose:** OMNIBUS v48 — USB_BRIDGE + NANOBOT_HEALER kill: living USB port, corruption loop dead
+**Purpose:** OMNIBUS v49 — brain wiring: task-aware Ollama routing, OLLAMA_BRIDGE↔AI_CLIENT connected
 
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 653 |
+| Lines | 654 |
 | Functions | 15 |
 | Has run() | Yes |
 
@@ -4965,7 +4980,7 @@ Generated: 2026-04-05 19:32 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 323 |
+| Lines | 324 |
 | Functions | 13 |
 | Has run() | Yes |
 
@@ -6444,7 +6459,7 @@ Generated: 2026-04-05 19:32 UTC
 ## About This System
 
 The SolarPunk Nerve Center is an autonomous, bio-inspired AI system
-composed of 393 engines organized into 11 categories.
+composed of 394 engines organized into 11 categories.
 Each engine is a self-contained unit that reads data, processes it,
 and writes results -- forming a living neural network of code.
 

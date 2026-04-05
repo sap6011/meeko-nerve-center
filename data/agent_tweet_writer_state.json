@@ -1,13 +1,11 @@
 {
-  "status": "ok",
-  "summary": "Added 1 tweet thread(s) to tweets_queue.txt",
-  "tweet_blocks_added": 1,
-  "queue_size_bytes": 24550,
+  "status": "error",
+  "error": "'charmap' codec can't decode byte 0x81 in position 342: character maps to <undefined>",
+  "tb": "Traceback (most recent call last):\n  File \"C:\\Users\\meeko\\Desktop\\meeko-nerve-center\\meeko-nerve-center\\.claude\\worktrees\\elegant-euler\\mycelium\\NANO_AGENT.py\", line 57, in execute\n    result = self.run()\n             ^^^^^^^^^^\n  File \"C:\\Users\\meeko\\Desktop\\meeko-nerve-center\\meeko-nerve-center\\.claude\\worktrees\\elegant-euler\\mycelium\\AGENT_TWEET_WRITER.py\", line 92, in run\n    existing = queue_file.read_text() if queue_file.exists() else \"\"\n               ^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\meeko\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\pathlib.py\", line 1028, in read_text\n    return f.read()\n           ^^^^^^^^\n  File \"C:\\Users\\meeko\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\encodings\\cp1252.py\", line 23, in decode\n    return codecs.charmap_decode(input,self.errors,decoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 342: character maps to <undefined>\n",
   "agent": "AGENT_TWEET_WRITER",
-  "elapsed": 0.66,
-  "ts": "2026-03-14T19:18:29.191752+00:00",
+  "elapsed": 0.02,
+  "ts": "2026-04-05T22:01:52.788430+00:00",
   "log": [
-    "[AGENT_TWEET_WRITER] Claude API error: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CZ3WdtnfMBgwaCdCWrPHq'}",
-    "[AGENT_TWEET_WRITER] Added 1 tweet blocks to queue"
+    "[AGENT_TWEET_WRITER] FATAL: 'charmap' codec can't decode byte 0x81 in position 342: character maps to <undefined>"
   ]
 }

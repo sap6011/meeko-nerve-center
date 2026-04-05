@@ -1,15 +1,15 @@
 {
-  "timestamp": "2026-04-04T23:06:23.476938+00:00",
+  "timestamp": "2026-04-05T22:08:26.084830+00:00",
   "topology_before": {
-    "engines": 345,
-    "wires": 5145,
-    "zero_secret_chains": 3536
+    "engines": 394,
+    "wires": 5881,
+    "zero_secret_chains": 3976
   },
   "isolated_count": 3,
   "potential_connections": 0,
   "high_confidence_connections": 0,
   "state_files_seeded": 0,
-  "low_wire_suggestions": 5,
+  "low_wire_suggestions": 6,
   "categories": {
     "library": 0,
     "stub": 3,
@@ -30,6 +30,12 @@
       "type": "needs_output",
       "detail": "Reads ['fund_scout_results.json'] but produces no output file",
       "suggestion": "Add writes to data/fund_scout_output.json"
+    },
+    {
+      "engine": "GENERATED_DAEMON_TASK_XML_POPULATOR",
+      "type": "needs_output",
+      "detail": "Reads ['daemon_task.xml'] but produces no output file",
+      "suggestion": "Add writes to data/generated_daemon_task_xml_populator_output.json"
     },
     {
       "engine": "KALEIDOSCOPE_SHIELD",

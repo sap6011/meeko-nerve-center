@@ -1,16 +1,22 @@
 {
-  "timestamp": "2026-04-05T19:32:28.795523+00:00",
+  "timestamp": "2026-04-05T22:11:07.374595+00:00",
   "all_gaps": [
     {
+      "type": "compile_error",
+      "file": "mycelium\\GROWTH_FLYWHEEL.py",
+      "error": "  File \"mycelium\\GROWTH_FLYWHEEL.py\", line 423\n    \"# How I Built a %d-Engine Autonomous AI System on $0 Infrastructure\\n\\n\"\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "action": "log_for_debug_doctor"
+    },
+    {
       "type": "zero_writes",
-      "engine": "AMPLIFY_ENGINE",
-      "reads": 6,
+      "engine": "ai_council",
+      "reads": 10,
       "action": "add_state_output"
     },
     {
       "type": "zero_writes",
-      "engine": "AUTONOMOUS_TESTER",
-      "reads": 1,
+      "engine": "AMPLIFY_ENGINE",
+      "reads": 6,
       "action": "add_state_output"
     },
     {
@@ -28,6 +34,12 @@
     {
       "type": "zero_writes",
       "engine": "AUTO_HEALER",
+      "reads": 1,
+      "action": "add_state_output"
+    },
+    {
+      "type": "zero_writes",
+      "engine": "AUTONOMOUS_TESTER",
       "reads": 1,
       "action": "add_state_output"
     },
@@ -113,6 +125,12 @@
       "type": "zero_writes",
       "engine": "KNOWLEDGE_BRIDGE",
       "reads": 2,
+      "action": "add_state_output"
+    },
+    {
+      "type": "zero_writes",
+      "engine": "ledger_engine",
+      "reads": 1,
       "action": "add_state_output"
     },
     {
@@ -264,27 +282,15 @@
       "engine": "WEB_PUBLISHER",
       "reads": 1,
       "action": "add_state_output"
-    },
-    {
-      "type": "zero_writes",
-      "engine": "ai_council",
-      "reads": 10,
-      "action": "add_state_output"
-    },
-    {
-      "type": "zero_writes",
-      "engine": "ledger_engine",
-      "reads": 1,
-      "action": "add_state_output"
     }
   ],
   "closed": [],
   "summary": {
-    "gaps_found": 46,
+    "gaps_found": 47,
     "gaps_closed": 0,
     "by_type": {
       "missing_data": 0,
-      "compile_errors": 0,
+      "compile_errors": 1,
       "stale_docs": 0,
       "zero_writes": 46,
       "zero_reads": 0

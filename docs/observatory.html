@@ -23,265 +23,265 @@ tr:hover { background: #1a1a2e; }
 </head>
 <body>
 <h1>SolarPunk Data Flow Observatory</h1>
-<p style="text-align:center;color:#888;">Generated: 2026-04-05T19:32:29.055706+00:00 | God's-eye view of the nervous system</p>
+<p style="text-align:center;color:#888;">Generated: 2026-04-05T22:09:47.758394+00:00 | God's-eye view of the nervous system</p>
 
 <div class="stats">
   <div class="stat"><div class="num">5881</div><div class="label">Total Flows</div></div>
   <div class="stat"><div class="num">50</div><div class="label">High-Value Flows</div></div>
   <div class="stat"><div class="num">30</div><div class="label">Dead Flows</div></div>
   <div class="stat"><div class="num">205</div><div class="label">Data Files Active</div></div>
-  <div class="stat"><div class="num">1,761,225,138</div><div class="label">Total Bytes Flowing</div></div>
+  <div class="stat"><div class="num">1,704,908,087</div><div class="label">Total Bytes Flowing</div></div>
 </div>
 
 <h2>Flow Categories</h2>
-<table><tr><th>Category</th><th>Flows</th><th>Priority</th></tr><tr><td>revenue</td><td>3668</td><td>high</td></tr>
+<table><tr><th>Category</th><th>Flows</th><th>Priority</th></tr><tr><td>health</td><td>2571</td><td>medium</td></tr>
+<tr><td>revenue</td><td>1149</td><td>high</td></tr>
 <tr><td>social</td><td>778</td><td>medium</td></tr>
 <tr><td>meta</td><td>717</td><td>medium</td></tr>
-<tr><td>data</td><td>639</td><td>medium</td></tr>
-<tr><td>seed</td><td>45</td><td>low</td></tr>
-<tr><td>health</td><td>34</td><td>medium</td></tr>
+<tr><td>data</td><td>629</td><td>medium</td></tr>
+<tr><td>seed</td><td>37</td><td>low</td></tr>
 </table>
 
 <h2>High-Value Flows (Revenue, Knowledge, Security)</h2>
 <table><tr><th>From</th><th>Via</th><th>To</th><th>Signals</th><th>Bytes</th><th>Sample Data</th></tr><tr>
-            <td>GENERATED_MEMORY_PALACE_CONSUMER</td>
-            <td>memory_palace.json</td>
-            <td>DESKTOP_DAEMON</td>
+            <td>CRYPTO_WATCHER</td>
+            <td>crypto_state.json</td>
+            <td>GENERATED_CRYPTO_WATCHER_CONSUMER</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>3,642</td>
-            <td class="samples">cycles: list[11], patterns: dict(health_trend, health_velocity, max_revenue), total_cycles: 11</td>
+            <td>26,444</td>
+            <td class="samples">cycles: 98, prices_history: list[50], alerts_sent: list[3]</td>
         </tr>
 <tr>
-            <td>GENERATED_MEMORY_PALACE_CONSUMER</td>
-            <td>memory_palace.json</td>
-            <td>MEMORY_PALACE</td>
+            <td>CRYPTO_WATCHER</td>
+            <td>crypto_state.json</td>
+            <td>SELF_PORTRAIT</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>3,642</td>
-            <td class="samples">cycles: list[11], patterns: dict(health_trend, health_velocity, max_revenue), total_cycles: 11</td>
+            <td>26,444</td>
+            <td class="samples">cycles: 98, prices_history: list[50], alerts_sent: list[3]</td>
         </tr>
 <tr>
-            <td>GENERATED_MEMORY_PALACE_CONSUMER</td>
-            <td>memory_palace.json</td>
+            <td>GENERATED_CRYPTO_WATCHER_CONSUMER</td>
+            <td>crypto_state.json</td>
+            <td>CRYPTO_WATCHER</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,444</td>
+            <td class="samples">cycles: 98, prices_history: list[50], alerts_sent: list[3]</td>
+        </tr>
+<tr>
+            <td>GENERATED_CRYPTO_WATCHER_CONSUMER</td>
+            <td>crypto_state.json</td>
+            <td>SELF_PORTRAIT</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,444</td>
+            <td class="samples">cycles: 98, prices_history: list[50], alerts_sent: list[3]</td>
+        </tr>
+<tr>
+            <td>FRACTAL_REPLICATOR</td>
+            <td>fractal_replicator_report.json</td>
+            <td>GENERATED_FRACTAL_REPLICATOR_CONSUMER</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>4,057</td>
+            <td class="samples">engine: FRACTAL_REPLICATOR, started_at: 2026-04-05T22:05:51.505037+00:00, domains_processed: dict(python-automation, git</td>
+        </tr>
+<tr>
+            <td>FRACTAL_REPLICATOR</td>
+            <td>fractal_replicator_report.json</td>
             <td>OMNIBUS</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>3,642</td>
-            <td class="samples">cycles: list[11], patterns: dict(health_trend, health_velocity, max_revenue), total_cycles: 11</td>
+            <td>4,057</td>
+            <td class="samples">engine: FRACTAL_REPLICATOR, started_at: 2026-04-05T22:05:51.505037+00:00, domains_processed: dict(python-automation, git</td>
         </tr>
 <tr>
-            <td>MEMORY_PALACE</td>
-            <td>memory_palace.json</td>
-            <td>DESKTOP_DAEMON</td>
+            <td>GENERATED_FRACTAL_REPLICATOR_CONSUMER</td>
+            <td>fractal_replicator_report.json</td>
+            <td>FRACTAL_REPLICATOR</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>3,642</td>
-            <td class="samples">cycles: list[11], patterns: dict(health_trend, health_velocity, max_revenue), total_cycles: 11</td>
+            <td>4,057</td>
+            <td class="samples">engine: FRACTAL_REPLICATOR, started_at: 2026-04-05T22:05:51.505037+00:00, domains_processed: dict(python-automation, git</td>
         </tr>
 <tr>
-            <td>MEMORY_PALACE</td>
-            <td>memory_palace.json</td>
-            <td>GENERATED_MEMORY_PALACE_CONSUMER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>3,642</td>
-            <td class="samples">cycles: list[11], patterns: dict(health_trend, health_velocity, max_revenue), total_cycles: 11</td>
-        </tr>
-<tr>
-            <td>MEMORY_PALACE</td>
-            <td>memory_palace.json</td>
+            <td>GENERATED_FRACTAL_REPLICATOR_CONSUMER</td>
+            <td>fractal_replicator_report.json</td>
             <td>OMNIBUS</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>3,642</td>
-            <td class="samples">cycles: list[11], patterns: dict(health_trend, health_velocity, max_revenue), total_cycles: 11</td>
+            <td>4,057</td>
+            <td class="samples">engine: FRACTAL_REPLICATOR, started_at: 2026-04-05T22:05:51.505037+00:00, domains_processed: dict(python-automation, git</td>
         </tr>
 <tr>
-            <td>EXTERNAL_VALUE_ROUTER</td>
-            <td>value_router_report.json</td>
-            <td>GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>593</td>
-            <td class="samples">timestamp: 2026-04-05T19:31:13.894165+00:00, opportunities_found: 10, tasks_queued: 2</td>
-        </tr>
-<tr>
-            <td>EXTERNAL_VALUE_ROUTER</td>
-            <td>value_router_report.json</td>
+            <td>GENERATED_PLUGIN_REGISTRY_CONSUMER</td>
+            <td>plugin_registry.json</td>
             <td>OMNIBUS</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>593</td>
-            <td class="samples">timestamp: 2026-04-05T19:31:13.894165+00:00, opportunities_found: 10, tasks_queued: 2</td>
+            <td>101</td>
+            <td class="samples">plugins: dict(), last_scan: 2026-04-05T22:09:44.629312+00:00, total_registered: 0</td>
         </tr>
 <tr>
-            <td>GUMROAD_ENGINE</td>
-            <td>gumroad_engine_state.json</td>
-            <td>BIG_BRAIN_ORACLE</td>
+            <td>GENERATED_PLUGIN_REGISTRY_CONSUMER</td>
+            <td>plugin_registry.json</td>
+            <td>PLUGIN_REGISTRY</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>112</td>
-            <td class="samples">cycles: 18, total_live: 0, published: list[0]</td>
+            <td>101</td>
+            <td class="samples">plugins: dict(), last_scan: 2026-04-05T22:09:44.629312+00:00, total_registered: 0</td>
         </tr>
 <tr>
-            <td>GUMROAD_ENGINE</td>
-            <td>gumroad_engine_state.json</td>
+            <td>PLUGIN_REGISTRY</td>
+            <td>plugin_registry.json</td>
+            <td>GENERATED_PLUGIN_REGISTRY_CONSUMER</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>101</td>
+            <td class="samples">plugins: dict(), last_scan: 2026-04-05T22:09:44.629312+00:00, total_registered: 0</td>
+        </tr>
+<tr>
+            <td>PLUGIN_REGISTRY</td>
+            <td>plugin_registry.json</td>
+            <td>OMNIBUS</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>101</td>
+            <td class="samples">plugins: dict(), last_scan: 2026-04-05T22:09:44.629312+00:00, total_registered: 0</td>
+        </tr>
+<tr>
+            <td>STOREFRONT_DEPLOYER</td>
+            <td>storefront_deployer_listings.json</td>
+            <td>AUTOPILOT_EXECUTOR</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>24,485</td>
+            <td class="samples">generated_at: 2026-04-05T22:09:45.175059+00:00, engine: STOREFRONT_DEPLOYER, total_products: 11</td>
+        </tr>
+<tr>
+            <td>ETSY_SEO_ENGINE</td>
+            <td>etsy_seo_output.json</td>
+            <td>GENERATED_ETSY_SEO_ENGINE_CONSUMER</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>16,301</td>
+            <td class="samples">generated_at: 2026-04-05T21:59:31.741565+00:00, total_listings: 10, claude_enhanced: 0</td>
+        </tr>
+<tr>
+            <td>ETSY_SEO_ENGINE</td>
+            <td>etsy_seo_output.json</td>
+            <td>STORE_BUILDER</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>16,301</td>
+            <td class="samples">generated_at: 2026-04-05T21:59:31.741565+00:00, total_listings: 10, claude_enhanced: 0</td>
+        </tr>
+<tr>
+            <td>GENERATED_ETSY_SEO_ENGINE_CONSUMER</td>
+            <td>etsy_seo_output.json</td>
+            <td>ETSY_SEO_ENGINE</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>16,301</td>
+            <td class="samples">generated_at: 2026-04-05T21:59:31.741565+00:00, total_listings: 10, claude_enhanced: 0</td>
+        </tr>
+<tr>
+            <td>GENERATED_ETSY_SEO_ENGINE_CONSUMER</td>
+            <td>etsy_seo_output.json</td>
+            <td>STORE_BUILDER</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>16,301</td>
+            <td class="samples">generated_at: 2026-04-05T21:59:31.741565+00:00, total_listings: 10, claude_enhanced: 0</td>
+        </tr>
+<tr>
+            <td>GENERATED_MUTATION_VAULT_CONSUMER</td>
+            <td>mutation_leaderboard.json</td>
+            <td>BRIDGE_BUILDER</td>
+            <td><span class="signal">REVENUE, EVOLUTION</span></td>
+            <td>5,087</td>
+            <td class="samples">timestamp: 2026-04-05T22:03:42.801287+00:00, total_mutations: 38, total_generations: 39</td>
+        </tr>
+<tr>
+            <td>GENERATED_MUTATION_VAULT_CONSUMER</td>
+            <td>mutation_leaderboard.json</td>
+            <td>EVOLUTION_VIEWER</td>
+            <td><span class="signal">REVENUE, EVOLUTION</span></td>
+            <td>5,087</td>
+            <td class="samples">timestamp: 2026-04-05T22:03:42.801287+00:00, total_mutations: 38, total_generations: 39</td>
+        </tr>
+<tr>
+            <td>GENERATED_MUTATION_VAULT_CONSUMER</td>
+            <td>mutation_leaderboard.json</td>
+            <td>MUTATION_VAULT</td>
+            <td><span class="signal">REVENUE, EVOLUTION</span></td>
+            <td>5,087</td>
+            <td class="samples">timestamp: 2026-04-05T22:03:42.801287+00:00, total_mutations: 38, total_generations: 39</td>
+        </tr>
+<tr>
+            <td>GENERATED_MUTATION_VAULT_CONSUMER</td>
+            <td>mutation_leaderboard.json</td>
+            <td>OMNIBUS</td>
+            <td><span class="signal">REVENUE, EVOLUTION</span></td>
+            <td>5,087</td>
+            <td class="samples">timestamp: 2026-04-05T22:03:42.801287+00:00, total_mutations: 38, total_generations: 39</td>
+        </tr>
+<tr>
+            <td>MUTATION_VAULT</td>
+            <td>mutation_leaderboard.json</td>
+            <td>BRIDGE_BUILDER</td>
+            <td><span class="signal">REVENUE, EVOLUTION</span></td>
+            <td>5,087</td>
+            <td class="samples">timestamp: 2026-04-05T22:03:42.801287+00:00, total_mutations: 38, total_generations: 39</td>
+        </tr>
+<tr>
+            <td>MUTATION_VAULT</td>
+            <td>mutation_leaderboard.json</td>
+            <td>EVOLUTION_VIEWER</td>
+            <td><span class="signal">REVENUE, EVOLUTION</span></td>
+            <td>5,087</td>
+            <td class="samples">timestamp: 2026-04-05T22:03:42.801287+00:00, total_mutations: 38, total_generations: 39</td>
+        </tr>
+<tr>
+            <td>MUTATION_VAULT</td>
+            <td>mutation_leaderboard.json</td>
+            <td>GENERATED_MUTATION_VAULT_CONSUMER</td>
+            <td><span class="signal">REVENUE, EVOLUTION</span></td>
+            <td>5,087</td>
+            <td class="samples">timestamp: 2026-04-05T22:03:42.801287+00:00, total_mutations: 38, total_generations: 39</td>
+        </tr>
+<tr>
+            <td>MUTATION_VAULT</td>
+            <td>mutation_leaderboard.json</td>
+            <td>OMNIBUS</td>
+            <td><span class="signal">REVENUE, EVOLUTION</span></td>
+            <td>5,087</td>
+            <td class="samples">timestamp: 2026-04-05T22:03:42.801287+00:00, total_mutations: 38, total_generations: 39</td>
+        </tr>
+<tr>
+            <td>DISPATCH_HANDLER</td>
+            <td>kofi_state.json</td>
             <td>ECONOMY_CHAIN</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>112</td>
-            <td class="samples">cycles: 18, total_live: 0, published: list[0]</td>
+            <td>179</td>
+            <td class="samples">cycles: 106, total_received: 0.0, total_to_gaza: 0.0</td>
         </tr>
 <tr>
-            <td>GUMROAD_ENGINE</td>
-            <td>gumroad_engine_state.json</td>
+            <td>DISPATCH_HANDLER</td>
+            <td>kofi_state.json</td>
             <td>FIRST_SALE_NOTIFIER</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>112</td>
-            <td class="samples">cycles: 18, total_live: 0, published: list[0]</td>
+            <td>179</td>
+            <td class="samples">cycles: 106, total_received: 0.0, total_to_gaza: 0.0</td>
         </tr>
 <tr>
-            <td>GUMROAD_ENGINE</td>
-            <td>gumroad_engine_state.json</td>
-            <td>GENERATED_GUMROAD_ENGINE_CONSUMER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>112</td>
-            <td class="samples">cycles: 18, total_live: 0, published: list[0]</td>
-        </tr>
-<tr>
-            <td>GUMROAD_ENGINE</td>
-            <td>gumroad_engine_state.json</td>
+            <td>DISPATCH_HANDLER</td>
+            <td>kofi_state.json</td>
             <td>GROWTH_CHAIN</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>112</td>
-            <td class="samples">cycles: 18, total_live: 0, published: list[0]</td>
+            <td>179</td>
+            <td class="samples">cycles: 106, total_received: 0.0, total_to_gaza: 0.0</td>
         </tr>
 <tr>
-            <td>GUMROAD_ENGINE</td>
-            <td>gumroad_engine_state.json</td>
+            <td>DISPATCH_HANDLER</td>
+            <td>kofi_state.json</td>
             <td>KNOWLEDGE_CHAIN</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>112</td>
-            <td class="samples">cycles: 18, total_live: 0, published: list[0]</td>
+            <td>179</td>
+            <td class="samples">cycles: 106, total_received: 0.0, total_to_gaza: 0.0</td>
         </tr>
 <tr>
-            <td>GUMROAD_ENGINE</td>
-            <td>gumroad_engine_state.json</td>
-            <td>PROOF_LEDGER</td>
+            <td>DISPATCH_HANDLER</td>
+            <td>kofi_state.json</td>
+            <td>KOFI_ENGINE</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>112</td>
-            <td class="samples">cycles: 18, total_live: 0, published: list[0]</td>
-        </tr>
-<tr>
-            <td>GUMROAD_ENGINE</td>
-            <td>gumroad_engine_state.json</td>
-            <td>SIGNAL_CHAIN</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>112</td>
-            <td class="samples">cycles: 18, total_live: 0, published: list[0]</td>
-        </tr>
-<tr>
-            <td>IMMUNE_SYSTEM</td>
-            <td>immune_system_report.json</td>
-            <td>CORTEX</td>
-            <td><span class="signal">REVENUE, TOPOLOGY, HEALTH</span></td>
-            <td>685</td>
-            <td class="samples">timestamp: 2026-04-05T19:31:15.442099+00:00, engines_scanned: 393, engines_infected: 5</td>
-        </tr>
-<tr>
-            <td>IMMUNE_SYSTEM</td>
-            <td>immune_system_report.json</td>
-            <td>GENERATED_IMMUNE_SYSTEM_CONSUMER</td>
-            <td><span class="signal">REVENUE, TOPOLOGY, HEALTH</span></td>
-            <td>685</td>
-            <td class="samples">timestamp: 2026-04-05T19:31:15.442099+00:00, engines_scanned: 393, engines_infected: 5</td>
-        </tr>
-<tr>
-            <td>IMMUNE_SYSTEM</td>
-            <td>immune_system_report.json</td>
-            <td>OMNIBUS</td>
-            <td><span class="signal">REVENUE, TOPOLOGY, HEALTH</span></td>
-            <td>685</td>
-            <td class="samples">timestamp: 2026-04-05T19:31:15.442099+00:00, engines_scanned: 393, engines_infected: 5</td>
-        </tr>
-<tr>
-            <td>IMMUNE_SYSTEM</td>
-            <td>immune_system_report.json</td>
-            <td>TASK_FACTORY</td>
-            <td><span class="signal">REVENUE, TOPOLOGY, HEALTH</span></td>
-            <td>685</td>
-            <td class="samples">timestamp: 2026-04-05T19:31:15.442099+00:00, engines_scanned: 393, engines_infected: 5</td>
-        </tr>
-<tr>
-            <td>GENERATED_SWARM_COORDINATOR_CONSUMER</td>
-            <td>swarm_state.json</td>
-            <td>OMNIBUS</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>1,321</td>
-            <td class="samples">cycles: 7, total_engine_runs: 119, human_actions_pending: list[1]</td>
-        </tr>
-<tr>
-            <td>GENERATED_SWARM_COORDINATOR_CONSUMER</td>
-            <td>swarm_state.json</td>
-            <td>SWARM_COORDINATOR</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>1,321</td>
-            <td class="samples">cycles: 7, total_engine_runs: 119, human_actions_pending: list[1]</td>
-        </tr>
-<tr>
-            <td>SWARM_COORDINATOR</td>
-            <td>swarm_state.json</td>
-            <td>GENERATED_SWARM_COORDINATOR_CONSUMER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>1,321</td>
-            <td class="samples">cycles: 7, total_engine_runs: 119, human_actions_pending: list[1]</td>
-        </tr>
-<tr>
-            <td>SWARM_COORDINATOR</td>
-            <td>swarm_state.json</td>
-            <td>OMNIBUS</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>1,321</td>
-            <td class="samples">cycles: 7, total_engine_runs: 119, human_actions_pending: list[1]</td>
-        </tr>
-<tr>
-            <td>CROSS_POLLINATOR</td>
-            <td>self_builder_queue.json</td>
-            <td>AUTONOMOUS_TESTER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>13,895</td>
-            <td class="samples">generated_by: FRACTAL_GENESIS_ENGINE, purpose: Populates self_builder_queue.json with real data to revive dead flow, tim</td>
-        </tr>
-<tr>
-            <td>CROSS_POLLINATOR</td>
-            <td>self_builder_queue.json</td>
-            <td>AUTO_HEALER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>13,895</td>
-            <td class="samples">generated_by: FRACTAL_GENESIS_ENGINE, purpose: Populates self_builder_queue.json with real data to revive dead flow, tim</td>
-        </tr>
-<tr>
-            <td>CROSS_POLLINATOR</td>
-            <td>self_builder_queue.json</td>
-            <td>DEEP_RESEARCHER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>13,895</td>
-            <td class="samples">generated_by: FRACTAL_GENESIS_ENGINE, purpose: Populates self_builder_queue.json with real data to revive dead flow, tim</td>
-        </tr>
-<tr>
-            <td>CROSS_POLLINATOR</td>
-            <td>self_builder_queue.json</td>
-            <td>DUAL_SYSTEM_CROSSWIRE</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>13,895</td>
-            <td class="samples">generated_by: FRACTAL_GENESIS_ENGINE, purpose: Populates self_builder_queue.json with real data to revive dead flow, tim</td>
-        </tr>
-<tr>
-            <td>CROSS_POLLINATOR</td>
-            <td>self_builder_queue.json</td>
-            <td>EVOLUTION_VIEWER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>13,895</td>
-            <td class="samples">generated_by: FRACTAL_GENESIS_ENGINE, purpose: Populates self_builder_queue.json with real data to revive dead flow, tim</td>
-        </tr>
-<tr>
-            <td>CROSS_POLLINATOR</td>
-            <td>self_builder_queue.json</td>
-            <td>EXTERNAL_VALUE_ROUTER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>13,895</td>
-            <td class="samples">generated_by: FRACTAL_GENESIS_ENGINE, purpose: Populates self_builder_queue.json with real data to revive dead flow, tim</td>
+            <td>179</td>
+            <td class="samples">cycles: 106, total_received: 0.0, total_to_gaza: 0.0</td>
         </tr>
 </table>
 
@@ -297,8 +297,10 @@ tr:hover { background: #1a1a2e; }
 <tr><td>DUAL_SYSTEM_CROSSWIRE</td><td>65</td></tr>
 <tr><td>AI_CLIENT</td><td>60</td></tr>
 <tr><td>METRICS_DASHBOARD</td><td>60</td></tr>
+<tr><td>archivist</td><td>59</td></tr>
 <tr><td>AUTO_RUNNER</td><td>59</td></tr>
 <tr><td>CORPORATE_MIRROR</td><td>59</td></tr>
+<tr><td>daily_pulse</td><td>59</td></tr>
 <tr><td>DESKTOP_HARVESTER</td><td>59</td></tr>
 <tr><td>DUPLICATE_STRIKER</td><td>59</td></tr>
 <tr><td>EXTERNAL_HANDSHAKE</td><td>59</td></tr>
@@ -306,8 +308,6 @@ tr:hover { background: #1a1a2e; }
 <tr><td>GENERATED_EVOLUTION_TRACKER</td><td>59</td></tr>
 <tr><td>GENERATED_KNOWLEDGE_TRACKER</td><td>59</td></tr>
 <tr><td>GENERATED_SECURITY_TRACKER</td><td>59</td></tr>
-<tr><td>LEGACY_SIFTED_continue_agent_task</td><td>59</td></tr>
-<tr><td>LEGACY_SIFTED_engine_simple</td><td>59</td></tr>
 </table>
 </div>
 <div>
@@ -337,26 +337,26 @@ tr:hover { background: #1a1a2e; }
 </div>
 
 <h2>Dead Flows (< 50 bytes, seed only)</h2>
-<table><tr><th>From</th><th>Via</th><th>To</th><th>Bytes</th></tr><tr><td>GENERATED_SIGNAL_BOOST_LOG_POPULATOR</td><td>signal_boost_log.json</td><td>SIGNAL_BOOST</td><td>0</td></tr>
-<tr><td>GENERATED_SIGNAL_BOOST_LOG_POPULATOR</td><td>signal_boost_log.json</td><td>WEEKEND_PULSE</td><td>0</td></tr>
-<tr><td>SIGNAL_BOOST</td><td>signal_boost_log.json</td><td>GENERATED_SIGNAL_BOOST_LOG_POPULATOR</td><td>0</td></tr>
-<tr><td>SIGNAL_BOOST</td><td>signal_boost_log.json</td><td>WEEKEND_PULSE</td><td>0</td></tr>
-<tr><td>GENERATED_TRANSFER_NEEDED_POPULATOR</td><td>transfer_needed.json</td><td>NIGHTLY_DIGEST</td><td>0</td></tr>
+<table><tr><th>From</th><th>Via</th><th>To</th><th>Bytes</th></tr><tr><td>GENERATED_TRANSFER_NEEDED_POPULATOR</td><td>transfer_needed.json</td><td>NIGHTLY_DIGEST</td><td>0</td></tr>
 <tr><td>GENERATED_TRANSFER_NEEDED_POPULATOR</td><td>transfer_needed.json</td><td>PROOF_LEDGER</td><td>0</td></tr>
 <tr><td>PROOF_LEDGER</td><td>transfer_needed.json</td><td>GENERATED_TRANSFER_NEEDED_POPULATOR</td><td>0</td></tr>
 <tr><td>PROOF_LEDGER</td><td>transfer_needed.json</td><td>NIGHTLY_DIGEST</td><td>0</td></tr>
+<tr><td>GENERATED_ASKS_QUEUE_POPULATOR</td><td>asks_queue.json</td><td>GENERATED_RESONANCE_CONVERTER_CONSUMER</td><td>2</td></tr>
+<tr><td>GENERATED_ASKS_QUEUE_POPULATOR</td><td>asks_queue.json</td><td>NEWSLETTER_ENGINE</td><td>2</td></tr>
+<tr><td>GENERATED_ASKS_QUEUE_POPULATOR</td><td>asks_queue.json</td><td>OMNIBUS</td><td>2</td></tr>
+<tr><td>GENERATED_ASKS_QUEUE_POPULATOR</td><td>asks_queue.json</td><td>RESONANCE_CONVERTER</td><td>2</td></tr>
+<tr><td>GENERATED_ASKS_QUEUE_POPULATOR</td><td>asks_queue.json</td><td>SOLARPUNK_CLI</td><td>2</td></tr>
+<tr><td>RESONANCE_CONVERTER</td><td>asks_queue.json</td><td>GENERATED_ASKS_QUEUE_POPULATOR</td><td>2</td></tr>
+<tr><td>RESONANCE_CONVERTER</td><td>asks_queue.json</td><td>GENERATED_RESONANCE_CONVERTER_CONSUMER</td><td>2</td></tr>
+<tr><td>RESONANCE_CONVERTER</td><td>asks_queue.json</td><td>NEWSLETTER_ENGINE</td><td>2</td></tr>
+<tr><td>RESONANCE_CONVERTER</td><td>asks_queue.json</td><td>OMNIBUS</td><td>2</td></tr>
+<tr><td>RESONANCE_CONVERTER</td><td>asks_queue.json</td><td>SOLARPUNK_CLI</td><td>2</td></tr>
+<tr><td>DESKTOP_DAEMON</td><td>daemon_task.xml</td><td>GENERATED_DAEMON_TASK_XML_POPULATOR</td><td>0</td></tr>
+<tr><td>DESKTOP_DAEMON</td><td>daemon_task.xml</td><td>GENERATED_DESKTOP_DAEMON_CONSUMER</td><td>0</td></tr>
+<tr><td>CRYPTO_WATCHER</td><td>crypto_summary.txt</td><td>GENERATED_CRYPTO_WATCHER_CONSUMER</td><td>0</td></tr>
 <tr><td>MEMORY_PALACE</td><td>lessons.json</td><td>GENERATED_MEMORY_PALACE_CONSUMER</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>BRIDGE_BUILDER</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>GENERATED_POLYMARKET_SCAN_POPULATOR</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>MISSION_CONTROL</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>OMNIBUS</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>POLYMARKET_SCANNER</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>VITAL_SIGN_API</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCAN_POPULATOR</td><td>polymarket_scan.json</td><td>BRIDGE_BUILDER</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCAN_POPULATOR</td><td>polymarket_scan.json</td><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCAN_POPULATOR</td><td>polymarket_scan.json</td><td>MISSION_CONTROL</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCAN_POPULATOR</td><td>polymarket_scan.json</td><td>OMNIBUS</td><td>0</td></tr>
-<tr><td>GENERATED_POLYMARKET_SCAN_POPULATOR</td><td>polymarket_scan.json</td><td>POLYMARKET_SCANNER</td><td>0</td></tr>
+<tr><td>GENERATED_GROWTH_FLYWHEEL_CONSUMER</td><td>input.json</td><td>GROWTH_FLYWHEEL</td><td>0</td></tr>
+<tr><td>GROWTH_FLYWHEEL</td><td>input.json</td><td>GENERATED_GROWTH_FLYWHEEL_CONSUMER</td><td>0</td></tr>
 </table>
 
 <p style="text-align:center;color:#444;margin-top:30px;">
