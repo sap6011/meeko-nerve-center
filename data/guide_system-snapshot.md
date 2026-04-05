@@ -14,15 +14,15 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 
 ## System Topology
 
-- **Total engines**: 373
-- **Wire connections**: 5631
-- **Zero-secret chains**: 3648 (work without any API keys)
+- **Total engines**: 379
+- **Wire connections**: 5669
+- **Zero-secret chains**: 3667 (work without any API keys)
 - **Orphan outputs**: 8 (data written but never read)
 - **Hungry inputs**: 60 (data needed but not yet produced)
 
 ## Engine Categories
 
-### Zero-Secret Engines (278 total)
+### Zero-Secret Engines (284 total)
 These engines run without any API keys or credentials:
 
 - **AFFILIATE_MAXIMIZER** -- reads: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json, writes: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json
@@ -55,14 +55,14 @@ These engines run without any API keys or credentials:
 - **CHEMOTAXIS** -- reads: chemotaxis_state.json, crisis_signals.json, osmosis_routing.json, bioluminescence.json, spore_dispersal.json, amplification_posts.json, ngo_handshakes.json, immune_memory.json, writes: chemotaxis_state.json
 - **CHIMERA_EVOLUTION_ENGINE** -- reads: live_wire_report.json, nanobot_heal_report.json, bridge_report.json, mutation_vault.json, chimera_evolution_report.json, writes: mutation_vault.json, chimera_evolution_report.json
 - **CIRCADIAN_RHYTHM** -- reads: circadian_state.json, writes: circadian_state.json
-- ... and 248 more
+- ... and 254 more
 
 ### Engines Needing API Keys (95 total)
 These engines unlock when you add credentials:
 
 - **AGENT_TWEET_WRITER** -- needs: ANTHROPIC_API_KEY
-- **AI_CLIENT** -- needs: GROQ_API_KEY, ANTHROPIC_API_KEY, HF_TOKEN
-- **AI_WATCHER** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY, HF_TOKEN, GITHUB_TOKEN
+- **AI_CLIENT** -- needs: GROQ_API_KEY, HF_TOKEN, ANTHROPIC_API_KEY
+- **AI_WATCHER** -- needs: GMAIL_APP_PASSWORD, HF_TOKEN, GITHUB_TOKEN, ANTHROPIC_API_KEY
 - **ANALYTICS_ENGINE** -- needs: GITHUB_TOKEN
 - **ART_GENERATOR** -- needs: HF_TOKEN, GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
 - **AUTONOMOUS_PUBLISHER** -- needs: BLUESKY_APP_PASSWORD, DEVTO_API_KEY, MASTODON_ACCESS_TOKEN, X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET, GITHUB_TOKEN
@@ -72,9 +72,9 @@ These engines unlock when you add credentials:
 - **BRIEFING_ENGINE** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
 - **BUSINESS_FACTORY** -- needs: GMAIL_APP_PASSWORD
 - **CALENDAR_BRAIN** -- needs: GMAIL_APP_PASSWORD
-- **CAPABILITY_SCANNER** -- needs: ANTHROPIC_API_KEY, GMAIL_APP_PASSWORD, GUMROAD_ACCESS_TOKEN, X_API_KEY
+- **CAPABILITY_SCANNER** -- needs: GMAIL_APP_PASSWORD, GUMROAD_ACCESS_TOKEN, X_API_KEY, ANTHROPIC_API_KEY
 - **CLAUDE_ENGINE** -- needs: ANTHROPIC_API_KEY
-- **CONNECTION_FORGE** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY, GUMROAD_ACCESS_TOKEN, HF_TOKEN, X_API_KEY
+- **CONNECTION_FORGE** -- needs: GMAIL_APP_PASSWORD, GUMROAD_ACCESS_TOKEN, HF_TOKEN, X_API_KEY, ANTHROPIC_API_KEY
 - **CORRUPTION_SENTINEL** -- needs: ANTHROPIC_API_KEY
 - **CRISIS_MONITOR** -- needs: GMAIL_APP_PASSWORD
 - **CRYPTO_WATCHER** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
@@ -86,36 +86,36 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
-- SWARM_COORDINATOR -> OMNIBUS via `swarm_state.json`
-- GENERATED_REVENUE_AUDIT_CONSUMER -> FUEL_CORE via `revenue_audit.json` (zero-secrets)
-- GENERATED_REVENUE_AUDIT_CONSUMER -> OMNIBUS via `revenue_audit.json` (zero-secrets)
-- GENERATED_REVENUE_AUDIT_CONSUMER -> REVENUE_AUDIT via `revenue_audit.json` (zero-secrets)
-- GENERATED_REVENUE_AUDIT_CONSUMER -> REVENUE_SPLITTER via `revenue_audit.json` (zero-secrets)
-- GENERATED_REVENUE_AUDIT_CONSUMER -> SWARM_COORDINATOR via `revenue_audit.json`
-- REVENUE_AUDIT -> FUEL_CORE via `revenue_audit.json` (zero-secrets)
-- REVENUE_AUDIT -> GENERATED_REVENUE_AUDIT_CONSUMER via `revenue_audit.json` (zero-secrets)
-- REVENUE_AUDIT -> OMNIBUS via `revenue_audit.json` (zero-secrets)
-- REVENUE_AUDIT -> REVENUE_SPLITTER via `revenue_audit.json` (zero-secrets)
-- REVENUE_AUDIT -> SWARM_COORDINATOR via `revenue_audit.json`
-- BLUESKY_ENGINE -> NIGHTLY_DIGEST via `bluesky_engine_state.json`
-- BLUESKY_ENGINE -> OMNIBUS via `bluesky_engine_state.json`
-- CLAUDE_BRIDGE -> DESKTOP_DAEMON via `claude_tasks_queue.json`
-- CLAUDE_BRIDGE -> GENERATED_DESKTOP_DAEMON_CONSUMER via `claude_tasks_queue.json` (zero-secrets)
-- CLAUDE_BRIDGE -> GENERATED_RESONANCE_CONVERTER_CONSUMER via `claude_tasks_queue.json` (zero-secrets)
-- CLAUDE_BRIDGE -> OMNIBUS via `claude_tasks_queue.json` (zero-secrets)
-- CLAUDE_BRIDGE -> RESONANCE_CONVERTER via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> CLAUDE_BRIDGE via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> GENERATED_DESKTOP_DAEMON_CONSUMER via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> GENERATED_RESONANCE_CONVERTER_CONSUMER via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> OMNIBUS via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> RESONANCE_CONVERTER via `claude_tasks_queue.json`
-- OMNIBUS -> CLAUDE_BRIDGE via `claude_tasks_queue.json` (zero-secrets)
-- OMNIBUS -> DESKTOP_DAEMON via `claude_tasks_queue.json`
-- ... and 5606 more connections
+- IMMUNE_SYSTEM -> CORTEX via `immune_system_report.json` (zero-secrets)
+- IMMUNE_SYSTEM -> GENERATED_IMMUNE_SYSTEM_CONSUMER via `immune_system_report.json` (zero-secrets)
+- IMMUNE_SYSTEM -> OMNIBUS via `immune_system_report.json` (zero-secrets)
+- IMMUNE_SYSTEM -> TASK_FACTORY via `immune_system_report.json` (zero-secrets)
+- PASSIVE_INCOME_ARCHITECT -> OMNIBUS via `passive_income_state.json`
+- BRIDGE_BUILDER -> STRESS_TEST via `_stress_backup_river_watch.json`
+- BOTTLENECK_SCANNER -> CYCLE_MEMORY via `bottleneck_report.json`
+- BOTTLENECK_SCANNER -> KNOWLEDGE_CHAIN via `bottleneck_report.json`
+- BOTTLENECK_SCANNER -> OMNIBUS via `bottleneck_report.json`
+- ZERO_SECRET_ARMY -> AUTO_GENESIS via `zero_secret_army_report.json` (zero-secrets)
+- ZERO_SECRET_ARMY -> DEBUG_DOCTOR via `zero_secret_army_report.json` (zero-secrets)
+- ZERO_SECRET_ARMY -> OMNIBUS via `zero_secret_army_report.json` (zero-secrets)
+- GENERATED_PLUGIN_MANIFESTS_POPULATOR -> GENERATED_PLUGIN_REGISTRY_CONSUMER via `plugin_manifests.json` (zero-secrets)
+- GENERATED_PLUGIN_MANIFESTS_POPULATOR -> PLUGIN_REGISTRY via `plugin_manifests.json` (zero-secrets)
+- PLUGIN_REGISTRY -> GENERATED_PLUGIN_MANIFESTS_POPULATOR via `plugin_manifests.json` (zero-secrets)
+- PLUGIN_REGISTRY -> GENERATED_PLUGIN_REGISTRY_CONSUMER via `plugin_manifests.json` (zero-secrets)
+- BRAND_LEGAL -> BIG_BRAIN_ORACLE via `brand_legal_state.json`
+- BRAND_LEGAL -> GENERATED_BRAND_LEGAL_CONSUMER via `brand_legal_state.json` (zero-secrets)
+- BRAND_LEGAL -> OMNIBUS via `brand_legal_state.json` (zero-secrets)
+- GENERATED_BRAND_LEGAL_CONSUMER -> BIG_BRAIN_ORACLE via `brand_legal_state.json`
+- GENERATED_BRAND_LEGAL_CONSUMER -> BRAND_LEGAL via `brand_legal_state.json` (zero-secrets)
+- GENERATED_BRAND_LEGAL_CONSUMER -> OMNIBUS via `brand_legal_state.json` (zero-secrets)
+- NARRATOR -> OMNIBUS via `narrator_state.json` (zero-secrets)
+- CORTEX -> OMNIBUS via `cortex_analysis.json` (zero-secrets)
+- BRIDGE_BUILDER -> AUTO_GENESIS via `chimera_evolution_report.json` (zero-secrets)
+- ... and 5644 more connections
 
 ## Knowledge Graph
 
-- **567 nodes** (engines, data files, concepts)
+- **578 nodes** (engines, data files, concepts)
 - **500 edges** (connections between them)
 
 ## What This Means
@@ -131,9 +131,9 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-05 06:54 UTC
+- **Generated**: 2026-04-05 12:31 UTC
 - **Data source**: data/live_wire_report.json
-- **Engines scanned**: 373
+- **Engines scanned**: 379
 
 ---
 *Built autonomously. Funded for Gaza. Running forever.*
