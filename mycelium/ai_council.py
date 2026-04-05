@@ -286,7 +286,7 @@ def call_analyst(context_str):
                             "content": f"Audit this system. Return JSON only.\n\n{context_str}"}]},
         timeout=120)
     if r.status_code != 200:
-        print(f"  ❌ Analyst API error {r.status_code}: {r.text[:300]}")
+        print(f"  [FAIL] Analyst API error {r.status_code}: {r.text[:300]}")
         sys.exit(1)
     raw = "".join(b.get("text", "") for b in r.json().get("content", []))
     print(f"  ✓ Analyst: {len(raw):,} chars")
@@ -382,7 +382,7 @@ def call_challenger_claude(analyst_report_str, context_str):
               "messages": [{"role": "user", "content": user_content}]},
         timeout=120)
     if r.status_code != 200:
-        print(f"  ❌ Challenger API error {r.status_code}: {r.text[:300]}")
+        print(f"  [FAIL] Challenger API error {r.status_code}: {r.text[:300]}")
         return None
     raw = "".join(b.get("text", "") for b in r.json().get("content", []))
     print(f"  ✓ Challenger (Claude): {len(raw):,} chars")
@@ -411,7 +411,7 @@ def call_challenger_kimi(analyst_report_str, context_str):
               ]},
         timeout=120)
     if r.status_code != 200:
-        print(f"  ❌ Kimi error {r.status_code}: {r.text[:300]}")
+        print(f"  [FAIL] Kimi error {r.status_code}: {r.text[:300]}")
         return None
     raw = r.json()["choices"][0]["message"]["content"]
     print(f"  ✓ Challenger (Kimi): {len(raw):,} chars")
@@ -483,7 +483,7 @@ def call_analyst_round2(analyst_r1_str, challenger_str):
               "messages": [{"role": "user", "content": user_content}]},
         timeout=90)
     if r.status_code != 200:
-        print(f"  ❌ Round 2 error: {r.status_code}")
+        print(f"  [FAIL] Round 2 error: {r.status_code}")
         return None
     raw = "".join(b.get("text", "") for b in r.json().get("content", []))
     print(f"  ✓ Analyst R2: {len(raw):,} chars")
@@ -527,7 +527,7 @@ def apply_fixes(changes, label="council"):
             print(f"    ✓ {msg}")
         else:
             failed.append(path)
-            print(f"    ❌ {resp.get('message', '?')}")
+            print(f"    [FAIL] {resp.get('message', '?')}")
     return applied, failed
 
 
@@ -553,7 +553,7 @@ def main():
     print("=" * 60)
 
     if not GH_TOKEN:
-        print("❌ GH_PAT / GITHUB_TOKEN not set")
+        print("[FAIL] GH_PAT / GITHUB_TOKEN not set")
         sys.exit(1)
 
     # ── Step 1: Collect context ──────────────────────────────────────────
@@ -724,7 +724,7 @@ def main():
 
     # ── Summary ──────────────────────────────────────────────────────────
     print("\n" + "=" * 60)
-    print(f"✅ COUNCIL COMPLETE — run {run_id}")
+    print(f"[OK] COUNCIL COMPLETE — run {run_id}")
     print(f"   {len(findings)} analyst findings + {len(new_finds)} challenger new finds")
     print(f"   {len(disagrees)} challenged | {len(adopted)} adopted | {len(applied)} fixes applied")
     print(f"\n📊 FINAL SUMMARY:\n{r2.get('final_summary', '(no summary)')}")

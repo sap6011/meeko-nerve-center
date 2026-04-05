@@ -219,7 +219,7 @@ def build_html(results):
             required = r["required"]
             impact = r.get("revenue_impact", "low")
             status_cls = "ok" if present else ("critical" if required else f"impact-{impact}")
-            status_label = "✅ CONFIGURED" if present else ("🔴 MISSING — CRITICAL" if required else f"⚪ OPTIONAL ({impact} impact)")
+            status_label = "[OK] CONFIGURED" if present else ("🔴 MISSING — CRITICAL" if required else f"⚪ OPTIONAL ({impact} impact)")
 
             steps_html = ""
             for i, step in enumerate(r.get("how_to_get", []), 1):
@@ -331,7 +331,7 @@ def run():
     if critical_missing:
         print(f"  🔴 CRITICAL missing: {', '.join(critical_missing)}")
     else:
-        print("  ✅ All critical secrets present")
+        print("  [OK] All critical secrets present")
 
     # Save state
     state = {
@@ -347,7 +347,7 @@ def run():
     # Build setup page
     html = build_html(results)
     (DOCS / "setup.html").write_text(html)
-    print(f"  ✅ docs/setup.html updated — {len(html):,} bytes")
+    print(f"  [OK] docs/setup.html updated — {len(html):,} bytes")
     print(f"  URL: https://meekotharaccoon-cell.github.io/meeko-nerve-center/setup.html")
 
     return state
