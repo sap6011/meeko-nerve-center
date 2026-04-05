@@ -22,7 +22,7 @@ STATE  = DATA / "fork_scanner_state.json"
 OUTBOX = DATA / "outreach_state.json"
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
-API_KEY      = os.environ.get("os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()", "").strip()
+API_KEY      = os.environ.get("ANTHROPIC_API_KEY", "").strip()
 OWNER        = "meekotharaccoon-cell"
 REPO         = "meeko-nerve-center"
 API          = "https://api.github.com"

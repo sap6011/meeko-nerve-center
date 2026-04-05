@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolarPunk — Channel Router Dashboard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0d1b22;
+      color: #cfd8dc;
+      min-height: 100vh;
+    }
+    h1, h2, h3 { margin: 0 0 10px 0; font-weight: 700; }
+    .header {
+      background: linear-gradient(135deg, #003d4d 0%, #00695c 100%);
+      padding: 28px 32px;
+      border-bottom: 2px solid #00bcd4;
+    }
+    .header h1 { color: #e0f7fa; font-size: 1.6em; letter-spacing: 0.02em; }
+    .header .sub { color: #80deea; font-size: 0.9em; margin-top: 4px; }
+    .container { max-width: 1300px; margin: 0 auto; padding: 28px 24px; }
+    .cards { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+    .card {
+      background: #122028;
+      border: 1px solid #1e3540;
+      border-radius: 10px;
+      padding: 18px 22px;
+      flex: 1;
+      min-width: 160px;
+      text-align: center;
+    }
+    .card .value { font-size: 2.4em; font-weight: 800; color: #e0f7fa; line-height: 1.1; }
+    .card .label { font-size: 0.82em; color: #78909c; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .card.green .value { color: #00e676; }
+    .card.yellow .value { color: #ffca28; }
+    .card.red .value { color: #ef5350; }
+    .section {
+      background: #122028;
+      border: 1px solid #1e3540;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .section-header {
+      background: #0d2030;
+      padding: 12px 18px;
+      font-size: 0.88em;
+      font-weight: 700;
+      color: #80cbc4;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid #1e3540;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: #0d2030;
+      padding: 9px 14px;
+      text-align: left;
+      font-size: 0.78em;
+      color: #78909c;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid #1e3540;
+    }
+    tr:hover { background: #152a36; }
+    .progress-bar {
+      height: 8px;
+      background: #1e3540;
+      border-radius: 4px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00bcd4, #00e676);
+      border-radius: 4px;
+      width: 93%;
+      transition: width 0.4s ease;
+    }
+    .footer {
+      text-align: center;
+      padding: 18px;
+      color: #37474f;
+      font-size: 0.8em;
+      border-top: 1px solid #1e3540;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>&#9881; SolarPunk — Channel Router Dashboard</h1>
+  <div class="sub">CHANNEL_ROUTER.py &nbsp;|&nbsp; Multi-Channel Fallback Intelligence &nbsp;|&nbsp; 2026-04-05T17:59:30 UTC</div>
+</div>
+
+<div class="container">
+
+  <!-- Summary cards -->
+  <div class="cards">
+    <div class="card">
+      <div class="value">15</div>
+      <div class="label">Total Channels</div>
+    </div>
+    <div class="card green">
+      <div class="value">14</div>
+      <div class="label">Available</div>
+    </div>
+    <div class="card yellow">
+      <div class="value">1</div>
+      <div class="label">Intermittent</div>
+    </div>
+    <div class="card red">
+      <div class="value">0</div>
+      <div class="label">Down</div>
+    </div>
+    <div class="card">
+      <div class="value">0</div>
+      <div class="label">Tasks Routed</div>
+    </div>
+    <div class="card red">
+      <div class="value">0</div>
+      <div class="label">Tasks Blocked</div>
+    </div>
+  </div>
+
+  <!-- Availability bar -->
+  <div class="section" style="padding:16px 20px;margin-bottom:24px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <span style="color:#80cbc4;font-weight:700;font-size:0.88em;">CHANNEL AVAILABILITY</span>
+      <span style="color:#e0f7fa;font-weight:800;font-size:1.1em;">93%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+  </div>
+
+  <!-- Channel status table -->
+  <div class="section">
+    <div class="section-header">All Channels — Live Status</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Channel ID</th>
+          <th>Tool</th>
+          <th style="text-align:center;">Status</th>
+          <th>Capabilities</th>
+          <th>Auth</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">github_cli</td>
+          <td style="padding:10px 14px;color:#b0bec5;">gh CLI</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">discussions</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">issues</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">releases</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">wiki</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">pr</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">pages</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">gh auth token</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">gmail_mcp</td>
+          <td style="padding:10px 14px;color:#b0bec5;">Gmail MCP</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">draft_email</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">list_drafts</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">search_messages</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">oauth</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">apify_browser</td>
+          <td style="padding:10px 14px;color:#b0bec5;">Apify RAG Web Browser</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">scrape_page</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">search_web</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">fetch_url</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">api_key</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">windows_mcp</td>
+          <td style="padding:10px 14px;color:#b0bec5;">Windows MCP</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">screenshot</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">click</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">type</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">powershell</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">open_app</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">local</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">chrome_mcp</td>
+          <td style="padding:10px 14px;color:#b0bec5;">Claude in Chrome</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#ffca28;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">INTERMITTENT</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">navigate</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">form_fill</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">screenshot</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">read_page</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">click</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">extension</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">notion_mcp</td>
+          <td style="padding:10px 14px;color:#b0bec5;">Notion MCP</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">create_page</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">update_page</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">search</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">create_database</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">oauth</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">github_mcp</td>
+          <td style="padding:10px 14px;color:#b0bec5;">GitHub MCP</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">create_file</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">create_issue</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">create_pr</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">push_files</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">token</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">paypal_mcp</td>
+          <td style="padding:10px 14px;color:#b0bec5;">PayPal MCP</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">create_invoice</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">send_invoice</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">list_transactions</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">oauth</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">gcal_mcp</td>
+          <td style="padding:10px 14px;color:#b0bec5;">Google Calendar MCP</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">create_event</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">list_events</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">find_free_time</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">oauth</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">webfetch</td>
+          <td style="padding:10px 14px;color:#b0bec5;">WebFetch</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">fetch_url</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">read_page</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">none</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">brave_browser</td>
+          <td style="padding:10px 14px;color:#b0bec5;">Brave via Windows MCP<br><span style="color:#78909c;font-size:0.72em;">fallback for: chrome_mcp</span></td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">navigate</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">form_fill</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">screenshot</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">click</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">type</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">local</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">desktop_commander</td>
+          <td style="padding:10px 14px;color:#b0bec5;">Desktop Commander MCP</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">file_ops</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">process_mgmt</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">search</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">edit</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">local</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">huggingface_mcp</td>
+          <td style="padding:10px 14px;color:#b0bec5;">HuggingFace MCP</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">search_models</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">search_papers</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">repo_details</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">token</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">b12_generator</td>
+          <td style="padding:10px 14px;color:#b0bec5;">B12 Website Generator</td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">generate_website</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">api</td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:10px 14px;font-weight:600;color:#e0f7fa;">windows_brave</td>
+          <td style="padding:10px 14px;color:#b0bec5;">Windows MCP + Brave shortcut<br><span style="color:#78909c;font-size:0.72em;">fallback for: chrome_mcp</span></td>
+          <td style="padding:10px 14px;text-align:center;"><span style="background:#00e676;color:#000;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;letter-spacing:0.04em;">AVAILABLE</span></td>
+          <td style="padding:10px 14px;"><span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">navigate</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">screenshot</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">click</span> <span style="background:#263238;color:#80cbc4;padding:1px 8px;border-radius:8px;font-size:0.72em;margin:1px;display:inline-block;">open_app</span></td>
+          <td style="padding:10px 14px;color:#78909c;font-size:0.82em;">local</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Task routing table -->
+  <div class="section">
+    <div class="section-header">Task Routing — Fallback Chains</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Task Type</th>
+          <th>Preferred Channel Order (first available wins)</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">create_discussion</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">github_cli</span> &rarr; <span style="color:#80cbc4;">github_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">create_invoice</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">paypal_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">create_release</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">github_cli</span> &rarr; <span style="color:#80cbc4;">github_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">create_wiki</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">github_cli</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">deploy_page</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">github_cli</span> &rarr; <span style="color:#80cbc4;">github_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">file_operation</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">desktop_commander</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">fill_form</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">chrome_mcp</span> &rarr; <span style="color:#80cbc4;">brave_browser</span> &rarr; <span style="color:#80cbc4;">windows_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">generate_website</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">b12_generator</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">list_product</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">chrome_mcp</span> &rarr; <span style="color:#80cbc4;">brave_browser</span> &rarr; <span style="color:#80cbc4;">windows_mcp</span> &rarr; <span style="color:#80cbc4;">apify_browser</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">open_url</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">brave_browser</span> &rarr; <span style="color:#80cbc4;">windows_mcp</span> &rarr; <span style="color:#80cbc4;">chrome_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">outreach_campaign</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">gmail_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">post_content</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">chrome_mcp</span> &rarr; <span style="color:#80cbc4;">brave_browser</span> &rarr; <span style="color:#80cbc4;">windows_mcp</span> &rarr; <span style="color:#80cbc4;">github_cli</span> &rarr; <span style="color:#80cbc4;">apify_browser</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">push_code</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">github_mcp</span> &rarr; <span style="color:#80cbc4;">github_cli</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">research_models</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">huggingface_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">run_command</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">windows_mcp</span> &rarr; <span style="color:#80cbc4;">desktop_commander</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">schedule_event</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">gcal_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">scrape_page</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">apify_browser</span> &rarr; <span style="color:#80cbc4;">webfetch</span> &rarr; <span style="color:#80cbc4;">chrome_mcp</span> &rarr; <span style="color:#80cbc4;">brave_browser</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">search_web</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">apify_browser</span> &rarr; <span style="color:#80cbc4;">webfetch</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">send_email</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">gmail_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">take_screenshot</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">windows_mcp</span> &rarr; <span style="color:#80cbc4;">chrome_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">update_notion</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">notion_mcp</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #1e2a30;">
+          <td style="padding:8px 14px;color:#fff176;font-family:monospace;">verify_email</td>
+          <td style="padding:8px 14px;font-size:0.85em;"><span style="color:#80cbc4;">gmail_mcp</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Recent routing decisions -->
+  <div class="section">
+    <div class="section-header">Recent Routing Decisions</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Task Type</th>
+          <th>Assigned Channel</th>
+          <th>Channels Tried</th>
+          <th style="text-align:center;">Decision</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="5" style="padding:14px;color:#546e7a;text-align:center;">No routing decisions yet</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  SolarPunk Node-01 &nbsp;|&nbsp; CHANNEL_ROUTER v1.0.0 &nbsp;|&nbsp;
+  Generated 2026-04-05T17:59:30.016702+00:00 &nbsp;|&nbsp; 15 channels registered
+</div>
+
+</body>
+</html>

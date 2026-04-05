@@ -55,7 +55,7 @@ def check_syntax(filepath):
 
 def fix_nested_getenv(source):
     """Fix the infamous nested os.getenv corruption."""
-    # Pattern: os.getenv("os.getenv("os.getenv("ACTUAL_KEY")")")")
+    # Pattern: os.getenv("ACTUAL_KEY")")
     fixed = source
     changed = False
 

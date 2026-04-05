@@ -1,49 +1,8 @@
 {
-  "timestamp": "2026-04-05T15:41:04.393605+00:00",
-  "total_engines": 367,
-  "syntax_pass": 331,
-  "syntax_fail": 36,
-  "failures": [
-    {
-      "engine": "AGENT_TWEET_WRITER.py",
-      "error": "  File \"mycelium\\AGENT_TWEET_WRITER.py\", line 60\n    if os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip():\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. P"
-    },
-    {
-      "engine": "AI_CLIENT.py",
-      "error": "  File \"mycelium\\AI_CLIENT.py\", line 34\n    ANTHROPIC_KEY = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: i"
-    },
-    {
-      "engine": "ai_council.py",
-      "error": "  File \"mycelium\\ai_council.py\", line 36\n    os.getenv(\"ANTHROPIC_API_KEY\") = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                                    ^^^^^^^^^"
-    },
-    {
-      "engine": "AI_WATCHER.py",
-      "error": "  File \"mycelium\\AI_WATCHER.py\", line 20\n    API=os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps "
-    },
-    {
-      "engine": "ART_GENERATOR.py",
-      "error": "  File \"mycelium\\ART_GENERATOR.py\", line 123\n    api_key = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid "
-    },
-    {
-      "engine": "BIG_BRAIN_ORACLE.py",
-      "error": "  File \"mycelium\\BIG_BRAIN_ORACLE.py\", line 27\n    ANTHROPIC_KEY = os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxE"
-    },
-    {
-      "engine": "BOTTLENECK_SCANNER.py",
-      "error": "  File \"mycelium\\BOTTLENECK_SCANNER.py\", line 23\n    \"os.getenv(\"ANTHROPIC_API_KEY\")\":    {\"impact\": \"CRITICAL\", \"unlocks\": [\"AI brain, self-builder, knowledge weaver\"]},\n    ^^^^^^^^^^^^^^^^^^^^^^^^^"
-    },
-    {
-      "engine": "BRIEFING_ENGINE.py",
-      "error": "  File \"mycelium\\BRIEFING_ENGINE.py\", line 19\n    API=os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip()\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Per"
-    },
-    {
-      "engine": "CAPABILITY_SCANNER.py",
-      "error": "  File \"mycelium\\CAPABILITY_SCANNER.py\", line 33\n    \"status\": \"active\" if os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip() else \"blocked\",\n                                         ^^^^^^^"
-    },
-    {
-      "engine": "CLAUDE_ENGINE.py",
-      "error": "  File \"mycelium\\CLAUDE_ENGINE.py\", line 84\n    if not os.environ.get(\"os.getenv(\"ANTHROPIC_API_KEY\")\", \"\").strip():\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax"
-    }
-  ],
+  "timestamp": "2026-04-05T17:59:56.221153+00:00",
+  "total_engines": 389,
+  "syntax_pass": 389,
+  "syntax_fail": 0,
+  "failures": [],
   "source": "BRIDGE_BUILDER local syntax check"
 }

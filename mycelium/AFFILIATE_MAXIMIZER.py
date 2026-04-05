@@ -47,14 +47,32 @@ KNOWN_AFFILIATES = {
 }
 
 AMAZON_PRODUCTS = {
-    "palestine_sacco":   {"asin": "1560974523", "title": "Palestine — Joe Sacco"},
+    # Solidarity & Palestine
+    "palestine_sacco":   {"asin": "1560974523", "title": "Palestine -- Joe Sacco"},
+    "mutual_aid_spade":  {"asin": None,         "title": "Mutual Aid -- Dean Spade",  "search": "mutual+aid+dean+spade"},
+    "freedom_struggle":  {"asin": None,         "title": "Freedom Is a Constant Struggle", "search": "freedom+constant+struggle+angela+davis"},
+    "palestine_history": {"asin": None,         "title": "Palestine History Books",    "search": "palestine+history"},
+    # Learn to code / automation
     "automate_python":   {"asin": "1593279922", "title": "Automate the Boring Stuff"},
+    "python_crash":      {"asin": None,         "title": "Python Crash Course",        "search": "python+crash+course+matthes"},
+    "python_automation": {"asin": None,         "title": "Python Automation",           "search": "python+automation"},
+    # SolarPunk fiction & philosophy
+    "solarpunk_anthology": {"asin": None,       "title": "Solarpunk Anthology",        "search": "solarpunk+anthology"},
+    "ministry_future":   {"asin": None,         "title": "Ministry for the Future",    "search": "ministry+for+the+future+kim+stanley+robinson"},
+    "parable_sower":     {"asin": None,         "title": "Parable of the Sower",       "search": "parable+sower+octavia+butler"},
+    "braiding_sweetgrass": {"asin": None,       "title": "Braiding Sweetgrass",        "search": "braiding+sweetgrass+kimmerer"},
+    # DIY tech & renewable
+    "solar_panel":       {"asin": None,         "title": "Portable Solar Panel",       "search": "portable+solar+panel+camping"},
+    "solar_charger":     {"asin": None,         "title": "Solar Phone Charger",        "search": "solar+phone+charger"},
+    "raspberry_pi":      {"asin": None,         "title": "Raspberry Pi 5 Kit",         "search": "raspberry+pi+5+kit"},
+    "arduino_starter":   {"asin": None,         "title": "Arduino Starter Kit",        "search": "arduino+starter+kit"},
+    # Business & entrepreneurship
     "100_startup":       {"asin": "0307951529", "title": "The $100 Startup"},
     "steal_artist":      {"asin": "0761169253", "title": "Steal Like an Artist"},
     "ways_seeing":       {"asin": "014013515X", "title": "Ways of Seeing"},
-    "passive_income":    {"asin": None,         "title": "Passive Income Books",    "search": "passive+income+online"},
-    "python_automation": {"asin": None,         "title": "Python Automation",       "search": "python+automation"},
-    "palestine_history": {"asin": None,         "title": "Palestine History Books", "search": "palestine+history"},
+    # Self-sufficiency
+    "seed_starter":      {"asin": None,         "title": "Seed Starter Kit",           "search": "seed+starter+kit+organic"},
+    "water_filter":      {"asin": None,         "title": "Portable Water Filter",      "search": "portable+water+filter"},
 }
 
 CONTENT_FILES_TO_ENRICH = [

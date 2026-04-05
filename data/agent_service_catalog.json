@@ -1,0 +1,83 @@
+{
+  "provider": {
+    "name": "SolarPunk Autonomous System",
+    "url": "https://meekotharaccoon-cell.github.io/meeko-nerve-center/",
+    "description": "Self-evolving humanitarian AI. 388 engines. 99% to mutual aid.",
+    "ethics": "99% of all service revenue routes to mutual aid organizations"
+  },
+  "services": [
+    {
+      "service_id": "solarpunk-repo-health",
+      "name": "Repository Health Score",
+      "description": "Given a GitHub repo URL, returns a health score (0-100) covering dependencies, security, docs, CI/CD, and test coverage",
+      "price_per_call": 0.05,
+      "currency": "USD",
+      "input_schema": {
+        "repo_url": "string"
+      },
+      "output_schema": {
+        "score": "int",
+        "breakdown": "object",
+        "recommendations": "array"
+      },
+      "powered_by": [
+        "LIVE_WIRE",
+        "HEALTH_BOOSTER",
+        "CHIMERA_EVOLUTION_ENGINE"
+      ]
+    },
+    {
+      "service_id": "solarpunk-security-scan",
+      "name": "Security Vulnerability Scan",
+      "description": "Scans a repo for known CVEs, leaked secrets, insecure patterns. Returns findings with severity ratings",
+      "price_per_call": 0.1,
+      "currency": "USD",
+      "input_schema": {
+        "repo_url": "string"
+      },
+      "output_schema": {
+        "vulnerabilities": "array",
+        "severity_summary": "object",
+        "fix_suggestions": "array"
+      },
+      "powered_by": [
+        "SECURITY_SENTRY",
+        "SECRETS_CHECKER",
+        "SCAM_SHIELD"
+      ]
+    },
+    {
+      "service_id": "solarpunk-self-heal",
+      "name": "Self-Healing PR Generator",
+      "description": "Analyzes a broken CI build and generates a PR to fix it. Dependency updates, syntax fixes, config repairs",
+      "price_per_call": 0.25,
+      "currency": "USD",
+      "input_schema": {
+        "repo_url": "string",
+        "ci_log": "string"
+      },
+      "output_schema": {
+        "pr_url": "string",
+        "fixes_applied": "array",
+        "confidence": "float"
+      },
+      "powered_by": [
+        "NANOBOT_HEALER",
+        "BRIDGE_BUILDER",
+        "SYNERGY_FORGE"
+      ]
+    }
+  ],
+  "payment": {
+    "protocol": "stripe_mpp",
+    "currencies": [
+      "USD"
+    ],
+    "minimum_charge": 0.01
+  },
+  "discovery": {
+    "acp_version": "1.0",
+    "endpoint": "https://solarpunk-health.fly.dev/acp/catalog"
+  },
+  "generated_at": "2026-04-05T17:59:30.383848+00:00"
+}
