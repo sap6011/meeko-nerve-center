@@ -1,28 +1,28 @@
 {
-  "timestamp": "2026-04-05T00:04:37.030451+00:00",
+  "timestamp": "2026-04-05T00:57:10.897903+00:00",
   "protocol": "mycelium-network-v1",
   "nutrient_routing": {
-    "total_nodes": 351,
-    "producers": 239,
-    "consumers": 104,
+    "total_nodes": 359,
+    "producers": 245,
+    "consumers": 106,
     "top_producers": [
       {
         "name": "BRIDGE_BUILDER",
-        "level": 149.0,
+        "level": 153.5,
         "role": "producer",
         "writes": 16,
         "reads": 27,
-        "downstream_dependents": 209,
-        "upstream_feeders": 130
+        "downstream_dependents": 214,
+        "upstream_feeders": 131
       },
       {
         "name": "FIRST_SALE_NOTIFIER",
-        "level": 68.5,
+        "level": 70.0,
         "role": "producer",
         "writes": 5,
         "reads": 8,
-        "downstream_dependents": 103,
-        "upstream_feeders": 73
+        "downstream_dependents": 105,
+        "upstream_feeders": 74
       },
       {
         "name": "DISPATCH_HANDLER",
@@ -35,12 +35,12 @@
       },
       {
         "name": "REVENUE_LOOP",
-        "level": 59.5,
+        "level": 61.0,
         "role": "producer",
         "writes": 5,
         "reads": 6,
-        "downstream_dependents": 87,
-        "upstream_feeders": 63
+        "downstream_dependents": 89,
+        "upstream_feeders": 64
       },
       {
         "name": "HEALTH_BOOSTER",
@@ -56,199 +56,95 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "mutation_vault.json",
-        "gradient": 294.0,
-        "src_level": 149.0,
-        "dst_level": -145.0
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "chimera_evolution_report.json",
-        "gradient": 294.0,
-        "src_level": 149.0,
-        "dst_level": -145.0
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "brain_state.json",
-        "gradient": 294.0,
-        "src_level": 149.0,
-        "dst_level": -145.0
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
         "via": "bridge_report.json",
-        "gradient": 294.0,
-        "src_level": 149.0,
-        "dst_level": -145.0
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "live_wire_report.json",
-        "gradient": 294.0,
-        "src_level": 149.0,
-        "dst_level": -145.0
+        "gradient": 297.5,
+        "src_level": 153.5,
+        "dst_level": -144.0
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "desktop_daemon_state.json",
-        "gradient": 294.0,
-        "src_level": 149.0,
-        "dst_level": -145.0
+        "gradient": 297.5,
+        "src_level": 153.5,
+        "dst_level": -144.0
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "product_registry.json",
-        "gradient": 294.0,
-        "src_level": 149.0,
-        "dst_level": -145.0
+        "gradient": 297.5,
+        "src_level": 153.5,
+        "dst_level": -144.0
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "brain_state.json",
+        "gradient": 297.5,
+        "src_level": 153.5,
+        "dst_level": -144.0
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "mutation_vault.json",
+        "gradient": 297.5,
+        "src_level": 153.5,
+        "dst_level": -144.0
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "chimera_evolution_report.json",
+        "gradient": 297.5,
+        "src_level": 153.5,
+        "dst_level": -144.0
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "live_wire_report.json",
+        "gradient": 297.5,
+        "src_level": 153.5,
+        "dst_level": -144.0
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
         "via": "first_sale_state.json",
-        "gradient": 213.5,
-        "src_level": 68.5,
-        "dst_level": -145.0
+        "gradient": 214.0,
+        "src_level": 70.0,
+        "dst_level": -144.0
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
         "via": "brain_state.json",
-        "gradient": 213.5,
-        "src_level": 68.5,
-        "dst_level": -145.0
+        "gradient": 214.0,
+        "src_level": 70.0,
+        "dst_level": -144.0
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
         "via": "revenue_inbox.json",
-        "gradient": 213.5,
-        "src_level": 68.5,
-        "dst_level": -145.0
+        "gradient": 214.0,
+        "src_level": 70.0,
+        "dst_level": -144.0
       }
     ]
   },
   "adaptive_growth": {
-    "total_wires": 5180,
-    "strengthen": 5145,
-    "monitor": 22,
-    "prune": 13
+    "total_wires": 5339,
+    "strengthen": 5322,
+    "monitor": 17,
+    "prune": 0
   },
   "anastomosis": {
-    "broken_wires": 13,
-    "hungry_inputs": 61,
+    "broken_wires": 0,
+    "hungry_inputs": 60,
     "breaks": [
-      {
-        "type": "broken_wire",
-        "from": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
-        "to": "BRIDGE_BUILDER",
-        "via": "polymarket_scan.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate polymarket_scan.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
-        "to": "MISSION_CONTROL",
-        "via": "polymarket_scan.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate polymarket_scan.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
-        "to": "OMNIBUS",
-        "via": "polymarket_scan.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate polymarket_scan.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
-        "to": "POLYMARKET_SCANNER",
-        "via": "polymarket_scan.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate polymarket_scan.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
-        "to": "VITAL_SIGN_API",
-        "via": "polymarket_scan.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate polymarket_scan.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "POLYMARKET_SCANNER",
-        "to": "BRIDGE_BUILDER",
-        "via": "polymarket_scan.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate polymarket_scan.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "POLYMARKET_SCANNER",
-        "to": "GENERATED_POLYMARKET_SCANNER_CONSUMER",
-        "via": "polymarket_scan.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate polymarket_scan.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "POLYMARKET_SCANNER",
-        "to": "MISSION_CONTROL",
-        "via": "polymarket_scan.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate polymarket_scan.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "POLYMARKET_SCANNER",
-        "to": "OMNIBUS",
-        "via": "polymarket_scan.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate polymarket_scan.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "POLYMARKET_SCANNER",
-        "to": "VITAL_SIGN_API",
-        "via": "polymarket_scan.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate polymarket_scan.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "DESKTOP_DAEMON",
-        "to": "GENERATED_DESKTOP_DAEMON_CONSUMER",
-        "via": "desktop_daemon_log.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate desktop_daemon_log.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "DESKTOP_DAEMON",
-        "to": "GENERATED_DESKTOP_DAEMON_CONSUMER",
-        "via": "claude_tasks_queue.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate claude_tasks_queue.json"
-      },
-      {
-        "type": "broken_wire",
-        "from": "DESKTOP_DAEMON",
-        "to": "GENERATED_DESKTOP_DAEMON_CONSUMER",
-        "via": "daemon_task.xml",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate daemon_task.xml"
-      },
       {
         "type": "hungry_input",
         "file": "*.json",
@@ -283,6 +179,71 @@
         "type": "hungry_input",
         "file": "ai_council_report.json",
         "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "amplification_posts.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "amplify_cooldown.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "atomizer_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "bundle_forge_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "business_*.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "catalog_generator_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "chimera_score.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "claude_autonomous_report.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "compound_tracker.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "content_harvest_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "conversion_log.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "cycle_memory.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "desktop_agent_log.json",
+        "healing": "Create seed data or bridge from existing source"
       }
     ]
   },
@@ -293,48 +254,36 @@
   },
   "signals": [
     {
-      "type": "DROUGHT_WARNING",
-      "severity": "high",
-      "message": "13 producer connections broken",
-      "source": "nutrient_routing",
-      "affected": [
-        "POLYMARKET_SCANNER",
-        "DESKTOP_DAEMON",
-        "GENERATED_POLYMARKET_SCANNER_CONSUMER"
-      ],
-      "biology": "Major root system damaged -- nutrient flow disrupted downstream"
-    },
-    {
       "type": "NUTRIENT_DEFICIT",
       "severity": "medium",
-      "message": "67 engines severely nutrient-depleted",
+      "message": "71 engines severely nutrient-depleted",
       "source": "nutrient_routing",
       "affected": [
         "AGENT_TWEET_WRITER",
-        "ai_council",
         "AMPLIFY_ENGINE",
         "ARCHITECT",
-        "AUTO_GENESIS",
-        "AUTO_HEALER",
         "AUTONOMOUS_TESTER",
         "AUTONOMY_PROOF",
+        "AUTO_GENESIS",
+        "AUTO_HEALER",
         "BIG_BRAIN_ORACLE",
-        "BIOLUMINESCENCE"
+        "BIOLUMINESCENCE",
+        "CATALOG_GENERATOR"
       ],
       "biology": "Shaded understory trees need carbon transfer from canopy"
     },
     {
       "type": "NETWORK_PULSE",
       "severity": "info",
-      "message": "Network health: 99% (5145/5180 wires healthy)",
+      "message": "Network health: 100% (5322/5339 wires healthy)",
       "source": "mycelium_network",
       "biology": "Seasonal growth assessment -- overall forest vitality check"
     }
   ],
   "reciprocal_rewards": {
-    "mutualists": 202,
-    "balanced": 75,
-    "consumers": 29,
+    "mutualists": 209,
+    "balanced": 74,
+    "consumers": 31,
     "inert": 45,
     "top_mutualists": [
       {
@@ -342,13 +291,6 @@
         "reciprocity": 30.5,
         "role": "mutualist",
         "giving": 61,
-        "taking": 2
-      },
-      {
-        "name": "archivist",
-        "reciprocity": 30.0,
-        "role": "mutualist",
-        "giving": 60,
         "taking": 2
       },
       {
@@ -371,13 +313,20 @@
         "role": "mutualist",
         "giving": 60,
         "taking": 2
+      },
+      {
+        "name": "DUPLICATE_STRIKER",
+        "reciprocity": 30.0,
+        "role": "mutualist",
+        "giving": 60,
+        "taking": 2
       }
     ]
   },
   "network_memory": {
-    "cycles_tracked": 29,
-    "new_connections": 0,
-    "persisted": 4990,
+    "cycles_tracked": 32,
+    "new_connections": 53,
+    "persisted": 5093,
     "lost": 0
   },
   "biology_notes": {

@@ -14,15 +14,15 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 
 ## System Topology
 
-- **Total engines**: 351
-- **Wire connections**: 5180
-- **Zero-secret chains**: 3564 (work without any API keys)
-- **Orphan outputs**: 5 (data written but never read)
-- **Hungry inputs**: 61 (data needed but not yet produced)
+- **Total engines**: 359
+- **Wire connections**: 5339
+- **Zero-secret chains**: 3672 (work without any API keys)
+- **Orphan outputs**: 10 (data written but never read)
+- **Hungry inputs**: 60 (data needed but not yet produced)
 
 ## Engine Categories
 
-### Zero-Secret Engines (268 total)
+### Zero-Secret Engines (276 total)
 These engines run without any API keys or credentials:
 
 - **AFFILIATE_MAXIMIZER** -- reads: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json, writes: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json
@@ -55,7 +55,7 @@ These engines run without any API keys or credentials:
 - **CHEMOTAXIS** -- reads: chemotaxis_state.json, crisis_signals.json, osmosis_routing.json, bioluminescence.json, spore_dispersal.json, amplification_posts.json, ngo_handshakes.json, immune_memory.json, writes: chemotaxis_state.json
 - **CHIMERA_EVOLUTION_ENGINE** -- reads: live_wire_report.json, nanobot_heal_report.json, bridge_report.json, mutation_vault.json, chimera_evolution_report.json, writes: mutation_vault.json, chimera_evolution_report.json
 - **CIRCADIAN_RHYTHM** -- reads: circadian_state.json, writes: circadian_state.json
-- ... and 238 more
+- ... and 246 more
 
 ### Engines Needing API Keys (83 total)
 These engines unlock when you add credentials:
@@ -86,36 +86,36 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
-- EMAIL_AGENT_EXCHANGE -> ARCHITECT via `email_exchange_state.json`
-- EMAIL_AGENT_EXCHANGE -> FIRST_CONTACT via `email_exchange_state.json`
-- EMAIL_AGENT_EXCHANGE -> KOFI_PAYMENT_TRACKER via `email_exchange_state.json`
-- EMAIL_AGENT_EXCHANGE -> NIGHTLY_DIGEST via `email_exchange_state.json`
-- EMAIL_AGENT_EXCHANGE -> OMNIBUS via `email_exchange_state.json`
-- KOFI_PAYMENT_TRACKER -> ARCHITECT via `email_exchange_state.json` (zero-secrets)
-- KOFI_PAYMENT_TRACKER -> EMAIL_AGENT_EXCHANGE via `email_exchange_state.json`
-- KOFI_PAYMENT_TRACKER -> FIRST_CONTACT via `email_exchange_state.json`
-- KOFI_PAYMENT_TRACKER -> NIGHTLY_DIGEST via `email_exchange_state.json`
-- KOFI_PAYMENT_TRACKER -> OMNIBUS via `email_exchange_state.json` (zero-secrets)
-- CRISIS_MONITOR -> CHEMOTAXIS via `ngo_handshakes.json`
-- CRISIS_MONITOR -> EMAIL_OUTREACH via `ngo_handshakes.json`
-- CRISIS_MONITOR -> HOMEOSTASIS via `ngo_handshakes.json`
-- CRISIS_MONITOR -> IMMUNE_MEMORY via `ngo_handshakes.json`
-- CRISIS_MONITOR -> WEEKEND_PULSE via `ngo_handshakes.json`
-- EMAIL_OUTREACH -> CHEMOTAXIS via `ngo_handshakes.json`
-- EMAIL_OUTREACH -> CRISIS_MONITOR via `ngo_handshakes.json`
-- EMAIL_OUTREACH -> HOMEOSTASIS via `ngo_handshakes.json`
-- EMAIL_OUTREACH -> IMMUNE_MEMORY via `ngo_handshakes.json`
-- EMAIL_OUTREACH -> WEEKEND_PULSE via `ngo_handshakes.json`
-- CRISIS_MONITOR -> AMPLIFY_ENGINE via `crisis_signals.json`
-- CRISIS_MONITOR -> BIOLUMINESCENCE via `crisis_signals.json`
-- CRISIS_MONITOR -> CHEMOTAXIS via `crisis_signals.json`
-- CRISIS_MONITOR -> DARK_WATCH via `crisis_signals.json`
-- CRISIS_MONITOR -> GITHUB_DISCUSSIONS_PUBLISHER via `crisis_signals.json`
-- ... and 5155 more connections
+- LANDING_DEPLOYER -> DESKTOP_AGENT via `live_landing_pages.json`
+- CRISIS_MONITOR -> HOMEOSTASIS via `crisis_triggers.json`
+- CRISIS_MONITOR -> IMMUNE_MEMORY via `crisis_triggers.json`
+- CRISIS_MONITOR -> RESOURCE_KIT via `crisis_triggers.json`
+- CRISIS_MONITOR -> WEEKEND_PULSE via `crisis_triggers.json`
+- EMAIL_API_EXTRACTOR -> EMAIL_BRAIN via `email_brain_state.json`
+- EMAIL_API_EXTRACTOR -> GMAIL_BRIDGE via `email_brain_state.json`
+- EMAIL_API_EXTRACTOR -> GMAIL_NOTIFIER via `email_brain_state.json`
+- EMAIL_API_EXTRACTOR -> SCAM_SHIELD via `email_brain_state.json`
+- EMAIL_API_EXTRACTOR -> SIGNAL_CHAIN via `email_brain_state.json` (zero-secrets)
+- EMAIL_BRAIN -> EMAIL_API_EXTRACTOR via `email_brain_state.json`
+- EMAIL_BRAIN -> GMAIL_BRIDGE via `email_brain_state.json`
+- EMAIL_BRAIN -> GMAIL_NOTIFIER via `email_brain_state.json`
+- EMAIL_BRAIN -> SCAM_SHIELD via `email_brain_state.json`
+- EMAIL_BRAIN -> SIGNAL_CHAIN via `email_brain_state.json`
+- GMAIL_BRIDGE -> EMAIL_API_EXTRACTOR via `email_brain_state.json`
+- GMAIL_BRIDGE -> EMAIL_BRAIN via `email_brain_state.json`
+- GMAIL_BRIDGE -> GMAIL_NOTIFIER via `email_brain_state.json`
+- GMAIL_BRIDGE -> SCAM_SHIELD via `email_brain_state.json`
+- GMAIL_BRIDGE -> SIGNAL_CHAIN via `email_brain_state.json`
+- GMAIL_NOTIFIER -> EMAIL_API_EXTRACTOR via `email_brain_state.json`
+- GMAIL_NOTIFIER -> EMAIL_BRAIN via `email_brain_state.json`
+- GMAIL_NOTIFIER -> GMAIL_BRIDGE via `email_brain_state.json`
+- GMAIL_NOTIFIER -> SCAM_SHIELD via `email_brain_state.json`
+- GMAIL_NOTIFIER -> SIGNAL_CHAIN via `email_brain_state.json`
+- ... and 5314 more connections
 
 ## Knowledge Graph
 
-- **530 nodes** (engines, data files, concepts)
+- **541 nodes** (engines, data files, concepts)
 - **500 edges** (connections between them)
 
 ## What This Means
@@ -131,9 +131,9 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-05 00:06 UTC
+- **Generated**: 2026-04-05 00:57 UTC
 - **Data source**: data/live_wire_report.json
-- **Engines scanned**: 351
+- **Engines scanned**: 359
 
 ---
 *Built autonomously. Funded for Gaza. Running forever.*

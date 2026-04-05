@@ -1324,7 +1324,7 @@ if __name__ == '__main__':
 
 *Variant of: api_client_rest.md*
 *Domain: crypto_api*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## API Details
 - Base URL: `https://api.coingecko.com/api/v3`
@@ -1362,7 +1362,7 @@ Free tier: 10-30 calls/min. No API key required for basic queries.
 
 *Variant of: api_client_rest.md*
 *Domain: github_api*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## API Details
 - Base URL: `https://api.github.com`
@@ -1399,7 +1399,7 @@ Uses GITHUB_TOKEN for auth. Handles pagination via Link header.
 
 *Variant of: api_client_rest.md*
 *Domain: rss_feed*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## API Details
 - Base URL: `https://example.com/feed.xml`
@@ -1436,7 +1436,7 @@ Parses RSS 2.0 and Atom feeds. Converts XML to JSON.
 
 *Variant of: api_client_rest.md*
 *Domain: translation_api*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## API Details
 - Base URL: `https://api.mymemory.translated.net/get`
@@ -1473,7 +1473,7 @@ Free tier: 5000 chars/day. Caches translations locally.
 
 *Variant of: api_client_rest.md*
 *Domain: weather_api*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## API Details
 - Base URL: `https://api.openweathermap.org/data/2.5`
@@ -1510,7 +1510,7 @@ Requires OPENWEATHER_API_KEY. Supports current weather and 5-day forecast.
 
 *Variant of: data_pipeline_etl.md*
 *Domain: csv_merger*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Pipeline
 - Source: N/A (local CSV files)
@@ -1552,7 +1552,7 @@ Merges CSVs with different schemas. Fills missing columns with null.
 
 *Variant of: data_pipeline_etl.md*
 *Domain: database_sync*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Pipeline
 - Source: N/A (SQLite databases)
@@ -1594,7 +1594,7 @@ Extracts from SQLite, transforms in Python, loads to new SQLite.
 
 *Variant of: data_pipeline_etl.md*
 *Domain: email_parser*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Pipeline
 - Source: N/A (local .eml files)
@@ -1636,7 +1636,7 @@ Parses .eml files. Extracts headers, body, and attachment metadata.
 
 *Variant of: data_pipeline_etl.md*
 *Domain: json_normalizer*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Pipeline
 - Source: N/A (JSON files or API responses)
@@ -1678,7 +1678,7 @@ Handles arbitrarily nested JSON. Dot-notation output keys.
 
 *Variant of: data_pipeline_etl.md*
 *Domain: log_processor*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Pipeline
 - Source: N/A (local log files)
@@ -1721,7 +1721,7 @@ Parses Apache, nginx, and Python log formats. Aggregates by level.
 
 *Variant of: web_scraper_requests.md*
 *Domain: academic_papers*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Target
 - URL: `https://api.semanticscholar.org/graph/v1/paper/search`
@@ -1758,7 +1758,7 @@ Uses Semantic Scholar API. Respects 100 req/5min rate limit.
 
 *Variant of: web_scraper_requests.md*
 *Domain: ecommerce*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Target
 - URL: `https://example-shop.com/products`
@@ -1795,7 +1795,7 @@ Handles pagination via next-page links. Exports to CSV.
 
 *Variant of: web_scraper_requests.md*
 *Domain: government_data*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Target
 - URL: `https://data.gov/api/3/action/package_search`
@@ -1832,7 +1832,7 @@ Uses CKAN API standard. Downloads linked CSV/JSON datasets.
 
 *Variant of: web_scraper_requests.md*
 *Domain: news*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Target
 - URL: `https://example-news.com/latest`
@@ -1870,7 +1870,7 @@ Extracts article body text. Respects robots.txt.
 
 *Variant of: web_scraper_requests.md*
 *Domain: social_media*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Target
 - URL: `https://example-social.com/api/v1/profiles`
@@ -2204,7 +2204,7 @@ jobs:
 
 *Variant of: ci_python_test.md*
 *Domain: docker*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Configuration
 - Runner: `ubuntu-latest`
@@ -2240,7 +2240,7 @@ jobs:
 
 *Variant of: ci_python_test.md*
 *Domain: go*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Configuration
 - Runner: `ubuntu-latest`
@@ -2276,7 +2276,7 @@ jobs:
 
 *Variant of: ci_python_test.md*
 *Domain: node_js*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Configuration
 - Runner: `ubuntu-latest`
@@ -2312,7 +2312,7 @@ jobs:
 
 *Variant of: ci_python_test.md*
 *Domain: rust*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Configuration
 - Runner: `ubuntu-latest`
@@ -2348,7 +2348,7 @@ jobs:
 
 *Variant of: scheduled_data_fetch.md*
 *Domain: daily_backup*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Schedule
 - Cron: `'0 2 * * *'`
@@ -2387,7 +2387,7 @@ jobs:
 
 *Variant of: scheduled_data_fetch.md*
 *Domain: hourly_health*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Schedule
 - Cron: `'0 * * * *'`
@@ -2426,7 +2426,7 @@ jobs:
 
 *Variant of: scheduled_data_fetch.md*
 *Domain: monthly_cleanup*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Schedule
 - Cron: `'0 0 1 * *'`
@@ -2465,7 +2465,7 @@ jobs:
 
 *Variant of: scheduled_data_fetch.md*
 *Domain: weekly_report*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Schedule
 - Cron: `'0 9 * * 1'`
@@ -2742,7 +2742,7 @@ You are a helpful, precise, and thoughtful assistant.
 
 *Variant of: code_generator.md*
 *Domain: cli_tool*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Context
 - Role: CLI tool developer
@@ -2766,7 +2766,7 @@ Generate production-ready code following these guidelines.
 
 *Variant of: code_generator.md*
 *Domain: discord_bot*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Context
 - Role: Discord bot developer
@@ -2790,7 +2790,7 @@ Generate production-ready code following these guidelines.
 
 *Variant of: code_generator.md*
 *Domain: fastapi_endpoint*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Context
 - Role: backend API developer
@@ -2814,7 +2814,7 @@ Generate production-ready code following these guidelines.
 
 *Variant of: code_generator.md*
 *Domain: test_suite*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Context
 - Role: QA engineer
@@ -2838,7 +2838,7 @@ Generate production-ready code following these guidelines.
 
 *Variant of: system_prompt_assistant.md*
 *Domain: coding_tutor*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: patient coding tutor
@@ -2865,7 +2865,7 @@ Never give the full solution directly. Use Socratic questioning.
 
 *Variant of: system_prompt_assistant.md*
 *Domain: data_scientist*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: data scientist
@@ -2892,7 +2892,7 @@ Always state assumptions. Report confidence intervals.
 
 *Variant of: system_prompt_assistant.md*
 *Domain: product_manager*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: senior product manager
@@ -2919,7 +2919,7 @@ Frame everything in terms of user value. Reference metrics.
 
 *Variant of: system_prompt_assistant.md*
 *Domain: security_auditor*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: cybersecurity auditor
@@ -2946,7 +2946,7 @@ Always check for injection, auth bypass, and data exposure.
 
 *Variant of: system_prompt_assistant.md*
 *Domain: technical_writer*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Persona
 - Role: senior technical writer
@@ -3322,7 +3322,7 @@ WIRE_DEFINITIONS = [
 
 *Variant of: engine_template.md*
 *Domain: aggregator_engine*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Engine Specification
 - Purpose: Combine data from multiple engines into a summary
@@ -3361,7 +3361,7 @@ if __name__ == '__main__':
 
 *Variant of: engine_template.md*
 *Domain: monitor_engine*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Engine Specification
 - Purpose: Watch a resource and alert on changes
@@ -3400,7 +3400,7 @@ if __name__ == '__main__':
 
 *Variant of: engine_template.md*
 *Domain: publisher_engine*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Engine Specification
 - Purpose: Publish content to external platforms
@@ -3439,7 +3439,7 @@ if __name__ == '__main__':
 
 *Variant of: engine_template.md*
 *Domain: transformer_engine*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Engine Specification
 - Purpose: Transform data from one format to another
@@ -3478,7 +3478,7 @@ if __name__ == '__main__':
 
 *Variant of: wire_pattern.md*
 *Domain: content_wire*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Wire Specification
 - Purpose: Connect writing to publishing to amplification
@@ -3509,7 +3509,7 @@ WIRE_CONTENT_WIRE = [
 
 *Variant of: wire_pattern.md*
 *Domain: feedback_wire*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Wire Specification
 - Purpose: Connect analytics to optimization to re-evaluation
@@ -3540,7 +3540,7 @@ WIRE_FEEDBACK_WIRE = [
 
 *Variant of: wire_pattern.md*
 *Domain: health_wire*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Wire Specification
 - Purpose: Connect health checks to healing to topology updates
@@ -3571,7 +3571,7 @@ WIRE_HEALTH_WIRE = [
 
 *Variant of: wire_pattern.md*
 *Domain: revenue_wire*
-*Generated: 2026-04-04*
+*Generated: 2026-04-05*
 
 ## Wire Specification
 - Purpose: Connect product creation to deployment to sales tracking

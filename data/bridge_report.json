@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-05T00:52:29.270579+00:00",
+  "timestamp": "2026-04-05T00:57:33.051216+00:00",
   "bridges_attempted": 64,
-  "bridges_built": 16,
-  "bridges_failed": 48,
+  "bridges_built": 15,
+  "bridges_failed": 49,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
@@ -38,32 +38,32 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 358 pass, 0 fail out of 358 engines",
-      "pass": 358,
+      "detail": "Local sentinel: 363 pass, 0 fail out of 363 engines",
+      "pass": 363,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 540 nodes, 5284 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 540,
-      "edges": 5284,
+      "detail": "Knowledge graph: 545 nodes, 5352 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 545,
+      "edges": 5352,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          343
+          345
         ],
         [
           "OMNIBUS",
-          212
+          213
         ],
         [
           "FIRST_SALE_NOTIFIER",
-          177
+          179
         ],
         [
           "REVENUE_LOOP",
-          151
+          153
         ],
         [
           "METRICS_DASHBOARD",
@@ -90,7 +90,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 358 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 363 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -99,18 +99,18 @@
       "target": "tweets_queue.txt"
     },
     {
-      "status": "BRIDGED",
-      "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json",
-      "target": "daemon_task.xml"
+      "target": "daemon_task.xml",
+      "status": "ERROR",
+      "detail": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 18, score 78/100",
+      "detail": "Chimera gen 21, score 78/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 358",
+      "detail": "Healed 0, scanned 363",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -119,8 +119,8 @@
       "target": "mutation_leaderboard.json"
     },
     {
-      "status": "ALREADY_EXISTS",
-      "detail": "Markets scanned: 100, edges: 41",
+      "status": "NO_SOURCE",
+      "detail": "polymarket_scan.json not found -- run POLYMARKET_SCANNER",
       "target": "polymarket_scan.json"
     },
     {
@@ -225,7 +225,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (358 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (363 pass)",
       "target": "sentinel_scan.json"
     },
     {

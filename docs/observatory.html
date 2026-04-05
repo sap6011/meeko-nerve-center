@@ -2,14 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="description" content="SolarPunk Observatory -- Data Flow Map -- SolarPunk Data Flow Observatory Generated: 2026-04-05T00:06:53.312744+00:00 | God's-eye view of the nervous system...">
-<meta property="og:title" content="SolarPunk Observatory -- Data Flow Map">
-<meta property="og:description" content="SolarPunk Observatory -- Data Flow Map -- SolarPunk Data Flow Observatory Generated: 2026-04-05T00:06:53.312744+00:00 | God's-eye view of the nervous system...">
-<meta property="og:url" content="https://meekotharaccoon-cell.github.io/meeko-nerve-center/observatory.html">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SolarPunk Observatory -- Data Flow Map">
-<meta name="twitter:description" content="SolarPunk Observatory -- Data Flow Map -- SolarPunk Data Flow Observatory Generated: 2026-04-05T00:06:53.312744+00:00 | God's-eye view of the nervous system...">
 <title>SolarPunk Observatory -- Data Flow Map</title>
 <style>
 body { background: #0a0a0a; color: #e0e0e0; font-family: 'Courier New', monospace; margin: 20px; }
@@ -28,287 +20,284 @@ tr:hover { background: #1a1a2e; }
 .high { color: #ff4444; } .medium { color: #ffaa00; } .low { color: #666; }
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 </style>
-<link rel="canonical" href="https://meekotharaccoon-cell.github.io/meeko-nerve-center/observatory.html">
 </head>
 <body>
 <h1>SolarPunk Data Flow Observatory</h1>
-<p style="text-align:center;color:#888;">Generated: 2026-04-05T00:06:53.312744+00:00 | God's-eye view of the nervous system</p>
+<p style="text-align:center;color:#888;">Generated: 2026-04-05T00:57:11.591582+00:00 | God's-eye view of the nervous system</p>
 
 <div class="stats">
-  <div class="stat"><div class="num">5180</div><div class="label">Total Flows</div></div>
+  <div class="stat"><div class="num">5339</div><div class="label">Total Flows</div></div>
   <div class="stat"><div class="num">50</div><div class="label">High-Value Flows</div></div>
   <div class="stat"><div class="num">30</div><div class="label">Dead Flows</div></div>
-  <div class="stat"><div class="num">179</div><div class="label">Data Files Active</div></div>
-  <div class="stat"><div class="num">1,330,603,198</div><div class="label">Total Bytes Flowing</div></div>
+  <div class="stat"><div class="num">182</div><div class="label">Data Files Active</div></div>
+  <div class="stat"><div class="num">1,348,575,779</div><div class="label">Total Bytes Flowing</div></div>
 </div>
 
 <h2>Flow Categories</h2>
-<table><tr><th>Category</th><th>Flows</th><th>Priority</th></tr><tr><td>revenue</td><td>3378</td><td>high</td></tr>
+<table><tr><th>Category</th><th>Flows</th><th>Priority</th></tr><tr><td>revenue</td><td>3398</td><td>high</td></tr>
+<tr><td>social</td><td>647</td><td>medium</td></tr>
 <tr><td>meta</td><td>628</td><td>medium</td></tr>
-<tr><td>social</td><td>576</td><td>medium</td></tr>
-<tr><td>data</td><td>530</td><td>medium</td></tr>
-<tr><td>seed</td><td>36</td><td>low</td></tr>
-<tr><td>health</td><td>32</td><td>medium</td></tr>
+<tr><td>data</td><td>576</td><td>medium</td></tr>
+<tr><td>seed</td><td>56</td><td>low</td></tr>
+<tr><td>health</td><td>34</td><td>medium</td></tr>
 </table>
 
 <h2>High-Value Flows (Revenue, Knowledge, Security)</h2>
 <table><tr><th>From</th><th>Via</th><th>To</th><th>Signals</th><th>Bytes</th><th>Sample Data</th></tr><tr>
-            <td>EMAIL_AGENT_EXCHANGE</td>
-            <td>email_exchange_state.json</td>
-            <td>ARCHITECT</td>
+            <td>EMAIL_API_EXTRACTOR</td>
+            <td>email_brain_state.json</td>
+            <td>EMAIL_BRAIN</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>187</td>
-            <td class="samples">cycles: 97, total_tasks: 0, total_earned: 0.0</td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
         </tr>
 <tr>
-            <td>EMAIL_AGENT_EXCHANGE</td>
-            <td>email_exchange_state.json</td>
-            <td>FIRST_CONTACT</td>
+            <td>EMAIL_API_EXTRACTOR</td>
+            <td>email_brain_state.json</td>
+            <td>GMAIL_BRIDGE</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>187</td>
-            <td class="samples">cycles: 97, total_tasks: 0, total_earned: 0.0</td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
         </tr>
 <tr>
-            <td>EMAIL_AGENT_EXCHANGE</td>
-            <td>email_exchange_state.json</td>
-            <td>KOFI_PAYMENT_TRACKER</td>
+            <td>EMAIL_API_EXTRACTOR</td>
+            <td>email_brain_state.json</td>
+            <td>GMAIL_NOTIFIER</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>187</td>
-            <td class="samples">cycles: 97, total_tasks: 0, total_earned: 0.0</td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
         </tr>
 <tr>
-            <td>EMAIL_AGENT_EXCHANGE</td>
-            <td>email_exchange_state.json</td>
-            <td>NIGHTLY_DIGEST</td>
+            <td>EMAIL_API_EXTRACTOR</td>
+            <td>email_brain_state.json</td>
+            <td>SCAM_SHIELD</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>187</td>
-            <td class="samples">cycles: 97, total_tasks: 0, total_earned: 0.0</td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
         </tr>
 <tr>
-            <td>EMAIL_AGENT_EXCHANGE</td>
-            <td>email_exchange_state.json</td>
+            <td>EMAIL_API_EXTRACTOR</td>
+            <td>email_brain_state.json</td>
+            <td>SIGNAL_CHAIN</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>EMAIL_BRAIN</td>
+            <td>email_brain_state.json</td>
+            <td>EMAIL_API_EXTRACTOR</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>EMAIL_BRAIN</td>
+            <td>email_brain_state.json</td>
+            <td>GMAIL_BRIDGE</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>EMAIL_BRAIN</td>
+            <td>email_brain_state.json</td>
+            <td>GMAIL_NOTIFIER</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>EMAIL_BRAIN</td>
+            <td>email_brain_state.json</td>
+            <td>SCAM_SHIELD</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>EMAIL_BRAIN</td>
+            <td>email_brain_state.json</td>
+            <td>SIGNAL_CHAIN</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>GMAIL_BRIDGE</td>
+            <td>email_brain_state.json</td>
+            <td>EMAIL_API_EXTRACTOR</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>GMAIL_BRIDGE</td>
+            <td>email_brain_state.json</td>
+            <td>EMAIL_BRAIN</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>GMAIL_BRIDGE</td>
+            <td>email_brain_state.json</td>
+            <td>GMAIL_NOTIFIER</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>GMAIL_BRIDGE</td>
+            <td>email_brain_state.json</td>
+            <td>SCAM_SHIELD</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>GMAIL_BRIDGE</td>
+            <td>email_brain_state.json</td>
+            <td>SIGNAL_CHAIN</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>GMAIL_NOTIFIER</td>
+            <td>email_brain_state.json</td>
+            <td>EMAIL_API_EXTRACTOR</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>GMAIL_NOTIFIER</td>
+            <td>email_brain_state.json</td>
+            <td>EMAIL_BRAIN</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>GMAIL_NOTIFIER</td>
+            <td>email_brain_state.json</td>
+            <td>GMAIL_BRIDGE</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>GMAIL_NOTIFIER</td>
+            <td>email_brain_state.json</td>
+            <td>SCAM_SHIELD</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>GMAIL_NOTIFIER</td>
+            <td>email_brain_state.json</td>
+            <td>SIGNAL_CHAIN</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>26,611</td>
+            <td class="samples">cycles: 97, processed: list[134], emails_total: 134</td>
+        </tr>
+<tr>
+            <td>EXTERNAL_VALUE_ROUTER</td>
+            <td>value_router_report.json</td>
+            <td>GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER</td>
+            <td><span class="signal">REVENUE</span></td>
+            <td>593</td>
+            <td class="samples">timestamp: 2026-04-05T00:56:13.722993+00:00, opportunities_found: 10, tasks_queued: 5</td>
+        </tr>
+<tr>
+            <td>EXTERNAL_VALUE_ROUTER</td>
+            <td>value_router_report.json</td>
             <td>OMNIBUS</td>
             <td><span class="signal">REVENUE</span></td>
-            <td>187</td>
-            <td class="samples">cycles: 97, total_tasks: 0, total_earned: 0.0</td>
+            <td>593</td>
+            <td class="samples">timestamp: 2026-04-05T00:56:13.722993+00:00, opportunities_found: 10, tasks_queued: 5</td>
         </tr>
 <tr>
-            <td>KOFI_PAYMENT_TRACKER</td>
-            <td>email_exchange_state.json</td>
-            <td>ARCHITECT</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>187</td>
-            <td class="samples">cycles: 97, total_tasks: 0, total_earned: 0.0</td>
+            <td>BRIDGE_BUILDER</td>
+            <td>sentinel_report.json</td>
+            <td>CORTEX</td>
+            <td><span class="signal">REVENUE, TOPOLOGY</span></td>
+            <td>172</td>
+            <td class="samples">timestamp: 2026-04-05T00:57:09.805256+00:00, total_engines: 359, syntax_pass: 359</td>
         </tr>
 <tr>
-            <td>KOFI_PAYMENT_TRACKER</td>
-            <td>email_exchange_state.json</td>
-            <td>EMAIL_AGENT_EXCHANGE</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>187</td>
-            <td class="samples">cycles: 97, total_tasks: 0, total_earned: 0.0</td>
+            <td>BRIDGE_BUILDER</td>
+            <td>sentinel_report.json</td>
+            <td>GENERATED_BRIDGE_BUILDER_CONSUMER</td>
+            <td><span class="signal">REVENUE, TOPOLOGY</span></td>
+            <td>172</td>
+            <td class="samples">timestamp: 2026-04-05T00:57:09.805256+00:00, total_engines: 359, syntax_pass: 359</td>
         </tr>
 <tr>
-            <td>KOFI_PAYMENT_TRACKER</td>
-            <td>email_exchange_state.json</td>
-            <td>FIRST_CONTACT</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>187</td>
-            <td class="samples">cycles: 97, total_tasks: 0, total_earned: 0.0</td>
+            <td>BRIDGE_BUILDER</td>
+            <td>sentinel_report.json</td>
+            <td>GUARDIAN_GATEKEEPER</td>
+            <td><span class="signal">REVENUE, TOPOLOGY</span></td>
+            <td>172</td>
+            <td class="samples">timestamp: 2026-04-05T00:57:09.805256+00:00, total_engines: 359, syntax_pass: 359</td>
         </tr>
 <tr>
-            <td>KOFI_PAYMENT_TRACKER</td>
-            <td>email_exchange_state.json</td>
-            <td>NIGHTLY_DIGEST</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>187</td>
-            <td class="samples">cycles: 97, total_tasks: 0, total_earned: 0.0</td>
+            <td>BRIDGE_BUILDER</td>
+            <td>sentinel_report.json</td>
+            <td>LEGACY_SIFTED_crisis_response_ai</td>
+            <td><span class="signal">REVENUE, TOPOLOGY</span></td>
+            <td>172</td>
+            <td class="samples">timestamp: 2026-04-05T00:57:09.805256+00:00, total_engines: 359, syntax_pass: 359</td>
         </tr>
 <tr>
-            <td>KOFI_PAYMENT_TRACKER</td>
-            <td>email_exchange_state.json</td>
-            <td>OMNIBUS</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>187</td>
-            <td class="samples">cycles: 97, total_tasks: 0, total_earned: 0.0</td>
+            <td>BRIDGE_BUILDER</td>
+            <td>sentinel_report.json</td>
+            <td>MYCELIUM_NETWORK</td>
+            <td><span class="signal">REVENUE, TOPOLOGY</span></td>
+            <td>172</td>
+            <td class="samples">timestamp: 2026-04-05T00:57:09.805256+00:00, total_engines: 359, syntax_pass: 359</td>
         </tr>
 <tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>AMPLIFY_ENGINE</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
+            <td>BRIDGE_BUILDER</td>
+            <td>sentinel_report.json</td>
+            <td>PRODUCT_FACTORY</td>
+            <td><span class="signal">REVENUE, TOPOLOGY</span></td>
+            <td>172</td>
+            <td class="samples">timestamp: 2026-04-05T00:57:09.805256+00:00, total_engines: 359, syntax_pass: 359</td>
         </tr>
 <tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>BIOLUMINESCENCE</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
+            <td>BRIDGE_BUILDER</td>
+            <td>sentinel_report.json</td>
+            <td>SECURITY_SENTRY</td>
+            <td><span class="signal">REVENUE, TOPOLOGY</span></td>
+            <td>172</td>
+            <td class="samples">timestamp: 2026-04-05T00:57:09.805256+00:00, total_engines: 359, syntax_pass: 359</td>
         </tr>
 <tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>CHEMOTAXIS</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>DARK_WATCH</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>GITHUB_DISCUSSIONS_PUBLISHER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>HOMEOSTASIS</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>IMMUNE_MEMORY</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>KNOWLEDGE_PULSE</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>NOTION_NERVE_CENTER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>OSMOSIS_ROUTER</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>QUORUM_SENSE</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>RESOURCE_KIT</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>SIGNAL_BOOST</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>TELEGRAM_RELAY</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>CRISIS_MONITOR</td>
-            <td>crisis_signals.json</td>
-            <td>WEEKEND_PULSE</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>KNOWLEDGE_PULSE</td>
-            <td>crisis_signals.json</td>
-            <td>AMPLIFY_ENGINE</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>KNOWLEDGE_PULSE</td>
-            <td>crisis_signals.json</td>
-            <td>BIOLUMINESCENCE</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>KNOWLEDGE_PULSE</td>
-            <td>crisis_signals.json</td>
-            <td>CHEMOTAXIS</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>KNOWLEDGE_PULSE</td>
-            <td>crisis_signals.json</td>
-            <td>CRISIS_MONITOR</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
-        </tr>
-<tr>
-            <td>KNOWLEDGE_PULSE</td>
-            <td>crisis_signals.json</td>
-            <td>DARK_WATCH</td>
-            <td><span class="signal">REVENUE</span></td>
-            <td>94</td>
-            <td class="samples">timestamp: 2026-04-04T15:06:34.561859+00:00, total: 0, by_urgency: dict()</td>
+            <td>BRIDGE_BUILDER</td>
+            <td>sentinel_report.json</td>
+            <td>VALIDATE_AUTH</td>
+            <td><span class="signal">REVENUE, TOPOLOGY</span></td>
+            <td>172</td>
+            <td class="samples">timestamp: 2026-04-05T00:57:09.805256+00:00, total_engines: 359, syntax_pass: 359</td>
         </tr>
 </table>
 
 <div class="grid">
 <div>
 <h2>Top Data Producers</h2>
-<table><tr><th>Engine</th><th>Outgoing Flows</th></tr><tr><td>BRIDGE_BUILDER</td><td>209</td></tr>
-<tr><td>FIRST_SALE_NOTIFIER</td><td>103</td></tr>
-<tr><td>REVENUE_LOOP</td><td>87</td></tr>
+<table><tr><th>Engine</th><th>Outgoing Flows</th></tr><tr><td>BRIDGE_BUILDER</td><td>214</td></tr>
+<tr><td>FIRST_SALE_NOTIFIER</td><td>105</td></tr>
+<tr><td>REVENUE_LOOP</td><td>89</td></tr>
 <tr><td>DISPATCH_HANDLER</td><td>81</td></tr>
 <tr><td>HEALTH_BOOSTER</td><td>69</td></tr>
-<tr><td>PRODUCT_FACTORY</td><td>61</td></tr>
-<tr><td>AI_CLIENT</td><td>59</td></tr>
+<tr><td>PRODUCT_FACTORY</td><td>64</td></tr>
 <tr><td>METRICS_DASHBOARD</td><td>59</td></tr>
-<tr><td>archivist</td><td>58</td></tr>
+<tr><td>AI_CLIENT</td><td>59</td></tr>
 <tr><td>AUTO_RUNNER</td><td>58</td></tr>
 <tr><td>CORPORATE_MIRROR</td><td>58</td></tr>
-<tr><td>daily_pulse</td><td>58</td></tr>
 <tr><td>DESKTOP_HARVESTER</td><td>58</td></tr>
 <tr><td>DUPLICATE_STRIKER</td><td>58</td></tr>
 <tr><td>EXTERNAL_HANDSHAKE</td><td>58</td></tr>
@@ -316,56 +305,58 @@ tr:hover { background: #1a1a2e; }
 <tr><td>GENERATED_EVOLUTION_TRACKER</td><td>58</td></tr>
 <tr><td>GENERATED_KNOWLEDGE_TRACKER</td><td>58</td></tr>
 <tr><td>GENERATED_SECURITY_TRACKER</td><td>58</td></tr>
-<tr><td>hibernation_protocol</td><td>58</td></tr>
+<tr><td>LEGACY_SIFTED_continue_agent_task</td><td>58</td></tr>
+<tr><td>LEGACY_SIFTED_engine_simple</td><td>58</td></tr>
+<tr><td>LEGACY_SIFTED_fix_dates</td><td>58</td></tr>
 </table>
 </div>
 <div>
 <h2>Top Data Consumers</h2>
 <table><tr><th>Engine</th><th>Incoming Flows</th></tr><tr><td>OMNIBUS</td><td>186</td></tr>
-<tr><td>BRIDGE_BUILDER</td><td>130</td></tr>
+<tr><td>BRIDGE_BUILDER</td><td>131</td></tr>
 <tr><td>VITAL_SIGN_API</td><td>80</td></tr>
-<tr><td>NIGHTLY_DIGEST</td><td>75</td></tr>
+<tr><td>NIGHTLY_DIGEST</td><td>76</td></tr>
 <tr><td>METRICS_DASHBOARD</td><td>75</td></tr>
-<tr><td>FIRST_SALE_NOTIFIER</td><td>73</td></tr>
+<tr><td>FIRST_SALE_NOTIFIER</td><td>74</td></tr>
 <tr><td>CORTEX</td><td>69</td></tr>
-<tr><td>REVENUE_LOOP</td><td>63</td></tr>
+<tr><td>REVENUE_LOOP</td><td>64</td></tr>
+<tr><td>PRODUCT_FORGE</td><td>62</td></tr>
 <tr><td>SELF_PORTRAIT</td><td>61</td></tr>
-<tr><td>PRODUCT_FORGE</td><td>60</td></tr>
-<tr><td>AUTONOMY_PROOF</td><td>59</td></tr>
 <tr><td>CLAUDE_ENGINE</td><td>59</td></tr>
+<tr><td>AUTONOMY_PROOF</td><td>59</td></tr>
 <tr><td>EXTERNAL_HANDSHAKE</td><td>58</td></tr>
 <tr><td>GENERATED_EVOLUTION_TRACKER</td><td>58</td></tr>
 <tr><td>GENERATED_KNOWLEDGE_TRACKER</td><td>58</td></tr>
 <tr><td>GENERATED_SECURITY_TRACKER</td><td>58</td></tr>
 <tr><td>SOLAR_OVERSEER</td><td>58</td></tr>
 <tr><td>CYCLE_MEMORY</td><td>57</td></tr>
-<tr><td>ARCHITECT</td><td>56</td></tr>
 <tr><td>CROSS_POLLINATOR</td><td>56</td></tr>
+<tr><td>ARCHITECT</td><td>56</td></tr>
 </table>
 </div>
 </div>
 
 <h2>Dead Flows (< 50 bytes, seed only)</h2>
-<table><tr><th>From</th><th>Via</th><th>To</th><th>Bytes</th></tr><tr><td>PRODUCT_FORGE</td><td>output_file.json</td><td>GENERATED_PRODUCT_FORGE_CONSUMER</td><td>0</td></tr>
-<tr><td>PRODUCT_FORGE</td><td>input_file.json</td><td>GENERATED_PRODUCT_FORGE_CONSUMER</td><td>0</td></tr>
+<table><tr><th>From</th><th>Via</th><th>To</th><th>Bytes</th></tr><tr><td>DESKTOP_DAEMON</td><td>daemon_task.xml</td><td>GENERATED_DESKTOP_DAEMON_CONSUMER</td><td>0</td></tr>
+<tr><td>SIGNAL_BOOST</td><td>signal_boost_log.json</td><td>WEEKEND_PULSE</td><td>0</td></tr>
+<tr><td>GENERATED_REVENUE_FLYWHEEL_CONSUMER</td><td>grant_trigger.json</td><td>REVENUE_FLYWHEEL</td><td>0</td></tr>
+<tr><td>REVENUE_FLYWHEEL</td><td>grant_trigger.json</td><td>GENERATED_REVENUE_FLYWHEEL_CONSUMER</td><td>0</td></tr>
+<tr><td>GROWTH_CHAIN</td><td>growth_chain_state.json</td><td>CHAIN_ORCHESTRATOR</td><td>0</td></tr>
+<tr><td>GROWTH_CHAIN</td><td>growth_chain_state.json</td><td>GROWTH_FLYWHEEL</td><td>0</td></tr>
+<tr><td>GROWTH_CHAIN</td><td>growth_chain_state.json</td><td>KNOWLEDGE_CHAIN</td><td>0</td></tr>
 <tr><td>GENERATED_TRANSFER_NEEDED_POPULATOR</td><td>transfer_needed.json</td><td>NIGHTLY_DIGEST</td><td>0</td></tr>
 <tr><td>GENERATED_TRANSFER_NEEDED_POPULATOR</td><td>transfer_needed.json</td><td>PROOF_LEDGER</td><td>0</td></tr>
 <tr><td>PROOF_LEDGER</td><td>transfer_needed.json</td><td>GENERATED_TRANSFER_NEEDED_POPULATOR</td><td>0</td></tr>
 <tr><td>PROOF_LEDGER</td><td>transfer_needed.json</td><td>NIGHTLY_DIGEST</td><td>0</td></tr>
-<tr><td>GUMROAD_PRODUCT_PUBLISHER</td><td>gumroad_auth_failure.json</td><td>NIGHTLY_DIGEST</td><td>0</td></tr>
-<tr><td>GENERATED_REVENUE_FLYWHEEL_CONSUMER</td><td>grant_trigger.json</td><td>REVENUE_FLYWHEEL</td><td>0</td></tr>
-<tr><td>REVENUE_FLYWHEEL</td><td>grant_trigger.json</td><td>GENERATED_REVENUE_FLYWHEEL_CONSUMER</td><td>0</td></tr>
 <tr><td>RESONANCE_CONVERTER</td><td>asks_queue.json</td><td>GENERATED_RESONANCE_CONVERTER_CONSUMER</td><td>2</td></tr>
 <tr><td>RESONANCE_CONVERTER</td><td>asks_queue.json</td><td>NEWSLETTER_ENGINE</td><td>2</td></tr>
 <tr><td>RESONANCE_CONVERTER</td><td>asks_queue.json</td><td>OMNIBUS</td><td>2</td></tr>
 <tr><td>RESONANCE_CONVERTER</td><td>asks_queue.json</td><td>SOLARPUNK_CLI</td><td>2</td></tr>
-<tr><td>DARK_WATCH</td><td>dark_watch_alert.json</td><td>WEEKEND_PULSE</td><td>0</td></tr>
-<tr><td>CLAUDE_BRIDGE</td><td>claude_tasks_queue.json</td><td>DESKTOP_DAEMON</td><td>2</td></tr>
-<tr><td>CLAUDE_BRIDGE</td><td>claude_tasks_queue.json</td><td>GENERATED_DESKTOP_DAEMON_CONSUMER</td><td>2</td></tr>
-<tr><td>CLAUDE_BRIDGE</td><td>claude_tasks_queue.json</td><td>GENERATED_RESONANCE_CONVERTER_CONSUMER</td><td>2</td></tr>
-<tr><td>CLAUDE_BRIDGE</td><td>claude_tasks_queue.json</td><td>OMNIBUS</td><td>2</td></tr>
-<tr><td>CLAUDE_BRIDGE</td><td>claude_tasks_queue.json</td><td>RESONANCE_CONVERTER</td><td>2</td></tr>
-<tr><td>DESKTOP_DAEMON</td><td>claude_tasks_queue.json</td><td>CLAUDE_BRIDGE</td><td>2</td></tr>
+<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>BRIDGE_BUILDER</td><td>0</td></tr>
+<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>MISSION_CONTROL</td><td>0</td></tr>
+<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>OMNIBUS</td><td>0</td></tr>
+<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>POLYMARKET_SCANNER</td><td>0</td></tr>
+<tr><td>GENERATED_POLYMARKET_SCANNER_CONSUMER</td><td>polymarket_scan.json</td><td>VITAL_SIGN_API</td><td>0</td></tr>
 </table>
 
 <p style="text-align:center;color:#444;margin-top:30px;">
