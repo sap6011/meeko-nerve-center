@@ -44,7 +44,7 @@ BASE       = "https://meekotharaccoon-cell.github.io/meeko-nerve-center"
 CAPABILITY_MAP = {
     "groq":          bool(os.environ.get("GROQ_API_KEY")),
     "openrouter":    bool(os.environ.get("OPENROUTER_KEY")),
-    "anthropic":     bool(os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()),
+    "anthropic":     bool(os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()),
     "huggingface":   bool(os.environ.get("HF_TOKEN")),
     "github":        bool(os.environ.get("GITHUB_TOKEN")),
     "gmail":         bool(os.environ.get("GMAIL_APP_PASSWORD")),

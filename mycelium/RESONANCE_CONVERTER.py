@@ -41,7 +41,7 @@ STATE = DATA / "resonance_converter_state.json"
 ASKS  = DATA / "asks_queue.json"
 LOG   = DATA / "conversion_log.json"
 
-API_KEY = os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()
+API_KEY = os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()
 MODEL   = "claude-haiku-4-5-20251001"
 
 SYSTEM = """You are SolarPunk's revenue conversion engine.
