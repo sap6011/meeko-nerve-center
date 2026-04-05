@@ -16,7 +16,8 @@ Priority chain (free first, always):
              Costs credits. Use sparingly or top up console.anthropic.com.
   3. HUGGINGFACE — Free fallback. Models come and go (many 410'd as of 2026-03).
 
-All engines import: ask(), ask_json(), ask_json_list(), ai_available(), ai_backend()
+All engines import: ask(), ask_json(), ask_json_list(), ask_embed(), ask_local(),
+                    ai_available(), ai_backend()
 
 This file IS the system's nervous system. When this works, everything works.
 When this is dark, the organism sleeps.
@@ -192,16 +193,68 @@ def _ask_hf(messages, max_tokens=2000, system=None):
     raise RuntimeError(f"All HF models failed. Last: {last_err}")
 
 
-def _ask_ollama(messages, max_tokens=2000, system=None):
-    """Ollama -- local LLM, zero cost, always available when COMPUTETOR is on."""
+def _ollama_pick_model(messages=None, system=None):
+    """Pick the best Ollama model based on what's installed and the task.
+
+    Model priority (tries best first, falls back):
+      - llama3.3       → best general-purpose (replaces llama3)
+      - deepseek-r1:8b → reasoning/analysis tasks
+      - qwen2.5-coder:7b → code generation/debugging
+      - mycelium       → custom SolarPunk model
+      - llama3.2       → lightweight fallback
+      - llama3         → legacy fallback
+    """
+    # Detect task type from content
+    task = "general"
+    hint = (system or "") + " ".join(m.get("content", "") for m in (messages or []))
+    hint_lower = hint.lower()[:500]
+    if any(kw in hint_lower for kw in ["code", "python", "function", "debug", "engine", "script", "fix", "compile"]):
+        task = "code"
+    elif any(kw in hint_lower for kw in ["reason", "analyze", "why", "compare", "evaluate", "plan", "think"]):
+        task = "reason"
+
+    # Task-aware priority chains
+    chains = {
+        "code":    ["qwen2.5-coder:7b", "llama3.3", "deepseek-r1:8b", "mycelium", "codellama", "llama3"],
+        "reason":  ["deepseek-r1:8b", "llama3.3", "mycelium", "llama3", "llama3.2"],
+        "general": ["llama3.3", "deepseek-r1:8b", "mycelium", "llama3", "llama3.2"],
+    }
+
+    # Check what's actually installed
+    installed = set()
     try:
+        req = urllib.request.Request(f"{OLLAMA_URL}/api/tags")
+        with urllib.request.urlopen(req, timeout=3) as r:
+            data = json.loads(r.read())
+            for m in data.get("models", []):
+                name = m["name"].split(":")[0] if ":" not in m["name"] or m["name"].endswith(":latest") else m["name"]
+                installed.add(m["name"])
+                installed.add(name)
+    except Exception:
+        return "mycelium:latest"  # safe default
+
+    chain = chains.get(task, chains["general"])
+    for model in chain:
+        # Check both exact and :latest variants
+        if model in installed or f"{model}:latest" in installed:
+            return model if ":" in model else f"{model}:latest"
+
+    # Last resort: first installed model
+    return next(iter(installed), "mycelium:latest")
+
+
+def _ask_ollama(messages, max_tokens=2000, system=None):
+    """Ollama -- local LLM, zero cost, task-aware model routing."""
+    try:
+        model = _ollama_pick_model(messages, system)
+
         full = []
         if system:
             full.append({"role": "system", "content": system})
         full.extend(messages)
 
         body = {
-            "model": "mycelium:latest",
+            "model": model,
             "messages": full,
             "stream": False,
             "options": {"temperature": 0.7, "num_predict": max_tokens},
@@ -216,9 +269,9 @@ def _ask_ollama(messages, max_tokens=2000, system=None):
             raw = r.read().decode("utf-8", errors="replace")
             resp = json.loads(raw)
         text = resp.get("message", {}).get("content", "")
-        # Safe print for Windows cp1252 consoles
         safe_text_len = len(text)
-        print(f"  [AI] Ollama/mycelium OK ({safe_text_len}c)")
+        model_short = model.split(":")[0]
+        print(f"  [AI] Ollama/{model_short} OK ({safe_text_len}c)")
         return text
     except Exception as e:
         raise RuntimeError(f"Ollama failed: {e}")
@@ -343,7 +396,7 @@ def ai_backend():
 
 def ai_status():
     """Full status for logging."""
-    return {
+    status = {
         "groq":       bool(GROQ_KEY),
         "anthropic":  bool(ANTHROPIC_KEY),
         "openrouter": bool(OPENROUTER_KEY),
@@ -352,6 +405,58 @@ def ai_status():
         "primary":    ai_backend(),
         "available":  ai_available(),
     }
+    # Pull installed model list from Ollama if available
+    if status["ollama"]:
+        try:
+            req = urllib.request.Request(f"{OLLAMA_URL}/api/tags")
+            with urllib.request.urlopen(req, timeout=3) as r:
+                data = json.loads(r.read())
+                status["ollama_models"] = [m["name"] for m in data.get("models", [])]
+        except Exception:
+            status["ollama_models"] = []
+    return status
+
+
+# ── OLLAMA_BRIDGE integration ─────────────────────────────────────────────────
+# Exposes OLLAMA_BRIDGE capabilities through AI_CLIENT so engines keep one import
+
+def _get_bridge():
+    """Lazy-load OLLAMA_BRIDGE (avoids circular imports, optional dep)."""
+    try:
+        from OLLAMA_BRIDGE import OllamaBridge
+        return OllamaBridge()
+    except Exception:
+        return None
+
+
+def ask_embed(text):
+    """Generate embedding vector via local Ollama (nomic-embed-text)."""
+    bridge = _get_bridge()
+    if bridge:
+        return bridge.embed(text)
+    return []
+
+
+def ask_embed_batch(texts):
+    """Batch embed multiple texts via local Ollama."""
+    bridge = _get_bridge()
+    if bridge:
+        return bridge.batch_embed(texts)
+    return []
+
+
+def ask_local(prompt, task="system", temperature=0.7, max_tokens=2048):
+    """Direct local-only generation via OLLAMA_BRIDGE (never hits cloud APIs).
+
+    task: system|content|code|reason|triage|quick — routes to optimal model.
+    """
+    bridge = _get_bridge()
+    if bridge:
+        return bridge.generate(prompt, model=task, temperature=temperature, max_tokens=max_tokens)
+    # Fallback: try raw Ollama via _ask_ollama
+    if _ollama_available():
+        return _ask_ollama([{"role": "user", "content": prompt}], max_tokens=max_tokens)
+    return ""
 
 
 if __name__ == "__main__":

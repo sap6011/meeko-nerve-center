@@ -17,7 +17,7 @@ def load_my_style():
     with open("my_style.json", "r", encoding="utf-8-sig") as f:
         return json.load(f)
 
-def generate_with_ollama(prompt, model="mistral"):
+def generate_with_ollama(prompt, model="llama3.3"):
     """Use Ollama to generate content"""
     try:
         # Run Ollama with the prompt

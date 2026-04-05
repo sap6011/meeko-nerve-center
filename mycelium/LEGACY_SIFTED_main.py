@@ -17,7 +17,7 @@ class Question(BaseModel):
 async def ask_ollama(q: Question): 
     response = requests.post( 
         "http://localhost:11434/api/generate", 
-        json={"model": "mistral", "prompt": q.question, "stream": False} 
+        json={"model": "llama3.3", "prompt": q.question, "stream": False} 
     ) 
     return {"answer": response.json()["response"]} 
  

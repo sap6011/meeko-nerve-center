@@ -14,7 +14,7 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 
 ## System Topology
 
-- **Total engines**: 392
+- **Total engines**: 393
 - **Wire connections**: 5881
 - **Zero-secret chains**: 3976 (work without any API keys)
 - **Orphan outputs**: 7 (data written but never read)
@@ -22,7 +22,7 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 
 ## Engine Categories
 
-### Zero-Secret Engines (303 total)
+### Zero-Secret Engines (304 total)
 These engines run without any API keys or credentials:
 
 - **AFFILIATE_MAXIMIZER** -- reads: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json, writes: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json
@@ -55,7 +55,7 @@ These engines run without any API keys or credentials:
 - **CHAIN_ORCHESTRATOR** -- reads: chain_synthesis.json, chain_orchestrator_state.json, economy_chain_ledger.json, signal_chain_state.json, knowledge_chain_synthesis.json, growth_chain_state.json, writes: chain_synthesis.json, chain_orchestrator_state.json
 - **CHANNEL_ROUTER** -- reads: chrome_mcp_status.json, channel_router_state.json, channel_router_queue.json, writes: channel_router_queue.json, channel_router_state.json, chrome_mcp_status.json
 - **CHAOS_TEST** -- reads: master_config.json, writes: nothing
-- ... and 273 more
+- ... and 274 more
 
 ### Engines Needing API Keys (89 total)
 These engines unlock when you add credentials:
@@ -86,36 +86,36 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
-- DUAL_SYSTEM_CROSSWIRE -> GROWTH_CHAIN via `signal_chain_queue.json` (zero-secrets)
-- DUAL_SYSTEM_CROSSWIRE -> SIGNAL_CHAIN via `signal_chain_queue.json` (zero-secrets)
-- SIGNAL_CHAIN -> DUAL_SYSTEM_CROSSWIRE via `signal_chain_queue.json` (zero-secrets)
-- SIGNAL_CHAIN -> GROWTH_CHAIN via `signal_chain_queue.json` (zero-secrets)
-- FRACTAL_REPLICATOR -> GENERATED_FRACTAL_REPLICATOR_CONSUMER via `fractal_replicator_report.json` (zero-secrets)
-- FRACTAL_REPLICATOR -> OMNIBUS via `fractal_replicator_report.json` (zero-secrets)
-- GENERATED_FRACTAL_REPLICATOR_CONSUMER -> FRACTAL_REPLICATOR via `fractal_replicator_report.json` (zero-secrets)
-- GENERATED_FRACTAL_REPLICATOR_CONSUMER -> OMNIBUS via `fractal_replicator_report.json` (zero-secrets)
-- CRYPTO_WATCHER -> GENERATED_CRYPTO_WATCHER_CONSUMER via `crypto_summary.txt`
-- CORTEX -> EVENT_RELAY via `cortex_directive.json`
-- GUMROAD_PRODUCT_PUBLISHER -> NIGHTLY_DIGEST via `gumroad_publisher_state.json`
-- CRISIS_MONITOR -> AMPLIFY_ENGINE via `amplification_queue.json`
-- CRISIS_MONITOR -> WEEKEND_PULSE via `amplification_queue.json`
-- GENERATED_IMMUNE_SYSTEM_CONSUMER -> IMMUNE_SYSTEM via `quarantine_log.json` (zero-secrets)
-- IMMUNE_SYSTEM -> GENERATED_IMMUNE_SYSTEM_CONSUMER via `quarantine_log.json` (zero-secrets)
-- NEUROPLASTICITY -> SYMBIOGENESIS via `neuroplasticity.json` (zero-secrets)
-- FIRST_DOLLAR_ENGINE -> GENERATED_FIRST_DOLLAR_ENGINE_CONSUMER via `first_dollar_engine_state.json` (zero-secrets)
-- EXTERNAL_VALUE_ROUTER -> CORTEX via `value_opportunities.json` (zero-secrets)
-- EXTERNAL_VALUE_ROUTER -> GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER via `value_opportunities.json` (zero-secrets)
-- EXTERNAL_VALUE_ROUTER -> PRODUCT_FORGE via `value_opportunities.json` (zero-secrets)
-- GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER -> CORTEX via `value_opportunities.json` (zero-secrets)
-- GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER -> EXTERNAL_VALUE_ROUTER via `value_opportunities.json` (zero-secrets)
-- GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER -> PRODUCT_FORGE via `value_opportunities.json` (zero-secrets)
-- GENERATED_REPO_SPIDER_CONSUMER -> NEWSLETTER_ENGINE via `repo_spider_state.json`
-- GENERATED_REPO_SPIDER_CONSUMER -> OMNIBUS via `repo_spider_state.json` (zero-secrets)
+- DEBUG_DOCTOR -> GENERATED_DEBUG_DOCTOR_CONSUMER via `debug_doctor_state.json` (zero-secrets)
+- GENERATED_DEBUG_DOCTOR_CONSUMER -> DEBUG_DOCTOR via `debug_doctor_state.json` (zero-secrets)
+- CORTEX -> OMNIBUS via `cortex_analysis.json` (zero-secrets)
+- DESKTOP_DAEMON -> GENERATED_DESKTOP_DAEMON_CONSUMER via `desktop_daemon_log.json`
+- GENERATED_DESKTOP_DAEMON_CONSUMER -> DESKTOP_DAEMON via `desktop_daemon_log.json`
+- STIGMERGY -> APOPTOSIS via `pheromone_map.json` (zero-secrets)
+- STIGMERGY -> SYMBIOGENESIS via `pheromone_map.json` (zero-secrets)
+- GENERATED_MEMORY_PALACE_CONSUMER -> DESKTOP_DAEMON via `memory_palace.json`
+- GENERATED_MEMORY_PALACE_CONSUMER -> MEMORY_PALACE via `memory_palace.json` (zero-secrets)
+- GENERATED_MEMORY_PALACE_CONSUMER -> OMNIBUS via `memory_palace.json` (zero-secrets)
+- MEMORY_PALACE -> DESKTOP_DAEMON via `memory_palace.json`
+- MEMORY_PALACE -> GENERATED_MEMORY_PALACE_CONSUMER via `memory_palace.json` (zero-secrets)
+- MEMORY_PALACE -> OMNIBUS via `memory_palace.json` (zero-secrets)
+- EXTERNAL_VALUE_ROUTER -> GENERATED_EXTERNAL_VALUE_ROUTER_CONSUMER via `value_router_report.json` (zero-secrets)
+- EXTERNAL_VALUE_ROUTER -> OMNIBUS via `value_router_report.json` (zero-secrets)
+- BIOLUMINESCENCE -> CHEMOTAXIS via `bioluminescence.json` (zero-secrets)
+- BIOLUMINESCENCE -> HOMEOSTASIS via `bioluminescence.json` (zero-secrets)
+- BIOLUMINESCENCE -> NEUROPLASTICITY via `bioluminescence.json` (zero-secrets)
+- BIOLUMINESCENCE -> OSMOSIS_ROUTER via `bioluminescence.json` (zero-secrets)
+- AUTO_EXECUTOR -> OMNIBUS via `auto_executor_state.json` (zero-secrets)
+- GUMROAD_ENGINE -> BIG_BRAIN_ORACLE via `gumroad_engine_state.json`
+- GUMROAD_ENGINE -> ECONOMY_CHAIN via `gumroad_engine_state.json`
+- GUMROAD_ENGINE -> FIRST_SALE_NOTIFIER via `gumroad_engine_state.json`
+- GUMROAD_ENGINE -> GENERATED_GUMROAD_ENGINE_CONSUMER via `gumroad_engine_state.json`
+- GUMROAD_ENGINE -> GROWTH_CHAIN via `gumroad_engine_state.json`
 - ... and 5856 more connections
 
 ## Knowledge Graph
 
-- **597 nodes** (engines, data files, concepts)
+- **598 nodes** (engines, data files, concepts)
 - **500 edges** (connections between them)
 
 ## What This Means
@@ -131,9 +131,9 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-05 19:11 UTC
+- **Generated**: 2026-04-05 19:32 UTC
 - **Data source**: data/live_wire_report.json
-- **Engines scanned**: 392
+- **Engines scanned**: 393
 
 ---
 *Built autonomously. Funded for Gaza. Running forever.*
