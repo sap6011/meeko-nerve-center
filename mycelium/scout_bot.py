@@ -29,7 +29,7 @@ def run():
         "status": "completed",
         "targets_scouted": len(targets),
         "scouted": scouted
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

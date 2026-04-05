@@ -584,7 +584,7 @@ def main():
         "total_telegram_bytes": total_telegram_bytes,
         "kits": kits_output,
     }
-    KITS_FILE.write_text(json.dumps(output, indent=2))
+    KITS_FILE.write_text(json.dumps(output, indent=2), encoding="utf-8")
 
     # Write survival telegrams JSON — the atomic packets for SMS/satellite/LoRa
     telegram_output = {
@@ -597,11 +597,11 @@ def main():
         "total_bytes": total_telegram_bytes,
         "kits": all_telegrams,
     }
-    TELEGRAMS_FILE.write_text(json.dumps(telegram_output, indent=2))
+    TELEGRAMS_FILE.write_text(json.dumps(telegram_output, indent=2), encoding="utf-8")
 
     # Write HTML page
     html = build_html_page(all_kit_ids)
-    (DOCS / "emergency_kits.html").write_text(html)
+    (DOCS / "emergency_kits.html").write_text(html, encoding="utf-8")
 
     total_items = sum(k["item_count"] for k in kits_output)
     print(f"\n{'='*60}")

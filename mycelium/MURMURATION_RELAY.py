@@ -58,7 +58,7 @@ def load_relay_log():
 
 
 def save_relay_log(log):
-    RELAY_LOG.write_text(json.dumps(log, indent=2))
+    RELAY_LOG.write_text(json.dumps(log, indent=2), encoding="utf-8")
 
 
 def is_cooled_down(log, crisis_type):
@@ -106,7 +106,7 @@ def inject_social_queue(pulses):
             injected += 1
 
     queue["posts"] = posts
-    SOCIAL_QUEUE.write_text(json.dumps(queue, indent=2))
+    SOCIAL_QUEUE.write_text(json.dumps(queue, indent=2), encoding="utf-8")
     return injected
 
 
@@ -151,7 +151,7 @@ def build_reddit_queue(pulses):
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "posts": all_posts[-100:],  # Keep last 100
         "new_this_cycle": len(new_posts),
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     return len(new_posts)
 
@@ -183,7 +183,7 @@ def build_broadcast_queue(pulses):
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "items": all_items[-50:],
         "new_this_cycle": len(broadcasts),
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     return len(broadcasts)
 

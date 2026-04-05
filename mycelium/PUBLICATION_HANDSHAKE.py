@@ -258,12 +258,12 @@ def run_handshake():
     # Save JSON results
     DATA_PATH.mkdir(parents=True, exist_ok=True)
     (DATA_PATH / "handshake_results.json").write_text(
-        json.dumps({"timestamp": datetime.utcnow().isoformat(), "results": results}, indent=2)
+        json.dumps({"timestamp": datetime.utcnow().isoformat(), "results": results}, indent=2), encoding="utf-8"
     )
 
     # Generate and save report
     report = generate_handshake_report(results)
-    REPORT_PATH.write_text(report)
+    REPORT_PATH.write_text(report, encoding="utf-8")
     print(f"\n[HANDSHAKE] Report saved: {REPORT_PATH}")
 
     # Log to transparency file

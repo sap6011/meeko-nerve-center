@@ -231,7 +231,7 @@ def load_state():
 
 
 def save_state(s):
-    STATE.write_text(json.dumps(s, indent=2))
+    STATE.write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def run():
@@ -251,7 +251,7 @@ def run():
     if not isinstance(existing, list):
         existing = []
     existing.extend(new_asks)
-    ASKS.write_text(json.dumps(existing[-100:], indent=2))
+    ASKS.write_text(json.dumps(existing[-100:], indent=2), encoding="utf-8")
 
     # Update state
     state = track_conversions(state)
@@ -279,7 +279,7 @@ def run():
                 "status": "pending",
                 "queued_at": datetime.now(timezone.utc).isoformat()
             })
-            qfile.write_text(json.dumps(queue, indent=2))
+            qfile.write_text(json.dumps(queue, indent=2), encoding="utf-8")
             print(f"  HIGH PRIORITY: Queued immediate action for daemon (resonance={label})")
         except Exception as e:
             print(f"  Daemon queue failed: {e}")

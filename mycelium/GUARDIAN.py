@@ -59,7 +59,7 @@ def log(etype, details):
         try: entries = json.loads(LOG_FILE.read_text())
         except: pass
     entries.append({"ts": datetime.now().isoformat(), "type": etype, "details": details})
-    LOG_FILE.write_text(json.dumps(entries[-500:], indent=2))
+    LOG_FILE.write_text(json.dumps(entries[-500:], indent=2), encoding="utf-8")
 
 def save_state():
     tag = f"save-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
@@ -87,7 +87,7 @@ def restore(tag):
         out, code = runcmd(f"git show {tag}:{f} 2>/dev/null")
         if code == 0 and out and len(out) > 20:
             p = Path(f); p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_text(out); ok.append(f)
+            p.write_text(out, encoding="utf-8"); ok.append(f)
         else:
             fail.append(f)
     return ok, fail
@@ -120,7 +120,7 @@ def main():
         else:
             alert("BREACH — no save-state found", f"Missing: {missing}\nNo restore tag found. Manual fix needed.")
             status["status"] = "BREACH"
-    (DATA_DIR / "guardian_status.json").write_text(json.dumps(status, indent=2))
+    (DATA_DIR / "guardian_status.json").write_text(json.dumps(status, indent=2), encoding="utf-8")
 
 if __name__ == "__main__":
     main()

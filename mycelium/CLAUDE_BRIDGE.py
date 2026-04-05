@@ -48,7 +48,7 @@ def load_state():
 
 
 def save_state(state):
-    STATE_FILE.write_text(json.dumps(state, indent=2))
+    STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
 def load_queue():
@@ -243,8 +243,8 @@ def process_queue():
         print(f"  {'OK' if result else 'FAIL'} task {task_id}")
 
     # Save updated queue and results
-    QUEUE_FILE.write_text(json.dumps(queue, indent=2))
-    RESULTS_FILE.write_text(json.dumps(results[-50:], indent=2))  # keep last 50
+    QUEUE_FILE.write_text(json.dumps(queue, indent=2), encoding="utf-8")
+    RESULTS_FILE.write_text(json.dumps(results[-50:], indent=2), encoding="utf-8")  # keep last 50
     return completed
 
 

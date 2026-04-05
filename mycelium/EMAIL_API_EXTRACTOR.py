@@ -106,7 +106,7 @@ def register_connection(platform: str, links: list[str], source_email: str = "")
             registry[platform]["source_email"] = source_email
             log.info(f"Registered new connection: {platform} → {link[:60]}...")
 
-    REGISTRY_PATH.write_text(json.dumps(registry, indent=2))
+    REGISTRY_PATH.write_text(json.dumps(registry, indent=2), encoding="utf-8")
 
     _log_to_actual(platform, links)
     return registry[platform]
@@ -175,4 +175,4 @@ if __name__ == "__main__":
 # LIVE_WIRE: topology state tracking
 def _write_wire_state():
     _ctx = json.loads((DATA / "email_brain_state.json").read_text()) if (DATA / "email_brain_state.json").exists() else {}
-    (DATA / "email_api_extractor_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "email_api_extractor_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

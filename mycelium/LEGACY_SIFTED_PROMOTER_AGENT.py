@@ -377,7 +377,7 @@ def run_promotion_cycle():
     state['last_run'] = datetime.now().isoformat()
     save_state(state)
     
-    (DATA / "legacy_sifted_promoter_agent_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_promoter_agent_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")
 
     return results
 

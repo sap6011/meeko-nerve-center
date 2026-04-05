@@ -306,7 +306,7 @@ def main():
             "proof_cycle": evidence.get("proof_cycle", 0),
         }
     }
-    (DATA / "executive_briefing_state.json").write_text(json.dumps(brief_data, indent=2))
+    (DATA / "executive_briefing_state.json").write_text(json.dumps(brief_data, indent=2), encoding="utf-8")
 
     print("=" * 55)
     print(f"  Engines: {evidence.get('engines', 0)}")

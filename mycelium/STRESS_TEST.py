@@ -129,7 +129,7 @@ def test_corruption_detection():
     # Build corrupt code via concatenation so sentinel doesn't flag THIS file
     nested = 'os.getenv(os.getenv(os.getenv("os.getenv("ANTHROPIC_API_KEY")")))'  # test corruption pattern
     corrupt_code = f'# Stress test\nimport os\nkey = {nested}\nprint(key)\n'
-    trap_file.write_text(corrupt_code)
+    trap_file.write_text(corrupt_code, encoding="utf-8")
     log["events"].append({"time": timestamp(), "phase": "INJURY", "action": "Created corrupt test file", "status": "DONE"})
     print(f"  [INJURY]  Created {trap_file.name} with os.getenv nesting")
 
@@ -188,7 +188,7 @@ def test_canary_tamper():
     tampered = json.loads(original)
     tampered["_injected_by_stress_test"] = True
     tampered["api_key"] = "STOLEN_KEY_12345"
-    canary.write_text(json.dumps(tampered, indent=2))
+    canary.write_text(json.dumps(tampered, indent=2), encoding="utf-8")
     log["events"].append({"time": timestamp(), "phase": "INJURY", "action": "Tampered with canary credentials", "status": "DONE"})
     print(f"  [INJURY]  Modified .credentials_backup.json (canary)")
 
@@ -217,7 +217,7 @@ def test_canary_tamper():
         print(f"  [DETECT]  Error: {e}")
 
     # --- RESTORE ---
-    canary.write_text(original)
+    canary.write_text(original, encoding="utf-8")
     log["events"].append({"time": timestamp(), "phase": "RESTORE", "action": "Canary restored to original", "status": "DONE"})
     print(f"  [RESTORE] Canary restored")
 
@@ -305,7 +305,7 @@ def main():
     all_logs["score"] = {"passed": passed, "total": total, "percentage": round(passed / total * 100) if total else 0}
 
     # Save full log
-    (DATA / "stress_test_results.json").write_text(json.dumps(all_logs, indent=2))
+    (DATA / "stress_test_results.json").write_text(json.dumps(all_logs, indent=2), encoding="utf-8")
 
     print()
     print("=" * 60)

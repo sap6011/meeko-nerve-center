@@ -72,10 +72,10 @@ def run():
             if not g.get("researched"):
                 research(g); g["researched"]=True
                 print(f"  Researched: {g['name']} -> priority:{g.get('priority','?')}")
-    (DATA/"grants_found.json").write_text(json.dumps(grants,indent=2))
+    (DATA/"grants_found.json").write_text(json.dumps(grants,indent=2), encoding="utf-8")
     state["grants_scored"]=len(grants)
     state["high_priority"]=[g["name"] for g in grants if g.get("priority")=="high"]
-    sf.write_text(json.dumps(state,indent=2))
+    sf.write_text(json.dumps(state,indent=2), encoding="utf-8")
     print(f"  {len(grants)} grants scored | {len(state['high_priority'])} high priority")
     return state
 

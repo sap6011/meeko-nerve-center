@@ -128,7 +128,7 @@ class AutonomousIncomeOrchestrator:
             self.log("DAILY CYCLE COMPLETED SUCCESSFULLY")
             self.log("=" * 60)
 
-            (DATA / "legacy_sifted_orchestrator_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok"}, indent=2))
+            (DATA / "legacy_sifted_orchestrator_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")
 
             return True
             

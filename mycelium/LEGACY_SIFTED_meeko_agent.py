@@ -168,7 +168,7 @@ def main():
     print("Run: python meeko_agent.py test   (for test)")
     print("=" * 60)
 
-    (DATA / "legacy_sifted_meeko_agent_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_meeko_agent_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -87,7 +87,7 @@ def load_bio_state():
 
 def save_bio_state(state):
     state["last_updated"] = datetime.now(timezone.utc).isoformat()
-    BIO_FILE.write_text(json.dumps(state, indent=2))
+    BIO_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
 def count_signals_by_region(signals):
@@ -280,7 +280,7 @@ def main():
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "alerts": silence_alerts,
             "emissions": emissions,
-        }, indent=2))
+        }, indent=2), encoding="utf-8")
     else:
         # Check for resolved events
         resolved = [e for e in state.get("silence_events", [])

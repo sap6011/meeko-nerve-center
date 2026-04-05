@@ -132,7 +132,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "desktop_orchestrator_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "desktop_orchestrator_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def analyze_blueprints_with_ai(blueprints):
@@ -231,7 +231,7 @@ def run():
             f"Brave CDP: {'live' if brave_live else 'offline'}."
         ),
     }
-    (DATA / "resurrections.json").write_text(json.dumps(report, indent=2))
+    (DATA / "resurrections.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
 
     # Generate tasks for TASK_ATOMIZER
     tasks = []
@@ -246,7 +246,7 @@ def run():
     
     if tasks:
         tasks_file = DATA / "resurrection_tasks.json"
-        tasks_file.write_text(json.dumps(tasks, indent=2))
+        tasks_file.write_text(json.dumps(tasks, indent=2), encoding="utf-8")
         print(f"  {len(tasks)} resurrection tasks queued for TASK_ATOMIZER")
 
     state["resurrected"] = run_queue

@@ -100,7 +100,7 @@ def load_memory():
 
 def save_memory(memory):
     memory["last_updated"] = datetime.now(timezone.utc).isoformat()
-    MEMORY_FILE.write_text(json.dumps(memory, indent=2))
+    MEMORY_FILE.write_text(json.dumps(memory, indent=2), encoding="utf-8")
 
 
 def extract_pattern(signal):
@@ -388,7 +388,7 @@ def main():
             "adaptations": len(adaptations),
         },
         "adaptations": adaptations,
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     total_patterns = len(memory.get("patterns", {}))
     total_encounters = memory.get("encounter_count", 0)

@@ -23,7 +23,7 @@ def load_loop_fund():
 
 def save_loop_fund(state):
     DATA_DIR.mkdir(exist_ok=True)
-    LOOP_STATE_FILE.write_text(json.dumps(state, indent=2))
+    LOOP_STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 def record_sale(amount=1.00):
     state = load_loop_fund()
@@ -94,7 +94,7 @@ def main():
         "next_upgrade": "$20 -> Claude Pro" if state.get("total_earned", 0) < 20 else "$35 -> API credits",
         "total_monthly_estimate": round(state.get("total_earned", 0), 2),
     }
-    (DATA_DIR / "flywheel_state.json").write_text(json.dumps(report, indent=2))
+    (DATA_DIR / "flywheel_state.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"  Gaza: ${state['total_to_gaza']:.2f} | Loop: ${state['balance']:.2f} | Auto-buys: {state['auto_buys']}")
     return report
 

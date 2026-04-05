@@ -198,10 +198,10 @@ def run():
             log["deliveries"].append({"ts": ts, "buyer": buyer, "pid": pid, "ok": False, "error": str(e)[:60]})
 
     log["last_run"] = ts
-    log_path.write_text(json.dumps(log, indent=2))
+    log_path.write_text(json.dumps(log, indent=2), encoding="utf-8")
 
     state = {"ts": ts, "sales_found": len(sales), "delivered": delivered}
-    (DATA / "delivery_engine_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "delivery_engine_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"  Done: {delivered}/{len(sales)} delivered")
     return state
 

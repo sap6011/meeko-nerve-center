@@ -369,7 +369,7 @@ def run():
         "total_opportunities": len(bounties),
         "opportunities": bounties,
         "platforms_scanned": list(BOUNTY_PLATFORMS.keys()),
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
     print(f"  Opportunities found: {len(bounties)}")
     print(f"  Platforms: {', '.join(BOUNTY_PLATFORMS.keys())}")
 
@@ -383,7 +383,7 @@ def run():
     # Stream 3: ACP catalog
     print("\n[3/4] AGENT_SERVICES — Building ACP service catalog...")
     catalog = generate_acp_catalog()
-    SERVICE_CATALOG.write_text(json.dumps(catalog, indent=2))
+    SERVICE_CATALOG.write_text(json.dumps(catalog, indent=2), encoding="utf-8")
     print(f"  Services registered: {len(ACP_SERVICES)}")
     total_price = sum(s["price_per_call"] for s in ACP_SERVICES)
     print(f"  Total price per full scan: ${total_price:.2f}")
@@ -449,7 +449,7 @@ def run():
             "to_mutual_aid_pct": 0.99,
         },
     }
-    STATE_FILE.write_text(json.dumps(state, indent=2))
+    STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"\n  State saved: {STATE_FILE}")
     print("=" * 60)
     return state

@@ -15,7 +15,7 @@ Then:
   - Seeds data/omnibrain_seed.json with top actions
   - Generates ENGINE_IDEAS for SELF_BUILDER to build
 
-Secrets: os.getenv("ANTHROPIC_API_KEY")
+Secrets: ANTHROPIC_API_KEY
 """
 import os, json, requests
 from pathlib import Path
@@ -24,7 +24,7 @@ from datetime import datetime, timezone
 DATA = Path("data"); DATA.mkdir(exist_ok=True)
 MYCELIUM = Path("mycelium")
 
-ANTHROPIC_KEY = os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()
+ANTHROPIC_KEY = os.environ.get("ANTHROPIC_API_KEY", "").strip()
 MODEL = "claude-sonnet-4-6"
 
 
@@ -132,8 +132,8 @@ def run():
     now = datetime.now(timezone.utc).isoformat()
 
     if not ANTHROPIC_KEY:
-        print("  os.getenv("ANTHROPIC_API_KEY") not set")
-        (DATA / "oracle_state.json").write_text(json.dumps({"last_run": now, "status": "no_key"}, indent=2))
+        print("  ANTHROPIC_API_KEY not set")
+        (DATA / "oracle_state.json").write_text(json.dumps({"last_run": now, "status": "no_key"}, indent=2), encoding="utf-8")
         return
 
     ctx = get_system_context()
@@ -152,7 +152,7 @@ def run():
         except: pass
     history.append({"ts": now, "insights": insights})
     history = history[-30:]
-    history_f.write_text(json.dumps(history, indent=2))
+    history_f.write_text(json.dumps(history, indent=2), encoding="utf-8")
 
     # Print key insights
     for item in insights.get("strategic_insights", []):
@@ -171,14 +171,14 @@ def run():
         "key_insight": insights.get("pattern_recognition", ""),
         "engine_ideas": new_ideas
     }
-    (DATA / "omnibrain_seed.json").write_text(json.dumps(seed, indent=2))
+    (DATA / "omnibrain_seed.json").write_text(json.dumps(seed, indent=2), encoding="utf-8")
     print(f"  🌱 Seeded {len(actions)} actions + {len(new_ideas)} engine ideas into omnibrain_seed")
 
     (DATA / "oracle_state.json").write_text(json.dumps({
         "last_run": now, "status": "ok",
         "insights_count": len(insights.get("strategic_insights", [])),
         "engine_ideas": len(new_ideas)
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__": run()

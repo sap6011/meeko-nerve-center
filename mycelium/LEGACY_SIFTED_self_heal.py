@@ -200,7 +200,7 @@ if __name__ == "__main__":
     healer = SelfHealingAI()
     fixes = healer.heal_all()
 
-    (DATA / "legacy_sifted_self_heal_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "fixes_applied": fixes}, indent=2))
+    (DATA / "legacy_sifted_self_heal_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "fixes_applied": fixes}, indent=2), encoding="utf-8")
 
     if fixes == 0:
         print("\nSYSTEM IS 100% HEALTHY - READY FOR AUTONOMOUS OPERATION")

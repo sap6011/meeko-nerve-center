@@ -51,7 +51,7 @@ def load():
 
 def save(s):
     s["improvement_log"] = s.get("improvement_log", [])[-100:]
-    (DATA / "architect_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "architect_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def rj(fname, fallback=None):
@@ -198,7 +198,7 @@ def write_plan(plan, audit, gaps):
         # Priority queue for BUSINESS_FACTORY
         "build_next_niche": plan.get("business_niches", [{}])[0] if plan.get("business_niches") else {},
     }
-    (DATA / "architect_plan.json").write_text(json.dumps(full_plan, indent=2))
+    (DATA / "architect_plan.json").write_text(json.dumps(full_plan, indent=2), encoding="utf-8")
     return full_plan
 
 

@@ -310,7 +310,7 @@ def print_summary():
         "failed":    len(failed),
         "total":     len(RESULTS),
         "results":   RESULTS,
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
     print(f"\nFull results: {results_path}")
     return len(failed) == 0
 

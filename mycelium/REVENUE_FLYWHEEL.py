@@ -38,7 +38,7 @@ def load():
     return {"cycles":0,"total_coordinated":0,"actions_taken":[],"weekly_report":None}
 
 def save(s):
-    (DATA/"flywheel_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"flywheel_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def read_all_streams():
     """Get current status of every revenue stream"""
@@ -103,7 +103,7 @@ def take_autonomous_action(recommendation,state):
     if "grant" in stream.lower():
         # Trigger grant hunter to run an extra scan
         trigger=DATA/"grant_trigger.json"
-        trigger.write_text(json.dumps({"triggered_by":"flywheel","reason":action,"ts":datetime.now(timezone.utc).isoformat()}))
+        trigger.write_text(json.dumps({"triggered_by":"flywheel","reason":action,"ts":datetime.now(timezone.utc).isoformat()}), encoding="utf-8")
         print(f"  Triggered GRANT_HUNTER extra scan")
         return True
     if "exchange" in stream.lower() or "agent" in stream.lower():
@@ -111,14 +111,14 @@ def take_autonomous_action(recommendation,state):
         social=DATA/"social_queue.json"
         posts=json.loads(social.read_text()) if social.exists() else []
         posts.append({"text":f"🤖 SolarPunk Email Agent Exchange is live. AI agents that work via email, pay per task. Research, grant writing, code review, copy — $0.05-$0.10/task. 15% funds Gaza artists. Send [TASK] to my email. #SolarPunk #AI #Gaza","ts":datetime.now(timezone.utc).isoformat(),"source":"flywheel"})
-        social.write_text(json.dumps(posts[-20:],indent=2))
+        social.write_text(json.dumps(posts[-20:],indent=2), encoding="utf-8")
         print(f"  Queued exchange promotion to social")
         return True
     if "ko" in stream.lower() or "kofi" in stream.lower():
         social=DATA/"social_queue.json"
         posts=json.loads(social.read_text()) if social.exists() else []
         posts.append({"text":f"🌹 Gaza Rose Gallery — $1 AI art. 70¢ goes directly to Palestinian artists. 30¢ keeps the system running. 12 designs. ko-fi.com/meekotharaccoon #Gaza #Palestine #Art #SolarPunk","ts":datetime.now(timezone.utc).isoformat(),"source":"flywheel"})
-        social.write_text(json.dumps(posts[-20:],indent=2))
+        social.write_text(json.dumps(posts[-20:],indent=2), encoding="utf-8")
         return True
     return False
 
@@ -165,7 +165,7 @@ def run():
 
     (DATA/"flywheel_summary.json").write_text(json.dumps({"ts":datetime.now(timezone.utc).isoformat(),
         "total_current":total_current,"total_potential":total_potential,"streams":streams,
-        "recommendation":rec},indent=2))
+        "recommendation":rec},indent=2), encoding="utf-8")
     save(state); return state
 
 if __name__=="__main__": run()

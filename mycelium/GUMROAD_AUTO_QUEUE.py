@@ -179,14 +179,14 @@ def run():
         if p.get("gumroad_result", {}).get("status") == "live"
     )
 
-    lf.write_text(json.dumps(listings, indent=2))
+    lf.write_text(json.dumps(listings, indent=2), encoding="utf-8")
     print(f"  📊 Queue: {listings['total_products']} total | {listings['gumroad_live']} live | {added} added | {updated} updated")
     print("  ✅ GUMROAD_ENGINE will publish these next cycle — run RUN_NOW to trigger immediately")
 
     (DATA / "gumroad_queue_state.json").write_text(json.dumps({
         "last_run": now, "total": listings["total_products"],
         "live": listings["gumroad_live"], "added_this_cycle": added
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__": run()

@@ -37,7 +37,7 @@ def run():
     }
 
     # Write output
-    (DATA / "asks_queue.json").write_text(json.dumps(result, indent=2))
+    (DATA / "asks_queue.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/asks_queue.json")
     print(f"  Status: Gap filled")
 

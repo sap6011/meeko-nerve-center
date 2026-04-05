@@ -167,7 +167,7 @@ def run():
     listings["products"]   = updated
     listings["gumroad_live"] = live_count
     listings["last_run"]   = now
-    f.write_text(json.dumps(listings, indent=2))
+    f.write_text(json.dumps(listings, indent=2), encoding="utf-8")
 
     # Update state
     sf = DATA / "gumroad_engine_state.json"
@@ -181,7 +181,7 @@ def run():
     state["total_live"] = live_count
     if published > 0:
         state["published"].append({"count": published, "ts": now})
-    sf.write_text(json.dumps(state, indent=2))
+    sf.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     print(f"  📊 Published this cycle: {published} | Total live: {live_count}/{len(products)}")
     return state

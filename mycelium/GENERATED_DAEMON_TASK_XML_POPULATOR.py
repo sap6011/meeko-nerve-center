@@ -37,7 +37,7 @@ def run():
     }
 
     # Write output
-    (DATA / "daemon_task.xml").write_text(json.dumps(result, indent=2))
+    (DATA / "daemon_task.xml").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/daemon_task.xml")
     print(f"  Status: Gap filled")
 

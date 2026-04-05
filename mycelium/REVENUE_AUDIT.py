@@ -125,7 +125,7 @@ def run():
         "human_action_required": human_actions,
     }
 
-    (DATA / "revenue_audit.json").write_text(json.dumps(audit, indent=2))
+    (DATA / "revenue_audit.json").write_text(json.dumps(audit, indent=2), encoding="utf-8")
     print(f"  Working: {len(working)} | Broken: {len(broken)} | Critical: {len(critical)}")
     print(f"  Buy link issues: {len(buy_issues)}")
     for ha in human_actions:

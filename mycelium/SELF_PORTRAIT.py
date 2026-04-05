@@ -169,7 +169,7 @@ def run():
     log   = json.loads(log_f.read_text()) if log_f.exists() else []
     log.append(entry)
     log   = log[-90:]
-    log_f.write_text(json.dumps(log, indent=2))
+    log_f.write_text(json.dumps(log, indent=2), encoding="utf-8")
 
     # Build archive HTML
     prev_html = ""

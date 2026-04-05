@@ -105,7 +105,7 @@ def main():
         "note": "Copy-paste each into Etsy -> Add listing. Title as-is.",
         "status": "ready to post"
     }
-    OUT.write_text(json.dumps(output, indent=2))
+    OUT.write_text(json.dumps(output, indent=2), encoding="utf-8")
     print(f"Generated {len(results)} Etsy listings ({output['claude_enhanced']} Claude-enhanced)")
 
 if __name__ == "__main__":

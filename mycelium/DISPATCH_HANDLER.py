@@ -44,7 +44,7 @@ def load_revenue():
     }
 
 def save_revenue(r):
-    (DATA / "revenue_inbox.json").write_text(json.dumps(r, indent=2))
+    (DATA / "revenue_inbox.json").write_text(json.dumps(r, indent=2), encoding="utf-8")
 
 def load_kofi():
     f = DATA / "kofi_state.json"
@@ -54,7 +54,7 @@ def load_kofi():
     return {"total_received": 0.0, "total_to_gaza": 0.0, "events": [], "auto_loops": 0}
 
 def save_kofi(k):
-    (DATA / "kofi_state.json").write_text(json.dumps(k, indent=2))
+    (DATA / "kofi_state.json").write_text(json.dumps(k, indent=2), encoding="utf-8")
 
 def send_notification(amount, to_gaza, loop_fund, total_received, total_to_gaza):
     """Send a real-time payment notification email if Gmail is configured"""
@@ -103,7 +103,7 @@ def check_loop_trigger(revenue):
             "loop_number": revenue["auto_loops"],
             "action": "auto_purchase",
         }
-        (DATA / "loop_trigger.json").write_text(json.dumps(trigger, indent=2))
+        (DATA / "loop_trigger.json").write_text(json.dumps(trigger, indent=2), encoding="utf-8")
         return True
     return False
 
@@ -173,7 +173,7 @@ def run():
             brain["health_score"] = min(100, old_h + 20)
             brain["last_payment"] = now
             brain["total_revenue"] = revenue["total_received"]
-            brain_f.write_text(json.dumps(brain, indent=2))
+            brain_f.write_text(json.dumps(brain, indent=2), encoding="utf-8")
             print(f"  🧠 Health: {old_h} → {brain['health_score']}")
         except: pass
 

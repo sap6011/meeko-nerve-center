@@ -41,7 +41,7 @@ def load():
 
 def save(s):
     s["events"]=s.get("events",[])[-500:]
-    (DATA/"kofi_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"kofi_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def process_events(state):
     ef=DATA/"kofi_events.json"
@@ -81,7 +81,7 @@ h1{{color:#c8a86b;text-align:center}}p.sub{{text-align:center;color:#888}}
 <p class="stats">Built by SolarPunk — autonomous AI income for humanitarian causes</p>
 </body></html>"""
     Path("docs").mkdir(exist_ok=True)
-    (Path("docs")/"kofi.html").write_text(html)
+    (Path("docs")/"kofi.html").write_text(html, encoding="utf-8")
     print("  Shop HTML updated")
 
 def run():

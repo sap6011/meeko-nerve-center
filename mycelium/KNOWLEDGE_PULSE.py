@@ -202,7 +202,7 @@ def main():
         "crisis_types": list(seen_types),
         "pulses": pulses,
     }
-    PULSES_OUT.write_text(json.dumps(output, indent=2))
+    PULSES_OUT.write_text(json.dumps(output, indent=2), encoding="utf-8")
 
     print(f"  Generated {len(pulses)} knowledge pulses across {len(seen_types)} crisis types")
     for p in pulses[:5]:

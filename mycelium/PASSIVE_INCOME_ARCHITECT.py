@@ -234,7 +234,7 @@ def queue_for_self_builder(engine_name, spec):
         "priority": "high",
         "source": "PASSIVE_INCOME_ARCHITECT",
     })
-    qf.write_text(json.dumps(queue, indent=2))
+    qf.write_text(json.dumps(queue, indent=2), encoding="utf-8")
     return True
 
 
@@ -327,11 +327,11 @@ def run():
         "queued": sum(1 for i in catalog if i.get("status") == "queued"),
         "built": sum(1 for i in catalog if i.get("status") == "built"),
         "ideas": catalog,
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     state["all_ideas"] = all_ideas
     state["queued_for_build"] = queued
-    (DATA / "passive_income_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "passive_income_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     print(f"  Done: {len(all_ideas)} ideas total | {len(newly_queued)} newly queued | {sum(1 for i in all_ideas.values() if i.get('status')=='built')} built")
     return state

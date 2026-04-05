@@ -30,7 +30,7 @@ def load():
     return {"cycles":0,"sponsors":[],"total_monthly":0.0,"thank_you_sent":[]}
 
 def save(s):
-    (DATA/"sponsors_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"sponsors_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def generate_funding_yml():
     Path(".github").mkdir(exist_ok=True)
@@ -38,7 +38,7 @@ def generate_funding_yml():
 ko_fi: meekotharaccoon
 custom: ['https://gumroad.com/meekotharaccoon']
 """
-    (Path(".github")/"FUNDING.yml").write_text(yml)
+    (Path(".github")/"FUNDING.yml").write_text(yml, encoding="utf-8")
     print("  FUNDING.yml updated")
 
 def generate_sponsor_page(state):
@@ -76,7 +76,7 @@ GitHub: <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center" sty
 Ko-fi: <a href="https://ko-fi.com/meekotharaccoon" style="color:#c8a86b">ko-fi.com/meekotharaccoon</a>
 </p></body></html>"""
     Path("docs").mkdir(exist_ok=True)
-    (Path("docs")/"sponsor.html").write_text(html)
+    (Path("docs")/"sponsor.html").write_text(html, encoding="utf-8")
     print("  Sponsor page updated")
 
 def thank_new_sponsors(state):

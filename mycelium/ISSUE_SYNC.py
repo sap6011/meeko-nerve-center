@@ -115,7 +115,7 @@ def run():
     (DATA / "issue_sync_state.json").write_text(json.dumps({
         "last_sync": datetime.now(timezone.utc).isoformat(),
         "updated": updated,
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     print(f"  {updated} issues synced")
 

@@ -495,4 +495,4 @@ Press Enter to continue or Ctrl+C to exit...
     
     input()
     deployer.run_full_deployment()
-    (DATA / "legacy_sifted_full_autonomous_deploy_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_full_autonomous_deploy_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

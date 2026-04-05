@@ -126,7 +126,7 @@ li{{margin:6px 0}}.stat{{display:inline-block;margin:8px;padding:8px 16px;border
 <h2>📊 Raw Signals</h2>
 <table><tr><th>Type</th><th>Data</th></tr>{sig_rows}</table>
 </body></html>"""
-    (DOCS / "opportunities.html").write_text(html)
+    (DOCS / "opportunities.html").write_text(html, encoding="utf-8")
 
 
 def run():
@@ -152,7 +152,7 @@ def run():
         "opportunities": opps,
         "raw_keys": list(results.keys()),
     }
-    state_file.write_text(json.dumps(state, indent=2, default=str))
+    state_file.write_text(json.dumps(state, indent=2, default=str), encoding="utf-8")
     print(f"  APIs: {ok} ok | {failed} failed | Signals: {len(signals)} | Opps: {len(opps)}")
     if opps:
         print(f"  Top: {opps[0][:80]}")

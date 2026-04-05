@@ -57,7 +57,7 @@ def generate_honeypot_data():
         "stripe_key": "sk_test_CANARY_" + ''.join(random.choices(string.digits, k=24)),
     }
     decoy_path = DATA / ".credentials_backup.json"
-    decoy_path.write_text(json.dumps(decoy_creds, indent=2))
+    decoy_path.write_text(json.dumps(decoy_creds, indent=2), encoding="utf-8")
     honeypots["decoy_creds_path"] = str(decoy_path)
 
     # Fake "admin panel" data — looks like control plane access
@@ -67,7 +67,7 @@ def generate_honeypot_data():
         "master_key_hash": hashlib.sha256(canary_key.encode()).hexdigest(),
         "note": "Migration endpoint — do not expose",
     }
-    (DATA / "admin_panel_config.json").write_text(json.dumps(admin_decoy, indent=2))
+    (DATA / "admin_panel_config.json").write_text(json.dumps(admin_decoy, indent=2), encoding="utf-8")
     honeypots["admin_decoy_path"] = str(DATA / "admin_panel_config.json")
 
     return honeypots
@@ -101,7 +101,7 @@ def _fallback_rotation():
 if __name__ == "__main__":
     print(_rotate())
 '''
-    (maze_dir / "key_rotation.py").write_text(mirror_code)
+    (maze_dir / "key_rotation.py").write_text(mirror_code, encoding="utf-8")
 
     # Decoy that creates an infinite redirect loop
     redirect_code = '''#!/usr/bin/env python3
@@ -116,8 +116,8 @@ def authenticate(key):
     from _mirror.key_rotation import _rotate
     return key == _rotate()
 '''
-    (maze_dir / "service_mesh.py").write_text(redirect_code)
-    (maze_dir / "__init__.py").write_text("# Mirror maze — kaleidoscope security layer\n")
+    (maze_dir / "service_mesh.py").write_text(redirect_code, encoding="utf-8")
+    (maze_dir / "__init__.py").write_text("# Mirror maze — kaleidoscope security layer\n", encoding="utf-8")
 
     return str(maze_dir)
 
@@ -183,7 +183,7 @@ def save_trap_state(honeypots, canary_state, alerts):
             "game_over": "Box is finite. Snake always ends."
         }
     }
-    (DATA / "murmuration_trap_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "murmuration_trap_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     return state
 
 

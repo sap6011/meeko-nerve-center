@@ -40,7 +40,7 @@ def run():
     }
 
     # Write output
-    (DATA / "revenue_flywheel_insights.json").write_text(json.dumps(result, indent=2))
+    (DATA / "revenue_flywheel_insights.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/revenue_flywheel_insights.json")
     print(f"  Status: Gap filled")
 

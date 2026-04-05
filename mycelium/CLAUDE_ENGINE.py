@@ -142,7 +142,7 @@ def run():
         }
     }
 
-    (DATA / "claude_briefing.json").write_text(json.dumps(briefing, indent=2))
+    (DATA / "claude_briefing.json").write_text(json.dumps(briefing, indent=2), encoding="utf-8")
 
     # Build HTML briefing page
     pri_html = ""

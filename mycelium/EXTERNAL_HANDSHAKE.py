@@ -54,7 +54,7 @@ def check_access():
         "live_wire_engines": live_wire.get("total_engines", 0),
         "status": "active",
     }
-    (DATA / "external_handshake_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "external_handshake_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"State written: data/external_handshake_state.json")
 
     return active_paths

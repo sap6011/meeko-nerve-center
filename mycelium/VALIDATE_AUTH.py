@@ -34,7 +34,7 @@ def run():
         "last_run": __import__("datetime").datetime.now().isoformat(),
         "status": "completed",
         "keys_checked": results
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

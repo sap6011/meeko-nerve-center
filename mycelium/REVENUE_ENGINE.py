@@ -61,7 +61,7 @@ def execute_revenue_streams():
         "economy_total_earned": economy.get("total_earned", 0),
         "status": "active",
     }
-    (DATA / "revenue_engine_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "revenue_engine_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"State written: data/revenue_engine_state.json")
 
 

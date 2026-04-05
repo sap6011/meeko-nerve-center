@@ -212,7 +212,7 @@ def write_log(actions):
     entry = {"ts": ts(), "actions": actions, "platform": platform.system()}
     existing.append(entry)
     existing = existing[-200:]
-    LOG_FILE.write_text(json.dumps(existing, indent=2))
+    LOG_FILE.write_text(json.dumps(existing, indent=2), encoding="utf-8")
     if GITHUB_TOKEN:
         if push_to_github("data/desktop_agent_log.json", existing, f"desktop: cycle {ts()}"):
             log("Synced log to GitHub")

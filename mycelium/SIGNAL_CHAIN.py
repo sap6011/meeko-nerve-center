@@ -160,14 +160,14 @@ def run():
     queue["total_ever"] = queue.get("total_ever", 0) + len(new_actions)
     queue["last_updated"] = now
     queue["queue_depth"] = len(queue["actions"])
-    (DATA / "signal_chain_queue.json").write_text(json.dumps(queue, indent=2))
+    (DATA / "signal_chain_queue.json").write_text(json.dumps(queue, indent=2), encoding="utf-8")
 
     state["processed"]     = state.get("processed", 0) + len(signals)
     state["actions_queued"]= state.get("actions_queued", 0) + len(new_actions)
     state["last_run"]      = now
     state["history"].append({"ts": now, "signals": len(signals), "actions": len(new_actions)})
     state["history"]       = state["history"][-50:]
-    (DATA / "signal_chain_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "signal_chain_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     print(f"  📡 Signals: {len(signals)} | New actions: {len(new_actions)} | "
           f"Queue depth: {len(queue['actions'])} | Total ever: {queue['total_ever']}")

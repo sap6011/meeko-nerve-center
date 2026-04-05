@@ -161,7 +161,7 @@ h1,h2{{color:#0f0}}pre{{overflow-x:auto;white-space:pre-wrap}}</style>
 {action_html}
 <h2>Product Copy Optimized</h2>{prod_html}
 </body></html>"""
-    (DOCS / "optimizer.html").write_text(html)
+    (DOCS / "optimizer.html").write_text(html, encoding="utf-8")
 
 
 def run():
@@ -177,7 +177,7 @@ def run():
         opt_log = DATA / "product_optimizations.json"
         history = json.loads(opt_log.read_text()) if opt_log.exists() else []
         history.append({"ts": datetime.now(timezone.utc).isoformat(), "opt": product_opt})
-        opt_log.write_text(json.dumps(history[-100:], indent=2))
+        opt_log.write_text(json.dumps(history[-100:], indent=2), encoding="utf-8")
 
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     if actions and state.get("last_email_day") != today:
@@ -189,7 +189,7 @@ def run():
 
     build_page(state, actions, product_opt)
     state["last_run"] = datetime.now(timezone.utc).isoformat()
-    STATE.write_text(json.dumps(state, indent=2))
+    STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"  Actions: {len(actions) if actions else 0} | Product opt: {'yes' if product_opt else 'no'}")
     print("REVENUE_OPTIMIZER done")
 

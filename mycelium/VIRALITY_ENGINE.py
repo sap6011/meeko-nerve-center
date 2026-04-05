@@ -208,7 +208,7 @@ If you cover AI, indie projects, or tech + humanitarian work:
         "linkedin": {"body": linkedin_body, "url": "https://www.linkedin.com/feed/"},
     }
 
-    (DATA / "virality_posts.json").write_text(json.dumps(posts, indent=2))
+    (DATA / "virality_posts.json").write_text(json.dumps(posts, indent=2), encoding="utf-8")
 
     def card(label, link_label, url, title, body):
         esc = (body

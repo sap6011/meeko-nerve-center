@@ -46,7 +46,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "mastodon_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "mastodon_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def run():
@@ -104,7 +104,7 @@ def run():
         sent += 1
 
     queue["posts"] = posts
-    f.write_text(json.dumps(queue, indent=2))
+    f.write_text(json.dumps(queue, indent=2), encoding="utf-8")
     save_state(state)
     print(f"  Sent: {sent} | All-time: {state['posted']}")
     return state

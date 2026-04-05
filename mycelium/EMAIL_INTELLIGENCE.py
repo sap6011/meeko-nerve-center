@@ -561,13 +561,13 @@ def run():
         "total_bounces": len(unique_bounces),
         "bounces": unique_bounces,
     }
-    BOUNCE_FILE.write_text(json.dumps(bounce_registry, indent=2))
+    BOUNCE_FILE.write_text(json.dumps(bounce_registry, indent=2), encoding="utf-8")
     print(f"  Bounces tracked: {len(unique_bounces)}")
 
     # ── Step 2: Verify all contacts ──────────────────────────────────────────
     print("\n[2/5] Verifying contacts (MX + format)...")
     contacts = build_verified_contacts(targets, unique_bounces)
-    CONTACTS_FILE.write_text(json.dumps(contacts, indent=2))
+    CONTACTS_FILE.write_text(json.dumps(contacts, indent=2), encoding="utf-8")
     print(f"  Total: {contacts['total']}  Verified: {contacts['verified']}  "
           f"Bounced: {contacts['bounced']}  Unverified: {contacts['unverified']}")
 
@@ -575,7 +575,7 @@ def run():
     print("\n[3/5] Building prioritized outreach queue...")
     already_contacted = outreach_state.get("contacted", [])
     queue = build_outreach_queue(contacts, already_contacted)
-    QUEUE_FILE.write_text(json.dumps(queue, indent=2))
+    QUEUE_FILE.write_text(json.dumps(queue, indent=2), encoding="utf-8")
     print(f"  Queued: {queue['total_queued']}  "
           f"Skipped (bounced): {queue['skipped_bounced']}  "
           f"Skipped (already contacted): {queue['skipped_contacted']}")
@@ -607,7 +607,7 @@ def run():
             c["category"] for c in contacts.get("contacts", [])
         )),
     }
-    STATE_FILE.write_text(json.dumps(state, indent=2))
+    STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     # ── Report ───────────────────────────────────────────────────────────────
     print("\n" + "=" * 60)

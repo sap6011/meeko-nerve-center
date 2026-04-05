@@ -393,7 +393,7 @@ def run():
     for segment in email_system.generate_segmentation_rules()["segments"]:
         print(f"  - {segment['name']}: {segment['email_frequency']} emails")
 
-    (DATA / "legacy_sifted_email_sequences_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "welcome_count": len(welcome_sequence), "broadcast_count": len(broadcast_emails)}, indent=2))
+    (DATA / "legacy_sifted_email_sequences_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "welcome_count": len(welcome_sequence), "broadcast_count": len(broadcast_emails)}, indent=2), encoding="utf-8")
 
 
 # Usage

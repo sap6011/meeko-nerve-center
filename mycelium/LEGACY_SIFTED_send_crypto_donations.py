@@ -40,4 +40,4 @@ with open("humanitarian_logs/crypto_ready.json", "w") as f:
 # -- LIVE_WIRE topology connector --
 def _wire_state():
     _r = json.loads((DATA / "finance_ledger.json").read_text()) if (DATA / "finance_ledger.json").exists() else {}
-    (DATA / "legacy_sifted_send_crypto_donations_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))
+    (DATA / "legacy_sifted_send_crypto_donations_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2), encoding="utf-8")

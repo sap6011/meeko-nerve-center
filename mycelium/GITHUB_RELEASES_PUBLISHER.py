@@ -104,7 +104,7 @@ def run():
                 product["download_url"] = raw
                 print(f"  Fallback URL for {pid}: {raw}")
         registry["last_updated"] = ts
-        registry_path.write_text(json.dumps(registry, indent=2))
+        registry_path.write_text(json.dumps(registry, indent=2), encoding="utf-8")
         return {"status": "fallback_urls"}
 
     print(f"  Release: {release.get('html_url')}")
@@ -148,10 +148,10 @@ def run():
 
     registry["last_updated"]  = ts
     registry["release_url"]   = release.get("html_url", "")
-    registry_path.write_text(json.dumps(registry, indent=2))
+    registry_path.write_text(json.dumps(registry, indent=2), encoding="utf-8")
 
     state = {"ts": ts, "tag": tag, "results": results}
-    (DATA / "github_releases_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "github_releases_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"  Done: {len(results)} assets processed")
     return state
 

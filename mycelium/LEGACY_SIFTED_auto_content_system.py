@@ -216,11 +216,11 @@ class AutonomousContentGenerator:
                 json.dump(output, f, indent=2)
             
             print(f"Content saved to: {filename}")
-            (DATA / "legacy_sifted_auto_content_system_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "article": output["article"]["title"]}, indent=2))
+            (DATA / "legacy_sifted_auto_content_system_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "article": output["article"]["title"]}, indent=2), encoding="utf-8")
             return output
         else:
             print("No article scheduled for today")
-            (DATA / "legacy_sifted_auto_content_system_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "article": None}, indent=2))
+            (DATA / "legacy_sifted_auto_content_system_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "article": None}, indent=2), encoding="utf-8")
             return None
 
 # Usage

@@ -91,7 +91,7 @@ def main():
         "clean": len(corrupted) == 0,
         "issues": corrupted,
     }
-    (DATA_DIR / "sentinel_scan.json").write_text(json.dumps(report, indent=2))
+    (DATA_DIR / "sentinel_scan.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
 
     if corrupted:
         print(f"  CORRUPTION DETECTED in {len(corrupted)} file(s):")

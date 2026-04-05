@@ -22,4 +22,4 @@ if __name__ == "__main__":
 # -- LIVE_WIRE topology connector --
 def _wire_state():
     _r = json.loads((DATA / "live_wire_report.json").read_text()) if (DATA / "live_wire_report.json").exists() else {}
-    (DATA / "code_collater_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))
+    (DATA / "code_collater_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2), encoding="utf-8")

@@ -60,7 +60,7 @@ def load_registry():
 
 
 def save_registry(reg):
-    REGISTRY_FILE.write_text(json.dumps(reg, indent=2))
+    REGISTRY_FILE.write_text(json.dumps(reg, indent=2), encoding="utf-8")
 
 
 def load_manifests():
@@ -71,7 +71,7 @@ def load_manifests():
 
 
 def save_manifests(m):
-    MANIFEST_FILE.write_text(json.dumps(m, indent=2))
+    MANIFEST_FILE.write_text(json.dumps(m, indent=2), encoding="utf-8")
 
 
 def discover_plugins():
@@ -160,7 +160,7 @@ def register_plugin_contributor(plugin, registry):
             "joined":       datetime.now(timezone.utc).isoformat()[:10],
         })
         contrib["contributors"] = contributors
-        contrib_file.write_text(json.dumps(contrib, indent=2))
+        contrib_file.write_text(json.dumps(contrib, indent=2), encoding="utf-8")
         print(f"  Registered contributor: {author}")
 
 
@@ -366,7 +366,7 @@ def run():
 
     # Build plugins page
     html = build_plugins_html(plugins, registry)
-    (DOCS / "plugins.html").write_text(html)
+    (DOCS / "plugins.html").write_text(html, encoding="utf-8")
     print(f"  docs/plugins.html — {len(plugins)} plugins")
     print(f"  URL: https://meekotharaccoon-cell.github.io/meeko-nerve-center/plugins.html")
 

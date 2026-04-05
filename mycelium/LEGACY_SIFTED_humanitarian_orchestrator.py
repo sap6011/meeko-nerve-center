@@ -28,7 +28,7 @@ def run():
     with open("humanitarian_logs/system_paused.log", "a") as f:
         f.write(f"{datetime.now()} - System paused. Waiting for nonprofit status.\n")
 
-    (DATA / "legacy_sifted_humanitarian_orchestrator_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "mode": "paused"}, indent=2))
+    (DATA / "legacy_sifted_humanitarian_orchestrator_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "mode": "paused"}, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

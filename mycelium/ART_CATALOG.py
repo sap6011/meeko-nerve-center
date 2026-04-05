@@ -181,9 +181,9 @@ def run():
             "Re-run ART_CATALOG engine to rebuild art.html with correct URLs",
         ],
     }
-    (DATA / "art_catalog.json").write_text(json.dumps(catalog, indent=2))
+    (DATA / "art_catalog.json").write_text(json.dumps(catalog, indent=2), encoding="utf-8")
     html = build_art_html()
-    (DOCS / "art.html").write_text(html)
+    (DOCS / "art.html").write_text(html, encoding="utf-8")
     print(f"  ✅ docs/art.html — {len(ART_PIECES)} pieces ({len(html):,} bytes)")
     print(f"  URL: https://meekotharaccoon-cell.github.io/meeko-nerve-center/art.html")
     print(f"  ⚠️  Action: create 7 Ko-fi shop items at ko-fi.com/account/shop")

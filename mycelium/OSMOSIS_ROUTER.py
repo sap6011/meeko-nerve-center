@@ -260,7 +260,7 @@ def main():
             "directives_generated": len(directives),
         },
     }
-    OSMOSIS_FILE.write_text(json.dumps(output, indent=2))
+    OSMOSIS_FILE.write_text(json.dumps(output, indent=2), encoding="utf-8")
 
     print(f"\n  {len(directives)} routing directives generated")
     print("OSMOSIS_ROUTER done.")

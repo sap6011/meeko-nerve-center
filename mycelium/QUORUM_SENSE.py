@@ -282,7 +282,7 @@ def main():
     total_sources = len(set(s for d in region_signals.values() for s in d["sources"]))
     state["global_quorum"] = total_signals
 
-    QUORUM_FILE.write_text(json.dumps(state, indent=2))
+    QUORUM_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     print(f"\n  Global signal volume: {total_signals} from {total_sources} sources")
     print(f"  Total quorums reached (all-time): {state.get('total_quorums_reached', 0)}")

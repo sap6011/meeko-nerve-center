@@ -106,7 +106,7 @@ def load():
 def save(s):
     s["log"]       = s.get("log", [])[-200:]
     s["processed"] = s.get("processed", [])[-1000:]
-    (DATA / "email_brain_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "email_brain_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def decode_str(v):
@@ -275,7 +275,7 @@ def queue_appointment(details):
     existing = json.loads(f.read_text()) if f.exists() else []
     details["queued_at"] = datetime.now(timezone.utc).isoformat()
     existing.append(details)
-    f.write_text(json.dumps(existing, indent=2))
+    f.write_text(json.dumps(existing, indent=2), encoding="utf-8")
 
 
 def queue_revenue(em):
@@ -290,7 +290,7 @@ def queue_revenue(em):
         "amount":  float(amt.group(1)) if amt else 0,
     }
     existing.append(entry)
-    f.write_text(json.dumps(existing[-200:], indent=2))
+    f.write_text(json.dumps(existing[-200:], indent=2), encoding="utf-8")
 
 
 def queue_exchange_task(em):
@@ -305,7 +305,7 @@ def queue_exchange_task(em):
         "is_exchange_task": True,
     }
     existing.append(entry)
-    f.write_text(json.dumps(existing[-200:], indent=2))
+    f.write_text(json.dumps(existing[-200:], indent=2), encoding="utf-8")
 
 
 def flag_personal(em, state):
@@ -317,7 +317,7 @@ def flag_personal(em, state):
         "subject": em["subject"],
         "snippet": em["body"][:150],
     })
-    f.write_text(json.dumps(existing[-50:], indent=2))
+    f.write_text(json.dumps(existing[-50:], indent=2), encoding="utf-8")
     state["personal"] = state.get("personal", 0) + 1
 
 

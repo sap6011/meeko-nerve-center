@@ -67,7 +67,7 @@ def load_registry():
 
 
 def save_registry(r):
-    (DATA / "contributor_registry.json").write_text(json.dumps(r, indent=2))
+    (DATA / "contributor_registry.json").write_text(json.dumps(r, indent=2), encoding="utf-8")
 
 
 def process_payout_queue(registry):
@@ -98,7 +98,7 @@ def process_payout_queue(registry):
         processed += 1
     queue["pending"] = pending
     queue["last_processed"] = datetime.now(timezone.utc).isoformat()
-    qf.write_text(json.dumps(queue, indent=2))
+    qf.write_text(json.dumps(queue, indent=2), encoding="utf-8")
     return processed
 
 

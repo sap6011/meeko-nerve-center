@@ -130,7 +130,7 @@ def run():
     data = load_queue()
 
     html = build_html(data)
-    (DOCS / "social.html").write_text(html)
+    (DOCS / "social.html").write_text(html, encoding="utf-8")
 
     total = len(data.get("queue",[])) * 4 + len(data.get("posts",[]))
     print(f"  ✅ docs/social.html built — {total} posts ready to copy")

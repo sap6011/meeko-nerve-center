@@ -39,7 +39,7 @@ def run():
     }
 
     # Write output
-    (DATA / "resource_kit_insights.json").write_text(json.dumps(result, indent=2))
+    (DATA / "resource_kit_insights.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/resource_kit_insights.json")
     print(f"  Status: Gap filled")
 

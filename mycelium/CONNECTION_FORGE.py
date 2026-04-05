@@ -171,7 +171,7 @@ def load():
     return {"cycles":0,"guides_sent":[],"connections_active":[]}
 
 def save(s):
-    (DATA/"connection_forge_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"connection_forge_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def check_active_secrets():
     """Guess which connections are active based on env vars"""

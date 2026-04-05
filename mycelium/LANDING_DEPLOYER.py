@@ -43,7 +43,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "landing_deployer_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "landing_deployer_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def find_undeployed():
@@ -205,7 +205,7 @@ def deploy_local(slug, html_content):
     """Write to docs/{slug}/index.html — committed by OMNIBRAIN git step."""
     out_dir = DOCS / slug
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "index.html").write_text(html_content)
+    (out_dir / "index.html").write_text(html_content, encoding="utf-8")
     live_url = f"{BASE_URL}/{slug}/"
     print(f"  🌐 Staged: {live_url}")
     return live_url
@@ -245,13 +245,13 @@ def run():
             biz["live_url"] = live_url
             for f in DATA.glob(f"business_*{biz_id}*.json"):
                 if "factory_state" not in f.name:
-                    f.write_text(json.dumps(biz, indent=2))
+                    f.write_text(json.dumps(biz, indent=2), encoding="utf-8")
         except Exception as e:
             print(f"  ❌ {e}")
 
     (DATA / "live_landing_pages.json").write_text(json.dumps(
         {"urls": state.get("live_urls", []), "updated": datetime.now(timezone.utc).isoformat()}, indent=2
-    ))
+    ), encoding="utf-8")
 
     save_state(state)
     print(f"  Total live pages: {len(state.get('live_urls', []))}")

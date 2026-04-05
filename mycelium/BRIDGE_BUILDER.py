@@ -76,7 +76,7 @@ def bridge_grants_found():
         grants = []
 
     out = DATA / "grants_found.json"
-    out.write_text(json.dumps(grants, indent=2))
+    out.write_text(json.dumps(grants, indent=2), encoding="utf-8")
     return {
         "status": "BRIDGED",
         "detail": f"Transformed fund_scout_results -> grants_found ({len(grants)} grants)",
@@ -117,7 +117,7 @@ def bridge_sentinel_report():
     }
 
     out = DATA / "sentinel_report.json"
-    out.write_text(json.dumps(report, indent=2))
+    out.write_text(json.dumps(report, indent=2), encoding="utf-8")
     return {
         "status": "BRIDGED",
         "detail": f"Local sentinel: {syntax_pass} pass, {syntax_fail} fail out of {len(engines)} engines",
@@ -183,7 +183,7 @@ def bridge_knowledge_graph():
     }
 
     out = DATA / "knowledge_graph.json"
-    out.write_text(json.dumps(graph, indent=2))
+    out.write_text(json.dumps(graph, indent=2), encoding="utf-8")
     return {
         "status": "BRIDGED",
         "detail": f"Knowledge graph: {len(nodes)} nodes, {len(edges)} edges, top hub: {top_hubs[0][0] if top_hubs else 'none'}",
@@ -223,7 +223,7 @@ def bridge_quick_revenue():
         qr["brain_cycles"] = brain.get("cycles", 0)
 
     out = DATA / "quick_revenue.json"
-    out.write_text(json.dumps(qr, indent=2))
+    out.write_text(json.dumps(qr, indent=2), encoding="utf-8")
     return {
         "status": "BRIDGED",
         "detail": f"Quick revenue synthesized from brain_state + revenue_inbox",
@@ -236,7 +236,7 @@ def seed_json(filename, content):
     out = DATA / filename
     if out.exists() and out.stat().st_size > 5:
         return {"status": "ALREADY_EXISTS", "detail": f"{filename} already has data"}
-    out.write_text(json.dumps(content, indent=2))
+    out.write_text(json.dumps(content, indent=2), encoding="utf-8")
     return {"status": "BRIDGED", "detail": f"Seeded {filename}"}
 
 
@@ -245,7 +245,7 @@ def seed_text(filename, content):
     out = DATA / filename
     if out.exists() and out.stat().st_size > 2:
         return {"status": "ALREADY_EXISTS", "detail": f"{filename} already has data"}
-    out.write_text(content)
+    out.write_text(content, encoding="utf-8")
     return {"status": "BRIDGED", "detail": f"Seeded {filename}"}
 
 
@@ -311,7 +311,7 @@ def bridge_knowledge_bank():
         lines.append("")
 
     out = DATA / "knowledge_bank.txt"
-    out.write_text("\n".join(lines))
+    out.write_text("\n".join(lines), encoding="utf-8")
     return {"status": "BRIDGED", "detail": f"Knowledge bank synthesized ({len(lines)} lines, feeds 3 engines)"}
 
 
@@ -328,7 +328,7 @@ def bridge_neuron_reports():
                 "status": "awaiting_first_activation",
                 "signals": [],
                 "source": "BRIDGE_BUILDER seed"
-            }, indent=2))
+            }, indent=2), encoding="utf-8")
     return {"status": "BRIDGED", "detail": "Neuron A+B reports seeded for cross-neuron comms"}
 
 
@@ -392,7 +392,7 @@ def bridge_synergy_mutations():
     out = DATA / "synergy_mutations.txt"
     if out.exists() and out.stat().st_size > 50:
         return {"status": "FAILED", "detail": "synergy_mutations.txt already has data"}
-    out.write_text("\n".join(lines))
+    out.write_text("\n".join(lines), encoding="utf-8")
     return {"status": "BRIDGED", "detail": f"Synergy mutations seeded ({len(lines)} lines)"}
 
 
@@ -431,7 +431,7 @@ def bridge_newsletter_archive():
         "brain_cycles": brain.get("cycles", 0) if isinstance(brain, dict) else 0,
         "source": "BRIDGE_BUILDER synthesis from product_registry + brain_state"
     }
-    (DATA / "newsletter_archive.json").write_text(json.dumps(archive, indent=2))
+    (DATA / "newsletter_archive.json").write_text(json.dumps(archive, indent=2), encoding="utf-8")
     return {"status": "BRIDGED", "detail": f"Newsletter archive: {len(entries)} entries from product registry"}
 
 
@@ -465,7 +465,7 @@ def bridge_river_watch():
                 if isinstance(g, dict) and any(k in str(g).lower() for k in ["water", "river", "ecology", "environment"]):
                     watch["waterways"].append(g)
 
-    (DATA / "river_watch.json").write_text(json.dumps(watch, indent=2))
+    (DATA / "river_watch.json").write_text(json.dumps(watch, indent=2), encoding="utf-8")
     return {"status": "BRIDGED", "detail": f"River watch: {len(watch['alerts'])} alerts, {len(watch['waterways'])} waterways"}
 
 
@@ -493,7 +493,7 @@ def bridge_desktop_blueprints():
                 "error": fail.get("error", "")[:100]
             })
 
-    (DATA / "desktop_blueprints.json").write_text(json.dumps(blueprints, indent=2))
+    (DATA / "desktop_blueprints.json").write_text(json.dumps(blueprints, indent=2), encoding="utf-8")
     return {"status": "BRIDGED", "detail": f"Desktop blueprints: {blueprints['scripts_found']} scripts, {len(blueprints['blueprints'])} need repair"}
 
 
@@ -519,7 +519,7 @@ def bridge_orphan_tweets():
     for t in tweets[:10]:
         sq.setdefault("posts", []).append({"text": t, "source": "tweets_queue", "status": "pending"})
 
-    (DATA / "social_queue.json").write_text(json.dumps(sq, indent=2))
+    (DATA / "social_queue.json").write_text(json.dumps(sq, indent=2), encoding="utf-8")
     return {"status": "BRIDGED", "detail": f"Routed {len(tweets)} tweets from orphan tweets_queue.txt -> social_queue.json"}
 
 
@@ -541,7 +541,7 @@ def bridge_orphan_daemon_task():
     state["xml_present"] = True
     state["updated_by_bridge"] = datetime.now(timezone.utc).isoformat()
 
-    (DATA / "desktop_daemon_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "desktop_daemon_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     return {"status": "BRIDGED", "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json"}
 
 
@@ -640,7 +640,7 @@ def bridge_sentinel_scan():
     if not sentinel:
         return seed_json("sentinel_scan.json", {"scanned": 0, "source": "BRIDGE_BUILDER seed"})
     # Copy sentinel data with alias name
-    (DATA / "sentinel_scan.json").write_text(json.dumps(sentinel, indent=2))
+    (DATA / "sentinel_scan.json").write_text(json.dumps(sentinel, indent=2), encoding="utf-8")
     return {"status": "BRIDGED", "detail": f"Aliased sentinel_report -> sentinel_scan ({sentinel.get('syntax_pass', 0)} pass)"}
 
 
@@ -658,7 +658,7 @@ def bridge_stress_backup_river_watch():
     rw = load_json(DATA / "river_watch.json")
     if not rw:
         return seed_json("_stress_backup_river_watch.json", {"backup": True, "source": "BRIDGE_BUILDER seed"})
-    (DATA / "_stress_backup_river_watch.json").write_text(json.dumps(rw, indent=2))
+    (DATA / "_stress_backup_river_watch.json").write_text(json.dumps(rw, indent=2), encoding="utf-8")
     return {"status": "BRIDGED", "detail": "Backed up river_watch -> _stress_backup_river_watch"}
 
 
@@ -1270,6 +1270,48 @@ def bridge_agent_service_catalog():
     })
 
 
+# --- v46: AUTONOMOUS_GAP_CLOSER + connectivity bridges ---
+
+def bridge_gap_closer_state():
+    """Bridge: gap analysis -> gap_closer_state.json."""
+    return seed_json("gap_closer_state.json", {
+        "engine": "AUTONOMOUS_GAP_CLOSER", "cycles": 0,
+        "total_gaps_found": 0, "total_gaps_closed": 0,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_gap_closer_report():
+    """Bridge: gap analysis -> gap_closer_report.json."""
+    return seed_json("gap_closer_report.json", {
+        "timestamp": "", "all_gaps": [], "closed": [],
+        "summary": {"gaps_found": 0, "gaps_closed": 0},
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_tweets_queue():
+    """Bridge: social content -> tweets_queue.txt (orphan output consumer)."""
+    tw = DATA / "tweets_queue.txt"
+    if not tw.exists():
+        tw.write_text("# Auto-seeded by BRIDGE_BUILDER\n", encoding="utf-8")
+        return "CONNECTED"
+    return "EXISTS"
+
+def bridge_health_advisory():
+    """Bridge: desktop_daemon -> health_advisory.txt (orphan output consumer)."""
+    ha = DATA / "health_advisory.txt"
+    if not ha.exists():
+        ha.write_text("# Auto-seeded by BRIDGE_BUILDER\n", encoding="utf-8")
+        return "CONNECTED"
+    return "EXISTS"
+
+def bridge_solarpunk_legal_declaration():
+    """Bridge: solarpunk_legal -> solarpunk_legal_declaration.txt."""
+    sl = DATA / "solarpunk_legal_declaration.txt"
+    if not sl.exists():
+        sl.write_text("# SolarPunk Legal Declaration - seeded by BRIDGE_BUILDER\n", encoding="utf-8")
+        return "CONNECTED"
+    return "EXISTS"
+
 BRIDGES = {
     "grants_found.json": bridge_grants_found,
     "sentinel_report.json": bridge_sentinel_report,
@@ -1395,6 +1437,12 @@ BRIDGES = {
     "machine_revenue_state.json": bridge_machine_revenue_state,
     "bounty_queue.json": bridge_bounty_queue,
     "agent_service_catalog.json": bridge_agent_service_catalog,
+    # --- v46: AUTONOMOUS_GAP_CLOSER + orphan wiring ---
+    "gap_closer_state.json": bridge_gap_closer_state,
+    "gap_closer_report.json": bridge_gap_closer_report,
+    "tweets_queue.txt": bridge_tweets_queue,
+    "health_advisory.txt": bridge_health_advisory,
+    "solarpunk_legal_declaration.txt": bridge_solarpunk_legal_declaration,
 }
 
 
@@ -1459,7 +1507,7 @@ def run():
     }
 
     out = DATA / "bridge_report.json"
-    out.write_text(json.dumps(report, indent=2))
+    out.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"\n  Report saved: {out}")
 
     print(f"\n  === BRIDGE REPORT ===")

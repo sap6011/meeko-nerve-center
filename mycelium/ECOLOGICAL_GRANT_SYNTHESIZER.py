@@ -176,7 +176,7 @@ def run():
     }
 
     out = DATA / "eco_grant_state.json"
-    out.write_text(json.dumps(state, indent=2))
+    out.write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"\n  State saved: {out}")
     print(f"  This engine finds grants that MATCH the river's actual conditions.")
     print(f"  Neither RIVER_WATCH nor FUND_SCOUT could do this alone.")

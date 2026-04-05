@@ -170,7 +170,7 @@ def run():
     vital = build_vital_sign()
 
     out = DOCS / "vital.json"
-    out.write_text(json.dumps(vital, indent=2))
+    out.write_text(json.dumps(vital, indent=2), encoding="utf-8")
     print(f"Vital sign written: {out}")
     print(f"  Alive: {vital['alive']}")
     print(f"  Engines: {vital['infrastructure']['engines']}")

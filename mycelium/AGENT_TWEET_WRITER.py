@@ -90,7 +90,7 @@ Topic: Pick one of: self-healing, email processing, Gaza fund routing, or autono
         # Append to queue file
         queue_file = DATA / "tweets_queue.txt"
         existing = queue_file.read_text() if queue_file.exists() else ""
-        queue_file.write_text(existing + "\n".join(new_tweets))
+        queue_file.write_text(existing + "\n".join(new_tweets), encoding="utf-8")
         self._log(f"Added {len(new_tweets)} tweet blocks to queue")
 
         return {

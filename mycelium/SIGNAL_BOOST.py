@@ -77,7 +77,7 @@ def load_log():
 
 def save_log(log):
     log["issues_created"] = log.get("issues_created", [])[-200:]
-    BOOST_LOG.write_text(json.dumps(log, indent=2))
+    BOOST_LOG.write_text(json.dumps(log, indent=2), encoding="utf-8")
 
 
 def is_cooled_down(log, crisis_type):

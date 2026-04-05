@@ -216,4 +216,4 @@ if __name__ == "__main__":
     
     print("\n🚀 Frictionless AI System Map complete!")
 
-    (DATA / "legacy_sifted_visualize_ai_system_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_visualize_ai_system_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

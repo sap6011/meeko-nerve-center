@@ -47,7 +47,7 @@ def load(fname, fb=None):
     return fb if fb is not None else {}
 
 def save(fname, data):
-    (DATA / fname).write_text(json.dumps(data, indent=2))
+    (DATA / fname).write_text(json.dumps(data, indent=2), encoding="utf-8")
 
 def run():
     print("ECONOMY_CHAIN running...")
@@ -152,6 +152,6 @@ td,th{{padding:.5rem 1rem;border-bottom:1px solid #1a1a2e;text-align:left}}
 <tbody>{rows}</tbody></table>
 <p style="margin-top:1rem;color:#444">Every dollar routes itself. Every route feeds the next chain.<br>
 Updated: {now[:16]} UTC</p>
-</body></html>""")
+</body></html>""", encoding="utf-8")
 
 if __name__ == "__main__": run()

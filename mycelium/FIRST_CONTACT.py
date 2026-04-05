@@ -258,7 +258,7 @@ def record_first_contact(stranger_data, scan_results):
             "This is the system's real birthday."
         ),
     }
-    FC_FILE.write_text(json.dumps(record, indent=2))
+    FC_FILE.write_text(json.dumps(record, indent=2), encoding="utf-8")
     return record
 
 

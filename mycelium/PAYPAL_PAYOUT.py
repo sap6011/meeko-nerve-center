@@ -86,7 +86,7 @@ def run():
         print("  3. GitHub Secrets: PAYPAL_CLIENT_ID + PAYPAL_CLIENT_SECRET")
         print("  4. Set PAYPAL_SANDBOX=true to test, false for real payouts")
         (DATA / "paypal_payout_state.json").write_text(
-            json.dumps({"last_run": now, "status": "no_credentials", "env": env}, indent=2))
+            json.dumps({"last_run": now, "status": "no_credentials", "env": env}, indent=2), encoding="utf-8")
         return
 
     registry = load_registry()
@@ -96,7 +96,7 @@ def run():
     if not contributors:
         print("  ℹ️  No contributors registered. Add via data/contributor_registry.json")
         (DATA / "paypal_payout_state.json").write_text(
-            json.dumps({"last_run": now, "status": "no_contributors", "env": env}, indent=2))
+            json.dumps({"last_run": now, "status": "no_contributors", "env": env}, indent=2), encoding="utf-8")
         return
 
     batch_id = f"sp_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
@@ -124,7 +124,7 @@ def run():
         print(f"  ℹ️  No contributors ready for payout (threshold: ${MIN_PAYOUT:.2f})")
         print("  📝 Update 'paypal_email' in data/contributor_registry.json to enable payouts")
         (DATA / "paypal_payout_state.json").write_text(
-            json.dumps({"last_run": now, "status": "no_eligible_contributors", "env": env}, indent=2))
+            json.dumps({"last_run": now, "status": "no_eligible_contributors", "env": env}, indent=2), encoding="utf-8")
         return
 
     try:
@@ -133,7 +133,7 @@ def run():
     except Exception as ex:
         print(f"  ❌ PayPal API error: {ex}")
         (DATA / "paypal_payout_state.json").write_text(
-            json.dumps({"last_run": now, "status": f"error: {str(ex)[:100]}", "env": env}, indent=2))
+            json.dumps({"last_run": now, "status": f"error: {str(ex)[:100]}", "env": env}, indent=2), encoding="utf-8")
         return
 
     if status_code == 201:
@@ -144,19 +144,19 @@ def run():
             "recipients": contributors_paid, "total": total_sent
         })
         ledger["total_paid_usd"] = round(ledger.get("total_paid_usd", 0) + total_sent, 2)
-        (DATA / "payout_ledger.json").write_text(json.dumps(ledger, indent=2))
+        (DATA / "payout_ledger.json").write_text(json.dumps(ledger, indent=2), encoding="utf-8")
         paid_emails = [c["email"] for c in contributors_paid]
         for contrib in contributors:
             if contrib.get("paypal_email") in paid_emails:
                 contrib["total_earned"] = round(contrib.get("total_earned", 0) + contrib.get("pending_usd", 0), 4)
                 contrib["pending_usd"] = 0.0
         registry["last_payout"] = now
-        (DATA / "contributor_registry.json").write_text(json.dumps(registry, indent=2))
+        (DATA / "contributor_registry.json").write_text(json.dumps(registry, indent=2), encoding="utf-8")
     else:
         print(f"  ❌ PayPal error {status_code}: {str(result)[:200]}")
 
     (DATA / "paypal_payout_state.json").write_text(
-        json.dumps({"last_run": now, "status": "ok" if status_code == 201 else "error", "env": env}, indent=2))
+        json.dumps({"last_run": now, "status": "ok" if status_code == 201 else "error", "env": env}, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__": run()

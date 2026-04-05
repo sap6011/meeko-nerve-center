@@ -92,7 +92,7 @@ def main():
     report["system_state"] = state
     report["generated_at"] = datetime.now(timezone.utc).isoformat()
     Path("data").mkdir(exist_ok=True)
-    Path("data/neuron_a_report.json").write_text(json.dumps(report, indent=2))
+    Path("data/neuron_a_report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"Builder thesis: {report.get('builder_thesis','?')}")
     for opp in report.get("opportunities",[])[:3]:
         print(f"  [{opp.get('impact','?')}] {opp.get('name','')}: {opp.get('action','')}")

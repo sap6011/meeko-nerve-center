@@ -37,7 +37,7 @@ def run():
     }
 
     # Write output
-    (DATA / "growth_chain_state.json").write_text(json.dumps(result, indent=2))
+    (DATA / "growth_chain_state.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/growth_chain_state.json")
     print(f"  Status: Gap filled")
 

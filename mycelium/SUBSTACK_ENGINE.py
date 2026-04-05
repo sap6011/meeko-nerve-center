@@ -28,7 +28,7 @@ def load():
     return {"cycles":0,"issues_drafted":0,"issues_published":0,"last_draft":None}
 
 def save(s):
-    (DATA/"substack_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"substack_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def gather_stats():
     stats={}
@@ -132,7 +132,7 @@ def run():
     week=datetime.now(timezone.utc).strftime("%B %d, %Y")
     subject=f"SolarPunk Build Log — Week {state.get('cycles',1)} | ${stats.get('kofi',{}).get('total_to_gaza',0):.2f} to Gaza"
 
-    (DATA/"substack_draft.txt").write_text(f"SUBJECT: {subject}\n\n{draft}")
+    (DATA/"substack_draft.txt").write_text(f"SUBJECT: {subject}\n\n{draft}", encoding="utf-8")
     state["issues_drafted"]=state.get("issues_drafted",0)+1
     state["last_draft"]=datetime.now(timezone.utc).isoformat()
     print(f"  Draft saved: data/substack_draft.txt")

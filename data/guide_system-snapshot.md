@@ -15,9 +15,9 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 ## System Topology
 
 - **Total engines**: 389
-- **Wire connections**: 5794
-- **Zero-secret chains**: 3960 (work without any API keys)
-- **Orphan outputs**: 7 (data written but never read)
+- **Wire connections**: 5795
+- **Zero-secret chains**: 3961 (work without any API keys)
+- **Orphan outputs**: 6 (data written but never read)
 - **Hungry inputs**: 60 (data needed but not yet produced)
 
 ## Engine Categories
@@ -86,36 +86,36 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
-- REVENUE_SPLITTER -> DUAL_SYSTEM_CROSSWIRE via `revenue_routing.json` (zero-secrets)
-- DUAL_SYSTEM_CROSSWIRE -> GROWTH_CHAIN via `signal_chain_queue.json` (zero-secrets)
-- DUAL_SYSTEM_CROSSWIRE -> SIGNAL_CHAIN via `signal_chain_queue.json` (zero-secrets)
-- SIGNAL_CHAIN -> DUAL_SYSTEM_CROSSWIRE via `signal_chain_queue.json` (zero-secrets)
-- SIGNAL_CHAIN -> GROWTH_CHAIN via `signal_chain_queue.json` (zero-secrets)
-- CLAUDE_BRIDGE -> DESKTOP_DAEMON via `claude_tasks_queue.json`
-- CLAUDE_BRIDGE -> GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR via `claude_tasks_queue.json` (zero-secrets)
-- CLAUDE_BRIDGE -> GENERATED_DESKTOP_DAEMON_CONSUMER via `claude_tasks_queue.json` (zero-secrets)
-- CLAUDE_BRIDGE -> GENERATED_RESONANCE_CONVERTER_CONSUMER via `claude_tasks_queue.json` (zero-secrets)
-- CLAUDE_BRIDGE -> OMNIBUS via `claude_tasks_queue.json` (zero-secrets)
-- CLAUDE_BRIDGE -> RESONANCE_CONVERTER via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> CLAUDE_BRIDGE via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> GENERATED_DESKTOP_DAEMON_CONSUMER via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> GENERATED_RESONANCE_CONVERTER_CONSUMER via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> OMNIBUS via `claude_tasks_queue.json`
-- DESKTOP_DAEMON -> RESONANCE_CONVERTER via `claude_tasks_queue.json`
-- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> CLAUDE_BRIDGE via `claude_tasks_queue.json` (zero-secrets)
-- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> DESKTOP_DAEMON via `claude_tasks_queue.json`
-- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> GENERATED_DESKTOP_DAEMON_CONSUMER via `claude_tasks_queue.json` (zero-secrets)
-- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> GENERATED_RESONANCE_CONVERTER_CONSUMER via `claude_tasks_queue.json` (zero-secrets)
-- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> OMNIBUS via `claude_tasks_queue.json` (zero-secrets)
-- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> RESONANCE_CONVERTER via `claude_tasks_queue.json`
-- OMNIBUS -> CLAUDE_BRIDGE via `claude_tasks_queue.json` (zero-secrets)
-- OMNIBUS -> DESKTOP_DAEMON via `claude_tasks_queue.json`
-- ... and 5769 more connections
+- BRIDGE_BUILDER -> BROADCAST_PROTOCOL via `newsletter_archive.json` (zero-secrets)
+- BRIDGE_BUILDER -> NEWSLETTER_ENGINE via `newsletter_archive.json`
+- BRIDGE_BUILDER -> RSS_PUBLISHER via `newsletter_archive.json` (zero-secrets)
+- BROADCAST_PROTOCOL -> BRIDGE_BUILDER via `newsletter_archive.json` (zero-secrets)
+- BROADCAST_PROTOCOL -> NEWSLETTER_ENGINE via `newsletter_archive.json`
+- BROADCAST_PROTOCOL -> RSS_PUBLISHER via `newsletter_archive.json` (zero-secrets)
+- NEWSLETTER_ENGINE -> BRIDGE_BUILDER via `newsletter_archive.json`
+- NEWSLETTER_ENGINE -> BROADCAST_PROTOCOL via `newsletter_archive.json`
+- NEWSLETTER_ENGINE -> RSS_PUBLISHER via `newsletter_archive.json`
+- DATA_FLOW_OBSERVATORY -> CORTEX via `observatory_report.json` (zero-secrets)
+- DATA_FLOW_OBSERVATORY -> EXTERNAL_VALUE_ROUTER via `observatory_report.json` (zero-secrets)
+- DATA_FLOW_OBSERVATORY -> FRACTAL_GENESIS_ENGINE via `observatory_report.json` (zero-secrets)
+- DATA_FLOW_OBSERVATORY -> GENERATED_DATA_FLOW_OBSERVATORY_CONSUMER via `observatory_report.json` (zero-secrets)
+- DATA_FLOW_OBSERVATORY -> OMNIBUS via `observatory_report.json` (zero-secrets)
+- BRIDGE_BUILDER -> CORRUPTION_SENTINEL via `sentinel_scan.json` (zero-secrets)
+- BRIDGE_BUILDER -> EXECUTIVE_BRIEFING via `sentinel_scan.json` (zero-secrets)
+- BRIDGE_BUILDER -> RESEARCH_WRITER via `sentinel_scan.json` (zero-secrets)
+- CORRUPTION_SENTINEL -> BRIDGE_BUILDER via `sentinel_scan.json` (zero-secrets)
+- CORRUPTION_SENTINEL -> EXECUTIVE_BRIEFING via `sentinel_scan.json` (zero-secrets)
+- CORRUPTION_SENTINEL -> RESEARCH_WRITER via `sentinel_scan.json` (zero-secrets)
+- SOVEREIGNTY_ENGINE -> EXECUTIVE_BRIEFING via `sovereignty_state.json` (zero-secrets)
+- SOVEREIGNTY_ENGINE -> RESEARCH_WRITER via `sovereignty_state.json` (zero-secrets)
+- ECONOMY_CHAIN -> BRIDGE_BUILDER via `economy_chain_ledger.json` (zero-secrets)
+- ECONOMY_CHAIN -> CHAIN_ORCHESTRATOR via `economy_chain_ledger.json` (zero-secrets)
+- ECONOMY_CHAIN -> DUAL_SYSTEM_CROSSWIRE via `economy_chain_ledger.json` (zero-secrets)
+- ... and 5770 more connections
 
 ## Knowledge Graph
 
-- **592 nodes** (engines, data files, concepts)
+- **593 nodes** (engines, data files, concepts)
 - **500 edges** (connections between them)
 
 ## What This Means
@@ -131,7 +131,7 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-05 18:26 UTC
+- **Generated**: 2026-04-05 18:25 UTC
 - **Data source**: data/live_wire_report.json
 - **Engines scanned**: 389
 

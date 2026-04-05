@@ -131,9 +131,9 @@ def main():
     curve = build_growth_curve(cycles)
     mem.update({"cycles": cycles, "patterns": patterns, "total_cycles": len(cycles),
                 "last_updated": snap["timestamp"], "latest_snap": snap})
-    MEMORY_F.write_text(json.dumps(mem, indent=2))
-    LESSONS_F.write_text(json.dumps(lessons, indent=2))
-    GROWTH_F.write_text(json.dumps(curve, indent=2))
+    MEMORY_F.write_text(json.dumps(mem, indent=2), encoding="utf-8")
+    LESSONS_F.write_text(json.dumps(lessons, indent=2), encoding="utf-8")
+    GROWTH_F.write_text(json.dumps(curve, indent=2), encoding="utf-8")
     print(f"Memory: {len(cycles)} cycles | Health: {snap.get('health_score','?')} | Revenue: ${snap.get('revenue',0):.2f}")
     print(f"Pattern: {patterns.get('health_trend','unknown')}")
     crit = [l for l in lessons if l.get("priority") == "critical"]

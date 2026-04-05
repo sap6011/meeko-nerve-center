@@ -285,7 +285,7 @@ def main():
     state["summary"] = summary
 
     # Save
-    SYNC_STATE_FILE.write_text(json.dumps(state, indent=2))
+    SYNC_STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     print(f"\n  Sync state saved. {total} updates queued for Notion.")
     print(f"  Databases: {len(NOTION_DBS)} connected")

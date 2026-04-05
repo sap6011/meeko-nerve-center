@@ -183,7 +183,7 @@ def broadcast_to_social_queue(brief):
             pass
 
     queue["posts"].extend(posts)
-    queue_path.write_text(json.dumps(queue, indent=2))
+    queue_path.write_text(json.dumps(queue, indent=2), encoding="utf-8")
     print(f"  Social: {len(posts)}-post thread queued")
     return posts
 
@@ -237,7 +237,7 @@ def broadcast_to_newsletter(brief):
 
     archive["newsletters"].append(newsletter)
     archive["last_updated"] = datetime.now(timezone.utc).isoformat()
-    archive_path.write_text(json.dumps(archive, indent=2))
+    archive_path.write_text(json.dumps(archive, indent=2), encoding="utf-8")
     print(f"  Newsletter: '{newsletter['subject']}' queued")
     return newsletter
 
@@ -280,7 +280,7 @@ CC BY-SA 4.0 — {brief['call_to_action']}
 """,
     }
 
-    (DATA / "github_discussion_draft.json").write_text(json.dumps(discussion, indent=2))
+    (DATA / "github_discussion_draft.json").write_text(json.dumps(discussion, indent=2), encoding="utf-8")
     print(f"  GitHub Discussion: Draft saved")
     return discussion
 
@@ -308,7 +308,7 @@ def broadcast_to_rss(brief):
         rss_state["entries"] = []
     rss_state["entries"].append(entry)
     rss_state["last_updated"] = datetime.now(timezone.utc).isoformat()
-    rss_path.write_text(json.dumps(rss_state, indent=2))
+    rss_path.write_text(json.dumps(rss_state, indent=2), encoding="utf-8")
     print(f"  RSS: Feed entry added")
     return entry
 
@@ -365,7 +365,7 @@ License: CC BY-SA 4.0 — **{brief['call_to_action']}**
 """,
     }
 
-    (DATA / "devto_draft.json").write_text(json.dumps(post, indent=2))
+    (DATA / "devto_draft.json").write_text(json.dumps(post, indent=2), encoding="utf-8")
     print(f"  Dev.to: Blog post draft saved")
     return post
 
@@ -381,7 +381,7 @@ def save_broadcast_state(brief, channels):
         "status": "BROADCAST_COMPLETE",
         "next_action": "Review drafts, then publish. Social queue auto-publishes if SOCIAL_PROMOTER is active.",
     }
-    (DATA / "broadcast_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "broadcast_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     return state
 
 
@@ -396,7 +396,7 @@ def main():
 
     # 2. Generate research brief
     brief = generate_research_brief(state)
-    (DATA / "research_brief.json").write_text(json.dumps(brief, indent=2))
+    (DATA / "research_brief.json").write_text(json.dumps(brief, indent=2), encoding="utf-8")
     print(f"  Brief: '{brief['title'][:60]}...'")
 
     # 3. Broadcast to all channels

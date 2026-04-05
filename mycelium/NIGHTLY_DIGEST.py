@@ -385,7 +385,7 @@ h1{{color:#00e87a;font-size:1.6rem;margin-bottom:4px}}
 </div>
 </body></html>"""
 
-    (DOCS / "status.html").write_text(html)
+    (DOCS / "status.html").write_text(html, encoding="utf-8")
     print("  Status page → docs/status.html")
 
 
@@ -418,7 +418,7 @@ def run():
         print(f"  Email skipped — cooldown ({reason}), last sent: {state.get('last_sent', 'never')[:16]}")
 
     # Save state
-    (DATA / "nightly_digest_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "nightly_digest_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     # Write last digest snapshot for other engines
     (DATA / "nightly_digest_last.json").write_text(json.dumps({
@@ -432,7 +432,7 @@ def run():
         "engines_ok_count": len(stats["engines_ok"]),
         "engines_fail_count": len(stats["engines_failed"]),
         "email_sent_this_cycle": do_send,
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     print(f"  Health: {stats['health']} | Revenue: ${stats['real_revenue']:.2f} | Products live: {stats['products_live']}")
     return state

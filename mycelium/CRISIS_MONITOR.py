@@ -421,7 +421,7 @@ that alert NGOs, amplify silenced voices, and route aid to where it's needed.
 </div>
 </body>
 </html>"""
-    DASHBOARD.write_text(html)
+    DASHBOARD.write_text(html, encoding="utf-8")
 
 
 # ── Email CRITICAL alerts ──────────────────────────────────────────────────
@@ -689,7 +689,7 @@ def main():
         "target_engines": list(set(
             eng for t in triggers for eng in t.get("target_engines", [])
         )),
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
     print(f"    {len(triggers)} triggers fired -> {len(set(e for t in triggers for e in t['target_engines']))} engines targeted")
 
     # Build NGO handshake emails — ready for EMAIL_OUTREACH to send
@@ -699,7 +699,7 @@ def main():
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "handshakes": handshakes, "count": len(handshakes),
         "orgs_targeted": list(set(h["org_key"] for h in handshakes)),
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
     print(f"    {len(handshakes)} handshake emails queued for {len(set(h['org_key'] for h in handshakes))} orgs")
 
     # Write core outputs
@@ -707,17 +707,17 @@ def main():
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "total": len(all_signals), "by_urgency": counts,
         "signals": all_signals[:100],
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     AID_OUT.write_text(json.dumps({
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "routes": routing, "count": len(routing),
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     AMPLIFY_OUT.write_text(json.dumps({
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "posts": posts, "count": len(posts),
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     # Dashboard — action-focused, not horror-focused
     print("\n[7/7] Building action dashboard...")
@@ -734,7 +734,7 @@ def main():
         "high": counts.get("HIGH", 0),
         "triggers_fired": len(triggers), "handshakes_queued": len(handshakes),
     })
-    HISTORY.write_text(json.dumps(history[-200:], indent=2))
+    HISTORY.write_text(json.dumps(history[-200:], indent=2), encoding="utf-8")
 
     # Email critical alerts to Meeko
     email_critical(all_signals)

@@ -206,7 +206,7 @@ def main():
         "vestigial": vestigial[:20],
         "engines": results,
     }
-    APOPTOSIS_FILE.write_text(json.dumps(output, indent=2))
+    APOPTOSIS_FILE.write_text(json.dumps(output, indent=2), encoding="utf-8")
 
     print("APOPTOSIS done.")
 

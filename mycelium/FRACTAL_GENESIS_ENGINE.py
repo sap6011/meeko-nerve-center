@@ -241,7 +241,7 @@ def run():
     }}
 
     # Write output
-    (DATA / "{writes_file}").write_text(json.dumps(result, indent=2))
+    (DATA / "{writes_file}").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/{writes_file}")
     print(f"  Status: Gap filled")
 

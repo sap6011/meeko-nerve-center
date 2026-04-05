@@ -55,7 +55,7 @@ def run():
         est = estimate_revenue(i)
         results[f"cycle_{i+1}"] = est
         print(f"Cycle {i+1}: estimated revenue = ${est:,.2f}")
-    (DATA / "legacy_sifted_humanitarian_revenue_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "estimates": results}, indent=2))
+    (DATA / "legacy_sifted_humanitarian_revenue_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "estimates": results}, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -1592,6 +1592,6 @@ if __name__ == "__main__":
 """)
 
 
-    (DATA / "legacy_sifted_ultimate_ai_self_1_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_ultimate_ai_self_1_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")
 
     # ── [A] Pip guard test ────────────────────────────────────────────────────

@@ -141,7 +141,7 @@ def scan_engine(filepath):
         if fname not in info["writes"]:
             info["writes"].append(fname)
 
-    # Detect (DATA / "file.json").write_text(...) inline pattern
+    # Detect (DATA / "file.json").write_text(..., encoding="utf-8") inline pattern
     for match in re.finditer(r'\(DATA\s*/\s*["\']([^"\']+\.(?:json|txt|md))["\'].*?\)\.write_text', source):
         fname = match.group(1)
         if fname not in info["writes"]:
@@ -413,7 +413,7 @@ def run():
     }
 
     out = DATA / "live_wire_report.json"
-    out.write_text(json.dumps(report, indent=2))
+    out.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"\n  Report saved: {out}")
 
     # Summary

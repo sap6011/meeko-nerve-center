@@ -37,7 +37,7 @@ def run():
     }
 
     # Write output
-    (DATA / "secrets_checker_insights.json").write_text(json.dumps(result, indent=2))
+    (DATA / "secrets_checker_insights.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/secrets_checker_insights.json")
     print(f"  Status: Gap filled")
 

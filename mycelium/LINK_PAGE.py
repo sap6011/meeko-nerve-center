@@ -127,7 +127,7 @@ h1 em{{color:var(--rose);font-style:italic}}
 def run():
     stats = load_stats()
     html = build_html(stats)
-    (DOCS / "links.html").write_text(html)
+    (DOCS / "links.html").write_text(html, encoding="utf-8")
     print(f"LINK_PAGE: Rebuilt docs/links.html")
     print(f"  {stats['total_sales']} sales | ${stats['total_to_gaza']:.2f} to Gaza | {stats['loop_cycles']} loops")
     print(f"  Live: https://meekotharaccoon-cell.github.io/meeko-nerve-center/links.html")

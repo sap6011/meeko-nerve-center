@@ -372,4 +372,4 @@ if __name__ == "__main__":
 # LIVE_WIRE: topology state tracking
 def _write_wire_state():
     _ctx = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
-    (DATA / "ai_client_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "ai_client_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

@@ -147,4 +147,4 @@ if __name__ == "__main__":
 # LIVE_WIRE: topology state tracking
 def _write_wire_state():
     _ctx = json.loads((DATA / "product_registry.json").read_text()) if (DATA / "product_registry.json").exists() else {}
-    (DATA / "agent_gumroad_builder_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "agent_gumroad_builder_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

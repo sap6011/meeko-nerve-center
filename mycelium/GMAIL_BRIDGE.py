@@ -138,7 +138,7 @@ class GmailBridge:
             "mode": "mcp_draft",
         }
 
-        draft_file.write_text(json.dumps(draft_data, indent=2))
+        draft_file.write_text(json.dumps(draft_data, indent=2), encoding="utf-8")
         print(f"[GMAIL_BRIDGE] Draft saved: {draft_file.name}")
         return {"success": True, "message": f"Draft saved: {draft_file.name}", "path": str(draft_file)}
 
@@ -190,4 +190,4 @@ if __name__ == "__main__":
 # LIVE_WIRE: topology state tracking
 def _write_wire_state():
     _ctx = json.loads((DATA / "email_brain_state.json").read_text()) if (DATA / "email_brain_state.json").exists() else {}
-    (DATA / "gmail_bridge_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "gmail_bridge_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

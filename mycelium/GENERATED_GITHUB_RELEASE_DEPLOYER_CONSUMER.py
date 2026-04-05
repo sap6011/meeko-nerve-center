@@ -37,7 +37,7 @@ def run():
     }
 
     # Write output
-    (DATA / "github_release_deployer_insights.json").write_text(json.dumps(result, indent=2))
+    (DATA / "github_release_deployer_insights.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/github_release_deployer_insights.json")
     print(f"  Status: Gap filled")
 

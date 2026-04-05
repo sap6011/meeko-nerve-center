@@ -72,7 +72,7 @@ class PayPalBridge:
 
     def _save_ledger(self):
         """Persist ledger to disk."""
-        self.ledger_file.write_text(json.dumps(self.ledger, indent=2))
+        self.ledger_file.write_text(json.dumps(self.ledger, indent=2), encoding="utf-8")
 
     def calculate_split(self, gross_revenue: float) -> dict:
         """Calculate the 99/1 revenue split.
@@ -140,7 +140,7 @@ class PayPalBridge:
 
         # Save manifest file
         manifest_file = self.data_dir / f"{manifest['manifest_id']}.json"
-        manifest_file.write_text(json.dumps(manifest, indent=2))
+        manifest_file.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
         print(f"[PAYPAL_BRIDGE] Manifest {manifest['manifest_id']}: ${gross_revenue:.2f} → "
               f"${split['_total']['to_crisis']:.2f} crisis / ${split['_total']['to_infra']:.2f} infra")
@@ -199,4 +199,4 @@ if __name__ == "__main__":
 # LIVE_WIRE: topology state tracking
 def _write_wire_state():
     _ctx = json.loads((DATA / "finance_ledger.json").read_text()) if (DATA / "finance_ledger.json").exists() else {}
-    (DATA / "paypal_bridge_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "paypal_bridge_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

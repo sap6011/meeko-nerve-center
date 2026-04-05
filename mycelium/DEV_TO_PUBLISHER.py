@@ -42,7 +42,7 @@ def load_state():
 
 def save_state(s):
     s["published_hashes"] = s.get("published_hashes", [])[-500:]
-    (DATA / "devto_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "devto_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def post_article(title, body_md, tags, as_draft=False):
@@ -216,7 +216,7 @@ def run():
                 else:
                     print(f"  ❌ {title[:60]}: {err[:60]}")
             sq["posts"] = posts
-            sq_file.write_text(json.dumps(sq, indent=2))
+            sq_file.write_text(json.dumps(sq, indent=2), encoding="utf-8")
         except Exception as e:
             print(f"  ⚠️  Queue drain error: {e}")
 

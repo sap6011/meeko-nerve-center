@@ -121,7 +121,7 @@ def write_engine(result):
     if not safe_to_write(target_path):
         return False
     target = Path("mycelium") / fname
-    target.write_text(code)
+    target.write_text(code, encoding="utf-8")
     print(f"✅ Synthesized: {fname}")
     print(f"   → {result.get('description','')}")
     print(f"   💰 {result.get('income_stream','')}")
@@ -143,7 +143,7 @@ def update_log(result, gen):
     log["gen_count"] = gen
     log["last_run"] = datetime.now().isoformat()
     Path("data").mkdir(exist_ok=True)
-    log_f.write_text(json.dumps(log, indent=2))
+    log_f.write_text(json.dumps(log, indent=2), encoding="utf-8")
 
 def main():
     gen = get_gen_number()

@@ -44,7 +44,7 @@ def load():
 
 def save(s):
     s["discoveries"]=s.get("discoveries",[])[-200:]
-    (DATA/"ai_watcher_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"ai_watcher_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def fetch_hf_trending():
     """HuggingFace trending models"""

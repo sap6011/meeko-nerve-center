@@ -307,7 +307,7 @@ def main():
             "directives_generated": len(directives),
         },
     }
-    CIRCADIAN_FILE.write_text(json.dumps(output, indent=2))
+    CIRCADIAN_FILE.write_text(json.dumps(output, indent=2), encoding="utf-8")
 
     print(f"\n  Time intelligence saved.")
     print("CIRCADIAN_RHYTHM done.")

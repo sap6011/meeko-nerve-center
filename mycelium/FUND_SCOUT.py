@@ -313,12 +313,12 @@ def run_scout():
         "funding_gap":    gap,
         "ranked_funders": ranked,
     }
-    (DATA_PATH / "fund_scout_results.json").write_text(json.dumps(results, indent=2))
+    (DATA_PATH / "fund_scout_results.json").write_text(json.dumps(results, indent=2), encoding="utf-8")
 
     # Save human-readable database
     GRANT_DIR.mkdir(parents=True, exist_ok=True)
     db = generate_funder_database(ranked)
-    (GRANT_DIR / "FUNDER_DATABASE.md").write_text(db)
+    (GRANT_DIR / "FUNDER_DATABASE.md").write_text(db, encoding="utf-8")
 
     # Log to transparency file
     if ACTUAL_LOG.exists():

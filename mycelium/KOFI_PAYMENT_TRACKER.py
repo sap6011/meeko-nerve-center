@@ -40,7 +40,7 @@ def load_exchange():
 
 def save_exchange(state):
     state["task_log"] = state.get("task_log", [])[-500:]
-    (DATA / "email_exchange_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "email_exchange_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
 def load_tracker():
@@ -55,7 +55,7 @@ def load_tracker():
 def save_tracker(state):
     state["log"]           = state.get("log", [])[-200:]
     state["processed_ids"] = state.get("processed_ids", [])[-500:]
-    (DATA / "kofi_tracker_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "kofi_tracker_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
 def is_kofi(em):

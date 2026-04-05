@@ -48,7 +48,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "payout_ledger.json").write_text(json.dumps(s, indent=2))
+    (DATA / "payout_ledger.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def get_token():
@@ -95,7 +95,7 @@ def register_collaborator(email, name, paypal_email, share_pct, role):
     for c in data["collaborators"]:
         if c["email"] == email:
             c.update({"name": name, "paypal_email": paypal_email, "share_pct": share_pct, "role": role})
-            collab_f.write_text(json.dumps(data, indent=2))
+            collab_f.write_text(json.dumps(data, indent=2), encoding="utf-8")
             return c
     new = {
         "id": f"c{len(data['collaborators'])+1:04d}",
@@ -105,7 +105,7 @@ def register_collaborator(email, name, paypal_email, share_pct, role):
         "total_earned": 0.0, "active": True,
     }
     data["collaborators"].append(new)
-    collab_f.write_text(json.dumps(data, indent=2))
+    collab_f.write_text(json.dumps(data, indent=2), encoding="utf-8")
     print(f"  ✅ Registered: {name} ({role}) — {share_pct}% share → {paypal_email}")
     return new
 
@@ -234,7 +234,7 @@ td{{padding:10px;border-bottom:1px solid rgba(255,255,255,.04);font-size:.82rem;
 </div>
 </body></html>"""
 
-    (DOCS / "payouts.html").write_text(html)
+    (DOCS / "payouts.html").write_text(html, encoding="utf-8")
 
 
 def run():

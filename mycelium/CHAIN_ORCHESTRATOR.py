@@ -156,12 +156,12 @@ def run():
         "actions_queued": actions_ever,
         "chain_results": results,
     }
-    (DATA / "chain_synthesis.json").write_text(json.dumps(synthesis, indent=2))
+    (DATA / "chain_synthesis.json").write_text(json.dumps(synthesis, indent=2), encoding="utf-8")
 
     state["cycles"]             = state.get("cycles", 0) + 1
     state["total_uptime_cycles"]= state.get("total_uptime_cycles", 0) + 1
     state["last_run"]           = now
-    (DATA / "chain_orchestrator_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "chain_orchestrator_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     # ── Build the nerve center dashboard ─────────────────────────────────────
     chain_cards = "\n".join(
@@ -290,7 +290,7 @@ footer a{{color:#333}}
   <a href="growth.html">Growth</a> ·
   <a href="store.html">Store</a>
 </footer>
-</body></html>""")
+</body></html>""", encoding="utf-8")
 
     print(f"\n{'='*58}")
     print(f"  Chains: {chains_ok}/{chains_total} | Earned: ${total_earned:.2f} | "

@@ -118,14 +118,14 @@ def run():
         tag = f'<link rel="alternate" type="application/rss+xml" title="SolarPunk Feed" href="{BASE}/feed.xml" />'
         if tag not in html and "<head>" in html:
             html = html.replace("<head>", f"<head>\n  {tag}")
-            idx.write_text(html)
+            idx.write_text(html, encoding="utf-8")
             print("  ✅ RSS autodiscovery injected into index.html")
 
     STATE.write_text(json.dumps({
         "ts": datetime.now(timezone.utc).isoformat(),
         "items": len(items),
         "feed_url": f"{BASE}/feed.xml"
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

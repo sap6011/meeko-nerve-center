@@ -221,7 +221,7 @@ h1{{color:#ff5e5b;font-size:1.4rem;margin-bottom:4px}}
 <div class="section-title">-> After fixing: trigger Actions -> OMNIBRAIN (workflow_dispatch)</div>
 </body></html>"""
 
-    (DOCS / "bottleneck.html").write_text(html)
+    (DOCS / "bottleneck.html").write_text(html, encoding="utf-8")
     print("  Wrote docs/bottleneck.html")
 
 
@@ -254,7 +254,7 @@ def run():
         "secrets":     secrets,
     }
 
-    (DATA / "bottleneck_report.json").write_text(json.dumps(report, indent=2))
+    (DATA / "bottleneck_report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     write_html_report(bottlenecks, secrets, engines, gumroad, revenue, now)  # FIXED: secrets arg
 
     c = report["summary"]["critical"]

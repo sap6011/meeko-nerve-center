@@ -168,7 +168,7 @@ def _append_ledger(entry: dict):
         except Exception:
             ledger = []
     ledger.append(entry)
-    LEDGER_PATH.write_text(json.dumps(ledger, indent=2))
+    LEDGER_PATH.write_text(json.dumps(ledger, indent=2), encoding="utf-8")
 
 
 def _update_payout_doc(processed: list, totals: dict):
@@ -217,7 +217,7 @@ Every sale of a Gaza Rose print is automatically split:
             f"| Date | Product | Total | PCRF | Mutual Aid | Status |\n|------|---------|-------|------|------------|--------|\n{new_entries}"
         )
 
-    PAYOUT_DOC.write_text(header + existing)
+    PAYOUT_DOC.write_text(header + existing, encoding="utf-8")
 
 
 def _log_to_actual(summary: dict):

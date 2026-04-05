@@ -50,7 +50,7 @@ def load():
 
 def save(s):
     s["log"] = s.get("log", [])[-100:]
-    (DATA / "calendar_brain_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "calendar_brain_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def is_real_appointment(appt):

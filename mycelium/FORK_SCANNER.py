@@ -105,7 +105,7 @@ def run():
         print("  No forks yet (or API error)")
         state["cycles"] = state.get("cycles", 0) + 1
         state["last_run"] = datetime.now(timezone.utc).isoformat()
-        STATE.write_text(json.dumps(state, indent=2))
+        STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
         return
 
     print(f"  Found {len(forks)} forks total")
@@ -141,7 +141,7 @@ def run():
     state["forkers"]   = state.get("forkers", []) + new_forkers
     state["cycles"]    = state.get("cycles", 0) + 1
     state["last_run"]  = datetime.now(timezone.utc).isoformat()
-    STATE.write_text(json.dumps(state, indent=2))
+    STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     outreach = {}
     if OUTBOX.exists():
@@ -157,7 +157,7 @@ def run():
                             "body": f.get("outreach_body",""),
                             "login": f["login"], "score": f["score"]})
     outreach["pending"] = pending
-    OUTBOX.write_text(json.dumps(outreach, indent=2))
+    OUTBOX.write_text(json.dumps(outreach, indent=2), encoding="utf-8")
 
     print(f"  New: {len(new_forkers)} | Total processed: {len(processed_set)}")
 

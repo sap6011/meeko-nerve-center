@@ -31,7 +31,7 @@ def load_registry():
     return {"first_seen": {}, "last_seen": {}, "change_log": [], "alerts": []}
 
 def save_registry(r):
-    (DATA / "engine_sha_registry.json").write_text(json.dumps(r, indent=2))
+    (DATA / "engine_sha_registry.json").write_text(json.dumps(r, indent=2), encoding="utf-8")
 
 def run():
     print("ENGINE_INTEGRITY scanning...")

@@ -89,7 +89,7 @@ def run():
         "verify_data": f"{RAW}/omnibus_last.json",
         "verify_engines": MYCELIUM,
     }
-    (DATA / "proof_state.json").write_text(json.dumps(proof, indent=2))
+    (DATA / "proof_state.json").write_text(json.dumps(proof, indent=2), encoding="utf-8")
 
     zero = lambda n: "zero" if n == 0 else ""
 
