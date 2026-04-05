@@ -438,6 +438,7 @@ def L6():
     eng("INTERNET_BRIDGE",          timeout=120)  # v47: gather web signals, publish status/signals pages
     eng("SOLARPUNK_AUTOPILOT",      timeout=600)  # v47: master loop — scan, heal, bridge, wire, evolve, publish
     eng("USB_BRIDGE",               timeout=180)  # v48: living USB port — catalog, sync, archive, ingest, disk health
+    eng("DIRECT_WIRE",              timeout=120)  # v49: frictionless commit — compile, commit, push, sync USB
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")
