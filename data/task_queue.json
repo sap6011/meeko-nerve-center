@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-04-05T18:26:03.048066+00:00",
-  "total_tasks": 6,
-  "autonomous_tasks": 5,
+  "generated_at": "2026-04-05T19:12:00.309699+00:00",
+  "total_tasks": 5,
+  "autonomous_tasks": 4,
   "manual_tasks": 1,
   "tasks": [
     {
       "type": "CONTENT",
       "priority": 2,
-      "title": "Publish 38 draft articles",
+      "title": "Publish 44 draft articles",
       "engine": "CONTENT_AUTOPILOT",
       "command": "python mycelium/CONTENT_AUTOPILOT.py",
       "expected_output": "data/article_drafts.json updated, new draft generated",
@@ -20,15 +20,6 @@
       "engine": "PRODUCT_FORGE",
       "command": "python mycelium/PRODUCT_FORGE.py",
       "expected_output": "products/products/ethical-ai-revenue-playbook.md expanded",
-      "autonomous": true
-    },
-    {
-      "type": "CONTENT",
-      "priority": 3,
-      "title": "Generate more social posts (queue at 15)",
-      "engine": "CONTENT_AUTOPILOT",
-      "command": "python mycelium/CONTENT_AUTOPILOT.py",
-      "expected_output": "data/social_queue.json appended",
       "autonomous": true
     },
     {
@@ -53,7 +44,7 @@
     {
       "type": "GROW",
       "priority": 4,
-      "title": "Build engines to produce 51 missing data files",
+      "title": "Build engines to produce 52 missing data files",
       "engine": "BUILD",
       "command": "# Needs new engine creation",
       "expected_output": "New engines that write: *.json, *_report.json, PUBLIC_LEDGER.json, active_outreach_draft.json, aggregated_summary.json",
