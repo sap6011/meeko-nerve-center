@@ -86,31 +86,31 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
-- GENERATED_SWARM_COORDINATOR_CONSUMER -> OMNIBUS via `swarm_state.json` (zero-secrets)
-- GENERATED_SWARM_COORDINATOR_CONSUMER -> SWARM_COORDINATOR via `swarm_state.json`
-- SWARM_COORDINATOR -> GENERATED_SWARM_COORDINATOR_CONSUMER via `swarm_state.json`
-- SWARM_COORDINATOR -> OMNIBUS via `swarm_state.json`
-- EMAIL_BRAIN -> CALENDAR_BRAIN via `appointments_inbox.json`
-- RESOURCE_ALLOCATOR -> GENERATED_RESOURCE_ALLOCATOR_CONSUMER via `resource_allocator_state.json` (zero-secrets)
-- GENERATED_HUMAN_PAYOUT_CONSUMER -> AUTONOMY_PROOF via `payout_ledger.json` (zero-secrets)
-- GENERATED_HUMAN_PAYOUT_CONSUMER -> HUMAN_PAYOUT via `payout_ledger.json`
-- GENERATED_HUMAN_PAYOUT_CONSUMER -> OMNIBUS via `payout_ledger.json` (zero-secrets)
-- GENERATED_HUMAN_PAYOUT_CONSUMER -> PAYPAL_PAYOUT via `payout_ledger.json`
-- HUMAN_PAYOUT -> AUTONOMY_PROOF via `payout_ledger.json`
-- HUMAN_PAYOUT -> GENERATED_HUMAN_PAYOUT_CONSUMER via `payout_ledger.json`
-- HUMAN_PAYOUT -> OMNIBUS via `payout_ledger.json`
-- HUMAN_PAYOUT -> PAYPAL_PAYOUT via `payout_ledger.json`
-- PAYPAL_PAYOUT -> AUTONOMY_PROOF via `payout_ledger.json`
-- PAYPAL_PAYOUT -> GENERATED_HUMAN_PAYOUT_CONSUMER via `payout_ledger.json`
-- PAYPAL_PAYOUT -> HUMAN_PAYOUT via `payout_ledger.json`
-- PAYPAL_PAYOUT -> OMNIBUS via `payout_ledger.json`
-- GENERATED_TRANSFER_NEEDED_POPULATOR -> NIGHTLY_DIGEST via `transfer_needed.json`
-- GENERATED_TRANSFER_NEEDED_POPULATOR -> PROOF_LEDGER via `transfer_needed.json` (zero-secrets)
-- PROOF_LEDGER -> GENERATED_TRANSFER_NEEDED_POPULATOR via `transfer_needed.json` (zero-secrets)
-- PROOF_LEDGER -> NIGHTLY_DIGEST via `transfer_needed.json`
-- CYCLE_MEMORY -> GENERATED_CYCLE_MEMORY_CONSUMER via `cycle_ledger.json` (zero-secrets)
-- GENERATED_CYCLE_MEMORY_CONSUMER -> CYCLE_MEMORY via `cycle_ledger.json` (zero-secrets)
-- REVENUE_FLYWHEEL -> ARCHITECT via `flywheel_summary.json`
+- REVENUE_SPLITTER -> DUAL_SYSTEM_CROSSWIRE via `revenue_routing.json` (zero-secrets)
+- DUAL_SYSTEM_CROSSWIRE -> GROWTH_CHAIN via `signal_chain_queue.json` (zero-secrets)
+- DUAL_SYSTEM_CROSSWIRE -> SIGNAL_CHAIN via `signal_chain_queue.json` (zero-secrets)
+- SIGNAL_CHAIN -> DUAL_SYSTEM_CROSSWIRE via `signal_chain_queue.json` (zero-secrets)
+- SIGNAL_CHAIN -> GROWTH_CHAIN via `signal_chain_queue.json` (zero-secrets)
+- CLAUDE_BRIDGE -> DESKTOP_DAEMON via `claude_tasks_queue.json`
+- CLAUDE_BRIDGE -> GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR via `claude_tasks_queue.json` (zero-secrets)
+- CLAUDE_BRIDGE -> GENERATED_DESKTOP_DAEMON_CONSUMER via `claude_tasks_queue.json` (zero-secrets)
+- CLAUDE_BRIDGE -> GENERATED_RESONANCE_CONVERTER_CONSUMER via `claude_tasks_queue.json` (zero-secrets)
+- CLAUDE_BRIDGE -> OMNIBUS via `claude_tasks_queue.json` (zero-secrets)
+- CLAUDE_BRIDGE -> RESONANCE_CONVERTER via `claude_tasks_queue.json`
+- DESKTOP_DAEMON -> CLAUDE_BRIDGE via `claude_tasks_queue.json`
+- DESKTOP_DAEMON -> GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR via `claude_tasks_queue.json`
+- DESKTOP_DAEMON -> GENERATED_DESKTOP_DAEMON_CONSUMER via `claude_tasks_queue.json`
+- DESKTOP_DAEMON -> GENERATED_RESONANCE_CONVERTER_CONSUMER via `claude_tasks_queue.json`
+- DESKTOP_DAEMON -> OMNIBUS via `claude_tasks_queue.json`
+- DESKTOP_DAEMON -> RESONANCE_CONVERTER via `claude_tasks_queue.json`
+- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> CLAUDE_BRIDGE via `claude_tasks_queue.json` (zero-secrets)
+- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> DESKTOP_DAEMON via `claude_tasks_queue.json`
+- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> GENERATED_DESKTOP_DAEMON_CONSUMER via `claude_tasks_queue.json` (zero-secrets)
+- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> GENERATED_RESONANCE_CONVERTER_CONSUMER via `claude_tasks_queue.json` (zero-secrets)
+- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> OMNIBUS via `claude_tasks_queue.json` (zero-secrets)
+- GENERATED_CLAUDE_TASKS_QUEUE_POPULATOR -> RESONANCE_CONVERTER via `claude_tasks_queue.json`
+- OMNIBUS -> CLAUDE_BRIDGE via `claude_tasks_queue.json` (zero-secrets)
+- OMNIBUS -> DESKTOP_DAEMON via `claude_tasks_queue.json`
 - ... and 5769 more connections
 
 ## Knowledge Graph
@@ -131,7 +131,7 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-05 17:59 UTC
+- **Generated**: 2026-04-05 18:26 UTC
 - **Data source**: data/live_wire_report.json
 - **Engines scanned**: 389
 

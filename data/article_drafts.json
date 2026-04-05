@@ -231,6 +231,30 @@
       "char_count": 1712,
       "status": "draft",
       "ai_generated": true
+    },
+    {
+      "engine": "GUMROAD_AUTO_QUEUE",
+      "generated_at": "2026-04-05T18:26:18.969217+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How GUMROAD_AUTO_QUEUE Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What GUMROAD_AUTO_QUEUE Does\n\nGUMROAD_AUTO_QUEUE.py — Auto-builds gumroad_listings.json from business data\n\nGUMROAD_AUTO_QUEUE.py — Auto-builds gumroad_listings.json from business data\n\n## The Numbers\n\n- **2 functions** across 193 lines of Python\n- **Reads:** gumroad_listings.json, gumroad_queue_state.json\n- **Writes:** gumroad_listings.json, gumroad_queue_state.json\n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nGUMROAD_AUTO_QUEUE reads from gumroad_listings.json, gumroad_queue_state.json and writes to gumroad_listings.json, gumroad_queue_state.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/GUMROAD_AUTO_QUEUE.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1437,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "MURMURATION_RELAY",
+      "generated_at": "2026-04-05T18:27:04.230406+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How MURMURATION_RELAY Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What MURMURATION_RELAY Does\n\nMURMURATION_RELAY.py — Push Help Outward to Real People\n\nMURMURATION_RELAY.py — Push Help Outward to Real People\n========================================================\nSolarPunk doesn't wait. It MOVES.\n\n## The Numbers\n\n- **7 functions** across 262 lines of Python\n- **Reads:** data/knowledge_pulses.json\n- **Writes:** data/social_queue.json (appends), data/murmuration_log.json, \n- **Has run() entry point:** No\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nMURMURATION_RELAY reads from data/knowledge_pulses.json and writes to data/social_queue.json (appends), data/murmuration_log.json, . \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/MURMURATION_RELAY.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1467,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "GRANT_APPLICANT",
+      "generated_at": "2026-04-05T18:27:05.049042+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How GRANT_APPLICANT Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What GRANT_APPLICANT Does\n\nGRANT_APPLICANT - Fills and submits grant applications autonomously\n\nGRANT_APPLICANT - Fills and submits grant applications autonomously\nEmail grants -> Claude drafts + sends application\nForm grants -> emails Meeko exact pre-filled steps\nTracks all applications, follows up on email chains automatically\n\n## The Numbers\n\n- **8 functions** across 175 lines of Python\n- **Reads:** grant_applicant_state.json, revenue_inbox.json, grants_found.json\n- **Writes:** grant_applicant_state.json\n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nGRANT_APPLICANT reads from grant_applicant_state.json, revenue_inbox.json, grants_found.json and writes to grant_applicant_state.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/GRANT_APPLICANT.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1568,
+      "status": "draft",
+      "ai_generated": true
     }
   ]
 }
