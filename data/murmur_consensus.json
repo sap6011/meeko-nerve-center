@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-04T03:27:38.021370+00:00",
-  "flock_energy": 0.25,
+  "timestamp": "2026-04-05T03:49:14.317277+00:00",
+  "flock_energy": 0.45,
   "engines_reporting": 4,
   "hot_engines": [
+    "SENTINEL",
     "SCAM_SHIELD"
   ],
   "cold_engines": [
     "OMNIBRAIN",
-    "SENTINEL",
     "EMAIL_BRAIN"
   ],
   "hot_edges": [
@@ -20,26 +20,22 @@
       "HEALTH_BOOSTER"
     ],
     [
-      "SENTINEL",
-      "REPAIR_CORE"
-    ],
-    [
       "EMAIL_BRAIN",
       "BRIEFING_ENGINE"
     ]
   ],
-  "consensus_focus": "general",
+  "consensus_focus": "integrity",
   "focus_votes": {
+    "integrity": 1.0,
     "general": 0.8
   },
   "murmur_message": [
-    "Flock energy is low \u2014 consolidate and repair"
+    "Flock is steady \u2014 maintain current trajectory"
   ],
   "mutation_weights": {
     "SCAM_SHIELD.py": 0.8,
     "BRIEFING_ENGINE.py": 0.5,
     "HEALTH_BOOSTER.py": 0.5,
-    "REPAIR_CORE.py": 0.5,
     "AFFILIATE_MAXIMIZER.py": 0.1,
     "AGENT_GUMROAD_BUILDER.py": 0.1,
     "AGENT_LINK_VERIFIER.py": 0.1,
@@ -55,17 +51,18 @@
     "AUTONOMOUS_PUBLISHER.py": 0.1,
     "AUTONOMOUS_TESTER.py": 0.1,
     "AUTONOMY_PROOF.py": 0.1,
+    "AUTOPILOT_EXECUTOR.py": 0.1,
     "AUTO_ARCHITECT.py": 0.1,
     "AUTO_DOCS.py": 0.1,
+    "AUTO_EXECUTOR.py": 0.1,
+    "AUTO_GENESIS.py": 0.1,
     "AUTO_HEALER.py": 0.1,
     "AUTO_RUNNER.py": 0.1,
     "BIG_BRAIN_ORACLE.py": 0.1,
     "BIOLUMINESCENCE.py": 0.1,
     "BLUESKY_ENGINE.py": 0.1,
     "BOTTLENECK_SCANNER.py": 0.1,
-    "BRAND_LEGAL.py": 0.1,
-    "BRAVE_BRIDGE.py": 0.1,
-    "BRAVE_BROWSER_ENGINE.py": 0.1
+    "BRAND_LEGAL.py": 0.1
   },
   "signals": {
     "OMNIBRAIN": {
@@ -84,14 +81,12 @@
     "SENTINEL": {
       "engine": "SENTINEL",
       "status": "alert",
-      "energy": 0.2,
-      "finding": "ISSUES_FOUND \u2014 37 syntax failures",
-      "neighbors_needed": [
-        "REPAIR_CORE"
-      ],
+      "energy": 1.0,
+      "finding": "UNKNOWN \u2014 0 syntax failures",
+      "neighbors_needed": [],
       "payload": {
-        "health": "ISSUES_FOUND",
-        "failures": 37
+        "health": "UNKNOWN",
+        "failures": 0
       }
     },
     "EMAIL_BRAIN": {
