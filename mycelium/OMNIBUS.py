@@ -227,6 +227,9 @@ def ctx():
         "task_factory":     rj("task_factory_state.json"),
         "auto_executor":    rj("auto_executor_state.json"),
         "zero_secret_army": rj("zero_secret_army_report.json"),
+        "wallet_bridge":    rj("wallet_bridge_state.json"),       # v49
+        "price_oracle":     rj("price_oracle_state.json"),        # v49
+        "sol_maximizer":    rj("sol_maximizer_state.json"),       # v49
         "gap_filler":       rj("gap_filler_state.json"),
         "debug_doctor":     rj("debug_doctor_report.json"),
         "engines_ok":       results["ok"][:],
@@ -440,6 +443,7 @@ def L6():
     eng("USB_BRIDGE",               timeout=180)  # v48: living USB port — catalog, sync, archive, ingest, disk health
     eng("WALLET_BRIDGE",             timeout=60)   # v49: Phantom wallet + BAT + Solana monitoring
     eng("PRICE_ORACLE",              timeout=30)   # v49: multi-source price feeds + spread detection
+    eng("SOL_MAXIMIZER",             timeout=30)   # v49: yield optimization — staking, lending, liquid staking
     eng("DIRECT_WIRE",              timeout=120)  # v49: frictionless commit — compile, commit, push, sync USB
 
     health   = rj("brain_state.json").get("health_score", 0)
