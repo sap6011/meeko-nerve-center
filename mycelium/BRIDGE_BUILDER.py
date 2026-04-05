@@ -1136,6 +1136,115 @@ def bridge_bounce_registry():
     })
 
 
+# --- v45: Hungry Input Bridges (17 dangling nerve endings) ---
+
+def bridge_active_outreach_draft():
+    """Bridge: -> active_outreach_draft.json."""
+    return seed_json("active_outreach_draft.json", {
+        "drafts": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_aggregated_summary():
+    """Bridge: -> aggregated_summary.json."""
+    return seed_json("aggregated_summary.json", {
+        "summary": {}, "engines_counted": 0, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_bundle_forge_state():
+    """Bridge: -> bundle_forge_state.json."""
+    return seed_json("bundle_forge_state.json", {
+        "bundles_created": 0, "last_run": None, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_catalog_generator_state():
+    """Bridge: -> catalog_generator_state.json."""
+    return seed_json("catalog_generator_state.json", {
+        "catalogs_generated": 0, "last_run": None, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_chimera_score():
+    """Bridge: chimera evolution -> chimera_score.json."""
+    evo = load_json(DATA / "chimera_evolution_report.json")
+    return seed_json("chimera_score.json", {
+        "generation": evo.get("generation", 0) if evo else 0,
+        "score": evo.get("fitness_score", 0) if evo else 0,
+        "source": "BRIDGE_BUILDER from chimera_evolution"
+    })
+
+def bridge_content_harvest_state():
+    """Bridge: -> content_harvest_state.json."""
+    return seed_json("content_harvest_state.json", {
+        "harvested": 0, "last_run": None, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_dev_to_publisher_state():
+    """Bridge: -> dev_to_publisher_state.json."""
+    return seed_json("dev_to_publisher_state.json", {
+        "articles_published": 0, "last_run": None, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_email_agent_exchange_state():
+    """Bridge: -> email_agent_exchange_state.json."""
+    return seed_json("email_agent_exchange_state.json", {
+        "cycles": 0, "tasks_completed": 0, "total_earned": 0,
+        "registered_clients": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_event_relay_state():
+    """Bridge: -> event_relay_state.json."""
+    return seed_json("event_relay_state.json", {
+        "events_relayed": 0, "last_run": None, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_fractal_replicator_tracking():
+    """Bridge: -> fractal_replicator_tracking.json."""
+    return seed_json("fractal_replicator_tracking.json", {
+        "replications": 0, "engines_created": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_harvested_knowledge():
+    """Bridge: -> harvested_knowledge.json."""
+    return seed_json("harvested_knowledge.json", {
+        "entries": [], "total": 0, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_monitor_alerts():
+    """Bridge: -> monitor_alerts.json."""
+    return seed_json("monitor_alerts.json", {
+        "alerts": [], "total": 0, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_monitored_resource():
+    """Bridge: -> monitored_resource.json."""
+    return seed_json("monitored_resource.json", {
+        "resources": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_publish_log():
+    """Bridge: -> publish_log.json."""
+    return seed_json("publish_log.json", {
+        "published": [], "total": 0, "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_raw_input():
+    """Bridge: -> raw_input.json."""
+    return seed_json("raw_input.json", {
+        "inputs": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_transformed_output():
+    """Bridge: -> transformed_output.json."""
+    return seed_json("transformed_output.json", {
+        "outputs": [], "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_vanish_protocol_state():
+    """Bridge: -> vanish_protocol_state.json."""
+    return seed_json("vanish_protocol_state.json", {
+        "vanished": 0, "active": True, "source": "BRIDGE_BUILDER seed"
+    })
+
+
 BRIDGES = {
     "grants_found.json": bridge_grants_found,
     "sentinel_report.json": bridge_sentinel_report,
@@ -1239,6 +1348,24 @@ BRIDGES = {
     "verified_contacts.json": bridge_verified_contacts,
     "outreach_queue.json": bridge_outreach_queue,
     "bounce_registry.json": bridge_bounce_registry,
+    # --- v45: Hungry Input Bridges (17 dangling nerve endings) ---
+    "active_outreach_draft.json": bridge_active_outreach_draft,
+    "aggregated_summary.json": bridge_aggregated_summary,
+    "bundle_forge_state.json": bridge_bundle_forge_state,
+    "catalog_generator_state.json": bridge_catalog_generator_state,
+    "chimera_score.json": bridge_chimera_score,
+    "content_harvest_state.json": bridge_content_harvest_state,
+    "dev_to_publisher_state.json": bridge_dev_to_publisher_state,
+    "email_agent_exchange_state.json": bridge_email_agent_exchange_state,
+    "event_relay_state.json": bridge_event_relay_state,
+    "fractal_replicator_tracking.json": bridge_fractal_replicator_tracking,
+    "harvested_knowledge.json": bridge_harvested_knowledge,
+    "monitor_alerts.json": bridge_monitor_alerts,
+    "monitored_resource.json": bridge_monitored_resource,
+    "publish_log.json": bridge_publish_log,
+    "raw_input.json": bridge_raw_input,
+    "transformed_output.json": bridge_transformed_output,
+    "vanish_protocol_state.json": bridge_vanish_protocol_state,
 }
 
 

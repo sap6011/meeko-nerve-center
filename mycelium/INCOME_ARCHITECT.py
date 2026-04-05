@@ -70,7 +70,7 @@ def get_advice(state, api_key):
 def main():
     DATA_DIR.mkdir(exist_ok=True)
     print("INCOME_ARCHITECT -- $1 Art Loop Engine")
-    api_key = os.environ.get("os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()", "").strip()
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
     state = load_loop_fund()
     webhook_f = DATA_DIR / "new_sales.json"
     if webhook_f.exists():

@@ -19,7 +19,7 @@ from email.mime.multipart import MIMEMultipart
 DATA=Path("data"); DATA.mkdir(exist_ok=True)
 GMAIL=os.environ.get("GMAIL_ADDRESS","")
 GPWD=os.environ.get("GMAIL_APP_PASSWORD","")
-API=os.environ.get("os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()", "").strip()
+API=os.environ.get("ANTHROPIC_API_KEY", "").strip()
 
 # Tokens relevant to SolarPunk ecosystem
 WATCHLIST={

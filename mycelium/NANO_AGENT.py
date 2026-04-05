@@ -97,9 +97,9 @@ class NanoAgent:
         Call Claude. Returns text or empty string if API key missing.
         Never crashes OMNIBUS — silently degrades.
         """
-        key = os.environ.get("os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()", "").strip()
+        key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
         if not key:
-            self._log("os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip() not set")
+            self._log("ANTHROPIC_API_KEY not set")
             return ""
         try:
             import anthropic
