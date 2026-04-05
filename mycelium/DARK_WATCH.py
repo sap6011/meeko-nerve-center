@@ -107,7 +107,7 @@ def fire_alert(critical_signals, integrity):
         } for s in critical_signals[:5]],
         "integrity": integrity,
     }
-    ALERT_FILE.write_text(json.dumps(alert, indent=2))
+    ALERT_FILE.write_text(json.dumps(alert, indent=2), encoding="utf-8")
 
     # Email if possible
     gmail = os.environ.get("GMAIL_ADDRESS", "")

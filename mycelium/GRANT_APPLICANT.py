@@ -39,7 +39,7 @@ def load():
     return {"cycles":0,"applied":[],"total_applied":0,"email_chains":[]}
 
 def save(s):
-    (DATA/"grant_applicant_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"grant_applicant_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def draft_email_app(grant):
     if not API: return None

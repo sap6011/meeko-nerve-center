@@ -103,7 +103,7 @@ def load_state():
 def save_state(s):
     s["log"]  = s.get("log", [])[-500:]
     s["sent"] = s.get("sent", [])[-1000:]
-    (DATA / "outreach_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "outreach_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def cooldown_active(email_addr, sent_log, days=14):
@@ -364,7 +364,7 @@ def run():
 
             # Write back updated statuses
             hs_data["handshakes"] = handshakes
-            handshake_file.write_text(json.dumps(hs_data, indent=2))
+            handshake_file.write_text(json.dumps(hs_data, indent=2), encoding="utf-8")
             if crisis_sent:
                 print(f"  {crisis_sent} crisis handshakes marked READY for delivery")
         except Exception as e:

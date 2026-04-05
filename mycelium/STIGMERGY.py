@@ -349,7 +349,7 @@ def main():
             "dead_ends": len(dead_ends),
         },
     }
-    PHEROMONE_FILE.write_text(json.dumps(pheromone_map, indent=2))
+    PHEROMONE_FILE.write_text(json.dumps(pheromone_map, indent=2), encoding="utf-8")
 
     # Save state
     STIGMERGY_FILE.write_text(json.dumps({
@@ -360,7 +360,7 @@ def main():
         "total_traces": len(traces),
         "highways_count": len(highways),
         "dead_ends_count": len(dead_ends),
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     print(f"\n  Avg trace strength: {avg_strength:.0f}/100")
     print(f"  Highways: {len(highways)} | Active: {pheromone_map['stats']['active_trails']} | "

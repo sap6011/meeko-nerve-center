@@ -197,7 +197,7 @@ def run():
             "action": "Transfer to PCRF, then call PROOF_LEDGER.log_transfer(ledger, amount, pcrf_ref)",
             "stop_protocol": "Log ONLY the PCRF confirmation ref number — nothing else",
             "ts": ts,
-        }, indent=2))
+        }, indent=2), encoding="utf-8")
     elif (DATA / "transfer_needed.json").exists() and pending < 1.0:
         (DATA / "transfer_needed.json").unlink()
 
@@ -208,7 +208,7 @@ def run():
 
     # Save
     path = DATA / "proof_ledger.json"
-    path.write_text(json.dumps(ledger, indent=2))
+    path.write_text(json.dumps(ledger, indent=2), encoding="utf-8")
 
     print(f"  Total sales: ${ledger['total_sales']:.2f}")
     print(f"  Total to Gaza: ${ledger['total_to_gaza']:.2f}")
@@ -226,7 +226,7 @@ def run():
         "new_sales_this_cycle": new_total,
         "transfer_threshold_exceeded": pending >= TRANSFER_THRESHOLD,
     }
-    (DATA / "proof_ledger_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "proof_ledger_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     return state
 
 

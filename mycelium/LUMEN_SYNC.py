@@ -23,4 +23,4 @@ if __name__ == "__main__":
 # -- LIVE_WIRE topology connector --
 def _wire_state():
     _r = json.loads((DATA / "hemisphere_state.json").read_text()) if (DATA / "hemisphere_state.json").exists() else {}
-    (DATA / "lumen_sync_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))
+    (DATA / "lumen_sync_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2), encoding="utf-8")

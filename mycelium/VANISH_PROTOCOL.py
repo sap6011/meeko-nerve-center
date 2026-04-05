@@ -173,7 +173,7 @@ def run():
         "last_run": datetime.utcnow().isoformat(),
         "status": "completed",
         "templates_generated": len(templates)
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

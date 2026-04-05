@@ -64,7 +64,7 @@ def run_singularity_pulse():
         "knowledge_nodes": len(knowledge.get("nodes", [])) if isinstance(knowledge, dict) else 0,
         "status": "active",
     }
-    (DATA / "sovereign_core_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "sovereign_core_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"State written: data/sovereign_core_state.json")
 
 

@@ -198,7 +198,7 @@ Respond as JSON: {{"priority": str, "engine": {{"name": str, "purpose": str}}, "
     if not synthesis["priority_action"] and bot:
         synthesis["priority_action"] = bot[0]
 
-    (DATA / "knowledge_chain_synthesis.json").write_text(json.dumps(synthesis, indent=2))
+    (DATA / "knowledge_chain_synthesis.json").write_text(json.dumps(synthesis, indent=2), encoding="utf-8")
 
     print(f"  [DNA] Insights: {len(ins)} | Next engines: {len(synthesis['next_engines_to_build'])} | "
           f"Content angles: {len(synthesis['content_angles'])}")

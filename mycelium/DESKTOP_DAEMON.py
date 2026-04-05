@@ -91,7 +91,7 @@ def log(msg, level="INFO"):
     try:
         logs = json.loads(DAEMON_LOG.read_text()) if DAEMON_LOG.exists() else []
         logs.append({"ts": ts, "level": level, "msg": msg})
-        DAEMON_LOG.write_text(json.dumps(logs[-MAX_LOG_LINES:], indent=2))
+        DAEMON_LOG.write_text(json.dumps(logs[-MAX_LOG_LINES:], indent=2), encoding="utf-8")
     except:
         pass
 
@@ -104,7 +104,7 @@ def rj(path, fallback=None):
 
 
 def wj(path, data):
-    Path(path).write_text(json.dumps(data, indent=2))
+    Path(path).write_text(json.dumps(data, indent=2), encoding="utf-8")
 
 
 def load_queue():
@@ -293,7 +293,7 @@ def execute_task(task):
         fpath = task.get("action_data", {}).get("path", "")
         if fpath:
             try:
-                Path(fpath).write_text(response)
+                Path(fpath).write_text(response, encoding="utf-8")
                 result_data["file_written"] = fpath
                 log(f"Written to {fpath}")
             except Exception as e:
@@ -383,7 +383,7 @@ def _idle_health_check():
         if resp:
             (DATA / "health_advisory.txt").write_text(
                 f"[{datetime.now().isoformat()}]\n{resp}"
-            )
+            , encoding="utf-8")
             log("Advisory written to data/health_advisory.txt")
 
 

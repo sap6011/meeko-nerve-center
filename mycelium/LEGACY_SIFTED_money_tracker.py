@@ -379,7 +379,7 @@ def run():
         print(f"  Impact: {opp['potential_impact']}")
         print(f"  Action: {opp['recommendation']}")
 
-    (DATA / "legacy_sifted_money_tracker_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_money_tracker_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")
 
 
 # Usage

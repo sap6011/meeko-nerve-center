@@ -255,11 +255,11 @@ def main():
     pulse = gather_pulse()
 
     # Write JSON
-    PULSE_FILE.write_text(json.dumps(pulse, indent=2))
+    PULSE_FILE.write_text(json.dumps(pulse, indent=2), encoding="utf-8")
 
     # Write HTML
     html = build_pulse_html(pulse)
-    PULSE_HTML.write_text(html)
+    PULSE_HTML.write_text(html, encoding="utf-8")
 
     # Summary
     print(f"  Engines: {pulse.get('engine_count', '?')}")

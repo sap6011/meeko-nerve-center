@@ -74,4 +74,4 @@ print(f" Your tag: {YOUR_AMAZON_TAG}")
 print(f" Saved: affiliate_links/all_links.json")
 print(f" Website: affiliate_links/index.html")
 
-(DATA / "legacy_sifted_create_links_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "links_created": sum(len(v) for v in affiliate_links.values())}, indent=2))
+(DATA / "legacy_sifted_create_links_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "links_created": sum(len(v) for v in affiliate_links.values())}, indent=2), encoding="utf-8")

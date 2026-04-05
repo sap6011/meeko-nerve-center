@@ -99,7 +99,7 @@ def load():
     return {"cycles": 0, "links_injected": 0, "new_programs_found": []}
 
 def save(state):
-    (DATA / "affiliate_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "affiliate_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 def discover_new_programs():
     if not AI_AVAILABLE:
@@ -158,9 +158,9 @@ def write_master_config():
         "disclosure": "As an Amazon Associate and affiliate partner I earn from qualifying purchases. Commissions fund Gaza aid.",
         "updated_at": datetime.now(timezone.utc).isoformat()
     }
-    (DATA / "affiliate_config.json").write_text(json.dumps(config, indent=2))
+    (DATA / "affiliate_config.json").write_text(json.dumps(config, indent=2), encoding="utf-8")
     (DATA / "affiliate_links_master.json").write_text(
-        json.dumps({k: v["url"] for k, v in KNOWN_AFFILIATES.items()}, indent=2)
+        json.dumps({k: v["url"] for k, v in KNOWN_AFFILIATES.items()}, indent=2), encoding="utf-8"
     )
     print(f"  💾 Affiliate config written: {len(KNOWN_AFFILIATES)} programs, Amazon tag={AMAZON_TAG}")
 
@@ -177,7 +177,7 @@ def run():
         if new:
             state.setdefault("new_programs_found", []).extend(new)
             state["new_programs_found"] = state["new_programs_found"][-50:]
-            (DATA / "new_affiliates_found.json").write_text(json.dumps(new, indent=2))
+            (DATA / "new_affiliates_found.json").write_text(json.dumps(new, indent=2), encoding="utf-8")
             print(f"  Found {len(new)} new opportunities")
 
     # Enrich content files
@@ -191,7 +191,7 @@ def run():
                 if "affiliate" not in content.lower():
                     result = inject_links(content, fname)
                     if result and result != content:
-                        (DATA / f"enriched_{fname}").write_text(result)
+                        (DATA / f"enriched_{fname}").write_text(result, encoding="utf-8")
                         enriched += 1
                         print(f"  ✅ Enriched: {fname}")
         except Exception as e:

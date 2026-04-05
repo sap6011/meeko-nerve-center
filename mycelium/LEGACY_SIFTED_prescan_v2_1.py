@@ -95,7 +95,7 @@ print(f'  Review first:  {len(results["secrets"]):,} files  ->  Desktop/SECRETS_
 print(f'  Skipped:       {len(results["skipped"]):,} binary/media files')
 
 out = Path.home() / 'Desktop' / 'ingestion_prescan.json'
-out.write_text(json.dumps(results, indent=2))
+out.write_text(json.dumps(results, indent=2), encoding="utf-8")
 print(f'\nFull list: Desktop/ingestion_prescan.json')
 print(f'\nNEXT: review SECRETS_REVIEW/ then delete it, then push MEEKO_CLEAN/ to repo')
 
@@ -103,4 +103,4 @@ print(f'\nNEXT: review SECRETS_REVIEW/ then delete it, then push MEEKO_CLEAN/ to
 # -- LIVE_WIRE topology connector --
 def _wire_state():
     _r = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
-    (DATA / "legacy_sifted_prescan_v2_1_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))
+    (DATA / "legacy_sifted_prescan_v2_1_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2), encoding="utf-8")

@@ -103,7 +103,7 @@ def save_registry_snapshot():
         "total_functions": sum(len(i["functions"]) for i in reg.values()),
         "registry": {n: {"description": i.get("description", ""), "functions": i["functions"][:10]} for n, i in reg.items()},
     }
-    (DATA_DIR / "swarm_registry.json").write_text(json.dumps(snapshot, indent=2))
+    (DATA_DIR / "swarm_registry.json").write_text(json.dumps(snapshot, indent=2), encoding="utf-8")
     print(f"  Registry: {snapshot['engine_count']} engines, {snapshot['total_functions']} functions")
     if snapshot["engines_with_errors"]:
         print(f"  Syntax errors in: {', '.join(snapshot['engines_with_errors'])}")

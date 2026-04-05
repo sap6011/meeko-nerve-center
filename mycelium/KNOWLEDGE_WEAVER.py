@@ -149,7 +149,7 @@ table{{width:100%;border-collapse:collapse}}td,th{{padding:6px;border:1px solid 
 <h2>Auto-Built Engine History</h2>
 <table><tr><th>Engine</th><th>Reason</th><th>Date</th></tr>{rows}</table>
 </body></html>"""
-    (DOCS / "weaver.html").write_text(html)
+    (DOCS / "weaver.html").write_text(html, encoding="utf-8")
 
 
 def run():
@@ -193,7 +193,7 @@ def run():
                 else:
                     try:
                         compile(code, name, "exec")
-                        target.write_text(code)
+                        target.write_text(code, encoding="utf-8")
                         built = name
                         state.setdefault("engines_built", []).append(name)
                         state.setdefault("history", []).append({
@@ -210,7 +210,7 @@ def run():
 
     state["last_run"] = datetime.now(timezone.utc).isoformat()
     build_page(state, spec, built)
-    STATE.write_text(json.dumps(state, indent=2))
+    STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"  Total auto-built: {len(state['engines_built'])} | Cycles: {state['cycles']}")
     print("KNOWLEDGE_WEAVER done")
 

@@ -555,7 +555,7 @@ def main():
     print("WordPress export: wordpress_import_2026.xml")
 
 
-    (DATA / "legacy_sifted_amazon_content_machine_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_amazon_content_machine_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

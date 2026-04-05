@@ -167,14 +167,14 @@ def update_brain_state(report):
             "score": report["score"],
             "note": f"Health improved {old_score}→{report['score']}"
         })
-    brain_file.write_text(json.dumps(brain, indent=2))
+    brain_file.write_text(json.dumps(brain, indent=2), encoding="utf-8")
     return old_score
 
 def run():
     print("HEALTH_BOOSTER: Scanning system...")
     report = score_and_report()
     report["timestamp"] = datetime.now(timezone.utc).isoformat()
-    (DATA / "health_report.json").write_text(json.dumps(report, indent=2))
+    (DATA / "health_report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     old_score = update_brain_state(report)
     delta = report["score"] - old_score
     delta_str = f" (+{delta})" if delta > 0 else (f" ({delta})" if delta < 0 else " (=)")

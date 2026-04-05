@@ -29,7 +29,7 @@ def run():
         "last_run": __import__("datetime").datetime.now().isoformat(),
         "status": "completed",
         "commands_generated": len(cmds)
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 if __name__ == '__main__':
     run()

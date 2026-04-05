@@ -94,7 +94,7 @@ state["gaza_paid_total"]           = gaza_paid
 state["gaza_outstanding"]          = gaza_outstanding
 state["auto_completed_this_cycle"] = auto_completed
 
-STATE_FILE.write_text(json.dumps(state, indent=2))
+STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 def milestone_rows():
     rows = []
@@ -121,7 +121,7 @@ table{{width:100%;border-collapse:collapse}}th,td{{padding:.5rem;border-bottom:1
 <p style="margin-top:1rem;color:#94a3b8">15% of revenue → PCRF. Auto-updated by BRAND_LEGAL.</p>
 </body></html>"""
 
-(DOCS / "legal.html").write_text(html)
+(DOCS / "legal.html").write_text(html, encoding="utf-8")
 
 print(f"⚖️  {BRAND} — {state['status']} | Fund: ${legal_fund:.2f} / ${TOTAL_USPTO:,}")
 print(f"   Milestones: {len(completed)}/{len(MILESTONES)} | Gaza: ${gaza_outstanding:.2f} outstanding")

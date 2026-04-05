@@ -25,7 +25,7 @@ def load():
     return {"cycles": 0, "released": [], "total_releases": 0}
 
 def save(s):
-    (DATA / "github_poster_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "github_poster_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 def gh(method, path, **kwargs):
     r = requests.request(

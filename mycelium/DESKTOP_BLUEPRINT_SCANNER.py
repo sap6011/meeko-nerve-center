@@ -220,7 +220,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "desktop_blueprints_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "desktop_blueprints_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def run():
@@ -268,7 +268,7 @@ def run():
         "blueprints":  blueprints,
     }
 
-    (DATA / "desktop_blueprints.json").write_text(json.dumps(catalog, indent=2))
+    (DATA / "desktop_blueprints.json").write_text(json.dumps(catalog, indent=2), encoding="utf-8")
     save_state(state)
     print(f"  Catalog written to data/desktop_blueprints.json")
     return catalog

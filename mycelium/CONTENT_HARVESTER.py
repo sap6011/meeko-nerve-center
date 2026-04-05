@@ -176,7 +176,7 @@ def main():
         "reliefweb": reliefweb}, "gaza_weather": weather, "trending_themes": themes,
         "content_angles": angles, "total_items": len(all_content),
         "crisis_items": len(reliefweb), "status": "harvested"}
-    OUT.write_text(json.dumps(harvest, indent=2))
+    OUT.write_text(json.dumps(harvest, indent=2), encoding="utf-8")
     print(f"Harvested {len(all_content)} items -> {len(angles)} content angles")
     if angles:
         print(f"Best angle: {angles[0]['hook'][:80]}")

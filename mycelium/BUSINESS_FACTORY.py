@@ -81,7 +81,7 @@ def load():
 
 
 def save(state):
-    (DATA / "business_factory_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "business_factory_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
 def get_next_niche(built_niches, state):
@@ -237,7 +237,7 @@ def save_package(plan, niche_data):
         "gaza_contribution": "15% of all sales",
     }
 
-    (DATA / f"business_{niche_slug}.json").write_text(json.dumps(package, indent=2))
+    (DATA / f"business_{niche_slug}.json").write_text(json.dumps(package, indent=2), encoding="utf-8")
     print(f"  Saved: data/business_{niche_slug}.json")
     return package
 
@@ -299,7 +299,7 @@ def run():
             p.update({"queued_at": ts, "source": "BUSINESS_FACTORY", "niche": niche_data["niche"]})
         q.setdefault("posts", []).extend(social_posts)
         q["posts"] = q["posts"][-200:]
-        qf.write_text(json.dumps(q, indent=2))
+        qf.write_text(json.dumps(q, indent=2), encoding="utf-8")
         print(f"  {len(social_posts)} social posts queued")
 
     state.setdefault("businesses_built", []).append({

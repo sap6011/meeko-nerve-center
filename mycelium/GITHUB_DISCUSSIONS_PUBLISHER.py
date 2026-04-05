@@ -69,7 +69,7 @@ def load_state():
 def save_state(state):
     state["posted_hashes"] = state.get("posted_hashes", [])[-500:]
     state["posted"] = state.get("posted", [])[-200:]
-    STATE_FILE.write_text(json.dumps(state, indent=2))
+    STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
 def load_drafts():
@@ -83,7 +83,7 @@ def load_drafts():
 
 def save_drafts(drafts):
     drafts["drafts"] = drafts.get("drafts", [])[-100:]
-    DRAFTS_FILE.write_text(json.dumps(drafts, indent=2))
+    DRAFTS_FILE.write_text(json.dumps(drafts, indent=2), encoding="utf-8")
 
 
 def content_hash(title, body):

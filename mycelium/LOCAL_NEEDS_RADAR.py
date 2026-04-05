@@ -208,7 +208,7 @@ def _save_radar_log(routing: dict):
         except Exception:
             log = []
     log.append(routing)
-    RADAR_LOG.write_text(json.dumps(log[-50:], indent=2))  # keep last 50 routing events
+    RADAR_LOG.write_text(json.dumps(log[-50:], indent=2), encoding="utf-8")  # keep last 50 routing events
 
 
 def _log_to_actual(routing: dict):

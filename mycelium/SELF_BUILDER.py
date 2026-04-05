@@ -75,7 +75,7 @@ def load():
 
 
 def save(state):
-    (DATA / "self_builder_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "self_builder_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
 def get_existing_engines():
@@ -205,7 +205,7 @@ def validate(code, name):
 def push_to_github(name, code):
     if not GH_TOKEN:
         print("  No GITHUB_TOKEN — saving locally")
-        (MYCELIUM / f"{name}.py").write_text(code)
+        (MYCELIUM / f"{name}.py").write_text(code, encoding="utf-8")
         return False
 
     path = f"mycelium/{name}.py"
@@ -257,12 +257,12 @@ def run():
     if not ok:
         print(f"  Validation failed: {reason}")
         # Save locally anyway for inspection
-        (DATA / f"rejected_{name}.py").write_text(code)
+        (DATA / f"rejected_{name}.py").write_text(code, encoding="utf-8")
         save(state)
         return state
 
     # Save locally first (picked up by git commit step)
-    (MYCELIUM / f"{name}.py").write_text(code)
+    (MYCELIUM / f"{name}.py").write_text(code, encoding="utf-8")
 
     # Also push via API for immediate availability
     pushed = push_to_github(name, code)

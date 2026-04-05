@@ -290,7 +290,7 @@ def run():
         "reachable": health.get("reachable", False),
         "models": health.get("models_loaded", []),
         "preferred": health.get("preferred_model", "none"),
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
     return health
 
 

@@ -189,7 +189,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "brave_bridge_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "brave_bridge_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def run():
@@ -230,7 +230,7 @@ def run():
         "scanned_at": state["last_run"],
         "count": len(blueprints),
         "files": blueprints,
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     # Check revenue dashboards
     gumroad = check_gumroad_via_browser()
@@ -256,7 +256,7 @@ def run():
                 p["sent_reddit"] = True
                 p["reddit_result"] = result
                 sq["posts"] = posts
-                sq_file.write_text(json.dumps(sq, indent=2))
+                sq_file.write_text(json.dumps(sq, indent=2), encoding="utf-8")
                 print(f"  📋 Reddit tab pre-filled: r/{p.get('subreddit', 'selfhosted')}")
         except Exception as e:
             print(f"  Queue error: {e}")

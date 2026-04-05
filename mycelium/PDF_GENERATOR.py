@@ -228,10 +228,10 @@ def run():
             results.append({"id": pid, "status": "error", "error": str(e)[:80]})
 
     registry["last_updated"] = ts
-    registry_path.write_text(json.dumps(registry, indent=2))
+    registry_path.write_text(json.dumps(registry, indent=2), encoding="utf-8")
 
     state = {"ts": ts, "results": results, "status": "complete"}
-    (DATA / "pdf_generator_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "pdf_generator_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"\nDone: {len(results)} products processed")
     return state
 

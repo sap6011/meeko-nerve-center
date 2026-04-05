@@ -283,7 +283,7 @@ def run():
         "reply_count":     len(email_replies),
     }
 
-    (DATA / "resonance_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "resonance_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     # HTML dashboard
     score_color = (

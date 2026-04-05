@@ -206,7 +206,7 @@ def run():
     prev["last_run"]     = now
     prev["last_output"]  = output
 
-    (DATA / "growth_chain_state.json").write_text(json.dumps(prev, indent=2))
+    (DATA / "growth_chain_state.json").write_text(json.dumps(prev, indent=2), encoding="utf-8")
 
     print(f"  🌱 Actions: {len(actions)} | Critical: {len(critical)} | High: {len(high)}")
     print(f"  Steps covered: { {s: sum(1 for a in actions if a['step']==s) for s in range(1,6)} }")
@@ -265,6 +265,6 @@ th{{color:#555;text-transform:uppercase;font-size:.7rem;letter-spacing:1px}}
   Every step feeds the next. Every sale creates the next sale.<br>
   Updated: {now[:16]} UTC | <a href="chains.html" style="color:#333">→ Chain Orchestrator</a>
 </p>
-</body></html>""")
+</body></html>""", encoding="utf-8")
 
 if __name__ == "__main__": run()

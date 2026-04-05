@@ -133,7 +133,7 @@ def main():
     print(f"\n Open the HTML file in your browser to see it!")
     print("=" * 50)
 
-    (DATA / "legacy_sifted_real_content_generator_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_real_content_generator_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -188,7 +188,7 @@ def full_scan():
     }
     (DATA / "polymarket_scan.json").write_text(
         json.dumps(scan_data, indent=2, ensure_ascii=False)
-    )
+    , encoding="utf-8")
     print(f"Scan saved to data/polymarket_scan.json")
     return scan_data
 

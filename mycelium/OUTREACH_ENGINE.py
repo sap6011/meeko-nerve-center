@@ -362,7 +362,7 @@ def save_draft_for_briefer(org: dict, subject: str, body: str) -> None:
     }
     slug = hashlib.md5(org["email"].encode()).hexdigest()[:8]
     path = OUTREACH_DIR / f"draft_{slug}.json"
-    path.write_text(json.dumps(draft, indent=2, ensure_ascii=False))
+    path.write_text(json.dumps(draft, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 # ── main ────────────────────────────────────────────────────────────────────────
@@ -430,8 +430,8 @@ def run():
         time.sleep(1)  # be gentle
 
     # save state
-    OUTREACH_LOG.write_text(json.dumps(log[-500:], indent=2))  # keep last 500
-    CONTACTED_FILE.write_text(json.dumps(already, indent=2))
+    OUTREACH_LOG.write_text(json.dumps(log[-500:], indent=2), encoding="utf-8")  # keep last 500
+    CONTACTED_FILE.write_text(json.dumps(already, indent=2), encoding="utf-8")
 
     # create GitHub issue to notify Meeko
     if new_drafts:
@@ -446,7 +446,7 @@ def run():
         "pending": len(pending) - len(batch),
         "drafts_this_cycle": [d["org_name"] for d in new_drafts]
     }
-    (DATA_DIR / "outreach_summary.json").write_text(json.dumps(summary, indent=2))
+    (DATA_DIR / "outreach_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
     # Write engine state for LIVE_WIRE detection
     (DATA_DIR / "outreach_engine_state.json").write_text(json.dumps({
@@ -454,7 +454,7 @@ def run():
         "status": "completed",
         "drafts_created": len(new_drafts),
         "total_contacted": len(already)
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
     print(f"✅ OUTREACH_ENGINE complete — {len(new_drafts)} new drafts, {len(already)} total contacted")
 
 

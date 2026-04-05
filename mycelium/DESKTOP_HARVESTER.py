@@ -67,7 +67,7 @@ def harvest():
         "brain_cycle": brain.get("cycle", 0),
         "status": "active",
     }
-    (DATA / "desktop_harvester_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "desktop_harvester_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"State written: data/desktop_harvester_state.json")
 
 

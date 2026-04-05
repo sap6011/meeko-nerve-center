@@ -107,7 +107,7 @@ def main():
         ),
     }
 
-    ANCHOR_FILE.write_text(json.dumps(anchor, indent=2))
+    ANCHOR_FILE.write_text(json.dumps(anchor, indent=2), encoding="utf-8")
 
     print(f"  Engines: {engine_count}")
     print(f"  Branch: {git['branch']}")

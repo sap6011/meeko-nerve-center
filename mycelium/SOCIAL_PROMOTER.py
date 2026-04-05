@@ -53,7 +53,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "social_promoter_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "social_promoter_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def load_queue():
@@ -70,7 +70,7 @@ def load_queue():
 
 
 def save_queue(q):
-    (DATA / "social_queue.json").write_text(json.dumps(q, indent=2))
+    (DATA / "social_queue.json").write_text(json.dumps(q, indent=2), encoding="utf-8")
 
 
 def post_twitter(text):

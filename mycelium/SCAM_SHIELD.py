@@ -46,7 +46,7 @@ def load():
 def save(s):
     s["log"]=s.get("log",[])[-200:]
     s["quarantine"]=s.get("quarantine",[])[-100:]
-    (DATA/"scam_shield_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"scam_shield_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def quick_score(em):
     """Heuristic scam scoring - no API needed"""

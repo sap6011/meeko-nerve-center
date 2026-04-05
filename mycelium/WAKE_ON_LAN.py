@@ -26,4 +26,4 @@ if __name__ == "__main__":
 # -- LIVE_WIRE topology connector --
 def _wire_state():
     _r = json.loads((DATA / "known_devices.json").read_text()) if (DATA / "known_devices.json").exists() else {}
-    (DATA / "wake_on_lan_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))
+    (DATA / "wake_on_lan_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2), encoding="utf-8")

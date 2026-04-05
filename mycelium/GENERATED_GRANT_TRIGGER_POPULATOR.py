@@ -37,7 +37,7 @@ def run():
     }
 
     # Write output
-    (DATA / "grant_trigger.json").write_text(json.dumps(result, indent=2))
+    (DATA / "grant_trigger.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/grant_trigger.json")
     print(f"  Status: Gap filled")
 

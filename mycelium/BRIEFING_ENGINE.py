@@ -26,7 +26,7 @@ def load():
     return {"cycles":0,"morning_sent_today":False,"evening_sent_today":False,"last_morning":None,"last_evening":None}
 
 def save(s):
-    (DATA/"briefing_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"briefing_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def gather_all():
     d={}

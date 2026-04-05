@@ -45,7 +45,7 @@ if __name__ == "__main__": broadcast_status()
         "last_run": __import__("datetime").datetime.now().isoformat(),
         "status": "completed",
         "organs_manifested": organs_manifested
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 if __name__ == "__main__":
     run()

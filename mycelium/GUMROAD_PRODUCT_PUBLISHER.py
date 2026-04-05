@@ -171,7 +171,7 @@ def run():
                 "Add to GitHub Secrets as GUMROAD_ACCESS_TOKEN",
                 "The GUMROAD_SECRET (webhook secret) is a different thing"
             ]
-        }, indent=2))
+        }, indent=2), encoding="utf-8")
         return {"status": "auth_failed", "error": str(err)[:100]}
 
     print(f"  ✓ Auth OK — {user.get('email', user.get('name', 'user'))}")
@@ -229,9 +229,9 @@ def run():
         full = json.loads(reg_path.read_text())
         full["products"]     = registry
         full["last_updated"] = ts
-        reg_path.write_text(json.dumps(full, indent=2))
+        reg_path.write_text(json.dumps(full, indent=2), encoding="utf-8")
     else:
-        reg_path.write_text(json.dumps({"products": registry, "last_updated": ts}, indent=2))
+        reg_path.write_text(json.dumps({"products": registry, "last_updated": ts}, indent=2), encoding="utf-8")
 
     ok = sum(1 for r in results if r["status"] in ("created", "updated"))
     state = {
@@ -242,7 +242,7 @@ def run():
         "ok": ok,
         "results": results,
     }
-    (DATA / "gumroad_publisher_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "gumroad_publisher_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"  Done: {ok}/{len(results)} OK")
     return state
 

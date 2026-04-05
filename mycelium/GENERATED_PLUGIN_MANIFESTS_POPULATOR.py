@@ -38,7 +38,7 @@ def run():
     }
 
     # Write output
-    (DATA / "plugin_manifests.json").write_text(json.dumps(result, indent=2))
+    (DATA / "plugin_manifests.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/plugin_manifests.json")
     print(f"  Status: Gap filled")
 

@@ -62,7 +62,7 @@ def load():
     return {"cycles":0,"humans_met":[],"collabs_started":0,"forks_guided":0}
 
 def save(s):
-    (DATA/"human_connector_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"human_connector_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def is_real_human(em):
     """Heuristic: is this a genuine human vs automated/spam"""

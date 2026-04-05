@@ -184,7 +184,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "brave_browser_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "brave_browser_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def run():
@@ -242,7 +242,7 @@ def run():
         "gumroad_live":    len(live_urls),
         "engine":          "BRAVE_BROWSER_ENGINE",
     }
-    (DATA / "brave_connection.json").write_text(json.dumps(connection_state, indent=2))
+    (DATA / "brave_connection.json").write_text(json.dumps(connection_state, indent=2), encoding="utf-8")
 
     state["status"]      = "ok"
     state["actions"]     = state.get("actions", 0) + actions

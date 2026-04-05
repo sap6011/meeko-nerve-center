@@ -112,7 +112,7 @@ def update_registry(guides):
         }
 
     registry["last_updated"] = datetime.now(timezone.utc).isoformat()
-    (DATA / "product_registry.json").write_text(json.dumps(registry, indent=2))
+    (DATA / "product_registry.json").write_text(json.dumps(registry, indent=2), encoding="utf-8")
     return registry
 
 
@@ -140,7 +140,7 @@ def generate_publish_queue(registry):
             "kofi": "Go to ko-fi.com > Shop > Add Item > paste title, description, price > upload cover image > publish",
             "gumroad": "Go to gumroad.com > New Product > Digital > paste title, description > upload file > set price > publish",
         }
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     return queue
 

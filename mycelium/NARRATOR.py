@@ -43,7 +43,7 @@ def load_state():
 
 def save_state(s):
     s["log"] = s.get("log", [])[-500:]
-    (DATA / "narrator_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "narrator_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def load_omnibus():
@@ -64,7 +64,7 @@ def load_narrative_log():
 
 def save_narrative_log(log):
     f = DATA / "narrative_log.json"
-    f.write_text(json.dumps(log[-200:], indent=2))
+    f.write_text(json.dumps(log[-200:], indent=2), encoding="utf-8")
 
 
 def generate_story(omnibus, prev_stories):
@@ -417,7 +417,7 @@ def run():
 
     # Build and write narrative.html
     html = build_html(story, omnibus, log)
-    (DOCS / "narrative.html").write_text(html)
+    (DOCS / "narrative.html").write_text(html, encoding="utf-8")
     print(f"  docs/narrative.html — {len(html)} bytes")
     print(f"  URL: https://meekotharaccoon-cell.github.io/meeko-nerve-center/narrative.html")
 

@@ -322,7 +322,7 @@ def run():
 
     state["products_last"] = total
     state["last_run"]      = datetime.now(timezone.utc).isoformat()
-    STATE.write_text(json.dumps(state, indent=2))
+    STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
     print("STORE_BUILDER done.")
 
 

@@ -322,7 +322,7 @@ def main():
     state["directives"] = directives
 
     # Save
-    CHEMO_FILE.write_text(json.dumps(state, indent=2))
+    CHEMO_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     print(f"\n  Total navigations: {state['total_navigations']}")
     print(f"  Swim/Tumble ratio: {swim_count}/{tumble_count}")

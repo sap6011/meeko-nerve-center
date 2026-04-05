@@ -43,7 +43,7 @@ def load():
 def save(s):
     s["prices_history"]=s.get("prices_history",[])[-50:]
     s["alerts_sent"]=s.get("alerts_sent",[])[-100:]
-    (DATA/"crypto_state.json").write_text(json.dumps(s,indent=2))
+    (DATA/"crypto_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def fetch_prices():
     ids=",".join(WATCHLIST.keys())
@@ -149,7 +149,7 @@ def run():
     # Build summary for briefing
     analysis=analyze_opportunity(prices,fg)
     summary=build_market_summary(prices,fg,analysis,state)
-    (DATA/"crypto_summary.txt").write_text(summary)
+    (DATA/"crypto_summary.txt").write_text(summary, encoding="utf-8")
     print(f"  Market updated | Fear&Greed: {fg['value']} ({fg['label']})")
     print(f"  BTC: ${prices.get('bitcoin',{}).get('usd',0):,.0f} | ETH: ${prices.get('ethereum',{}).get('usd',0):,.0f}")
 

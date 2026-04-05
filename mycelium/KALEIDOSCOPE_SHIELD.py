@@ -111,13 +111,13 @@ def deploy_honeytokens():
         # Layer 1: The lure
         lure_path = decoy_dir / "config.json"
         noise = _kaleidoscope_noise(depth=1, seed=hash(name) & 0xFFFFFFFF)
-        lure_path.write_text(json.dumps(noise, indent=2))
+        lure_path.write_text(json.dumps(noise, indent=2), encoding="utf-8")
 
         # Layer 2: The mirror (depth 2)
         mirror_dir = decoy_dir / "mirror"
         mirror_dir.mkdir(exist_ok=True)
         mirror_noise = _kaleidoscope_noise(depth=2, seed=hash(name + "_mirror") & 0xFFFFFFFF)
-        (mirror_dir / "data.json").write_text(json.dumps(mirror_noise, indent=2))
+        (mirror_dir / "data.json").write_text(json.dumps(mirror_noise, indent=2), encoding="utf-8")
 
         deployed.append(str(lure_path))
 
@@ -128,7 +128,7 @@ def deploy_honeytokens():
         "nodes":    [f"mirror_{i:08x}" for i in range(random.randint(50, 200))],
         "depth":    "∞",
         "murmuration": "active",
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     log.info(f"Deployed {len(deployed)} honeytokens in {SHIELD_ROOT}")
     return deployed
@@ -154,7 +154,7 @@ def _log_event(event_type: str, path: str, details: str = ""):
         "alert":     event_type == "HONEYTOKEN_ACCESS",
     }
     events.append(entry)
-    LOG_PATH.write_text(json.dumps(events, indent=2))
+    LOG_PATH.write_text(json.dumps(events, indent=2), encoding="utf-8")
 
     if event_type == "HONEYTOKEN_ACCESS":
         _append_to_actual_log(path, details)

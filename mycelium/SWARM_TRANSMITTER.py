@@ -100,7 +100,7 @@ def scatter(message, num_fragments=7, passphrase=None, transmission_id=None):
         # Write to disk
         fname = f"frag_{tx_id}_{i:03d}.json"
         fpath = FRAG_DIR / fname
-        fpath.write_text(json.dumps(frag, indent=2))
+        fpath.write_text(json.dumps(frag, indent=2), encoding="utf-8")
         fragment_files.append(fname)
 
     # Build manifest
@@ -117,7 +117,7 @@ def scatter(message, num_fragments=7, passphrase=None, transmission_id=None):
 
     # Save manifest
     manifest_path = FRAG_DIR / f"manifest_{tx_id}.json"
-    manifest_path.write_text(json.dumps(manifest, indent=2))
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
     return manifest
 
@@ -165,7 +165,7 @@ def run():
         "status": "completed",
         "transmission_id": manifest["transmission_id"],
         "fragments_created": manifest["total_fragments"]
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

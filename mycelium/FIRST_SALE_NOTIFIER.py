@@ -38,7 +38,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "first_sale_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "first_sale_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def check_for_first_sale():
@@ -131,7 +131,7 @@ def blast_all_channels(story, amount, source):
 
     queue["posts"]            = posts
     queue["first_sale_blast"] = True
-    f.write_text(json.dumps(queue, indent=2))
+    f.write_text(json.dumps(queue, indent=2), encoding="utf-8")
     print(f"  📢 First sale blast queued for all channels")
 
 
@@ -162,7 +162,7 @@ def run():
             "timestamp": ts,
             "story":     story,
             "shop_url":  SHOP_URL,
-        }, indent=2))
+        }, indent=2), encoding="utf-8")
 
         blast_all_channels(story, amount, source)
 
@@ -173,7 +173,7 @@ def run():
                 brain = json.loads(brain_f.read_text())
                 old   = brain.get("health_score", 40)
                 brain["health_score"] = min(100, old + 30)
-                brain_f.write_text(json.dumps(brain, indent=2))
+                brain_f.write_text(json.dumps(brain, indent=2), encoding="utf-8")
                 print(f"  💚 Health: {old} → {brain['health_score']}")
             except: pass
 

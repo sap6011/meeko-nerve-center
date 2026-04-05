@@ -83,7 +83,7 @@ def run():
         "top_referrers": top_refs, "top_paths": top_paths,
         "view_data": view_data[-14:],
     }
-    STATE.write_text(json.dumps(state, indent=2))
+    STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     hist = []
     if HISTORY.exists():
@@ -91,7 +91,7 @@ def run():
         except: pass
     hist.append({"ts": state["ts"], "stars": stars, "views": total_views,
                  "unique": unique_views, "trend": trend, "trend_pct": trend_pct})
-    HISTORY.write_text(json.dumps(hist[-90:], indent=2))
+    HISTORY.write_text(json.dumps(hist[-90:], indent=2), encoding="utf-8")
 
     print(f"  Stars: {stars} | Forks: {forks} | Watchers: {watchers}")
     print(f"  Views 14d: {total_views} ({unique_views} unique) | Trend: {trend} {trend_pct:+}%")

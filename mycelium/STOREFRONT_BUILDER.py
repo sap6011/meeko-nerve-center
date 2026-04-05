@@ -188,7 +188,7 @@ def run():
         "total_sales": total_sales,
         "total_to_gaza": total_gaza,
     }
-    (DATA / "storefront_builder_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "storefront_builder_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     return state
 
 

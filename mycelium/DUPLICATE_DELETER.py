@@ -25,7 +25,7 @@ def run():
             "status": "completed",
             "duplicates_removed": 0,
             "files_scanned": 0
-        }, indent=2))
+        }, indent=2), encoding="utf-8")
         return
 
     seen_hashes = {}
@@ -58,7 +58,7 @@ def run():
         "status": "completed",
         "duplicates_removed": duplicates_removed,
         "files_scanned": files_scanned
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 if __name__ == "__main__":
     run()

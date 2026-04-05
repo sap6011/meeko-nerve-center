@@ -445,7 +445,7 @@ def compute_network_memory(wire_report_path):
         },
     }
 
-    (DATA / "mycelium_memory.json").write_text(json.dumps(memory, indent=2))
+    (DATA / "mycelium_memory.json").write_text(json.dumps(memory, indent=2), encoding="utf-8")
     return memory
 
 
@@ -605,7 +605,7 @@ def run():
     }
 
     out = DATA / "mycelium_network_state.json"
-    out.write_text(json.dumps(state, indent=2))
+    out.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     # Summary
     network_health = strengthen / len(wire_health_list) if wire_health_list else 0

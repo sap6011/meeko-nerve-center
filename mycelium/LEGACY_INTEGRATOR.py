@@ -20,7 +20,7 @@ def run():
             "last_run": __import__("datetime").datetime.now().isoformat(),
             "status": "completed",
             "files_linked": []
-        }, indent=2))
+        }, indent=2), encoding="utf-8")
         return
 
     # Scan processed files for anything that looks like a Python or PowerShell script
@@ -36,7 +36,7 @@ def run():
         "last_run": __import__("datetime").datetime.now().isoformat(),
         "status": "completed",
         "files_linked": linked_files
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 if __name__ == "__main__":
     run()

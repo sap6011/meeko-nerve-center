@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-05T18:13:31.753056+00:00",
-  "bridges_attempted": 114,
-  "bridges_built": 16,
-  "bridges_failed": 98,
+  "timestamp": "2026-04-05T18:49:31.789990+00:00",
+  "bridges_attempted": 118,
+  "bridges_built": 15,
+  "bridges_failed": 103,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
@@ -21,20 +21,20 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 389 pass, 0 fail out of 389 engines",
-      "pass": 389,
+      "detail": "Local sentinel: 390 pass, 0 fail out of 390 engines",
+      "pass": 390,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 592 nodes, 5794 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 592,
-      "edges": 5794,
+      "detail": "Knowledge graph: 594 nodes, 5816 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 594,
+      "edges": 5816,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          369
+          371
         ],
         [
           "OMNIBUS",
@@ -73,13 +73,13 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 389 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 390 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
-      "status": "BRIDGED",
-      "detail": "Routed 608 tweets from orphan tweets_queue.txt -> social_queue.json",
-      "target": "tweets_queue.txt"
+      "target": "tweets_queue.txt",
+      "status": "ERROR",
+      "detail": "'str' object does not support item assignment"
     },
     {
       "status": "BRIDGED",
@@ -88,12 +88,12 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 32, score 78/100",
+      "detail": "Chimera gen 33, score 78/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 389",
+      "detail": "Healed 0, scanned 390",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -208,7 +208,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (389 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (390 pass)",
       "target": "sentinel_scan.json"
     },
     {
@@ -610,6 +610,26 @@
       "status": "ALREADY_EXISTS",
       "detail": "agent_service_catalog.json already has data",
       "target": "agent_service_catalog.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "gap_closer_state.json already has data",
+      "target": "gap_closer_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "gap_closer_report.json already has data",
+      "target": "gap_closer_report.json"
+    },
+    {
+      "target": "health_advisory.txt",
+      "status": "ERROR",
+      "detail": "'str' object does not support item assignment"
+    },
+    {
+      "target": "solarpunk_legal_declaration.txt",
+      "status": "ERROR",
+      "detail": "'str' object does not support item assignment"
     }
   ],
   "note": "Successes AND failures documented. Both are useful."

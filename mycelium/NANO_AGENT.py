@@ -63,7 +63,7 @@ class NanoAgent:
         result["elapsed"] = round(time.time() - self._start, 2)
         result["ts"]      = datetime.now(timezone.utc).isoformat()
         result["log"]     = self.log
-        self.state_file.write_text(json.dumps(result, indent=2, default=str))
+        self.state_file.write_text(json.dumps(result, indent=2, default=str), encoding="utf-8")
         icon = "[OK]" if result["status"] == "ok" else "[FAIL]"
         print(f"{icon} {self.name} ({result['elapsed']}s) — {result.get('summary', result['status'])}")
         return result
@@ -84,7 +84,7 @@ class NanoAgent:
         return fallback if fallback is not None else {}
 
     def save_data(self, fname: str, data):
-        (DATA / fname).write_text(json.dumps(data, indent=2, default=str))
+        (DATA / fname).write_text(json.dumps(data, indent=2, default=str), encoding="utf-8")
 
     def load_context(self) -> dict:
         """Loads the full OMNIBUS context snapshot."""
@@ -143,7 +143,7 @@ class NanoAgent:
         """Write a page to docs/. filename can include subdirs like 'store/index.html'."""
         path = DOCS / filename
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content)
+        path.write_text(content, encoding="utf-8")
         self._log(f"Wrote {filename} ({len(content)} bytes)")
 
     def html_shell(self, title: str, body: str, description: str = "") -> str:
@@ -184,7 +184,7 @@ footer{{margin-top:48px;padding-top:20px;border-top:1px solid rgba(255,255,255,.
         if target.exists():
             self._log(f"{agent_name} already exists — skipping spawn")
             return False
-        target.write_text(code)
+        target.write_text(code, encoding="utf-8")
         self._log(f"Spawned new agent: {agent_name}")
         weaver = self.load_data("knowledge_weaver_state.json", {"engines_built": []})
         if agent_name not in weaver.get("engines_built", []):

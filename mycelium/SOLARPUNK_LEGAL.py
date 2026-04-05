@@ -133,7 +133,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "solarpunk_legal_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "solarpunk_legal_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def update_legal_fund(state):
@@ -228,7 +228,7 @@ in interstate commerce for software and AI services.
 Generated: {datetime.now(timezone.utc).isoformat()}
 Auto-maintained by SOLARPUNK_LEGAL engine
 """
-    (DATA / "solarpunk_legal_declaration.txt").write_text(doc)
+    (DATA / "solarpunk_legal_declaration.txt").write_text(doc, encoding="utf-8")
     return doc
 
 

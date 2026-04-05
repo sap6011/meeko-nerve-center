@@ -84,7 +84,7 @@ def load():
 
 def save(s):
     s["task_log"] = s.get("task_log", [])[-500:]
-    (DATA / "email_exchange_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "email_exchange_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def route_to_agent(subject, body):
@@ -278,7 +278,7 @@ Built by SolarPunk
 </div></body></html>"""
 
     Path("docs").mkdir(exist_ok=True)
-    (Path("docs") / "exchange.html").write_text(html)
+    (Path("docs") / "exchange.html").write_text(html, encoding="utf-8")
     print("  Exchange page → docs/exchange.html")
 
 

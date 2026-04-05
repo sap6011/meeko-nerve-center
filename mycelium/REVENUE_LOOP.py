@@ -221,7 +221,7 @@ footer a{{color:#ff2d6b;text-decoration:none}}
 
     out_dir = DOCS / slug
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "index.html").write_text(html)
+    (out_dir / "index.html").write_text(html, encoding="utf-8")
     live_url = f"{BASE_URL}/{slug}/"
     print(f"  ✅ Staged docs/{slug}/ → {live_url}")
 
@@ -235,7 +235,7 @@ footer a{{color:#ff2d6b;text-decoration:none}}
         try:
             existing = json.loads(f.read_text())
             if existing.get("id") == package.get("id"):
-                f.write_text(json.dumps(package, indent=2))
+                f.write_text(json.dumps(package, indent=2), encoding="utf-8")
                 break
         except:
             pass
@@ -246,7 +246,7 @@ footer a{{color:#ff2d6b;text-decoration:none}}
     if bid not in ld.get("deployed", []):
         ld.setdefault("deployed", []).append(bid)
         ld.setdefault("live_urls", []).append(live_url)
-    ld_f.write_text(json.dumps(ld, indent=2))
+    ld_f.write_text(json.dumps(ld, indent=2), encoding="utf-8")
 
     return live_url
 
@@ -335,7 +335,7 @@ def step_social(package, live_url, gumroad_url):
                   "niche": package.get("niche", {}).get("niche", "")})
     q.setdefault("posts", []).extend(posts)
     q["posts"] = q["posts"][-300:]
-    qf.write_text(json.dumps(q, indent=2))
+    qf.write_text(json.dumps(q, indent=2), encoding="utf-8")
     print(f"  ✅ {len(posts)} posts queued")
     return posts
 
@@ -401,7 +401,7 @@ def step_brain(package, live_url):
         "last_live_url":         live_url,
         "total_loops_completed": brain.get("total_loops_completed", 0) + 1,
     })
-    bf.write_text(json.dumps(brain, indent=2))
+    bf.write_text(json.dumps(brain, indent=2), encoding="utf-8")
     print(f"  ✅ Health {prev}→{new} | Total loops: {brain['total_loops_completed']}")
 
 
@@ -439,12 +439,12 @@ def run():
         "success": not loop["steps_failed"],
     })
 
-    (DATA / "revenue_loop_last.json").write_text(json.dumps(loop, indent=2, default=str))
+    (DATA / "revenue_loop_last.json").write_text(json.dumps(loop, indent=2, default=str), encoding="utf-8")
     hf   = DATA / "revenue_loop_history.json"
     hist = json.loads(hf.read_text()) if hf.exists() else []
     hist.append({"at": loop["completed_at"], "ok": loop["steps_ok"],
                  "failed": loop["steps_failed"], "url": live_url})
-    hf.write_text(json.dumps(hist[-100:], indent=2))
+    hf.write_text(json.dumps(hist[-100:], indent=2), encoding="utf-8")
 
     print(f"\n{'✅' if loop['success'] else '⚠️ '} REVENUE_LOOP done {loop['elapsed_seconds']}s")
     print(f"   OK: {', '.join(loop['steps_ok'])}")

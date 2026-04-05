@@ -114,7 +114,7 @@ def scan():
         "summary": f"{len(active)} active / {len(blocked)} blocked / {len(degraded)} degraded",
     }
 
-    (DATA / "capability_map.json").write_text(json.dumps(result, indent=2))
+    (DATA / "capability_map.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     _build_html(result)
     return result
 

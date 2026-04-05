@@ -189,7 +189,7 @@ def load_queue():
 
 
 def save_queue(posts):
-    (DATA / "social_queue.json").write_text(json.dumps({"posts": posts, "last_drain": datetime.now(timezone.utc).isoformat()}, indent=2))
+    (DATA / "social_queue.json").write_text(json.dumps({"posts": posts, "last_drain": datetime.now(timezone.utc).isoformat()}, indent=2), encoding="utf-8")
 
 
 def make_devto_article(post):
@@ -215,7 +215,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "autonomous_publisher_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "autonomous_publisher_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def run():

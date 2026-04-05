@@ -37,7 +37,7 @@ def run():
     }
 
     # Write output
-    (DATA / "polymarket_scan.json").write_text(json.dumps(result, indent=2))
+    (DATA / "polymarket_scan.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/polymarket_scan.json")
     print(f"  Status: Gap filled")
 

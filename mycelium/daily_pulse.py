@@ -34,7 +34,7 @@ def run():
         summary["outreach_ready"] = True
 
     # Save pulse report
-    (DATA / f"pulse_{summary['date']}.json").write_text(json.dumps(summary, indent=4))
+    (DATA / f"pulse_{summary['date']}.json").write_text(json.dumps(summary, indent=4), encoding="utf-8")
 
     print(f"Report Generated: {summary['nodes_scouted']} nodes found today.")
     if summary["outreach_ready"]:
@@ -46,7 +46,7 @@ def run():
         "status": "completed",
         "nodes_scouted": summary["nodes_scouted"],
         "opportunities": len(summary["high_value_opportunities"])
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -278,4 +278,4 @@ if __name__ == "__main__":
     print("\n📱 Engagement Protocol:")
     print(json.dumps(protocol, indent=2))
 
-    (DATA / "legacy_sifted_social_media_bot_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_social_media_bot_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

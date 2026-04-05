@@ -170,7 +170,7 @@ def run():
         "sponsor_bio":     SPONSOR_BIO,
         "sponsor_readme":  SPONSOR_README,
     }
-    (DATA / "quick_revenue.json").write_text(json.dumps(state, indent=2))
+    (DATA / "quick_revenue.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     # --- HTML ---
     def card(title, step, body):

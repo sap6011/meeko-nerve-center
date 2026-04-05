@@ -69,7 +69,7 @@ Respond ONLY JSON (no markdown):
 
     report["generated_at"] = datetime.now(timezone.utc).isoformat()
     Path("data").mkdir(exist_ok=True)
-    Path("data/neuron_b_report.json").write_text(json.dumps(report, indent=2))
+    Path("data/neuron_b_report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"Skeptic thesis: {report.get('skeptic_thesis','?')}")
     print(f"Refined priority: {report.get('refined_priority','?')}")
     for risk in report.get("risks",[])[:3]: print(f"  RISK: {risk}")

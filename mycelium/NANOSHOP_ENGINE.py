@@ -105,7 +105,7 @@ def write_index(products):
             "shop_url": f"{BASE}/ns/{p['id']}.html",
         })
     idx = {"products": items, "updated": datetime.now(timezone.utc).isoformat(), "total": len(items)}
-    (DOCS / "nanoshop-index.json").write_text(json.dumps(idx, indent=2))
+    (DOCS / "nanoshop-index.json").write_text(json.dumps(idx, indent=2), encoding="utf-8")
     print(f"  ✓ nanoshop-index.json — {len(items)} products")
     return items
 
@@ -221,7 +221,7 @@ h1{{font-size:1.25rem;font-weight:800;line-height:1.3;margin-bottom:8px}}
 </body>
 </html>"""
 
-    (NS / f"{pid}.html").write_text(html)
+    (NS / f"{pid}.html").write_text(html, encoding="utf-8")
     return f"{BASE}/ns/{pid}.html"
 
 
@@ -284,7 +284,7 @@ h1{{color:#c8a86b;margin-bottom:8px}}
 </div>
 </body></html>"""
 
-    (DOCS / "embed.html").write_text(html)
+    (DOCS / "embed.html").write_text(html, encoding="utf-8")
     print(f"  ✓ embed.html — {len(items)} embed snippets")
 
 
@@ -380,7 +380,7 @@ def run():
         "index_url": f"{BASE}/nanoshop-index.json",
         "embed_page": f"{BASE}/embed.html",
     })
-    (DATA / "nanoshop_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "nanoshop_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"  Done: {pages_built} pages | {len(items)} indexed | {len(new_announcements)} announced")
     return state
 

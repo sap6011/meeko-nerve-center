@@ -167,7 +167,7 @@ def _append_ledger(entry: dict):
         except Exception:
             ledger = []
     ledger.append(entry)
-    LEDGER_PATH.write_text(json.dumps(ledger, indent=2))
+    LEDGER_PATH.write_text(json.dumps(ledger, indent=2), encoding="utf-8")
 
 
 def get_aid_summary() -> dict:

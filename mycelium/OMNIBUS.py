@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v45 — EMAIL_INTELLIGENCE: MX verification, bounce detection, personalized outreach, 30 bridges, 368+ engines, 5547+ wires
+OMNIBUS v46 — Systemic encoding fix (530 files), orphan wiring, 389 engines, AUTONOMOUS_GAP_CLOSER
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
@@ -235,7 +235,7 @@ def ctx():
 
 
 def save_ctx():
-    (DATA / "ctx.json").write_text(json.dumps(ctx(), indent=2, default=str))
+    (DATA / "ctx.json").write_text(json.dumps(ctx(), indent=2, default=str), encoding="utf-8")
 
 
 def _queue_daemon_task(prompt, source="OMNIBUS", priority=5):
@@ -246,7 +246,7 @@ def _queue_daemon_task(prompt, source="OMNIBUS", priority=5):
         queue.append({"id": f"omnibus_{int(time.time())}", "prompt": prompt,
                       "priority": priority, "source": source, "status": "pending",
                       "queued_at": datetime.now(timezone.utc).isoformat()})
-        qfile.write_text(json.dumps(queue, indent=2))
+        qfile.write_text(json.dumps(queue, indent=2), encoding="utf-8")
     except: pass
 
 
@@ -294,6 +294,7 @@ def L1():
     eng("CIRCADIAN_RHYTHM",  timeout=60)   # v28: biological clock — time-aware intelligence
     eng("SYMBIOGENESIS",     timeout=60)   # v28: endosymbiosis — engine capability fusion
     eng("APOPTOSIS",         timeout=60)   # v28: programmed cell death — engine retirement scanning
+    eng("EMAIL_INTELLIGENCE",  timeout=120)  # v46: MX-verified outreach with personalized pitches
     eng("AI_WATCHER",         timeout=60)
     eng("CRYPTO_WATCHER",     timeout=60)
     eng("FREE_API_ENGINE",    timeout=60)
@@ -316,6 +317,7 @@ def L2():
     eng("REVENUE_FLYWHEEL",   timeout=90)
     eng("GUMROAD_AUTO_QUEUE", timeout=60)
     eng("QUICK_REVENUE",      timeout=60)
+    eng("MACHINE_REVENUE",    timeout=120)  # v46: bounty hunting, marketplace app, ACP, affiliate loop
     save_ctx()
     eng("BUSINESS_FACTORY",   timeout=180)
     save_ctx()
@@ -332,6 +334,8 @@ def L3():
     eng("EMAIL_AGENT_EXCHANGE",     timeout=120)
     eng("GRANT_APPLICANT",          timeout=90)
     eng("HEALTH_BOOSTER",           timeout=60)
+    eng("DESKTOP_DAEMON",           timeout=60)   # v46: system health monitoring + advisory
+    eng("AUTOPILOT_EXECUTOR",       timeout=120)  # v46: execute scheduled autonomous tasks
     save_ctx()
     eng("PDF_GENERATOR",            timeout=600)
     save_ctx()
@@ -352,6 +356,8 @@ def L4():
     eng("CONNECTION_FORGE",    timeout=90)
     eng("HUMAN_CONNECTOR",     timeout=60)
     eng("AFFILIATE_MAXIMIZER", timeout=60)
+    eng("GROWTH_FLYWHEEL",     timeout=120)  # v46: content calendar + growth loops
+    eng("GROWTH_CHAIN",        timeout=90)   # v46: growth pipeline orchestration
     eng("STORE_BUILDER",       timeout=90)
     eng("LIVE_WIRE",            timeout=180)  # v29: scan topology before bridging
     eng("SELF_WIRING_ENGINE",  timeout=120)  # v29: auto-wire isolated engines
@@ -380,7 +386,10 @@ def L5():
     eng("FIRST_SALE_NOTIFIER",       timeout=30)
     eng("PRODUCT_DELIVERY_ENGINE",   timeout=90)
     eng("PROOF_LEDGER",              timeout=60)
+    eng("ECONOMY_CHAIN",             timeout=120)  # v46: unified economy pipeline
+    eng("FUEL_CORE",                 timeout=120)  # v46: 1/99 revenue growth engine
     eng("STOREFRONT_BUILDER",        timeout=90)
+    eng("STOREFRONT_DEPLOYER",       timeout=90)   # v46: deploy storefront pages
     save_ctx()
 
 
@@ -425,6 +434,7 @@ def L6():
     eng("ZERO_SECRET_ARMY",        timeout=300)  # v35: deploy all 82 zero-secret engines
     eng("GAP_FILLER",              timeout=30)   # v36: seed missing data files so engines don't crash
     eng("DEBUG_DOCTOR",            timeout=120)  # v36: diagnose failures, fix UTF-8, log unfixable
+    eng("AUTONOMOUS_GAP_CLOSER",   timeout=120)  # v46: find and close gaps without human intervention
 
     health   = rj("brain_state.json").get("health_score", 0)
     cycle    = rj("cycle_delta.json").get("cycle_number", "?")
@@ -605,11 +615,11 @@ def run():
         "log":                      results["log"],
     }
 
-    (DATA / "omnibus_last.json").write_text(json.dumps(manifest, indent=2))
+    (DATA / "omnibus_last.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     hf   = DATA / "omnibus_history.json"
     hist = json.loads(hf.read_text()) if hf.exists() else []
     hist.append({k: v for k, v in manifest.items() if k != "log"})
-    hf.write_text(json.dumps(hist[-200:], indent=2))
+    hf.write_text(json.dumps(hist[-200:], indent=2), encoding="utf-8")
 
     print(f"\n{'='*60}")
     print(f"OMNIBUS v24 done -- {elapsed}s")

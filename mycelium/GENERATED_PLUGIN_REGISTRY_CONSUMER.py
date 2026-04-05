@@ -39,7 +39,7 @@ def run():
     }
 
     # Write output
-    (DATA / "plugin_registry_insights.json").write_text(json.dumps(result, indent=2))
+    (DATA / "plugin_registry_insights.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/plugin_registry_insights.json")
     print(f"  Status: Gap filled")
 

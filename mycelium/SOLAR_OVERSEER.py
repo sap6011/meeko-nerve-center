@@ -60,7 +60,7 @@ def pulse_check():
         "live_wire_engines": live_wire.get("total_engines", 0),
         "status": "active",
     }
-    (DATA / "solar_overseer_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "solar_overseer_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"State written: data/solar_overseer_state.json")
 
 

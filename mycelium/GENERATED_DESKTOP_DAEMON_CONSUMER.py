@@ -40,7 +40,7 @@ def run():
     }
 
     # Write output
-    (DATA / "desktop_daemon_insights.json").write_text(json.dumps(result, indent=2))
+    (DATA / "desktop_daemon_insights.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/desktop_daemon_insights.json")
     print(f"  Status: Gap filled")
 

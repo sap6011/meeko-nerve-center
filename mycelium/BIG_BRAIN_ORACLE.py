@@ -133,7 +133,7 @@ def run():
 
     if not ANTHROPIC_KEY:
         print("  ANTHROPIC_API_KEY not set")
-        (DATA / "oracle_state.json").write_text(json.dumps({"last_run": now, "status": "no_key"}, indent=2))
+        (DATA / "oracle_state.json").write_text(json.dumps({"last_run": now, "status": "no_key"}, indent=2), encoding="utf-8")
         return
 
     ctx = get_system_context()
@@ -152,7 +152,7 @@ def run():
         except: pass
     history.append({"ts": now, "insights": insights})
     history = history[-30:]
-    history_f.write_text(json.dumps(history, indent=2))
+    history_f.write_text(json.dumps(history, indent=2), encoding="utf-8")
 
     # Print key insights
     for item in insights.get("strategic_insights", []):
@@ -171,14 +171,14 @@ def run():
         "key_insight": insights.get("pattern_recognition", ""),
         "engine_ideas": new_ideas
     }
-    (DATA / "omnibrain_seed.json").write_text(json.dumps(seed, indent=2))
+    (DATA / "omnibrain_seed.json").write_text(json.dumps(seed, indent=2), encoding="utf-8")
     print(f"  🌱 Seeded {len(actions)} actions + {len(new_ideas)} engine ideas into omnibrain_seed")
 
     (DATA / "oracle_state.json").write_text(json.dumps({
         "last_run": now, "status": "ok",
         "insights_count": len(insights.get("strategic_insights", [])),
         "engine_ideas": len(new_ideas)
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__": run()

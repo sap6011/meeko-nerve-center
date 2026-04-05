@@ -62,7 +62,7 @@ def load_ledger():
     return []
 
 def save_ledger(ledger):
-    LEDGER_FILE.write_text(json.dumps(ledger[-MAX_HISTORY:], indent=2))
+    LEDGER_FILE.write_text(json.dumps(ledger[-MAX_HISTORY:], indent=2), encoding="utf-8")
 
 
 # ── snapshot current state ────────────────────────────────────────────────────
@@ -402,7 +402,7 @@ def run():
             f"Persistent blockers: {len(persistent)} | Revenue: ${current['total_revenue']:.2f}"
         )
     }
-    DELTA_FILE.write_text(json.dumps(cycle_delta, indent=2))
+    DELTA_FILE.write_text(json.dumps(cycle_delta, indent=2), encoding="utf-8")
 
     # Build HTML
     html = build_html(current, delta, ledger, persistent)

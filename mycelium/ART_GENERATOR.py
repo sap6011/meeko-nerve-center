@@ -140,7 +140,7 @@ def main():
     if log_f.exists():
         try: existing = json.loads(log_f.read_text())
         except: pass
-    log_f.write_text(json.dumps((existing + log)[-500:], indent=2))
+    log_f.write_text(json.dumps((existing + log)[-500:], indent=2), encoding="utf-8")
     print(f"  Processed {len(log)} requests")
 
 if __name__ == "__main__":

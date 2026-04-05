@@ -357,7 +357,7 @@ def main():
     state["last_updated"] = datetime.now(timezone.utc).isoformat()
 
     # Save
-    NEURO_FILE.write_text(json.dumps(state, indent=2))
+    NEURO_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     PATHWAY_FILE.write_text(json.dumps({
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -371,7 +371,7 @@ def main():
             "avg_strength": round(avg_strength, 1),
             "new_suggestions": len(suggestions),
         },
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     print(f"\n  Network health: avg {avg_strength:.0f}/100")
     print(f"  Myelinated: {len(myelinated)} | Strong: {len(strong)} | Weak: {len(weak)}")

@@ -38,7 +38,7 @@ def run():
     }
 
     # Write output
-    (DATA / "nanoshop_state.json").write_text(json.dumps(result, indent=2))
+    (DATA / "nanoshop_state.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/nanoshop_state.json")
     print(f"  Status: Gap filled")
 

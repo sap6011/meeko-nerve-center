@@ -325,7 +325,7 @@ def main():
         "reach": reach,
         "spores": all_spores,
     }
-    DISPERSAL_FILE.write_text(json.dumps(output, indent=2))
+    DISPERSAL_FILE.write_text(json.dumps(output, indent=2), encoding="utf-8")
 
     # Write manifest summary
     manifest = {
@@ -341,7 +341,7 @@ def main():
         "dispersal_points": reach["dispersal_points"],
         "estimated_humans_reached": reach["estimated_humans_reached"],
     }
-    MANIFEST_FILE.write_text(json.dumps(manifest, indent=2))
+    MANIFEST_FILE.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
     print(f"\n{'='*60}")
     print(f"  SPORE DISPERSAL — SATURATION COMPLETE")

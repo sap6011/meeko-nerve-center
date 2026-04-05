@@ -158,7 +158,7 @@ def main():
     Path("data/brain_state.json").write_text(json.dumps({
         "run_id":RUN_ID,"health_score":score,"stats":stats,
         "synthesis":synthesis,"generated_at":datetime.now(timezone.utc).isoformat()
-    },indent=2))
+    },indent=2), encoding="utf-8")
     print(f"Brain state saved. Score: {score}/100")
 
 if __name__ == "__main__": main()

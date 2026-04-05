@@ -108,7 +108,7 @@ def sign_proof_ledger(identity, health, state_hash):
     if len(ledger) > 100:
         ledger = ledger[-100:]
 
-    ledger_path.write_text(json.dumps(ledger, indent=2))
+    ledger_path.write_text(json.dumps(ledger, indent=2), encoding="utf-8")
     print(f"  Ledger: Cycle #{entry['cycle']} signed — {state_hash[:16]}...")
     return entry
 
@@ -154,7 +154,7 @@ def update_sovereignty_state(identity, health, state_hash, ledger_entry, hungry)
         },
         "status": "SOVEREIGN" if health["status"] == "SOVEREIGN" else "HEALING"
     }
-    (DATA / "sovereignty_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "sovereignty_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"  State: {'SOVEREIGN' if state['status'] == 'SOVEREIGN' else 'HEALING'}")
     return state
 

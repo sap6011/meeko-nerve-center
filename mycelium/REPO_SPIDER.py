@@ -188,7 +188,7 @@ def load_state():
 
 
 def save_state(s):
-    STATE.write_text(json.dumps(s, indent=2))
+    STATE.write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def queue_ideas(ideas):
@@ -200,7 +200,7 @@ def queue_ideas(ideas):
                 existing = []
         except: pass
     existing.extend(ideas)
-    QUEUE.write_text(json.dumps(existing[-50:], indent=2))
+    QUEUE.write_text(json.dumps(existing[-50:], indent=2), encoding="utf-8")
 
 
 def run():

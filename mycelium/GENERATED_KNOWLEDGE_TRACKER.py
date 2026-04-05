@@ -38,7 +38,7 @@ def run():
     }
 
     # Write output
-    (DATA / "knowledge_tracker.json").write_text(json.dumps(result, indent=2))
+    (DATA / "knowledge_tracker.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/knowledge_tracker.json")
     print(f"  Status: Gap filled")
 

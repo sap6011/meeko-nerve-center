@@ -399,7 +399,7 @@ class AgencyOrchestrator:
             logger.info(f" Total Aid Sent: ${total_revenue * 0.70:,.2f}")
             logger.info(f" Reinvested for Growth: ${total_revenue * 0.30:,.2f}")
             
-            (DATA / "legacy_sifted_agency_orchestrator_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "total_revenue": total_revenue}, indent=2))
+            (DATA / "legacy_sifted_agency_orchestrator_state.json").write_text(json.dumps({"last_run": datetime.now().isoformat(), "status": "ok", "total_revenue": total_revenue}, indent=2), encoding="utf-8")
 
             # Sleep 6 hours before next prospect cycle
             await asyncio.sleep(21600)  # 6 hours

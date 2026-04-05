@@ -169,7 +169,7 @@ def generate_mirror(company_key: str) -> Optional[SolarPunkMirror]:
 def _save_mirror(company_key: str, mirror: SolarPunkMirror):
     MIRROR_DIR.mkdir(parents=True, exist_ok=True)
     path = MIRROR_DIR / f"{company_key}_mirror.json"
-    path.write_text(json.dumps(asdict(mirror), indent=2))
+    path.write_text(json.dumps(asdict(mirror), indent=2), encoding="utf-8")
     log.info(f"Saved mirror: {path}")
 
 
@@ -229,7 +229,7 @@ def _write_state(results: dict):
         "brain_cycle": brain.get("cycle", 0),
         "status": "active",
     }
-    (DATA / "corporate_mirror_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "corporate_mirror_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

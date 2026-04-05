@@ -938,4 +938,4 @@ if __name__ == "__main__":
     print(f"    Knowledge persisted to: {me.knowledge_base.db_path}")
     print(f"    Call me.run_forever() to keep running.\n")
 
-    (DATA / "legacy_sifted_ultimate_ai_self_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_ultimate_ai_self_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

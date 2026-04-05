@@ -342,11 +342,11 @@ def run():
         "secrets": {n: {"present": r["present"], "required": r["required"], "impact": r.get("revenue_impact")}
                     for n, r in results.items()},
     }
-    (DATA / "secrets_checker_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "secrets_checker_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     # Build setup page
     html = build_html(results)
-    (DOCS / "setup.html").write_text(html)
+    (DOCS / "setup.html").write_text(html, encoding="utf-8")
     print(f"  [OK] docs/setup.html updated — {len(html):,} bytes")
     print(f"  URL: https://meekotharaccoon-cell.github.io/meeko-nerve-center/setup.html")
 

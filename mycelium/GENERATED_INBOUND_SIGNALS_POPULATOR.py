@@ -38,7 +38,7 @@ def run():
     }
 
     # Write output
-    (DATA / "inbound_signals.json").write_text(json.dumps(result, indent=2))
+    (DATA / "inbound_signals.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/inbound_signals.json")
     print(f"  Status: Gap filled")
 

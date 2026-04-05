@@ -20,4 +20,4 @@ if __name__ == "__main__":
 # -- LIVE_WIRE topology connector --
 def _wire_state():
     _r = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
-    (DATA / "duplicate_striker_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2))
+    (DATA / "duplicate_striker_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "wired"}, indent=2), encoding="utf-8")

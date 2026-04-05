@@ -37,7 +37,7 @@ def run():
     }
 
     # Write output
-    (DATA / "gumroad_auth_failure.json").write_text(json.dumps(result, indent=2))
+    (DATA / "gumroad_auth_failure.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"  Output: data/gumroad_auth_failure.json")
     print(f"  Status: Gap filled")
 

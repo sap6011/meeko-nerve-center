@@ -101,7 +101,7 @@ def run():
     if not should_send(state):
         print(f"  SKIP: last sent {str(state.get('last_sent',''))[:16]} — waiting {MIN_HOURS}h")
         state["cycles"] = state.get("cycles", 0) + 1
-        STATE.write_text(json.dumps(state, indent=2))
+        STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
         return
 
     resonance = rj(DATA / "resonance_state.json")
@@ -135,7 +135,7 @@ Write this week's newsletter."""
     if not isinstance(archive, list): archive = []
     archive.append({"ts": datetime.now(timezone.utc).isoformat(),
                     "subject": subject, "body": body, "sent_to": len(subs)})
-    ARCHIVE.write_text(json.dumps(archive[-52:], indent=2))
+    ARCHIVE.write_text(json.dumps(archive[-52:], indent=2), encoding="utf-8")
 
     sent = send_email(subs, subject, body)
     print(f"  Sent to {sent}/{len(subs)} subscribers")
@@ -144,7 +144,7 @@ Write this week's newsletter."""
     state["total_sent"]   = state.get("total_sent", 0) + sent
     state["last_sent"]    = datetime.now(timezone.utc).isoformat()
     state["last_subject"] = subject
-    STATE.write_text(json.dumps(state, indent=2))
+    STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

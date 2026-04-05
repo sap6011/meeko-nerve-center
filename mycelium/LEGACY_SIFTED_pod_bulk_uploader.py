@@ -548,7 +548,7 @@ def main():
         uploader.run(args.folder, args.limit, args.format)
 
 
-    (DATA / "legacy_sifted_pod_bulk_uploader_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_pod_bulk_uploader_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

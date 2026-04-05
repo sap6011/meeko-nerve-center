@@ -131,4 +131,4 @@ if __name__ == "__main__":
     else:
         orchestrator.setup()
 
-    (DATA / "legacy_sifted_simple_orchestrator_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_simple_orchestrator_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

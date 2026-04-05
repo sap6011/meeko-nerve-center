@@ -305,7 +305,7 @@ def main():
             "new_candidates": len(suggestions),
         },
     }
-    SYMBIO_FILE.write_text(json.dumps(output, indent=2))
+    SYMBIO_FILE.write_text(json.dumps(output, indent=2), encoding="utf-8")
 
     print("SYMBIOGENESIS done.")
 

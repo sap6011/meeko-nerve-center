@@ -91,7 +91,7 @@ def load_queue():
 
 
 def save_queue(q):
-    (DATA / "social_queue.json").write_text(json.dumps(q, indent=2))
+    (DATA / "social_queue.json").write_text(json.dumps(q, indent=2), encoding="utf-8")
 
 
 def load_state():
@@ -103,7 +103,7 @@ def load_state():
 
 
 def save_state(s):
-    (DATA / "bluesky_engine_state.json").write_text(json.dumps(s, indent=2))
+    (DATA / "bluesky_engine_state.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
 
 
 def run():

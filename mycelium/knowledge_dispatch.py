@@ -100,7 +100,7 @@ def main():
         "existing_engines": [e["name"] for e in engines],
         "loop_active": True,
     }
-    (DATA_DIR / "omnibrain_seed.json").write_text(json.dumps(seed, indent=2))
+    (DATA_DIR / "omnibrain_seed.json").write_text(json.dumps(seed, indent=2), encoding="utf-8")
     kb = {
         "generated": datetime.now().isoformat(),
         "engine_count": len(engines),
@@ -114,7 +114,7 @@ def main():
         "gumroad_listings_chars": [],
         "connections_discovered": [],
     }
-    KB_FILE.write_text(json.dumps(kb, indent=2))
+    KB_FILE.write_text(json.dumps(kb, indent=2), encoding="utf-8")
     print(f"  Health: {insights.get('health','?')} | {insights.get('advice','')[:60]}")
     return kb
 

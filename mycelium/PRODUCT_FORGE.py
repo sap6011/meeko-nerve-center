@@ -208,7 +208,7 @@ def forge_engine_template():
     lines.append("")
     lines.append("")
     lines.append("def save_json(path, data):")
-    lines.append("    Path(path).write_text(")
+    lines.append("    Path(path).write_text(", encoding="utf-8")
     lines.append('        json.dumps(data, indent=2, default=str, ensure_ascii=False),')
     lines.append('        encoding="utf-8"')
     lines.append("    )")

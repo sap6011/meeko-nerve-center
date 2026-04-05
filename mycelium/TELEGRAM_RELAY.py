@@ -307,7 +307,7 @@ def main():
 
     # Generate and write manifest
     manifest = generate_relay_manifest(all_formatted)
-    RELAY_OUT.write_text(json.dumps(manifest, indent=2))
+    RELAY_OUT.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
     stats = manifest["stats"]
     print(f"\n{'='*60}")

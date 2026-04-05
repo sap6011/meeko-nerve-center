@@ -62,7 +62,7 @@ def cross_pollinate():
         print(f"Added to Build Queue: {item.get('content_summary')}")
 
     if new_tasks:
-        QUEUE_FILE.write_text(json.dumps(queue, indent=4))
+        QUEUE_FILE.write_text(json.dumps(queue, indent=4), encoding="utf-8")
 
     # Write state for LIVE_WIRE
     state = {
@@ -76,7 +76,7 @@ def cross_pollinate():
         "knowledge_nodes": len(knowledge.get("nodes", [])) if isinstance(knowledge, dict) else 0,
         "status": "active",
     }
-    (DATA / "cross_pollinator_state.json").write_text(json.dumps(state, indent=2))
+    (DATA / "cross_pollinator_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"State written: data/cross_pollinator_state.json")
 
 

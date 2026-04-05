@@ -367,4 +367,4 @@ if __name__ == "__main__":
         symbol = "✅" if status else "❌"
         print(f"{symbol} {api}: {'Connected' if status else 'Failed'}")
 
-    (DATA / "legacy_sifted_api_integrations_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2))
+    (DATA / "legacy_sifted_api_integrations_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")

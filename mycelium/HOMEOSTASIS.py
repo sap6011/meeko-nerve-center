@@ -358,7 +358,7 @@ def main():
             "prescription_count": len(prescriptions),
         },
     }
-    HOMEO_FILE.write_text(json.dumps(output, indent=2))
+    HOMEO_FILE.write_text(json.dumps(output, indent=2), encoding="utf-8")
 
     HEALTH_FILE.write_text(json.dumps({
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -370,7 +370,7 @@ def main():
         "immune_patterns": vitals.get("immune_patterns", 0),
         "information_voids": vitals.get("information_voids", 0),
         "prescriptions": len(prescriptions),
-    }, indent=2))
+    }, indent=2), encoding="utf-8")
 
     print(f"\n  Homeostasis: {output['stats']['normal_count']} normal | "
           f"{output['stats']['warning_count']} warnings | "
