@@ -159,7 +159,7 @@ def run():
   </div>"""
 
     if not pri_html:
-        pri_html = '<div style="color:#00ff88;padding:20px;text-align:center">✅ No critical blockers — system is fully operational</div>'
+        pri_html = '<div style="color:#00ff88;padding:20px;text-align:center">[OK] No critical blockers — system is fully operational</div>'
 
     caps_html = "".join([f'<li style="margin-bottom:6px;color:rgba(222,234,225,.7);font-size:12px">⚡ {c}</li>' for c in live_capabilities])
 

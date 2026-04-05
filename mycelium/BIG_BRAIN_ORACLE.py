@@ -123,7 +123,7 @@ Respond ONLY as JSON (no markdown):
         if s >= 0:
             return json.loads(text[s:e])
     except Exception as ex:
-        print(f"  ❌ Oracle error: {ex}")
+        print(f"  [FAIL] Oracle error: {ex}")
     return None
 
 
@@ -141,7 +141,7 @@ def run():
 
     insights = ask_oracle(ctx)
     if not insights:
-        print("  ❌ Oracle returned no insights")
+        print("  [FAIL] Oracle returned no insights")
         return
 
     # Save to oracle history

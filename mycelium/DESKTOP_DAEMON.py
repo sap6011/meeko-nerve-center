@@ -480,7 +480,7 @@ def install_autostart():
         print(f"Install failed: {err}")
         print(f"Run manually: python {script_path}")
     else:
-        print("✅ SolarPunk-Daemon installed as Windows scheduled task")
+        print("[OK] SolarPunk-Daemon installed as Windows scheduled task")
         print("   Auto-starts at every login, restarts on crash")
         print(f"   Add os.getenv("ANTHROPIC_API_KEY") to env for full Claude brain")
 

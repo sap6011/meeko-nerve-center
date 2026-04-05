@@ -366,7 +366,7 @@ if __name__ == "__main__":
         r = ask([{"role": "user", "content": "Say exactly: SolarPunk AI online. The loop runs."}], max_tokens=30)
         print(f"  Test: {r}")
     else:
-        print("  ❌ No AI backend available")
+        print("  [FAIL] No AI backend available")
 
 
 # LIVE_WIRE: topology state tracking

@@ -204,7 +204,7 @@ def generate_recommendations(blueprints):
         try:
             import urllib.request
             urllib.request.urlopen("http://localhost:9222/json/version", timeout=2)
-            recs.append("✅ Brave debug port 9222 is LIVE — BRAVE_BROWSER_ENGINE can use it now")
+            recs.append("[OK] Brave debug port 9222 is LIVE — BRAVE_BROWSER_ENGINE can use it now")
         except:
             recs.append("⚠️  Run BRAVE_DEBUG_LAUNCHER.bat to enable SolarPunk browser control")
 

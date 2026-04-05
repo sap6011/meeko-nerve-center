@@ -64,7 +64,7 @@ class NanoAgent:
         result["ts"]      = datetime.now(timezone.utc).isoformat()
         result["log"]     = self.log
         self.state_file.write_text(json.dumps(result, indent=2, default=str))
-        icon = "✅" if result["status"] == "ok" else "❌"
+        icon = "[OK]" if result["status"] == "ok" else "[FAIL]"
         print(f"{icon} {self.name} ({result['elapsed']}s) — {result.get('summary', result['status'])}")
         return result
 

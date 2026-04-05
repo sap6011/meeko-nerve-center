@@ -75,7 +75,7 @@ def score_and_report():
     api_ok, api_msg = check_api_key()
     if api_ok:
         score += 20
-        achievements.append(f"✅ Anthropic API: {api_msg}")
+        achievements.append(f"[OK] Anthropic API: {api_msg}")
     else:
         issues.append(f"🔴 CRITICAL: {api_msg} — All AI features disabled")
         fixes.append("Go to anthropic.com/console -> API Keys -> Create new key -> Add as os.getenv("ANTHROPIC_API_KEY")")
@@ -83,18 +83,18 @@ def score_and_report():
     # File checks
     if (DOCS / "index.html").exists():
         score += 15
-        achievements.append("✅ Shop page: docs/index.html deployed")
+        achievements.append("[OK] Shop page: docs/index.html deployed")
     else:
         issues.append("🔴 Shop page missing — docs/index.html not found")
 
     for fname, pts, label in [("links.html", 3, "Links page"), ("dashboard.html", 3, "Dashboard")]:
         if (DOCS / fname).exists():
             score += pts
-            achievements.append(f"✅ {label}: docs/{fname} exists")
+            achievements.append(f"[OK] {label}: docs/{fname} exists")
 
     if (DATA / "flywheel_state.json").exists():
         score += 5
-        achievements.append("✅ Data pipeline: flywheel_state.json exists")
+        achievements.append("[OK] Data pipeline: flywheel_state.json exists")
 
     # Secret checks
     missing_secrets = []
@@ -102,7 +102,7 @@ def score_and_report():
         val = os.environ.get(secret, "")
         if val and len(val) > 3:
             score += info["pts"]
-            achievements.append(f"✅ {secret}: configured")
+            achievements.append(f"[OK] {secret}: configured")
         else:
             missing_secrets.append({**info, "secret": secret})
 
@@ -119,7 +119,7 @@ def score_and_report():
     has_revenue, gaza_total, sales = check_revenue()
     if has_revenue:
         score += 15
-        achievements.append(f"✅ REVENUE: {sales} sales | ${gaza_total:.2f} to Gaza 🎉")
+        achievements.append(f"[OK] REVENUE: {sales} sales | ${gaza_total:.2f} to Gaza 🎉")
     else:
         issues.append("💰 No revenue yet — shop needs human promotion")
         fixes.append("Share shop URL: meekotharaccoon-cell.github.io/meeko-nerve-center")
