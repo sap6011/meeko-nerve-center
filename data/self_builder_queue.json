@@ -3,5 +3,162 @@
   "purpose": "Populates self_builder_queue.json with real data to revive dead flow",
   "timestamp": "2026-04-05T00:23:50.580887+00:00",
   "inputs_loaded": 1,
-  "status": "active"
+  "status": "active",
+  "tasks": [
+    {
+      "id": "fuel_infra_kofi_product_listing",
+      "source": "crosswire_fuel_core",
+      "priority": "high",
+      "action": "List first product on Ko-fi shop",
+      "impact": "UNLOCKS first sale -- Ko-fi is live, shop is live, product is ready",
+      "time_estimate": "1 hour",
+      "blocking": true,
+      "category": "storefront_infra",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_infra_fix_buy_links",
+      "source": "crosswire_fuel_core",
+      "priority": "high",
+      "action": "Fix broken buy links (Gumroad typos in art.html)",
+      "impact": "7 buy buttons currently 404 -- fixing = 7 new sales channels",
+      "time_estimate": "30 minutes",
+      "blocking": true,
+      "category": "storefront_infra",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_infra_gumroad_account",
+      "source": "crosswire_fuel_core",
+      "priority": "medium",
+      "action": "Create/activate Gumroad storefront",
+      "impact": "Second payment rail -- diversifies revenue, captures different buyers",
+      "time_estimate": "2 hours",
+      "blocking": false,
+      "category": "storefront_infra",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_infra_social_first_post",
+      "source": "crosswire_fuel_core",
+      "priority": "medium",
+      "action": "Post product link on Bluesky/Mastodon",
+      "impact": "First eyeballs that are not bots -- real humans see real products",
+      "time_estimate": "1 day",
+      "blocking": false,
+      "category": "marketing_growth",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_infra_seo_meta_tags",
+      "source": "crosswire_fuel_core",
+      "priority": "medium",
+      "action": "Add SEO meta tags to store/product pages",
+      "impact": "Organic search discovery -- passive traffic that compounds",
+      "time_estimate": "2 weeks",
+      "blocking": false,
+      "category": "marketing_growth",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_blocker_no_live_listings",
+      "source": "crosswire_fuel_core",
+      "priority": "critical",
+      "action": "List top-scored product on Ko-fi shop RIGHT NOW",
+      "reason": "11 products ready but ZERO listed on any platform",
+      "time_estimate": "1 hour",
+      "severity": "critical",
+      "category": "blocker_fix",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_blocker_gumroad_404",
+      "source": "crosswire_fuel_core",
+      "priority": "high",
+      "action": "Create Gumroad account OR redirect all buy buttons to Ko-fi",
+      "reason": "Gumroad storefront returns 404 -- all Gumroad buy buttons are dead",
+      "time_estimate": "30 minutes",
+      "severity": "high",
+      "category": "blocker_fix",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_blocker_broken_buy_links",
+      "source": "crosswire_fuel_core",
+      "priority": "high",
+      "action": "Fix URLs in art.html and store pages",
+      "reason": "7 buy links broken (typos/dead URLs)",
+      "time_estimate": "20 minutes",
+      "severity": "high",
+      "category": "blocker_fix",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_blocker_zero_distribution",
+      "source": "crosswire_fuel_core",
+      "priority": "high",
+      "action": "Post product links on Bluesky, Mastodon, or any social channel",
+      "reason": "Products exist but no evidence of social distribution",
+      "time_estimate": "10 minutes",
+      "severity": "medium",
+      "category": "blocker_fix",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_blocker_no_revenue",
+      "source": "crosswire_fuel_core",
+      "priority": "critical",
+      "action": "Fix blockers above, then the first sale unlocks everything",
+      "reason": "Total revenue: $0.00 -- the growth loop has not started",
+      "time_estimate": "depends on above",
+      "severity": "critical",
+      "category": "blocker_fix",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_critical_1_blocker_fix",
+      "source": "crosswire_fuel_core",
+      "priority": "critical",
+      "action": "List top-scored product on Ko-fi shop RIGHT NOW",
+      "reason": "11 products ready but ZERO listed on any platform",
+      "time_estimate": "1 hour",
+      "category": "blocker_fix",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_critical_2_storefront_infra",
+      "source": "crosswire_fuel_core",
+      "priority": "critical",
+      "action": "List 'Build Your Own SolarPunk' ($1) on Ko-fi shop",
+      "reason": "Highest scored product, lowest price, Ko-fi is live -- path of least resistance",
+      "time_estimate": "1 hour",
+      "category": "storefront_infra",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    },
+    {
+      "id": "fuel_critical_3_marketing_growth",
+      "source": "crosswire_fuel_core",
+      "priority": "critical",
+      "action": "Post the Ko-fi shop link on at least 1 social platform",
+      "reason": "Zero eyeballs = zero sales, no matter how good the product",
+      "time_estimate": "10 minutes",
+      "category": "marketing_growth",
+      "injected_at": "2026-04-05T01:08:45.703920+00:00",
+      "status": "pending"
+    }
+  ],
+  "crosswire_last_update": "2026-04-05T01:09:18.355231+00:00",
+  "crosswire_injected_total": 13
 }

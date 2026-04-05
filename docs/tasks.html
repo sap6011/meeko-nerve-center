@@ -1,0 +1,2285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Human Task Board -- SolarPunk</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#d4d4d4;padding:20px;max-width:900px;margin:0 auto}
+h1{color:#4ade80;margin-bottom:4px;font-size:1.8em}
+h2{color:#86efac;margin:28px 0 12px;font-size:1.2em;border-bottom:1px solid #222;padding-bottom:6px}
+h3{color:#a5f3c4;font-size:1em;margin:18px 0 8px}
+.subtitle{color:#666;margin-bottom:16px;font-size:0.88em}
+.stats-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.stat{background:#111;border:1px solid #222;border-radius:8px;padding:10px 16px;text-align:center;flex:1;min-width:100px}
+.stat-n{display:block;font-size:1.6em;font-weight:bold;color:#4ade80}
+.stat-l{display:block;font-size:0.72em;color:#666;margin-top:2px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.pill{padding:5px 14px;border-radius:16px;font-size:0.78em;cursor:pointer;border:1px solid #333;transition:all 0.15s}
+.pill:hover{border-color:#4ade80;color:#4ade80}
+.pill.active{background:#14532d;border-color:#22c55e;color:#4ade80}
+.cat-revenue{border-color:#22c55e;color:#4ade80}
+.cat-infrastructure{border-color:#3b82f6;color:#60a5fa}
+.cat-outreach{border-color:#a855f7;color:#c084fc}
+.cat-content{border-color:#f59e0b;color:#fbbf24}
+.cat-legal{border-color:#ef4444;color:#f87171}
+.cat-grants{border-color:#14b8a6;color:#2dd4bf}
+.cat-all{border-color:#666;color:#999}
+.task-row{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;margin-bottom:8px;background:#111;border:1px solid #1e1e1e;border-radius:8px;transition:all 0.15s}
+.task-row:hover{border-color:#333;background:#151515}
+.task-row.done{opacity:0.35;text-decoration:line-through}
+.task-row.hidden{display:none}
+.sev-critical{border-left:3px solid #ef4444}
+.sev-high{border-left:3px solid #f97316}
+.check-wrap{position:relative;cursor:pointer;flex-shrink:0;margin-top:2px}
+.check-wrap input{opacity:0;position:absolute}
+.checkmark{display:inline-block;width:20px;height:20px;border:2px solid #444;border-radius:4px;transition:all 0.15s}
+.check-wrap input:checked+.checkmark{background:#4ade80;border-color:#4ade80}
+.rank{color:#4ade80;font-weight:bold;font-size:0.82em;flex-shrink:0;width:32px;margin-top:2px}
+.task-body{flex:1;min-width:0}
+.task-action{font-size:0.92em;margin-bottom:4px;line-height:1.4}
+.task-url{display:block;color:#60a5fa;font-size:0.78em;word-break:break-all;margin:3px 0}
+.task-url:hover{color:#93c5fd}
+.unblocks{color:#666;font-size:0.73em;margin:3px 0}
+.task-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.badge{padding:2px 8px;border-radius:10px;font-size:0.68em;font-weight:600;border:1px solid #333}
+.badge.free{color:#4ade80;border-color:#14532d}
+.badge.cost{color:#fbbf24;border-color:#713f12}
+.badge.rev{color:#4ade80;border-color:#166534;background:#052e16}
+.badge.blocker{color:#ef4444;border-color:#7f1d1d;background:#1c0a0a}
+.badge.time{color:#999;border-color:#333}
+.badge.src{color:#666;border-color:#222}
+.badge.cat{font-weight:bold}
+.session-group{margin:12px 0}
+.session-group h3{font-size:0.95em}
+.session-count{color:#666;font-weight:normal;font-size:0.85em}
+.filter-bar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.filter-bar input{background:#111;border:1px solid #333;border-radius:6px;padding:8px 12px;color:#d4d4d4;font-size:0.85em;flex:1;min-width:200px}
+.filter-bar input:focus{outline:none;border-color:#4ade80}
+.pcrf{margin-top:32px;padding:12px;background:#1a1a0a;border:1px solid #444;border-radius:6px;color:#fbbf24;font-size:0.82em;text-align:center}
+.ts{color:#444;font-size:0.7em;margin-top:16px;text-align:center}
+.progress-bar{background:#1a1a1a;border-radius:8px;height:8px;margin:12px 0;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#4ade80,#22c55e);border-radius:8px;transition:width 0.3s}
+</style>
+</head>
+<body>
+<h1>Human Task Board</h1>
+<p class="subtitle">Every action that needs a human, extracted from 396 data files. Ranked by revenue impact.</p>
+
+<div class="stats-bar">
+  <div class="stat"><span class="stat-n">122</span><span class="stat-l">Tasks</span></div>
+  <div class="stat"><span class="stat-n">396</span><span class="stat-l">Files Scanned</span></div>
+  <div class="stat"><span class="stat-n">65</span><span class="stat-l">Revenue Tasks</span></div>
+  <div class="stat"><span class="stat-n">103</span><span class="stat-l">Free Tasks</span></div>
+  <div class="stat"><span class="stat-n">59</span><span class="stat-l">Blockers</span></div>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
+<p id="progressText" style="color:#666;font-size:0.75em;text-align:center;margin-bottom:16px">0 / 122 tasks complete</p>
+
+<div class="pills" id="catPills">
+<span class="pill cat-revenue" onclick="filterCat('REVENUE')">REVENUE (66)</span>
+<span class="pill cat-infrastructure" onclick="filterCat('INFRASTRUCTURE')">INFRASTRUCTURE (28)</span>
+<span class="pill cat-outreach" onclick="filterCat('OUTREACH')">OUTREACH (12)</span>
+<span class="pill cat-content" onclick="filterCat('CONTENT')">CONTENT (11)</span>
+<span class="pill cat-legal" onclick="filterCat('LEGAL')">LEGAL (3)</span>
+<span class="pill cat-grants" onclick="filterCat('GRANTS')">GRANTS (2)</span>
+<span class="pill cat-all" onclick="filterCat('ALL')">ALL (122)</span>
+
+</div>
+
+<div class="filter-bar">
+  <input type="text" id="searchBox" placeholder="Search tasks..." oninput="filterSearch(this.value)">
+</div>
+
+<h2>Session Planner</h2>
+
+
+<h2>All Tasks (Prioritised)</h2>
+<div id="taskList">
+<div class="task-row cat-item cat-revenue sev-critical" data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#1</span>
+  <div class="task-body">
+    <div class="task-action">FASTEST PATH: go to ko-fi.com/account/shop → paste 6 listings from data/quick_revenue.html → LIVE IN 5 MINUTES</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue sev-critical" data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#2</span>
+  <div class="task-body">
+    <div class="task-action">POST Show HN NOW: 'Show HN: I built a self-running AI agent that funds Gaza relief from every sale' — news.ycombinator.com/submit</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#3</span>
+  <div class="task-body">
+    <div class="task-action">Post product link on Bluesky/Mastodon</div>
+    <div class="unblocks">Unblocks: First eyeballs that are not bots -- real</div>
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">1 day</span>
+      <span class="badge src">fuel_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#4</span>
+  <div class="task-body">
+    <div class="task-action">Fix broken buy links (Gumroad typos in art.html)</div>
+    <div class="unblocks">Unblocks: 7 buy buttons currently 404 -- fixing = , blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">fuel_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#5</span>
+  <div class="task-body">
+    <div class="task-action">Free art lead magnet (download 1 print free, upsell pack)</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">1 hr</span>
+      <span class="badge src">fuel_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#6</span>
+  <div class="task-body">
+    <div class="task-action">Click 'Add New Item' or '+ New Product'</div>
+    <a href="https://ko-fi.com/manage/shop" target="_blank" class="task-url">https://ko-fi.com/manage/shop</a><div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#7</span>
+  <div class="task-body">
+    <div class="task-action">Verify listing is live</div>
+    <a href="https://ko-fi.com/meekotharaccoon/shop" target="_blank" class="task-url">https://ko-fi.com/meekotharaccoon/shop</a><div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#8</span>
+  <div class="task-body">
+    <div class="task-action">Click 'New Product'</div>
+    <a href="https://app.gumroad.com/products/new" target="_blank" class="task-url">https://app.gumroad.com/products/new</a><div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#9</span>
+  <div class="task-body">
+    <div class="task-action">Paste product name</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#10</span>
+  <div class="task-body">
+    <div class="task-action">gumroad.com → Settings → Advanced → Access Token → GitHub Secrets as GUMROAD_ACCESS_TOKEN</div>
+    <div class="unblocks">Unblocks: 6 products queued, $0 published — Gumroa</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">capability_map</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#11</span>
+  <div class="task-body">
+    <div class="task-action">Post the Ko-fi shop link on at least 1 social platform</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#12</span>
+  <div class="task-body">
+    <div class="task-action">Gumroad products queued but not live — needs manual creation at gumroad.com</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#13</span>
+  <div class="task-body">
+    <div class="task-action">Ko-fi shop not set up — copy items from data/quick_revenue.html</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#14</span>
+  <div class="task-body">
+    <div class="task-action">Publish all pending Gumroad listings via GUMROAD_ENGINE</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#15</span>
+  <div class="task-body">
+    <div class="task-action">GUMROAD_AUTO_QUEUE (redirect to Ko-fi)</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#16</span>
+  <div class="task-body">
+    <div class="task-action">Open Gumroad product dashboard</div>
+    <a href="https://app.gumroad.com/products" target="_blank" class="task-url">https://app.gumroad.com/products</a><div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#17</span>
+  <div class="task-body">
+    <div class="task-action">Upload product file and publish</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#18</span>
+  <div class="task-body">
+    <div class="task-action">Attach product file and publish</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#19</span>
+  <div class="task-body">
+    <div class="task-action">Set price to $1.00</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#20</span>
+  <div class="task-body">
+    <div class="task-action">Set price to $10.00</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#21</span>
+  <div class="task-body">
+    <div class="task-action">Set price to $25.00</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#22</span>
+  <div class="task-body">
+    <div class="task-action">Set price to $8.00</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#23</span>
+  <div class="task-body">
+    <div class="task-action">PREP NOW: Download Briar+Bridgefy+Tor before shutdown. Save offline maps. Get ProtonVPN. Store contacts offline. FM radio=backup comms.</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#24</span>
+  <div class="task-body">
+    <div class="task-action">PAYPAL_PAYOUT.py — Automated revenue distribution to human contributors</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#25</span>
+  <div class="task-body">
+    <div class="task-action">Dev.to API Key (free but needs account setup)</div>
+    <a href="https://dev.to/settings/extensions (API Keys section)" target="_blank" class="task-url">https://dev.to/settings/extensions (API Keys section)</a><div class="unblocks">Unblocks: DEV_TO_PUBLISHER, CONTENT_AUTOPILOT (auto-publish), Auto-publish articles to dev.to. Each ar</div>
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">resource_allocator_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#26</span>
+  <div class="task-body">
+    <div class="task-action">Bluesky App Password (free)</div>
+    <a href="https://bsky.app/settings/app-passwords" target="_blank" class="task-url">https://bsky.app/settings/app-passwords</a><div class="unblocks">Unblocks: BLUESKY_ENGINE, SOCIAL_PROMOTER, AMPLIFY_ENGINE</div>
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">resource_allocator_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#27</span>
+  <div class="task-body">
+    <div class="task-action">GitHub Personal Access Token (free)</div>
+    <a href="https://github.com/settings/tokens" target="_blank" class="task-url">https://github.com/settings/tokens</a><div class="unblocks">Unblocks: GITHUB_POSTER, GITHUB_RELEASES_PUBLISHER, ANALYTICS_ENGINE</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">resource_allocator_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#28</span>
+  <div class="task-body">
+    <div class="task-action">Groq API Key (free tier = 30 req/min)</div>
+    <a href="https://console.groq.com/keys" target="_blank" class="task-url">https://console.groq.com/keys</a><div class="unblocks">Unblocks: CORTEX, CONTENT_AUTOPILOT (AI-generated articles, PDF_GENERATOR</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">resource_allocator_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-legal " data-cat="LEGAL">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#29</span>
+  <div class="task-body">
+    <div class="task-action">File DBA (Doing Business As) for SolarPunk</div>
+    <div class="unblocks">Unblocks: Legal identity -- required for business </div>
+    <div class="task-meta">
+      <span class="badge cat cat-legal">LEGAL</span>
+      <span class="badge cost">$50</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">fuel_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue sev-high" data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#30</span>
+  <div class="task-body">
+    <div class="task-action">Create Gumroad account OR redirect all buy buttons to Ko-fi</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#31</span>
+  <div class="task-body">
+    <div class="task-action">Gumroad 404 detected: redirect all store buy buttons to Ko-fi immediately</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#32</span>
+  <div class="task-body">
+    <div class="task-action">7 buy buttons currently 404 -- fixing = 7 new sales channels</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#33</span>
+  <div class="task-body">
+    <div class="task-action">Set price to $12.00</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#34</span>
+  <div class="task-body">
+    <div class="task-action">Set price to $6.00</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#35</span>
+  <div class="task-body">
+    <div class="task-action">Set price to $5.00</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#36</span>
+  <div class="task-body">
+    <div class="task-action">Click 'Add New Item' (or '+ New Product')</div>
+    <a href="https://ko-fi.com/manage/shop" target="_blank" class="task-url">https://ko-fi.com/manage/shop</a>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#37</span>
+  <div class="task-body">
+    <div class="task-action">Click 'Add New Item' (or '+ New Product')</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#38</span>
+  <div class="task-body">
+    <div class="task-action">Verify the live listing</div>
+    <a href="https://ko-fi.com/meekotharaccoon/shop" target="_blank" class="task-url">https://ko-fi.com/meekotharaccoon/shop</a>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#39</span>
+  <div class="task-body">
+    <div class="task-action">Verify the live listing</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#40</span>
+  <div class="task-body">
+    <div class="task-action">Click 'Add New Item' or '+ New Product'</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#41</span>
+  <div class="task-body">
+    <div class="task-action">Verify listing is live</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#42</span>
+  <div class="task-body">
+    <div class="task-action">Click 'New Product'</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#43</span>
+  <div class="task-body">
+    <div class="task-action">Add GUMROAD_ACCESS_TOKEN: gumroad.com → Settings → Advanced → Access Token</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">brain_state</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#44</span>
+  <div class="task-body">
+    <div class="task-action">Go to ko-fi.com/account/shop</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">art_catalog</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#45</span>
+  <div class="task-body">
+    <div class="task-action">Set price to $1.00 USD each</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">art_catalog</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#46</span>
+  <div class="task-body">
+    <div class="task-action">Get 100 people to visit store.html this week</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">atomizer_state</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#47</span>
+  <div class="task-body">
+    <div class="task-action">4. Submit at producthunt.com/posts/new - highest traffic opportunity</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">consolidated_knowledge</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#48</span>
+  <div class="task-body">
+    <div class="task-action">Log into Gumroad to upload products if not done yet</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">consolidated_knowledge</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#49</span>
+  <div class="task-body">
+    <div class="task-action">Fix 7 buy links: replace generic gumroad.com with product-specific URLs</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">ctx</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#50</span>
+  <div class="task-body">
+    <div class="task-action">Open Ko-fi shop dashboard</div>
+    <a href="https://ko-fi.com/manage/shop" target="_blank" class="task-url">https://ko-fi.com/manage/shop</a>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#51</span>
+  <div class="task-body">
+    <div class="task-action">Open Ko-fi shop dashboard</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#52</span>
+  <div class="task-body">
+    <div class="task-action">Set price</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#53</span>
+  <div class="task-body">
+    <div class="task-action">Upload the product file</div>
+    <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/releases/download/products-20260313/solarpunk-starter.md" target="_blank" class="task-url">https://github.com/meekotharaccoon-cell/meeko-nerve-center/r...</a>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#54</span>
+  <div class="task-body">
+    <div class="task-action">Upload the product file</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#55</span>
+  <div class="task-body">
+    <div class="task-action">Publish the listing</div>
+    <a href="https://ko-fi.com/manage/shop" target="_blank" class="task-url">https://ko-fi.com/manage/shop</a>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#56</span>
+  <div class="task-body">
+    <div class="task-action">Publish the listing</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#57</span>
+  <div class="task-body">
+    <div class="task-action">💰 No revenue yet — shop needs human promotion</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">health_report</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#58</span>
+  <div class="task-body">
+    <div class="task-action">Open Gumroad product dashboard</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content " data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#59</span>
+  <div class="task-body">
+    <div class="task-action">Auto-publish articles to dev.to. Each article links to shop. Dev.to has 500K+ monthly developers. Free traffic forever.</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#60</span>
+  <div class="task-body">
+    <div class="task-action">🔧 FIX: OMNIBRAIN verify secrets shell quoting bug (heredoc replaces broken pytho</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#61</span>
+  <div class="task-body">
+    <div class="task-action">Paste full description (Markdown)</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#62</span>
+  <div class="task-body">
+    <div class="task-action">Paste title</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#63</span>
+  <div class="task-body">
+    <div class="task-action">Paste description</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content " data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#64</span>
+  <div class="task-body">
+    <div class="task-action">Click Publish</div>
+    <a href="https://ko-fi.com/manage/shop" target="_blank" class="task-url">https://ko-fi.com/manage/shop</a><div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#65</span>
+  <div class="task-body">
+    <div class="task-action">Full sovereignty cycle — audit, verify, sign, declare</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#66</span>
+  <div class="task-body">
+    <div class="task-action">SOCIAL_DASHBOARD.py — builds docs/social.html copy-paste board from social_queue.json</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#67</span>
+  <div class="task-body">
+    <div class="task-action">Lightning/Strike - zero fee, awaiting API key</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content " data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#68</span>
+  <div class="task-body">
+    <div class="task-action">SIGNUP_WIDGET — embed email signup on every page, feed into Substack/Mailchimp</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#69</span>
+  <div class="task-body">
+    <div class="task-action">PROTECT: Blur faces w/o consent. Signal=encrypted transmit. Cloud upload survives device seizure. NEVER ID yourself unless you choose.</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#70</span>
+  <div class="task-body">
+    <div class="task-action">SUBMIT: ICC icc-cpi.int/how-to-communicate. HRW hrw.org/submit-information. Bellingcat bellingcat.com. Amnesty amnesty.org/en/contact.</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#71</span>
+  <div class="task-body">
+    <div class="task-action">RIGHTS: You CAN seek asylum=international law. Cannot be returned to danger. UNHCR unhcr.org=register for protection. Keep ALL documents.</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#72</span>
+  <div class="task-body">
+    <div class="task-action">FAMILY: Red Cross family tracing familylinks.icrc.org. Children alone=special CRC protections. Register w/ICRC immediately if separated.</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#73</span>
+  <div class="task-body">
+    <div class="task-action">login</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content " data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#74</span>
+  <div class="task-body">
+    <div class="task-action">CONNECTION_FORGE — SolarPunk emails itself setup guides</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-grants " data-cat="GRANTS">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#75</span>
+  <div class="task-body">
+    <div class="task-action">GRANT_HUNTER - Finds grants SolarPunk can apply for</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-grants">GRANTS</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content " data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#76</span>
+  <div class="task-body">
+    <div class="task-action">HUMAN_CONNECTOR — When a real human emails SolarPunk, help them build something</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#77</span>
+  <div class="task-body">
+    <div class="task-action">Auto-configure Medusa with PayPal credentials from .secrets</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#78</span>
+  <div class="task-body">
+    <div class="task-action">setup</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#79</span>
+  <div class="task-body">
+    <div class="task-action">submit</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content " data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#80</span>
+  <div class="task-body">
+    <div class="task-action">RSS_PUBLISHER — publish RSS feed from newsletter archive + cycle history</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-legal " data-cat="LEGAL">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#81</span>
+  <div class="task-body">
+    <div class="task-action">SOLARPUNK_LEGAL.py — SolarPunk™ brand protection, trademark tracking, legal fund counter</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-legal">LEGAL</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#82</span>
+  <div class="task-body">
+    <div class="task-action">SHOW_HN_POSTER — auto-draft Show HN post and flag it for Meeko to submit</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">1 hr</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#83</span>
+  <div class="task-body">
+    <div class="task-action">Desert Rose at Dawn - AI Digital Art Print
+
+Impressionist digital artwork that carries meaning beyond aesthetics.
+
+[ROSE] 70c of every $1 supports Gaza Rose Gallery - Palestinian artists & community relief.
+[LOOP] 30c feeds the SolarPunk Loop - reinvested to generate more art, more support.
+
+INSTANT DIGITAL DOWNLOAD
+- 4000 x 4000px JPEG (300 DPI - print any size)
+- Download immediately after payment
+- Personal & commercial use included
+
+YOUR PURCHASE MATTERS
+This isn't just wall art - it's a small act of solidarity.
+Every $1 automatically splits: artist support -&gt; loop fund -&gt; more art.
+The loop feeds itself. Your $1 echoes.
+
+Tags: Palestine art print, Gaza solidarity, digital wall art, instant download art, AI generated art, humanitarian art, bedroom wall decor, digital download, printable wall art, unique art print, social impact art, Palestinian culture, donation art print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#84</span>
+  <div class="task-body">
+    <div class="task-action">White Doves Over the Mediterranean - AI Digital Art Print
+
+Dreamlike digital artwork that carries meaning beyond aesthetics.
+
+[ROSE] 70c of every $1 supports Gaza Rose Gallery - Palestinian artists & community relief.
+[LOOP] 30c feeds the SolarPunk Loop - reinvested to generate more art, more support.
+
+INSTANT DIGITAL DOWNLOAD
+- 4000 x 4000px JPEG (300 DPI - print any size)
+- Download immediately after payment
+- Personal & commercial use included
+
+YOUR PURCHASE MATTERS
+This isn't just wall art - it's a small act of solidarity.
+Every $1 automatically splits: artist support -&gt; loop fund -&gt; more art.
+The loop feeds itself. Your $1 echoes.
+
+Tags: Palestine art print, Gaza solidarity, digital wall art, instant download art, AI generated art, humanitarian art, bedroom wall decor, digital download, printable wall art, unique art print, social impact art, Palestinian culture, donation art print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#85</span>
+  <div class="task-body">
+    <div class="task-action">Olive Grove Eternal - AI Digital Art Print
+
+Painterly digital artwork that carries meaning beyond aesthetics.
+
+[ROSE] 70c of every $1 supports Gaza Rose Gallery - Palestinian artists & community relief.
+[LOOP] 30c feeds the SolarPunk Loop - reinvested to generate more art, more support.
+
+INSTANT DIGITAL DOWNLOAD
+- 4000 x 4000px JPEG (300 DPI - print any size)
+- Download immediately after payment
+- Personal & commercial use included
+
+YOUR PURCHASE MATTERS
+This isn't just wall art - it's a small act of solidarity.
+Every $1 automatically splits: artist support -&gt; loop fund -&gt; more art.
+The loop feeds itself. Your $1 echoes.
+
+Tags: Palestine art print, Gaza solidarity, digital wall art, instant download art, AI generated art, humanitarian art, bedroom wall decor, digital download, printable wall art, unique art print, social impact art, Palestinian culture, donation art print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#86</span>
+  <div class="task-body">
+    <div class="task-action">Tatreez Pattern Bloom - AI Digital Art Print
+
+Geometric digital artwork that carries meaning beyond aesthetics.
+
+[ROSE] 70c of every $1 supports Gaza Rose Gallery - Palestinian artists & community relief.
+[LOOP] 30c feeds the SolarPunk Loop - reinvested to generate more art, more support.
+
+INSTANT DIGITAL DOWNLOAD
+- 4000 x 4000px JPEG (300 DPI - print any size)
+- Download immediately after payment
+- Personal & commercial use included
+
+YOUR PURCHASE MATTERS
+This isn't just wall art - it's a small act of solidarity.
+Every $1 automatically splits: artist support -&gt; loop fund -&gt; more art.
+The loop feeds itself. Your $1 echoes.
+
+Tags: Palestine art print, Gaza solidarity, digital wall art, instant download art, AI generated art, humanitarian art, bedroom wall decor, digital download, printable wall art, unique art print, social impact art, Palestinian culture, donation art print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#87</span>
+  <div class="task-body">
+    <div class="task-action">Gaza Coastline at Golden Hour - AI Digital Art Print
+
+Landscape digital artwork that carries meaning beyond aesthetics.
+
+[ROSE] 70c of every $1 supports Gaza Rose Gallery - Palestinian artists & community relief.
+[LOOP] 30c feeds the SolarPunk Loop - reinvested to generate more art, more support.
+
+INSTANT DIGITAL DOWNLOAD
+- 4000 x 4000px JPEG (300 DPI - print any size)
+- Download immediately after payment
+- Personal & commercial use included
+
+YOUR PURCHASE MATTERS
+This isn't just wall art - it's a small act of solidarity.
+Every $1 automatically splits: artist support -&gt; loop fund -&gt; more art.
+The loop feeds itself. Your $1 echoes.
+
+Tags: Palestine art print, Gaza solidarity, digital wall art, instant download art, AI generated art, humanitarian art, bedroom wall decor, digital download, printable wall art, unique art print, social impact art, Palestinian culture, donation art print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#88</span>
+  <div class="task-body">
+    <div class="task-action">Star of Hope Rising - AI Digital Art Print
+
+Symbolic digital artwork that carries meaning beyond aesthetics.
+
+[ROSE] 70c of every $1 supports Gaza Rose Gallery - Palestinian artists & community relief.
+[LOOP] 30c feeds the SolarPunk Loop - reinvested to generate more art, more support.
+
+INSTANT DIGITAL DOWNLOAD
+- 4000 x 4000px JPEG (300 DPI - print any size)
+- Download immediately after payment
+- Personal & commercial use included
+
+YOUR PURCHASE MATTERS
+This isn't just wall art - it's a small act of solidarity.
+Every $1 automatically splits: artist support -&gt; loop fund -&gt; more art.
+The loop feeds itself. Your $1 echoes.
+
+Tags: Palestine art print, Gaza solidarity, digital wall art, instant download art, AI generated art, humanitarian art, bedroom wall decor, digital download, printable wall art, unique art print, social impact art, Palestinian culture, donation art print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#89</span>
+  <div class="task-body">
+    <div class="task-action">Pomegranate Season - AI Digital Art Print
+
+Botanical digital artwork that carries meaning beyond aesthetics.
+
+[ROSE] 70c of every $1 supports Gaza Rose Gallery - Palestinian artists & community relief.
+[LOOP] 30c feeds the SolarPunk Loop - reinvested to generate more art, more support.
+
+INSTANT DIGITAL DOWNLOAD
+- 4000 x 4000px JPEG (300 DPI - print any size)
+- Download immediately after payment
+- Personal & commercial use included
+
+YOUR PURCHASE MATTERS
+This isn't just wall art - it's a small act of solidarity.
+Every $1 automatically splits: artist support -&gt; loop fund -&gt; more art.
+The loop feeds itself. Your $1 echoes.
+
+Tags: Palestine art print, Gaza solidarity, digital wall art, instant download art, AI generated art, humanitarian art, bedroom wall decor, digital download, printable wall art, unique art print, social impact art, Palestinian culture, donation art print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#90</span>
+  <div class="task-body">
+    <div class="task-action">Night Garden in Ruins - AI Digital Art Print
+
+Surrealist digital artwork that carries meaning beyond aesthetics.
+
+[ROSE] 70c of every $1 supports Gaza Rose Gallery - Palestinian artists & community relief.
+[LOOP] 30c feeds the SolarPunk Loop - reinvested to generate more art, more support.
+
+INSTANT DIGITAL DOWNLOAD
+- 4000 x 4000px JPEG (300 DPI - print any size)
+- Download immediately after payment
+- Personal & commercial use included
+
+YOUR PURCHASE MATTERS
+This isn't just wall art - it's a small act of solidarity.
+Every $1 automatically splits: artist support -&gt; loop fund -&gt; more art.
+The loop feeds itself. Your $1 echoes.
+
+Tags: Palestine art print, Gaza solidarity, digital wall art, instant download art, AI generated art, humanitarian art, bedroom wall decor, digital download, printable wall art, unique art print, social impact art, Palestinian culture, donation art print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#91</span>
+  <div class="task-body">
+    <div class="task-action">Child with Balloon - AI Digital Art Print
+
+Figurative digital artwork that carries meaning beyond aesthetics.
+
+[ROSE] 70c of every $1 supports Gaza Rose Gallery - Palestinian artists & community relief.
+[LOOP] 30c feeds the SolarPunk Loop - reinvested to generate more art, more support.
+
+INSTANT DIGITAL DOWNLOAD
+- 4000 x 4000px JPEG (300 DPI - print any size)
+- Download immediately after payment
+- Personal & commercial use included
+
+YOUR PURCHASE MATTERS
+This isn't just wall art - it's a small act of solidarity.
+Every $1 automatically splits: artist support -&gt; loop fund -&gt; more art.
+The loop feeds itself. Your $1 echoes.
+
+Tags: Palestine art print, Gaza solidarity, digital wall art, instant download art, AI generated art, humanitarian art, bedroom wall decor, digital download, printable wall art, unique art print, social impact art, Palestinian culture, donation art print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#92</span>
+  <div class="task-body">
+    <div class="task-action">The Return - Sunflower Field - AI Digital Art Print
+
+Hopeful digital artwork that carries meaning beyond aesthetics.
+
+[ROSE] 70c of every $1 supports Gaza Rose Gallery - Palestinian artists & community relief.
+[LOOP] 30c feeds the SolarPunk Loop - reinvested to generate more art, more support.
+
+INSTANT DIGITAL DOWNLOAD
+- 4000 x 4000px JPEG (300 DPI - print any size)
+- Download immediately after payment
+- Personal & commercial use included
+
+YOUR PURCHASE MATTERS
+This isn't just wall art - it's a small act of solidarity.
+Every $1 automatically splits: artist support -&gt; loop fund -&gt; more art.
+The loop feeds itself. Your $1 echoes.
+
+Tags: Palestine art print, Gaza solidarity, digital wall art, instant download art, AI generated art, humanitarian art, bedroom wall decor, digital download, printable wall art, unique art print, social impact art, Palestinian culture, donation art print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span><span class="badge rev">$$</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach sev-high" data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#93</span>
+  <div class="task-body">
+    <div class="task-action">1 posts queued in SOCIAL_PROMOTER — add X_API_KEY secret to publish</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">growth_chain_state</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content sev-high" data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#94</span>
+  <div class="task-body">
+    <div class="task-action">Add email signup to every page. Even 10 subscribers = 10 people who asked to hear from you.</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">growth_chain_state</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#95</span>
+  <div class="task-body">
+    <div class="task-action">ART_GENERATOR.py -- AI Art per $1 Purchase</div>
+    <div class="unblocks">Unblocks: blocking dependency</div>
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#96</span>
+  <div class="task-body">
+    <div class="task-action">Click 'Add Item' for each print</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">art_catalog</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content " data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#97</span>
+  <div class="task-body">
+    <div class="task-action">GPG verify with non-GPG content returns returncode=1. SECURE_HANDSHAKE.ps1 has 714D57142A16B477 pinned, gpg --verify call present, Invoke-KaleidoscopeResponse triggered on failure. Verified by code audit.</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">chaos_test_results</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#98</span>
+  <div class="task-body">
+    <div class="task-action">Share the link</div>
+    <a href="https://ko-fi.com/meekotharaccoon" target="_blank" class="task-url">https://ko-fi.com/meekotharaccoon</a>
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#99</span>
+  <div class="task-body">
+    <div class="task-action">Share the link</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content " data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#100</span>
+  <div class="task-body">
+    <div class="task-action">Click Publish</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">5 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#101</span>
+  <div class="task-body">
+    <div class="task-action">Go to anthropic.com/console -&gt; API Keys -&gt; Create new key -&gt; Add as ANTHROPIC_API_KEY</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">brain_state</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#102</span>
+  <div class="task-body">
+    <div class="task-action">Find 'API' section → Generate access token</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">gumroad_setup_needed</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#103</span>
+  <div class="task-body">
+    <div class="task-action">Dev.to API Key (free but needs account setup)</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#104</span>
+  <div class="task-body">
+    <div class="task-action">GitHub Personal Access Token (free)</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#105</span>
+  <div class="task-body">
+    <div class="task-action">Groq API Key (free tier = 30 req/min)</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">10 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#106</span>
+  <div class="task-body">
+    <div class="task-action">EldritchLabs/Human-Like-Mistral-Nemo-Instruct-2407-MPOA</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">ai_watcher_state</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#107</span>
+  <div class="task-body">
+    <div class="task-action">email sending — MUST be App Password not account password</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">bottleneck_report</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#108</span>
+  <div class="task-body">
+    <div class="task-action">Reddit login</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">bottleneck_report</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#109</span>
+  <div class="task-body">
+    <div class="task-action">digital download</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">business_ai_tools_mega_pack_—_mar_2026</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#110</span>
+  <div class="task-body">
+    <div class="task-action">Trigger manual runs by committing workflow dispatch</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">claude_briefing</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-grants " data-cat="GRANTS">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#111</span>
+  <div class="task-body">
+    <div class="task-action">human rights</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-grants">GRANTS</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">ctx</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#112</span>
+  <div class="task-body">
+    <div class="task-action">Note: GitHub clone count includes automated CI checkouts — real human visitors are much lower</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">ctx</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#113</span>
+  <div class="task-body">
+    <div class="task-action">instant download art</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">etsy_seo_output</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#114</span>
+  <div class="task-body">
+    <div class="task-action">Add tags</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">first_dollar_plan</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#115</span>
+  <div class="task-body">
+    <div class="task-action">human rights tech</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">fund_scout_results</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content " data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#116</span>
+  <div class="task-body">
+    <div class="task-action">Publish article</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">growth_flywheel_calendar</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-infrastructure " data-cat="INFRASTRUCTURE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#117</span>
+  <div class="task-body">
+    <div class="task-action">Every purchase = 99%% to mutual aid</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-infrastructure">INFRASTRUCTURE</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">growth_flywheel_calendar</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-content " data-cat="CONTENT">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#118</span>
+  <div class="task-body">
+    <div class="task-action">CONTENT_AUTOPILOT (auto-publish)</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-content">CONTENT</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#119</span>
+  <div class="task-body">
+    <div class="task-action">Bluesky App Password (free)</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-legal " data-cat="LEGAL">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#120</span>
+  <div class="task-body">
+    <div class="task-action">Legal identity -- required for business bank account and trademark</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-legal">LEGAL</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">15 min</span>
+      <span class="badge src">human_task_board</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-outreach " data-cat="OUTREACH">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#121</span>
+  <div class="task-body">
+    <div class="task-action">[AGENT_TWEET_WRITER] Claude API error: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CZ3WdtnfMBgwaCdCWrPHq'}</div>
+    
+    <div class="task-meta">
+      <span class="badge cat cat-outreach">OUTREACH</span>
+      <span class="badge free">FREE</span>
+      <span class="badge time">1 hr</span>
+      <span class="badge src">agent_tweet_writer_state</span>
+    </div>
+  </div>
+</div>
+<div class="task-row cat-item cat-revenue " data-cat="REVENUE">
+  <label class="check-wrap">
+    <input type="checkbox" onchange="toggleDone(this)"><span class="checkmark"></span>
+  </label>
+  <span class="rank">#122</span>
+  <div class="task-body">
+    <div class="task-action">Buy a custom domain (solarpunk.shop or similar)</div>
+    <div class="unblocks">Unblocks: Trust signal -- real domain = real busin</div>
+    <div class="task-meta">
+      <span class="badge cat cat-revenue">REVENUE</span>
+      <span class="badge cost">$12</span><span class="badge rev">$$</span><span class="badge blocker">BLOCKER</span>
+      <span class="badge time">1 wk</span>
+      <span class="badge src">fuel_plan</span>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="pcrf">15% of all SolarPunk revenue goes to Palestinian Children's Relief Fund (PCRF, EIN: 93-1057665)</div>
+<div class="ts">Generated 2026-04-05T01:04:20.496950+00:00 by HUMAN_TASK_BOARD</div>
+
+<script>
+let activeCat = 'ALL';
+function filterCat(cat) {
+  activeCat = cat;
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.cat-item').forEach(el => {
+    if (cat === 'ALL' || el.dataset.cat === cat) {
+      el.classList.remove('hidden');
+    } else {
+      el.classList.add('hidden');
+    }
+  });
+  filterSearch(document.getElementById('searchBox').value);
+}
+function filterSearch(q) {
+  const low = q.toLowerCase();
+  document.querySelectorAll('.cat-item').forEach(el => {
+    if (activeCat !== 'ALL' && el.dataset.cat !== activeCat) {
+      el.classList.add('hidden');
+      return;
+    }
+    if (!low) { el.classList.remove('hidden'); return; }
+    const text = el.textContent.toLowerCase();
+    el.classList.toggle('hidden', !text.includes(low));
+  });
+}
+function toggleDone(cb) {
+  const row = cb.closest('.task-row');
+  row.classList.toggle('done', cb.checked);
+  updateProgress();
+  // Save to localStorage
+  const key = 'htb_' + row.querySelector('.rank').textContent;
+  localStorage.setItem(key, cb.checked ? '1' : '0');
+}
+function updateProgress() {
+  const total = document.querySelectorAll('.task-row').length;
+  const done = document.querySelectorAll('.task-row.done').length;
+  const pct = total > 0 ? (done / total * 100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = done + ' / ' + total + ' tasks complete';
+}
+// Restore state from localStorage
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.task-row').forEach(row => {
+    const key = 'htb_' + row.querySelector('.rank').textContent;
+    if (localStorage.getItem(key) === '1') {
+      const cb = row.querySelector('input[type=checkbox]');
+      cb.checked = true;
+      row.classList.add('done');
+    }
+  });
+  updateProgress();
+});
+</script>
+</body>
+</html>

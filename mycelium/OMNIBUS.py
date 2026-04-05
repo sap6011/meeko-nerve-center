@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v40 — 1/99 FUEL SYSTEM: dual-mode revenue engine (358 engines, 5284 wires, chimera 78/100)
+OMNIBUS v41 — DUAL SYSTEM CROSSWIRE: 1/99 + 99/1 fully connected (360 engines, 5391 wires, chimera 78/100)
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
