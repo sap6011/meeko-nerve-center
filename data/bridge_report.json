@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-05T19:11:37.719654+00:00",
-  "bridges_attempted": 121,
+  "timestamp": "2026-04-05T19:32:58.334926+00:00",
+  "bridges_attempted": 125,
   "bridges_built": 14,
-  "bridges_failed": 107,
+  "bridges_failed": 111,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
@@ -22,15 +22,15 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 392 pass, 0 fail out of 392 engines",
-      "pass": 392,
+      "detail": "Local sentinel: 393 pass, 0 fail out of 393 engines",
+      "pass": 393,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 597 nodes, 5881 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 597,
+      "detail": "Knowledge graph: 598 nodes, 5881 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 598,
       "edges": 5881,
       "top_hubs": [
         [
@@ -74,7 +74,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 392 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 393 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -89,12 +89,12 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 36, score 79/100",
+      "detail": "Chimera gen 38, score 79/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 392",
+      "detail": "Healed 0, scanned 393",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -209,7 +209,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (392 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (393 pass)",
       "target": "sentinel_scan.json"
     },
     {
@@ -646,6 +646,26 @@
       "status": "ALREADY_EXISTS",
       "detail": "internet_signals.json already has data",
       "target": "internet_signals.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "usb_bridge_state.json already has data",
+      "target": "usb_bridge_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "usb_catalog.json already has data",
+      "target": "usb_catalog.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "usb_ingest.json already has data",
+      "target": "usb_ingest.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "disk_health.json already has data",
+      "target": "disk_health.json"
     }
   ],
   "note": "Successes AND failures documented. Both are useful."

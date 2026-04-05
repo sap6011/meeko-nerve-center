@@ -4,16 +4,16 @@
 > -- a living, bio-inspired autonomous AI system built to fight
 > tyranny, protect the silenced, and generate sovereign revenue.
 
-Generated: 2026-04-05 19:11 UTC
+Generated: 2026-04-05 19:32 UTC
 
 ## System Statistics
 
 | Metric | Value |
 |--------|-------|
-| Total Engines | 392 |
-| Total Lines of Code | 83,819 |
-| Total Functions | 2,248 |
-| Engines with run() | 234 |
+| Total Engines | 393 |
+| Total Lines of Code | 84,391 |
+| Total Functions | 2,265 |
+| Engines with run() | 235 |
 | Categories | 11 |
 
 ## Table of Contents
@@ -23,7 +23,7 @@ Generated: 2026-04-05 19:11 UTC
 3. [Content & Distribution](#content-distribution) (31 engines)
 4. [Self-Improvement & Ops](#self-improvement-ops) (29 engines)
 5. [Crisis Response & Defense](#crisis-response-defense) (26 engines)
-6. [Topology & Wiring](#topology-wiring) (25 engines)
+6. [Topology & Wiring](#topology-wiring) (26 engines)
 7. [Intelligence & Memory](#intelligence-memory) (22 engines)
 8. [Infrastructure & Scheduling](#infrastructure-scheduling) (22 engines)
 9. [Outreach & Partnerships](#outreach-partnerships) (15 engines)
@@ -1938,12 +1938,12 @@ Generated: 2026-04-05 19:11 UTC
 
 ### OMNIBUS
 
-**Purpose:** OMNIBUS v47 — SOLARPUNK_AUTOPILOT + INTERNET_BRIDGE: self-healing internet-connected loop
+**Purpose:** OMNIBUS v48 — USB_BRIDGE + NANOBOT_HEALER kill: living USB port, corruption loop dead
 
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 652 |
+| Lines | 653 |
 | Functions | 15 |
 | Has run() | Yes |
 
@@ -4749,7 +4749,7 @@ Generated: 2026-04-05 19:11 UTC
 
 ## Topology & Wiring
 
-*25 engines in this category*
+*26 engines in this category*
 
 ### BRAVE_BRIDGE
 
@@ -4773,11 +4773,11 @@ Generated: 2026-04-05 19:11 UTC
 | Property | Value |
 |----------|-------|
 | Layer | L4 |
-| Lines | 1550 |
-| Functions | 125 |
+| Lines | 1585 |
+| Functions | 129 |
 | Has run() | Yes |
 
-**Functions:** `load_json`, `bridge_grants_found`, `bridge_sentinel_report`, `bridge_knowledge_graph`, `bridge_quick_revenue`, `seed_json`, `seed_text`, `bridge_social_queue`, `bridge_brave_browser_state`, `bridge_conversion_log`, `bridge_desktop_daemon_state`, `bridge_knowledge_bank`, `bridge_neuron_reports`, `bridge_newsletter_subscribers`, `bridge_pending_publication`, `bridge_resurrections`, `bridge_sponsors_inbox`, `bridge_storefront_builder_state`, `bridge_synergy_mutations`, `bridge_system_directive`, `bridge_newsletter_archive`, `bridge_river_watch`, `bridge_desktop_blueprints`, `bridge_orphan_tweets`, `bridge_orphan_daemon_task`, `bridge_chimera_evolution`, `bridge_nanobot_heal`, `bridge_mutation_leaderboard`, `bridge_polymarket_scan`, `bridge_hemisphere_state`, `bridge_relay_baton`, `bridge_amplification_posts`, `bridge_amplify_cooldown`, `bridge_murmuration_trap`, `bridge_revenue_state`, `bridge_sentinel_scan`, `bridge_sovereignty_state`, `bridge_stress_backup_river_watch`, `bridge_public_ledger`, `bridge_agent_link_verifier_state`, `bridge_ai_council_report`, `bridge_art_log`, `bridge_atomizer_state`, `bridge_claude_autonomous_report`, `bridge_compound_tracker`, `bridge_cycle_memory`, `bridge_desktop_agent_log`, `bridge_dual_brain_conversation`, `bridge_external_signals`, `bridge_finance_ledger`, `bridge_handshake_results`, `bridge_kimi_conductor_report`, `bridge_known_devices`, `bridge_local_needs_radar`, `bridge_master_config`, `bridge_mutual_aid_routing`, `bridge_neural_weights`, `bridge_open_loops`, `bridge_product_ideas`, `bridge_reminders`, `bridge_revenue_data`, `bridge_secrets`, `bridge_self_wiring_report`, `bridge_system_manifest`, `bridge_system_wants_next`, `bridge_workflow_health`, `bridge_fuel_core_state`, `bridge_fuel_plan`, `bridge_revenue_splitter_state`, `bridge_revenue_routing`, `bridge_storefront_deployer_state`, `bridge_storefront_deployer_listings`, `bridge_storefront_deployer_checklists`, `bridge_growth_flywheel_state`, `bridge_growth_flywheel_calendar`, `bridge_growth_flywheel_content`, `bridge_human_task_board`, `bridge_crosswire_state`, `bridge_revenue_flow`, `bridge_autopilot_executor_state`, `bridge_email_templates`, `bridge_kofi_ready_listings`, `bridge_image_descriptions`, `bridge_discussion_drafts`, `bridge_digital_saturation_state`, `bridge_saturation_gaps`, `bridge_storefront_listings`, `bridge_signal_chain_state`, `bridge_signal_chain_queue`, `bridge_telegram_relay`, `bridge_article_drafts`, `bridge_virality_posts`, `bridge_email_intelligence_state`, `bridge_verified_contacts`, `bridge_outreach_queue`, `bridge_bounce_registry`, `bridge_active_outreach_draft`, `bridge_aggregated_summary`, `bridge_bundle_forge_state`, `bridge_catalog_generator_state`, `bridge_chimera_score`, `bridge_content_harvest_state`, `bridge_dev_to_publisher_state`, `bridge_email_agent_exchange_state`, `bridge_event_relay_state`, `bridge_fractal_replicator_tracking`, `bridge_harvested_knowledge`, `bridge_monitor_alerts`, `bridge_monitored_resource`, `bridge_publish_log`, `bridge_raw_input`, `bridge_transformed_output`, `bridge_vanish_protocol_state`, `bridge_machine_revenue_state`, `bridge_bounty_queue`, `bridge_agent_service_catalog`, `bridge_gap_closer_state`, `bridge_gap_closer_report`, `bridge_tweets_queue`, `bridge_health_advisory`, `bridge_autopilot_state`, `bridge_internet_bridge_state`, `bridge_internet_signals`, `bridge_solarpunk_legal_declaration`, `run`
+**Functions:** `load_json`, `bridge_grants_found`, `bridge_sentinel_report`, `bridge_knowledge_graph`, `bridge_quick_revenue`, `seed_json`, `seed_text`, `bridge_social_queue`, `bridge_brave_browser_state`, `bridge_conversion_log`, `bridge_desktop_daemon_state`, `bridge_knowledge_bank`, `bridge_neuron_reports`, `bridge_newsletter_subscribers`, `bridge_pending_publication`, `bridge_resurrections`, `bridge_sponsors_inbox`, `bridge_storefront_builder_state`, `bridge_synergy_mutations`, `bridge_system_directive`, `bridge_newsletter_archive`, `bridge_river_watch`, `bridge_desktop_blueprints`, `bridge_orphan_tweets`, `bridge_orphan_daemon_task`, `bridge_chimera_evolution`, `bridge_nanobot_heal`, `bridge_mutation_leaderboard`, `bridge_polymarket_scan`, `bridge_hemisphere_state`, `bridge_relay_baton`, `bridge_amplification_posts`, `bridge_amplify_cooldown`, `bridge_murmuration_trap`, `bridge_revenue_state`, `bridge_sentinel_scan`, `bridge_sovereignty_state`, `bridge_stress_backup_river_watch`, `bridge_public_ledger`, `bridge_agent_link_verifier_state`, `bridge_ai_council_report`, `bridge_art_log`, `bridge_atomizer_state`, `bridge_claude_autonomous_report`, `bridge_compound_tracker`, `bridge_cycle_memory`, `bridge_desktop_agent_log`, `bridge_dual_brain_conversation`, `bridge_external_signals`, `bridge_finance_ledger`, `bridge_handshake_results`, `bridge_kimi_conductor_report`, `bridge_known_devices`, `bridge_local_needs_radar`, `bridge_master_config`, `bridge_mutual_aid_routing`, `bridge_neural_weights`, `bridge_open_loops`, `bridge_product_ideas`, `bridge_reminders`, `bridge_revenue_data`, `bridge_secrets`, `bridge_self_wiring_report`, `bridge_system_manifest`, `bridge_system_wants_next`, `bridge_workflow_health`, `bridge_fuel_core_state`, `bridge_fuel_plan`, `bridge_revenue_splitter_state`, `bridge_revenue_routing`, `bridge_storefront_deployer_state`, `bridge_storefront_deployer_listings`, `bridge_storefront_deployer_checklists`, `bridge_growth_flywheel_state`, `bridge_growth_flywheel_calendar`, `bridge_growth_flywheel_content`, `bridge_human_task_board`, `bridge_crosswire_state`, `bridge_revenue_flow`, `bridge_autopilot_executor_state`, `bridge_email_templates`, `bridge_kofi_ready_listings`, `bridge_image_descriptions`, `bridge_discussion_drafts`, `bridge_digital_saturation_state`, `bridge_saturation_gaps`, `bridge_storefront_listings`, `bridge_signal_chain_state`, `bridge_signal_chain_queue`, `bridge_telegram_relay`, `bridge_article_drafts`, `bridge_virality_posts`, `bridge_email_intelligence_state`, `bridge_verified_contacts`, `bridge_outreach_queue`, `bridge_bounce_registry`, `bridge_active_outreach_draft`, `bridge_aggregated_summary`, `bridge_bundle_forge_state`, `bridge_catalog_generator_state`, `bridge_chimera_score`, `bridge_content_harvest_state`, `bridge_dev_to_publisher_state`, `bridge_email_agent_exchange_state`, `bridge_event_relay_state`, `bridge_fractal_replicator_tracking`, `bridge_harvested_knowledge`, `bridge_monitor_alerts`, `bridge_monitored_resource`, `bridge_publish_log`, `bridge_raw_input`, `bridge_transformed_output`, `bridge_vanish_protocol_state`, `bridge_machine_revenue_state`, `bridge_bounty_queue`, `bridge_agent_service_catalog`, `bridge_gap_closer_state`, `bridge_gap_closer_report`, `bridge_tweets_queue`, `bridge_health_advisory`, `bridge_autopilot_state`, `bridge_internet_bridge_state`, `bridge_internet_signals`, `bridge_usb_bridge_state`, `bridge_usb_catalog`, `bridge_usb_ingest`, `bridge_disk_health`, `bridge_solarpunk_legal_declaration`, `run`
 
 ---
 
@@ -5132,6 +5132,21 @@ Generated: 2026-04-05 19:11 UTC
 **Reads:** data/survival_telegrams.json, data/crisis_signals.json
 
 **Writes:** data/telegram_relay.json, docs/kits/relay-ready/
+
+---
+
+### USB_BRIDGE
+
+**Purpose:** USB_BRIDGE.py — Living port between SolarPunk and USB drive E:
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 534 |
+| Functions | 13 |
+| Has run() | Yes |
+
+**Functions:** `_ts`, `_load_state`, `_save_state`, `_sizeof_fmt`, `_file_hash`, `detect_usb`, `phase_catalog`, `phase_sync`, `phase_archive`, `phase_ingest`, `phase_disk_report`, `phase_publish_status`, `run`
 
 ---
 
@@ -5533,7 +5548,7 @@ Generated: 2026-04-05 19:11 UTC
 | Property | Value |
 |----------|-------|
 | Layer | L7 |
-| Lines | 244 |
+| Lines | 246 |
 | Functions | 9 |
 | Has run() | Yes |
 
@@ -6429,7 +6444,7 @@ Generated: 2026-04-05 19:11 UTC
 ## About This System
 
 The SolarPunk Nerve Center is an autonomous, bio-inspired AI system
-composed of 392 engines organized into 11 categories.
+composed of 393 engines organized into 11 categories.
 Each engine is a self-contained unit that reads data, processes it,
 and writes results -- forming a living neural network of code.
 
