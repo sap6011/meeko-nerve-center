@@ -15,9 +15,9 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 ## System Topology
 
 - **Total engines**: 389
-- **Wire connections**: 5794
-- **Zero-secret chains**: 3960 (work without any API keys)
-- **Orphan outputs**: 7 (data written but never read)
+- **Wire connections**: 5795
+- **Zero-secret chains**: 3961 (work without any API keys)
+- **Orphan outputs**: 6 (data written but never read)
 - **Hungry inputs**: 60 (data needed but not yet produced)
 
 ## Engine Categories
@@ -86,36 +86,36 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
-- PASSIVE_INCOME_ARCHITECT -> OMNIBUS via `passive_income_state.json`
-- MICRO_PRODUCT_FACTORY -> OMNIBUS via `micro_product_factory_report.json` (zero-secrets)
-- EMAIL_BRAIN -> CALENDAR_BRAIN via `appointments_inbox.json`
-- ART_CATALOG -> BRIDGE_BUILDER via `art_catalog.json` (zero-secrets)
-- ART_CATALOG -> GENERATED_ART_CATALOG_CONSUMER via `art_catalog.json` (zero-secrets)
-- ART_CATALOG -> STOREFRONT_DEPLOYER via `art_catalog.json` (zero-secrets)
-- GENERATED_ART_CATALOG_CONSUMER -> ART_CATALOG via `art_catalog.json` (zero-secrets)
-- GENERATED_ART_CATALOG_CONSUMER -> BRIDGE_BUILDER via `art_catalog.json` (zero-secrets)
-- GENERATED_ART_CATALOG_CONSUMER -> STOREFRONT_DEPLOYER via `art_catalog.json` (zero-secrets)
-- SUBSTACK_ENGINE -> GROWTH_CHAIN via `substack_state.json`
-- MEMORY_PALACE -> GENERATED_MEMORY_PALACE_CONSUMER via `lessons.json` (zero-secrets)
-- LEGACY_SIFTED_auto_monetizer -> EXTERNAL_VALUE_ROUTER via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_auto_monetizer -> LEGACY_SIFTED_distribution_engine via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_auto_monetizer -> LEGACY_SIFTED_humanitarian_revenue via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_auto_monetizer -> LEGACY_SIFTED_humanitarian_revenue_engine via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_auto_monetizer -> LEGACY_SIFTED_money_tracker via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_auto_monetizer -> REVENUE_RECYCLER via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_auto_monetizer -> revenue_aggregator via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_distribution_engine -> EXTERNAL_VALUE_ROUTER via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_distribution_engine -> LEGACY_SIFTED_auto_monetizer via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_distribution_engine -> LEGACY_SIFTED_humanitarian_revenue via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_distribution_engine -> LEGACY_SIFTED_humanitarian_revenue_engine via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_distribution_engine -> LEGACY_SIFTED_money_tracker via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_distribution_engine -> REVENUE_RECYCLER via `revenue_data.json` (zero-secrets)
-- LEGACY_SIFTED_distribution_engine -> revenue_aggregator via `revenue_data.json` (zero-secrets)
-- ... and 5769 more connections
+- BRIDGE_BUILDER -> BROADCAST_PROTOCOL via `newsletter_archive.json` (zero-secrets)
+- BRIDGE_BUILDER -> NEWSLETTER_ENGINE via `newsletter_archive.json`
+- BRIDGE_BUILDER -> RSS_PUBLISHER via `newsletter_archive.json` (zero-secrets)
+- BROADCAST_PROTOCOL -> BRIDGE_BUILDER via `newsletter_archive.json` (zero-secrets)
+- BROADCAST_PROTOCOL -> NEWSLETTER_ENGINE via `newsletter_archive.json`
+- BROADCAST_PROTOCOL -> RSS_PUBLISHER via `newsletter_archive.json` (zero-secrets)
+- NEWSLETTER_ENGINE -> BRIDGE_BUILDER via `newsletter_archive.json`
+- NEWSLETTER_ENGINE -> BROADCAST_PROTOCOL via `newsletter_archive.json`
+- NEWSLETTER_ENGINE -> RSS_PUBLISHER via `newsletter_archive.json`
+- DATA_FLOW_OBSERVATORY -> CORTEX via `observatory_report.json` (zero-secrets)
+- DATA_FLOW_OBSERVATORY -> EXTERNAL_VALUE_ROUTER via `observatory_report.json` (zero-secrets)
+- DATA_FLOW_OBSERVATORY -> FRACTAL_GENESIS_ENGINE via `observatory_report.json` (zero-secrets)
+- DATA_FLOW_OBSERVATORY -> GENERATED_DATA_FLOW_OBSERVATORY_CONSUMER via `observatory_report.json` (zero-secrets)
+- DATA_FLOW_OBSERVATORY -> OMNIBUS via `observatory_report.json` (zero-secrets)
+- BRIDGE_BUILDER -> CORRUPTION_SENTINEL via `sentinel_scan.json` (zero-secrets)
+- BRIDGE_BUILDER -> EXECUTIVE_BRIEFING via `sentinel_scan.json` (zero-secrets)
+- BRIDGE_BUILDER -> RESEARCH_WRITER via `sentinel_scan.json` (zero-secrets)
+- CORRUPTION_SENTINEL -> BRIDGE_BUILDER via `sentinel_scan.json` (zero-secrets)
+- CORRUPTION_SENTINEL -> EXECUTIVE_BRIEFING via `sentinel_scan.json` (zero-secrets)
+- CORRUPTION_SENTINEL -> RESEARCH_WRITER via `sentinel_scan.json` (zero-secrets)
+- SOVEREIGNTY_ENGINE -> EXECUTIVE_BRIEFING via `sovereignty_state.json` (zero-secrets)
+- SOVEREIGNTY_ENGINE -> RESEARCH_WRITER via `sovereignty_state.json` (zero-secrets)
+- ECONOMY_CHAIN -> BRIDGE_BUILDER via `economy_chain_ledger.json` (zero-secrets)
+- ECONOMY_CHAIN -> CHAIN_ORCHESTRATOR via `economy_chain_ledger.json` (zero-secrets)
+- ECONOMY_CHAIN -> DUAL_SYSTEM_CROSSWIRE via `economy_chain_ledger.json` (zero-secrets)
+- ... and 5770 more connections
 
 ## Knowledge Graph
 
-- **592 nodes** (engines, data files, concepts)
+- **593 nodes** (engines, data files, concepts)
 - **500 edges** (connections between them)
 
 ## What This Means
@@ -131,7 +131,7 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-05 18:11 UTC
+- **Generated**: 2026-04-05 18:25 UTC
 - **Data source**: data/live_wire_report.json
 - **Engines scanned**: 389
 

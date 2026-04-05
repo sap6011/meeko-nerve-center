@@ -255,6 +255,54 @@
       "char_count": 1463,
       "status": "draft",
       "ai_generated": true
+    },
+    {
+      "engine": "AUTO_HEALER",
+      "generated_at": "2026-04-05T18:24:04.997680+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How AUTO_HEALER Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What AUTO_HEALER Does\n\nA core engine in the SolarPunk nervous system.\n\n## The Numbers\n\n- **2 functions** across 47 lines of Python\n- **Reads:** self_builder_queue.json\n- **Writes:** processed output\n- **Has run() entry point:** No\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nAUTO_HEALER reads from self_builder_queue.json and writes to processed output. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/AUTO_HEALER.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1189,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "BUSINESS_FACTORY",
+      "generated_at": "2026-04-05T18:24:52.047927+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How BUSINESS_FACTORY Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What BUSINESS_FACTORY Does\n\nBUSINESS_FACTORY.py v3 — Infinite business generation machine\n\nBUSINESS_FACTORY.py v3 — Infinite business generation machine\n=============================================================\nPREVIOUS BUG: Had a fixed list of 8 niches. After all 8 were built,\nthe engine silently did nothing every cycle. Dead weight.\n\n## The Numbers\n\n- **8 functions** across 325 lines of Python\n- **Reads:** business_factory_state.json, architect_plan.json, social_queue.json\n- **Writes:** business_factory_state.json, social_queue.json, architect_plan.json\n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nBUSINESS_FACTORY reads from business_factory_state.json, architect_plan.json, social_queue.json and writes to business_factory_state.json, social_queue.json, architect_plan.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/BUSINESS_FACTORY.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1667,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "GROWTH_FLYWHEEL",
+      "generated_at": "2026-04-05T18:24:52.312971+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How GROWTH_FLYWHEEL Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What GROWTH_FLYWHEEL Does\n\nGROWTH_FLYWHEEL.py -- The marketing/distribution engine of the 1/99 system.\n\nGROWTH_FLYWHEEL.py -- The marketing/distribution engine of the 1/99 system.\n==========================================================================\n\n## The Numbers\n\n- **10 functions** across 1227 lines of Python\n- **Reads:** input.json, output.json, inbound_signals.json\n- **Writes:** \n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nGROWTH_FLYWHEEL reads from input.json, output.json, inbound_signals.json and writes to . \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/GROWTH_FLYWHEEL.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1402,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "QUORUM_SENSE",
+      "generated_at": "2026-04-05T18:25:13.901560+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How QUORUM_SENSE Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What QUORUM_SENSE Does\n\nQUORUM_SENSE.py — Collective Signal Threshold (Bacterial Pattern)\n\nQUORUM_SENSE.py — Collective Signal Threshold (Bacterial Pattern)\n==================================================================\nNATURE'S BLUEPRINT: Bacterial quorum sensing.\n\n## The Numbers\n\n- **6 functions** across 294 lines of Python\n- **Reads:** data/crisis_signals.json, data/knowledge_pulses.json, \n- **Writes:** data/quorum_state.json\n- **Has run() entry point:** No\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nQUORUM_SENSE reads from data/crisis_signals.json, data/knowledge_pulses.json,  and writes to data/quorum_state.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/QUORUM_SENSE.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1467,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "BIOLUMINESCENCE",
+      "generated_at": "2026-04-05T18:26:02.587500+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How BIOLUMINESCENCE Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What BIOLUMINESCENCE Does\n\nBIOLUMINESCENCE.py — Silence Detection (Deep-Sea Pattern)\n\nBIOLUMINESCENCE.py — Silence Detection (Deep-Sea Pattern)\n===========================================================\nNATURE'S BLUEPRINT: Deep-sea bioluminescence.\n\n## The Numbers\n\n- **8 functions** across 309 lines of Python\n- **Reads:** data/crisis_signals.json, data/crisis_monitor_history.json, \n- **Writes:** data/bioluminescence.json, data/silence_alerts.json\n- **Has run() entry point:** No\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nBIOLUMINESCENCE reads from data/crisis_signals.json, data/crisis_monitor_history.json,  and writes to data/bioluminescence.json, data/silence_alerts.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/BIOLUMINESCENCE.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1526,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "NEUROPLASTICITY",
+      "generated_at": "2026-04-05T18:26:02.861807+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How NEUROPLASTICITY Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What NEUROPLASTICITY Does\n\nNEUROPLASTICITY.py — Self-Rewiring Pathways (Brain Pattern)\n\nNEUROPLASTICITY.py — Self-Rewiring Pathways (Brain Pattern)\n=============================================================\nNATURE'S BLUEPRINT: Neuroplasticity.\n\n## The Numbers\n\n- **6 functions** across 384 lines of Python\n- **Reads:** data/*.json (all engine outputs), data/loop_context.json\n- **Writes:** data/neuroplasticity.json, data/pathway_strength.json\n- **Has run() entry point:** No\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nNEUROPLASTICITY reads from data/*.json (all engine outputs), data/loop_context.json and writes to data/neuroplasticity.json, data/pathway_strength.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/NEUROPLASTICITY.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1519,
+      "status": "draft",
+      "ai_generated": true
     }
   ]
 }

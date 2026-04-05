@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-05T18:11:47.209938+00:00",
+  "timestamp": "2026-04-05T18:25:14.280704+00:00",
   "protocol": "mycelium-network-v1",
   "nutrient_routing": {
     "total_nodes": 389,
@@ -64,7 +64,15 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "mutation_vault.json",
+        "via": "chimera_evolution_report.json",
+        "gradient": 298.5,
+        "src_level": 148.0,
+        "dst_level": -150.5
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "brain_state.json",
         "gradient": 298.5,
         "src_level": 148.0,
         "dst_level": -150.5
@@ -80,7 +88,7 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "brain_state.json",
+        "via": "mutation_vault.json",
         "gradient": 298.5,
         "src_level": 148.0,
         "dst_level": -150.5
@@ -96,14 +104,6 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "chimera_evolution_report.json",
-        "gradient": 298.5,
-        "src_level": 148.0,
-        "dst_level": -150.5
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
         "via": "bridge_report.json",
         "gradient": 298.5,
         "src_level": 148.0,
@@ -112,7 +112,7 @@
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
-        "via": "first_sale_state.json",
+        "via": "brain_state.json",
         "gradient": 223.0,
         "src_level": 72.5,
         "dst_level": -150.5
@@ -120,7 +120,7 @@
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
-        "via": "brain_state.json",
+        "via": "first_sale_state.json",
         "gradient": 223.0,
         "src_level": 72.5,
         "dst_level": -150.5
@@ -136,13 +136,13 @@
     ]
   },
   "adaptive_growth": {
-    "total_wires": 5794,
-    "strengthen": 5763,
-    "monitor": 27,
-    "prune": 4
+    "total_wires": 5795,
+    "strengthen": 5756,
+    "monitor": 33,
+    "prune": 6
   },
   "anastomosis": {
-    "broken_wires": 4,
+    "broken_wires": 6,
     "hungry_inputs": 60,
     "breaks": [
       {
@@ -160,6 +160,22 @@
         "via": "claude_tasks_queue.json",
         "status": "READ_ERROR",
         "healing": "BRIDGE_BUILDER should regenerate claude_tasks_queue.json"
+      },
+      {
+        "type": "broken_wire",
+        "from": "CRYPTO_WATCHER",
+        "to": "GENERATED_CRYPTO_WATCHER_CONSUMER",
+        "via": "crypto_state.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate crypto_state.json"
+      },
+      {
+        "type": "broken_wire",
+        "from": "CRYPTO_WATCHER",
+        "to": "GENERATED_CRYPTO_WATCHER_CONSUMER",
+        "via": "crypto_summary.txt",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate crypto_summary.txt"
       },
       {
         "type": "broken_wire",
@@ -246,16 +262,6 @@
         "type": "hungry_input",
         "file": "chimera_score.json",
         "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "claude_autonomous_report.json",
-        "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "compound_tracker.json",
-        "healing": "Create seed data or bridge from existing source"
       }
     ]
   },
@@ -268,9 +274,10 @@
     {
       "type": "DROUGHT_WARNING",
       "severity": "high",
-      "message": "4 producer connections broken",
+      "message": "6 producer connections broken",
       "source": "nutrient_routing",
       "affected": [
+        "CRYPTO_WATCHER",
         "DESKTOP_DAEMON"
       ],
       "biology": "Major root system damaged -- nutrient flow disrupted downstream"
@@ -297,7 +304,7 @@
     {
       "type": "NETWORK_PULSE",
       "severity": "info",
-      "message": "Network health: 99% (5763/5794 wires healthy)",
+      "message": "Network health: 99% (5756/5795 wires healthy)",
       "source": "mycelium_network",
       "biology": "Seasonal growth assessment -- overall forest vitality check"
     }
@@ -346,9 +353,9 @@
     ]
   },
   "network_memory": {
-    "cycles_tracked": 43,
+    "cycles_tracked": 45,
     "new_connections": 0,
-    "persisted": 5572,
+    "persisted": 5573,
     "lost": 0
   },
   "biology_notes": {
