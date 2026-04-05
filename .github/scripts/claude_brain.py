@@ -43,7 +43,7 @@ import urllib.request, urllib.error
 from pathlib import Path
 
 # ── Environment ──────────────────────────────────────────────────────────────
-API_KEY      = os.environ.get("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")", "").strip()
+API_KEY      = os.environ.get("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")")", "").strip()
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
 REPO         = os.environ.get("REPO", "meekotharaccoon-cell/meeko-nerve-center")
 EVENT_NAME   = os.environ.get("EVENT_NAME", "workflow_dispatch")
@@ -541,9 +541,9 @@ def load_initial_context():
 # ── Main agentic loop ─────────────────────────────────────────────────────────
 def run():
     if not API_KEY:
-        print("FATAL: os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")") not set")
+        print("FATAL: os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")") not set")
         if TRIGGER_NUM != "0":
-            post_comment(TRIGGER_NUM, "❌ `os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")` not in repo secrets.")
+            post_comment(TRIGGER_NUM, "❌ `os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")")` not in repo secrets.")
         sys.exit(0)
 
     # In respond mode, require @claude mention
