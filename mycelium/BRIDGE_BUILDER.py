@@ -1304,6 +1304,29 @@ def bridge_health_advisory():
         return "CONNECTED"
     return "EXISTS"
 
+def bridge_autopilot_state():
+    """Bridge: SOLARPUNK_AUTOPILOT -> autopilot_state.json."""
+    return seed_json("autopilot_state.json", {
+        "engine": "SOLARPUNK_AUTOPILOT", "cycles": 0,
+        "total_encoding_fixed": 0, "total_docs_updated": 0,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_internet_bridge_state():
+    """Bridge: INTERNET_BRIDGE -> internet_bridge_state.json."""
+    return seed_json("internet_bridge_state.json", {
+        "engine": "INTERNET_BRIDGE", "cycles": 0,
+        "total_signals_gathered": 0, "total_pages_published": 0,
+        "source": "BRIDGE_BUILDER seed"
+    })
+
+def bridge_internet_signals():
+    """Bridge: INTERNET_BRIDGE -> internet_signals.json."""
+    return seed_json("internet_signals.json", {
+        "github": {}, "trending": {}, "market": {}, "humanitarian": {},
+        "gathered_at": "", "source": "BRIDGE_BUILDER seed"
+    })
+
 def bridge_solarpunk_legal_declaration():
     """Bridge: solarpunk_legal -> solarpunk_legal_declaration.txt."""
     sl = DATA / "solarpunk_legal_declaration.txt"
@@ -1443,6 +1466,10 @@ BRIDGES = {
     "tweets_queue.txt": bridge_tweets_queue,
     "health_advisory.txt": bridge_health_advisory,
     "solarpunk_legal_declaration.txt": bridge_solarpunk_legal_declaration,
+    # --- v47: SOLARPUNK_AUTOPILOT + INTERNET_BRIDGE ---
+    "autopilot_state.json": bridge_autopilot_state,
+    "internet_bridge_state.json": bridge_internet_bridge_state,
+    "internet_signals.json": bridge_internet_signals,
 }
 
 

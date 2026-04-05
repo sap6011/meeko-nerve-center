@@ -1,14 +1,15 @@
 {
-  "timestamp": "2026-04-05T18:49:31.789990+00:00",
-  "bridges_attempted": 118,
+  "timestamp": "2026-04-05T19:01:44.464886+00:00",
+  "bridges_attempted": 121,
   "bridges_built": 15,
-  "bridges_failed": 103,
+  "bridges_failed": 106,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
     "business_*.json",
     "filename.json",
     "gumroad*.json",
+    "internet_actions.json",
     "pattern*.json",
     "{r}"
   ],
@@ -21,20 +22,20 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 390 pass, 0 fail out of 390 engines",
-      "pass": 390,
-      "fail": 0,
+      "detail": "Local sentinel: 358 pass, 34 fail out of 392 engines",
+      "pass": 358,
+      "fail": 34,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 594 nodes, 5816 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 594,
-      "edges": 5816,
+      "detail": "Knowledge graph: 597 nodes, 5881 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 597,
+      "edges": 5881,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          371
+          374
         ],
         [
           "OMNIBUS",
@@ -42,15 +43,15 @@
         ],
         [
           "FIRST_SALE_NOTIFIER",
-          186
+          187
         ],
         [
           "REVENUE_LOOP",
-          158
+          159
         ],
         [
           "METRICS_DASHBOARD",
-          137
+          138
         ]
       ],
       "target": "knowledge_graph.json"
@@ -68,12 +69,12 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "River watch: 0 alerts, 0 waterways",
+      "detail": "River watch: 1 alerts, 0 waterways",
       "target": "river_watch.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 390 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 392 scripts, 10 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -88,12 +89,12 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 33, score 78/100",
+      "detail": "Chimera gen 34, score 78/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 390",
+      "detail": "Healed 0, scanned 392",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -208,7 +209,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (390 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (358 pass)",
       "target": "sentinel_scan.json"
     },
     {
@@ -630,6 +631,21 @@
       "target": "solarpunk_legal_declaration.txt",
       "status": "ERROR",
       "detail": "'str' object does not support item assignment"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "autopilot_state.json already has data",
+      "target": "autopilot_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "internet_bridge_state.json already has data",
+      "target": "internet_bridge_state.json"
+    },
+    {
+      "status": "ALREADY_EXISTS",
+      "detail": "internet_signals.json already has data",
+      "target": "internet_signals.json"
     }
   ],
   "note": "Successes AND failures documented. Both are useful."
