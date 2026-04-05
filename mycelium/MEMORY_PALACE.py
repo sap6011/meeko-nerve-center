@@ -93,9 +93,9 @@ def extract_lessons(cycles, patterns):
         lessons.append({"lesson": "Health is rising — keep doing what we're doing",
             "priority": "low", "type": "positive"})
     elif trend == "declining":
-        lessons.append({"lesson": "Health declining -- check os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()",
+        lessons.append({"lesson": "Health declining -- check os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()",
             "priority": "critical", "type": "action",
-            "action": "Settings -> Secrets -> os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()"})
+            "action": "Settings -> Secrets -> os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()"})
     if patterns.get("revenue_events", 0) == 0:
         lessons.append({"lesson": "Zero revenue yet — enable GitHub Pages to go live",
             "priority": "high", "type": "action",
@@ -107,7 +107,7 @@ def extract_lessons(cycles, patterns):
                 "priority": "medium", "type": "growth"})
     for c in cycles[-3:]:
         if c.get("health_score", 100) < 50:
-            lessons.append({"lesson": "Sub-50 health -- check os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()",
+            lessons.append({"lesson": "Sub-50 health -- check os.environ.get("os.environ.get("ANTHROPIC_API_KEY", "").strip()", "").strip()",
                 "priority": "critical", "type": "action"})
             break
     return lessons[:20]
