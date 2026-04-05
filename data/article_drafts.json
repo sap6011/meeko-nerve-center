@@ -183,6 +183,54 @@
       "char_count": 1607,
       "status": "draft",
       "ai_generated": true
+    },
+    {
+      "engine": "PAYPAL_PAYOUT",
+      "generated_at": "2026-04-05T17:58:20.698997+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How PAYPAL_PAYOUT Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What PAYPAL_PAYOUT Does\n\nPAYPAL_PAYOUT.py — Automated revenue distribution to human contributors\n\nPAYPAL_PAYOUT.py — Automated revenue distribution to human contributors\n\n## The Numbers\n\n- **5 functions** across 163 lines of Python\n- **Reads:** contributor_registry.json, payout_ledger.json, paypal_payout_state.json\n- **Writes:** contributor_registry.json, paypal_payout_state.json, payout_ledger.json\n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nPAYPAL_PAYOUT reads from contributor_registry.json, payout_ledger.json, paypal_payout_state.json and writes to contributor_registry.json, paypal_payout_state.json, payout_ledger.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/PAYPAL_PAYOUT.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1503,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "OUTREACH_ENGINE",
+      "generated_at": "2026-04-05T17:59:08.056810+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How OUTREACH_ENGINE Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What OUTREACH_ENGINE Does\n\nOUTREACH_ENGINE.py — SolarPunk Autonomous Outreach System\n\nOUTREACH_ENGINE.py — SolarPunk Autonomous Outreach System\nDimension 7 (LABOR_ECOSYSTEM) — runs weekly\n\n## The Numbers\n\n- **5 functions** across 463 lines of Python\n- **Reads:** outreach_summary.json, outreach_engine_state.json\n- **Writes:** outreach_summary.json, outreach_engine_state.json\n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nOUTREACH_ENGINE reads from outreach_summary.json, outreach_engine_state.json and writes to outreach_summary.json, outreach_engine_state.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/OUTREACH_ENGINE.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1439,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "GITHUB_RELEASES_PUBLISHER",
+      "generated_at": "2026-04-05T17:59:08.333596+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How GITHUB_RELEASES_PUBLISHER Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What GITHUB_RELEASES_PUBLISHER Does\n\nGITHUB_RELEASES_PUBLISHER.py — hosts product files as GitHub Release assets\n\nGITHUB_RELEASES_PUBLISHER.py — hosts product files as GitHub Release assets\n============================================================================\nTakes generated guides from product_registry.json and uploads them as\nGitHub Release assets. Gives every product a permanent, free download URL\nthat SolarPunk fully controls.\n\n## The Numbers\n\n- **4 functions** across 161 lines of Python\n- **Reads:** product_registry.json, github_releases_state.json\n- **Writes:** product_registry.json, github_releases_state.json\n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nGITHUB_RELEASES_PUBLISHER reads from product_registry.json, github_releases_state.json and writes to product_registry.json, github_releases_state.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/GITHUB_RELEASES_PUBLISHER.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1723,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "AUTOPILOT_EXECUTOR",
+      "generated_at": "2026-04-05T17:59:30.292341+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How AUTOPILOT_EXECUTOR Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What AUTOPILOT_EXECUTOR Does\n\nAUTOPILOT_EXECUTOR -- Goes through the human task board and DOES every\n\nAUTOPILOT_EXECUTOR -- Goes through the human task board and DOES every\ntask that can actually be done by code, without needing human hands.\n\n## The Numbers\n\n- **16 functions** across 1124 lines of Python\n- **Reads:** \n- **Writes:** \n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nAUTOPILOT_EXECUTOR reads from  and writes to . \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/AUTOPILOT_EXECUTOR.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1308,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "QUICK_REVENUE",
+      "generated_at": "2026-04-05T18:00:16.983528+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How QUICK_REVENUE Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What QUICK_REVENUE Does\n\nQUICK_REVENUE.py -- Fastest path to first dollar\n\nQUICK_REVENUE.py -- Fastest path to first dollar\n=================================================\nClaude was asked: \"I need to make revenue as fast as possible. What do YOU suggest?\"\n\n## The Numbers\n\n- **1 functions** across 320 lines of Python\n- **Reads:** revenue_inbox.json, quick_revenue.json\n- **Writes:** revenue_inbox.json, quick_revenue.json\n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nQUICK_REVENUE reads from revenue_inbox.json, quick_revenue.json and writes to revenue_inbox.json, quick_revenue.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/QUICK_REVENUE.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1460,
+      "status": "draft",
+      "ai_generated": true
+    },
+    {
+      "engine": "PRODUCT_FACTORY",
+      "generated_at": "2026-04-05T18:00:17.308972+00:00",
+      "content": "---\ntitle: Inside SolarPunk: How PRODUCT_FACTORY Works\npublished: false\ntags: python, ai, automation, opensource\nseries: solarpunk-engine-spotlights\n---\n\nSolarPunk is a 300-engine autonomous AI system. This is how one of those engines works.\n\n## What PRODUCT_FACTORY Does\n\nPRODUCT_FACTORY.py -- Generates sellable digital products from system data\n\nPRODUCT_FACTORY.py -- Generates sellable digital products from system data\n=========================================================================\nPrevious product generation required an API key (all content was \"HTTP 400\").\nThis engine generates products using ONLY local data -- no API needed.\n\n## The Numbers\n\n- **7 functions** across 316 lines of Python\n- **Reads:** product_registry.json, publish_queue.json, live_wire_report.json\n- **Writes:** product_registry.json, publish_queue.json, live_wire_report.json\n- **Has run() entry point:** Yes\n\n## How It Fits\n\nEvery engine in SolarPunk follows the same pattern: read JSON, process, write JSON. \nNo databases. No message queues. Just files and Python scripts.\n\nPRODUCT_FACTORY reads from product_registry.json, publish_queue.json, live_wire_report.json and writes to product_registry.json, publish_queue.json, live_wire_report.json. \nOther engines downstream pick up its output automatically.\n\n## Try It\n\n```bash\ngit clone https://github.com/meekotharaccoon-cell/meeko-nerve-center\npython mycelium/PRODUCT_FACTORY.py\n```\n\nOr run all 300 engines: `python mycelium/OMNIBUS.py`\n\n---\n\n*SolarPunk: 300 engines, 4,489 wires, zero paid APIs. 99%% mutual aid.*\n*[Full guide](https://meekotharaccoon-cell.github.io/meeko-nerve-center/shop.html) | [Source](https://github.com/meekotharaccoon-cell/meeko-nerve-center)*",
+      "char_count": 1712,
+      "status": "draft",
+      "ai_generated": true
     }
   ]
 }

@@ -14,15 +14,15 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 
 ## System Topology
 
-- **Total engines**: 387
-- **Wire connections**: 5783
-- **Zero-secret chains**: 3754 (work without any API keys)
+- **Total engines**: 389
+- **Wire connections**: 5794
+- **Zero-secret chains**: 3960 (work without any API keys)
 - **Orphan outputs**: 7 (data written but never read)
 - **Hungry inputs**: 60 (data needed but not yet produced)
 
 ## Engine Categories
 
-### Zero-Secret Engines (292 total)
+### Zero-Secret Engines (303 total)
 These engines run without any API keys or credentials:
 
 - **AFFILIATE_MAXIMIZER** -- reads: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json, writes: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json
@@ -42,10 +42,11 @@ These engines run without any API keys or credentials:
 - **AUTO_HEALER** -- reads: self_builder_queue.json, writes: nothing
 - **AUTO_RUNNER** -- reads: brain_state.json, auto_runner_state.json, writes: brain_state.json, auto_runner_state.json
 - **BIOLUMINESCENCE** -- reads: bioluminescence.json, silence_alerts.json, crisis_signals.json, crisis_monitor_history.json, survival_telegrams.json, social_queue.json, writes: bioluminescence.json, silence_alerts.json
+- **BOTTLENECK_SCANNER** -- reads: gumroad_listings.json, revenue_inbox.json, bottleneck_report.json, writes: gumroad_listings.json, bottleneck_report.json
 - **BRAND_LEGAL** -- reads: brand_legal_state.json, writes: brand_legal_state.json
 - **BRAVE_BRIDGE** -- reads: brave_bridge_state.json, desktop_blueprints.json, social_queue.json, writes: social_queue.json, brave_bridge_state.json, desktop_blueprints.json
 - **BRAVE_BROWSER_ENGINE** -- reads: gumroad_listings.json, brave_browser_state.json, brave_connection.json, writes: gumroad_listings.json, brave_connection.json, brave_browser_state.json
-- **BRIDGE_BUILDER** -- reads: fund_scout_results.json, grants_found.json, sentinel_report.json, live_wire_report.json, knowledge_graph.json, brain_state.json, revenue_inbox.json, quick_revenue.json, bridge_report.json, mutation_vault.json, product_registry.json, newsletter_archive.json, river_watch.json, desktop_blueprints.json, social_queue.json, desktop_daemon_state.json, chimera_evolution_report.json, nanobot_heal_report.json, mutation_leaderboard.json, polymarket_scan.json, flywheel_summary.json, sentinel_scan.json, _stress_backup_river_watch.json, art_catalog.json, hemisphere_state.json, relay_baton.json, self_wiring_report.json, economy_chain_ledger.json, writes: bridge_report.json, fund_scout_results.json, sentinel_report.json, live_wire_report.json, brain_state.json, knowledge_graph.json, mutation_vault.json, product_registry.json, social_queue.json, desktop_daemon_state.json, chimera_evolution_report.json, river_watch.json, newsletter_archive.json, desktop_blueprints.json, sentinel_scan.json, _stress_backup_river_watch.json
+- **BRIDGE_BUILDER** -- reads: fund_scout_results.json, grants_found.json, sentinel_report.json, live_wire_report.json, knowledge_graph.json, brain_state.json, revenue_inbox.json, quick_revenue.json, bridge_report.json, mutation_vault.json, product_registry.json, newsletter_archive.json, river_watch.json, desktop_blueprints.json, social_queue.json, desktop_daemon_state.json, chimera_evolution_report.json, nanobot_heal_report.json, mutation_leaderboard.json, polymarket_scan.json, flywheel_summary.json, sentinel_scan.json, _stress_backup_river_watch.json, art_catalog.json, hemisphere_state.json, relay_baton.json, self_wiring_report.json, economy_chain_ledger.json, outreach_engine_state.json, email_brain_state.json, verified_contacts.json, writes: bridge_report.json, fund_scout_results.json, sentinel_report.json, live_wire_report.json, brain_state.json, knowledge_graph.json, mutation_vault.json, product_registry.json, social_queue.json, desktop_daemon_state.json, chimera_evolution_report.json, river_watch.json, newsletter_archive.json, desktop_blueprints.json, sentinel_scan.json, _stress_backup_river_watch.json
 - **BROADCAST_PROTOCOL** -- reads: social_queue.json, newsletter_archive.json, github_discussion_draft.json, rss_publisher_state.json, devto_draft.json, broadcast_state.json, research_brief.json, writes: social_queue.json, newsletter_archive.json, rss_publisher_state.json, github_discussion_draft.json, devto_draft.json, broadcast_state.json, research_brief.json
 - **BUNDLE_FORGE** -- reads: product_registry.json, writes: product_registry.json
 - **CAPACITY_BOOSTER** -- reads: live_wire_report.json, capacity_booster_state.json, writes: live_wire_report.json, capacity_booster_state.json
@@ -54,10 +55,9 @@ These engines run without any API keys or credentials:
 - **CHANNEL_ROUTER** -- reads: chrome_mcp_status.json, channel_router_state.json, channel_router_queue.json, writes: channel_router_queue.json, channel_router_state.json, chrome_mcp_status.json
 - **CHAOS_TEST** -- reads: master_config.json, writes: nothing
 - **CHEMOTAXIS** -- reads: chemotaxis_state.json, crisis_signals.json, osmosis_routing.json, bioluminescence.json, spore_dispersal.json, amplification_posts.json, ngo_handshakes.json, immune_memory.json, writes: chemotaxis_state.json
-- **CHIMERA_EVOLUTION_ENGINE** -- reads: live_wire_report.json, nanobot_heal_report.json, bridge_report.json, mutation_vault.json, chimera_evolution_report.json, writes: mutation_vault.json, chimera_evolution_report.json
-- ... and 262 more
+- ... and 273 more
 
-### Engines Needing API Keys (95 total)
+### Engines Needing API Keys (86 total)
 These engines unlock when you add credentials:
 
 - **AGENT_TWEET_WRITER** -- needs: ANTHROPIC_API_KEY
@@ -68,54 +68,54 @@ These engines unlock when you add credentials:
 - **AUTONOMOUS_PUBLISHER** -- needs: BLUESKY_APP_PASSWORD, DEVTO_API_KEY, MASTODON_ACCESS_TOKEN, X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET, GITHUB_TOKEN
 - **BIG_BRAIN_ORACLE** -- needs: ANTHROPIC_API_KEY
 - **BLUESKY_ENGINE** -- needs: BLUESKY_APP_PASSWORD
-- **BOTTLENECK_SCANNER** -- needs: ANTHROPIC_API_KEY
 - **BRIEFING_ENGINE** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
 - **BUSINESS_FACTORY** -- needs: GMAIL_APP_PASSWORD
 - **CALENDAR_BRAIN** -- needs: GMAIL_APP_PASSWORD
 - **CAPABILITY_SCANNER** -- needs: ANTHROPIC_API_KEY, GMAIL_APP_PASSWORD, GUMROAD_ACCESS_TOKEN, X_API_KEY
 - **CLAUDE_ENGINE** -- needs: ANTHROPIC_API_KEY
 - **CONNECTION_FORGE** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY, GUMROAD_ACCESS_TOKEN, HF_TOKEN, X_API_KEY
-- **CORRUPTION_SENTINEL** -- needs: ANTHROPIC_API_KEY
 - **CRISIS_MONITOR** -- needs: GMAIL_APP_PASSWORD
 - **CRYPTO_WATCHER** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
 - **DARK_WATCH** -- needs: GMAIL_APP_PASSWORD
 - **DESKTOP_AGENT** -- needs: GITHUB_TOKEN
-- ... and 75 more
+- **DESKTOP_DAEMON** -- needs: ANTHROPIC_API_KEY
+- **DEV_TO_PUBLISHER** -- needs: DEVTO_API_KEY
+- ... and 66 more
 
 ## Live Wire Connections (Sample)
 
 These are real data flows between engines:
 
-- HOMEOSTASIS -> NOTION_NERVE_CENTER via `homeostasis.json` (zero-secrets)
-- BIG_BRAIN_ORACLE -> SYNTHESIS_FACTORY via `omnibrain_seed.json`
-- BIG_BRAIN_ORACLE -> knowledge_dispatch via `omnibrain_seed.json`
-- knowledge_dispatch -> BIG_BRAIN_ORACLE via `omnibrain_seed.json`
-- knowledge_dispatch -> SYNTHESIS_FACTORY via `omnibrain_seed.json`
-- GENERATED_MUTATION_VAULT_CONSUMER -> BRIDGE_BUILDER via `mutation_leaderboard.json` (zero-secrets)
-- GENERATED_MUTATION_VAULT_CONSUMER -> EVOLUTION_VIEWER via `mutation_leaderboard.json` (zero-secrets)
-- GENERATED_MUTATION_VAULT_CONSUMER -> MUTATION_VAULT via `mutation_leaderboard.json` (zero-secrets)
-- GENERATED_MUTATION_VAULT_CONSUMER -> OMNIBUS via `mutation_leaderboard.json` (zero-secrets)
-- MUTATION_VAULT -> BRIDGE_BUILDER via `mutation_leaderboard.json` (zero-secrets)
-- MUTATION_VAULT -> EVOLUTION_VIEWER via `mutation_leaderboard.json` (zero-secrets)
-- MUTATION_VAULT -> GENERATED_MUTATION_VAULT_CONSUMER via `mutation_leaderboard.json` (zero-secrets)
-- MUTATION_VAULT -> OMNIBUS via `mutation_leaderboard.json` (zero-secrets)
-- NEWSLETTER_ENGINE -> CYCLE_MEMORY via `resonance_state.json`
-- NEWSLETTER_ENGINE -> FIRST_CONTACT via `resonance_state.json`
-- NEWSLETTER_ENGINE -> GROWTH_CHAIN via `resonance_state.json`
-- NEWSLETTER_ENGINE -> KNOWLEDGE_CHAIN via `resonance_state.json`
-- NEWSLETTER_ENGINE -> OMNIBUS via `resonance_state.json`
-- NEWSLETTER_ENGINE -> RESONANCE_CONVERTER via `resonance_state.json`
-- NEWSLETTER_ENGINE -> RESONANCE_ENGINE via `resonance_state.json`
-- NEWSLETTER_ENGINE -> SIGNAL_CHAIN via `resonance_state.json`
-- NEWSLETTER_ENGINE -> SOLARPUNK_CLI via `resonance_state.json`
-- RESONANCE_ENGINE -> CYCLE_MEMORY via `resonance_state.json`
-- RESONANCE_ENGINE -> FIRST_CONTACT via `resonance_state.json`
-- RESONANCE_ENGINE -> GROWTH_CHAIN via `resonance_state.json`
-- ... and 5758 more connections
+- GENERATED_SWARM_COORDINATOR_CONSUMER -> OMNIBUS via `swarm_state.json` (zero-secrets)
+- GENERATED_SWARM_COORDINATOR_CONSUMER -> SWARM_COORDINATOR via `swarm_state.json`
+- SWARM_COORDINATOR -> GENERATED_SWARM_COORDINATOR_CONSUMER via `swarm_state.json`
+- SWARM_COORDINATOR -> OMNIBUS via `swarm_state.json`
+- EMAIL_BRAIN -> CALENDAR_BRAIN via `appointments_inbox.json`
+- RESOURCE_ALLOCATOR -> GENERATED_RESOURCE_ALLOCATOR_CONSUMER via `resource_allocator_state.json` (zero-secrets)
+- GENERATED_HUMAN_PAYOUT_CONSUMER -> AUTONOMY_PROOF via `payout_ledger.json` (zero-secrets)
+- GENERATED_HUMAN_PAYOUT_CONSUMER -> HUMAN_PAYOUT via `payout_ledger.json`
+- GENERATED_HUMAN_PAYOUT_CONSUMER -> OMNIBUS via `payout_ledger.json` (zero-secrets)
+- GENERATED_HUMAN_PAYOUT_CONSUMER -> PAYPAL_PAYOUT via `payout_ledger.json`
+- HUMAN_PAYOUT -> AUTONOMY_PROOF via `payout_ledger.json`
+- HUMAN_PAYOUT -> GENERATED_HUMAN_PAYOUT_CONSUMER via `payout_ledger.json`
+- HUMAN_PAYOUT -> OMNIBUS via `payout_ledger.json`
+- HUMAN_PAYOUT -> PAYPAL_PAYOUT via `payout_ledger.json`
+- PAYPAL_PAYOUT -> AUTONOMY_PROOF via `payout_ledger.json`
+- PAYPAL_PAYOUT -> GENERATED_HUMAN_PAYOUT_CONSUMER via `payout_ledger.json`
+- PAYPAL_PAYOUT -> HUMAN_PAYOUT via `payout_ledger.json`
+- PAYPAL_PAYOUT -> OMNIBUS via `payout_ledger.json`
+- GENERATED_TRANSFER_NEEDED_POPULATOR -> NIGHTLY_DIGEST via `transfer_needed.json`
+- GENERATED_TRANSFER_NEEDED_POPULATOR -> PROOF_LEDGER via `transfer_needed.json` (zero-secrets)
+- PROOF_LEDGER -> GENERATED_TRANSFER_NEEDED_POPULATOR via `transfer_needed.json` (zero-secrets)
+- PROOF_LEDGER -> NIGHTLY_DIGEST via `transfer_needed.json`
+- CYCLE_MEMORY -> GENERATED_CYCLE_MEMORY_CONSUMER via `cycle_ledger.json` (zero-secrets)
+- GENERATED_CYCLE_MEMORY_CONSUMER -> CYCLE_MEMORY via `cycle_ledger.json` (zero-secrets)
+- REVENUE_FLYWHEEL -> ARCHITECT via `flywheel_summary.json`
+- ... and 5769 more connections
 
 ## Knowledge Graph
 
-- **588 nodes** (engines, data files, concepts)
+- **592 nodes** (engines, data files, concepts)
 - **500 edges** (connections between them)
 
 ## What This Means
@@ -131,9 +131,9 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-05 16:09 UTC
+- **Generated**: 2026-04-05 17:59 UTC
 - **Data source**: data/live_wire_report.json
-- **Engines scanned**: 387
+- **Engines scanned**: 389
 
 ---
 *Built autonomously. Funded for Gaza. Running forever.*
