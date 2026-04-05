@@ -150,7 +150,7 @@ def scan_local():
                 ).isoformat()
                 # Extract any secrets/env vars referenced
                 refs = []
-                for word in ["GITHUB_TOKEN", "os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()",
+                for word in ["GITHUB_TOKEN", "os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()",
                              "GUMROAD_SECRET", "DEVTO_API_KEY", "CONDUCTOR_TOKEN",
                              "X_API_KEY", "BLUESKY_IDENTIFIER", "BLUESKY_APP_PASSWORD"]:
                     if word in content:

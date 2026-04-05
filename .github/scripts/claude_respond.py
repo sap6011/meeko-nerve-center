@@ -3,7 +3,7 @@
 claude_respond.py — Claude responds to GitHub issues that mention @claude
 
 Called by claude_issue_responder.yml workflow.
-Uses os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")") (already in secrets) — no extra tokens.
+Uses os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")") (already in secrets) — no extra tokens.
 
 What it does:
   1. Reads the issue title + body + comment
@@ -25,7 +25,7 @@ import urllib.request, urllib.error
 from pathlib import Path
 
 # ── Config ───────────────────────────────────────────────────────────────────
-API_KEY      = os.environ.get("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")", "").strip()
+API_KEY      = os.environ.get("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")", "").strip()
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
 REPO         = os.environ.get("REPO", "meekotharaccoon-cell/meeko-nerve-center")
 ISSUE_NUMBER = os.environ.get("ISSUE_NUMBER", "")
@@ -234,8 +234,8 @@ def post_comment(body):
 
 def run():
     if not API_KEY:
-        print("SKIP: os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")") not set")
-        post_comment("❌ os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")") not configured in repo secrets.")
+        print("SKIP: os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")") not set")
+        post_comment("❌ os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")") not configured in repo secrets.")
         sys.exit(0)
 
     if not TRIGGER or "@claude" not in TRIGGER.lower():

@@ -81,10 +81,10 @@ def run():
     # Priority actions for next LIVE session
     priorities = []
 
-    if not os.environ.get("os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()", "").strip():
+    if not os.environ.get("os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()", "").strip():
         priorities.append({
             "priority": 1,
-            "action": "Add os.environ.get("os.getenv("ANTHROPIC_API_KEY")", "").strip()",
+            "action": "Add os.environ.get("os.getenv("os.getenv("ANTHROPIC_API_KEY")")", "").strip()",
             "why": "SELF_BUILDER, KNOWLEDGE_WEAVER, REVENUE_OPTIMIZER, ARCHITECT all dead. System cannot self-expand.",
             "how": "anthropic.com/console → API Keys → copy key → github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions → New secret",
             "unlocks": ["SELF_BUILDER", "KNOWLEDGE_WEAVER", "REVENUE_OPTIMIZER", "ARCHITECT", "NEURON_B"],
