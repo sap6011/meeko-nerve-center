@@ -1,0 +1,115 @@
+{
+  "pending": [],
+  "completed": [
+    {
+      "id": "task_001",
+      "type": "post_content",
+      "payload": {
+        "text": "Hello world"
+      },
+      "_routing": {
+        "task_id": "task_001",
+        "task_type": "post_content",
+        "task_payload": {
+          "text": "Hello world"
+        },
+        "assigned_channel": "brave_browser",
+        "assigned_tool": "Brave via Windows MCP",
+        "fallback_chain": [
+          "chrome_mcp",
+          "brave_browser",
+          "windows_mcp",
+          "github_cli",
+          "apify_browser"
+        ],
+        "tried_channels": [
+          {
+            "channel": "chrome_mcp",
+            "result": "down"
+          }
+        ],
+        "decision": "routed",
+        "timestamp": "2026-04-05T15:56:40.983120+00:00"
+      },
+      "status": "routed"
+    },
+    {
+      "id": "task_002",
+      "type": "fill_form",
+      "payload": {
+        "url": "https://example.com"
+      },
+      "_routing": {
+        "task_id": "task_002",
+        "task_type": "fill_form",
+        "task_payload": {
+          "url": "https://example.com"
+        },
+        "assigned_channel": "brave_browser",
+        "assigned_tool": "Brave via Windows MCP",
+        "fallback_chain": [
+          "chrome_mcp",
+          "brave_browser",
+          "windows_mcp"
+        ],
+        "tried_channels": [
+          {
+            "channel": "chrome_mcp",
+            "result": "down"
+          }
+        ],
+        "decision": "routed",
+        "timestamp": "2026-04-05T15:56:40.983120+00:00"
+      },
+      "status": "routed"
+    },
+    {
+      "id": "task_003",
+      "type": "send_email",
+      "payload": {
+        "to": "meeko@test.com"
+      },
+      "_routing": {
+        "task_id": "task_003",
+        "task_type": "send_email",
+        "task_payload": {
+          "to": "meeko@test.com"
+        },
+        "assigned_channel": "gmail_mcp",
+        "assigned_tool": "Gmail MCP",
+        "fallback_chain": [
+          "gmail_mcp"
+        ],
+        "tried_channels": [],
+        "decision": "routed",
+        "timestamp": "2026-04-05T15:56:40.983120+00:00"
+      },
+      "status": "routed"
+    },
+    {
+      "id": "task_004",
+      "type": "generate_website",
+      "payload": {
+        "name": "SolarPunk Store"
+      },
+      "_routing": {
+        "task_id": "task_004",
+        "task_type": "generate_website",
+        "task_payload": {
+          "name": "SolarPunk Store"
+        },
+        "assigned_channel": "b12_generator",
+        "assigned_tool": "B12 Website Generator",
+        "fallback_chain": [
+          "b12_generator"
+        ],
+        "tried_channels": [],
+        "decision": "routed",
+        "timestamp": "2026-04-05T15:56:40.983120+00:00"
+      },
+      "status": "routed"
+    }
+  ],
+  "failed": [],
+  "last_processed": "2026-04-05T15:56:40.983120+00:00"
+}

@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-05T15:41:04.493952+00:00",
+  "timestamp": "2026-04-05T15:46:01.836164+00:00",
   "bridges_attempted": 90,
-  "bridges_built": 16,
-  "bridges_failed": 74,
+  "bridges_built": 15,
+  "bridges_failed": 75,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
@@ -38,28 +38,28 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 331 pass, 36 fail out of 367 engines",
-      "pass": 331,
+      "detail": "Local sentinel: 341 pass, 36 fail out of 377 engines",
+      "pass": 341,
       "fail": 36,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 561 nodes, 5547 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 561,
-      "edges": 5547,
+      "detail": "Knowledge graph: 574 nodes, 5676 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 574,
+      "edges": 5676,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          355
+          359
         ],
         [
           "OMNIBUS",
-          216
+          223
         ],
         [
           "FIRST_SALE_NOTIFIER",
-          182
+          184
         ],
         [
           "REVENUE_LOOP",
@@ -67,7 +67,7 @@
         ],
         [
           "METRICS_DASHBOARD",
-          136
+          137
         ]
       ],
       "target": "knowledge_graph.json"
@@ -90,7 +90,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 367 scripts, 10 need repair",
+      "detail": "Desktop blueprints: 377 scripts, 10 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -99,18 +99,18 @@
       "target": "tweets_queue.txt"
     },
     {
-      "status": "BRIDGED",
-      "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json",
-      "target": "daemon_task.xml"
+      "target": "daemon_task.xml",
+      "status": "ERROR",
+      "detail": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 20, score 78/100",
+      "detail": "Chimera gen 25, score 61/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 367",
+      "detail": "Healed 0, scanned 377",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -225,7 +225,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (331 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (341 pass)",
       "target": "sentinel_scan.json"
     },
     {
