@@ -45,6 +45,9 @@ SKIP_ENGINES = {
     "ARCHITECT",                # orchestrator -- plans multi-engine work
     "CORTEX",                   # orchestrator -- AI-heavy analysis
     "LIVE_WIRE",                # heavy scan -- already run before army
+    "AUTO_GENESIS",             # orchestrator -- perpetual loop (would recurse)
+    "BRIDGE_BUILDER",           # already run before army in genesis
+    "SYNERGY_FORGE",            # already run after army in genesis
     "__init__",
     "AI_CLIENT",                # library, not an engine
     "NANO_AGENT",               # library

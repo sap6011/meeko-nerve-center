@@ -138,6 +138,8 @@ def run():
     exchange_dirty = False
 
     for em in revenue:
+        if not isinstance(em, dict):
+            continue
         pid = (em.get("ts", "") + em.get("subject", ""))[:40]
         if pid in processed: continue
         if not is_kofi(em): continue
