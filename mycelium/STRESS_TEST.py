@@ -127,7 +127,7 @@ def test_corruption_detection():
     # --- INJURY ---
     trap_file = MYCELIUM / "_stress_test_corrupt.py"
     # Build corrupt code via concatenation so sentinel doesn't flag THIS file
-    nested = 'os.getenv(os.getenv(os.getenv("ANTHROPIC_API_KEY")))'  # test corruption pattern
+    nested = 'os.getenv(os.getenv(os.getenv("os.getenv("ANTHROPIC_API_KEY")")))'  # test corruption pattern
     corrupt_code = f'# Stress test\nimport os\nkey = {nested}\nprint(key)\n'
     trap_file.write_text(corrupt_code, encoding="utf-8")
     log["events"].append({"time": timestamp(), "phase": "INJURY", "action": "Created corrupt test file", "status": "DONE"})
