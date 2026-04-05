@@ -1,0 +1,283 @@
+{
+  "generated": "2026-04-05T16:06:42.904149+00:00",
+  "engine": "CHANNEL_ROUTER",
+  "version": "1.0.0",
+  "summary": {
+    "total_channels": 15,
+    "available": 14,
+    "intermittent": 1,
+    "down": 0,
+    "tasks_processed": 0,
+    "tasks_routed": 0,
+    "tasks_blocked": 0,
+    "blocked_task_types": []
+  },
+  "channel_statuses": {
+    "github_cli": {
+      "tool": "gh CLI",
+      "status": "available",
+      "capabilities": [
+        "discussions",
+        "issues",
+        "releases",
+        "wiki",
+        "pr",
+        "pages"
+      ],
+      "auth": "gh auth token",
+      "fallback_for": null
+    },
+    "gmail_mcp": {
+      "tool": "Gmail MCP",
+      "status": "available",
+      "capabilities": [
+        "draft_email",
+        "list_drafts",
+        "search_messages"
+      ],
+      "auth": "oauth",
+      "fallback_for": null
+    },
+    "apify_browser": {
+      "tool": "Apify RAG Web Browser",
+      "status": "available",
+      "capabilities": [
+        "scrape_page",
+        "search_web",
+        "fetch_url"
+      ],
+      "auth": "api_key",
+      "fallback_for": null
+    },
+    "windows_mcp": {
+      "tool": "Windows MCP",
+      "status": "available",
+      "capabilities": [
+        "screenshot",
+        "click",
+        "type",
+        "powershell",
+        "open_app"
+      ],
+      "auth": "local",
+      "fallback_for": null
+    },
+    "chrome_mcp": {
+      "tool": "Claude in Chrome",
+      "status": "intermittent",
+      "capabilities": [
+        "navigate",
+        "form_fill",
+        "screenshot",
+        "read_page",
+        "click"
+      ],
+      "auth": "extension",
+      "fallback_for": null
+    },
+    "notion_mcp": {
+      "tool": "Notion MCP",
+      "status": "available",
+      "capabilities": [
+        "create_page",
+        "update_page",
+        "search",
+        "create_database"
+      ],
+      "auth": "oauth",
+      "fallback_for": null
+    },
+    "github_mcp": {
+      "tool": "GitHub MCP",
+      "status": "available",
+      "capabilities": [
+        "create_file",
+        "create_issue",
+        "create_pr",
+        "push_files"
+      ],
+      "auth": "token",
+      "fallback_for": null
+    },
+    "paypal_mcp": {
+      "tool": "PayPal MCP",
+      "status": "available",
+      "capabilities": [
+        "create_invoice",
+        "send_invoice",
+        "list_transactions"
+      ],
+      "auth": "oauth",
+      "fallback_for": null
+    },
+    "gcal_mcp": {
+      "tool": "Google Calendar MCP",
+      "status": "available",
+      "capabilities": [
+        "create_event",
+        "list_events",
+        "find_free_time"
+      ],
+      "auth": "oauth",
+      "fallback_for": null
+    },
+    "webfetch": {
+      "tool": "WebFetch",
+      "status": "available",
+      "capabilities": [
+        "fetch_url",
+        "read_page"
+      ],
+      "auth": "none",
+      "fallback_for": null
+    },
+    "brave_browser": {
+      "tool": "Brave via Windows MCP",
+      "status": "available",
+      "capabilities": [
+        "navigate",
+        "form_fill",
+        "screenshot",
+        "click",
+        "type"
+      ],
+      "auth": "local",
+      "fallback_for": "chrome_mcp"
+    },
+    "desktop_commander": {
+      "tool": "Desktop Commander MCP",
+      "status": "available",
+      "capabilities": [
+        "file_ops",
+        "process_mgmt",
+        "search",
+        "edit"
+      ],
+      "auth": "local",
+      "fallback_for": null
+    },
+    "huggingface_mcp": {
+      "tool": "HuggingFace MCP",
+      "status": "available",
+      "capabilities": [
+        "search_models",
+        "search_papers",
+        "repo_details"
+      ],
+      "auth": "token",
+      "fallback_for": null
+    },
+    "b12_generator": {
+      "tool": "B12 Website Generator",
+      "status": "available",
+      "capabilities": [
+        "generate_website"
+      ],
+      "auth": "api",
+      "fallback_for": null
+    },
+    "windows_brave": {
+      "tool": "Windows MCP + Brave shortcut",
+      "status": "available",
+      "capabilities": [
+        "navigate",
+        "screenshot",
+        "click",
+        "open_app"
+      ],
+      "auth": "local",
+      "fallback_for": "chrome_mcp"
+    }
+  },
+  "task_routing_table": {
+    "post_content": [
+      "chrome_mcp",
+      "brave_browser",
+      "windows_mcp",
+      "github_cli",
+      "apify_browser"
+    ],
+    "list_product": [
+      "chrome_mcp",
+      "brave_browser",
+      "windows_mcp",
+      "apify_browser"
+    ],
+    "send_email": [
+      "gmail_mcp"
+    ],
+    "create_discussion": [
+      "github_cli",
+      "github_mcp"
+    ],
+    "create_release": [
+      "github_cli",
+      "github_mcp"
+    ],
+    "create_wiki": [
+      "github_cli"
+    ],
+    "update_notion": [
+      "notion_mcp"
+    ],
+    "scrape_page": [
+      "apify_browser",
+      "webfetch",
+      "chrome_mcp",
+      "brave_browser"
+    ],
+    "create_invoice": [
+      "paypal_mcp"
+    ],
+    "schedule_event": [
+      "gcal_mcp"
+    ],
+    "deploy_page": [
+      "github_cli",
+      "github_mcp"
+    ],
+    "take_screenshot": [
+      "windows_mcp",
+      "chrome_mcp"
+    ],
+    "open_url": [
+      "brave_browser",
+      "windows_mcp",
+      "chrome_mcp"
+    ],
+    "fill_form": [
+      "chrome_mcp",
+      "brave_browser",
+      "windows_mcp"
+    ],
+    "generate_website": [
+      "b12_generator"
+    ],
+    "search_web": [
+      "apify_browser",
+      "webfetch"
+    ],
+    "file_operation": [
+      "desktop_commander"
+    ],
+    "research_models": [
+      "huggingface_mcp"
+    ],
+    "push_code": [
+      "github_mcp",
+      "github_cli"
+    ],
+    "run_command": [
+      "windows_mcp",
+      "desktop_commander"
+    ]
+  },
+  "recent_routing_decisions": [],
+  "queue_summary": {
+    "pending": 0,
+    "completed": 0,
+    "failed": 0
+  },
+  "manual_overrides": {},
+  "next_action": "No blocked tasks \u2014 all channels operational."
+}
