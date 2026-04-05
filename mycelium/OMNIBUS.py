@@ -3,7 +3,7 @@
 
 #!/usr/bin/env python3
 """
-OMNIBUS v41 — DUAL SYSTEM CROSSWIRE: 1/99 + 99/1 fully connected (360 engines, 5391 wires, chimera 78/100)
+OMNIBUS v42 — AUTOPILOT: machine does its own tasks (366 engines, 5476 wires, chimera 78/100)
 =========================================================
 New in v28 (Compound the Compound):
   CHEMOTAXIS             (L1) — Bacterial gradient navigation: swim toward need, tumble from saturation
