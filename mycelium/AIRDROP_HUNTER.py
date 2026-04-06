@@ -283,6 +283,13 @@ def run():
         ],
     }
 
+    # Nervous system awareness
+    _homeo = _load(DATA / "homeostasis_state.json")
+    _cortex = _load(DATA / "neural_cortex_state.json")
+    state["nervous_system"] = {
+        "equilibrium": _homeo.get("equilibrium", 0) if _homeo else 0,
+        "brain_confidence": _cortex.get("decision_confidence", 0) if _cortex else 0,
+    }
     _save(DATA / "airdrop_hunter_state.json", state)
 
     print(f"[AIRDROP_HUNTER] Tracking {len(PROTOCOLS)} protocols")

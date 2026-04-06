@@ -99,6 +99,11 @@ def load():
     return {"cycles": 0, "links_injected": 0, "new_programs_found": []}
 
 def save(state):
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    state["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"brain_confidence":_c.get("decision_confidence",0)}
     (DATA / "affiliate_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 def discover_new_programs():

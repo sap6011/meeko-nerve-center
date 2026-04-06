@@ -170,6 +170,20 @@ def run():
         "sponsor_bio":     SPONSOR_BIO,
         "sponsor_readme":  SPONSOR_README,
     }
+    # Nervous system awareness
+    try:
+        _h = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _h = {}
+    state["nervous_system"] = {
+        "equilibrium": _h.get("equilibrium", 0),
+        "brain_confidence": 0,
+    }
+    try:
+        _c = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
+        state["nervous_system"]["brain_confidence"] = _c.get("decision_confidence", 0)
+    except Exception:
+        pass
     (DATA / "quick_revenue.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     # --- HTML ---

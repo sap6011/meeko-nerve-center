@@ -200,7 +200,12 @@ def run():
     log["last_run"] = ts
     log_path.write_text(json.dumps(log, indent=2), encoding="utf-8")
 
-    state = {"ts": ts, "sales_found": len(sales), "delivered": delivered}
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    state = {"ts": ts, "sales_found": len(sales), "delivered": delivered,
+             "nervous_system":{"equilibrium":_h.get("equilibrium",0),"brain_confidence":_c.get("decision_confidence",0)}}
     (DATA / "delivery_engine_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"  Done: {delivered}/{len(sales)} delivered")
     return state

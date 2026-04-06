@@ -116,6 +116,13 @@ def run():
     ledger["total_routed"] = round(sum(
         ledger["routes"].get(k, {}).get("total", 0) for k in ROUTES
     ), 6)
+    # Nervous system awareness
+    _h = load("homeostasis_state.json")
+    _c = load("neural_cortex_state.json")
+    ledger["nervous_system"] = {
+        "equilibrium": _h.get("equilibrium", 0) if _h else 0,
+        "brain_confidence": _c.get("decision_confidence", 0) if _c else 0,
+    }
     save("economy_chain_ledger.json", ledger)
 
     # Summary

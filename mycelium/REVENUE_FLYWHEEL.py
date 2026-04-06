@@ -163,9 +163,11 @@ def run():
         state["total_coordinated"]=state.get("total_coordinated",0)+1
         print(f"  Action: {'autonomous' if acted else 'emailed Meeko'} | {rec.get('action','?')[:60]}")
 
+    _h=load("homeostasis_state.json"); _c=load("neural_cortex_state.json")
+    ns={"equilibrium":_h.get("equilibrium",0) if _h else 0,"brain_confidence":_c.get("decision_confidence",0) if _c else 0}
     (DATA/"flywheel_summary.json").write_text(json.dumps({"ts":datetime.now(timezone.utc).isoformat(),
         "total_current":total_current,"total_potential":total_potential,"streams":streams,
-        "recommendation":rec},indent=2), encoding="utf-8")
-    save(state); return state
+        "recommendation":rec,"nervous_system":ns},indent=2), encoding="utf-8")
+    state["nervous_system"]=ns; save(state); return state
 
 if __name__=="__main__": run()

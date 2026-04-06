@@ -448,6 +448,19 @@ def run():
         "first_dollar_earned": earned,
         "quick_revenue_total": float(quick_rev.get("total_revenue", 0)),
     }
+    # Nervous system awareness
+    try:
+        _h = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _h = {}
+    try:
+        _c = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _c = {}
+    state["nervous_system"] = {
+        "equilibrium": _h.get("equilibrium", 0),
+        "brain_confidence": _c.get("decision_confidence", 0),
+    }
     (DATA / "first_dollar_engine_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print("[write] data/first_dollar_engine_state.json")
 

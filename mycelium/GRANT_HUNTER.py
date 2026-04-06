@@ -75,6 +75,11 @@ def run():
     (DATA/"grants_found.json").write_text(json.dumps(grants,indent=2), encoding="utf-8")
     state["grants_scored"]=len(grants)
     state["high_priority"]=[g["name"] for g in grants if g.get("priority")=="high"]
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    state["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"brain_confidence":_c.get("decision_confidence",0)}
     sf.write_text(json.dumps(state,indent=2), encoding="utf-8")
     print(f"  {len(grants)} grants scored | {len(state['high_priority'])} high priority")
     return state

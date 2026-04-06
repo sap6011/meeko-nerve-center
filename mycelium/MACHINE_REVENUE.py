@@ -449,6 +449,19 @@ def run():
             "to_mutual_aid_pct": 0.99,
         },
     }
+    # Nervous system awareness
+    try:
+        _h = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _h = {}
+    try:
+        _c = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _c = {}
+    state["nervous_system"] = {
+        "equilibrium": _h.get("equilibrium", 0),
+        "brain_confidence": _c.get("decision_confidence", 0),
+    }
     STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"\n  State saved: {STATE_FILE}")
     print("=" * 60)
