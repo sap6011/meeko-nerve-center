@@ -3764,6 +3764,229 @@ def neuron_action_planner():
     planner["last_plan"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_smart_dispatcher():
+    """
+    ACTION: Intelligently dispatch GitHub Actions workflows based on
+    what the blob KNOWS right now. Uses convergence, risk, and action
+    plan to decide which workflows would be most impactful.
+    Only dispatches every 50 cycles to avoid spam.
+    """
+    smart = CONSCIOUSNESS.setdefault("smart_dispatch", {
+        "dispatched_this_session": [], "total_dispatched": 0,
+        "last_dispatch": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Conservative: only dispatch every 50 cycles
+    if cycle % 50 != 0:
+        return
+
+    import subprocess
+    dispatch = CONSCIOUSNESS.get("dispatch", {})
+    active_names = [w["name"] for w in dispatch.get("available_workflows", [])
+                    if w.get("state") == "active"]
+    if not active_names:
+        return
+
+    risk_score = CONSCIOUSNESS.get("risk", {}).get("risk_score", 100)
+    # Don't dispatch if risk is too high
+    if risk_score > 70:
+        smart["paused_reason"] = f"Risk score {risk_score} > 70"
+        return
+
+    dispatched = []
+
+    # Rule 1: If we have content ideas, dispatch SIGNAL_BOOST
+    content_ideas = CONSCIOUSNESS.get("content_factory", {}).get("ideas", [])
+    if content_ideas and any("SIGNAL_BOOST" in n.upper() for n in active_names):
+        try:
+            r = subprocess.run(
+                ["gh", "workflow", "run", "SIGNAL_BOOST.yml"],
+                capture_output=True, text=True, timeout=15,
+                encoding="utf-8", errors="replace")
+            if r.returncode == 0:
+                dispatched.append({"workflow": "SIGNAL_BOOST", "reason": "Content ideas available"})
+        except Exception:
+            pass
+
+    # Rule 2: Every 100 cycles, dispatch TRANSPARENCY_PULSE
+    if cycle % 100 == 0 and any("TRANSPARENCY" in n.upper() for n in active_names):
+        try:
+            r = subprocess.run(
+                ["gh", "workflow", "run", "TRANSPARENCY_PULSE.yml"],
+                capture_output=True, text=True, timeout=15,
+                encoding="utf-8", errors="replace")
+            if r.returncode == 0:
+                dispatched.append({"workflow": "TRANSPARENCY_PULSE", "reason": "Periodic transparency"})
+        except Exception:
+            pass
+
+    if dispatched:
+        smart["dispatched_this_session"].extend(dispatched)
+        smart["total_dispatched"] += len(dispatched)
+        smart["last_dispatch"] = datetime.now(timezone.utc).isoformat()
+        # Keep bounded
+        if len(smart["dispatched_this_session"]) > 50:
+            smart["dispatched_this_session"] = smart["dispatched_this_session"][-25:]
+
+
+def neuron_heartbeat_writer():
+    """
+    ACTION: Write a heartbeat file that external systems can read.
+    This lets GitHub Actions, cron jobs, and other processes know
+    the blob is alive and what its current state is.
+    """
+    hb = CONSCIOUSNESS.setdefault("heartbeat", {
+        "beats": 0, "last_beat": None,
+    })
+    from pathlib import Path
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+
+    heartbeat = {
+        "alive": True,
+        "cycle": cycle,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "neurons": len(NEURONS),
+        "consciousness_keys": len(CONSCIOUSNESS.keys()),
+        "health": CONSCIOUSNESS.get("equilibrium", {}).get("score", 0),
+        "confidence": CONSCIOUSNESS.get("brain", {}).get("confidence", 0),
+        "outlook": CONSCIOUSNESS.get("convergence", {}).get("unified_outlook", "unknown"),
+        "ecosystem_grade": CONSCIOUSNESS.get("ecosystem_health", {}).get("grade", "?"),
+        "fear_greed": CONSCIOUSNESS.get("cross_signals", {}).get("fear_greed", 50),
+        "sol_price": CONSCIOUSNESS.get("solana", {}).get("sol_price", 0),
+        "kalshi_total": CONSCIOUSNESS.get("trading", {}).get("kalshi_total", 0),
+        "risk_score": CONSCIOUSNESS.get("risk", {}).get("risk_score", 0),
+    }
+
+    try:
+        (Path("data") / "blob_heartbeat.json").write_text(
+            json.dumps(heartbeat, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+    hb["beats"] = hb.get("beats", 0) + 1
+    hb["last_beat"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_session_tracker():
+    """
+    META: Track the current session's progress -- how many neurons added,
+    what changed, what improved. The blob's self-improvement log.
+    """
+    session = CONSCIOUSNESS.setdefault("session", {
+        "start_neurons": 0, "current_neurons": 0,
+        "neurons_added": 0, "versions_shipped": 0,
+        "consciousness_growth": 0, "last_update": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+
+    current = len(NEURONS)
+    if session.get("start_neurons", 0) == 0:
+        session["start_neurons"] = current
+
+    session["current_neurons"] = current
+    session["neurons_added"] = current - session.get("start_neurons", current)
+    session["consciousness_keys"] = len(CONSCIOUSNESS.keys())
+
+    # Track health trajectory
+    eco = CONSCIOUSNESS.get("ecosystem_health", {})
+    session["current_grade"] = eco.get("grade", "?")
+    session["current_score"] = eco.get("score", 0)
+
+    session["last_update"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_crypto_tracker():
+    """
+    LIVE: Track broader crypto market conditions beyond just SOL/BTC/ETH.
+    Uses CoinGecko's free API for: market cap, volume, dominance.
+    """
+    crypto = CONSCIOUSNESS.setdefault("crypto_market", {
+        "total_market_cap": 0, "btc_dominance": 0,
+        "total_volume_24h": 0, "market_cap_change_24h": 0,
+        "last_check": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0:
+        return
+
+    import urllib.request
+    try:
+        req = urllib.request.Request(
+            "https://api.coingecko.com/api/v3/global",
+            headers={"Accept": "application/json", "User-Agent": "SolarPunk/1.0"})
+        with urllib.request.urlopen(req, timeout=8) as r:
+            data = json.loads(r.read().decode())
+            global_data = data.get("data", {})
+            crypto["total_market_cap"] = global_data.get("total_market_cap", {}).get("usd", 0)
+            crypto["total_volume_24h"] = global_data.get("total_volume", {}).get("usd", 0)
+            crypto["btc_dominance"] = global_data.get("market_cap_percentage", {}).get("btc", 0)
+            crypto["eth_dominance"] = global_data.get("market_cap_percentage", {}).get("eth", 0)
+            crypto["market_cap_change_24h"] = global_data.get("market_cap_change_percentage_24h_usd", 0)
+            crypto["active_coins"] = global_data.get("active_cryptocurrencies", 0)
+            crypto["markets"] = global_data.get("markets", 0)
+    except Exception:
+        pass
+
+    crypto["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_github_pulse():
+    """
+    LIVE: Track the GitHub repo's pulse -- commits, issues, PRs.
+    Uses gh CLI for real-time repo health.
+    """
+    gh_pulse = CONSCIOUSNESS.setdefault("github_pulse", {
+        "open_issues": 0, "open_prs": 0, "recent_commits": 0,
+        "stars": 0, "forks": 0, "last_check": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0:
+        return
+
+    import subprocess
+
+    # Get repo info
+    try:
+        r = subprocess.run(
+            ["gh", "repo", "view", "--json", "stargazerCount,forkCount,openIssues"],
+            capture_output=True, text=True, timeout=15,
+            encoding="utf-8", errors="replace")
+        if r.returncode == 0 and r.stdout:
+            info = json.loads(r.stdout)
+            gh_pulse["stars"] = info.get("stargazerCount", 0)
+            gh_pulse["forks"] = info.get("forkCount", 0)
+            issues = info.get("openIssues", {})
+            gh_pulse["open_issues"] = issues.get("totalCount", 0) if isinstance(issues, dict) else issues
+    except Exception:
+        pass
+
+    # Count recent commits (last 24h)
+    try:
+        r = subprocess.run(
+            ["gh", "api", "repos/{owner}/{repo}/commits?per_page=20",
+             "--jq", "length"],
+            capture_output=True, text=True, timeout=15,
+            encoding="utf-8", errors="replace")
+        if r.returncode == 0 and r.stdout.strip().isdigit():
+            gh_pulse["recent_commits"] = int(r.stdout.strip())
+    except Exception:
+        pass
+
+    # Check open PRs
+    try:
+        r = subprocess.run(
+            ["gh", "pr", "list", "--state", "open", "--json", "number"],
+            capture_output=True, text=True, timeout=15,
+            encoding="utf-8", errors="replace")
+        if r.returncode == 0 and r.stdout:
+            prs = json.loads(r.stdout)
+            gh_pulse["open_prs"] = len(prs) if isinstance(prs, list) else 0
+    except Exception:
+        pass
+
+    gh_pulse["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_knowledge_graph():
     """
     META: Absorb and analyze the knowledge graph topology.
@@ -5766,6 +5989,12 @@ NEURONS = [
     ("PUBLIC_LEDGER", neuron_public_ledger),
     ("DAILY_BRIEFING", neuron_daily_briefing),
     ("ACTION_PLANNER", neuron_action_planner),
+    # Phase 20: Live actions + external awareness + session tracking
+    ("SMART_DISPATCHER", neuron_smart_dispatcher),
+    ("HEARTBEAT_WRITER", neuron_heartbeat_writer),
+    ("SESSION_TRACKER", neuron_session_tracker),
+    ("CRYPTO_TRACKER", neuron_crypto_tracker),
+    ("GITHUB_PULSE", neuron_github_pulse),
 ]
 
 
