@@ -1616,6 +1616,210 @@ def neuron_devto_publisher():
     devto["last_check"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_product_builder():
+    """
+    ACTION: Auto-generate digital products for Ko-fi/Gumroad.
+    Creates markdown blueprints from consciousness data that can be
+    converted to PDFs and listed as products.
+    """
+    products = CONSCIOUSNESS.setdefault("products", {
+        "generated": [], "listed": [], "last_build": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 12 != 0:
+        return
+
+    analytics = CONSCIOUSNESS.get("analytics", {})
+    meta = CONSCIOUSNESS["meta"]
+    eq = CONSCIOUSNESS["equilibrium"]
+    clones = analytics.get("clones_14d", 0)
+    views = analytics.get("views_14d", 0)
+
+    # Product 1: Architecture Blueprint
+    if clones > 100 and "architecture_blueprint" not in [p.get("id") for p in products["generated"]]:
+        blueprint = {
+            "id": "architecture_blueprint",
+            "title": "SolarPunk Digital Brain Architecture Blueprint",
+            "description": (
+                f"Complete architecture guide for building a self-healing digital organism. "
+                f"Covers {meta.get('neuron_count', 0)} neuron functions, "
+                f"{len(CONSCIOUSNESS.get('engines', {}))} engine integrations, "
+                f"unified consciousness pattern, and autonomous operation."
+            ),
+            "price": "$5",
+            "platform": "ko-fi",
+            "format": "PDF",
+            "sections": [
+                "1. The Blob Brain Pattern — Why One Process Beats 420",
+                "2. Consciousness Dict — Shared State Architecture",
+                "3. Neuron Functions — How Each Component Thinks",
+                "4. Bridge Building — Connecting to External APIs",
+                "5. Self-Repair — Autonomous Error Recovery",
+                "6. Revenue Integration — From Code to Income",
+                "7. GitHub Actions — Cloud Orchestration from Local",
+                "8. Mission Tracking — Impact Metrics That Matter",
+            ],
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+        }
+        products["generated"].append(blueprint)
+
+    # Product 2: Autonomous Engine Starter Kit
+    if views > 50 and "engine_starter_kit" not in [p.get("id") for p in products["generated"]]:
+        kit = {
+            "id": "engine_starter_kit",
+            "title": "Build Your Own Digital Brain — Starter Kit",
+            "description": (
+                "Step-by-step guide to creating an autonomous system that monitors, "
+                "heals, and grows itself. Includes template code and configuration."
+            ),
+            "price": "$3",
+            "platform": "ko-fi",
+            "format": "ZIP (code + docs)",
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+        }
+        products["generated"].append(kit)
+
+    products["total_generated"] = len(products["generated"])
+    products["last_build"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_seo_optimizer():
+    """
+    ACTION: Optimize GitHub Pages site for search engines.
+    Updates meta tags, generates sitemap, pings search engines.
+    """
+    seo = CONSCIOUSNESS.setdefault("seo", {
+        "pages_indexed": 0, "sitemap_updated": False, "last_ping": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0:
+        return
+
+    # Count HTML pages in docs/
+    docs = Path("docs")
+    html_files = list(docs.glob("*.html")) if docs.exists() else []
+    seo["pages_count"] = len(html_files)
+
+    # Generate/update sitemap.xml
+    base_url = "https://meekotharaccoon-cell.github.io/meeko-nerve-center"
+    sitemap_entries = []
+    for hf in html_files:
+        sitemap_entries.append(
+            f'  <url>\n'
+            f'    <loc>{base_url}/{hf.name}</loc>\n'
+            f'    <lastmod>{datetime.now(timezone.utc).strftime("%Y-%m-%d")}</lastmod>\n'
+            f'  </url>'
+        )
+
+    if sitemap_entries:
+        sitemap = (
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            + "\n".join(sitemap_entries) + "\n"
+            '</urlset>'
+        )
+        try:
+            (docs / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+            seo["sitemap_updated"] = True
+            seo["sitemap_entries"] = len(sitemap_entries)
+        except Exception as e:
+            seo["sitemap_error"] = str(e)[:60]
+
+    # Ping search engines
+    ping_urls = [
+        f"https://www.google.com/ping?sitemap={base_url}/sitemap.xml",
+        f"https://www.bing.com/ping?sitemap={base_url}/sitemap.xml",
+    ]
+    pinged = 0
+    for url in ping_urls:
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "SolarPunk-SEO/1.0"})
+            with urllib.request.urlopen(req, timeout=8) as r:
+                if r.status == 200:
+                    pinged += 1
+        except Exception:
+            pass
+
+    seo["search_engines_pinged"] = pinged
+    seo["last_ping"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_action_executor():
+    """
+    ACTION: Execute pending actions from the revenue optimizer.
+    When the optimizer says "dispatch SOLARPUNK_LOOP", this neuron does it.
+    When it says "publish content", this neuron fires the workflow.
+    """
+    executor = CONSCIOUSNESS.setdefault("executor", {
+        "actions_taken": [], "last_action": None, "total_actions": 0,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Only execute every 20 cycles (conservative — these are real actions)
+    if cycle % 20 != 0:
+        return
+
+    optimizer = CONSCIOUSNESS.get("revenue_optimizer", {})
+    suggestions = optimizer.get("suggestions", [])
+    dispatch = CONSCIOUSNESS.get("dispatch", {})
+    active_names = [w["name"] for w in dispatch.get("available_workflows", [])
+                    if w.get("state") == "active"]
+
+    import subprocess
+    actions_this_cycle = []
+
+    for suggestion in suggestions:
+        if suggestion["priority"] != "HIGH":
+            continue
+
+        action = suggestion["action"]
+
+        # Action: Publish content -> dispatch SOLARPUNK_LOOP
+        if "publish" in action.lower() and "content" in action.lower():
+            # Check if SOLARPUNK_LOOP is available
+            loop_names = [n for n in active_names
+                         if "SOLARPUNK" in n.upper() and "LOOP" in n.upper()]
+            if loop_names:
+                try:
+                    r = subprocess.run(
+                        ["gh", "workflow", "run", "SOLARPUNK_LOOP.yml"],
+                        capture_output=True, text=True, timeout=15,
+                        encoding="utf-8", errors="replace")
+                    if r.returncode == 0:
+                        actions_this_cycle.append({
+                            "action": "dispatch_solarpunk_loop",
+                            "reason": action,
+                            "ts": datetime.now(timezone.utc).isoformat(),
+                        })
+                except Exception:
+                    pass
+
+        # Action: Package product -> dispatch AMPLIFY (releases)
+        if "package" in action.lower() and "product" in action.lower():
+            amplify_names = [n for n in active_names if "AMPLIFY" in n.upper()]
+            if amplify_names:
+                try:
+                    r = subprocess.run(
+                        ["gh", "workflow", "run", "AMPLIFY.yml"],
+                        capture_output=True, text=True, timeout=15,
+                        encoding="utf-8", errors="replace")
+                    if r.returncode == 0:
+                        actions_this_cycle.append({
+                            "action": "dispatch_amplify",
+                            "reason": action,
+                            "ts": datetime.now(timezone.utc).isoformat(),
+                        })
+                except Exception:
+                    pass
+
+    if actions_this_cycle:
+        executor["actions_taken"].extend(actions_this_cycle)
+        executor["total_actions"] = len(executor["actions_taken"])
+        # Keep bounded
+        if len(executor["actions_taken"]) > 50:
+            executor["actions_taken"] = executor["actions_taken"][-25:]
+    executor["last_action"] = datetime.now(timezone.utc).isoformat()
+
+
 # ============================================================
 # THE NEURON REGISTRY -- All blob functions in execution order
 # ============================================================
@@ -1649,8 +1853,11 @@ NEURONS = [
     ("BRAIN_CONFIDENCE", neuron_brain_confidence),
     ("AI_THINK", neuron_ai_think),
     ("REVENUE_OPTIMIZER", neuron_revenue_optimizer),
-    # Phase 7: ACT -- Fire legacy engines that DO things
+    # Phase 7: ACT -- Do things that generate value
     ("LEGACY_FIRE", neuron_legacy_fire),
+    ("PRODUCT_BUILDER", neuron_product_builder),
+    ("SEO_OPTIMIZER", neuron_seo_optimizer),
+    ("ACTION_EXECUTOR", neuron_action_executor),
     # Phase 8: Self-awareness & mission
     ("MISSION_PULSE", neuron_mission_pulse),
     ("COMMUNITY_PULSE", neuron_community_pulse),
