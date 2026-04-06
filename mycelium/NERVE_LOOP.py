@@ -332,6 +332,44 @@ def phase_4c_turbo():
     }
 
 
+def phase_4d_alpaca():
+    """
+    PHASE 4d: ALPACA -- Commission-free stock/ETF/crypto trading.
+
+    Second platform in the multi-market machine. Trades stocks, ETFs,
+    and crypto via Alpaca's API. Fractional shares mean $1 buys you a
+    piece of any stock. Commission-free = even tiny gains compound.
+    """
+    print("\n=== PHASE 4d: ALPACA (Stocks/ETFs/Crypto) ===")
+    result = _run_engine("ALPACA_TRADER", "ALPACA")
+
+    alpaca_state = _load(DATA / "alpaca_trader_state.json")
+    status = alpaca_state.get("status", "unknown")
+    mode = alpaca_state.get("mode", "?")
+    portfolio = alpaca_state.get("portfolio_value", 0)
+    positions = alpaca_state.get("positions_count", 0)
+    trades = alpaca_state.get("trades_placed", 0)
+    opportunities = alpaca_state.get("opportunities_found", 0)
+    market_open = alpaca_state.get("market_open", False)
+
+    print(f"  [ALPACA] {mode} | Status: {status} | "
+          f"Market: {'OPEN' if market_open else 'CLOSED'}")
+    print(f"  [ALPACA] Portfolio: ${portfolio:.2f} | "
+          f"Positions: {positions} | Opps: {opportunities} | Trades: {trades}")
+
+    return {
+        "phase": "alpaca",
+        "result": result,
+        "status": status,
+        "mode": mode,
+        "portfolio_value": portfolio,
+        "positions_count": positions,
+        "market_open": market_open,
+        "trades_placed": trades,
+        "opportunities_found": opportunities,
+    }
+
+
 def phase_5_replicate():
     """
     PHASE 5: REPLICATE -- Apply proven strategies to every eligible wallet.
@@ -619,6 +657,10 @@ def run():
         cycle_results["phases"]["turbo"] = phase_4c_turbo()
         time.sleep(1)
 
+        # Phase 4d: ALPACA -- commission-free stocks/ETFs/crypto
+        cycle_results["phases"]["alpaca"] = phase_4d_alpaca()
+        time.sleep(1)
+
         # Phase 5: REPLICATE -- apply to all wallets
         cycle_results["phases"]["replicate"] = phase_5_replicate()
 
@@ -628,6 +670,103 @@ def run():
 
         # Phase 7: EVOLVE -- profits feed self-evolution
         cycle_results["phases"]["evolve"] = phase_7_evolve()
+
+        # Phase 8: CROSS-POLLINATE -- route capital between platforms
+        print("\n=== PHASE 8: CROSS-POLLINATE (Capital Routing) ===")
+        xpol_result = _run_engine("CROSS_POLLINATOR", "XPOL")
+        xpol_state = _load(DATA / "cross_pollinator_state.json")
+        health = xpol_state.get("mycelium_health", {})
+        score = health.get("score", 0)
+        grade = health.get("grade", "?")
+        total_val = xpol_state.get("total_portfolio_value", 0)
+        recs = len(xpol_state.get("transfer_recommendations", []))
+        print(f"  [XPOL] Portfolio: ${total_val:.2f} | "
+              f"Health: {score}/100 ({grade}) | "
+              f"Recommendations: {recs}")
+        cycle_results["phases"]["cross_pollinate"] = {
+            "phase": "cross_pollinate",
+            "result": xpol_result,
+            "total_portfolio_value": total_val,
+            "mycelium_health_score": score,
+            "mycelium_grade": grade,
+            "transfer_recommendations": recs,
+        }
+
+        # Phase 9: PULSE -- system vital signs snapshot
+        print("\n=== PHASE 9: PULSE (Vital Signs) ===")
+        pulse_result = _run_engine("PULSE", "PULSE")
+        pulse_state = _load(DATA / "pulse_state.json")
+        print(f"  [PULSE] Snapshot saved | "
+              f"Total: ${pulse_state.get('portfolio', {}).get('total_usd', 0):.2f}")
+        cycle_results["phases"]["pulse"] = {
+            "phase": "pulse",
+            "result": pulse_result,
+        }
+
+        # Phase 10: SIGNAL_MESH -- aggregate all signals into composite
+        print("\n=== PHASE 10: SIGNAL_MESH (Signal Aggregation) ===")
+        mesh_result = _run_engine("SIGNAL_MESH", "SIGNAL_MESH")
+        mesh_state = _load(DATA / "signal_mesh_state.json")
+        composite = mesh_state.get("composite_signal", {})
+        hb = mesh_state.get("heartbeat", {})
+        print(f"  [SIGNAL_MESH] Strength: {composite.get('composite_strength', 0)}/100 | "
+              f"Direction: {composite.get('dominant_direction', '?').upper()} | "
+              f"Conviction: {composite.get('conviction_score', 0)}% | "
+              f"Urgency: {composite.get('urgency', 0)}/100")
+        print(f"  [SIGNAL_MESH] Sources: {hb.get('alive', 0)} alive / "
+              f"{hb.get('stale', 0)} stale / {hb.get('dead', 0)} dead | "
+              f"Connectivity: {hb.get('neural_connectivity', 0)}%")
+        cycle_results["phases"]["signal_mesh"] = {
+            "phase": "signal_mesh",
+            "result": mesh_result,
+            "composite_strength": composite.get("composite_strength", 0),
+            "dominant_direction": composite.get("dominant_direction", "neutral"),
+            "conviction_score": composite.get("conviction_score", 0),
+            "urgency": composite.get("urgency", 0),
+            "neural_connectivity": hb.get("neural_connectivity", 0),
+        }
+
+        # Phase 11: SYNAPTIC_BUS -- shared consciousness, every engine aware of every other
+        print("\n=== PHASE 11: SYNAPTIC_BUS (Shared Consciousness) ===")
+        bus_result = _run_engine("SYNAPTIC_BUS", "SYNAPTIC_BUS")
+        bus_state = _load(DATA / "synaptic_bus.json")
+        bus_pulse = bus_state.get("last_pulse", {})
+        convergence = bus_state.get("convergence", {})
+        themes = convergence.get("themes", [])
+        theme_str = ", ".join(t.get("theme", "?") for t in themes) if themes else "none"
+        print(f"  [SYNAPTIC_BUS] Connectivity: {bus_pulse.get('connectivity', 0)}% | "
+              f"Engines: {bus_pulse.get('alive', 0)} alive / "
+              f"{bus_pulse.get('stale', 0)} stale / {bus_pulse.get('dead', 0)} dead")
+        print(f"  [SYNAPTIC_BUS] Total emissions: {bus_pulse.get('total_emissions', 0)} | "
+              f"Sync: {convergence.get('sync_score', 0)}% | Themes: {theme_str}")
+        cycle_results["phases"]["synaptic_bus"] = {
+            "phase": "synaptic_bus",
+            "result": bus_result,
+            "connectivity": bus_pulse.get("connectivity", 0),
+            "alive": bus_pulse.get("alive", 0),
+            "total_emissions": bus_pulse.get("total_emissions", 0),
+            "sync_score": convergence.get("sync_score", 0),
+        }
+
+        # Phase 12: REFLEX_ARC -- fast-path decisions, millisecond response
+        print("\n=== PHASE 12: REFLEX_ARC (Fast-Path Reflexes) ===")
+        reflex_result = _run_engine("REFLEX_ARC", "REFLEX_ARC")
+        reflex_state = _load(DATA / "reflex_arc_state.json")
+        last_cycle = reflex_state.get("last_cycle", {})
+        reflex_checked = last_cycle.get("checked", 0)
+        reflex_fired = last_cycle.get("fired", 0)
+        reflex_ms = last_cycle.get("arc_response_ms", 0)
+        lifetime_fires = reflex_state.get("total_fires", 0)
+        print(f"  [REFLEX_ARC] Checked: {reflex_checked} | Fired: {reflex_fired} | "
+              f"Response: {reflex_ms}ms | Lifetime fires: {lifetime_fires}")
+        cycle_results["phases"]["reflex_arc"] = {
+            "phase": "reflex_arc",
+            "result": reflex_result,
+            "checked": reflex_checked,
+            "fired": reflex_fired,
+            "arc_response_ms": reflex_ms,
+            "lifetime_fires": lifetime_fires,
+        }
 
     except Exception as e:
         print(f"\n[NERVE] Loop error: {e}")

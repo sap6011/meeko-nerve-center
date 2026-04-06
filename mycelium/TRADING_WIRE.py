@@ -128,6 +128,21 @@ def wire_flywheel():
             "deposit_detected": turbo.get("deposit_detected", False),
         }
 
+    # Alpaca stock/ETF/crypto trading
+    alpaca = _load(DATA / "alpaca_trader_state.json")
+    if alpaca.get("status") not in (None, "disabled", ""):
+        flywheel["alpaca_trading"] = {
+            "status": alpaca.get("status", "inactive"),
+            "mode": alpaca.get("mode", "?"),
+            "portfolio_value": alpaca.get("portfolio_value", 0),
+            "cash": alpaca.get("cash", 0),
+            "equity": alpaca.get("equity", 0),
+            "positions_count": alpaca.get("positions_count", 0),
+            "market_open": alpaca.get("market_open", False),
+            "trades_placed": alpaca.get("trades_placed", 0),
+            "opportunities_found": alpaca.get("opportunities_found", 0),
+        }
+
     # Growth tracking
     entries = tracker.get("entries", [])
     if entries:
@@ -139,8 +154,9 @@ def wire_flywheel():
     flywheel["timestamp"] = datetime.now(timezone.utc).isoformat()
     _save(DATA / "flywheel_state.json", flywheel)
 
-    print(f"  [WIRE] flywheel_state.json: Kalshi=${kalshi_balance:.2f} cash + "
-          f"${pending_value:.2f} pending ({executor.get('positions', 0)} positions) -> 11 engines")
+    alpaca_value = alpaca.get("portfolio_value", 0) if alpaca.get("status") not in (None, "disabled") else 0
+    print(f"  [WIRE] flywheel_state.json: Kalshi=${kalshi_balance:.2f} + "
+          f"${pending_value:.2f} pending | Alpaca=${alpaca_value:.2f} -> 11 engines")
     return True
 
 
@@ -209,11 +225,57 @@ def wire_economy_chain():
         })
         ledger["chain_signals"] = ledger["chain_signals"][-100:]
 
+    # Add Polymarket intelligence signal
+    poly = _load(DATA / "polymarket_scan.json")
+    if poly.get("edges_found", 0) > 0:
+        ledger["chain_signals"] = ledger.get("chain_signals", [])
+        ledger["chain_signals"].append({
+            "source": "polymarket",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "edges_found": poly.get("edges_found", 0),
+            "markets_scanned": poly.get("total_markets_scanned", 0),
+        })
+        ledger["chain_signals"] = ledger["chain_signals"][-100:]
+
+    # Add arbitrage scanner signal
+    arb = _load(DATA / "arbitrage_scanner_state.json")
+    arb_opps = arb.get("actionable_opportunities", [])
+    if isinstance(arb_opps, list):
+        arb_count = len(arb_opps)
+    else:
+        arb_count = int(arb_opps) if arb_opps else 0
+    if arb_count > 0:
+        ledger["chain_signals"] = ledger.get("chain_signals", [])
+        ledger["chain_signals"].append({
+            "source": "arbitrage_scanner",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "opportunities": arb_count,
+            "details": arb_opps[:5] if isinstance(arb_opps, list) else [],
+        })
+        ledger["chain_signals"] = ledger["chain_signals"][-100:]
+
+    # Add cross-pollinator health signal
+    xpol = _load(DATA / "cross_pollinator_state.json")
+    health = xpol.get("mycelium_health", {})
+    if health:
+        ledger["chain_signals"] = ledger.get("chain_signals", [])
+        ledger["chain_signals"].append({
+            "source": "cross_pollinator",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "mycelium_health": health.get("score", 0),
+            "total_portfolio": xpol.get("total_portfolio_value", 0),
+            "transfer_recs": len(xpol.get("transfer_recommendations", [])),
+        })
+        ledger["chain_signals"] = ledger["chain_signals"][-100:]
+
+    signal_sources = sum(1 for s in ["prediction_markets", "polymarket", "arbitrage_scanner", "cross_pollinator"]
+                         if any(sig.get("source") == s for sig in ledger.get("chain_signals", [])[-4:]))
+
     ledger["last_run"] = datetime.now(timezone.utc).isoformat()
     _save(DATA / "economy_chain_ledger.json", ledger)
 
     print(f"  [WIRE] economy_chain_ledger.json: {new_events} new trades + "
-          f"sentiment signal -> 11 engines")
+          f"{signal_sources} intelligence signals -> 11 engines")
     return True
 
 
@@ -251,6 +313,33 @@ def wire_proof_ledger():
             "proof": "Autonomous prediction market trading via RSA-signed API",
         })
 
+    # Add Alpaca proof
+    alpaca = _load(DATA / "alpaca_trader_state.json")
+    if alpaca.get("status") not in (None, "disabled", ""):
+        proof["trading_proof"].append({
+            "type": "stock_trading",
+            "platform": "alpaca",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "portfolio_usd": alpaca.get("portfolio_value", 0),
+            "positions": alpaca.get("positions_count", 0),
+            "trades_placed": alpaca.get("trades_placed", 0),
+            "market_open": alpaca.get("market_open", False),
+            "proof": "Commission-free stock/ETF/crypto trading via Alpaca API",
+        })
+
+    # Add cross-platform health proof
+    xpol = _load(DATA / "cross_pollinator_state.json")
+    health = xpol.get("mycelium_health", {})
+    if health:
+        proof["mycelium_network"] = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "health_score": health.get("score", 0),
+            "grade": health.get("grade", "?"),
+            "total_portfolio": xpol.get("total_portfolio_value", 0),
+            "platforms_active": len([p for p in xpol.get("platforms", {}).values()
+                                     if p.get("status") not in (None, "disabled")]),
+        }
+
     # Add growth data
     entries = tracker.get("entries", [])
     if entries:
@@ -267,7 +356,8 @@ def wire_proof_ledger():
     proof["trading_proof"] = proof["trading_proof"][-200:]
     _save(DATA / "proof_ledger.json", proof)
 
-    print(f"  [WIRE] proof_ledger.json: trading + growth proof -> 12 engines")
+    platforms = 1 + (1 if alpaca.get("status") not in (None, "disabled", "") else 0)
+    print(f"  [WIRE] proof_ledger.json: {platforms} platforms + growth proof -> 12 engines")
     return True
 
 
@@ -363,6 +453,19 @@ def run():
         },
     }
     _save(DATA / "trading_wire_state.json", state)
+
+    # Broadcast to synaptic bus -- every engine sees this INSTANTLY
+    try:
+        from SYNAPTIC_BUS import emit_batch
+        emit_batch("TRADING_WIRE", {
+            "buses_wired": wired,
+            "engines_fed": total_consuming,
+            "status": "active" if wired > 0 else "idle",
+            "signal_direction": "bullish" if wired >= 3 else "neutral",
+        }, silent=False)
+    except Exception:
+        pass  # Bus not available -- degrade gracefully
+
     return state
 
 

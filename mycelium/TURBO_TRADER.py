@@ -210,6 +210,23 @@ def gather_all_intelligence():
       6. compound_tracker.json (our own performance data)
       7. trade_ledger.json (what worked, what didn't)
     """
+    # Try SYNAPTIC_BUS first (one read for everything), fall back to files
+    _bus_boost = {}
+    try:
+        from SYNAPTIC_BUS import sense
+        bus = sense()
+        engines = bus.get("engines", {})
+        if engines:
+            mesh = engines.get("SIGNAL_MESH", {}).get("properties", {})
+            _bus_boost = {
+                "mesh_direction": mesh.get("dominant_direction", "neutral"),
+                "mesh_conviction": mesh.get("conviction_score", 0),
+                "mesh_urgency": mesh.get("urgency", 0),
+                "mesh_strength": mesh.get("composite_strength", 0),
+            }
+    except Exception:
+        pass
+
     intel = {
         "prediction": _load(DATA / "prediction_intelligence.json"),
         "kalshi_scan": _load(DATA / "kalshi_scan.json"),
@@ -218,6 +235,7 @@ def gather_all_intelligence():
         "arbitrage": _load(DATA / "arbitrage_scanner_state.json"),
         "compound": _load(DATA / "compound_tracker.json"),
         "ledger_stats": _load(DATA / "trade_ledger.json", {}).get("stats", {}),
+        "bus_boost": _bus_boost,
     }
 
     # Extract key signals
@@ -399,12 +417,23 @@ def build_feedback_loop(trades_placed, signals):
 # PHASE 1: DISCOVER -- Dynamic series + market scanning
 # ──────────────────────────────────────────────────────────────
 
+_series_cache = {"data": None, "ts": 0}
+_SERIES_CACHE_TTL = 600  # 10 min -- series don't change often
+
+
 def discover_all_series():
     """
     Dynamically discover ALL Kalshi series.
     GET /series returns every series ticker on the platform.
     We prioritize FAST_SERIES but also scan anything new.
+    Cached for 10 minutes to avoid redundant API calls.
     """
+    now = time.time()
+    if _series_cache["data"] and (now - _series_cache["ts"]) < _SERIES_CACHE_TTL:
+        print(f"  [TURBO] Using cached series ({len(_series_cache['data'])} series, "
+              f"{int(now - _series_cache['ts'])}s old)")
+        return _series_cache["data"]
+
     data = _public_fetch("/series?limit=200")
     if not data:
         print("  [TURBO] Could not fetch series list, using hardcoded FAST_SERIES")
@@ -430,6 +459,8 @@ def discover_all_series():
     ordered.extend(all_series)
 
     print(f"  [TURBO] Discovered {len(ordered)} series ({len(FAST_SERIES)} prioritized)")
+    _series_cache["data"] = ordered
+    _series_cache["ts"] = time.time()
     return ordered
 
 
@@ -478,7 +509,7 @@ def scan_fast_markets(series_list, min_conf=85, min_vol=100):
         except Exception as e:
             print(f"  [TURBO] {series} scan error: {e}")
 
-        time.sleep(0.35)  # Stay well within rate limit
+        time.sleep(0.15)  # 6.6 req/s (rate limit is 20/s, safe margin)
 
     print(f"  [TURBO] Scanned {series_scanned} series, {markets_scanned} markets, "
           f"{len(opportunities)} opportunities")
@@ -859,11 +890,28 @@ def construct_micro_orders(opportunities, balance, config):
     as possible. Many small bets > few big bets.
 
     Prioritizes daily-resolving markets (compound faster).
+
+    PENNY MODE: When cash is micro ($0.10-$2.00), uses dynamic floor
+    based on portfolio value so every cent gets deployed.
     """
-    max_per_market = balance * config.get("max_position_pct", 0.25)
     max_exposure = balance * config.get("max_exposure_pct", 0.95)
-    floor = config.get("balance_floor_usd", 1.00)
+
+    # Dynamic floor: scale to portfolio value, not just cash
+    # With $48 in pending positions, holding $1.00 floor on $1.69 is wasteful
+    # Floor = 10% of cash, min $0.05, max $1.00
+    static_floor = config.get("balance_floor_usd", 1.00)
+    dynamic_floor = max(0.05, min(static_floor, balance * 0.10))
+    floor = dynamic_floor
+
     available = min(balance - floor, max_exposure)
+
+    # PENNY MODE: When balance is small, max_per_market must cover at least 1 contract
+    # At $1.69 balance, 25% = $0.42 which can't buy any $0.85 contract -- useless.
+    # In penny mode, allow up to 100% of available per market (spread naturally limited by cash)
+    if available < 5.00:
+        max_per_market = available  # Let the available cash itself be the limit
+    else:
+        max_per_market = balance * config.get("max_position_pct", 0.25)
 
     if available <= 0:
         return []
@@ -880,12 +928,18 @@ def construct_micro_orders(opportunities, balance, config):
             continue
 
         # Calculate order size -- smaller for daily (more diversified)
+        # PENNY MODE: When available < $2, size = single contracts to maximize trades
+        base_size = config.get("default_order_size_usd", 4.00)
+        if available < 2.00:
+            # Penny mode: 1 contract each, spread across many markets
+            base_size = min(price + 0.01, available - total_cost)
+
         if opp["resolution_class"] == "DAILY":
-            order_size = min(config.get("default_order_size_usd", 4.00), max_per_market)
+            order_size = min(base_size, max_per_market)
         elif opp["resolution_class"] == "WEEKLY":
-            order_size = min(config.get("default_order_size_usd", 4.00) * 0.75, max_per_market)
+            order_size = min(base_size * 0.75, max_per_market)
         else:
-            order_size = min(config.get("default_order_size_usd", 4.00) * 0.5, max_per_market)
+            order_size = min(base_size * 0.5, max_per_market)
 
         # Don't exceed remaining capacity
         order_size = min(order_size, available - total_cost)
@@ -1124,8 +1178,10 @@ def run():
                 balance = round(new_bal.get("balance", 0) / 100, 2)
                 print(f"[TURBO_TRADER] Post-velocity balance: ${balance:.2f}")
 
-    # Check floor
-    floor = config.get("balance_floor_usd", 1.00)
+    # Check floor (dynamic: 10% of cash, min $0.05, capped at config floor)
+    # With $48+ in pending positions, no reason to hold $1.00 idle
+    static_floor = config.get("balance_floor_usd", 1.00)
+    floor = max(0.05, min(static_floor, balance * 0.10))
     if balance < floor:
         print(f"[TURBO_TRADER] Balance ${balance:.2f} below floor ${floor:.2f}")
         # Still track state even when not trading
@@ -1153,6 +1209,38 @@ def run():
     min_conf = config.get("min_confidence_pct", 85)
     min_vol = config.get("min_market_volume", 100)
     opportunities = scan_fast_markets(series_list, min_conf, min_vol)
+
+    # PENNY MODE: If cash is tight and normal scan found only expensive contracts,
+    # do a TARGETED second pass with lower confidence on series that had results
+    available_after_floor = balance - floor
+    if available_after_floor < 2.00 and opportunities:
+        cheapest = min(o["price"] for o in opportunities)
+        if cheapest > available_after_floor:
+            print(f"[TURBO_TRADER] PENNY MODE: cheapest contract ${cheapest:.2f} > "
+                  f"available ${available_after_floor:.2f}, scanning wider...")
+            # Only re-scan series that already had tradeable markets (much faster)
+            active_series = list({o["series"] for o in opportunities})
+            # Add a few more high-frequency series that often have cheap contracts
+            for s in FAST_SERIES[:5]:
+                if s not in active_series:
+                    active_series.append(s)
+            penny_opps = scan_fast_markets(active_series, 75, min_vol)
+            # Add new cheaper opps we didn't already have
+            existing_tickers = {o["ticker"] for o in opportunities}
+            for po in penny_opps:
+                if po["ticker"] not in existing_tickers and po["price"] <= available_after_floor:
+                    po["strategy"] = "penny_" + po["strategy"]
+                    opportunities.append(po)
+            if opportunities:
+                # Re-sort: daily first, then by annualized ROI
+                opportunities.sort(
+                    key=lambda x: (
+                        {"DAILY": 0, "WEEKLY": 1, "MONTHLY": 2, "LONG": 3}
+                        .get(x["resolution_class"], 4),
+                        -x.get("annualized_roi", 0),
+                    )
+                )
+                print(f"[TURBO_TRADER] PENNY MODE: {len(opportunities)} total opps after widening")
 
     if not opportunities:
         print("[TURBO_TRADER] No qualifying opportunities this cycle")
@@ -1250,6 +1338,25 @@ def run():
         "trades": results,
     }
     _save(DATA / "turbo_trader_state.json", state)
+
+    # Broadcast to synaptic bus -- every engine sees this INSTANTLY
+    try:
+        from SYNAPTIC_BUS import emit_batch
+        emit_batch("TURBO_TRADER", {
+            "balance": new_balance,
+            "trades_placed": len(results),
+            "successful": successful,
+            "daily_opps": len(daily_opps),
+            "total_opportunities": len(opportunities),
+            "pending_payout": round(total_pending, 2),
+            "deposit_detected": is_deposit,
+            "positions_count": positions_count,
+            "status": state["status"],
+            "platform": "kalshi",
+            "signal_direction": "opportunity" if len(daily_opps) > 0 else "neutral",
+        }, silent=False)
+    except Exception:
+        pass  # Bus not available -- degrade gracefully
 
     # Track compound growth
     tracker = update_compound_tracker(state)

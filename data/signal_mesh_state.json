@@ -1,0 +1,292 @@
+{
+  "timestamp": "2026-04-06T06:50:42.793745+00:00",
+  "engine": "SIGNAL_MESH",
+  "version": 1,
+  "ethics": "99% mutual aid / 1% node fuel",
+  "composite_signal": {
+    "composite_strength": 70.5,
+    "dominant_direction": "bullish",
+    "direction_votes": {
+      "bullish": 1.0,
+      "bearish": 0.05,
+      "neutral": 0.8,
+      "opportunity": 0
+    },
+    "conviction_score": 54.1,
+    "agreeing_signals": 1,
+    "active_signals": 3,
+    "total_signals": 11,
+    "urgency": 10
+  },
+  "heartbeat": {
+    "alive": 8,
+    "stale": 0,
+    "dead": 3,
+    "total_sources": 11,
+    "alive_sources": [
+      "prediction_intel",
+      "polymarket",
+      "kalshi",
+      "arbitrage",
+      "cross_pollinator",
+      "turbo",
+      "alpaca",
+      "flywheel"
+    ],
+    "stale_sources": [],
+    "dead_sources": [
+      "trade_ledger",
+      "compound_tracker",
+      "ai_cost"
+    ],
+    "neural_connectivity": 27.3,
+    "connected_sources": 3
+  },
+  "ranked_opportunities": [
+    {
+      "type": "stock_etf_crypto",
+      "opportunities": 6,
+      "market_open": false,
+      "portfolio_value": 1.5,
+      "mode": "LIVE",
+      "platform": "alpaca",
+      "source": "alpaca",
+      "source_label": "Alpaca Trader",
+      "signal_strength": 75,
+      "freshness": "alive",
+      "composite_score": 75.0
+    },
+    {
+      "type": "prediction_market",
+      "action": "reduce_exposure",
+      "sol_outlook": 0.254,
+      "platform": "multi",
+      "source": "prediction_intel",
+      "source_label": "Prediction Intelligence",
+      "signal_strength": 70,
+      "freshness": "alive",
+      "composite_score": 70.0
+    },
+    {
+      "type": "capital_routing",
+      "recommendation": "Move ~$10.31 to Alpaca for diversification",
+      "platform": "multi",
+      "source": "cross_pollinator",
+      "source_label": "Cross-Pollinator",
+      "signal_strength": 0,
+      "freshness": "alive",
+      "composite_score": 0.0
+    }
+  ],
+  "convergences": [],
+  "individual_signals": [
+    {
+      "source_id": "prediction_intel",
+      "label": "Prediction Intelligence",
+      "file": "prediction_intelligence.json",
+      "timestamp": "2026-04-06T06:45:26.815923+00:00",
+      "age_minutes": 5.3,
+      "freshness": "alive",
+      "freshness_weight": 1.0,
+      "base_weight": 1.0,
+      "effective_weight": 1.0,
+      "signal_strength": 70,
+      "signal_direction": "bullish",
+      "opportunities": [
+        {
+          "type": "prediction_market",
+          "action": "reduce_exposure",
+          "sol_outlook": 0.254,
+          "platform": "multi"
+        }
+      ],
+      "has_data": true
+    },
+    {
+      "source_id": "polymarket",
+      "label": "Polymarket Scanner",
+      "file": "polymarket_scan.json",
+      "timestamp": "2026-04-06T06:45:21.804890+00:00",
+      "age_minutes": 5.3,
+      "freshness": "alive",
+      "freshness_weight": 1.0,
+      "base_weight": 0.9,
+      "effective_weight": 0.9,
+      "signal_strength": 0,
+      "signal_direction": "neutral",
+      "opportunities": [],
+      "has_data": true
+    },
+    {
+      "source_id": "kalshi",
+      "label": "Kalshi Scanner",
+      "file": "kalshi_scan.json",
+      "timestamp": "2026-04-06T06:45:26.817923+00:00",
+      "age_minutes": 5.3,
+      "freshness": "alive",
+      "freshness_weight": 1.0,
+      "base_weight": 0.9,
+      "effective_weight": 0.9,
+      "signal_strength": 0,
+      "signal_direction": "neutral",
+      "opportunities": [],
+      "has_data": true
+    },
+    {
+      "source_id": "arbitrage",
+      "label": "Arbitrage Scanner",
+      "file": "arbitrage_scanner_state.json",
+      "timestamp": "2026-04-06T06:46:07.874686+00:00",
+      "age_minutes": 4.6,
+      "freshness": "alive",
+      "freshness_weight": 1.0,
+      "base_weight": 1.0,
+      "effective_weight": 1.0,
+      "signal_strength": 0,
+      "signal_direction": "neutral",
+      "opportunities": [],
+      "has_data": true
+    },
+    {
+      "source_id": "cross_pollinator",
+      "label": "Cross-Pollinator",
+      "file": "cross_pollinator_state.json",
+      "timestamp": "2026-04-06T06:50:42.709289+00:00",
+      "age_minutes": 0.0,
+      "freshness": "alive",
+      "freshness_weight": 1.0,
+      "base_weight": 0.7,
+      "effective_weight": 0.7,
+      "signal_strength": 0,
+      "signal_direction": "opportunity",
+      "opportunities": [
+        {
+          "type": "capital_routing",
+          "recommendation": "Move ~$10.31 to Alpaca for diversification",
+          "platform": "multi"
+        }
+      ],
+      "has_data": true
+    },
+    {
+      "source_id": "turbo",
+      "label": "TURBO Trader",
+      "file": "turbo_trader_state.json",
+      "timestamp": "2026-04-06T06:46:40.758608+00:00",
+      "age_minutes": 4.0,
+      "freshness": "alive",
+      "freshness_weight": 1.0,
+      "base_weight": 0.85,
+      "effective_weight": 0.85,
+      "signal_strength": 0,
+      "signal_direction": "neutral",
+      "opportunities": [],
+      "has_data": true
+    },
+    {
+      "source_id": "alpaca",
+      "label": "Alpaca Trader",
+      "file": "alpaca_trader_state.json",
+      "timestamp": "2026-04-06T06:46:42.500814+00:00",
+      "age_minutes": 4.0,
+      "freshness": "alive",
+      "freshness_weight": 1.0,
+      "base_weight": 0.8,
+      "effective_weight": 0.8,
+      "signal_strength": 75,
+      "signal_direction": "neutral",
+      "opportunities": [
+        {
+          "type": "stock_etf_crypto",
+          "opportunities": 6,
+          "market_open": false,
+          "portfolio_value": 1.5,
+          "mode": "LIVE",
+          "platform": "alpaca"
+        }
+      ],
+      "has_data": true
+    },
+    {
+      "source_id": "trade_ledger",
+      "label": "Trade Ledger",
+      "file": "trade_ledger.json",
+      "timestamp": null,
+      "age_minutes": null,
+      "freshness": "dead",
+      "freshness_weight": 0.1,
+      "base_weight": 0.5,
+      "effective_weight": 0.05,
+      "signal_strength": 10,
+      "signal_direction": "bearish",
+      "opportunities": [],
+      "has_data": true
+    },
+    {
+      "source_id": "compound_tracker",
+      "label": "Compound Tracker",
+      "file": "compound_tracker.json",
+      "timestamp": null,
+      "age_minutes": null,
+      "freshness": "dead",
+      "freshness_weight": 0.1,
+      "base_weight": 0.6,
+      "effective_weight": 0.06,
+      "signal_strength": 0,
+      "signal_direction": "neutral",
+      "opportunities": [],
+      "has_data": true
+    },
+    {
+      "source_id": "flywheel",
+      "label": "Revenue Flywheel",
+      "file": "flywheel_state.json",
+      "timestamp": "2026-04-06T06:46:44.563277+00:00",
+      "age_minutes": 4.0,
+      "freshness": "alive",
+      "freshness_weight": 1.0,
+      "base_weight": 0.5,
+      "effective_weight": 0.5,
+      "signal_strength": 0,
+      "signal_direction": "neutral",
+      "opportunities": [],
+      "has_data": true
+    },
+    {
+      "source_id": "ai_cost",
+      "label": "AI Cost Tracker",
+      "file": "ai_cost_tracker.json",
+      "timestamp": null,
+      "age_minutes": null,
+      "freshness": "dead",
+      "freshness_weight": 0.1,
+      "base_weight": 0.4,
+      "effective_weight": 0.04,
+      "signal_strength": 0,
+      "signal_direction": "neutral",
+      "opportunities": [],
+      "has_data": true
+    }
+  ],
+  "summary": {
+    "best_opportunity": {
+      "type": "stock_etf_crypto",
+      "opportunities": 6,
+      "market_open": false,
+      "portfolio_value": 1.5,
+      "mode": "LIVE",
+      "platform": "alpaca",
+      "source": "alpaca",
+      "source_label": "Alpaca Trader",
+      "signal_strength": 75,
+      "freshness": "alive",
+      "composite_score": 75.0
+    },
+    "total_opportunities": 3,
+    "neural_connectivity": 27.3,
+    "composite_strength": 70.5,
+    "dominant_direction": "bullish",
+    "conviction": 54.1,
+    "urgency": 10
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "timestamp": "2026-04-06T06:50:42.709289+00:00",
+  "protocol": "cross-pollinator-v1",
+  "engine": "CROSS_POLLINATOR",
+  "total_portfolio_value": 51.57,
+  "platform_breakdown": {
+    "kalshi": {
+      "platform": "kalshi",
+      "label": "Kalshi (Prediction Markets)",
+      "balance": 0.07,
+      "pending_payout": 50.0,
+      "total_value": 50.07,
+      "opportunities": 83,
+      "status": "active_no_capacity",
+      "peak_balance": 50.07,
+      "compound_cycles": 6
+    },
+    "alpaca": {
+      "platform": "alpaca",
+      "label": "Alpaca (Stocks/ETFs)",
+      "balance": 1.5,
+      "buying_power": 1.5,
+      "total_value": 1.5,
+      "equity": 1.5,
+      "opportunities": 6,
+      "top_opportunities": [
+        {
+          "symbol": "GLD",
+          "type": "etf",
+          "sector": "gold",
+          "strategy": "safe_haven",
+          "current_price": 429.19,
+          "prev_close": 437.72,
+          "daily_change_pct": -1.95,
+          "intraday_range_pct": 2.38,
+          "volume": 249201,
+          "score": 74.5,
+          "take_profit_pct": 1.0,
+          "stop_loss_pct": -2.0,
+          "hold_days_max": 30
+        },
+        {
+          "symbol": "BTC/USD",
+          "type": "crypto",
+          "sector": "crypto",
+          "strategy": "momentum",
+          "current_price": 68990.57,
+          "prev_close": 69010.76,
+          "daily_change_pct": -0.03,
+          "intraday_range_pct": 0,
+          "volume": 0,
+          "score": 65,
+          "take_profit_pct": 3.0,
+          "stop_loss_pct": -5.0,
+          "hold_days_max": 14,
+          "no_pdt": true
+        },
+        {
+          "symbol": "ETH/USD",
+          "type": "crypto",
+          "sector": "crypto",
+          "strategy": "momentum",
+          "current_price": 2125.31,
+          "prev_close": 2108.8,
+          "daily_change_pct": 0.78,
+          "intraday_range_pct": 0,
+          "volume": 7,
+          "score": 65,
+          "take_profit_pct": 3.0,
+          "stop_loss_pct": -5.0,
+          "hold_days_max": 14,
+          "no_pdt": true
+        },
+        {
+          "symbol": "SPY",
+          "type": "etf",
+          "sector": "broad_market",
+          "strategy": "momentum",
+          "current_price": 655.93,
+          "prev_close": 655.18,
+          "daily_change_pct": 0.11,
+          "intraday_range_pct": 1.98,
+          "volume": 1505269,
+          "score": 60,
+          "take_profit_pct": 2.0,
+          "stop_loss_pct": -3.0,
+          "hold_days_max": 10
+        },
+        {
+          "symbol": "QQQ",
+          "type": "etf",
+          "sector": "tech",
+          "strategy": "momentum",
+          "current_price": 584.71,
+          "prev_close": 584.34,
+          "daily_change_pct": 0.06,
+          "intraday_range_pct": 2.41,
+          "volume": 650504,
+          "score": 60,
+          "take_profit_pct": 2.0,
+          "stop_loss_pct": -3.0,
+          "hold_days_max": 10
+        },
+        {
+          "symbol": "VTI",
+          "type": "etf",
+          "sector": "total_market",
+          "strategy": "dca",
+          "current_price": 323.76,
+          "prev_close": 323.19,
+          "daily_change_pct": 0.18,
+          "intraday_range_pct": 2.03,
+          "volume": 76685,
+          "score": 60,
+          "take_profit_pct": 5.0,
+          "stop_loss_pct": -10.0,
+          "hold_days_max": 60
+        }
+      ],
+      "market_open": false,
+      "status": "market_closed",
+      "positions_count": 0,
+      "trades_placed": 0
+    }
+  },
+  "trade_ledger_summary": {
+    "total_trades": 25,
+    "successful": 20,
+    "failed": 5,
+    "total_profit": 5.21,
+    "total_cost_basis": 44.79,
+    "last_trade": "2026-04-06T06:22:38.315716+00:00"
+  },
+  "ai_cost_summary": {
+    "total_ai_cost": 0,
+    "total_trading_profit": 5.21,
+    "profit_minus_ai_cost": 5.21,
+    "self_sustaining": true
+  },
+  "capital_efficiency": {
+    "kalshi": 11.63,
+    "alpaca": 0.0
+  },
+  "idle_cash": [
+    {
+      "platform": "alpaca",
+      "idle_amount": 1.5,
+      "note": "Cash not deployed (market closed)"
+    }
+  ],
+  "best_opportunity_platform": "kalshi",
+  "transfer_recommendations": [
+    {
+      "direction": "rebalance -> alpaca",
+      "amount": 10.31,
+      "reason": "Kalshi holds 97% of capital -- consider diversifying to Alpaca",
+      "action": "Move ~$10.31 to Alpaca for diversification",
+      "priority": "low",
+      "timestamp": "2026-04-06T06:50:42.711299+00:00"
+    }
+  ],
+  "mycelium_health_score": 83.4,
+  "mycelium_health_grade": "A",
+  "mycelium_health_breakdown": {
+    "capital_utilization": 24.2,
+    "diversification": 6.2,
+    "profit_rate": 25,
+    "settlement_speed": 13.0,
+    "ai_cost_ratio": 15
+  },
+  "status": "active"
+}
