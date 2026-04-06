@@ -494,11 +494,15 @@ def phase_7_evolve():
         print(f"  [EVOLVE] Logged {new_entries} trades to PUBLIC_LEDGER "
               f"(${total_profit_pending:.2f} profit pending)")
 
-    # 2. Run LIVE_WIRE -- discover new neural connections
+    # 2. Run TRADING_WIRE -- bridge trading data into revenue ecosystem
+    results.append(_run_engine("TRADING_WIRE", "EVOLVE"))
+    time.sleep(1)
+
+    # 3. Run LIVE_WIRE -- discover new neural connections
     results.append(_run_engine("LIVE_WIRE", "EVOLVE"))
     time.sleep(1)
 
-    # 3. Run CHIMERA_EVOLUTION_ENGINE -- sovereign evolution loop
+    # 4. Run CHIMERA_EVOLUTION_ENGINE -- sovereign evolution loop
     results.append(_run_engine("CHIMERA_EVOLUTION_ENGINE", "EVOLVE"))
 
     # Check evolution results
