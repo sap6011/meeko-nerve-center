@@ -205,8 +205,25 @@ def find_opportunities(config):
 
     opportunities = []
 
-    # Targeted series: crypto, macro, economics (skip sports parlays)
-    TRADING_SERIES = ["KXBTC", "KXETH", "KXFED", "KXCPI", "KXGDP"]
+    # Targeted series: crypto, macro, economics, financials, weather
+    # Expanded from 5 → 13 series for maximum market coverage
+    TRADING_SERIES = [
+        # Daily resolution (fastest compounding)
+        "KXINX",        # S&P 500 daily range
+        "KXNASDAQ100",  # Nasdaq 100 daily range
+        "KXHIGHNY",     # NYC temperature daily
+        "KXAAAGASD",    # US gas prices daily
+        "KXGOLD",       # Gold price daily
+        # Weekly/monthly resolution
+        "KXBTC",        # Bitcoin price
+        "KXETH",        # Ethereum price
+        "KXFED",        # Fed funds rate
+        "KXCPI",        # CPI inflation
+        "KXGDP",        # GDP growth
+        "KXINXY",       # S&P 500 yearly range
+        "KXINXMAXY",    # S&P 500 yearly high
+        "KXEMPLOYMENTCOMBO",  # Employment data
+    ]
 
     all_markets = []
     for series in TRADING_SERIES:

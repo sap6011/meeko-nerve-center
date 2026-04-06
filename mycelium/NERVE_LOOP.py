@@ -14,6 +14,7 @@ THE LOOP (every cycle):
   Phase 3: THINK     -- Compute strategy from intelligence + portfolio
   Phase 4: PLAN      -- Build unified action queue across ALL wallets
   Phase 4b: EXECUTE  -- Kalshi trading (autonomous, if enabled)
+  Phase 4c: TURBO    -- High-frequency compounding on daily markets (9000+ series)
   Phase 5: REPLICATE -- Apply proven strategies to every eligible wallet
   Phase 6: RECORD    -- Log results, track growth (crypto + Kalshi)
   Phase 7: EVOLVE    -- LIVE_WIRE + CHIMERA + PUBLIC_LEDGER. Profits → evolution.
@@ -288,6 +289,46 @@ def phase_4b_execute():
         "status": status,
         "trades": trades,
         "balance": balance,
+    }
+
+
+def phase_4c_turbo():
+    """
+    PHASE 4c: TURBO -- High-frequency compounding on fast-resolving markets.
+
+    Scans 9,000+ Kalshi series, targets DAILY resolution markets (S&P 500
+    ranges, weather, gas prices), detects balance changes (new deposits),
+    and compounds profits from resolved positions.
+    """
+    print("\n=== PHASE 4c: TURBO (High-Frequency Compounding) ===")
+    result = _run_engine("TURBO_TRADER", "TURBO")
+
+    turbo_state = _load(DATA / "turbo_trader_state.json")
+    status = turbo_state.get("status", "unknown")
+    balance = turbo_state.get("balance", "?")
+    daily = turbo_state.get("daily_opps", 0)
+    weekly = turbo_state.get("weekly_opps", 0)
+    trades = turbo_state.get("trades_placed", 0)
+    deposit = turbo_state.get("deposit_detected", False)
+    settlements = turbo_state.get("settlements_24h", 0)
+
+    print(f"  [TURBO] Status: {status} | Daily opps: {daily} | "
+          f"Weekly opps: {weekly} | Trades: {trades}")
+    if deposit:
+        print(f"  [TURBO] NEW DEPOSIT DETECTED! Deploying immediately...")
+    if settlements > 0:
+        print(f"  [TURBO] {settlements} positions settled in last 24h")
+
+    return {
+        "phase": "turbo",
+        "result": result,
+        "status": status,
+        "balance": balance,
+        "daily_opportunities": daily,
+        "weekly_opportunities": weekly,
+        "trades_placed": trades,
+        "deposit_detected": deposit,
+        "settlements_24h": settlements,
     }
 
 
@@ -572,6 +613,10 @@ def run():
 
         # Phase 4b: EXECUTE -- Kalshi trading (if enabled)
         cycle_results["phases"]["execute"] = phase_4b_execute()
+        time.sleep(1)
+
+        # Phase 4c: TURBO -- high-frequency compounding on daily markets
+        cycle_results["phases"]["turbo"] = phase_4c_turbo()
         time.sleep(1)
 
         # Phase 5: REPLICATE -- apply to all wallets

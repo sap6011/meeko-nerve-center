@@ -23,8 +23,11 @@ WIRING MAP:
   nerve_loop_state.json      --|-->  proof_ledger.json   --> 12 engines
   arbitrage_scanner_state.json|
   unified_action_queue.json  --|
+  turbo_trader_state.json    --|  (NEW: high-frequency compounding)
+  compound_tracker.json      --|  (NEW: compound growth tracking)
 
-RESULT: 12 orphaned outputs -> 4 data buses -> 41 consuming engines.
+RESULT: 14 trading outputs -> 4 data buses -> 41 consuming engines.
+  TURBO_TRADER writes to trade_ledger.json automatically.
   One bridge engine creates 41 new neural connections.
 
 Ethics: 99% mutual aid / 1% node fuel (inherited from CHIMERA_CORE)
@@ -73,35 +76,57 @@ def wire_flywheel():
     # Kalshi balance
     kalshi_balance = executor.get("balance_after") or executor.get("balance_before", 0) or 0
 
-    # Calculate realized profits from resolved trades
+    # Calculate realized profits from ALL successful trades (not just latest cycle)
     realized = sum(
         t.get("order_details", {}).get("expected_profit", 0)
         for t in ledger.get("trades", [])
         if t.get("success")
     )
 
-    # Pending position value
-    pending_value = 0
-    for t in executor.get("trades", []):
-        if t.get("success"):
-            pending_value += t.get("order_details", {}).get("expected_payout", 0)
+    # Total pending payout from ALL open positions (trade_ledger has full history)
+    pending_value = sum(
+        t.get("order_details", {}).get("expected_payout", 0)
+        for t in ledger.get("trades", [])
+        if t.get("success")
+    )
 
-    # Inject into flywheel
+    # Total cost basis for all open positions
+    total_cost = sum(
+        t.get("order_details", {}).get("expected_cost", 0)
+        for t in ledger.get("trades", [])
+        if t.get("success")
+    )
+
+    # Inject Kalshi data into its own section (idempotent, never accumulates)
+    # NOTE: We do NOT touch current_balance -- that's owned by revenue engines.
+    # Consumers read kalshi_trading directly for trading data.
     flywheel["kalshi_trading"] = {
         "balance_usd": round(kalshi_balance, 2),
         "positions_open": executor.get("positions", 0),
         "pending_payout": round(pending_value, 2),
+        "total_cost_basis": round(total_cost, 2),
         "expected_profit": round(realized, 2),
+        "kalshi_total_value": round(kalshi_balance + pending_value, 2),
         "total_trades": ledger.get("stats", {}).get("total_trades", 0),
         "successful_trades": ledger.get("stats", {}).get("successful_orders", 0),
         "last_trade": ledger.get("stats", {}).get("last_trade", "never"),
         "status": executor.get("status", "unknown"),
     }
 
-    # Update total balance to include Kalshi
-    flywheel["current_balance"] = round(
-        flywheel.get("current_balance", 0) + kalshi_balance + pending_value, 2
-    )
+    # Turbo trader compound tracking
+    turbo = _load(DATA / "turbo_trader_state.json")
+    compound = _load(DATA / "compound_tracker.json")
+    if turbo.get("status") == "active" or compound.get("compound_cycles", 0) > 0:
+        flywheel["turbo_trading"] = {
+            "status": turbo.get("status", "inactive"),
+            "daily_opportunities": turbo.get("daily_opps", 0),
+            "weekly_opportunities": turbo.get("weekly_opps", 0),
+            "series_scanned": turbo.get("series_scanned", 0),
+            "compound_cycles": compound.get("compound_cycles", 0),
+            "peak_value": compound.get("peak_balance", 0),
+            "settlements_24h": turbo.get("settlements_24h", 0),
+            "deposit_detected": turbo.get("deposit_detected", False),
+        }
 
     # Growth tracking
     entries = tracker.get("entries", [])
@@ -114,8 +139,8 @@ def wire_flywheel():
     flywheel["timestamp"] = datetime.now(timezone.utc).isoformat()
     _save(DATA / "flywheel_state.json", flywheel)
 
-    print(f"  [WIRE] flywheel_state.json: Kalshi=${kalshi_balance:.2f} + "
-          f"${pending_value:.2f} pending -> 11 engines")
+    print(f"  [WIRE] flywheel_state.json: Kalshi=${kalshi_balance:.2f} cash + "
+          f"${pending_value:.2f} pending ({executor.get('positions', 0)} positions) -> 11 engines")
     return True
 
 
