@@ -2,6 +2,7 @@
 """
 KALSHI_SCANNER.py -- CFTC-regulated prediction market: intelligence + LIVE TRADING
 ====================================================================================
+v3 (2026-04-05): FIXED -- targeted series fetching, correct API v2 field names.
 v2 (2026-04-05): AUTHENTICATED -- $25 account, RSA-signed API, 0% fees.
 
 Kalshi = CFTC-regulated Designated Contract Market, all 50 US states.
@@ -212,15 +213,53 @@ def check_exchange_status():
     return {"exchange_active": False, "trading_active": False}
 
 
-def get_markets(limit=200, cursor=None, status="open"):
+def get_markets(limit=200, cursor=None, status="open", series_ticker=None, event_ticker=None):
     """Fetch active markets from Kalshi."""
     url = f"{KALSHI_API}/markets?limit={limit}&status={status}"
     if cursor:
         url += f"&cursor={cursor}"
+    if series_ticker:
+        url += f"&series_ticker={series_ticker}"
+    if event_ticker:
+        url += f"&event_ticker={event_ticker}"
     data = _fetch(url)
     if data:
         return data.get("markets", []), data.get("cursor", None)
     return [], None
+
+
+# Targeted series tickers: skip sports parlays, fetch what matters
+INTELLIGENCE_SERIES = [
+    "KXBTC",    # Bitcoin price ranges
+    "KXETH",    # Ethereum price ranges
+    "KXFED",    # Fed funds rate decisions
+    "KXCPI",    # CPI inflation data (HUGE volume)
+    "KXGDP",    # GDP growth
+]
+
+TRADING_SERIES = INTELLIGENCE_SERIES  # Same for now, expand as discovered
+
+
+def get_targeted_markets(series_list=None, limit_per=50):
+    """
+    Fetch markets from specific series tickers.
+
+    The generic /markets endpoint returns sports parlays first.
+    This targets crypto, macro, and economics series directly.
+    """
+    if series_list is None:
+        series_list = INTELLIGENCE_SERIES
+
+    all_markets = []
+    for series in series_list:
+        markets, _ = get_markets(limit=limit_per, series_ticker=series)
+        for m in markets:
+            m["_series"] = series  # Tag source for classification
+        all_markets.extend(markets)
+        time.sleep(0.3)  # Rate limit: 10 req/sec
+
+    print(f"  [KALSHI] Fetched {len(all_markets)} targeted markets from {len(series_list)} series")
+    return all_markets
 
 
 def get_events(limit=100, status="open"):
@@ -233,29 +272,54 @@ def get_events(limit=100, status="open"):
 
 
 def parse_market(m):
-    """Extract clean data from a Kalshi market object."""
-    # Kalshi uses yes_price (cents 0-100) or yes_price_dollars (0.00-1.00)
-    yes_price = m.get("yes_price_dollars") or (m.get("yes_price", 0) / 100.0)
-    no_price = m.get("no_price_dollars") or (m.get("no_price", 0) / 100.0)
+    """
+    Extract clean data from a Kalshi market object.
 
-    # Handle None values
-    if yes_price is None:
-        yes_price = 0
-    if no_price is None:
-        no_price = 0
+    Kalshi API v2 field names (2026):
+      yes_bid_dollars / yes_ask_dollars  (NOT yes_price_dollars)
+      no_bid_dollars / no_ask_dollars
+      last_price_dollars
+      volume_fp / volume_24h_fp          (NOT volume)
+      open_interest_fp                   (NOT open_interest)
+    """
+    # Use last_price_dollars as primary, fall back to yes_bid
+    yes_price = m.get("last_price_dollars") or m.get("yes_bid_dollars") or 0
+    no_price = m.get("no_bid_dollars") or 0
+    yes_ask = m.get("yes_ask_dollars") or 0
+    no_ask = m.get("no_ask_dollars") or 0
 
-    volume = m.get("volume", 0) or 0
-    open_interest = m.get("open_interest", 0) or 0
+    # Handle None/string values
+    yes_price = float(yes_price) if yes_price else 0
+    no_price = float(no_price) if no_price else 0
+    yes_ask = float(yes_ask) if yes_ask else 0
+    no_ask = float(no_ask) if no_ask else 0
+
+    volume = float(m.get("volume_fp") or m.get("volume") or 0)
+    volume_24h = float(m.get("volume_24h_fp") or 0)
+    open_interest = float(m.get("open_interest_fp") or m.get("open_interest") or 0)
+
+    # Derive series from event_ticker or tagged _series
+    series = m.get("_series", "")
+    if not series:
+        evt = m.get("event_ticker", "")
+        for s in INTELLIGENCE_SERIES:
+            if evt.startswith(s):
+                series = s
+                break
 
     return {
         "ticker": m.get("ticker", ""),
         "title": m.get("title", m.get("subtitle", ""))[:120],
-        "category": m.get("category", m.get("event_ticker", "unknown")),
-        "yes_price": float(yes_price),
-        "no_price": float(no_price),
-        "yes_pct": round(float(yes_price) * 100, 1),
-        "no_pct": round(float(no_price) * 100, 1),
+        "category": series or m.get("event_ticker", "unknown"),
+        "event_ticker": m.get("event_ticker", ""),
+        "yes_price": yes_price,
+        "no_price": no_price,
+        "yes_ask": yes_ask,
+        "no_ask": no_ask,
+        "yes_pct": round(yes_price * 100, 1),
+        "no_pct": round(no_price * 100, 1),
         "volume": int(volume),
+        "volume_24h": int(volume_24h),
         "open_interest": int(open_interest),
         "close_time": (m.get("close_time") or "")[:10],
         "status": m.get("status", "open"),
@@ -266,15 +330,25 @@ def extract_intelligence(markets):
     """
     Extract actionable intelligence from Kalshi markets.
 
-    Same classification as POLYMARKET_SCANNER for cross-validation.
+    Uses series ticker tags for primary classification, keyword fallback.
+    Cross-validates with POLYMARKET_SCANNER categories.
     """
+    # Series-based classification (primary — fast, accurate)
+    SERIES_MAP = {
+        "KXBTC": "crypto",
+        "KXETH": "crypto",
+        "KXFED": "macro",
+        "KXCPI": "economics",
+        "KXGDP": "economics",
+    }
+
+    # Keyword fallback for markets without series tags
     crypto_keywords = [
         "bitcoin", " btc ", "ethereum", " eth ", "solana", "crypto",
         "digital asset", "stablecoin", "blockchain", "defi",
     ]
     macro_keywords = [
         "federal reserve", "fed funds", "interest rate", "inflation",
-        "cpi", "recession", "gdp", "unemployment", "jobs report",
         "tariff", "treasury", "yield curve",
     ]
     crisis_keywords = [
@@ -282,55 +356,68 @@ def extract_intelligence(markets):
         "hurricane", "earthquake", "pandemic", "emergency",
     ]
     sol_keywords = ["solana", " sol ", "sol price"]
+    economics_keywords = [
+        "gdp", "unemployment", "jobs", "nonfarm", "cpi", "pce",
+        "retail sales", "housing", "consumer", "manufacturing",
+        "recession",
+    ]
 
     signals = {
         "crypto": [],
         "macro": [],
         "crisis": [],
         "sol_specific": [],
-        "economics": [],   # Kalshi strength: economic indicators
-        "weather": [],      # Kalshi unique: weather contracts
+        "economics": [],
+        "weather": [],
     }
-
-    economics_keywords = [
-        "gdp", "unemployment", "jobs", "nonfarm", "cpi", "pce",
-        "retail sales", "housing", "consumer", "manufacturing",
-    ]
-    weather_keywords = [
-        "temperature", "hurricane", "tornado", "snowfall",
-        "rainfall", "heat", "cold", "storm", "flood",
-    ]
 
     for m in markets:
         p = parse_market(m)
         q = p["title"].lower()
+
+        # Skip markets with no price data (empty parlays)
+        if p["yes_price"] == 0 and p.get("yes_ask", 0) == 0:
+            continue
 
         signal = {
             "ticker": p["ticker"],
             "question": p["title"],
             "yes_pct": p["yes_pct"],
             "no_pct": p["no_pct"],
+            "yes_ask": p.get("yes_ask", 0),
+            "no_ask": p.get("no_ask", 0),
             "volume": p["volume"],
+            "volume_24h": p.get("volume_24h", 0),
             "open_interest": p["open_interest"],
             "close_time": p["close_time"],
-            "confidence": "high" if p["volume"] > 1000 else "medium" if p["volume"] > 100 else "low",
+            "event_ticker": p.get("event_ticker", ""),
+            "confidence": "high" if p["volume"] > 10000 else "medium" if p["volume"] > 1000 else "low",
             "source": "kalshi",
         }
 
-        if any(kw in q for kw in sol_keywords):
-            signals["sol_specific"].append(signal)
-        if any(kw in q for kw in crypto_keywords):
-            signals["crypto"].append(signal)
-        if any(kw in q for kw in macro_keywords):
-            signals["macro"].append(signal)
-        if any(kw in q for kw in crisis_keywords):
-            signals["crisis"].append(signal)
-        if any(kw in q for kw in economics_keywords):
-            signals["economics"].append(signal)
-        if any(kw in q for kw in weather_keywords):
-            signals["weather"].append(signal)
+        # Primary: series-based classification
+        series = p.get("category", "")
+        category = SERIES_MAP.get(series)
 
-    # Sort by volume
+        if category:
+            signals[category].append(signal)
+            # Also check for SOL-specific within crypto
+            if series in ("KXBTC", "KXETH") and any(kw in q for kw in sol_keywords):
+                signals["sol_specific"].append(signal)
+        else:
+            # Fallback: keyword matching
+            if any(kw in q for kw in sol_keywords):
+                signals["sol_specific"].append(signal)
+            if any(kw in q for kw in crypto_keywords):
+                signals["crypto"].append(signal)
+            if any(kw in q for kw in macro_keywords):
+                signals["macro"].append(signal)
+            if any(kw in q for kw in crisis_keywords):
+                signals["crisis"].append(signal)
+            if any(kw in q for kw in economics_keywords):
+                signals["economics"].append(signal)
+
+    # Sort by volume (highest first)
     for cat in signals:
         signals[cat].sort(key=lambda x: x["volume"], reverse=True)
 
@@ -453,11 +540,13 @@ def merge_with_polymarket(kalshi_sentiment, kalshi_signals):
     else:
         merged["recommended_action"] = "follow_base_strategy"
 
-    # Add reasoning from both sources
-    merged["reasoning"].extend(
-        [f"[Poly] {r}" for r in poly_sentiment.get("reasoning", [])])
-    merged["reasoning"].extend(
-        [f"[Kalshi] {r}" for r in kalshi_sentiment.get("reasoning", [])])
+    # Add reasoning from both sources (strip existing prefixes to prevent nesting)
+    for r in poly_sentiment.get("reasoning", []):
+        clean = r.lstrip("[Poly] ").lstrip("[Kalshi] ") if r.startswith("[") else r
+        merged["reasoning"].append(f"[Poly] {clean}")
+    for r in kalshi_sentiment.get("reasoning", []):
+        clean = r.lstrip("[Poly] ").lstrip("[Kalshi] ") if r.startswith("[") else r
+        merged["reasoning"].append(f"[Kalshi] {clean}")
 
     return merged
 
@@ -477,10 +566,9 @@ def run():
     # 1. Check exchange status
     status = check_exchange_status()
 
-    # 2. Fetch markets (public -- no auth needed)
-    print("[KALSHI] Fetching active markets...")
-    markets, cursor = get_markets(limit=200)
-    print(f"  [KALSHI] Retrieved {len(markets)} markets")
+    # 2. Fetch targeted markets (skip sports parlays, hit crypto/macro/econ)
+    print("[KALSHI] Fetching targeted markets (crypto, macro, economics)...")
+    markets = get_targeted_markets()
 
     if not markets:
         print("[KALSHI] No markets retrieved -- exchange may be down")
@@ -512,12 +600,20 @@ def run():
     intel_path = DATA / "prediction_intelligence.json"
     existing_intel = _load(intel_path)
 
+    # Extract Polymarket signal counts from existing intel (don't nest)
+    poly_signals = existing_intel.get("signals", {})
+    if isinstance(poly_signals, dict) and "polymarket" in poly_signals:
+        poly_signals = poly_signals.get("polymarket", {})
+        # Unwrap double-nesting from previous runs
+        if isinstance(poly_signals, dict) and "polymarket" in poly_signals:
+            poly_signals = poly_signals.get("polymarket", {})
+
     updated_intel = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "sources": ["polymarket", "kalshi"],
-        "markets_analyzed": existing_intel.get("markets_analyzed", 0) + len(markets),
+        "markets_analyzed": len(markets),
         "signals": {
-            "polymarket": existing_intel.get("signals", {}),
+            "polymarket": poly_signals if isinstance(poly_signals, dict) else {},
             "kalshi": {
                 "crypto_markets": len(signals["crypto"]),
                 "macro_markets": len(signals["macro"]),

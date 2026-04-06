@@ -1,52 +1,52 @@
 {
-  "timestamp": "2026-04-06T01:06:17.280205+00:00",
+  "timestamp": "2026-04-06T01:21:05.177632+00:00",
   "protocol": "arbitrage-scanner-v1",
   "scans": {
     "lst_arbitrage": [
       {
         "token": "JitoSOL",
-        "buy_rate": 0.787115,
-        "sell_rate": 1.270451,
-        "roundtrip_sol": 0.999991,
-        "spread_pct": -0.0009,
+        "buy_rate": 0.7871,
+        "sell_rate": 1.270477,
+        "roundtrip_sol": 0.999992,
+        "spread_pct": -0.0008,
         "gas_cost_sol": 1e-05,
-        "net_profit_pct": -0.0019,
+        "net_profit_pct": -0.0018,
         "profitable": false,
-        "route_buy": "AlphaQ",
+        "route_buy": "Manifest",
         "route_sell": "AlphaQ"
       },
       {
         "token": "mSOL",
-        "buy_rate": 0.730391,
-        "sell_rate": 1.369066,
-        "roundtrip_sol": 0.999953,
-        "spread_pct": -0.0047,
+        "buy_rate": 0.730402,
+        "sell_rate": 1.369082,
+        "roundtrip_sol": 0.99998,
+        "spread_pct": -0.002,
         "gas_cost_sol": 1e-05,
-        "net_profit_pct": -0.0057,
+        "net_profit_pct": -0.003,
         "profitable": false,
-        "route_buy": "Whirlpool",
-        "route_sell": "AlphaQ"
-      },
-      {
-        "token": "bSOL",
-        "buy_rate": 0.77772,
-        "sell_rate": 1.285759,
-        "roundtrip_sol": 0.999961,
-        "spread_pct": -0.0039,
-        "gas_cost_sol": 1e-05,
-        "net_profit_pct": -0.0049,
-        "profitable": false,
-        "route_buy": "Whirlpool",
+        "route_buy": "Manifest",
         "route_sell": "Manifest"
       },
       {
-        "token": "INF",
-        "buy_rate": 0.708725,
-        "sell_rate": 1.410874,
-        "roundtrip_sol": 0.999921,
-        "spread_pct": -0.0079,
+        "token": "bSOL",
+        "buy_rate": 0.77774,
+        "sell_rate": 1.285733,
+        "roundtrip_sol": 0.999966,
+        "spread_pct": -0.0034,
         "gas_cost_sol": 1e-05,
-        "net_profit_pct": -0.0089,
+        "net_profit_pct": -0.0044,
+        "profitable": false,
+        "route_buy": "Manifest",
+        "route_sell": "Meteora"
+      },
+      {
+        "token": "INF",
+        "buy_rate": 0.708724,
+        "sell_rate": 1.410878,
+        "roundtrip_sol": 0.999923,
+        "spread_pct": -0.0077,
+        "gas_cost_sol": 1e-05,
+        "net_profit_pct": -0.0087,
         "profitable": false,
         "route_buy": "Whirlpool",
         "route_sell": "Sanctum Infinity"
@@ -55,27 +55,27 @@
     "stablecoin_arbitrage": [
       {
         "pair": "USDC->USDT",
-        "rate": 1.000223,
-        "deviation_pct": 0.0223
+        "rate": 1.000515,
+        "deviation_pct": 0.0515
       },
       {
         "pair": "USDT->USDC",
-        "rate": 0.999832,
-        "deviation_pct": -0.0168
+        "rate": 0.999949,
+        "deviation_pct": -0.0051
       },
       {
         "pair": "LOOP (USDC->USDT->USDC)",
-        "rate": 1.000055,
-        "profit_pct": 0.0055,
-        "profitable": false
+        "rate": 1.000464,
+        "profit_pct": 0.0464,
+        "profitable": true
       }
     ],
     "sol_price_spreads": [
       {
-        "sol_usdc_price": 82.2166,
-        "sol_usdt_price": 82.2352,
+        "sol_usdc_price": 81.8398,
+        "sol_usdt_price": 81.8584,
         "spread_usd": 0.0186,
-        "spread_pct": 0.0226,
+        "spread_pct": 0.0227,
         "arbitrage": "No actionable spread"
       }
     ],
@@ -111,8 +111,16 @@
       }
     ]
   },
-  "actionable_opportunities": [],
-  "market_context": "bearish -- arb profits should stay in stables",
+  "actionable_opportunities": [
+    {
+      "type": "stablecoin_loop",
+      "pair": "LOOP (USDC->USDT->USDC)",
+      "profit_pct": 0.0464,
+      "action": "USDC->USDT->USDC loop across wallets",
+      "urgency": "medium"
+    }
+  ],
+  "market_context": "neutral",
   "execution": {
     "wallet_a": "Desktop Phantom (buyer)",
     "wallet_b": "Phone MeekoThaRaccoon (seller)",
@@ -121,7 +129,7 @@
   },
   "stats": {
     "lst_pairs_scanned": 4,
-    "profitable_arbs": 0,
+    "profitable_arbs": 1,
     "best_spread": 0
   }
 }

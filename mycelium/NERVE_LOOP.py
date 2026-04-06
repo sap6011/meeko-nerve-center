@@ -256,6 +256,34 @@ def phase_4_plan():
     return {"phase": "plan", "results": results, "queue_size": len(unified_queue), "pending": pending}
 
 
+def phase_4b_execute():
+    """
+    PHASE 4b: EXECUTE -- Run TRADE_EXECUTOR on Kalshi.
+
+    Reads intelligence + opportunities, places orders if enabled.
+    Disabled by default -- user must set enabled: true in config.
+    """
+    print("\n=== PHASE 4b: EXECUTE (Kalshi Trading) ===")
+    result = _run_engine("TRADE_EXECUTOR", "EXECUTE")
+
+    executor_state = _load(DATA / "trade_executor_state.json")
+    status = executor_state.get("status", "unknown")
+    trades = executor_state.get("trades_this_cycle", 0)
+    balance = executor_state.get("balance_after") or executor_state.get("balance_before", "?")
+    opps = executor_state.get("opportunities_found", 0)
+
+    print(f"  [EXECUTE] Status: {status} | Trades: {trades} | "
+          f"Opportunities: {opps} | Balance: ${balance}")
+
+    return {
+        "phase": "execute",
+        "result": result,
+        "status": status,
+        "trades": trades,
+        "balance": balance,
+    }
+
+
 def phase_5_replicate():
     """
     PHASE 5: REPLICATE -- Apply proven strategies to every eligible wallet.
@@ -436,6 +464,10 @@ def run():
 
         # Phase 4: PLAN -- build unified action queue
         cycle_results["phases"]["plan"] = phase_4_plan()
+        time.sleep(1)
+
+        # Phase 4b: EXECUTE -- Kalshi trading (if enabled)
+        cycle_results["phases"]["execute"] = phase_4b_execute()
         time.sleep(1)
 
         # Phase 5: REPLICATE -- apply to all wallets

@@ -448,6 +448,7 @@ def L6():
     eng("AIRDROP_HUNTER",            timeout=30)   # v49: scan + qualify for Solana airdrops
     eng("KALSHI_SCANNER",            timeout=60)   # v50: CFTC-regulated prediction market intelligence
     eng("ARBITRAGE_SCANNER",        timeout=60)   # v50: cross-wallet cross-market arb detection
+    eng("TRADE_EXECUTOR",           timeout=60)   # v50: Kalshi prediction market trading (user-enabled)
     eng("NERVE_LOOP",               timeout=300)  # v50: THE LIVING LOOP — all engines feed all engines, forever
     eng("DIRECT_WIRE",              timeout=120)  # v49: frictionless commit — compile, commit, push, sync USB
 
