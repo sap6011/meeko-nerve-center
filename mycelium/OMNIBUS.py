@@ -444,6 +444,7 @@ def L6():
     eng("WALLET_BRIDGE",             timeout=60)   # v49: Phantom wallet + BAT + Solana monitoring
     eng("PRICE_ORACLE",              timeout=30)   # v49: multi-source price feeds + spread detection
     eng("SOL_MAXIMIZER",             timeout=30)   # v49: yield optimization — staking, lending, liquid staking
+    eng("YIELD_LOOP",                timeout=30)   # v49: autonomous compound loop — detect, decide, queue
     eng("DIRECT_WIRE",              timeout=120)  # v49: frictionless commit — compile, commit, push, sync USB
 
     health   = rj("brain_state.json").get("health_score", 0)
