@@ -14,15 +14,15 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 
 ## System Topology
 
-- **Total engines**: 418
-- **Wire connections**: 6117
-- **Zero-secret chains**: 4156 (work without any API keys)
+- **Total engines**: 419
+- **Wire connections**: 6138
+- **Zero-secret chains**: 4174 (work without any API keys)
 - **Orphan outputs**: 7 (data written but never read)
 - **Hungry inputs**: 92 (data needed but not yet produced)
 
 ## Engine Categories
 
-### Zero-Secret Engines (328 total)
+### Zero-Secret Engines (329 total)
 These engines run without any API keys or credentials:
 
 - **AFFILIATE_MAXIMIZER** -- reads: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json, writes: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json
@@ -55,7 +55,7 @@ These engines run without any API keys or credentials:
 - **BROADCAST_PROTOCOL** -- reads: social_queue.json, newsletter_archive.json, github_discussion_draft.json, rss_publisher_state.json, devto_draft.json, broadcast_state.json, research_brief.json, writes: social_queue.json, newsletter_archive.json, rss_publisher_state.json, github_discussion_draft.json, devto_draft.json, broadcast_state.json, research_brief.json
 - **BUNDLE_FORGE** -- reads: product_registry.json, writes: product_registry.json
 - **CAPACITY_BOOSTER** -- reads: live_wire_report.json, capacity_booster_state.json, writes: live_wire_report.json, capacity_booster_state.json
-- ... and 298 more
+- ... and 299 more
 
 ### Engines Needing API Keys (90 total)
 These engines unlock when you add credentials:
@@ -86,36 +86,36 @@ These engines unlock when you add credentials:
 
 These are real data flows between engines:
 
+- LANDING_DEPLOYER -> REVENUE_LOOP via `landing_deployer_state.json`
+- REVENUE_LOOP -> LANDING_DEPLOYER via `landing_deployer_state.json`
+- GENERATED_SIGNAL_BOOST_LOG_POPULATOR -> SIGNAL_BOOST via `signal_boost_log.json`
+- GENERATED_SIGNAL_BOOST_LOG_POPULATOR -> WEEKEND_PULSE via `signal_boost_log.json` (zero-secrets)
+- SIGNAL_BOOST -> GENERATED_SIGNAL_BOOST_LOG_POPULATOR via `signal_boost_log.json`
+- SIGNAL_BOOST -> WEEKEND_PULSE via `signal_boost_log.json`
+- DEBUG_DOCTOR -> GENERATED_DEBUG_DOCTOR_CONSUMER via `debug_doctor_report.json` (zero-secrets)
+- DEBUG_DOCTOR -> OMNIBUS via `debug_doctor_report.json` (zero-secrets)
+- GENERATED_PLUGIN_MANIFESTS_POPULATOR -> GENERATED_PLUGIN_REGISTRY_CONSUMER via `plugin_manifests.json` (zero-secrets)
+- GENERATED_PLUGIN_MANIFESTS_POPULATOR -> PLUGIN_REGISTRY via `plugin_manifests.json` (zero-secrets)
+- PLUGIN_REGISTRY -> GENERATED_PLUGIN_MANIFESTS_POPULATOR via `plugin_manifests.json` (zero-secrets)
+- PLUGIN_REGISTRY -> GENERATED_PLUGIN_REGISTRY_CONSUMER via `plugin_manifests.json` (zero-secrets)
+- BRIDGE_BUILDER -> CORRUPTION_SENTINEL via `sentinel_scan.json`
+- BRIDGE_BUILDER -> EXECUTIVE_BRIEFING via `sentinel_scan.json` (zero-secrets)
+- BRIDGE_BUILDER -> RESEARCH_WRITER via `sentinel_scan.json` (zero-secrets)
+- CORRUPTION_SENTINEL -> BRIDGE_BUILDER via `sentinel_scan.json`
+- CORRUPTION_SENTINEL -> EXECUTIVE_BRIEFING via `sentinel_scan.json`
+- CORRUPTION_SENTINEL -> RESEARCH_WRITER via `sentinel_scan.json`
 - DATA_FLOW_OBSERVATORY -> CORTEX via `observatory_report.json` (zero-secrets)
 - DATA_FLOW_OBSERVATORY -> EXTERNAL_VALUE_ROUTER via `observatory_report.json` (zero-secrets)
 - DATA_FLOW_OBSERVATORY -> FRACTAL_GENESIS_ENGINE via `observatory_report.json` (zero-secrets)
 - DATA_FLOW_OBSERVATORY -> GENERATED_DATA_FLOW_OBSERVATORY_CONSUMER via `observatory_report.json` (zero-secrets)
 - DATA_FLOW_OBSERVATORY -> OMNIBUS via `observatory_report.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> AUTOPILOT_EXECUTOR via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> BRIDGE_BUILDER via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> BUNDLE_FORGE via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> CATALOG_GENERATOR via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> DIGITAL_SATURATION via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> EXTERNAL_VALUE_ROUTER via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> FIRST_DOLLAR_ENGINE via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> FUEL_CORE via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> GITHUB_DISCUSSIONS_PUBLISHER via `product_registry.json`
-- AGENT_GUMROAD_BUILDER -> GITHUB_RELEASES_PUBLISHER via `product_registry.json`
-- AGENT_GUMROAD_BUILDER -> GITHUB_RELEASE_DEPLOYER via `product_registry.json`
-- AGENT_GUMROAD_BUILDER -> GROWTH_FLYWHEEL via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> GUMROAD_PRODUCT_PUBLISHER via `product_registry.json`
-- AGENT_GUMROAD_BUILDER -> KNOWLEDGE_DISTILLER via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> LEGACY_SIFTED_pod_bulk_uploader via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> METABOLISM_LOOP via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> METRICS_DASHBOARD via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> MISSION_CONTROL via `product_registry.json` (zero-secrets)
-- AGENT_GUMROAD_BUILDER -> NANOSHOP_ENGINE via `product_registry.json`
-- AGENT_GUMROAD_BUILDER -> NIGHTLY_DIGEST via `product_registry.json`
-- ... and 6092 more connections
+- DESKTOP_DAEMON -> GENERATED_DESKTOP_DAEMON_CONSUMER via `desktop_daemon_log.json`
+- GENERATED_DESKTOP_DAEMON_CONSUMER -> DESKTOP_DAEMON via `desktop_daemon_log.json`
+- ... and 6113 more connections
 
 ## Knowledge Graph
 
-- **634 nodes** (engines, data files, concepts)
+- **636 nodes** (engines, data files, concepts)
 - **500 edges** (connections between them)
 
 ## What This Means
@@ -131,9 +131,9 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-06 12:43 UTC
+- **Generated**: 2026-04-06 13:09 UTC
 - **Data source**: data/live_wire_report.json
-- **Engines scanned**: 418
+- **Engines scanned**: 419
 
 ---
 *Built autonomously. Funded for Gaza. Running forever.*

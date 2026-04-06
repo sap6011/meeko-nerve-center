@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-06T12:43:26.167289+00:00",
-  "total_failures": 5,
+  "generated_at": "2026-04-06T13:06:51.496930+00:00",
+  "total_failures": 4,
   "fixed": 0,
   "fixable": 1,
-  "unfixable": 4,
+  "unfixable": 3,
   "diagnoses": [
     {
       "engine": "PRODUCT_FORGE",
@@ -21,7 +21,7 @@
       "fixed": false,
       "fixable": false,
       "details": "Unrecognized error pattern",
-      "error": "File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/NARRATOR.py\", line 123, in generate_story\n    story = ask([{\"role\": \"user\", \"content\": prompt}], max_tokens=300)\n            ^^^^"
+      "error": "rk/meeko-nerve-center/meeko-nerve-center/mycelium/NARRATOR.py\", line 123, in generate_story\n    story = ask([{\"role\": \"user\", \"content\": prompt}], max_tokens=300)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^"
     },
     {
       "engine": "POLYMARKET_SCANNER",
@@ -39,16 +39,7 @@
       "fixed": false,
       "fixable": true,
       "details": "A data file has corrupt JSON",
-      "error": "ode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n"
-    },
-    {
-      "engine": "OLLAMA_BRIDGE",
-      "original_status": "FAIL",
-      "diagnosis": "UNKNOWN",
-      "fixed": false,
-      "fixable": false,
-      "details": "Unrecognized error pattern",
-      "error": ""
+      "error": "ode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/json/decoder.py\", line 337, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n"
     }
   ]
 }

@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-04-06T08:24:43.645980+00:00",
+  "timestamp": "2026-04-06T13:09:39.660515+00:00",
   "engine": "NEURAL_CORTEX",
   "status": "active",
   "strategy": {
     "risk_posture": "moderate",
-    "risk_score": 43.2,
+    "risk_score": 45.8,
     "capital_allocation": {
       "kalshi_pct": 47,
       "alpaca_pct": 33,
@@ -12,9 +12,9 @@
     },
     "growth_priority": "trading",
     "growth_scores": {
-      "trading": 40.1,
-      "ecosystem": 30.3,
-      "infrastructure": 28.5
+      "trading": 60.0,
+      "ecosystem": 27.7,
+      "infrastructure": 23.5
     },
     "top_action": {
       "description": "Deploy to global opportunity: Marinade mSOL (solana_defi)",
@@ -22,51 +22,50 @@
       "urgency": 90
     },
     "reasoning": [
-      "Market regime is NEUTRAL (score -0.5) -> risk posture: MODERATE (43.2/100)",
-      "Signal mesh reads BULLISH with 35.1% conviction across 4 active sources",
-      "System health WARNING (24.2/100) -- fix TURBO_TRADER before aggressive deployment",
-      "Growth priority: TRADING (trading=40.1, ecosystem=30.3, infra=28.5)",
+      "Market regime is NEUTRAL (score 12.3) -> risk posture: MODERATE (45.8/100)",
+      "Signal mesh reads OPPORTUNITY with 39.4% conviction across 9 active sources",
+      "System health WARNING (41.7/100) -- fix POLYMARKET_SCANNER before aggressive deployment",
+      "Growth priority: TRADING (trading=60.0, ecosystem=27.7, infra=23.5)",
       "Top action: Deploy to global opportunity: Marinade mSOL (solana_defi) (urgency 90/100)"
     ]
   },
   "system_health": {
-    "overall_score": 24.2,
+    "overall_score": 41.7,
     "components": {
-      "engine_liveness": 0.0,
-      "neural_connectivity": 36.4,
-      "ecosystem_health": 7.9,
+      "engine_liveness": 96.7,
+      "neural_connectivity": 50.0,
+      "ecosystem_health": 14.1,
       "coordination": 0.0,
-      "reflex_responsiveness": 99.4
+      "reflex_responsiveness": 97.2
     },
-    "weakest_component": "engine_liveness",
-    "weakest_engine": "TURBO_TRADER",
+    "weakest_component": "coordination",
+    "weakest_engine": "POLYMARKET_SCANNER",
     "recommendations": [
-      "CRITICAL: Only 0/22 engines alive -- restart dead engines",
-      "Signal mesh connectivity low (36.4%) -- check signal sources",
-      "Ecosystem health critical (7.9%) -- prioritize revenue generation",
+      "CRITICAL: HOMEOSTASIS reports 3 critical interventions -- weakest zone: infrastructure (15.3/100)",
+      "Ecosystem health critical (14.1%) -- prioritize revenue generation",
       "Low coordination (0.0%) -- engines are not emitting to bus"
     ]
   },
   "intelligence_summary": {
     "regime": "NEUTRAL",
-    "regime_score": -0.5,
-    "signal_strength": 40.5,
-    "conviction": 35.1,
+    "regime_score": 12.3,
+    "signal_strength": 39.9,
+    "conviction": 39.4,
     "urgency": 40.0,
-    "ecosystem_health": 7.9,
-    "reflex_fire_rate": 2.1,
-    "engines_alive": 0,
-    "engines_total": 22,
-    "total_capital_usd": 1.57,
-    "neural_connectivity": 36.4,
-    "sources_alive": 8
+    "ecosystem_health": 14.1,
+    "reflex_fire_rate": 6.0,
+    "engines_alive": 29,
+    "engines_total": 30,
+    "total_capital_usd": 0.07,
+    "neural_connectivity": 50.0,
+    "sources_alive": 13
   },
   "performance": {
-    "ingest_ms": 0.0,
+    "ingest_ms": 0.8,
     "assess_ms": 0.0,
     "decide_ms": 0.0,
-    "total_ms": 0.0
+    "total_ms": 0.9
   },
-  "decision_confidence": 23.9,
+  "decision_confidence": 56.9,
   "ethics": "99% mutual aid / 1% node fuel"
 }

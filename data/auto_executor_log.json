@@ -1373,126 +1373,10 @@
       ]
     },
     {
-      "timestamp": "2026-04-06T07:16:20.364815+00:00",
-      "batch_size": 5,
+      "timestamp": "2026-04-06T07:23:47.046059+00:00",
+      "batch_size": 4,
       "ok": 4,
-      "fail": 1,
-      "results": [
-        {
-          "task": "Publish 50 draft articles",
-          "type": "CONTENT",
-          "priority": 2,
-          "command": "python mycelium/CONTENT_AUTOPILOT.py",
-          "status": "OK",
-          "elapsed": 0.2,
-          "output": "  Engines covered:     54 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
-          "executed_at": "2026-04-06T07:16:19.909317+00:00"
-        },
-        {
-          "task": "Expand Ethical AI Revenue Playbook (only 180 words)",
-          "type": "PRODUCT",
-          "priority": 3,
-          "command": "python mycelium/PRODUCT_FORGE.py",
-          "status": "FAIL",
-          "elapsed": 0.1,
-          "output": "  [1/3] Forging: How to Build an Autonomous System...\n    Created: products/autonomous-system-guide.md (3,147 bytes)\n  [2/3] Forging: SolarPunk Engine Template...\nSTDERR: Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/m",
-          "executed_at": "2026-04-06T07:16:19.979285+00:00"
-        },
-        {
-          "task": "Generate more social posts (queue at 5)",
-          "type": "CONTENT",
-          "priority": 3,
-          "command": "python mycelium/CONTENT_AUTOPILOT.py",
-          "status": "OK",
-          "elapsed": 0.2,
-          "output": "  Engines covered:     55 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
-          "executed_at": "2026-04-06T07:16:20.185780+00:00"
-        },
-        {
-          "task": "Refresh system dashboard and product catalog",
-          "type": "CONTENT",
-          "priority": 3,
-          "command": "python mycelium/METRICS_DASHBOARD.py && python mycelium/CATALOG_GENERATOR.py",
-          "status": "OK",
-          "elapsed": 0.1,
-          "output": "  Revenue:   $455/mo potential\n  The nervous system can see itself.\n[CATALOG] Total products: 90 | Total value: $157.00\n[CATALOG] State saved to /home/runner/work/meeko-nerve-center/meeko-nerve-center/data/catalog_generator_state.json\n[CATALOG] Done.",
-          "executed_at": "2026-04-06T07:16:20.279694+00:00"
-        },
-        {
-          "task": "Generate template pack for docker-automation domain",
-          "type": "PRODUCT",
-          "priority": 4,
-          "command": "python mycelium/MICRO_PRODUCT_FACTORY.py",
-          "status": "OK",
-          "elapsed": 0.0,
-          "output": "  Total domains:  4\n  Total files:    32\n  Report:         /home/runner/work/meeko-nerve-center/meeko-nerve-center/data/micro_product_factory_report.json",
-          "executed_at": "2026-04-06T07:16:20.315502+00:00"
-        }
-      ]
-    },
-    {
-      "timestamp": "2026-04-06T07:17:38.710045+00:00",
-      "batch_size": 5,
-      "ok": 4,
-      "fail": 1,
-      "results": [
-        {
-          "task": "Publish 50 draft articles",
-          "type": "CONTENT",
-          "priority": 2,
-          "command": "python mycelium/CONTENT_AUTOPILOT.py",
-          "status": "OK",
-          "elapsed": 0.6,
-          "output": "  Engines covered:     57 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
-          "executed_at": "2026-04-06T07:17:38.261161+00:00"
-        },
-        {
-          "task": "Expand Ethical AI Revenue Playbook (only 180 words)",
-          "type": "PRODUCT",
-          "priority": 3,
-          "command": "python mycelium/PRODUCT_FORGE.py",
-          "status": "FAIL",
-          "elapsed": 0.1,
-          "output": "  [1/3] Forging: How to Build an Autonomous System...\n    Created: products/autonomous-system-guide.md (3,147 bytes)\n  [2/3] Forging: SolarPunk Engine Template...\nSTDERR: Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/m",
-          "executed_at": "2026-04-06T07:17:38.330472+00:00"
-        },
-        {
-          "task": "Generate more social posts (queue at 8)",
-          "type": "CONTENT",
-          "priority": 3,
-          "command": "python mycelium/CONTENT_AUTOPILOT.py",
-          "status": "OK",
-          "elapsed": 0.2,
-          "output": "  Engines covered:     58 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
-          "executed_at": "2026-04-06T07:17:38.531561+00:00"
-        },
-        {
-          "task": "Refresh system dashboard and product catalog",
-          "type": "CONTENT",
-          "priority": 3,
-          "command": "python mycelium/METRICS_DASHBOARD.py && python mycelium/CATALOG_GENERATOR.py",
-          "status": "OK",
-          "elapsed": 0.1,
-          "output": "  Revenue:   $455/mo potential\n  The nervous system can see itself.\n[CATALOG] Total products: 90 | Total value: $157.00\n[CATALOG] State saved to /home/runner/work/meeko-nerve-center/meeko-nerve-center/data/catalog_generator_state.json\n[CATALOG] Done.",
-          "executed_at": "2026-04-06T07:17:38.624560+00:00"
-        },
-        {
-          "task": "Generate template pack for docker-automation domain",
-          "type": "PRODUCT",
-          "priority": 4,
-          "command": "python mycelium/MICRO_PRODUCT_FACTORY.py",
-          "status": "OK",
-          "elapsed": 0.0,
-          "output": "  Total domains:  4\n  Total files:    32\n  Report:         /home/runner/work/meeko-nerve-center/meeko-nerve-center/data/micro_product_factory_report.json",
-          "executed_at": "2026-04-06T07:17:38.659439+00:00"
-        }
-      ]
-    },
-    {
-      "timestamp": "2026-04-06T12:42:48.025437+00:00",
-      "batch_size": 5,
-      "ok": 4,
-      "fail": 1,
+      "fail": 0,
       "results": [
         {
           "task": "Publish 50 draft articles",
@@ -1501,28 +1385,18 @@
           "command": "python mycelium/CONTENT_AUTOPILOT.py",
           "status": "OK",
           "elapsed": 0.5,
-          "output": "  Engines covered:     60 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
-          "executed_at": "2026-04-06T12:42:47.459389+00:00"
+          "output": "  Engines covered:     54 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
+          "executed_at": "2026-04-06T07:23:46.369783+00:00"
         },
         {
-          "task": "Expand Ethical AI Revenue Playbook (only 180 words)",
-          "type": "PRODUCT",
-          "priority": 3,
-          "command": "python mycelium/PRODUCT_FORGE.py",
-          "status": "FAIL",
-          "elapsed": 0.1,
-          "output": "  [1/3] Forging: How to Build an Autonomous System...\n    Created: products/autonomous-system-guide.md (3,147 bytes)\n  [2/3] Forging: SolarPunk Engine Template...\nSTDERR: Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/m",
-          "executed_at": "2026-04-06T12:42:47.530150+00:00"
-        },
-        {
-          "task": "Generate more social posts (queue at 11)",
+          "task": "Generate more social posts (queue at 1)",
           "type": "CONTENT",
           "priority": 3,
           "command": "python mycelium/CONTENT_AUTOPILOT.py",
           "status": "OK",
-          "elapsed": 0.3,
-          "output": "  Engines covered:     61 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
-          "executed_at": "2026-04-06T12:42:47.843960+00:00"
+          "elapsed": 0.5,
+          "output": "  Engines covered:     55 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
+          "executed_at": "2026-04-06T07:23:46.881200+00:00"
         },
         {
           "task": "Refresh system dashboard and product catalog",
@@ -1531,8 +1405,8 @@
           "command": "python mycelium/METRICS_DASHBOARD.py && python mycelium/CATALOG_GENERATOR.py",
           "status": "OK",
           "elapsed": 0.1,
-          "output": "  Revenue:   $455/mo potential\n  The nervous system can see itself.\n[CATALOG] Total products: 90 | Total value: $157.00\n[CATALOG] State saved to /home/runner/work/meeko-nerve-center/meeko-nerve-center/data/catalog_generator_state.json\n[CATALOG] Done.",
-          "executed_at": "2026-04-06T12:42:47.939131+00:00"
+          "output": "  Revenue:   $455/mo potential\n  The nervous system can see itself.\n[CATALOG] Total products: 88 | Total value: $140.00\n[CATALOG] State saved to /home/runner/work/meeko-nerve-center/meeko-nerve-center/data/catalog_generator_state.json\n[CATALOG] Done.",
+          "executed_at": "2026-04-06T07:23:46.964959+00:00"
         },
         {
           "task": "Generate template pack for docker-automation domain",
@@ -1542,15 +1416,15 @@
           "status": "OK",
           "elapsed": 0.0,
           "output": "  Total domains:  4\n  Total files:    32\n  Report:         /home/runner/work/meeko-nerve-center/meeko-nerve-center/data/micro_product_factory_report.json",
-          "executed_at": "2026-04-06T12:42:47.975365+00:00"
+          "executed_at": "2026-04-06T07:23:46.997543+00:00"
         }
       ]
     },
     {
-      "timestamp": "2026-04-06T12:44:12.491589+00:00",
-      "batch_size": 5,
+      "timestamp": "2026-04-06T13:06:36.300765+00:00",
+      "batch_size": 4,
       "ok": 4,
-      "fail": 1,
+      "fail": 0,
       "results": [
         {
           "task": "Publish 50 draft articles",
@@ -1558,29 +1432,19 @@
           "priority": 2,
           "command": "python mycelium/CONTENT_AUTOPILOT.py",
           "status": "OK",
-          "elapsed": 0.3,
-          "output": "  Engines covered:     63 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
-          "executed_at": "2026-04-06T12:44:11.854209+00:00"
+          "elapsed": 0.7,
+          "output": "  Engines covered:     58 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
+          "executed_at": "2026-04-06T13:06:35.431056+00:00"
         },
         {
-          "task": "Expand Ethical AI Revenue Playbook (only 180 words)",
-          "type": "PRODUCT",
-          "priority": 3,
-          "command": "python mycelium/PRODUCT_FORGE.py",
-          "status": "FAIL",
-          "elapsed": 0.1,
-          "output": "  [1/3] Forging: How to Build an Autonomous System...\n    Created: products/autonomous-system-guide.md (3,147 bytes)\n  [2/3] Forging: SolarPunk Engine Template...\nSTDERR: Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/m",
-          "executed_at": "2026-04-06T12:44:11.924259+00:00"
-        },
-        {
-          "task": "Generate more social posts (queue at 14)",
+          "task": "Generate more social posts (queue at 5)",
           "type": "CONTENT",
           "priority": 3,
           "command": "python mycelium/CONTENT_AUTOPILOT.py",
           "status": "OK",
-          "elapsed": 0.4,
-          "output": "  Engines covered:     64 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
-          "executed_at": "2026-04-06T12:44:12.310505+00:00"
+          "elapsed": 0.7,
+          "output": "  Engines covered:     59 / ~300\n  Social post queued:  Yes\n  The system writes about itself. The content never stops.",
+          "executed_at": "2026-04-06T13:06:36.130068+00:00"
         },
         {
           "task": "Refresh system dashboard and product catalog",
@@ -1589,8 +1453,8 @@
           "command": "python mycelium/METRICS_DASHBOARD.py && python mycelium/CATALOG_GENERATOR.py",
           "status": "OK",
           "elapsed": 0.1,
-          "output": "  Revenue:   $455/mo potential\n  The nervous system can see itself.\n[CATALOG] Total products: 90 | Total value: $157.00\n[CATALOG] State saved to /home/runner/work/meeko-nerve-center/meeko-nerve-center/data/catalog_generator_state.json\n[CATALOG] Done.",
-          "executed_at": "2026-04-06T12:44:12.405702+00:00"
+          "output": "  Revenue:   $455/mo potential\n  The nervous system can see itself.\n[CATALOG] Total products: 90 | Total value: $142.00\n[CATALOG] State saved to /home/runner/work/meeko-nerve-center/meeko-nerve-center/data/catalog_generator_state.json\n[CATALOG] Done.",
+          "executed_at": "2026-04-06T13:06:36.216556+00:00"
         },
         {
           "task": "Generate template pack for docker-automation domain",
@@ -1600,7 +1464,7 @@
           "status": "OK",
           "elapsed": 0.0,
           "output": "  Total domains:  4\n  Total files:    32\n  Report:         /home/runner/work/meeko-nerve-center/meeko-nerve-center/data/micro_product_factory_report.json",
-          "executed_at": "2026-04-06T12:44:12.441706+00:00"
+          "executed_at": "2026-04-06T13:06:36.250836+00:00"
         }
       ]
     }

@@ -90,9 +90,9 @@ def extract_lessons(cycles, patterns):
         lessons.append({"lesson": "Health is rising — keep doing what we're doing",
             "priority": "low", "type": "positive"})
     elif trend == "declining":
-        lessons.append({"lesson": "Health declining — check os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")") is set in GitHub Secrets",
+        lessons.append({"lesson": "Health declining — check ANTHROPIC_API_KEY is set in GitHub Secrets",
             "priority": "critical", "type": "action",
-            "action": "Settings -> Secrets -> os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")")"})
+            "action": "Settings -> Secrets -> ANTHROPIC_API_KEY"})
     if patterns.get("revenue_events", 0) == 0:
         lessons.append({"lesson": "Zero revenue yet — enable GitHub Pages to go live",
             "priority": "high", "type": "action",
@@ -104,7 +104,7 @@ def extract_lessons(cycles, patterns):
                 "priority": "medium", "type": "growth"})
     for c in cycles[-3:]:
         if c.get("health_score", 100) < 50:
-            lessons.append({"lesson": "Sub-50 health — API key 401. Check os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("os.getenv("ANTHROPIC_API_KEY")")")")")")")")")")")")")")")")").",
+            lessons.append({"lesson": "Sub-50 health — API key 401. Check ANTHROPIC_API_KEY.",
                 "priority": "critical", "type": "action"})
             break
     return lessons[:20]

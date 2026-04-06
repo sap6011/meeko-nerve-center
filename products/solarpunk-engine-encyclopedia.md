@@ -4,24 +4,24 @@
 > -- a living, bio-inspired autonomous AI system built to fight
 > tyranny, protect the silenced, and generate sovereign revenue.
 
-Generated: 2026-04-06 12:43 UTC
+Generated: 2026-04-06 13:06 UTC
 
 ## System Statistics
 
 | Metric | Value |
 |--------|-------|
-| Total Engines | 418 |
-| Total Lines of Code | 103,231 |
-| Total Functions | 2,661 |
-| Engines with run() | 263 |
+| Total Engines | 419 |
+| Total Lines of Code | 103,280 |
+| Total Functions | 2,662 |
+| Engines with run() | 264 |
 | Categories | 11 |
 
 ## Table of Contents
 
 1. [Core Infrastructure](#core-infrastructure) (176 engines)
 2. [Revenue Generation](#revenue-generation) (48 engines)
-3. [Content & Distribution](#content-distribution) (31 engines)
-4. [Self-Improvement & Ops](#self-improvement-ops) (31 engines)
+3. [Self-Improvement & Ops](#self-improvement-ops) (32 engines)
+4. [Content & Distribution](#content-distribution) (31 engines)
 5. [Crisis Response & Defense](#crisis-response-defense) (27 engines)
 6. [Topology & Wiring](#topology-wiring) (27 engines)
 7. [Intelligence & Memory](#intelligence-memory) (24 engines)
@@ -3680,6 +3680,518 @@ Generated: 2026-04-06 12:43 UTC
 
 ---
 
+## Self-Improvement & Ops
+
+*32 engines in this category*
+
+### ARCHITECT
+
+**Purpose:** ARCHITECT.py — SolarPunk's Strategic Brain
+
+| Property | Value |
+|----------|-------|
+| Layer | L6 |
+| Lines | 242 |
+| Functions | 11 |
+| Has run() | Yes |
+
+**Functions:** `load`, `save`, `rj`, `audit_system`, `identify_revenue_gaps`, `generate_plan`, `_fallback_plan`, `write_plan`, `run`, `ask`, `ask_json`
+
+---
+
+### AUTONOMIC_NERVE
+
+**Purpose:** AUTONOMIC_NERVE.py -- The heartbeat that never stops
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 977 |
+| Functions | 23 |
+| Has run() | Yes |
+
+**Functions:** `load_schedule`, `_load`, `_save`, `log`, `get_system_vitals`, `should_throttle`, `can_resume`, `ollama_available`, `ollama_ask`, `ai_analyze_system`, `groq_analyze`, `track_ai_cost`, `_bus_cache_get`, `get_engine_state`, `get_last_run_time`, `is_stalled`, `minutes_since_last_run`, `run_engine`, `build_state_summary`, `decide_what_to_run`, `heartbeat`, `run`, `run_once`
+
+**Reads:** all engine state files
+
+**Writes:** data/autonomic_state.json, runs engines directly
+
+---
+
+### AUTONOMOUS_GAP_CLOSER
+
+**Purpose:** AUTONOMOUS_GAP_CLOSER.py — Finds and closes gaps without human intervention
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 341 |
+| Functions | 12 |
+| Has run() | Yes |
+
+**Functions:** `_ts`, `_load`, `_save`, `_run`, `scan_missing_data_files`, `scan_compile_errors`, `scan_stale_docs`, `scan_disconnected_engines`, `scan_human_task_board`, `close_missing_data`, `close_stale_docs`, `run`
+
+---
+
+### AUTONOMOUS_TESTER
+
+**Purpose:** *(no docstring)*
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 21 |
+| Functions | 1 |
+| Has run() | No |
+
+**Functions:** `test_manifestation`
+
+---
+
+### AUTONOMY_PROOF
+
+**Purpose:** AUTONOMY_PROOF.py — Live proof that SolarPunk is real and running
+
+| Property | Value |
+|----------|-------|
+| Layer | L7 |
+| Lines | 212 |
+| Functions | 2 |
+| Has run() | Yes |
+
+**Functions:** `rj`, `run`
+
+---
+
+### AUTOPILOT_EXECUTOR
+
+**Purpose:** AUTOPILOT_EXECUTOR -- Goes through the human task board and DOES every
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 1124 |
+| Functions | 19 |
+| Has run() | Yes |
+
+**Functions:** `_rj`, `_wj`, `_ts`, `_wt`, `fix_broken_html`, `_product_landing_html`, `generate_product_landing_pages`, `create_discussion_drafts`, `generate_email_templates`, `build_bundle_pages`, `update_robots_and_sitemap`, `create_image_descriptions`, `prefill_kofi_listings`, `update_rss_feed`, `mark_completed_tasks`, `run`, `__init__`, `log`, `mark_task`
+
+---
+
+### AUTO_ARCHITECT
+
+**Purpose:** *(no docstring)*
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 40 |
+| Functions | 1 |
+| Has run() | No |
+
+**Functions:** `build_smart_entirety`
+
+---
+
+### AUTO_DEPOSIT
+
+**Purpose:** AUTO_DEPOSIT.py -- Smart capital splitter and deployment router
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 577 |
+| Functions | 10 |
+| Has run() | Yes |
+
+**Functions:** `_load`, `_save`, `_now_iso`, `_emit`, `_sense`, `_gather_intelligence`, `_compute_split`, `_build_split`, `_execute_deployment`, `run`
+
+**Reads:** SYNAPTIC_BUS, cross_pollinator_state.json, signal_mesh_state.json
+
+**Writes:** data/auto_deposit_state.json
+
+---
+
+### AUTO_DOCS
+
+**Purpose:** *(no docstring)*
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 33 |
+| Functions | 1 |
+| Has run() | No |
+
+**Functions:** `document_progress`
+
+---
+
+### AUTO_EXECUTOR
+
+**Purpose:** AUTO_EXECUTOR.py -- Execute Autonomous Tasks Without Human Input
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 224 |
+| Functions | 4 |
+| Has run() | Yes |
+
+**Functions:** `load_json`, `save_json`, `execute_command`, `run`
+
+**Reads:** data/task_queue.json, data/auto_executor_state.json
+
+**Writes:** data/auto_executor_state.json, data/auto_executor_log.json
+
+---
+
+### AUTO_GENESIS
+
+**Purpose:** AUTO_GENESIS.py -- The Self-Starting Perpetual Loop
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 253 |
+| Functions | 6 |
+| Has run() | Yes |
+
+**Functions:** `load_json`, `save_json`, `run_engine`, `get_metrics`, `run_cycle`, `run`
+
+**Reads:** data/auto_genesis_state.json, data/live_wire_report.json
+
+**Writes:** data/auto_genesis_state.json, data/auto_genesis_log.json
+
+---
+
+### AUTO_HEALER
+
+**Purpose:** *(no docstring)*
+
+| Property | Value |
+|----------|-------|
+| Layer | L0 |
+| Lines | 47 |
+| Functions | 2 |
+| Has run() | No |
+
+**Functions:** `heal_and_sync`, `clear_ingest_clogs`
+
+---
+
+### AUTO_RUNNER
+
+**Purpose:** *(no docstring)*
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 48 |
+| Functions | 2 |
+| Has run() | No |
+
+**Functions:** `run_self`, `_wire_state`
+
+---
+
+### BOTTLENECK_SCANNER
+
+**Purpose:** BOTTLENECK_SCANNER.py - identifies what's blocking revenue and outputs fix plan.
+
+| Property | Value |
+|----------|-------|
+| Layer | L0 |
+| Lines | 272 |
+| Functions | 8 |
+| Has run() | Yes |
+
+**Functions:** `check_secrets`, `check_engines`, `check_gumroad_listings`, `check_revenue`, `identify_bottlenecks`, `write_html_report`, `run`, `s`
+
+---
+
+### CAPABILITY_SCANNER
+
+**Purpose:** CAPABILITY_SCANNER.py — What can SolarPunk actually DO right now?
+
+| Property | Value |
+|----------|-------|
+| Layer | L0 |
+| Lines | 196 |
+| Functions | 3 |
+| Has run() | Yes |
+
+**Functions:** `scan`, `_build_html`, `run`
+
+---
+
+### CAPACITY_BOOSTER
+
+**Purpose:** *(no docstring)*
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 48 |
+| Functions | 3 |
+| Has run() | No |
+
+**Functions:** `get_idle_time`, `regulate_swarm`, `_wire_state`
+
+---
+
+### CHAOS_TEST
+
+**Purpose:** CHAOS_TEST.py
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 333 |
+| Functions | 7 |
+| Has run() | No |
+
+**Functions:** `_record`, `test_honeytoken_deployment`, `test_tripwire_fires`, `test_mirror_room`, `test_unsigned_branch_block`, `test_branch_protection`, `print_summary`
+
+---
+
+### ENGINE_INTEGRITY
+
+**Purpose:** ENGINE_INTEGRITY.py — SHA-based tamper detection for all 37 engines
+
+| Property | Value |
+|----------|-------|
+| Layer | L0 |
+| Lines | 116 |
+| Functions | 4 |
+| Has run() | Yes |
+
+**Functions:** `gh`, `load_registry`, `save_registry`, `run`
+
+---
+
+### GENERATED_PROOF_LEDGER_CONSUMER
+
+**Purpose:** GENERATED_PROOF_LEDGER_CONSUMER.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 49 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** proof_ledger.json, transfer_needed.json, proof_ledger_state.json
+
+**Writes:** data/proof_ledger_insights.json
+
+---
+
+### GENERATED_SELF_BUILDER_CONSUMER
+
+**Purpose:** GENERATED_SELF_BUILDER_CONSUMER.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 49 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** self_builder_state.json, architect_plan.json
+
+**Writes:** data/self_builder_insights.json
+
+---
+
+### GENERATED_SELF_BUILDER_QUEUE_POPULATOR
+
+**Purpose:** GENERATED_SELF_BUILDER_QUEUE_POPULATOR.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 47 |
+| Functions | 1 |
+| Has run() | Yes |
+
+**Functions:** `run`
+
+**Reads:** self_builder_queue.json
+
+**Writes:** data/self_builder_queue.json
+
+---
+
+### HEALTH_BOOSTER
+
+**Purpose:** HEALTH_BOOSTER.py — System Diagnostics + Honest Scoring
+
+| Property | Value |
+|----------|-------|
+| Layer | L3 |
+| Lines | 201 |
+| Functions | 5 |
+| Has run() | Yes |
+
+**Functions:** `check_api_key`, `check_revenue`, `score_and_report`, `update_brain_state`, `run`
+
+---
+
+### LEGACY_SIFTED_full_autonomous_deploy
+
+**Purpose:** FULLY AUTONOMOUS DEPLOYMENT SYSTEM
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 499 |
+| Functions | 24 |
+| Has run() | No |
+
+**Functions:** `__init__`, `log`, `load_or_create_config`, `run_full_deployment`, `generate_content`, `generate_images`, `generate_images_local`, `generate_images_api`, `build_website`, `deploy_hosting`, `deploy_vercel`, `deploy_netlify`, `deploy_github_pages`, `configure_domain`, `configure_namecheap`, `configure_cloudflare`, `setup_email`, `setup_beehiiv`, `setup_mailchimp`, `setup_convertkit`, `generate_affiliate_links`, `schedule_social`, `setup_analytics`, `start_monitoring`
+
+---
+
+### LEGACY_SIFTED_self_heal
+
+**Purpose:** SELF-HEALING AI SYSTEM v1.0
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 209 |
+| Functions | 10 |
+| Has run() | No |
+
+**Functions:** `__init__`, `log`, `fix_main_py`, `fix_vscode`, `fix_ollama`, `fix_fastapi`, `fix_continue_extension`, `fix_config`, `fix_python_packages`, `heal_all`
+
+---
+
+### LEGACY_SIFTED_ultimate_ai_self
+
+**Purpose:** *(no docstring)*
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 942 |
+| Functions | 48 |
+| Has run() | Yes |
+
+**Functions:** `with_retry`, `decorator`, `__init__`, `run`, `submit`, `stop`, `get_info`, `__init__`, `heal`, `_record`, `_fix_import_error`, `_fix_attribute_error`, `_fix_key_error`, `_fix_index_error`, `_fix_connection_error`, `_fix_memory_error`, `_fix_recursion_error`, `_fix_type_error`, `_fix_value_error`, `_generic_fix`, `get_stats`, `__init__`, `_collect_metrics`, `diagnose`, `get_stats`, `__init__`, `_init_db`, `_connect`, `add`, `get`, `search`, `vacuum`, `get_stats`, `__init__`, `_spawn_subsystem`, `_reap_dead_subsystems`, `self_heal`, `self_diagnose`, `self_learn`, `self_evolve`, `submit_task`, `get_state`, `run_forever`, `stop`, `_shutdown_handler`, `heavy_task`, `on_done`, `wrapper`
+
+---
+
+### LEGACY_SIFTED_ultimate_ai_self_1
+
+**Purpose:** *(no docstring)*
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 1598 |
+| Functions | 71 |
+| Has run() | Yes |
+
+**Functions:** `build_event`, `_emit`, `with_retry`, `make_file_sink`, `make_print_sink`, `make_prometheus_sink`, `decorator`, `__init__`, `run`, `submit`, `stop`, `get_info`, `__init__`, `heal`, `_record`, `_fix_import_error`, `_fix_attribute_error`, `_fix_key_error`, `_fix_index_error`, `_fix_connection_error`, `_fix_memory_error`, `_fix_recursion_error`, `_fix_type_error`, `_fix_value_error`, `_generic_fix`, `get_stats`, `__init__`, `_collect_metrics`, `diagnose`, `get_stats`, `__init__`, `_init_db`, `_connect`, `add`, `get`, `search`, `vacuum`, `get_stats`, `__init__`, `_make_handler`, `start`, `stop`, `as_fastapi_app`, `__init__`, `_spawn_subsystem`, `_reap_dead_subsystems`, `self_heal`, `self_diagnose`, `self_learn`, `self_evolve`, `submit_task`, `get_state`, `run_forever`, `stop`, `_shutdown_handler`, `sink`, `sink`, `wrapper`, `ver`, `auth_ok`, `health`, `metrics`, `full_state`, `sink`, `log_message`, `_send_json`, `_send_redirect`, `_versioned`, `_check_bearer`, `do_GET`, `_redir`
+
+---
+
+### NANOBOT_HEALER
+
+**Purpose:** NANOBOT_HEALER.py -- Self-Repair Engine
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 272 |
+| Functions | 8 |
+| Has run() | Yes |
+
+**Functions:** `load_json`, `check_syntax`, `fix_nested_getenv`, `fix_encoding_issues`, `fix_print_encoding`, `heal_engine`, `scan_and_heal`, `run`
+
+---
+
+### PROOF_LEDGER
+
+**Purpose:** PROOF_LEDGER.py — public verifiable Gaza donation tracker
+
+| Property | Value |
+|----------|-------|
+| Layer | L5 |
+| Lines | 235 |
+| Functions | 6 |
+| Has run() | Yes |
+
+**Functions:** `load_ledger`, `log_sale`, `log_transfer`, `check_gumroad_sales`, `check_delivery_log`, `run`
+
+---
+
+### SELF_BUILDER
+
+**Purpose:** SELF_BUILDER.py v3 — Infinite engine generator
+
+| Property | Value |
+|----------|-------|
+| Layer | L6 |
+| Lines | 286 |
+| Functions | 8 |
+| Has run() | Yes |
+
+**Functions:** `load`, `save`, `get_existing_engines`, `get_next_idea`, `generate_code`, `validate`, `push_to_github`, `run`
+
+---
+
+### SOLARPUNK_AUTOPILOT
+
+**Purpose:** SOLARPUNK_AUTOPILOT.py — The conductor. Does everything Claude does, in a loop.
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 409 |
+| Functions | 14 |
+| Has run() | Yes |
+
+**Functions:** `_ts`, `_load`, `_save`, `_sh`, `_run_engine`, `phase_scan`, `phase_heal`, `phase_bridge`, `phase_wire`, `phase_evolve`, `phase_publish`, `phase_push`, `run`, `fix_wt`
+
+---
+
+### STRESS_TEST
+
+**Purpose:** STRESS_TEST — Fire Drill for the Living Organism
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 328 |
+| Functions | 6 |
+| Has run() | No |
+
+**Functions:** `timestamp`, `test_hungry_input_heal`, `test_corruption_detection`, `test_canary_tamper`, `test_sovereignty_resilience`, `main`
+
+---
+
+### UPGRADE_ENGINE
+
+**Purpose:** *(no docstring)*
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 30 |
+| Functions | 2 |
+| Has run() | No |
+
+**Functions:** `check_for_upgrades`, `_wire_state`
+
+---
+
 ## Content & Distribution
 
 *31 engines in this category*
@@ -4168,499 +4680,6 @@ Generated: 2026-04-06 12:43 UTC
 | Has run() | No |
 
 **Functions:** `broadcast_to_open_web`, `_wire_state`
-
----
-
-## Self-Improvement & Ops
-
-*31 engines in this category*
-
-### ARCHITECT
-
-**Purpose:** ARCHITECT.py — SolarPunk's Strategic Brain
-
-| Property | Value |
-|----------|-------|
-| Layer | L6 |
-| Lines | 242 |
-| Functions | 11 |
-| Has run() | Yes |
-
-**Functions:** `load`, `save`, `rj`, `audit_system`, `identify_revenue_gaps`, `generate_plan`, `_fallback_plan`, `write_plan`, `run`, `ask`, `ask_json`
-
----
-
-### AUTONOMIC_NERVE
-
-**Purpose:** AUTONOMIC_NERVE.py -- The heartbeat that never stops
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 977 |
-| Functions | 23 |
-| Has run() | Yes |
-
-**Functions:** `load_schedule`, `_load`, `_save`, `log`, `get_system_vitals`, `should_throttle`, `can_resume`, `ollama_available`, `ollama_ask`, `ai_analyze_system`, `groq_analyze`, `track_ai_cost`, `_bus_cache_get`, `get_engine_state`, `get_last_run_time`, `is_stalled`, `minutes_since_last_run`, `run_engine`, `build_state_summary`, `decide_what_to_run`, `heartbeat`, `run`, `run_once`
-
-**Reads:** all engine state files
-
-**Writes:** data/autonomic_state.json, runs engines directly
-
----
-
-### AUTONOMOUS_GAP_CLOSER
-
-**Purpose:** AUTONOMOUS_GAP_CLOSER.py — Finds and closes gaps without human intervention
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 341 |
-| Functions | 12 |
-| Has run() | Yes |
-
-**Functions:** `_ts`, `_load`, `_save`, `_run`, `scan_missing_data_files`, `scan_compile_errors`, `scan_stale_docs`, `scan_disconnected_engines`, `scan_human_task_board`, `close_missing_data`, `close_stale_docs`, `run`
-
----
-
-### AUTONOMOUS_TESTER
-
-**Purpose:** *(no docstring)*
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 21 |
-| Functions | 1 |
-| Has run() | No |
-
-**Functions:** `test_manifestation`
-
----
-
-### AUTONOMY_PROOF
-
-**Purpose:** AUTONOMY_PROOF.py — Live proof that SolarPunk is real and running
-
-| Property | Value |
-|----------|-------|
-| Layer | L7 |
-| Lines | 212 |
-| Functions | 2 |
-| Has run() | Yes |
-
-**Functions:** `rj`, `run`
-
----
-
-### AUTOPILOT_EXECUTOR
-
-**Purpose:** AUTOPILOT_EXECUTOR -- Goes through the human task board and DOES every
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 1124 |
-| Functions | 19 |
-| Has run() | Yes |
-
-**Functions:** `_rj`, `_wj`, `_ts`, `_wt`, `fix_broken_html`, `_product_landing_html`, `generate_product_landing_pages`, `create_discussion_drafts`, `generate_email_templates`, `build_bundle_pages`, `update_robots_and_sitemap`, `create_image_descriptions`, `prefill_kofi_listings`, `update_rss_feed`, `mark_completed_tasks`, `run`, `__init__`, `log`, `mark_task`
-
----
-
-### AUTO_ARCHITECT
-
-**Purpose:** *(no docstring)*
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 40 |
-| Functions | 1 |
-| Has run() | No |
-
-**Functions:** `build_smart_entirety`
-
----
-
-### AUTO_DEPOSIT
-
-**Purpose:** AUTO_DEPOSIT.py -- Smart capital splitter and deployment router
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 577 |
-| Functions | 10 |
-| Has run() | Yes |
-
-**Functions:** `_load`, `_save`, `_now_iso`, `_emit`, `_sense`, `_gather_intelligence`, `_compute_split`, `_build_split`, `_execute_deployment`, `run`
-
-**Reads:** SYNAPTIC_BUS, cross_pollinator_state.json, signal_mesh_state.json
-
-**Writes:** data/auto_deposit_state.json
-
----
-
-### AUTO_DOCS
-
-**Purpose:** *(no docstring)*
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 33 |
-| Functions | 1 |
-| Has run() | No |
-
-**Functions:** `document_progress`
-
----
-
-### AUTO_EXECUTOR
-
-**Purpose:** AUTO_EXECUTOR.py -- Execute Autonomous Tasks Without Human Input
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 224 |
-| Functions | 4 |
-| Has run() | Yes |
-
-**Functions:** `load_json`, `save_json`, `execute_command`, `run`
-
-**Reads:** data/task_queue.json, data/auto_executor_state.json
-
-**Writes:** data/auto_executor_state.json, data/auto_executor_log.json
-
----
-
-### AUTO_GENESIS
-
-**Purpose:** AUTO_GENESIS.py -- The Self-Starting Perpetual Loop
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 253 |
-| Functions | 6 |
-| Has run() | Yes |
-
-**Functions:** `load_json`, `save_json`, `run_engine`, `get_metrics`, `run_cycle`, `run`
-
-**Reads:** data/auto_genesis_state.json, data/live_wire_report.json
-
-**Writes:** data/auto_genesis_state.json, data/auto_genesis_log.json
-
----
-
-### AUTO_HEALER
-
-**Purpose:** *(no docstring)*
-
-| Property | Value |
-|----------|-------|
-| Layer | L0 |
-| Lines | 47 |
-| Functions | 2 |
-| Has run() | No |
-
-**Functions:** `heal_and_sync`, `clear_ingest_clogs`
-
----
-
-### AUTO_RUNNER
-
-**Purpose:** *(no docstring)*
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 48 |
-| Functions | 2 |
-| Has run() | No |
-
-**Functions:** `run_self`, `_wire_state`
-
----
-
-### BOTTLENECK_SCANNER
-
-**Purpose:** BOTTLENECK_SCANNER.py - identifies what's blocking revenue and outputs fix plan.
-
-| Property | Value |
-|----------|-------|
-| Layer | L0 |
-| Lines | 272 |
-| Functions | 8 |
-| Has run() | Yes |
-
-**Functions:** `check_secrets`, `check_engines`, `check_gumroad_listings`, `check_revenue`, `identify_bottlenecks`, `write_html_report`, `run`, `s`
-
----
-
-### CAPABILITY_SCANNER
-
-**Purpose:** CAPABILITY_SCANNER.py — What can SolarPunk actually DO right now?
-
-| Property | Value |
-|----------|-------|
-| Layer | L0 |
-| Lines | 196 |
-| Functions | 3 |
-| Has run() | Yes |
-
-**Functions:** `scan`, `_build_html`, `run`
-
----
-
-### CAPACITY_BOOSTER
-
-**Purpose:** *(no docstring)*
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 48 |
-| Functions | 3 |
-| Has run() | No |
-
-**Functions:** `get_idle_time`, `regulate_swarm`, `_wire_state`
-
----
-
-### CHAOS_TEST
-
-**Purpose:** CHAOS_TEST.py
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 333 |
-| Functions | 7 |
-| Has run() | No |
-
-**Functions:** `_record`, `test_honeytoken_deployment`, `test_tripwire_fires`, `test_mirror_room`, `test_unsigned_branch_block`, `test_branch_protection`, `print_summary`
-
----
-
-### ENGINE_INTEGRITY
-
-**Purpose:** ENGINE_INTEGRITY.py — SHA-based tamper detection for all 37 engines
-
-| Property | Value |
-|----------|-------|
-| Layer | L0 |
-| Lines | 116 |
-| Functions | 4 |
-| Has run() | Yes |
-
-**Functions:** `gh`, `load_registry`, `save_registry`, `run`
-
----
-
-### GENERATED_SELF_BUILDER_CONSUMER
-
-**Purpose:** GENERATED_SELF_BUILDER_CONSUMER.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 49 |
-| Functions | 1 |
-| Has run() | Yes |
-
-**Functions:** `run`
-
-**Reads:** self_builder_state.json, architect_plan.json
-
-**Writes:** data/self_builder_insights.json
-
----
-
-### GENERATED_SELF_BUILDER_QUEUE_POPULATOR
-
-**Purpose:** GENERATED_SELF_BUILDER_QUEUE_POPULATOR.py -- Auto-generated by FRACTAL_GENESIS_ENGINE
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 47 |
-| Functions | 1 |
-| Has run() | Yes |
-
-**Functions:** `run`
-
-**Reads:** self_builder_queue.json
-
-**Writes:** data/self_builder_queue.json
-
----
-
-### HEALTH_BOOSTER
-
-**Purpose:** HEALTH_BOOSTER.py — System Diagnostics + Honest Scoring
-
-| Property | Value |
-|----------|-------|
-| Layer | L3 |
-| Lines | 201 |
-| Functions | 5 |
-| Has run() | Yes |
-
-**Functions:** `check_api_key`, `check_revenue`, `score_and_report`, `update_brain_state`, `run`
-
----
-
-### LEGACY_SIFTED_full_autonomous_deploy
-
-**Purpose:** FULLY AUTONOMOUS DEPLOYMENT SYSTEM
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 499 |
-| Functions | 24 |
-| Has run() | No |
-
-**Functions:** `__init__`, `log`, `load_or_create_config`, `run_full_deployment`, `generate_content`, `generate_images`, `generate_images_local`, `generate_images_api`, `build_website`, `deploy_hosting`, `deploy_vercel`, `deploy_netlify`, `deploy_github_pages`, `configure_domain`, `configure_namecheap`, `configure_cloudflare`, `setup_email`, `setup_beehiiv`, `setup_mailchimp`, `setup_convertkit`, `generate_affiliate_links`, `schedule_social`, `setup_analytics`, `start_monitoring`
-
----
-
-### LEGACY_SIFTED_self_heal
-
-**Purpose:** SELF-HEALING AI SYSTEM v1.0
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 209 |
-| Functions | 10 |
-| Has run() | No |
-
-**Functions:** `__init__`, `log`, `fix_main_py`, `fix_vscode`, `fix_ollama`, `fix_fastapi`, `fix_continue_extension`, `fix_config`, `fix_python_packages`, `heal_all`
-
----
-
-### LEGACY_SIFTED_ultimate_ai_self
-
-**Purpose:** *(no docstring)*
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 942 |
-| Functions | 48 |
-| Has run() | Yes |
-
-**Functions:** `with_retry`, `decorator`, `__init__`, `run`, `submit`, `stop`, `get_info`, `__init__`, `heal`, `_record`, `_fix_import_error`, `_fix_attribute_error`, `_fix_key_error`, `_fix_index_error`, `_fix_connection_error`, `_fix_memory_error`, `_fix_recursion_error`, `_fix_type_error`, `_fix_value_error`, `_generic_fix`, `get_stats`, `__init__`, `_collect_metrics`, `diagnose`, `get_stats`, `__init__`, `_init_db`, `_connect`, `add`, `get`, `search`, `vacuum`, `get_stats`, `__init__`, `_spawn_subsystem`, `_reap_dead_subsystems`, `self_heal`, `self_diagnose`, `self_learn`, `self_evolve`, `submit_task`, `get_state`, `run_forever`, `stop`, `_shutdown_handler`, `heavy_task`, `on_done`, `wrapper`
-
----
-
-### LEGACY_SIFTED_ultimate_ai_self_1
-
-**Purpose:** *(no docstring)*
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 1598 |
-| Functions | 71 |
-| Has run() | Yes |
-
-**Functions:** `build_event`, `_emit`, `with_retry`, `make_file_sink`, `make_print_sink`, `make_prometheus_sink`, `decorator`, `__init__`, `run`, `submit`, `stop`, `get_info`, `__init__`, `heal`, `_record`, `_fix_import_error`, `_fix_attribute_error`, `_fix_key_error`, `_fix_index_error`, `_fix_connection_error`, `_fix_memory_error`, `_fix_recursion_error`, `_fix_type_error`, `_fix_value_error`, `_generic_fix`, `get_stats`, `__init__`, `_collect_metrics`, `diagnose`, `get_stats`, `__init__`, `_init_db`, `_connect`, `add`, `get`, `search`, `vacuum`, `get_stats`, `__init__`, `_make_handler`, `start`, `stop`, `as_fastapi_app`, `__init__`, `_spawn_subsystem`, `_reap_dead_subsystems`, `self_heal`, `self_diagnose`, `self_learn`, `self_evolve`, `submit_task`, `get_state`, `run_forever`, `stop`, `_shutdown_handler`, `sink`, `sink`, `wrapper`, `ver`, `auth_ok`, `health`, `metrics`, `full_state`, `sink`, `log_message`, `_send_json`, `_send_redirect`, `_versioned`, `_check_bearer`, `do_GET`, `_redir`
-
----
-
-### NANOBOT_HEALER
-
-**Purpose:** NANOBOT_HEALER.py -- Self-Repair Engine
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 272 |
-| Functions | 8 |
-| Has run() | Yes |
-
-**Functions:** `load_json`, `check_syntax`, `fix_nested_getenv`, `fix_encoding_issues`, `fix_print_encoding`, `heal_engine`, `scan_and_heal`, `run`
-
----
-
-### PROOF_LEDGER
-
-**Purpose:** PROOF_LEDGER.py — public verifiable Gaza donation tracker
-
-| Property | Value |
-|----------|-------|
-| Layer | L5 |
-| Lines | 235 |
-| Functions | 6 |
-| Has run() | Yes |
-
-**Functions:** `load_ledger`, `log_sale`, `log_transfer`, `check_gumroad_sales`, `check_delivery_log`, `run`
-
----
-
-### SELF_BUILDER
-
-**Purpose:** SELF_BUILDER.py v3 — Infinite engine generator
-
-| Property | Value |
-|----------|-------|
-| Layer | L6 |
-| Lines | 286 |
-| Functions | 8 |
-| Has run() | Yes |
-
-**Functions:** `load`, `save`, `get_existing_engines`, `get_next_idea`, `generate_code`, `validate`, `push_to_github`, `run`
-
----
-
-### SOLARPUNK_AUTOPILOT
-
-**Purpose:** SOLARPUNK_AUTOPILOT.py — The conductor. Does everything Claude does, in a loop.
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 409 |
-| Functions | 14 |
-| Has run() | Yes |
-
-**Functions:** `_ts`, `_load`, `_save`, `_sh`, `_run_engine`, `phase_scan`, `phase_heal`, `phase_bridge`, `phase_wire`, `phase_evolve`, `phase_publish`, `phase_push`, `run`, `fix_wt`
-
----
-
-### STRESS_TEST
-
-**Purpose:** STRESS_TEST — Fire Drill for the Living Organism
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 328 |
-| Functions | 6 |
-| Has run() | No |
-
-**Functions:** `timestamp`, `test_hungry_input_heal`, `test_corruption_detection`, `test_canary_tamper`, `test_sovereignty_resilience`, `main`
-
----
-
-### UPGRADE_ENGINE
-
-**Purpose:** *(no docstring)*
-
-| Property | Value |
-|----------|-------|
-| Layer | ? |
-| Lines | 30 |
-| Functions | 2 |
-| Has run() | No |
-
-**Functions:** `check_for_upgrades`, `_wire_state`
 
 ---
 
@@ -6883,7 +6902,7 @@ Generated: 2026-04-06 12:43 UTC
 ## About This System
 
 The SolarPunk Nerve Center is an autonomous, bio-inspired AI system
-composed of 418 engines organized into 11 categories.
+composed of 419 engines organized into 11 categories.
 Each engine is a self-contained unit that reads data, processes it,
 and writes results -- forming a living neural network of code.
 

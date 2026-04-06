@@ -1,13 +1,13 @@
 {
-  "generated": "2026-03-14T19:18:45.091199+00:00",
+  "generated": "2026-04-06T13:05:35.025999+00:00",
   "summary": {
-    "total_bottlenecks": 2,
+    "total_bottlenecks": 1,
     "critical": 0,
     "high": 1,
     "secrets_ok": 10,
     "secrets_total": 18,
-    "engines_ok": 113,
-    "engines_total": 115,
+    "engines_ok": 418,
+    "engines_total": 418,
     "gumroad_live": 0,
     "gumroad_pending": 10,
     "revenue_total": 0,
@@ -22,15 +22,6 @@
       "fix": "Google Account -> Security -> 2-Step Verification -> App Passwords -> Generate for Mail -> update GMAIL_APP_PASSWORD secret",
       "revenue_impact": "Zero email outreach, exchange tasks undeliverable, digests silent",
       "status": "BROKEN"
-    },
-    {
-      "id": "BN-002",
-      "severity": "LOW",
-      "title": "2 engines have syntax errors",
-      "description": "Broken: DESKTOP_BLUEPRINT_SCANNER.py, NANOSHOP_ENGINE.py",
-      "fix": "Fix ANTHROPIC_API_KEY to enable AI auto-patching via AUTO_HEALER",
-      "revenue_impact": "Minor -- those engines skipped",
-      "status": "KNOWN"
     }
   ],
   "secrets": [
@@ -40,9 +31,7 @@
       "length": 108,
       "impact": "CRITICAL",
       "unlocks": [
-        "SELF_BUILDER",
-        "KNOWLEDGE_WEAVER",
-        "AI brain"
+        "AI brain, self-builder, knowledge weaver"
       ]
     },
     {

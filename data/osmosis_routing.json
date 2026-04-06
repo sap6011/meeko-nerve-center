@@ -1,9 +1,12 @@
 {
-  "timestamp": "2026-04-05T21:58:48.796881+00:00",
+  "timestamp": "2026-04-06T12:59:25.069987+00:00",
   "version": "1.0",
   "pattern": "osmosis",
   "philosophy": "Help flows from high concentration to low. The gradient is suffering.",
-  "signal_counts": {},
+  "signal_counts": {
+    "congo": 1,
+    "yemen": 8
+  },
   "attention_debts": [
     {
       "region": "gaza",
@@ -46,31 +49,11 @@
       "verdict": "CRITICAL VOID"
     },
     {
-      "region": "congo",
-      "conflict_type": "armed conflict",
-      "expected_signals": 3,
-      "actual_signals": 0,
-      "deficit": 3,
-      "debt_ratio": 1.0,
-      "attention_debt": 100,
-      "verdict": "CRITICAL VOID"
-    },
-    {
       "region": "drc",
       "conflict_type": "armed conflict",
       "expected_signals": 3,
       "actual_signals": 0,
       "deficit": 3,
-      "debt_ratio": 1.0,
-      "attention_debt": 100,
-      "verdict": "CRITICAL VOID"
-    },
-    {
-      "region": "yemen",
-      "conflict_type": "civil war/famine",
-      "expected_signals": 4,
-      "actual_signals": 0,
-      "deficit": 4,
       "debt_ratio": 1.0,
       "attention_debt": 100,
       "verdict": "CRITICAL VOID"
@@ -194,6 +177,16 @@
       "debt_ratio": 1.0,
       "attention_debt": 100,
       "verdict": "CRITICAL VOID"
+    },
+    {
+      "region": "congo",
+      "conflict_type": "armed conflict",
+      "expected_signals": 3,
+      "actual_signals": 1,
+      "deficit": 2,
+      "debt_ratio": 0.67,
+      "attention_debt": 67,
+      "verdict": "SIGNIFICANT VOID"
     }
   ],
   "information_voids": [
@@ -238,31 +231,11 @@
       "verdict": "CRITICAL VOID"
     },
     {
-      "region": "congo",
-      "conflict_type": "armed conflict",
-      "expected_signals": 3,
-      "actual_signals": 0,
-      "deficit": 3,
-      "debt_ratio": 1.0,
-      "attention_debt": 100,
-      "verdict": "CRITICAL VOID"
-    },
-    {
       "region": "drc",
       "conflict_type": "armed conflict",
       "expected_signals": 3,
       "actual_signals": 0,
       "deficit": 3,
-      "debt_ratio": 1.0,
-      "attention_debt": 100,
-      "verdict": "CRITICAL VOID"
-    },
-    {
-      "region": "yemen",
-      "conflict_type": "civil war/famine",
-      "expected_signals": 4,
-      "actual_signals": 0,
-      "deficit": 4,
       "debt_ratio": 1.0,
       "attention_debt": 100,
       "verdict": "CRITICAL VOID"
@@ -386,6 +359,16 @@
       "debt_ratio": 1.0,
       "attention_debt": 100,
       "verdict": "CRITICAL VOID"
+    },
+    {
+      "region": "congo",
+      "conflict_type": "armed conflict",
+      "expected_signals": 3,
+      "actual_signals": 1,
+      "deficit": 2,
+      "debt_ratio": 0.67,
+      "attention_debt": 67,
+      "verdict": "SIGNIFICANT VOID"
     }
   ],
   "routing_directives": [
@@ -394,7 +377,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "bombardment/siege",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069721+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -421,7 +404,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "occupation",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069733+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -448,7 +431,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "civil war",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069740+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -475,7 +458,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "genocide",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069743+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -498,38 +481,11 @@
       ]
     },
     {
-      "region": "congo",
-      "severity": "CRITICAL VOID",
-      "attention_debt": 100,
-      "conflict_type": "armed conflict",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
-      "actions": [
-        {
-          "type": "AMPLIFY",
-          "message": "UNDER-COVERED CRISIS: Congo (armed conflict). Only 0 signals detected vs 3 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
-          "priority": "HIGH"
-        },
-        {
-          "type": "SEARCH",
-          "note": "Actively search for more data about congo",
-          "targets": [
-            "wikipedia",
-            "reddit",
-            "gdelt"
-          ]
-        },
-        {
-          "type": "RESOURCE_KIT",
-          "note": "Ensure survival kits are prepared for congo-relevant crisis type"
-        }
-      ]
-    },
-    {
       "region": "drc",
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "armed conflict",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069746+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -552,38 +508,11 @@
       ]
     },
     {
-      "region": "yemen",
-      "severity": "CRITICAL VOID",
-      "attention_debt": 100,
-      "conflict_type": "civil war/famine",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
-      "actions": [
-        {
-          "type": "AMPLIFY",
-          "message": "UNDER-COVERED CRISIS: Yemen (civil war/famine). Only 0 signals detected vs 4 expected. This crisis needs MORE coverage. Share. Amplify. Don't let them be forgotten.",
-          "priority": "HIGH"
-        },
-        {
-          "type": "SEARCH",
-          "note": "Actively search for more data about yemen",
-          "targets": [
-            "wikipedia",
-            "reddit",
-            "gdelt"
-          ]
-        },
-        {
-          "type": "RESOURCE_KIT",
-          "note": "Ensure survival kits are prepared for yemen-relevant crisis type"
-        }
-      ]
-    },
-    {
       "region": "myanmar",
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "military coup",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069749+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -610,7 +539,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "cultural genocide",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069752+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -637,7 +566,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "detention camps",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069758+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -664,7 +593,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "civil war",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069764+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -691,7 +620,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "civil conflict",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069767+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -718,7 +647,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "civil war",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069770+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -745,7 +674,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "invasion",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069774+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -772,7 +701,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "gang violence/collapse",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069779+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -799,7 +728,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "al-Shabaab/famine",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069781+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -826,7 +755,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "genocide/displacement",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069784+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -853,7 +782,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "Taliban/women's rights",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069788+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -880,7 +809,7 @@
       "severity": "CRITICAL VOID",
       "attention_debt": 100,
       "conflict_type": "settler violence/occupation",
-      "timestamp": "2026-04-05T21:58:48.796881+00:00",
+      "timestamp": "2026-04-06T12:59:25.069791+00:00",
       "actions": [
         {
           "type": "AMPLIFY",
@@ -901,6 +830,20 @@
           "note": "Ensure survival kits are prepared for west bank-relevant crisis type"
         }
       ]
+    },
+    {
+      "region": "congo",
+      "severity": "SIGNIFICANT VOID",
+      "attention_debt": 67,
+      "conflict_type": "armed conflict",
+      "timestamp": "2026-04-06T12:59:25.069795+00:00",
+      "actions": [
+        {
+          "type": "AMPLIFY",
+          "message": "Under-covered: Congo (armed conflict). Signal deficit: 2 below baseline.",
+          "priority": "MEDIUM"
+        }
+      ]
     }
   ],
   "coverage_equity": {
@@ -909,9 +852,9 @@
       "palestine": 0.0,
       "sudan": 0.0,
       "darfur": 0.0,
-      "congo": 0.0,
+      "congo": 11.1,
       "drc": 0.0,
-      "yemen": 0.0,
+      "yemen": 88.9,
       "myanmar": 0.0,
       "uyghur": 0.0,
       "xinjiang": 0.0,
@@ -925,15 +868,15 @@
       "afghanistan": 0.0,
       "west bank": 0.0
     },
-    "gini_coefficient": 0,
-    "interpretation": "relatively equal",
-    "most_covered": "gaza",
+    "gini_coefficient": 0.936,
+    "interpretation": "highly unequal",
+    "most_covered": "yemen",
     "least_covered": "gaza"
   },
   "stats": {
     "regions_monitored": 19,
-    "voids_detected": 19,
-    "critical_voids": 19,
-    "directives_generated": 19
+    "voids_detected": 18,
+    "critical_voids": 17,
+    "directives_generated": 18
   }
 }

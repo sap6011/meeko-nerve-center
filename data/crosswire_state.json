@@ -1,7 +1,7 @@
 {
   "engine": "DUAL_SYSTEM_CROSSWIRE",
   "created_at": "2026-04-05T01:08:45.697654+00:00",
-  "cycles": 25,
+  "cycles": 23,
   "announced_products": [
     "autonomous-system-guide",
     "bio-inspired-architecture",
@@ -15,20 +15,20 @@
     "solarpunk-starter",
     "system-snapshot"
   ],
-  "last_run": "2026-04-06T12:43:11.217870+00:00",
+  "last_run": "2026-04-06T13:06:36.390575+00:00",
   "last_results": {
     "content_to_social": {
-      "injected": 4,
-      "total_posts": 40
+      "injected": 9,
+      "total_posts": 212
     },
     "revenue_to_both": {
-      "total_earned": 0.0,
-      "phase": "ignition",
-      "combined_aid": 0.0
+      "total_earned": 221.35,
+      "phase": "combustion",
+      "combined_aid": 110.675
     },
     "fuel_to_growth": {
-      "injected": 0,
-      "total_tasks": 24
+      "injected": 12,
+      "total_tasks": 17
     },
     "storefront_to_signal": {
       "new_products_announced": 0,
@@ -49,7 +49,7 @@
     },
     "tasks_to_telegram": {
       "tasks_sent": 5,
-      "tasks_considered": 7
+      "tasks_considered": 6
     },
     "growth_to_chimera": {
       "growth_fitness": 87,
@@ -62,20 +62,20 @@
       "note": "No grants found yet"
     },
     "report": {
-      "active_wires": 4,
-      "idle_wires": 3,
-      "total_items_flowing": 11,
+      "active_wires": 5,
+      "idle_wires": 2,
+      "total_items_flowing": 28,
       "gaps": 1
     }
   },
-  "last_elapsed_s": 0.006,
+  "last_elapsed_s": 0.008,
   "cross_connections": [
     {
       "wire": "CONTENT -> SOCIAL",
       "from": "growth_flywheel_content.json",
       "to": "social_queue.json",
       "status": "active",
-      "items_flowing": 4
+      "items_flowing": 9
     },
     {
       "wire": "REVENUE -> BOTH",
@@ -88,8 +88,8 @@
       "wire": "FUEL -> GROWTH",
       "from": "fuel_plan.json (blockers)",
       "to": "self_builder_queue.json",
-      "status": "idle",
-      "items_flowing": 0
+      "status": "active",
+      "items_flowing": 12
     },
     {
       "wire": "STOREFRONT -> SIGNAL",
@@ -134,42 +134,42 @@
       "engine": "GROWTH_FLYWHEEL",
       "description": "Content for distribution",
       "status": "active",
-      "size": 15801
+      "size": 15780
     },
     {
       "file": "social_queue.json",
       "engine": "SOCIAL_DASHBOARD",
       "description": "Social post queue",
       "status": "active",
-      "size": 28440
+      "size": 93501
     },
     {
       "file": "fuel_plan.json",
       "engine": "FUEL_CORE",
       "description": "Growth plan and blockers",
       "status": "active",
-      "size": 8103
+      "size": 7842
     },
     {
       "file": "economy_chain_ledger.json",
       "engine": "ECONOMY_CHAIN",
       "description": "Revenue routing ledger",
       "status": "active",
-      "size": 20233
+      "size": 9576
     },
     {
       "file": "revenue_routing.json",
       "engine": "REVENUE_SPLITTER",
       "description": "Active routing table",
       "status": "active",
-      "size": 3263
+      "size": 3293
     },
     {
       "file": "storefront_listings.json",
       "engine": "STOREFRONT_DEPLOYER",
       "description": "Product listings",
       "status": "active",
-      "size": 22559
+      "size": 18124
     },
     {
       "file": "signal_chain_state.json",
@@ -183,7 +183,7 @@
       "engine": "CHIMERA_EVOLUTION",
       "description": "Fitness scoring",
       "status": "active",
-      "size": 1714
+      "size": 1707
     },
     {
       "file": "grants_found.json",
@@ -197,14 +197,14 @@
       "engine": "SELF_BUILDER",
       "description": "Automated task queue",
       "status": "active",
-      "size": 9314
+      "size": 6943
     },
     {
       "file": "telegram_relay.json",
       "engine": "TELEGRAM_BRIDGE",
       "description": "Telegram notifications",
       "status": "active",
-      "size": 34582
+      "size": 34578
     },
     {
       "file": "kofi_tracker_state.json",
@@ -218,7 +218,7 @@
       "engine": "PROOF_LEDGER",
       "description": "Revenue proof chain",
       "status": "active",
-      "size": 10673
+      "size": 1825
     }
   ],
   "mantra": "Two systems. One mission. This engine makes them talk."

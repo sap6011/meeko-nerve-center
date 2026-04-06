@@ -1,27 +1,28 @@
 {
-  "timestamp": "2026-04-05T22:05:06.710538+00:00",
-  "claimed_wires": 5881,
-  "audited_wires": 5881,
+  "timestamp": "2026-04-06T13:06:31.401743+00:00",
+  "claimed_wires": 6117,
+  "audited_wires": 6117,
   "wire_classifications": {
-    "REAL": 5528,
-    "THIN": 236,
-    "STUB": 105,
-    "DEAD": 12,
-    "STALE": 0
+    "REAL": 5825,
+    "THIN": 207,
+    "STUB": 67,
+    "DEAD": 15,
+    "STALE": 3
   },
-  "real_wires": 5528,
-  "thin_wires": 236,
-  "stub_wires": 105,
-  "dead_wires": 12,
-  "stale_wires": 0,
-  "honest_real_count": 5764,
+  "real_wires": 5825,
+  "thin_wires": 207,
+  "stub_wires": 67,
+  "dead_wires": 15,
+  "stale_wires": 3,
+  "honest_real_count": 6032,
   "honest_percentage": 98,
-  "unique_data_files": 531,
+  "unique_data_files": 574,
   "file_classifications": {
-    "REAL": 236,
-    "THIN": 118,
-    "STUB": 64,
-    "DEAD": 113
+    "REAL": 279,
+    "THIN": 120,
+    "STUB": 61,
+    "DEAD": 111,
+    "STALE": 3
   },
   "top_real_engines": [
     {
@@ -67,6 +68,18 @@
       }
     },
     {
+      "name": "AIRDROP_HUNTER",
+      "total_score": 9,
+      "max_possible": 9,
+      "percentage": 100,
+      "writes": 0,
+      "reads": 3,
+      "write_quality": {},
+      "read_quality": {
+        "REAL": 3
+      }
+    },
+    {
       "name": "AI_WATCHER",
       "total_score": 6,
       "max_possible": 6,
@@ -109,6 +122,18 @@
       }
     },
     {
+      "name": "ARBITRAGE_SCANNER",
+      "total_score": 9,
+      "max_possible": 9,
+      "percentage": 100,
+      "writes": 0,
+      "reads": 3,
+      "write_quality": {},
+      "read_quality": {
+        "REAL": 3
+      }
+    },
+    {
       "name": "ART_CATALOG",
       "total_score": 6,
       "max_possible": 6,
@@ -123,49 +148,25 @@
       }
     },
     {
-      "name": "AUTO_ARCHITECT",
-      "total_score": 3,
-      "max_possible": 3,
-      "percentage": 100,
-      "writes": 0,
-      "reads": 1,
-      "write_quality": {},
-      "read_quality": {
-        "REAL": 1
-      }
-    },
-    {
-      "name": "AUTO_DOCS",
-      "total_score": 3,
-      "max_possible": 3,
-      "percentage": 100,
-      "writes": 0,
-      "reads": 1,
-      "write_quality": {},
-      "read_quality": {
-        "REAL": 1
-      }
-    },
-    {
-      "name": "AUTO_GENESIS",
-      "total_score": 21,
-      "max_possible": 21,
+      "name": "AUTONOMOUS_GAP_CLOSER",
+      "total_score": 18,
+      "max_possible": 18,
       "percentage": 100,
       "writes": 2,
-      "reads": 5,
+      "reads": 4,
       "write_quality": {
         "REAL": 2
       },
       "read_quality": {
-        "REAL": 5
+        "REAL": 4
       }
     }
   ],
-  "zero_real_engines": 25,
+  "zero_real_engines": 21,
   "engine_scores_summary": {
-    "total": 394,
-    "above_50pct": 333,
-    "above_0pct": 369,
-    "at_0pct": 25
+    "total": 418,
+    "above_50pct": 365,
+    "above_0pct": 397,
+    "at_0pct": 21
   }
 }

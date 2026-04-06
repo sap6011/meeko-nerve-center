@@ -2,14 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="SolarPunk™ Setup Guide -- ⚡ SolarPunk™ Setup Guide Live status — auto-updated every cycle · 2026-04-04 23:47 UTC 0 Configured 4 Critical Missing 16 Optional...">
-<meta property="og:title" content="SolarPunk™ Setup Guide">
-<meta property="og:description" content="SolarPunk™ Setup Guide -- ⚡ SolarPunk™ Setup Guide Live status — auto-updated every cycle · 2026-04-04 23:47 UTC 0 Configured 4 Critical Missing 16 Optional...">
-<meta property="og:url" content="https://meekotharaccoon-cell.github.io/meeko-nerve-center/setup.html">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SolarPunk™ Setup Guide">
-<meta name="twitter:description" content="SolarPunk™ Setup Guide -- ⚡ SolarPunk™ Setup Guide Live status — auto-updated every cycle · 2026-04-04 23:47 UTC 0 Configured 4 Critical Missing 16 Optional...">
 <title>SolarPunk™ Setup Guide</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -53,137 +45,104 @@ h2.cat{color:#90caf9;font-size:13px;text-transform:uppercase;letter-spacing:2px;
 footer{color:#333;font-size:11px;margin-top:48px;border-top:1px solid #111;padding-top:12px}
 footer a{color:#444}
 </style>
-<link rel="canonical" href="https://meekotharaccoon-cell.github.io/meeko-nerve-center/setup.html">
 </head>
 <body>
 
 <h1>⚡ SolarPunk™ Setup Guide</h1>
-<p class="sub">Live status — auto-updated every cycle · 2026-04-04 23:47 UTC</p>
+<p class="sub">Live status — auto-updated every cycle · 2026-04-06 13:05 UTC</p>
 
 <div class="hero-stats">
-  <div class="hstat"><div class="n">0</div><div class="l">Configured</div></div>
-  <div class="hstat warn"><div class="n">4</div><div class="l">Critical Missing</div></div>
-  <div class="hstat"><div class="n">16</div><div class="l">Optional Remaining</div></div>
-  <div class="hstat"><div class="n">0%</div><div class="l">Complete</div></div>
+  <div class="hstat"><div class="n">10</div><div class="l">Configured</div></div>
+  <div class="hstat "><div class="n">0</div><div class="l">Critical Missing</div></div>
+  <div class="hstat"><div class="n">6</div><div class="l">Optional Remaining</div></div>
+  <div class="hstat"><div class="n">62%</div><div class="l">Complete</div></div>
 </div>
 
-<div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
-<div class="progress-label">0/16 secrets configured</div>
+<div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+<div class="progress-label">10/16 secrets configured</div>
 
-<div class="critical-box">
-  <h3>🔴 Critical — fix these first (blocking revenue):</h3>
-  <code>ANTHROPIC_API_KEY</code><code>GUMROAD_SECRET</code><code>GMAIL_ADDRESS</code><code>GMAIL_APP_PASSWORD</code>
-</div>
+
 
 <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/settings/secrets/actions" class="github-link" target="_blank">
   → Open GitHub Secrets (add secrets here)
 </a>
 
 <h2 class="cat">AI Brain</h2>
-<div class="card critical">
+<div class="card ok">
   <div class="card-head">
     <span class="secret-name">ANTHROPIC_API_KEY</span>
-    <span class="status-badge critical">🔴 MISSING — CRITICAL</span>
+    <span class="status-badge ok">[OK] CONFIGURED</span>
   </div>
   <div class="desc">Powers Claude — the core intelligence behind every engine</div>
   <div class="engines">Used by: <code>AI_CLIENT</code> <code>BUILD_YOURSELF</code> <code>ARCHITECT</code> <code>SELF_BUILDER</code> <code>SOLARPUNK_LOOP</code></div>
-  <div class="steps-wrap"><div class="steps-label">How to get it (super simple):</div><div class="step"><span class="step-n">1</span>Go to console.anthropic.com</div>
-<div class="step"><span class="step-n">2</span>Sign in / create free account</div>
-<div class="step"><span class="step-n">3</span>Click 'API Keys' in sidebar</div>
-<div class="step"><span class="step-n">4</span>Click 'Create Key' — name it 'solarpunk'</div>
-<div class="step"><span class="step-n">5</span>Copy the key (starts with sk-ant-...)</div>
-<div class="step"><span class="step-n">6</span>GitHub → Settings → Secrets → Actions → New secret</div>
-<div class="step"><span class="step-n">7</span>Name: ANTHROPIC_API_KEY</div>
-</div>
+  
 </div>
 <h2 class="cat">🧠 AI Brain</h2>
-<div class="card impact-low">
+<div class="card ok">
   <div class="card-head">
     <span class="secret-name">HF_TOKEN</span>
-    <span class="status-badge impact-low">⚪ OPTIONAL (low impact)</span>
+    <span class="status-badge ok">[OK] CONFIGURED</span>
   </div>
   <div class="desc">HuggingFace fallback AI (free) — used if Anthropic is down</div>
   <div class="engines">Used by: <code>AI_CLIENT</code></div>
-  <div class="steps-wrap"><div class="steps-label">How to get it (super simple):</div><div class="step"><span class="step-n">1</span>Go to huggingface.co → Settings → Access Tokens</div>
-<div class="step"><span class="step-n">2</span>Create a READ token</div>
-<div class="step"><span class="step-n">3</span>Add as GitHub Secret: HF_TOKEN</div>
-</div>
+  
 </div>
 <h2 class="cat">💰 Revenue</h2>
-<div class="card critical">
+<div class="card ok">
   <div class="card-head">
     <span class="secret-name">GUMROAD_SECRET</span>
-    <span class="status-badge critical">🔴 MISSING — CRITICAL</span>
+    <span class="status-badge ok">[OK] CONFIGURED</span>
   </div>
   <div class="desc">Publishes your products to Gumroad automatically</div>
   <div class="engines">Used by: <code>GUMROAD_ENGINE</code> <code>REVENUE_LOOP</code></div>
-  <div class="steps-wrap"><div class="steps-label">How to get it (super simple):</div><div class="step"><span class="step-n">1</span>Log in to gumroad.com</div>
-<div class="step"><span class="step-n">2</span>Click your avatar → Settings</div>
-<div class="step"><span class="step-n">3</span>Click 'Advanced' tab</div>
-<div class="step"><span class="step-n">4</span>Scroll to 'Application' section</div>
-<div class="step"><span class="step-n">5</span>Click 'Generate Token' or copy existing token</div>
-<div class="step"><span class="step-n">6</span>Add as GitHub Secret: GUMROAD_SECRET</div>
+  
 </div>
-</div>
-<div class="card impact-low">
+<div class="card ok">
   <div class="card-head">
     <span class="secret-name">GUMROAD_ID</span>
-    <span class="status-badge impact-low">⚪ OPTIONAL (low impact)</span>
+    <span class="status-badge ok">[OK] CONFIGURED</span>
   </div>
   <div class="desc">Your Gumroad seller ID (for analytics)</div>
   <div class="engines">Used by: <code>GUMROAD_ENGINE</code></div>
-  <div class="steps-wrap"><div class="steps-label">How to get it (super simple):</div><div class="step"><span class="step-n">1</span>Already set — found in your Gumroad account URL</div>
+  
 </div>
-</div>
-<div class="card impact-low">
+<div class="card ok">
   <div class="card-head">
     <span class="secret-name">GUMROAD_NAME</span>
-    <span class="status-badge impact-low">⚪ OPTIONAL (low impact)</span>
+    <span class="status-badge ok">[OK] CONFIGURED</span>
   </div>
   <div class="desc">Your Gumroad display name</div>
   <div class="engines">Used by: <code>GUMROAD_ENGINE</code></div>
-  <div class="steps-wrap"><div class="steps-label">How to get it (super simple):</div><div class="step"><span class="step-n">1</span>Already set — your Gumroad username</div>
-</div>
+  
 </div>
 <h2 class="cat">📧 Email</h2>
-<div class="card critical">
+<div class="card ok">
   <div class="card-head">
     <span class="secret-name">GMAIL_ADDRESS</span>
-    <span class="status-badge critical">🔴 MISSING — CRITICAL</span>
+    <span class="status-badge ok">[OK] CONFIGURED</span>
   </div>
   <div class="desc">Gmail address SolarPunk sends briefings from/to</div>
   <div class="engines">Used by: <code>BRIEFING_ENGINE</code> <code>EMAIL_BRAIN</code> <code>DISPATCH_HANDLER</code></div>
-  <div class="steps-wrap"><div class="steps-label">How to get it (super simple):</div><div class="step"><span class="step-n">1</span>Already set — your Gmail address</div>
+  
 </div>
-</div>
-<div class="card critical">
+<div class="card ok">
   <div class="card-head">
     <span class="secret-name">GMAIL_APP_PASSWORD</span>
-    <span class="status-badge critical">🔴 MISSING — CRITICAL</span>
+    <span class="status-badge ok">[OK] CONFIGURED</span>
   </div>
   <div class="desc">Gmail App Password — NOT your regular password</div>
   <div class="engines">Used by: <code>BRIEFING_ENGINE</code> <code>EMAIL_BRAIN</code> <code>NIGHTLY_DIGEST</code></div>
-  <div class="steps-wrap"><div class="steps-label">How to get it (super simple):</div><div class="step"><span class="step-n">1</span>Log in to myaccount.google.com</div>
-<div class="step"><span class="step-n">2</span>Search 'App Passwords' in the search bar</div>
-<div class="step"><span class="step-n">3</span>If not visible: enable 2-Step Verification first</div>
-<div class="step"><span class="step-n">4</span>App name: 'SolarPunk' → click Generate</div>
-<div class="step"><span class="step-n">5</span>Copy the 16-character password (spaces don't matter)</div>
-<div class="step"><span class="step-n">6</span>Add as GitHub Secret: GMAIL_APP_PASSWORD</div>
-</div>
+  
 </div>
 <h2 class="cat">📣 Social</h2>
-<div class="card impact-high">
+<div class="card ok">
   <div class="card-head">
     <span class="secret-name">X_API_KEY</span>
-    <span class="status-badge impact-high">⚪ OPTIONAL (high impact)</span>
+    <span class="status-badge ok">[OK] CONFIGURED</span>
   </div>
   <div class="desc">Twitter/X API — auto-posts 24 queued tweets</div>
   <div class="engines">Used by: <code>SOCIAL_PROMOTER</code></div>
-  <div class="steps-wrap"><div class="steps-label">How to get it (super simple):</div><div class="step"><span class="step-n">1</span>Go to developer.twitter.com</div>
-<div class="step"><span class="step-n">2</span>Create a project + app (free tier: 1500 tweets/month)</div>
-<div class="step"><span class="step-n">3</span>Keys and Tokens tab → generate all 4 keys</div>
-<div class="step"><span class="step-n">4</span>Add: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_SECRET</div>
-</div>
+  
 </div>
 <div class="card impact-high">
   <div class="card-head">
@@ -241,29 +200,23 @@ footer a{color:#444}
 </div>
 </div>
 <h2 class="cat">💸 Payments</h2>
-<div class="card impact-medium">
+<div class="card ok">
   <div class="card-head">
     <span class="secret-name">PAYPAL_CLIENT_ID</span>
-    <span class="status-badge impact-medium">⚪ OPTIONAL (medium impact)</span>
+    <span class="status-badge ok">[OK] CONFIGURED</span>
   </div>
   <div class="desc">PayPal — enables automatic revenue payouts to collaborators</div>
   <div class="engines">Used by: <code>HUMAN_PAYOUT</code></div>
-  <div class="steps-wrap"><div class="steps-label">How to get it (super simple):</div><div class="step"><span class="step-n">1</span>Go to developer.paypal.com</div>
-<div class="step"><span class="step-n">2</span>Log in with PayPal account</div>
-<div class="step"><span class="step-n">3</span>My Apps → Create App → name: 'SolarPunk'</div>
-<div class="step"><span class="step-n">4</span>Copy Client ID + Secret</div>
-<div class="step"><span class="step-n">5</span>Add: PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET</div>
+  
 </div>
-</div>
-<div class="card impact-medium">
+<div class="card ok">
   <div class="card-head">
     <span class="secret-name">PAYPAL_CLIENT_SECRET</span>
-    <span class="status-badge impact-medium">⚪ OPTIONAL (medium impact)</span>
+    <span class="status-badge ok">[OK] CONFIGURED</span>
   </div>
   <div class="desc">PayPal Client Secret</div>
   <div class="engines">Used by: <code>HUMAN_PAYOUT</code></div>
-  <div class="steps-wrap"><div class="steps-label">How to get it (super simple):</div><div class="step"><span class="step-n">1</span>Same step as PAYPAL_CLIENT_ID</div>
-</div>
+  
 </div>
 <div class="card impact-low">
   <div class="card-head">

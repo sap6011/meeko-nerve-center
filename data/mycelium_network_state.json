@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-06T12:43:12.730450+00:00",
+  "timestamp": "2026-04-06T13:06:38.394033+00:00",
   "protocol": "mycelium-network-v1",
   "nutrient_routing": {
     "total_nodes": 418,
@@ -56,7 +56,7 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "product_registry.json",
+        "via": "desktop_daemon_state.json",
         "gradient": 333.0,
         "src_level": 179.5,
         "dst_level": -153.5
@@ -65,6 +65,30 @@
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "bridge_report.json",
+        "gradient": 333.0,
+        "src_level": 179.5,
+        "dst_level": -153.5
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "chimera_evolution_report.json",
+        "gradient": 333.0,
+        "src_level": 179.5,
+        "dst_level": -153.5
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "mutation_vault.json",
+        "gradient": 333.0,
+        "src_level": 179.5,
+        "dst_level": -153.5
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "product_registry.json",
         "gradient": 333.0,
         "src_level": 179.5,
         "dst_level": -153.5
@@ -81,30 +105,6 @@
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "live_wire_report.json",
-        "gradient": 333.0,
-        "src_level": 179.5,
-        "dst_level": -153.5
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "chimera_evolution_report.json",
-        "gradient": 333.0,
-        "src_level": 179.5,
-        "dst_level": -153.5
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "desktop_daemon_state.json",
-        "gradient": 333.0,
-        "src_level": 179.5,
-        "dst_level": -153.5
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "mutation_vault.json",
         "gradient": 333.0,
         "src_level": 179.5,
         "dst_level": -153.5
@@ -128,7 +128,7 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "VITAL_SIGN_API",
-        "via": "brain_state.json",
+        "via": "river_watch.json",
         "gradient": 229.0,
         "src_level": 179.5,
         "dst_level": -49.5
@@ -137,14 +137,54 @@
   },
   "adaptive_growth": {
     "total_wires": 6117,
-    "strengthen": 6105,
-    "monitor": 11,
-    "prune": 1
+    "strengthen": 6025,
+    "monitor": 16,
+    "prune": 76
   },
   "anastomosis": {
-    "broken_wires": 1,
+    "broken_wires": 76,
     "hungry_inputs": 92,
     "breaks": [
+      {
+        "type": "broken_wire",
+        "from": "REPO_SPIDER",
+        "to": "GENERATED_REPO_SPIDER_CONSUMER",
+        "via": "repo_spider_state.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate repo_spider_state.json"
+      },
+      {
+        "type": "broken_wire",
+        "from": "REPO_SPIDER",
+        "to": "OMNIBUS",
+        "via": "repo_spider_state.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate repo_spider_state.json"
+      },
+      {
+        "type": "broken_wire",
+        "from": "CRYPTO_WATCHER",
+        "to": "GENERATED_CRYPTO_WATCHER_CONSUMER",
+        "via": "crypto_state.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate crypto_state.json"
+      },
+      {
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "EVOLUTION_VIEWER",
+        "via": "chimera_evolution_report.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate chimera_evolution_report.json"
+      },
+      {
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "OMNIBUS",
+        "via": "chimera_evolution_report.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate chimera_evolution_report.json"
+      },
       {
         "type": "broken_wire",
         "from": "DESKTOP_DAEMON",
@@ -154,115 +194,195 @@
         "healing": "BRIDGE_BUILDER should regenerate daemon_task.xml"
       },
       {
-        "type": "hungry_input",
-        "file": "*.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "AUTONOMOUS_TESTER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "*_report.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "AUTO_HEALER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "PUBLIC_LEDGER.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "DEEP_RESEARCHER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "SOCIAL_QUEUE.txt",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "EVOLUTION_VIEWER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "active_outreach_draft.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "EXTERNAL_VALUE_ROUTER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "aggregated_summary.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "GENERATED_REPO_SPIDER_CONSUMER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "ai_council_report.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "airdrop_hunter_state.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "OFFLINE_BRAIN",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "alpaca_trader_config.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "OMNIBUS",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "alpaca_trader_state.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "PASSIVE_INCOME_ARCHITECT",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "amplification_posts.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "REPO_SPIDER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "amplify_cooldown.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "SWARM_TOOLBOX",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "arbitrage_scanner_state.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "SYNERGY_SCOUT",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       },
       {
-        "type": "hungry_input",
-        "file": "atomizer_state.json",
-        "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "autonomic_state.json",
-        "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "bundle_forge_state.json",
-        "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "business_*.json",
-        "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "catalog_generator_state.json",
-        "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "chimera_score.json",
-        "healing": "Create seed data or bridge from existing source"
+        "type": "broken_wire",
+        "from": "DUAL_SYSTEM_CROSSWIRE",
+        "to": "TASK_ATOMIZER",
+        "via": "self_builder_queue.json",
+        "status": "CORRUPT",
+        "healing": "BRIDGE_BUILDER should regenerate self_builder_queue.json"
       }
     ]
   },
   "decomposition": {
-    "decompose_targets": 0,
+    "decompose_targets": 8,
     "monitor_targets": 0,
-    "targets": []
+    "targets": [
+      {
+        "file": "consolidated_knowledge.json",
+        "age_days": 32,
+        "size_bytes": 8867,
+        "last_modified": "2026-03-05T05:17:56.871012+00:00",
+        "action": "decompose"
+      },
+      {
+        "file": "desktop_connection.json",
+        "age_days": 32,
+        "size_bytes": 304,
+        "last_modified": "2026-03-05T05:17:56.871012+00:00",
+        "action": "decompose"
+      },
+      {
+        "file": "appointments_inbox.json",
+        "age_days": 24,
+        "size_bytes": 953,
+        "last_modified": "2026-03-12T17:07:04.460368+00:00",
+        "action": "decompose"
+      },
+      {
+        "file": "gumroad_setup_needed.json",
+        "age_days": 24,
+        "size_bytes": 346,
+        "last_modified": "2026-03-13T02:09:08.075499+00:00",
+        "action": "decompose"
+      },
+      {
+        "file": "build_plan.json",
+        "age_days": 23,
+        "size_bytes": 158,
+        "last_modified": "2026-03-14T03:10:00.333068+00:00",
+        "action": "decompose"
+      },
+      {
+        "file": "first_contact.json",
+        "age_days": 23,
+        "size_bytes": 1045,
+        "last_modified": "2026-03-14T03:11:53.855366+00:00",
+        "action": "decompose"
+      },
+      {
+        "file": "briefing_state.json",
+        "age_days": 22,
+        "size_bytes": 124,
+        "last_modified": "2026-03-14T19:18:59.162331+00:00",
+        "action": "decompose"
+      },
+      {
+        "file": "knowledge_gaps.json",
+        "age_days": 22,
+        "size_bytes": 11172,
+        "last_modified": "2026-03-14T19:18:59.166331+00:00",
+        "action": "decompose"
+      }
+    ]
   },
   "signals": [
     {
       "type": "DROUGHT_WARNING",
       "severity": "high",
-      "message": "1 producer connections broken",
+      "message": "76 producer connections broken",
       "source": "nutrient_routing",
       "affected": [
-        "DESKTOP_DAEMON"
+        "SWARM_TOOLBOX",
+        "GENERATED_SELF_BUILDER_QUEUE_POPULATOR",
+        "CRYPTO_WATCHER",
+        "REPO_SPIDER",
+        "DESKTOP_DAEMON",
+        "DUAL_SYSTEM_CROSSWIRE",
+        "PASSIVE_INCOME_ARCHITECT"
       ],
       "biology": "Major root system damaged -- nutrient flow disrupted downstream"
     },
@@ -288,7 +408,7 @@
     {
       "type": "NETWORK_PULSE",
       "severity": "info",
-      "message": "Network health: 100% (6105/6117 wires healthy)",
+      "message": "Network health: 98% (6025/6117 wires healthy)",
       "source": "mycelium_network",
       "biology": "Seasonal growth assessment -- overall forest vitality check"
     }
@@ -337,10 +457,10 @@
     ]
   },
   "network_memory": {
-    "cycles_tracked": 54,
-    "new_connections": 0,
-    "persisted": 5880,
-    "lost": 0
+    "cycles_tracked": 52,
+    "new_connections": 222,
+    "persisted": 5658,
+    "lost": 15
   },
   "biology_notes": {
     "nutrient_routing": "Mycorrhizal networks transport carbon/nitrogen/phosphorus from surplus trees to deficit trees via concentration gradients",

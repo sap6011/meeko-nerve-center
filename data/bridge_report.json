@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-06T12:54:23.838155+00:00",
+  "timestamp": "2026-04-06T13:09:18.666392+00:00",
   "bridges_attempted": 130,
   "bridges_built": 19,
   "bridges_failed": 111,
@@ -51,16 +51,16 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 418 pass, 0 fail out of 418 engines",
-      "pass": 418,
+      "detail": "Local sentinel: 419 pass, 0 fail out of 419 engines",
+      "pass": 419,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 634 nodes, 6117 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 634,
-      "edges": 6117,
+      "detail": "Knowledge graph: 636 nodes, 6138 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 636,
+      "edges": 6138,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
@@ -68,7 +68,7 @@
         ],
         [
           "OMNIBUS",
-          229
+          230
         ],
         [
           "FIRST_SALE_NOTIFIER",
@@ -88,7 +88,7 @@
     {
       "status": "BRIDGED",
       "detail": "Quick revenue synthesized from brain_state + revenue_inbox",
-      "revenue": 0,
+      "revenue": 221.35,
       "target": "quick_revenue.json"
     },
     {
@@ -103,7 +103,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 418 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 419 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -118,22 +118,22 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 53, score 71/100",
+      "detail": "Chimera gen 53, score 75/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 418",
+      "detail": "Healed 0, scanned 419",
       "target": "nanobot_heal_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Leaderboard: 38 mutations, 39 gens",
+      "detail": "Leaderboard: 53 mutations, 50 gens",
       "target": "mutation_leaderboard.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Markets scanned: 100, edges: 35",
+      "detail": "Markets scanned: 100, edges: 36",
       "target": "polymarket_scan.json"
     },
     {
@@ -238,7 +238,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (418 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (419 pass)",
       "target": "sentinel_scan.json"
     },
     {
@@ -307,9 +307,9 @@
       "target": "external_signals.txt"
     },
     {
-      "status": "ALREADY_EXISTS",
-      "detail": "finance_ledger.json already has data",
-      "target": "finance_ledger.json"
+      "target": "finance_ledger.json",
+      "status": "ERROR",
+      "detail": "'list' object has no attribute 'get'"
     },
     {
       "status": "ALREADY_EXISTS",
@@ -362,9 +362,9 @@
       "target": "reminders.json"
     },
     {
-      "status": "ALREADY_EXISTS",
-      "detail": "revenue_data.json already has data",
-      "target": "revenue_data.json"
+      "target": "revenue_data.json",
+      "status": "ERROR",
+      "detail": "'list' object has no attribute 'get'"
     },
     {
       "status": "ALREADY_EXISTS",
@@ -419,7 +419,7 @@
     {
       "target": "storefront_deployer_listings.json",
       "status": "ERROR",
-      "detail": "slice(None, 11, None)"
+      "detail": "unhashable type: 'slice'"
     },
     {
       "status": "ALREADY_EXISTS",
@@ -494,7 +494,7 @@
     {
       "target": "storefront_listings.json",
       "status": "ERROR",
-      "detail": "slice(None, 11, None)"
+      "detail": "unhashable type: 'slice'"
     },
     {
       "status": "ALREADY_EXISTS",
@@ -698,27 +698,27 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "already has data (eq=16.9)",
+      "detail": "already has data (eq=25.7)",
       "target": "homeostasis_state.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "already has data (1 entries)",
+      "detail": "already has data (0 entries)",
       "target": "fire_ledger.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "already has data (confidence=23.9)",
+      "detail": "already has data (confidence=57.5)",
       "target": "neural_cortex_state.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "already has data (1 executions)",
+      "detail": "already has data (2 executions)",
       "target": "executive_function_state.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "already has data (8 alive sources)",
+      "detail": "already has data (9 alive sources)",
       "target": "signal_mesh_state.json"
     }
   ],
