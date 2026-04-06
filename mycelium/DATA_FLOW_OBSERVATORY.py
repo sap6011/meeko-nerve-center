@@ -335,6 +335,23 @@ def run():
     total_bytes = sum(f["payload_size"] for f in flows)
     unique_files = len(set(f["via"] for f in flows))
 
+    # Read nervous system state for observatory enrichment
+    _homeo = load_json(DATA / "homeostasis_state.json")
+    _cortex = load_json(DATA / "neural_cortex_state.json")
+    _execf = load_json(DATA / "executive_function_state.json")
+    _fire = load_json(DATA / "fire_ledger.json")
+    ns_health = {
+        "equilibrium": _homeo.get("equilibrium", 0) if _homeo else 0,
+        "homeostasis_trend": _homeo.get("trend", "unknown") if _homeo else "unknown",
+        "brain_confidence": _cortex.get("decision_confidence", 0) if _cortex else 0,
+        "brain_risk_posture": _cortex.get("strategy", {}).get("risk_posture", "moderate") if _cortex else "moderate",
+        "exec_success_rate": round(
+            (_execf.get("stats", {}).get("successful", 0) /
+             max(1, _execf.get("stats", {}).get("total_executions", 1))) * 100, 1
+        ) if _execf else 0,
+        "fire_overlap": _fire.get("summary", {}).get("overlap_detected", False) if _fire else False,
+    }
+
     # Build report
     report = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -346,6 +363,7 @@ def run():
         "top_consumers": top_consumers,
         "total_payload_bytes": total_bytes,
         "unique_data_files": unique_files,
+        "nervous_system": ns_health,
         "flows": flows[:200],  # Cap for file size
     }
 
@@ -364,6 +382,7 @@ def run():
     print(f"  Dead flows:             {len(dead)}")
     print(f"  Total bytes flowing:    {total_bytes:,}")
     print(f"  Unique data files:      {unique_files}")
+    print(f"  Nervous system: eq={ns_health['equilibrium']}, brain={ns_health['brain_confidence']:.0f}%")
     print(f"  Report: data/observatory_report.json")
     print(f"  Dashboard: docs/observatory.html")
     print(f"\n  The thalamus sees everything. Now YOU can too.")

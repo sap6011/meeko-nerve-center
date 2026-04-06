@@ -656,6 +656,16 @@ def run():
     if portfolio:
         state["portfolio"] = portfolio
 
+    # Add nervous system awareness to state
+    _homeo = _load(DATA / "homeostasis_state.json")
+    _cortex = _load(DATA / "neural_cortex_state.json")
+    state["nervous_system"] = {
+        "equilibrium": _homeo.get("equilibrium", 0) if _homeo else 0,
+        "homeostasis_trend": _homeo.get("trend", "unknown") if _homeo else "unknown",
+        "brain_confidence": _cortex.get("decision_confidence", 0) if _cortex else 0,
+        "brain_risk_posture": _cortex.get("strategy", {}).get("risk_posture", "moderate") if _cortex else "moderate",
+    }
+
     _save(DATA / "kalshi_scan.json", state)
 
     # Broadcast to synaptic bus
@@ -665,6 +675,8 @@ def run():
             "markets_scanned": len(markets),
             "opportunities": sum(len(v) for v in signals.values()),
             "status": "active",
+            "equilibrium": state["nervous_system"]["equilibrium"],
+            "brain_confidence": state["nervous_system"]["brain_confidence"],
         }, silent=True)
     except Exception:
         pass

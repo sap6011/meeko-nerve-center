@@ -518,6 +518,17 @@ def run():
     try:
         from SYNAPTIC_BUS import emit_batch
         portfolio = state.get("portfolio", {})
+
+        # Read nervous system health for dashboard enrichment
+        try:
+            _h = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
+        except Exception:
+            _h = {}
+        try:
+            _c = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
+        except Exception:
+            _c = {}
+
         emit_batch("PULSE", {
             "total_usd": portfolio.get("total_usd", 0),
             "kalshi_total": portfolio.get("kalshi_total", 0),
@@ -526,6 +537,10 @@ def run():
             "engine_count": state.get("engine_count", 0),
             "self_sustaining": state.get("self_funding", {}).get("self_sustaining", False),
             "status": "active",
+            "equilibrium": _h.get("equilibrium", 0),
+            "homeostasis_trend": _h.get("trend", "unknown"),
+            "brain_confidence": _c.get("decision_confidence", 0),
+            "brain_risk_posture": _c.get("strategy", {}).get("risk_posture", "moderate"),
         }, silent=True)
     except Exception:
         pass  # Bus not available -- degrade gracefully

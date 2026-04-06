@@ -1152,6 +1152,23 @@ def run():
         print("[TURBO_TRADER] DISABLED -- trading not enabled in config")
         return {"status": "disabled"}
 
+    # Read nervous system state for trade modulation
+    _homeo = _load(DATA / "homeostasis_state.json", {})
+    _cortex = _load(DATA / "neural_cortex_state.json", {})
+    _fire = _load(DATA / "fire_ledger.json", {})
+    _equilibrium = _homeo.get("equilibrium", 50)
+    _brain_risk = _cortex.get("strategy", {}).get("risk_posture", "moderate")
+    _fire_overlap = _fire.get("summary", {}).get("overlap_detected", False)
+
+    # Modulate trading aggression based on internal health
+    if _equilibrium < 20 or _brain_risk == "conservative":
+        config["max_trades_per_cycle"] = max(1, config.get("max_trades_per_cycle", 10) // 2)
+        config["min_confidence_pct"] = max(config.get("min_confidence_pct", 85), 92)
+        print(f"[TURBO_TRADER] Nervous system override: conservative mode (eq={_equilibrium}, risk={_brain_risk})")
+    elif _fire_overlap:
+        config["max_trades_per_cycle"] = max(2, config.get("max_trades_per_cycle", 10) - 2)
+        print(f"[TURBO_TRADER] Fire overlap detected: reducing trades per cycle")
+
     # Authenticate
     api_key, pem_data = _load_kalshi_auth()
     if not api_key or not pem_data:
@@ -1357,6 +1374,9 @@ def run():
             "status": state["status"],
             "platform": "kalshi",
             "signal_direction": "opportunity" if len(daily_opps) > 0 else "neutral",
+            "equilibrium": _equilibrium,
+            "brain_risk": _brain_risk,
+            "fire_overlap": _fire_overlap,
         }, silent=False)
     except Exception:
         pass  # Bus not available -- degrade gracefully

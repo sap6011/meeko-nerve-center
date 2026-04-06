@@ -424,6 +424,22 @@ def run():
     print("[CROSS_POLLINATOR] Mycelium network scan starting...")
     print("  Reading platform root systems...")
 
+    # --- 0. Read nervous system state ---
+    homeo = _load(DATA / "homeostasis_state.json")
+    cortex = _load(DATA / "neural_cortex_state.json")
+    execf = _load(DATA / "executive_function_state.json")
+    fire_ledger = _load(DATA / "fire_ledger.json")
+
+    equilibrium = homeo.get("equilibrium", 50)
+    homeo_trend = homeo.get("trend", "stable")
+    brain_confidence = cortex.get("decision_confidence", 50)
+    brain_risk = cortex.get("strategy", {}).get("risk_posture", "moderate")
+    exec_stats = execf.get("stats", {})
+    exec_total = exec_stats.get("total_executions", 0)
+    exec_good = exec_stats.get("successful", 0)
+    exec_rate = round((exec_good / max(1, exec_total)) * 100, 1) if exec_total else 50
+    fire_overlap = fire_ledger.get("summary", {}).get("overlap_detected", False)
+
     # --- 1. Read all platforms ---
     kalshi = _read_kalshi()
     alpaca = _read_alpaca()
@@ -442,6 +458,32 @@ def run():
 
     # --- 4. Mycelium health score ---
     health = _calc_mycelium_health(kalshi, alpaca, ledger, ai_costs, efficiency)
+
+    # --- 4b. Nervous system health modifier on mycelium health ---
+    # If internal equilibrium is low, cap mycelium health (system can't be healthy if brain isn't)
+    if equilibrium < 25:
+        health["score"] = min(health["score"], 40)
+        health["grade"] = _grade(health["score"])
+    elif equilibrium > 70 and homeo_trend == "improving":
+        health["score"] = min(100, health["score"] + 5)
+        health["grade"] = _grade(health["score"])
+
+    # Fire overlap penalty: internal chaos degrades confidence in capital routing
+    if fire_overlap:
+        health["score"] = max(0, health["score"] - 3)
+        health["grade"] = _grade(health["score"])
+
+    # Brain risk posture modulates transfer aggression
+    transfer_mult = 1.0
+    if brain_risk == "conservative":
+        transfer_mult = 0.7  # Brain says be careful -> smaller transfers
+    elif brain_risk == "aggressive":
+        transfer_mult = 1.3  # Brain says lean in -> larger transfers
+
+    # Apply transfer multiplier to recommendations
+    for rec in recommendations:
+        if isinstance(rec.get("amount"), (int, float)) and rec["amount"] > 0:
+            rec["amount"] = round(rec["amount"] * transfer_mult, 2)
 
     # --- 5. Best opportunity platform ---
     best_platform = "kalshi" if kalshi["opportunities"] > alpaca["opportunities"] else "alpaca"
@@ -517,6 +559,13 @@ def run():
     print("    Profit rate:        %.1f / 25" % bd["profit_rate"])
     print("    Settlement speed:   %.1f / 15" % bd["settlement_speed"])
     print("    AI cost ratio:      %.1f / 15" % bd["ai_cost_ratio"])
+    print("  ------------------------------------------")
+    print("  NERVOUS SYSTEM:")
+    print("    Equilibrium:    %.1f/100 (%s)" % (equilibrium, homeo_trend))
+    print("    Brain:          %.0f%% confident (%s)" % (brain_confidence, brain_risk))
+    print("    Motor:          %.0f%% success rate" % exec_rate)
+    print("    Fire overlap:   %s" % ("YES" if fire_overlap else "no"))
+    print("    Transfer mult:  %.1fx" % transfer_mult)
     print("  ============================================")
     print("")
 
@@ -539,6 +588,15 @@ def run():
         "mycelium_health_score": health["score"],
         "mycelium_health_grade": health["grade"],
         "mycelium_health_breakdown": health["breakdown"],
+        "nervous_system": {
+            "equilibrium": equilibrium,
+            "homeostasis_trend": homeo_trend,
+            "brain_confidence": brain_confidence,
+            "brain_risk_posture": brain_risk,
+            "exec_success_rate": exec_rate,
+            "fire_overlap": fire_overlap,
+            "transfer_multiplier": transfer_mult,
+        },
         "status": "active",
     }
 
@@ -558,6 +616,10 @@ def run():
             "alpaca_cash": alpaca["balance"],
             "signal_direction": "opportunity" if recommendations else "neutral",
             "status": "active",
+            "equilibrium": equilibrium,
+            "brain_confidence": brain_confidence,
+            "fire_overlap": fire_overlap,
+            "transfer_multiplier": transfer_mult,
         }, silent=False)
     except Exception:
         pass  # Bus not available -- degrade gracefully

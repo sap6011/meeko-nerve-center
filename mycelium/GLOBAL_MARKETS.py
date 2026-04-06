@@ -67,6 +67,10 @@ SOURCES = {
     "proprioception":   "proprioception_state.json",
     "reflex_arc":       "reflex_arc_state.json",
     "metabolism":       "metabolism_state.json",
+    "homeostasis":      "homeostasis_state.json",
+    "neural_cortex":    "neural_cortex_state.json",
+    "executive_function": "executive_function_state.json",
+    "fire_ledger":      "fire_ledger.json",
 }
 
 
@@ -444,6 +448,61 @@ def _cross_market_analysis(solana, prediction, alpaca_data, sources, now):
         if fire_rate > 0.5:
             regime_score -= 3  # Too many reflexes firing -> volatility, go defensive
 
+    # E. HOMEOSTASIS equilibrium as regime modifier
+    # Low internal health -> conservative posture regardless of market signals
+    homeo = sources.get("homeostasis", {})
+    equilibrium = homeo.get("equilibrium", 50)
+    homeo_trend = homeo.get("trend", "stable")
+    zones = homeo.get("health_zones", {})
+    weakest_zone = min(
+        ((z, zd.get("score", 50)) for z, zd in zones.items()),
+        key=lambda x: x[1], default=("none", 50)
+    ) if zones else ("none", 50)
+
+    if equilibrium < 20:
+        regime_score -= 5  # System critically unhealthy -> strong risk-off pressure
+    elif equilibrium < 40:
+        regime_score -= 2  # System stressed -> mild risk-off
+    elif equilibrium > 70:
+        regime_score += 2  # System thriving -> slight confidence boost
+
+    if homeo_trend == "degrading":
+        regime_score -= 2  # Getting worse -> caution
+    elif homeo_trend == "improving":
+        regime_score += 1  # Getting better -> slight optimism
+
+    # Fire ledger: overlapping fires = internal chaos -> defensive
+    fire_ledger = sources.get("fire_ledger", {})
+    if fire_ledger.get("summary", {}).get("overlap_detected", False):
+        regime_score -= 3  # Internal race conditions -> reduce external risk
+
+    # F. NEURAL_CORTEX brain confidence as regime modifier
+    cortex = sources.get("neural_cortex", {})
+    brain_confidence = cortex.get("decision_confidence", 50)
+    brain_risk = cortex.get("strategy", {}).get("risk_posture", "moderate")
+    brain_health = cortex.get("system_health", {}).get("overall_score", 50)
+
+    if brain_confidence > 70:
+        regime_score += 2  # Brain is confident -> trust the direction
+    elif brain_confidence < 30:
+        regime_score -= 2  # Brain unsure -> reduce conviction
+
+    if brain_risk == "conservative":
+        regime_score -= 2  # Brain says be careful
+    elif brain_risk == "aggressive":
+        regime_score += 2  # Brain says lean in
+
+    # G. EXECUTIVE_FUNCTION success rate as regime modifier
+    execf = sources.get("executive_function", {})
+    exec_stats = execf.get("stats", {})
+    exec_total = exec_stats.get("total_executions", 0)
+    exec_good = exec_stats.get("successful", 0)
+    exec_rate = (exec_good / max(1, exec_total)) * 100 if exec_total > 0 else 50
+    if exec_rate < 30:
+        regime_score -= 2  # Motor system failing -> don't pile on risk
+    elif exec_rate > 80:
+        regime_score += 1  # Motor system reliable -> slight confidence
+
     if regime_score > 15:
         regime = "RISK_ON"
         regime_label = "Bullish -- crypto + prediction markets aligned"
@@ -701,6 +760,16 @@ def _print_summary(state):
         for q in queue:
             print(f"    {q['symbol']} ({q['strategy']}) score={q['score']}")
 
+    # Nervous system health
+    ns = state.get("nervous_system", {})
+    print(f"\n  NERVOUS SYSTEM:")
+    print(f"    Equilibrium: {ns.get('equilibrium', 0)}/100 | "
+          f"Trend: {ns.get('homeostasis_trend', '?')}")
+    print(f"    Brain: {ns.get('brain_confidence', 0):.0f}% confident | "
+          f"Risk: {ns.get('brain_risk_posture', '?')}")
+    print(f"    Motor: {ns.get('exec_success_rate', 0):.0f}% success | "
+          f"Fire overlap: {'YES' if ns.get('fire_overlap') else 'no'}")
+
     print(f"\n  ETHICS: 99% mutual aid / 1% node fuel")
     print("=" * W)
 
@@ -750,6 +819,17 @@ def run():
         "cross_market": cross,
         "ranked_opportunities": ranked,
         "source_status": source_status,
+        "nervous_system": {
+            "equilibrium": sources.get("homeostasis", {}).get("equilibrium", 0),
+            "homeostasis_trend": sources.get("homeostasis", {}).get("trend", "unknown"),
+            "brain_confidence": sources.get("neural_cortex", {}).get("decision_confidence", 0),
+            "brain_risk_posture": sources.get("neural_cortex", {}).get("strategy", {}).get("risk_posture", "moderate"),
+            "exec_success_rate": round(
+                (sources.get("executive_function", {}).get("stats", {}).get("successful", 0) /
+                 max(1, sources.get("executive_function", {}).get("stats", {}).get("total_executions", 1))) * 100, 1
+            ),
+            "fire_overlap": sources.get("fire_ledger", {}).get("summary", {}).get("overlap_detected", False),
+        },
         "summary": {
             "regime": cross["regime"],
             "regime_score": cross["regime_score"],
@@ -785,6 +865,9 @@ def run():
                 "bearish" if cross["regime"] == "RISK_OFF" else "neutral"
             ),
             "status": "active",
+            "equilibrium": sources.get("homeostasis", {}).get("equilibrium", 0),
+            "brain_confidence": sources.get("neural_cortex", {}).get("decision_confidence", 0),
+            "fire_overlap": sources.get("fire_ledger", {}).get("summary", {}).get("overlap_detected", False),
         }, silent=False)
     except Exception:
         pass

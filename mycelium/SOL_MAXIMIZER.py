@@ -351,6 +351,20 @@ def run():
     options = scan_yield_options()
     strategy = recommend_strategy(sol_balance, sol_price, options)
 
+    # Read nervous system health to modulate yield strategy
+    homeo = _load(DATA / "homeostasis_state.json")
+    cortex = _load(DATA / "neural_cortex_state.json")
+    equilibrium = homeo.get("equilibrium", 50) if homeo else 50
+    brain_risk = cortex.get("strategy", {}).get("risk_posture", "moderate") if cortex else "moderate"
+
+    # If system is stressed, prefer lower-risk yield options
+    if equilibrium < 25 or brain_risk == "conservative":
+        # Sort recommendations to prefer low/zero risk
+        recs = strategy.get("recommendations", [])
+        risk_order = {"zero": 0, "very_low": 1, "low": 2, "medium": 3, "high": 4}
+        recs.sort(key=lambda r: risk_order.get(r.get("risk", "medium"), 3))
+        strategy["nervous_system_override"] = "conservative (equilibrium=%s, brain=%s)" % (equilibrium, brain_risk)
+
     state = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "protocol": "sol-maximizer-v1",
@@ -361,6 +375,10 @@ def run():
         },
         "yield_options": options,
         "strategy": strategy,
+        "nervous_system": {
+            "equilibrium": equilibrium,
+            "brain_risk_posture": brain_risk,
+        },
         "status": "active" if sol_balance > 0 else "waiting_for_deposit",
     }
 

@@ -715,6 +715,23 @@ def run():
                                "sector_rotation", "safe_haven", "dca"],
     })
 
+    # Read nervous system for trade modulation
+    _homeo = _load(DATA / "homeostasis_state.json", {})
+    _cortex = _load(DATA / "neural_cortex_state.json", {})
+    _fire = _load(DATA / "fire_ledger.json", {})
+    _equilibrium = _homeo.get("equilibrium", 50)
+    _brain_risk = _cortex.get("strategy", {}).get("risk_posture", "moderate")
+    _fire_overlap = _fire.get("summary", {}).get("overlap_detected", False)
+
+    # Modulate: low equilibrium / conservative brain -> tighter filters
+    if _equilibrium < 20 or _brain_risk == "conservative":
+        config["min_score"] = max(config.get("min_score", 55), 70)
+        config["max_allocation_per_position_pct"] = min(config.get("max_allocation_per_position_pct", 20), 10)
+        print(f"[ALPACA_TRADER] Nervous system override: conservative (eq={_equilibrium}, brain={_brain_risk})")
+    elif _fire_overlap:
+        config["min_score"] = max(config.get("min_score", 55), 60)
+        print(f"[ALPACA_TRADER] Fire overlap: raising min score filter")
+
     if not config.get("enabled", False):
         print("[ALPACA_TRADER] DISABLED -- not enabled in config")
         # Still save state so ecosystem knows we exist
@@ -955,6 +972,9 @@ def run():
             "status": state["status"],
             "platform": "alpaca",
             "signal_direction": "opportunity" if len(opportunities) > 0 and is_open else "neutral",
+            "equilibrium": _equilibrium,
+            "brain_risk": _brain_risk,
+            "fire_overlap": _fire_overlap,
         }, silent=False)
     except Exception:
         pass  # Bus not available -- degrade gracefully

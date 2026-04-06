@@ -366,6 +366,15 @@ def run(primary_address=None, secondary_address=None):
         "chains": list(set(w.get("chain") for w in config.get("wallets", {}).values())),
     }
 
+    # Read nervous system state
+    _homeo = _load(DATA / "homeostasis_state.json")
+    _cortex = _load(DATA / "neural_cortex_state.json")
+    state["nervous_system"] = {
+        "equilibrium": _homeo.get("equilibrium", 0) if _homeo else 0,
+        "homeostasis_trend": _homeo.get("trend", "unknown") if _homeo else "unknown",
+        "brain_confidence": _cortex.get("decision_confidence", 0) if _cortex else 0,
+    }
+
     _save(STATE_FILE, state)
     _save(BALANCE_FILE, state.get("wallets", {}))
 

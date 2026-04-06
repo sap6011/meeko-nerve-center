@@ -501,6 +501,16 @@ def run():
             "note": "SolarPunk crisis data informs geopolitical prediction markets",
         }
 
+    # Add nervous system awareness
+    _homeo = _load(DATA / "homeostasis_state.json")
+    _cortex = _load(DATA / "neural_cortex_state.json")
+    scan_data["nervous_system"] = {
+        "equilibrium": _homeo.get("equilibrium", 0) if _homeo else 0,
+        "homeostasis_trend": _homeo.get("trend", "unknown") if _homeo else "unknown",
+        "brain_confidence": _cortex.get("decision_confidence", 0) if _cortex else 0,
+        "brain_risk_posture": _cortex.get("strategy", {}).get("risk_posture", "moderate") if _cortex else "moderate",
+    }
+
     # Save enriched scan
     (DATA / "polymarket_scan.json").write_text(
         json.dumps(scan_data, indent=2, ensure_ascii=False),
@@ -514,6 +524,8 @@ def run():
             "edges_found": scan_data.get("edges_found", 0),
             "total_markets_scanned": scan_data.get("total_markets_scanned", 0),
             "status": "active",
+            "equilibrium": scan_data["nervous_system"]["equilibrium"],
+            "brain_confidence": scan_data["nervous_system"]["brain_confidence"],
         }, silent=True)
     except Exception:
         pass

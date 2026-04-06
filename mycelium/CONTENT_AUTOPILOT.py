@@ -350,12 +350,21 @@ def run():
     save_json(DATA / "social_queue.json", social_queue)
     print("    Social post queued: %s..." % social_post[:60])
 
+    # Read nervous system for state enrichment
+    _homeo = load_json(DATA / "homeostasis_state.json")
+    _cortex = load_json(DATA / "neural_cortex_state.json")
+
     # Update state
     state["articles_generated"] = state.get("articles_generated", 0) + 1
     covered = state.get("engines_covered", [])
     if info["name"] not in covered:
         covered.append(info["name"])
     state["engines_covered"] = covered
+    state["nervous_system"] = {
+        "equilibrium": _homeo.get("equilibrium", 0) if _homeo else 0,
+        "homeostasis_trend": _homeo.get("trend", "unknown") if _homeo else "unknown",
+        "brain_confidence": _cortex.get("decision_confidence", 0) if _cortex else 0,
+    }
     save_state(state)
 
     print("\n  === CONTENT AUTOPILOT SUMMARY ===")

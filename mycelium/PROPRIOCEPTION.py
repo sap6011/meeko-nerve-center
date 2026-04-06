@@ -60,6 +60,10 @@ REFLEX_FILE  = DATA / "reflex_arc_state.json"
 REFLEX_LOG   = DATA / "reflex_arc_log.json"
 NERVE_FILE   = DATA / "nerve_loop_state.json"
 PULSE_FILE   = DATA / "pulse_state.json"
+HOMEO_FILE   = DATA / "homeostasis_state.json"
+CORTEX_FILE  = DATA / "neural_cortex_state.json"
+EXEC_FILE    = DATA / "executive_function_state.json"
+FIRE_FILE    = DATA / "fire_ledger.json"
 
 MAX_HISTORY  = 100          # keep last 100 snapshots for trend analysis
 ALIVE_SEC    = 300          # 5 min = alive (matches SYNAPTIC_BUS thresholds)
@@ -378,6 +382,51 @@ def _engine_speed_rankings():
     return rankings
 
 
+def _nervous_system_health():
+    """
+    Read HOMEOSTASIS, NEURAL_CORTEX, EXECUTIVE_FUNCTION, and fire_ledger
+    to build a nervous system health snapshot for body awareness.
+    """
+    homeo = _read_json(HOMEO_FILE, {})
+    cortex = _read_json(CORTEX_FILE, {})
+    execf = _read_json(EXEC_FILE, {})
+    fire = _read_json(FIRE_FILE, {})
+
+    equilibrium = homeo.get("equilibrium", 0)
+    homeo_trend = homeo.get("trend", "unknown")
+    zones = homeo.get("health_zones", {})
+    zone_scores = {z: zd.get("score", 0) for z, zd in zones.items()} if zones else {}
+    weakest_zone = min(zone_scores, key=zone_scores.get) if zone_scores else "none"
+    weakest_score = zone_scores.get(weakest_zone, 0) if zone_scores else 0
+
+    brain_confidence = cortex.get("decision_confidence", 0)
+    brain_health = cortex.get("system_health", {}).get("overall_score", 0)
+    risk_posture = cortex.get("strategy", {}).get("risk_posture", "moderate")
+
+    exec_stats = execf.get("stats", {})
+    exec_total = exec_stats.get("total_executions", 0)
+    exec_good = exec_stats.get("successful", 0)
+    exec_rate = round((exec_good / max(1, exec_total)) * 100, 1) if exec_total else 0
+
+    fire_overlap = fire.get("summary", {}).get("overlap_detected", False)
+    recently_fired = fire.get("summary", {}).get("recently_fired_engines", [])
+
+    return {
+        "equilibrium": equilibrium,
+        "homeostasis_trend": homeo_trend,
+        "zone_scores": zone_scores,
+        "weakest_zone": weakest_zone,
+        "weakest_zone_score": weakest_score,
+        "brain_confidence": brain_confidence,
+        "brain_health": brain_health,
+        "risk_posture": risk_posture,
+        "exec_success_rate": exec_rate,
+        "exec_total": exec_total,
+        "fire_overlap": fire_overlap,
+        "recently_fired_count": len(recently_fired),
+    }
+
+
 def _reflex_fire_stats():
     """
     Read reflex_arc_log.json for fire history and response times.
@@ -551,6 +600,19 @@ def _print_report(state, deltas, trends, trajectory=None, speed_rankings=None,
     if stale > 0 or dead > 0:
         print()
         print(f"  Bus health:         {alive} alive / {stale} stale / {dead} dead")
+
+    # ----- NERVOUS SYSTEM -----
+    ns = state.get("nervous_system", {})
+    if ns:
+        print()
+        print("-" * W)
+        print("  NERVOUS SYSTEM AWARENESS")
+        print("-" * W)
+        print(f"  Equilibrium:    {ns.get('equilibrium', 0)}/100 ({ns.get('homeostasis_trend', '?')})")
+        print(f"  Brain:          {ns.get('brain_confidence', 0):.0f}% confident, risk={ns.get('risk_posture', '?')}")
+        print(f"  Motor:          {ns.get('exec_success_rate', 0):.0f}% success ({ns.get('exec_total', 0)} total)")
+        print(f"  Weakest zone:   {ns.get('weakest_zone', '?')} ({ns.get('weakest_zone_score', 0)}/100)")
+        print(f"  Fire overlap:   {'YES' if ns.get('fire_overlap') else 'no'} ({ns.get('recently_fired_count', 0)} recent fires)")
 
     # ----- SELF-OPTIMIZATION TRACKING -----
     print()
@@ -737,6 +799,19 @@ def run():
         "_prev_reaction":           prev.get("reaction_speed_ms", 0),
     }
 
+    # ----- 7b. Nervous system awareness -----
+    ns = _nervous_system_health()
+    state["nervous_system"] = ns
+    # Nervous system feeds evolution rate: low equilibrium = the system is struggling
+    if ns["equilibrium"] < 20:
+        deltas["nervous_penalty"] = -3
+    elif ns["equilibrium"] > 70:
+        deltas["nervous_boost"] = 2
+    # Recalculate evolution rate with nervous system delta
+    evo_score, evo_label = _evolution_rate(deltas)
+    state["evolution_score"] = evo_score
+    state["evolution_label"] = evo_label
+
     # ----- 8. Self-optimization tracking -----
     history = prev_full.get("history", [])
     speed_rankings = _engine_speed_rankings()
@@ -771,6 +846,10 @@ def run():
             "slowest_engine":     speed_rankings[-1][0] if speed_rankings else "unknown",
             "slowest_interval_s": speed_rankings[-1][1] if speed_rankings else 0,
             "engines_ranked":     len(speed_rankings) if speed_rankings else 0,
+            "equilibrium":        ns.get("equilibrium", 0),
+            "brain_confidence":   ns.get("brain_confidence", 0),
+            "exec_success_rate":  ns.get("exec_success_rate", 0),
+            "fire_overlap":       ns.get("fire_overlap", False),
         })
         print("[PROPRIOCEPTION] Emitted body metrics + speed rankings to synaptic bus.")
     except ImportError:
@@ -793,6 +872,8 @@ def run():
         "bus_alive":   alive,
         "portfolio_usd": portfolio_usd,
         "evo_score":   evo_score,
+        "equilibrium": ns.get("equilibrium", 0),
+        "brain_confidence": ns.get("brain_confidence", 0),
     })
 
     # Cap history at MAX_HISTORY
