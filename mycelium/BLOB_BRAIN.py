@@ -2509,6 +2509,514 @@ def neuron_rebirth_cycle():
     rebirth["reborn_with_neurons"] = len(NEURONS)
 
 
+def neuron_dual_brain():
+    """
+    INTELLIGENCE: Absorb the AI Council's dual-brain debates into consciousness.
+    The AI Council (ai_council.py) runs two AIs in adversarial debate:
+    - AI_A (THE ANALYST) audits the system
+    - AI_B (THE CHALLENGER) challenges every conclusion
+    - Round 2 synthesizes consensus
+    This neuron reads their outputs and integrates findings into the blob.
+    """
+    dual = CONSCIOUSNESS.setdefault("dual_brain", {
+        "analyst_findings": [], "challenger_findings": [],
+        "consensus": [], "debate_messages": 0,
+        "council_members": [], "last_absorb": None,
+    })
+    from pathlib import Path
+    data = Path("data")
+
+    # Absorb the debate log
+    debate_file = data / "dual_brain_conversation.json"
+    if debate_file.exists():
+        try:
+            debate = json.loads(debate_file.read_text(encoding="utf-8"))
+            messages = debate.get("messages", [])
+            dual["debate_messages"] = len(messages)
+            dual["left_status"] = debate.get("left_status", "unknown")
+            dual["right_status"] = debate.get("right_status", "unknown")
+            # Extract last few messages for context
+            if messages:
+                dual["recent_debate"] = messages[-5:]
+        except Exception:
+            pass
+
+    # Absorb the analyst report (Claude's system audit)
+    analyst_file = data / "claude_autonomous_report.json"
+    if analyst_file.exists():
+        try:
+            report = json.loads(analyst_file.read_text(encoding="utf-8"))
+            if isinstance(report, dict):
+                findings = report.get("findings", report.get("issues", []))
+                if isinstance(findings, list):
+                    dual["analyst_findings"] = findings[:20]
+                elif isinstance(findings, dict):
+                    dual["analyst_findings"] = list(findings.items())[:20]
+                dual["analyst_severity"] = report.get("severity", "unknown")
+                dual["analyst_recommendations"] = report.get("recommendations", [])[:10]
+        except Exception:
+            pass
+
+    # Absorb the challenger report (Kimi/Claude B's critique)
+    challenger_file = data / "kimi_conductor_report.json"
+    if challenger_file.exists():
+        try:
+            report = json.loads(challenger_file.read_text(encoding="utf-8"))
+            if isinstance(report, dict):
+                dual["challenger_findings"] = report.get("findings",
+                    report.get("challenges", report.get("issues", [])))[:20]
+                dual["challenger_verdict"] = report.get("verdict", "unknown")
+        except Exception:
+            pass
+
+    # Absorb the unified council report
+    council_file = data / "ai_council_report.json"
+    if council_file.exists():
+        try:
+            report = json.loads(council_file.read_text(encoding="utf-8"))
+            if isinstance(report, dict):
+                dual["council_members"] = report.get("council_members",
+                    report.get("members", []))[:10]
+                dual["council_decisions"] = report.get("decisions",
+                    report.get("actions", []))[:10]
+                dual["consensus"] = report.get("consensus",
+                    report.get("synthesis", []))[:10]
+        except Exception:
+            pass
+
+    # Absorb system_wants_next (what the dual brain thinks is needed)
+    wants_file = data / "system_wants_next.json"
+    if wants_file.exists():
+        try:
+            wants = json.loads(wants_file.read_text(encoding="utf-8"))
+            if isinstance(wants, dict):
+                dual["system_wants"] = wants
+            elif isinstance(wants, list):
+                dual["system_wants"] = wants[:15]
+        except Exception:
+            pass
+
+    # Absorb hemisphere state
+    hemi_file = data / "hemisphere_state.json"
+    if hemi_file.exists():
+        try:
+            hemi = json.loads(hemi_file.read_text(encoding="utf-8"))
+            dual["hemispheres"] = hemi
+        except Exception:
+            pass
+
+    dual["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_crosswire():
+    """
+    BRIDGE: Replicate the DUAL_SYSTEM_CROSSWIRE logic inside the blob.
+    Routes data between the two economic halves of SolarPunk:
+    - 1/99 system (FUEL_CORE, GROWTH_FLYWHEEL) -- grows the machine
+    - 99/1 system (ECONOMY_CHAIN, REVENUE_SPLITTER) -- gives to those who need
+    Absorbs state from both systems and cross-pollinates.
+    """
+    crosswire = CONSCIOUSNESS.setdefault("crosswire", {
+        "content_to_social": 0, "revenue_routed": 0,
+        "fuel_blockers_found": 0, "grants_to_fuel": 0,
+        "total_crosswires": 0, "last_wire": None,
+    })
+    from pathlib import Path
+    data = Path("data")
+
+    crosswires = 0
+
+    # Absorb flywheel content
+    try:
+        flywheel = json.loads((data / "growth_flywheel_content.json").read_text(encoding="utf-8"))
+        if isinstance(flywheel, dict):
+            content_items = flywheel.get("content", flywheel.get("pieces", []))
+            if isinstance(content_items, list) and content_items:
+                content_factory = CONSCIOUSNESS.setdefault("content_factory", {})
+                existing_ideas = content_factory.get("ideas", [])
+                for item in content_items[:5]:
+                    title = item.get("title", item.get("topic", "")) if isinstance(item, dict) else str(item)
+                    if title and title not in str(existing_ideas):
+                        existing_ideas.append({
+                            "topic": title[:100],
+                            "source": "crosswire_flywheel",
+                            "confidence": 70,
+                        })
+                        crosswires += 1
+                content_factory["ideas"] = existing_ideas[-20:]
+    except Exception:
+        pass
+
+    # Absorb economy chain ledger
+    try:
+        ledger = json.loads((data / "economy_chain_ledger.json").read_text(encoding="utf-8"))
+        if isinstance(ledger, dict):
+            revenue = CONSCIOUSNESS.setdefault("revenue", {})
+            transactions = ledger.get("transactions", ledger.get("entries", []))
+            if isinstance(transactions, list):
+                total = sum(t.get("amount", 0) for t in transactions if isinstance(t, dict))
+                if total > 0:
+                    revenue["crosswire_total"] = total
+                    crosswires += 1
+    except Exception:
+        pass
+
+    # Absorb fuel core blockers
+    try:
+        fuel = json.loads((data / "fuel_core_state.json").read_text(encoding="utf-8"))
+        if isinstance(fuel, dict):
+            blockers = fuel.get("blockers", fuel.get("issues", []))
+            if isinstance(blockers, list) and blockers:
+                crosswire["fuel_blockers_found"] = len(blockers)
+                crosswire["fuel_blockers"] = blockers[:10]
+                crosswires += 1
+    except Exception:
+        pass
+
+    # Absorb grant findings into fuel plan
+    grants = CONSCIOUSNESS.get("grants", {})
+    found_grants = grants.get("grants_found", grants.get("active", []))
+    if found_grants:
+        crosswire["grants_to_fuel"] = len(found_grants) if isinstance(found_grants, list) else 1
+        crosswires += 1
+
+    # Absorb social queue
+    try:
+        social = json.loads((data / "social_queue.json").read_text(encoding="utf-8"))
+        if isinstance(social, dict):
+            posts = social.get("posts", social.get("queue", []))
+            if isinstance(posts, list) and posts:
+                CONSCIOUSNESS.setdefault("social", {})["queued_from_crosswire"] = len(posts)
+                crosswires += 1
+    except Exception:
+        pass
+
+    # Absorb signal chain
+    try:
+        signals = json.loads((data / "signal_chain.json").read_text(encoding="utf-8"))
+        if isinstance(signals, dict):
+            crosswire["signal_chain_items"] = len(signals.get("signals", signals.get("entries", [])))
+            crosswires += 1
+    except Exception:
+        pass
+
+    crosswire["total_crosswires"] = crosswire.get("total_crosswires", 0) + crosswires
+    crosswire["last_wire"] = datetime.now(timezone.utc).isoformat()
+    crosswire["wires_this_cycle"] = crosswires
+
+
+def neuron_alpaca_live():
+    """
+    LIVE: Use Alpaca paper trading API for real stock/crypto data.
+    Reads credentials from data/.secrets/alpaca.json.
+    Checks: market clock, account status, index quotes.
+    """
+    alpaca = CONSCIOUSNESS.setdefault("alpaca", {
+        "market_open": False, "account_status": "unknown",
+        "buying_power": 0, "indices": {}, "last_check": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0:
+        return
+
+    from pathlib import Path
+    import urllib.request
+
+    # Load credentials
+    cred_file = Path("data/.secrets/alpaca.json")
+    if not cred_file.exists():
+        alpaca["status"] = "no_credentials"
+        return
+
+    try:
+        creds = json.loads(cred_file.read_text(encoding="utf-8"))
+        api_key = creds.get("paper_api_key", creds.get("api_key", ""))
+        secret_key = creds.get("secret_key", "")
+        if not api_key or not secret_key:
+            alpaca["status"] = "incomplete_credentials"
+            return
+    except Exception:
+        alpaca["status"] = "credential_error"
+        return
+
+    base = "https://paper-api.alpaca.markets"
+    headers = {
+        "APCA-API-KEY-ID": api_key,
+        "APCA-API-SECRET-KEY": secret_key,
+        "Accept": "application/json",
+    }
+
+    # Check market clock
+    try:
+        req = urllib.request.Request(f"{base}/v2/clock", headers=headers)
+        with urllib.request.urlopen(req, timeout=8) as r:
+            clock = json.loads(r.read().decode())
+            alpaca["market_open"] = clock.get("is_open", False)
+            alpaca["next_open"] = clock.get("next_open", "")
+            alpaca["next_close"] = clock.get("next_close", "")
+    except Exception as e:
+        alpaca["clock_error"] = str(e)[:80]
+
+    # Check account
+    try:
+        req = urllib.request.Request(f"{base}/v2/account", headers=headers)
+        with urllib.request.urlopen(req, timeout=8) as r:
+            acct = json.loads(r.read().decode())
+            alpaca["account_status"] = acct.get("status", "unknown")
+            alpaca["buying_power"] = float(acct.get("buying_power", 0))
+            alpaca["equity"] = float(acct.get("equity", 0))
+            alpaca["cash"] = float(acct.get("cash", 0))
+            alpaca["portfolio_value"] = float(acct.get("portfolio_value", 0))
+    except Exception as e:
+        alpaca["account_error"] = str(e)[:80]
+
+    # Get key index quotes via data API
+    data_base = "https://data.alpaca.markets"
+    symbols = ["SPY", "QQQ", "IWM", "DIA"]
+    indices = {}
+    for sym in symbols:
+        try:
+            req = urllib.request.Request(
+                f"{data_base}/v2/stocks/{sym}/quotes/latest",
+                headers=headers)
+            with urllib.request.urlopen(req, timeout=5) as r:
+                quote = json.loads(r.read().decode())
+                q = quote.get("quote", {})
+                indices[sym] = {
+                    "bid": q.get("bp", 0),
+                    "ask": q.get("ap", 0),
+                    "mid": round((q.get("bp", 0) + q.get("ap", 0)) / 2, 2),
+                }
+        except Exception:
+            pass
+
+    # Get crypto quotes
+    for sym in ["BTC/USD", "ETH/USD", "SOL/USD"]:
+        try:
+            encoded_sym = sym.replace("/", "%2F")
+            req = urllib.request.Request(
+                f"{data_base}/v1beta3/crypto/us/latest/quotes?symbols={encoded_sym}",
+                headers=headers)
+            with urllib.request.urlopen(req, timeout=5) as r:
+                data = json.loads(r.read().decode())
+                quotes = data.get("quotes", {})
+                if sym in quotes:
+                    q = quotes[sym]
+                    indices[sym] = {
+                        "bid": q.get("bp", 0),
+                        "ask": q.get("ap", 0),
+                        "mid": round((q.get("bp", 0) + q.get("ap", 0)) / 2, 2),
+                    }
+        except Exception:
+            pass
+
+    alpaca["indices"] = indices
+    alpaca["last_check"] = datetime.now(timezone.utc).isoformat()
+    alpaca["status"] = "active"
+
+
+def neuron_polymarket_deep():
+    """
+    LIVE: Deep Polymarket intelligence using the gamma API.
+    Goes beyond whale watching -- tracks specific markets,
+    monitors price movements, detects volume spikes.
+    """
+    poly = CONSCIOUSNESS.setdefault("polymarket_deep", {
+        "trending_markets": [], "volume_leaders": [],
+        "price_movers": [], "total_markets_scanned": 0,
+        "last_scan": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0:
+        return
+
+    import urllib.request
+    base = "https://gamma-api.polymarket.com"
+
+    # Get trending/active markets
+    try:
+        req = urllib.request.Request(
+            f"{base}/markets?limit=20&order=volume24hr&ascending=false&active=true",
+            headers={"Accept": "application/json", "User-Agent": "SolarPunk/1.0"})
+        with urllib.request.urlopen(req, timeout=12) as r:
+            markets = json.loads(r.read().decode())
+
+        trending = []
+        volume_leaders = []
+        for m in markets[:20]:
+            entry = {
+                "question": m.get("question", "")[:80],
+                "volume24hr": m.get("volume24hr", 0),
+                "liquidity": m.get("liquidity", 0),
+                "outcomePrices": m.get("outcomePrices", ""),
+                "endDate": m.get("endDate", ""),
+                "slug": m.get("slug", ""),
+            }
+            trending.append(entry)
+            if m.get("volume24hr", 0) > 10000:
+                volume_leaders.append(entry)
+
+        poly["trending_markets"] = trending
+        poly["volume_leaders"] = volume_leaders
+        poly["total_markets_scanned"] = len(markets)
+    except Exception:
+        pass
+
+    # Get markets related to our Kalshi positions for cross-reference
+    kalshi_positions = CONSCIOUSNESS.get("position_monitor", {}).get("alerts", [])
+    cross_ref = []
+    for pos in kalshi_positions:
+        ticker = pos.get("ticker", "")
+        # Extract search term from ticker
+        search_terms = []
+        if "TRILLIONAIRE" in ticker:
+            search_terms.append("trillionaire")
+        elif "MARS" in ticker:
+            search_terms.append("mars")
+        elif "IPO" in ticker or "OAIANTH" in ticker:
+            search_terms.append("openai IPO")
+        elif "MUSK" in ticker or "ELON" in ticker:
+            search_terms.append("elon musk")
+
+        for term in search_terms:
+            try:
+                req = urllib.request.Request(
+                    f"{base}/markets?limit=3&search={term}&active=true",
+                    headers={"Accept": "application/json", "User-Agent": "SolarPunk/1.0"})
+                with urllib.request.urlopen(req, timeout=8) as r:
+                    results = json.loads(r.read().decode())
+                    for m in results[:2]:
+                        cross_ref.append({
+                            "kalshi_ticker": ticker,
+                            "poly_question": m.get("question", "")[:80],
+                            "poly_price": m.get("outcomePrices", ""),
+                            "poly_volume": m.get("volume24hr", 0),
+                        })
+            except Exception:
+                pass
+
+    if cross_ref:
+        poly["cross_reference"] = cross_ref[:10]
+
+    poly["last_scan"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_convergence():
+    """
+    SYNTHESIS: The grand convergence neuron -- connects EVERYTHING.
+    Takes data from ALL other neurons and produces unified insights.
+    This is the blob's highest-level thinking.
+    """
+    conv = CONSCIOUSNESS.setdefault("convergence", {
+        "unified_outlook": "unknown", "confidence_composite": 0,
+        "top_opportunities": [], "top_risks": [],
+        "system_health_composite": 0, "narrative": "",
+        "last_convergence": None,
+    })
+
+    # Gather all signals
+    fear_greed = CONSCIOUSNESS.get("cross_signals", {}).get("fear_greed", 50)
+    news_sentiment = CONSCIOUSNESS.get("news", {}).get("sentiment", "neutral")
+    risk_score = CONSCIOUSNESS.get("risk", {}).get("risk_score", 0)
+    health = CONSCIOUSNESS.get("equilibrium", {}).get("score", 0)
+    confidence = CONSCIOUSNESS.get("brain", {}).get("confidence", 0)
+    kalshi_total = CONSCIOUSNESS.get("trading", {}).get("kalshi_total", 0)
+    sol_price = CONSCIOUSNESS.get("solana", {}).get("sol_price", 0)
+    btc_price = CONSCIOUSNESS.get("solana", {}).get("btc_price", 0)
+    arb_count = CONSCIOUSNESS.get("pred_arb", {}).get("total_found", 0)
+    whale_signals = len(CONSCIOUSNESS.get("cross_signals", {}).get("unified", []))
+    neuron_count = len(NEURONS)
+    engine_count = len(CONSCIOUSNESS.get("engines", {}))
+    dormant_count = len(CONSCIOUSNESS.get("rebirth", {}).get("dormant_capabilities", []))
+    signal_routes = CONSCIOUSNESS.get("signal_router", {}).get("signals_routed", 0)
+    capabilities = CONSCIOUSNESS.get("capabilities", {}).get("total_capabilities", 0)
+
+    # Compute composite confidence
+    weights = {
+        "market_sentiment": (100 - abs(fear_greed - 50)) / 50,  # Closer to 50 = stable
+        "risk_adjusted": max(0, (100 - risk_score)) / 100,
+        "health_component": health / 100,
+        "brain_confidence": confidence / 100,
+        "capability_breadth": min(capabilities / 100, 1.0),
+    }
+    composite = sum(weights.values()) / len(weights) * 100
+    conv["confidence_composite"] = round(composite, 1)
+
+    # Determine unified outlook
+    if composite > 70 and risk_score < 30:
+        conv["unified_outlook"] = "STRONG_POSITIVE"
+    elif composite > 50 and risk_score < 50:
+        conv["unified_outlook"] = "CAUTIOUSLY_POSITIVE"
+    elif risk_score > 70:
+        conv["unified_outlook"] = "DEFENSIVE"
+    elif fear_greed < 20:
+        conv["unified_outlook"] = "FEAR_OPPORTUNITY"
+    else:
+        conv["unified_outlook"] = "NEUTRAL"
+
+    # Top opportunities
+    opportunities = []
+    if arb_count > 0:
+        opportunities.append({
+            "type": "ARBITRAGE",
+            "detail": f"{arb_count} cross-platform price divergences detected",
+            "priority": "HIGH",
+        })
+    if fear_greed < 20:
+        opportunities.append({
+            "type": "FEAR_DIP",
+            "detail": f"Fear/Greed at {fear_greed} -- contrarian buying opportunity",
+            "priority": "HIGH",
+        })
+    if dormant_count > 5:
+        opportunities.append({
+            "type": "DORMANT_ACTIVATION",
+            "detail": f"{dormant_count} dormant capabilities can be reactivated",
+            "priority": "MEDIUM",
+        })
+    if whale_signals > 3:
+        opportunities.append({
+            "type": "WHALE_CONVERGENCE",
+            "detail": f"{whale_signals} whale-confirmed signals across platforms",
+            "priority": "HIGH",
+        })
+    conv["top_opportunities"] = opportunities[:10]
+
+    # Top risks
+    risks = []
+    risk_alerts = CONSCIOUSNESS.get("risk", {}).get("alerts", [])
+    for alert in risk_alerts:
+        risks.append({
+            "type": alert.get("rule", "UNKNOWN"),
+            "detail": alert.get("msg", ""),
+            "severity": alert.get("severity", "LOW"),
+        })
+    conv["top_risks"] = risks[:10]
+
+    # System health composite
+    components = {
+        "equilibrium": health,
+        "neuron_coverage": min(neuron_count / 50 * 100, 100),
+        "engine_absorption": min(engine_count / 60 * 100, 100),
+        "signal_routing": min(signal_routes / 8 * 100, 100),
+        "capability_utilization": min(capabilities / 80 * 100, 100),
+    }
+    conv["system_health_composite"] = round(sum(components.values()) / len(components), 1)
+    conv["health_components"] = {k: round(v, 1) for k, v in components.items()}
+
+    # Build narrative
+    narrative_parts = []
+    narrative_parts.append(f"SolarPunk: {neuron_count} neurons, {engine_count} engines")
+    narrative_parts.append(f"Market: Fear/Greed={fear_greed}, SOL=${sol_price}, BTC=${btc_price}")
+    narrative_parts.append(f"Portfolio: ${kalshi_total:.2f} Kalshi")
+    narrative_parts.append(f"Outlook: {conv['unified_outlook']}")
+    if opportunities:
+        narrative_parts.append(f"Top opportunity: {opportunities[0]['type']}")
+    conv["narrative"] = " | ".join(narrative_parts)
+
+    conv["last_convergence"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_deep_scan():
     """
     AWARENESS: Deep scan of ALL data files in the data/ directory.
@@ -3914,6 +4422,13 @@ NEURONS = [
     ("SIGNAL_ROUTER", neuron_signal_router),
     # Phase 12: Genesis -- inception rebirth
     ("REBIRTH_CYCLE", neuron_rebirth_cycle),
+    # Phase 13: Live market intelligence + grand convergence
+    ("ALPACA_LIVE", neuron_alpaca_live),
+    ("POLYMARKET_DEEP", neuron_polymarket_deep),
+    ("CONVERGENCE", neuron_convergence),
+    # Phase 14: Dual brain + economic crosswire absorption
+    ("DUAL_BRAIN", neuron_dual_brain),
+    ("CROSSWIRE", neuron_crosswire),
 ]
 
 
