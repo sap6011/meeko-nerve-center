@@ -458,6 +458,193 @@ def get_positions(api_key, pem_data):
 
 
 # ──────────────────────────────────────────────────────────────
+# PHASE 2b: VELOCITY -- Sell slow positions, free cash for daily trades
+# ──────────────────────────────────────────────────────────────
+
+def evaluate_positions_for_velocity(api_key, pem_data):
+    """
+    Analyze all open positions and identify which to SELL for faster cycling.
+
+    Strategy:
+    - KEEP positions resolving within 7 days (too close, just wait)
+    - SELL positions resolving in 30+ days (free cash for daily markets)
+    - Calculate freed cash vs opportunity cost
+    """
+    positions = get_positions(api_key, pem_data)
+    if not positions:
+        return [], [], 0
+
+    now = datetime.now(timezone.utc)
+    to_sell = []
+    to_keep = []
+
+    for p in positions:
+        ticker = p.get("ticker", "")
+        pos_fp = float(p.get("position_fp", 0))
+        if pos_fp == 0:
+            continue
+
+        side = "yes" if pos_fp > 0 else "no"
+        qty = abs(int(pos_fp))
+        cost = float(p.get("total_traded_dollars", 0))
+
+        # Get current market data for sell price
+        market_data = _public_fetch(f"/markets/{ticker}")
+        if not market_data or not market_data.get("market"):
+            time.sleep(0.35)
+            continue
+
+        m = market_data["market"]
+        close_str = m.get("close_time", "")
+
+        # Calculate days to resolution
+        days_to_close = 999
+        if close_str:
+            try:
+                close_dt = datetime.fromisoformat(close_str.replace("Z", "+00:00"))
+                days_to_close = max(0, (close_dt - now).total_seconds() / 86400)
+            except Exception:
+                pass
+
+        # Get sell price (bid side)
+        if side == "yes":
+            sell_price = float(m.get("yes_bid_dollars", 0) or 0)
+        else:
+            sell_price = float(m.get("no_bid_dollars", 0) or 0)
+
+        sell_value = sell_price * qty
+        hold_value = qty * 1.00  # $1.00 payout on resolution
+        loss_if_sell = cost - sell_value
+
+        info = {
+            "ticker": ticker,
+            "side": side,
+            "qty": qty,
+            "cost": cost,
+            "sell_price": sell_price,
+            "sell_value": round(sell_value, 2),
+            "hold_value": hold_value,
+            "loss_if_sell": round(loss_if_sell, 2),
+            "days_to_close": round(days_to_close, 1),
+            "close_time": close_str[:10],
+        }
+
+        # Decision: keep if resolving within 7 days, sell if 30+ days
+        if days_to_close <= 7:
+            to_keep.append(info)
+            print(f"  [VELOCITY] KEEP {ticker}: {qty}x {side.upper()} -- "
+                  f"resolves in {days_to_close:.0f} days (too close to sell)")
+        elif sell_price > 0:
+            to_sell.append(info)
+            print(f"  [VELOCITY] SELL {ticker}: {qty}x {side.upper()} -- "
+                  f"${sell_value:.2f} freed, resolves in {days_to_close:.0f} days")
+
+        time.sleep(0.35)
+
+    freed_cash = sum(s["sell_value"] for s in to_sell)
+    print(f"  [VELOCITY] Summary: SELL {len(to_sell)} positions (${freed_cash:.2f}) | "
+          f"KEEP {len(to_keep)} positions")
+
+    return to_sell, to_keep, freed_cash
+
+
+def sell_positions(positions_to_sell, api_key, pem_data):
+    """
+    Execute sell orders for positions we want to liquidate.
+
+    Kalshi sell order: action="sell", same ticker/side/count format.
+    Sell at current bid price for instant fill.
+    """
+    results = []
+
+    for pos in positions_to_sell:
+        ticker = pos["ticker"]
+        side = pos["side"]
+        qty = pos["qty"]
+        sell_price = pos["sell_price"]
+
+        if sell_price <= 0 or qty <= 0:
+            continue
+
+        price_cents = int(round(sell_price * 100))
+
+        order = {
+            "ticker": ticker,
+            "action": "sell",
+            "side": side,
+            "count": qty,
+            "type": "limit",
+            "client_order_id": str(uuid.uuid4()),
+        }
+
+        if side == "yes":
+            order["yes_price"] = price_cents
+        else:
+            order["no_price"] = price_cents
+
+        print(f"  [VELOCITY] Selling {qty}x {side.upper()} {ticker} @ ${sell_price:.2f}...")
+
+        result = _sign_and_fetch("/portfolio/orders", api_key, pem_data,
+                                 method="POST", body=order)
+
+        if result and result.get("order"):
+            order_data = result["order"]
+            status = order_data.get("status", "unknown")
+            results.append({
+                "success": True,
+                "action": "sell",
+                "ticker": ticker,
+                "side": side,
+                "qty": qty,
+                "sell_price": sell_price,
+                "total": round(sell_price * qty, 2),
+                "status": status,
+                "order_id": order_data.get("order_id", ""),
+            })
+            print(f"    [OK] SOLD: {status} | ${sell_price * qty:.2f} freed")
+        else:
+            results.append({
+                "success": False,
+                "action": "sell",
+                "ticker": ticker,
+                "error": "sell order failed",
+            })
+            print(f"    [X] SELL FAILED for {ticker}")
+
+        time.sleep(0.15)
+
+    return results
+
+
+def velocity_mode(api_key, pem_data, config):
+    """
+    VELOCITY MODE: Sell slow positions, free cash, deploy into daily markets.
+
+    1. Evaluate all positions (keep 7-day, sell 30+ day)
+    2. Execute sell orders
+    3. Return freed cash for immediate redeployment by the main cycle
+    """
+    print("\n  [VELOCITY] Evaluating positions for velocity cycling...")
+    to_sell, to_keep, potential_cash = evaluate_positions_for_velocity(api_key, pem_data)
+
+    if not to_sell:
+        print("  [VELOCITY] No slow positions to sell -- already optimized")
+        return 0, []
+
+    # Execute sells
+    print(f"  [VELOCITY] Selling {len(to_sell)} slow positions to free ${potential_cash:.2f}...")
+    sell_results = sell_positions(to_sell, api_key, pem_data)
+
+    freed = sum(r["total"] for r in sell_results if r.get("success"))
+    sold_count = sum(1 for r in sell_results if r.get("success"))
+
+    print(f"  [VELOCITY] Freed ${freed:.2f} from {sold_count} positions -- "
+          f"ready for daily deployment!")
+
+    return freed, sell_results
+
+
+# ──────────────────────────────────────────────────────────────
 # PHASE 3: TRADE -- Batch order placement for maximum speed
 # ──────────────────────────────────────────────────────────────
 
@@ -720,6 +907,18 @@ def run():
 
     settlements = check_settlements(api_key, pem_data)
 
+    # === PHASE 1b: VELOCITY -- sell slow positions to free cash ===
+    velocity_freed = 0
+    velocity_sells = []
+    if config.get("velocity_mode", True):  # ON by default
+        velocity_freed, velocity_sells = velocity_mode(api_key, pem_data, config)
+        if velocity_freed > 0:
+            # Re-read balance after selling
+            new_bal = _sign_and_fetch("/portfolio/balance", api_key, pem_data)
+            if new_bal:
+                balance = round(new_bal.get("balance", 0) / 100, 2)
+                print(f"[TURBO_TRADER] Post-velocity balance: ${balance:.2f}")
+
     # Check floor
     floor = config.get("balance_floor_usd", 1.00)
     if balance < floor:
@@ -732,6 +931,8 @@ def run():
             "floor": floor,
             "last_known_balance": balance,
             "settlements_24h": len(settlements),
+            "velocity_freed": velocity_freed,
+            "velocity_sells": len(velocity_sells),
             "message": f"Waiting for positions to resolve or new deposit. "
                        f"${floor - balance:.2f} below floor.",
         }
@@ -831,6 +1032,8 @@ def run():
         "total_opportunities": len(opportunities),
         "total_pending_payout": round(total_pending, 2),
         "settlements_24h": len(settlements),
+        "velocity_freed": velocity_freed,
+        "velocity_sells": len(velocity_sells),
         "series_scanned": len(series_list[:20]),
         "top_opportunities": opportunities[:10],
         "trades": results,
