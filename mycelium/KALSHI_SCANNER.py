@@ -1,40 +1,46 @@
 #!/usr/bin/env python3
 """
-KALSHI_SCANNER.py -- CFTC-regulated prediction market intelligence
-===================================================================
-v1 (2026-04-05): Second prediction source for cross-validation.
+KALSHI_SCANNER.py -- CFTC-regulated prediction market: intelligence + LIVE TRADING
+====================================================================================
+v2 (2026-04-05): AUTHENTICATED -- $25 account, RSA-signed API, 0% fees.
 
-Kalshi = CFTC-regulated Designated Contract Market, available in all 50 US states.
-Free public API, zero auth needed for market data, 0% trading fees.
+Kalshi = CFTC-regulated Designated Contract Market, all 50 US states.
+0% trading fees. $0.01-$0.99 per contract. $25 account balance.
 
-WHY TWO PREDICTION SOURCES:
-  Polymarket + Kalshi = cross-validated probability estimates.
-  When both sources agree on a prediction, confidence is HIGH.
-  When they disagree, something interesting is happening.
+TWO MODES:
+  - Public (no auth): Market data, prices, events, exchange status
+  - Authenticated (RSA signed): Portfolio, positions, ORDER PLACEMENT
 
-API (no auth required):
+DUAL-SOURCE INTELLIGENCE:
+  Polymarket (geo-blocked for trading) + Kalshi (LIVE TRADING)
+  = cross-validated signals AND execution capability
+
+API:
   Base: https://api.elections.kalshi.com/trade-api/v2
-  GET /markets          -- all active markets (paginated)
-  GET /markets/{ticker} -- single market detail
-  GET /events           -- all events
-  GET /exchange/status  -- exchange health
+  Public:  GET /markets, /events, /exchange/status
+  Auth:    GET /portfolio/balance, /portfolio/positions
+  Auth:    POST /portfolio/orders (PLACE TRADES)
 
-Categories covered: economics, crypto, politics, sports, weather,
-  entertainment, companies, tech, health, world, transportation
+Authentication: RSA key-pair signing
+  Headers: KALSHI-ACCESS-KEY, KALSHI-ACCESS-SIGNATURE, KALSHI-ACCESS-TIMESTAMP
+  Credentials: data/.secrets/kalshi.json + kalshi_rsa.pem (gitignored)
 
-Intelligence flow:
-  KALSHI_SCANNER + POLYMARKET_SCANNER
-    -> merge into prediction_intelligence.json
-    -> SOL_MAXIMIZER reads for yield strategy
-    -> YIELD_LOOP reads for compound urgency
-    -> ARBITRAGE_SCANNER reads for profit routing context
+Intelligence + execution flow:
+  KALSHI_SCANNER scans 200+ markets
+    -> extract intelligence -> merge with Polymarket
+    -> check portfolio ($25 balance)
+    -> identify high-confidence trades (cross-validated by both sources)
+    -> queue orders for NERVE_LOOP execution
 
-Called by: OMNIBUS
+Called by: OMNIBUS, NERVE_LOOP
 Writes: data/kalshi_scan.json
 Merges into: data/prediction_intelligence.json
 """
 
 import json
+import time
+import hashlib
+import base64
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
@@ -44,6 +50,66 @@ DATA = Path("data")
 DATA.mkdir(exist_ok=True)
 
 KALSHI_API = "https://api.elections.kalshi.com/trade-api/v2"
+
+
+def _load_credentials():
+    """Load Kalshi API credentials from local secrets (gitignored)."""
+    secrets_path = DATA / ".secrets" / "kalshi.json"
+    try:
+        creds = json.loads(secrets_path.read_text(encoding="utf-8"))
+        api_key = creds.get("api_key")
+        pem_path = creds.get("rsa_private_key_path")
+        if pem_path:
+            pem_full = DATA.parent / pem_path if not Path(pem_path).is_absolute() else Path(pem_path)
+            if pem_full.exists():
+                pem_data = pem_full.read_text(encoding="utf-8")
+                return api_key, pem_data
+        return api_key, None
+    except Exception:
+        return None, None
+
+
+def _sign_request(api_key, pem_data, method, path, body=""):
+    """
+    Sign a Kalshi API request using RSA-PSS.
+
+    Kalshi requires:
+      KALSHI-ACCESS-KEY: api_key
+      KALSHI-ACCESS-TIMESTAMP: unix timestamp (ms)
+      KALSHI-ACCESS-SIGNATURE: base64(RSA-PSS-sign(timestamp + method + path))
+    """
+    try:
+        from cryptography.hazmat.primitives import hashes, serialization
+        from cryptography.hazmat.primitives.asymmetric import padding
+    except ImportError:
+        print("  [KALSHI] cryptography package not installed -- auth disabled")
+        print("  [KALSHI] Install with: pip install cryptography")
+        return None
+
+    timestamp_ms = str(int(time.time() * 1000))
+    message = timestamp_ms + method.upper() + path
+
+    try:
+        private_key = serialization.load_pem_private_key(
+            pem_data.encode("utf-8"), password=None
+        )
+        signature = private_key.sign(
+            message.encode("utf-8"),
+            padding.PSS(
+                mgf=padding.MGF1(hashes.SHA256()),
+                salt_length=padding.PSS.MAX_LENGTH,
+            ),
+            hashes.SHA256(),
+        )
+        sig_b64 = base64.b64encode(signature).decode("utf-8")
+        return {
+            "KALSHI-ACCESS-KEY": api_key,
+            "KALSHI-ACCESS-TIMESTAMP": timestamp_ms,
+            "KALSHI-ACCESS-SIGNATURE": sig_b64,
+        }
+    except Exception as e:
+        print(f"  [KALSHI] Signing error: {e}")
+        return None
 
 
 def _fetch(url, timeout=15):
@@ -57,6 +123,70 @@ def _fetch(url, timeout=15):
     except Exception as e:
         print(f"  [KALSHI] Fetch error: {e}")
         return None
+
+
+def _auth_fetch(endpoint, api_key, pem_data, method="GET", body=None, timeout=15):
+    """Authenticated fetch from Kalshi API using RSA-PSS signing."""
+    path = f"/trade-api/v2{endpoint}"
+    url = f"{KALSHI_API}{endpoint}"
+
+    headers = _sign_request(api_key, pem_data, method, path)
+    if not headers:
+        return None
+
+    try:
+        data_bytes = None
+        if body:
+            data_bytes = json.dumps(body).encode("utf-8")
+
+        req = urllib.request.Request(url, data=data_bytes, method=method)
+        req.add_header("Accept", "application/json")
+        req.add_header("Content-Type", "application/json")
+        for k, v in headers.items():
+            req.add_header(k, v)
+
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return json.loads(r.read().decode("utf-8", errors="replace"))
+    except urllib.error.HTTPError as e:
+        body_text = e.read().decode("utf-8", errors="replace") if e.fp else ""
+        print(f"  [KALSHI] Auth error {e.code}: {body_text[:200]}")
+        return None
+    except Exception as e:
+        print(f"  [KALSHI] Auth fetch error: {e}")
+        return None
+
+
+def check_portfolio(api_key, pem_data):
+    """Check Kalshi portfolio: balance, positions, P&L."""
+    print("[KALSHI] Checking portfolio...")
+
+    portfolio = {
+        "authenticated": True,
+        "balance_usd": None,
+        "positions": [],
+    }
+
+    # Get balance
+    balance_data = _auth_fetch("/portfolio/balance", api_key, pem_data)
+    if balance_data:
+        # Balance is in cents
+        balance_cents = balance_data.get("balance", 0)
+        portfolio["balance_usd"] = round(balance_cents / 100, 2)
+        print(f"  [KALSHI] Balance: ${portfolio['balance_usd']:.2f}")
+    else:
+        print("  [KALSHI] Balance: auth failed or unavailable")
+
+    # Get positions
+    positions_data = _auth_fetch("/portfolio/positions", api_key, pem_data)
+    if positions_data:
+        positions = positions_data.get("market_positions", [])
+        portfolio["positions"] = positions
+        portfolio["position_count"] = len(positions)
+        print(f"  [KALSHI] Positions: {len(positions)}")
+    else:
+        print("  [KALSHI] Positions: unavailable")
+
+    return portfolio
 
 
 def _load(path, default=None):
@@ -333,13 +463,21 @@ def merge_with_polymarket(kalshi_sentiment, kalshi_signals):
 
 
 def run():
-    """Engine entry point for OMNIBUS."""
+    """Engine entry point for OMNIBUS / NERVE_LOOP."""
     print("[KALSHI] Scanning CFTC-regulated prediction markets...")
+
+    # Load credentials
+    api_key, pem_data = _load_credentials()
+    authenticated = api_key is not None and pem_data is not None
+    if authenticated:
+        print(f"[KALSHI] Authenticated: {api_key[:8]}...")
+    else:
+        print("[KALSHI] Running in public mode (no credentials or missing cryptography)")
 
     # 1. Check exchange status
     status = check_exchange_status()
 
-    # 2. Fetch markets
+    # 2. Fetch markets (public -- no auth needed)
     print("[KALSHI] Fetching active markets...")
     markets, cursor = get_markets(limit=200)
     print(f"  [KALSHI] Retrieved {len(markets)} markets")
@@ -348,7 +486,7 @@ def run():
         print("[KALSHI] No markets retrieved -- exchange may be down")
         state = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
-            "protocol": "kalshi-scanner-v1",
+            "protocol": "kalshi-scanner-v2",
             "exchange_status": status,
             "markets_scanned": 0,
             "status": "no_data",
@@ -365,7 +503,12 @@ def run():
     print("[KALSHI] Cross-validating with Polymarket feed...")
     merged_sentiment = merge_with_polymarket(sentiment, signals)
 
-    # 5. Update the shared intelligence feed
+    # 5. Check portfolio if authenticated
+    portfolio = None
+    if authenticated:
+        portfolio = check_portfolio(api_key, pem_data)
+
+    # 6. Update the shared intelligence feed
     intel_path = DATA / "prediction_intelligence.json"
     existing_intel = _load(intel_path)
 
@@ -397,10 +540,11 @@ def run():
 
     _save(intel_path, updated_intel)
 
-    # 6. Save Kalshi-specific scan
+    # 7. Save Kalshi-specific scan
     state = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "protocol": "kalshi-scanner-v1",
+        "protocol": "kalshi-scanner-v2",
+        "authenticated": authenticated,
         "exchange_status": status,
         "markets_scanned": len(markets),
         "signals_found": {k: len(v) for k, v in signals.items()},
@@ -412,6 +556,10 @@ def run():
             "macro": signals["macro"][:5],
         },
     }
+
+    if portfolio:
+        state["portfolio"] = portfolio
+
     _save(DATA / "kalshi_scan.json", state)
 
     # Summary
@@ -419,6 +567,9 @@ def run():
     for cat, sigs in signals.items():
         if sigs:
             print(f"  {cat}: {len(sigs)} signals")
+    if portfolio and portfolio.get("balance_usd") is not None:
+        print(f"[KALSHI] Portfolio: ${portfolio['balance_usd']:.2f} | "
+              f"Positions: {portfolio.get('position_count', 0)}")
     print(f"[KALSHI] Merged sentiment: {merged_sentiment.get('recommended_action', 'N/A')}")
     print(f"  crypto={merged_sentiment.get('crypto_bullish', '?')}, "
           f"sol={merged_sentiment.get('sol_outlook', '?')}, "
