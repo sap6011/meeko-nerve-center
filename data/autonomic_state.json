@@ -1,14 +1,179 @@
 {
-  "timestamp": "2026-04-06T07:06:15.945032+00:00",
-  "status": "thermal_throttle",
-  "reason": "CPU at 100.0% (threshold: 85%)",
-  "vitals": {
-    "cpu_pct": 100.0,
-    "ram_pct": 79.3,
-    "ram_used_gb": 25.2,
+  "timestamp": "2026-04-06T07:37:21.262332+00:00",
+  "protocol": "autonomic-nerve-v1",
+  "status": "alive",
+  "heartbeat_interval": 60,
+  "decision_method": "ai:llama3.2:latest",
+  "engines_run": [
+    "ALPACA_TRADER",
+    "CROSS_POLLINATOR",
+    "PULSE",
+    "SIGNAL_MESH",
+    "SYNAPTIC_BUS",
+    "REFLEX_ARC",
+    "SETTLEMENT_WATCHER",
+    "AUTO_DEPOSIT",
+    "PROPRIOCEPTION",
+    "METABOLISM_LOOP",
+    "NERVE_LOOP",
+    "TRADING_WIRE_auto"
+  ],
+  "results": {
+    "ALPACA_TRADER": {
+      "success": true,
+      "status": "market_closed"
+    },
+    "CROSS_POLLINATOR": {
+      "success": true,
+      "status": "active"
+    },
+    "PULSE": {
+      "success": true,
+      "status": "?"
+    },
+    "SIGNAL_MESH": {
+      "success": false,
+      "status": "Unknown engine: SIGNAL_MESH"
+    },
+    "SYNAPTIC_BUS": {
+      "success": false,
+      "status": "Unknown engine: SYNAPTIC_BUS"
+    },
+    "REFLEX_ARC": {
+      "success": false,
+      "status": "Unknown engine: REFLEX_ARC"
+    },
+    "SETTLEMENT_WATCHER": {
+      "success": false,
+      "status": "Unknown engine: SETTLEMENT_WATCHER"
+    },
+    "AUTO_DEPOSIT": {
+      "success": false,
+      "status": "Unknown engine: AUTO_DEPOSIT"
+    },
+    "PROPRIOCEPTION": {
+      "success": false,
+      "status": "Unknown engine: PROPRIOCEPTION"
+    },
+    "METABOLISM_LOOP": {
+      "success": false,
+      "status": "Unknown engine: METABOLISM_LOOP"
+    },
+    "NERVE_LOOP": {
+      "success": true,
+      "status": "complete"
+    },
+    "TRADING_WIRE_auto": {
+      "success": true
+    }
+  },
+  "system_summary": {
+    "TURBO_TRADER": {
+      "status": "active_no_capacity",
+      "minutes_since_run": 1.1,
+      "schedule_minutes": 15,
+      "stalled": false,
+      "due": false,
+      "balance": 0.1,
+      "positions": 0,
+      "pending_payout": 0
+    },
+    "TRADING_WIRE": {
+      "status": "unknown",
+      "minutes_since_run": 8.6,
+      "schedule_minutes": 15,
+      "stalled": false,
+      "due": false
+    },
+    "ALPACA_TRADER": {
+      "status": "market_closed",
+      "minutes_since_run": 9.3,
+      "schedule_minutes": 30,
+      "stalled": false,
+      "due": false,
+      "portfolio": 1.5,
+      "market_open": false,
+      "opportunities": 6
+    },
+    "CROSS_POLLINATOR": {
+      "status": "active",
+      "minutes_since_run": 9.3,
+      "schedule_minutes": 30,
+      "stalled": false,
+      "due": false
+    },
+    "PULSE": {
+      "status": "unknown",
+      "minutes_since_run": 9.3,
+      "schedule_minutes": 30,
+      "stalled": false,
+      "due": false
+    },
+    "SIGNAL_MESH": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 15,
+      "stalled": true,
+      "due": true
+    },
+    "SYNAPTIC_BUS": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 5,
+      "stalled": true,
+      "due": true
+    },
+    "REFLEX_ARC": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 5,
+      "stalled": true,
+      "due": true
+    },
+    "SETTLEMENT_WATCHER": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 5,
+      "stalled": true,
+      "due": true
+    },
+    "AUTO_DEPOSIT": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 10,
+      "stalled": true,
+      "due": true
+    },
+    "PROPRIOCEPTION": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 15,
+      "stalled": true,
+      "due": true
+    },
+    "METABOLISM_LOOP": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 15,
+      "stalled": true,
+      "due": true
+    },
+    "NERVE_LOOP": {
+      "status": "complete",
+      "minutes_since_run": 27.6,
+      "schedule_minutes": 60,
+      "stalled": false,
+      "due": false,
+      "phases_complete": 15
+    }
+  },
+  "ollama_available": true,
+  "system_vitals": {
+    "cpu_pct": 50.6,
+    "ram_pct": 65.2,
+    "ram_used_gb": 20.7,
     "ram_total_gb": 31.8,
     "cpu_count": 6,
     "temp_c": null
-  },
-  "cooldown_seconds": 120
+  }
 }
