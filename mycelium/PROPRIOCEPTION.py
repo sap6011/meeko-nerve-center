@@ -766,8 +766,13 @@ def run():
             "portfolio_momentum": momentum,
             "system_age_hours":   round(age_hours, 2),
             "growth_trajectory":  trajectory,
+            "fastest_engine":     speed_rankings[0][0] if speed_rankings else "unknown",
+            "fastest_interval_s": speed_rankings[0][1] if speed_rankings else 0,
+            "slowest_engine":     speed_rankings[-1][0] if speed_rankings else "unknown",
+            "slowest_interval_s": speed_rankings[-1][1] if speed_rankings else 0,
+            "engines_ranked":     len(speed_rankings) if speed_rankings else 0,
         })
-        print("[PROPRIOCEPTION] Emitted body metrics + growth trajectory to synaptic bus.")
+        print("[PROPRIOCEPTION] Emitted body metrics + speed rankings to synaptic bus.")
     except ImportError:
         print("[PROPRIOCEPTION] SYNAPTIC_BUS not available -- metrics saved locally only.")
     except Exception as e:
