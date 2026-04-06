@@ -217,9 +217,14 @@ def run():
         print("    Gumroad listing: %d chars" % len(gumroad))
 
     save_json(DATA / "storefront_listings.json", listings)
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
     save_json(DATA / "storefront_copy_state.json", {
         "last_run": datetime.now(timezone.utc).isoformat(),
         "listings_generated": generated,
+        "nervous_system":{"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)},
     })
 
     print("\n  === STOREFRONT COPY SUMMARY ===")

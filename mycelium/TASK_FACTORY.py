@@ -318,6 +318,11 @@ def run():
     state["total_tasks_generated"] = state.get("total_tasks_generated", 0) + len(all_tasks)
     state["last_run"] = datetime.now(timezone.utc).isoformat()
     state["last_task_count"] = len(all_tasks)
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    state["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     save_json(DATA / "task_factory_state.json", state)
 
     print("\n  === TASK QUEUE ===")

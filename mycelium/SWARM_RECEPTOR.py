@@ -216,4 +216,8 @@ if __name__ == "__main__":
 # LIVE_WIRE: topology state tracking
 def _write_wire_state():
     _ctx = json.loads((DATA / "brain_state.json").read_text()) if (DATA / "brain_state.json").exists() else {}
-    (DATA / "swarm_receptor_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok"}, indent=2), encoding="utf-8")
+    try: _hh=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _hh={}
+    try: _cc=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _cc={}
+    (DATA / "swarm_receptor_state.json").write_text(json.dumps({"last_run": __import__("datetime").datetime.now().isoformat(), "status": "ok", "nervous_system":{"equilibrium":_hh.get("equilibrium",0),"trend":_hh.get("trend","unknown"),"brain_confidence":_cc.get("decision_confidence",0)}}, indent=2), encoding="utf-8")

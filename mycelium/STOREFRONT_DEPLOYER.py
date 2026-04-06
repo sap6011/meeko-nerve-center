@@ -1007,6 +1007,11 @@ def run():
         "github_live": live_github,
     }
     state["status"] = "deployed" if total_live > 0 else "listings_ready"
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    state["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
     print("[write] data/storefront_deployer_state.json")
 

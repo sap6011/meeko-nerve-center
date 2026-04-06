@@ -160,11 +160,16 @@ def run():
     print(f"  Use SWARM_RECEPTOR.py to reassemble.")
 
     # Write engine state for LIVE_WIRE detection
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
     (DATA / "swarm_transmitter_state.json").write_text(json.dumps({
         "last_run": datetime.now(timezone.utc).isoformat(),
         "status": "completed",
         "transmission_id": manifest["transmission_id"],
-        "fragments_created": manifest["total_fragments"]
+        "fragments_created": manifest["total_fragments"],
+        "nervous_system":{"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)},
     }, indent=2), encoding="utf-8")
 
 
