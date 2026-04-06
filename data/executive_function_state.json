@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-04-06T08:36:13.990315+00:00",
+  "engine": "EXECUTIVE_FUNCTION",
+  "status": "active",
+  "last_execution": {
+    "target_engine": "GLOBAL_MARKETS",
+    "description": "Deploy to global opportunity: Marinade mSOL (solana_defi)",
+    "urgency": 90,
+    "result": "success",
+    "detail": "Engine returned status=unknown",
+    "elapsed_ms": 111.2,
+    "triggered_by": "top_action"
+  },
+  "cortex_input": {
+    "top_action": {
+      "description": "Deploy to global opportunity: Marinade mSOL (solana_defi)",
+      "engine": "GLOBAL_MARKETS",
+      "urgency": 90
+    },
+    "urgency": 90,
+    "skip_reason": null,
+    "critical_count": 2,
+    "critical_actions": [
+      {
+        "recommendation": "CRITICAL: Only 0/22 engines alive -- restart dead engines",
+        "action": "deferred (already executed this cycle)",
+        "engine": "REFLEX_ARC"
+      },
+      {
+        "recommendation": "Ecosystem health critical (7.9%) -- prioritize revenue generation",
+        "action": "deferred (already executed this cycle)",
+        "engine": "FLYWHEEL"
+      }
+    ]
+  },
+  "execution_history": [
+    {
+      "timestamp": "2026-04-06T08:36:13.990315+00:00",
+      "engine": "GLOBAL_MARKETS",
+      "urgency": 90,
+      "result": "success",
+      "reason": "Deploy to global opportunity: Marinade mSOL (solana_defi)",
+      "elapsed_ms": 111.2
+    }
+  ],
+  "cooldowns": {
+    "GLOBAL_MARKETS": "2026-04-06T08:46:13.990315+00:00"
+  },
+  "stats": {
+    "total_executions": 1,
+    "successful": 1,
+    "failed": 0,
+    "engines_executed": {
+      "GLOBAL_MARKETS": 1
+    }
+  },
+  "performance": {
+    "total_ms": 111.2
+  },
+  "ethics": "99% mutual aid / 1% node fuel"
+}

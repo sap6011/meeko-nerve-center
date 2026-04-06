@@ -64,6 +64,7 @@ SIGNAL_SOURCES = [
     {"id": "reflex_arc",        "file": "reflex_arc_state.json",          "weight": 0.6,  "label": "Reflex Arc"},
     {"id": "proprioception",    "file": "proprioception_state.json",      "weight": 0.5,  "label": "Proprioception"},
     {"id": "neural_cortex",     "file": "neural_cortex_state.json",       "weight": 0.85, "label": "Neural Cortex"},
+    {"id": "executive_fn",      "file": "executive_function_state.json",  "weight": 0.5,  "label": "Executive Function"},
 ]
 
 # Freshness decay thresholds
@@ -459,6 +460,30 @@ def _extract_signal(source_def, data, now):
                 "risk_posture": risk,
                 "growth_priority": growth_pri,
                 "confidence": confidence,
+                "platform": "solarpunk",
+            })
+
+    elif sid == "executive_fn":
+        # Execution feedback: did the motor cortex succeed?
+        last_exec = data.get("last_execution", {})
+        stats = data.get("stats", {})
+        total_execs = stats.get("total_executions", 0)
+        success_rate = stats.get("success_rate_pct", 0)
+        last_result = last_exec.get("result", "")
+
+        signal["signal_strength"] = min(50, int(success_rate * 0.3 + total_execs * 0.5))
+        signal["signal_direction"] = (
+            "bullish" if success_rate > 80 else
+            "bearish" if success_rate < 40 and total_execs > 3 else "neutral"
+        )
+
+        if total_execs > 0:
+            signal["opportunities"].append({
+                "type": "execution_feedback",
+                "last_engine": last_exec.get("target_engine", "?"),
+                "last_result": last_result,
+                "success_rate": success_rate,
+                "total_executions": total_execs,
                 "platform": "solarpunk",
             })
 

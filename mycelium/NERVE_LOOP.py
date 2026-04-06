@@ -856,6 +856,28 @@ def run():
             "top_action": top.get("description", "none"),
         }
 
+        # Phase 15: EXECUTIVE_FUNCTION -- motor cortex (executes brain's decisions)
+        print("\n=== PHASE 15: EXECUTIVE_FUNCTION (Motor Cortex) ===")
+        exec_result = _run_engine("EXECUTIVE_FUNCTION", "EXECUTIVE_FUNCTION")
+        exec_state = _load(DATA / "executive_function_state.json")
+        last_exec = exec_state.get("last_execution", {})
+        exec_stats = exec_state.get("stats", {})
+        exec_target = last_exec.get("target_engine", "none")
+        exec_urgency = last_exec.get("urgency", 0)
+        exec_outcome = last_exec.get("result", "skipped")
+        print(f"  [EXECUTIVE] Target: {exec_target} | Urgency: {exec_urgency} | "
+              f"Result: {exec_outcome}")
+        print(f"  [EXECUTIVE] Lifetime: {exec_stats.get('total_executions', 0)} executions | "
+              f"Success rate: {exec_stats.get('success_rate_pct', 0)}%")
+        cycle_results["phases"]["executive_function"] = {
+            "phase": "executive_function",
+            "result": exec_result,
+            "target_engine": exec_target,
+            "urgency": exec_urgency,
+            "outcome": exec_outcome,
+            "total_executions": exec_stats.get("total_executions", 0),
+        }
+
     except Exception as e:
         print(f"\n[NERVE] Loop error: {e}")
         cycle_results["error"] = str(e)

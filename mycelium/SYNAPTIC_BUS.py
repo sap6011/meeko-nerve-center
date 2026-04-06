@@ -581,6 +581,7 @@ def run():
         "AUTO_DEPOSIT":     "auto_deposit_state.json",
         "SIGNAL_MESH":      "signal_mesh_state.json",
         "NEURAL_CORTEX":    "neural_cortex_state.json",
+        "EXECUTIVE_FUNCTION": "executive_function_state.json",
     }
 
     bootstrapped = 0
@@ -819,6 +820,16 @@ def _extract_key_props(eng_name, data):
         props["system_health"] = health.get("overall_score", 0)
         props["weakest_engine"] = health.get("weakest_engine", "none")
         props["decision_confidence"] = data.get("decision_confidence", 0)
+
+    elif eng_name == "EXECUTIVE_FUNCTION":
+        last_exec = data.get("last_execution", {})
+        props["last_target"] = last_exec.get("target_engine", "none")
+        props["last_urgency"] = last_exec.get("urgency", 0)
+        props["last_result"] = last_exec.get("result", "none")
+        stats = data.get("stats", {})
+        props["total_executions"] = stats.get("total_executions", 0)
+        props["success_rate"] = stats.get("success_rate_pct", 0)
+        props["active_cooldowns"] = len(data.get("cooldowns", {}))
 
     return props
 

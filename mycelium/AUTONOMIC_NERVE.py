@@ -89,6 +89,7 @@ DEFAULT_SCHEDULE = {
     "METABOLISM_LOOP":  15,   # Every 15 min -- circular metabolism (nervous -> ecosystem -> back)
     "GLOBAL_MARKETS":   15,   # Every 15 min -- cross-platform regime detection + opportunity ranking
     "NEURAL_CORTEX":    10,   # Every 10 min -- strategic brain (reads everything, decides everything)
+    "EXECUTIVE_FUNCTION": 10, # Every 10 min -- motor cortex (executes brain's top action)
     "NERVE_LOOP":       60,   # Every 60 min -- full ecosystem cycle
 }
 
@@ -668,6 +669,9 @@ def run_engine(engine_name):
             result = run()
         elif engine_name == "NEURAL_CORTEX":
             from mycelium.NEURAL_CORTEX import run
+            result = run()
+        elif engine_name == "EXECUTIVE_FUNCTION":
+            from mycelium.EXECUTIVE_FUNCTION import run
             result = run()
         else:
             return False, f"Unknown engine: {engine_name}"
