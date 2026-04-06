@@ -2705,6 +2705,272 @@ def neuron_crosswire():
     crosswire["wires_this_cycle"] = crosswires
 
 
+def neuron_signal_mesh_absorb():
+    """
+    ABSORB: Ingest the SIGNAL_MESH engine's composite signal data.
+    Signal mesh aggregates: price oracle, arbitrage, whale watch,
+    airdrop hunter, and SOL maximizer into a ranked opportunity list.
+    """
+    mesh = CONSCIOUSNESS.setdefault("signal_mesh", {
+        "composite_strength": 0, "dominant_direction": "unknown",
+        "ranked_opportunities": [], "convergences": [],
+        "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "signal_mesh_state.json").read_text(encoding="utf-8"))
+        comp = state.get("composite_signal", {})
+        mesh["composite_strength"] = comp.get("composite_strength", 0)
+        mesh["dominant_direction"] = comp.get("dominant_direction", "unknown")
+        mesh["direction_votes"] = comp.get("direction_votes", {})
+
+        # Absorb ranked opportunities
+        ranked = state.get("ranked_opportunities", [])
+        mesh["ranked_opportunities"] = ranked[:15]
+        mesh["opportunity_count"] = len(ranked)
+
+        # Absorb convergences (where multiple signals agree)
+        convs = state.get("convergences", [])
+        mesh["convergences"] = convs[:10]
+
+        # Absorb individual signals
+        signals = state.get("individual_signals", [])
+        mesh["signal_count"] = len(signals)
+        mesh["signals_summary"] = [
+            {"source": s.get("source", "?"), "strength": s.get("strength", 0),
+             "direction": s.get("direction", "?")}
+            for s in signals[:10]
+        ]
+    except Exception:
+        pass
+
+    mesh["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_price_oracle_absorb():
+    """
+    ABSORB: Ingest the PRICE_ORACLE engine's multi-source price data.
+    Price oracle aggregates: CoinGecko, CoinPaprika, Jupiter DEX,
+    and calculates spreads across exchanges.
+    """
+    oracle = CONSCIOUSNESS.setdefault("price_oracle", {
+        "prices": {}, "spreads": {}, "jupiter_rate": 0,
+        "actionable_spreads": [], "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "price_oracle_state.json").read_text(encoding="utf-8"))
+
+        # Absorb multi-source prices
+        sources = state.get("sources", [])
+        if sources:
+            oracle["price_sources"] = len(sources)
+            # Build consolidated prices
+            avg_prices = state.get("prices_avg", {})
+            oracle["prices"] = avg_prices
+
+        # Absorb spreads (price differences across exchanges)
+        spreads = state.get("spreads", {})
+        if isinstance(spreads, dict):
+            oracle["spreads"] = {
+                k: {"spread_pct": v.get("spread_pct", 0),
+                    "min": v.get("min", 0), "max": v.get("max", 0)}
+                for k, v in spreads.items()
+            }
+
+        # Jupiter DEX rate
+        jup = state.get("jupiter", {})
+        oracle["jupiter_rate"] = jup.get("sol_to_usdc_rate", 0)
+
+        # Actionable spreads
+        oracle["actionable_spreads"] = state.get("actionable_spreads", [])[:10]
+
+        # Portfolio value from oracle
+        oracle["oracle_portfolio"] = state.get("portfolio_value", 0)
+    except Exception:
+        pass
+
+    oracle["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_reflex_arc_absorb():
+    """
+    ABSORB: Ingest the REFLEX_ARC engine's rapid-response data.
+    Reflex arcs fire faster than neurons -- they detect:
+    thermal danger, growth stalls, balance changes, market opens.
+    """
+    reflex = CONSCIOUSNESS.setdefault("reflex_arc", {
+        "last_fired": {}, "fire_counts": {}, "total_fires": 0,
+        "total_checks": 0, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "reflex_arc_state.json").read_text(encoding="utf-8"))
+        reflex["last_fired"] = state.get("last_fired", {})
+        reflex["fire_counts"] = state.get("fire_counts", {})
+        reflex["total_fires"] = state.get("total_fires", 0)
+        reflex["total_checks"] = state.get("total_checks", 0)
+        reflex["prev_balances"] = state.get("prev_balances", {})
+        reflex["prev_market_open"] = state.get("prev_market_open", False)
+    except Exception:
+        pass
+    reflex["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_proprioception():
+    """
+    ABSORB: Ingest the PROPRIOCEPTION engine's body awareness data.
+    Proprioception = the system's awareness of its own structure:
+    engine count, data files, code lines, growth rate, health speed.
+    """
+    proprio = CONSCIOUSNESS.setdefault("proprioception", {
+        "engine_count": 0, "data_files": 0, "code_lines": 0,
+        "growth_rate": 0, "body_snapshots": [], "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "proprioception_state.json").read_text(encoding="utf-8"))
+        current = state.get("current", {})
+        if isinstance(current, dict):
+            proprio["engine_count"] = current.get("engine_count", 0)
+            proprio["data_files"] = current.get("data_files", 0)
+            proprio["code_lines"] = current.get("code_lines", 0)
+            proprio["total_bytes"] = current.get("total_bytes", 0)
+
+        # Absorb history for growth tracking
+        history = state.get("history", [])
+        if isinstance(history, list):
+            proprio["body_snapshots"] = history[-10:]
+            if len(history) >= 2:
+                first = history[0]
+                last = history[-1]
+                if isinstance(first, dict) and isinstance(last, dict):
+                    growth = last.get("engine_count", last.get("engines", 0)) - \
+                             first.get("engine_count", first.get("engines", 0))
+                    proprio["growth_rate"] = growth
+    except Exception:
+        pass
+    proprio["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_autonomic_absorb():
+    """
+    ABSORB: Ingest the AUTONOMIC nerve system's decision data.
+    The autonomic system runs background decisions using local AI
+    (ollama) -- heartbeat checks, engine selection, system vitals.
+    """
+    autonomic = CONSCIOUSNESS.setdefault("autonomic", {
+        "status": "unknown", "decision_method": "unknown",
+        "engines_run": [], "ollama_available": False,
+        "system_vitals": {}, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "autonomic_state.json").read_text(encoding="utf-8"))
+        autonomic["status"] = state.get("status", "unknown")
+        autonomic["decision_method"] = state.get("decision_method", "unknown")
+        autonomic["ollama_available"] = state.get("ollama_available", False)
+        autonomic["heartbeat_interval"] = state.get("heartbeat_interval", 60)
+
+        # Absorb engine run results
+        results = state.get("results", [])
+        if isinstance(results, list):
+            autonomic["engines_run"] = [
+                {"engine": r.get("engine", "?"), "ok": r.get("ok", False)}
+                for r in results[:10]
+            ]
+
+        # System vitals
+        vitals = state.get("system_vitals", {})
+        if isinstance(vitals, dict):
+            autonomic["system_vitals"] = vitals
+    except Exception:
+        pass
+    autonomic["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_arbitrage_absorb():
+    """
+    ABSORB: Ingest ARBITRAGE_SCANNER's cross-exchange opportunities.
+    Tracks: LST arbitrage (JitoSOL, mSOL), stablecoin loops,
+    DEX price impact, execution capability.
+    """
+    arb_scan = CONSCIOUSNESS.setdefault("arbitrage_scanner", {
+        "scans": {}, "actionable": [], "market_context": "unknown",
+        "execution_ready": False, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "arbitrage_scanner_state.json").read_text(encoding="utf-8"))
+        arb_scan["market_context"] = state.get("market_context", "unknown")
+
+        # Absorb scan results
+        scans = state.get("scans", {})
+        if isinstance(scans, dict):
+            arb_scan["scans"] = {
+                k: v[:5] if isinstance(v, list) else v
+                for k, v in scans.items()
+            }
+
+        # Actionable opportunities
+        actionable = state.get("actionable_opportunities", [])
+        arb_scan["actionable"] = actionable[:10]
+        arb_scan["actionable_count"] = len(actionable)
+
+        # Execution
+        execution = state.get("execution", {})
+        if isinstance(execution, dict):
+            arb_scan["execution_ready"] = execution.get("ready", False)
+            arb_scan["execution_method"] = execution.get("method", "manual")
+
+        # Stats
+        stats = state.get("stats", {})
+        arb_scan["total_scans"] = stats.get("total_scans", 0)
+        arb_scan["profitable_found"] = stats.get("profitable_found", 0)
+    except Exception:
+        pass
+    arb_scan["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_cross_pollinator_absorb():
+    """
+    ABSORB: Ingest CROSS_POLLINATOR's portfolio-wide view.
+    Cross-pollinator sees ALL platforms at once: Kalshi, Alpaca,
+    Polymarket, SOL wallet. Calculates total value and best opportunity.
+    """
+    xpoll = CONSCIOUSNESS.setdefault("cross_pollinator", {
+        "total_portfolio": 0, "platforms": {},
+        "best_opportunity": None, "capital_efficiency": 0,
+        "idle_cash": 0, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "cross_pollinator_state.json").read_text(encoding="utf-8"))
+        xpoll["total_portfolio"] = state.get("total_portfolio_value", 0)
+
+        # Platform breakdown
+        breakdown = state.get("platform_breakdown", {})
+        if isinstance(breakdown, dict):
+            xpoll["platforms"] = {
+                k: {"balance": v.get("balance", 0), "label": v.get("label", k)}
+                for k, v in breakdown.items()
+            }
+
+        # Capital efficiency
+        xpoll["capital_efficiency"] = state.get("capital_efficiency", 0)
+        xpoll["idle_cash"] = state.get("idle_cash", 0)
+        xpoll["best_opportunity"] = state.get("best_opportunity_platform", None)
+
+        # Trade ledger
+        ledger = state.get("trade_ledger_summary", {})
+        if isinstance(ledger, dict):
+            xpoll["total_trades"] = ledger.get("total_trades", 0)
+            xpoll["realized_pnl"] = ledger.get("realized_pnl", 0)
+    except Exception:
+        pass
+    xpoll["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_alpaca_live():
     """
     LIVE: Use Alpaca paper trading API for real stock/crypto data.
@@ -4429,6 +4695,14 @@ NEURONS = [
     # Phase 14: Dual brain + economic crosswire absorption
     ("DUAL_BRAIN", neuron_dual_brain),
     ("CROSSWIRE", neuron_crosswire),
+    # Phase 15: Deep engine absorption -- richest state files
+    ("SIGNAL_MESH_ABSORB", neuron_signal_mesh_absorb),
+    ("PRICE_ORACLE_ABSORB", neuron_price_oracle_absorb),
+    ("REFLEX_ARC_ABSORB", neuron_reflex_arc_absorb),
+    ("PROPRIOCEPTION", neuron_proprioception),
+    ("AUTONOMIC_ABSORB", neuron_autonomic_absorb),
+    ("ARBITRAGE_ABSORB", neuron_arbitrage_absorb),
+    ("CROSS_POLLINATOR_ABSORB", neuron_cross_pollinator_absorb),
 ]
 
 
