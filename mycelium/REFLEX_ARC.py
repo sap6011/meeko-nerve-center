@@ -133,15 +133,18 @@ def _log_reflex(reflex_id, triggered, action_taken, response_ms, detail=""):
 # ---------------------------------------------------------------------------
 # Cooldown check
 # ---------------------------------------------------------------------------
-def _check_cooldown(reflex_id, state):
-    """Return True if reflex is allowed to fire (past cooldown)."""
+def _check_cooldown(reflex_id, state, multiplier=1.0):
+    """Return True if reflex is allowed to fire (past cooldown).
+    Multiplier adjusts cooldown: <1.0 = more aggressive (shorter), >1.0 = more conservative (longer).
+    Driven by NEURAL_CORTEX risk posture."""
     last_fired = state.get("last_fired", {}).get(reflex_id)
     if not last_fired:
         return True
     try:
         last_dt = datetime.fromisoformat(last_fired.replace("Z", "+00:00"))
         elapsed = (datetime.now(timezone.utc) - last_dt).total_seconds()
-        return elapsed >= COOLDOWN_SEC
+        effective_cooldown = COOLDOWN_SEC * multiplier
+        return elapsed >= effective_cooldown
     except Exception:
         return True
 
@@ -799,6 +802,14 @@ def run():
         "total_fires": 0,
     })
 
+    # 1b. Read NEURAL_CORTEX risk posture for cooldown modulation
+    cortex = bus.get("engines", {}).get("NEURAL_CORTEX", {}).get("properties", {})
+    risk_posture = cortex.get("risk_posture", "moderate")
+    # Conservative brain = longer cooldowns (less trading), Aggressive = shorter (more trading)
+    cooldown_multiplier = {"conservative": 2.0, "moderate": 1.0, "aggressive": 0.5}.get(risk_posture, 1.0)
+    if cooldown_multiplier != 1.0:
+        print(f"  [BRAIN] Risk posture: {risk_posture} -> cooldown x{cooldown_multiplier}")
+
     # 2. Evaluate ALL reflexes in priority order
     checked = 0
     fired = 0
@@ -814,7 +825,7 @@ def run():
 
         # Cooldown check (THERMAL_DANGER and ENGINE_CRASH bypass cooldown)
         if rid not in ("THERMAL_DANGER", "ENGINE_CRASH"):
-            if not _check_cooldown(rid, state):
+            if not _check_cooldown(rid, state, cooldown_multiplier):
                 results.append({
                     "reflex": rid,
                     "triggered": False,

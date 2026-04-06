@@ -195,6 +195,17 @@ def _gather_intelligence():
         "self_funding_ratio": metab.get("metabolism", {}).get("self_funding_ratio", 0),
     }
 
+    # -- NEURAL_CORTEX (strategic brain -- overrides default split if confident) --
+    cortex = _load(DATA / "neural_cortex_state.json")
+    strategy = cortex.get("strategy", {})
+    intel["neural_cortex"] = {
+        "risk_posture": strategy.get("risk_posture", "moderate"),
+        "capital_allocation": strategy.get("capital_allocation", {}),
+        "growth_priority": strategy.get("growth_priority", ""),
+        "decision_confidence": cortex.get("decision_confidence", 0),
+        "top_action": strategy.get("top_action", {}),
+    }
+
     return intel
 
 
@@ -223,6 +234,25 @@ def _compute_split(amount, intel):
     kalshi_opps = kalshi.get("daily_opps", 0)
     alpaca_opps = alpaca.get("opportunities", 0)
     best_platform = cp.get("best_opportunity_platform", "")
+
+    # ------------------------------------------------------------------
+    # RULE 0: NEURAL_CORTEX override (confidence > 70% -> use brain's allocation)
+    # ------------------------------------------------------------------
+    cortex = intel.get("neural_cortex", {})
+    brain_confidence = cortex.get("decision_confidence", 0)
+    brain_alloc = cortex.get("capital_allocation", {})
+    if brain_confidence > 70 and brain_alloc:
+        k_pct = brain_alloc.get("kalshi_pct", 60) / 100.0
+        a_pct = brain_alloc.get("alpaca_pct", 40) / 100.0
+        # Normalize to sum to 1.0 (ignore solana_pct for now -- no auto-deposit to Phantom)
+        total = k_pct + a_pct
+        if total > 0:
+            k_pct = k_pct / total
+            a_pct = a_pct / total
+        return _build_split(amount, k_pct, a_pct, "NEURAL_CORTEX",
+            f"Brain override (confidence={brain_confidence}%): "
+            f"risk={cortex.get('risk_posture', '?')} -> "
+            f"{int(k_pct * 100)}% Kalshi / {int(a_pct * 100)}% Alpaca")
 
     # ------------------------------------------------------------------
     # RULE A: High urgency + strong signal -> deploy aggressively
