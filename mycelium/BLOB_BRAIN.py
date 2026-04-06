@@ -271,12 +271,23 @@ def absorb_trading():
 # BLOB ENGINE FUNCTIONS -- Each one is a "neuron cluster"
 # ============================================================
 # These replace individual engine files. They read/write
-# CONSCIOUSNESS directly. No files. No wiring.
+# CONSCIOUSNESS directly. No files. No wiring. No friction.
+# Each neuron is extracted from the real engine logic.
 
-def neuron_health_check():
-    """Assess overall system health. Replaces HOMEOSTASIS."""
+import urllib.request
+import urllib.error
+import py_compile
+import re
+
+
+def neuron_equilibrium():
+    """
+    Full homeostasis with 4-zone health assessment.
+    Extracted from: HOMEOSTASIS.py (691 lines -> 50 lines)
+    """
     eq = CONSCIOUSNESS["equilibrium"]
     engines = CONSCIOUSNESS["engines"]
+    brain = CONSCIOUSNESS["brain"]
 
     total = len(engines)
     if total == 0:
@@ -284,92 +295,438 @@ def neuron_health_check():
         eq["trend"] = "initializing"
         return
 
-    # Count healthy engines
+    # Zone 1: Engine health (% of engines reporting OK)
     healthy = sum(1 for e in engines.values()
                   if e.get("status") in ("ok", "completed", "running", "wired"))
-    health_pct = round(healthy / total * 100)
+    engine_health = round(healthy / max(total, 1) * 100)
 
-    old_score = eq["score"]
-    eq["score"] = health_pct
-    eq["trend"] = "rising" if health_pct > old_score else "falling" if health_pct < old_score else "stable"
+    # Zone 2: Error rate (inverse of error frequency)
+    recent_errors = len([e for e in CONSCIOUSNESS["errors"][-20:]
+                        if e.get("ts", "") > (datetime.now(timezone.utc) - timedelta(hours=1)).isoformat()])
+    error_health = max(0, 100 - recent_errors * 10)
 
-    if health_pct >= 80:
+    # Zone 3: Revenue health (any revenue = healthy)
+    rev = CONSCIOUSNESS["revenue"]
+    rev_health = 80 if rev.get("total_raised", 0) > 0 else 30
+
+    # Zone 4: Brain confidence
+    brain_health = brain.get("confidence", 50)
+
+    # Weakest-link weighting: 60% lowest zone + 40% average
+    zones = [engine_health, error_health, rev_health, brain_health]
+    weakest = min(zones)
+    average = sum(zones) / len(zones)
+    equilibrium = round(weakest * 0.6 + average * 0.4)
+
+    # Track trend over last 6 readings
+    history = eq.get("history", [])
+    history.append(equilibrium)
+    if len(history) > 6:
+        history = history[-6:]
+    eq["history"] = history
+
+    old_score = eq.get("score", 50)
+    eq["score"] = equilibrium
+    eq["trend"] = "rising" if equilibrium > old_score else "falling" if equilibrium < old_score else "stable"
+    eq["components"] = {
+        "engine_health": engine_health,
+        "error_health": error_health,
+        "revenue_health": rev_health,
+        "brain_health": brain_health,
+    }
+
+    if equilibrium >= 80:
         eq["zone"] = "green"
-    elif health_pct >= 50:
+    elif equilibrium >= 50:
         eq["zone"] = "yellow"
-    elif health_pct >= 25:
+    elif equilibrium >= 25:
         eq["zone"] = "orange"
     else:
         eq["zone"] = "red"
 
+    # Generate interventions for weak zones
+    interventions = []
+    if engine_health < 50:
+        interventions.append({"severity": "high", "zone": "engines", "action": f"Only {healthy}/{total} engines healthy"})
+    if error_health < 50:
+        interventions.append({"severity": "high", "zone": "errors", "action": f"{recent_errors} errors in last hour"})
+    if rev_health < 50:
+        interventions.append({"severity": "critical", "zone": "revenue", "action": "No revenue detected"})
+    eq["interventions"] = interventions
+
 
 def neuron_error_recovery():
-    """Self-heal from recent errors. Replaces AUTO_HEALER + DEBUG_DOCTOR."""
+    """
+    Self-healing: detect error patterns, flag degraded engines.
+    Extracted from: AUTO_HEALER + DEBUG_DOCTOR + IMMUNE_SYSTEM
+    """
     errors = CONSCIOUSNESS["errors"]
-    if len(errors) > 50:
-        CONSCIOUSNESS["errors"] = errors[-50:]  # Keep last 50
+    if len(errors) > 100:
+        CONSCIOUSNESS["errors"] = errors[-100:]
 
     # Count error frequency by source
     error_sources = defaultdict(int)
-    for err in errors[-20:]:
+    for err in errors[-30:]:
         error_sources[err.get("source", "unknown")] += 1
 
     # Flag repeatedly failing sources
+    degraded = []
     for source, count in error_sources.items():
         if count >= 3:
             CONSCIOUSNESS["engines"].setdefault(source, {})["status"] = "degraded"
+            degraded.append(source)
+
+    CONSCIOUSNESS.setdefault("healing", {})["degraded_engines"] = degraded
+    CONSCIOUSNESS["healing"]["last_check"] = datetime.now(timezone.utc).isoformat()
 
 
-def neuron_revenue_pulse():
-    """Check revenue status. Replaces REVENUE_AUDIT + KOFI_ENGINE logic."""
+def neuron_immune_system():
+    """
+    Code integrity check: syntax-verify all engines.
+    Extracted from: IMMUNE_SYSTEM.py (313 lines -> 25 lines)
+    """
+    engine_files = sorted(MYCELIUM.glob("*.py"))
+    infections = []
+    for fp in engine_files:
+        try:
+            py_compile.compile(str(fp), doraise=True)
+        except py_compile.PyCompileError as e:
+            infections.append({"engine": fp.stem, "error": str(e)[:100]})
+
+    immune = CONSCIOUSNESS.setdefault("immune", {})
+    immune["total_scanned"] = len(engine_files)
+    immune["infections"] = len(infections)
+    immune["infected_list"] = infections[:10]
+    immune["last_scan"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_revenue_audit():
+    """
+    Revenue pipeline health check: verify buy links work.
+    Extracted from: REVENUE_AUDIT.py (143 lines -> 35 lines)
+    """
     rev = CONSCIOUSNESS["revenue"]
-    # Just maintains awareness -- actual API calls happen in io_layer
+    urls_to_check = [
+        ("Ko-fi Shop", "https://ko-fi.com/meekotharaccoon", "critical"),
+        ("Ko-fi Gaza Rose", "https://ko-fi.com/s/b29fb5fc44", "critical"),
+        ("GitHub Repo", "https://github.com/meekotharaccoon-cell/meeko-nerve-center", "high"),
+    ]
+
+    results = []
+    for name, url, priority in urls_to_check:
+        try:
+            req = urllib.request.Request(url, method="HEAD",
+                                         headers={"User-Agent": "SolarPunk-BlobBrain/1.0"})
+            with urllib.request.urlopen(req, timeout=8) as r:
+                results.append({"name": name, "url": url, "status": r.status, "ok": True})
+        except Exception as e:
+            results.append({"name": name, "url": url, "status": str(e)[:60], "ok": False})
+
+    working = sum(1 for r in results if r["ok"])
+    broken = len(results) - working
+
+    rev["audit"] = {
+        "working": working,
+        "broken": broken,
+        "results": results,
+        "last_audit": datetime.now(timezone.utc).isoformat(),
+    }
     rev["last_check"] = datetime.now(timezone.utc).isoformat()
 
 
-def neuron_social_pulse():
-    """Check social posting queue. Replaces SOCIAL_PROMOTER logic."""
+def neuron_secrets_audit():
+    """
+    Check which API keys are configured.
+    Extracted from: SECRETS_CHECKER.py (362 lines -> 30 lines)
+    """
+    CRITICAL_SECRETS = [
+        ("ANTHROPIC_API_KEY", "AI Brain", "critical"),
+        ("GITHUB_TOKEN", "GitHub API", "critical"),
+        ("GMAIL_ADDRESS", "Email", "high"),
+        ("GMAIL_APP_PASSWORD", "Email Auth", "high"),
+        ("GUMROAD_SECRET", "Revenue", "critical"),
+        ("BLUESKY_IDENTIFIER", "Social", "medium"),
+        ("BLUESKY_APP_PASSWORD", "Social Auth", "medium"),
+        ("DEVTO_API_KEY", "Dev.to", "medium"),
+        ("MASTODON_ACCESS_TOKEN", "Mastodon", "medium"),
+        ("KALSHI_API_KEY", "Trading", "high"),
+    ]
+
+    configured = 0
+    missing_critical = []
+    for name, purpose, priority in CRITICAL_SECRETS:
+        if os.environ.get(name):
+            configured += 1
+        elif priority == "critical":
+            missing_critical.append(name)
+
+    secrets = CONSCIOUSNESS.setdefault("secrets", {})
+    secrets["configured"] = configured
+    secrets["total"] = len(CRITICAL_SECRETS)
+    secrets["missing_critical"] = missing_critical
+    secrets["coverage_pct"] = round(configured / max(len(CRITICAL_SECRETS), 1) * 100)
+    secrets["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_social_awareness():
+    """
+    Track social posting capacity and queue state.
+    Extracted from: BLUESKY_ENGINE + DEV_TO + MASTODON + SOCIAL_PROMOTER + AUTONOMOUS_PUBLISHER
+    """
     social = CONSCIOUSNESS["social"]
-    # Count queued posts from content
-    social["posts_queued"] = len(CONSCIOUSNESS["content"]["queue"])
+
+    # Detect available channels by env vars
+    channels = {}
+    if os.environ.get("BLUESKY_IDENTIFIER"):
+        channels["bluesky"] = True
+    if os.environ.get("DEVTO_API_KEY"):
+        channels["devto"] = True
+    if os.environ.get("MASTODON_ACCESS_TOKEN"):
+        channels["mastodon"] = True
+    if os.environ.get("X_API_KEY"):
+        channels["twitter"] = True
+    if os.environ.get("REDDIT_CLIENT_ID"):
+        channels["reddit"] = True
+    channels["github_gist"] = bool(os.environ.get("GITHUB_TOKEN"))
+
+    social["channels_available"] = channels
+    social["channel_count"] = sum(1 for v in channels.values() if v)
+
+    # Read social queue if it exists
+    try:
+        sq = json.loads((DATA / "social_queue.json").read_text(encoding="utf-8"))
+        posts = sq.get("posts", [])
+        social["posts_queued"] = len([p for p in posts if not p.get("sent")])
+        social["posts_sent"] = len([p for p in posts if p.get("sent")])
+    except Exception:
+        pass
+
+    social["last_check"] = datetime.now(timezone.utc).isoformat()
 
 
 def neuron_brain_confidence():
-    """Update brain confidence based on system state."""
+    """
+    Neural confidence score from system state.
+    Extracted from: NEURAL_CORTEX decision_confidence logic
+    """
     brain = CONSCIOUSNESS["brain"]
     eq = CONSCIOUSNESS["equilibrium"]
+    secrets = CONSCIOUSNESS.get("secrets", {})
+    immune = CONSCIOUSNESS.get("immune", {})
 
-    # Confidence = weighted mix of health, revenue activity, and error rate
-    health = eq.get("score", 50) / 100
-    error_rate = min(len(CONSCIOUSNESS["errors"]) / 20, 1.0)
+    # Multi-factor confidence
+    health_factor = eq.get("score", 50) / 100
+    error_factor = max(0, 1 - len(CONSCIOUSNESS["errors"]) / 30)
+    secret_factor = secrets.get("coverage_pct", 0) / 100
+    code_factor = 1 - (immune.get("infections", 0) / max(immune.get("total_scanned", 1), 1))
 
-    brain["confidence"] = round((health * 0.7 + (1 - error_rate) * 0.3) * 100)
+    confidence = round(
+        (health_factor * 0.35 +
+         error_factor * 0.25 +
+         secret_factor * 0.20 +
+         code_factor * 0.20) * 100
+    )
+
+    brain["confidence"] = min(confidence, 100)
+    brain["factors"] = {
+        "health": round(health_factor * 100),
+        "errors": round(error_factor * 100),
+        "secrets": round(secret_factor * 100),
+        "code_integrity": round(code_factor * 100),
+    }
     brain["decisions_made"] = brain.get("decisions_made", 0) + 1
 
 
-def neuron_content_factory():
-    """Manage content pipeline. Replaces SUBSTACK_ENGINE + CONTENT_HARVESTER."""
+def neuron_bottleneck_scan():
+    """
+    Identify what's blocking progress.
+    Extracted from: BOTTLENECK_SCANNER.py (277 lines -> 25 lines)
+    """
+    bottlenecks = []
+
+    # Check critical secrets
+    for name in CONSCIOUSNESS.get("secrets", {}).get("missing_critical", []):
+        bottlenecks.append({"severity": "critical", "type": "secret", "detail": f"Missing {name}"})
+
+    # Check code infections
+    for inf in CONSCIOUSNESS.get("immune", {}).get("infected_list", []):
+        bottlenecks.append({"severity": "high", "type": "syntax", "detail": f"{inf['engine']}: {inf['error'][:60]}"})
+
+    # Check broken revenue links
+    for r in CONSCIOUSNESS.get("revenue", {}).get("audit", {}).get("results", []):
+        if not r.get("ok"):
+            bottlenecks.append({"severity": "critical", "type": "revenue", "detail": f"Broken: {r['name']}"})
+
+    # Check low health zones
+    for zone, score in CONSCIOUSNESS.get("equilibrium", {}).get("components", {}).items():
+        if score < 30:
+            bottlenecks.append({"severity": "high", "type": "health", "detail": f"{zone} at {score}%"})
+
+    bn = CONSCIOUSNESS.setdefault("bottlenecks", {})
+    bn["total"] = len(bottlenecks)
+    bn["critical"] = len([b for b in bottlenecks if b["severity"] == "critical"])
+    bn["list"] = bottlenecks[:20]
+    bn["last_scan"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_content_pipeline():
+    """
+    Content generation awareness.
+    Extracted from: SUBSTACK_ENGINE + CONTENT_HARVESTER + GROWTH_FLYWHEEL
+    """
     content = CONSCIOUSNESS["content"]
+
+    # Count draft files
+    drafts = list(DATA.glob("*_draft*")) + list(DATA.glob("*_content*"))
+    content["drafts"] = len(drafts)
+
+    # Check newsletter state
+    try:
+        ns = json.loads((DATA / "newsletter_state.json").read_text(encoding="utf-8"))
+        content["newsletters_sent"] = ns.get("total_sent", 0)
+        content["last_newsletter"] = ns.get("last_sent")
+    except Exception:
+        pass
+
     content["last_check"] = datetime.now(timezone.utc).isoformat()
 
 
-def neuron_trading_pulse():
-    """Monitor trading state. Replaces TURBO_TRADER awareness."""
+def neuron_trading_awareness():
+    """
+    Trading system health and position monitoring.
+    Extracted from: TURBO_TRADER + TRADE_EXECUTOR + ALPACA_TRADER
+    """
     trading = CONSCIOUSNESS["trading"]
+
+    # Check if trading secrets are available
+    trading["kalshi_ready"] = bool(os.environ.get("KALSHI_API_KEY"))
+    trading["alpaca_ready"] = bool(os.environ.get("ALPACA_API_KEY"))
+
+    # Read latest trade state
+    for state_file in ["turbo_trader_state", "trade_executor_state", "alpaca_trader_state"]:
+        try:
+            ts = json.loads((DATA / f"{state_file}.json").read_text(encoding="utf-8"))
+            trading["balance"] = ts.get("balance", trading.get("balance", 0))
+            trading["last_trade"] = ts.get("last_trade", trading.get("last_trade"))
+            if ts.get("positions"):
+                trading["active_positions"] = len(ts["positions"])
+        except Exception:
+            continue
+
     trading["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_email_awareness():
+    """
+    Email system state monitoring.
+    Extracted from: EMAIL_BRAIN + HUMAN_CONNECTOR + SCAM_SHIELD
+    """
+    email = CONSCIOUSNESS.setdefault("email", {})
+
+    try:
+        eb = json.loads((DATA / "email_brain_state.json").read_text(encoding="utf-8"))
+        email["processed"] = eb.get("processed", 0)
+        email["categories"] = {
+            "personal": eb.get("personal", 0),
+            "business": eb.get("business", 0),
+            "revenue": eb.get("revenue", 0),
+            "appointments": eb.get("appointments", 0),
+        }
+    except Exception:
+        pass
+
+    try:
+        ss = json.loads((DATA / "scam_shield_state.json").read_text(encoding="utf-8"))
+        email["scams_caught"] = ss.get("scams_caught", 0)
+        email["safe_verified"] = ss.get("safe_verified", 0)
+    except Exception:
+        pass
+
+    try:
+        hc = json.loads((DATA / "human_connector_state.json").read_text(encoding="utf-8"))
+        email["humans_met"] = len(hc.get("humans_met", []))
+    except Exception:
+        pass
+
+    email["gmail_ready"] = bool(os.environ.get("GMAIL_ADDRESS") and os.environ.get("GMAIL_APP_PASSWORD"))
+    email["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_grant_tracker():
+    """
+    Grant application pipeline.
+    Extracted from: GRANT_APPLICANT.py
+    """
+    grants = CONSCIOUSNESS.setdefault("grants", {})
+    try:
+        ga = json.loads((DATA / "grant_applicant_state.json").read_text(encoding="utf-8"))
+        grants["total_applied"] = ga.get("total_applied", 0)
+        grants["applied_list"] = ga.get("applied", [])[-5:]
+    except Exception:
+        pass
+
+    try:
+        gf = json.loads((DATA / "grants_found.json").read_text(encoding="utf-8"))
+        grants["available"] = len(gf.get("grants", []))
+    except Exception:
+        pass
+
+    grants["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_analytics():
+    """
+    GitHub traffic and growth metrics.
+    Extracted from: ANALYTICS_ENGINE.py (109 lines -> 10 lines awareness)
+    """
+    analytics = CONSCIOUSNESS.setdefault("analytics", {})
+    try:
+        a = json.loads((DATA / "analytics_state.json").read_text(encoding="utf-8"))
+        analytics["stars"] = a.get("stars", 0)
+        analytics["views_14d"] = a.get("views_14d", 0)
+        analytics["trend"] = a.get("trend", "unknown")
+        analytics["clones_14d"] = a.get("clones_14d", 0)
+    except Exception:
+        pass
+    analytics["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_meta_awareness():
+    """
+    The blob's awareness of itself. Engine count, coverage, architecture.
+    """
+    meta = CONSCIOUSNESS["meta"]
+    meta["total_engines_loaded"] = len(CONSCIOUSNESS["engines"])
+    meta["neuron_count"] = len(NEURONS)
+    meta["consciousness_keys"] = list(CONSCIOUSNESS.keys())
+    meta["data_files"] = len(list(DATA.glob("*.json")))
+    meta["engine_files"] = len(list(MYCELIUM.glob("*.py")))
+    meta["last_pulse"] = datetime.now(timezone.utc).isoformat()
 
 
 # ============================================================
 # THE NEURON REGISTRY -- All blob functions in execution order
 # ============================================================
 NEURONS = [
-    ("HEALTH_CHECK", neuron_health_check),
+    # Core vitals
+    ("EQUILIBRIUM", neuron_equilibrium),
     ("ERROR_RECOVERY", neuron_error_recovery),
-    ("REVENUE_PULSE", neuron_revenue_pulse),
-    ("SOCIAL_PULSE", neuron_social_pulse),
+    ("IMMUNE_SYSTEM", neuron_immune_system),
     ("BRAIN_CONFIDENCE", neuron_brain_confidence),
-    ("CONTENT_FACTORY", neuron_content_factory),
-    ("TRADING_PULSE", neuron_trading_pulse),
+    # Revenue & business
+    ("REVENUE_AUDIT", neuron_revenue_audit),
+    ("SECRETS_AUDIT", neuron_secrets_audit),
+    ("BOTTLENECK_SCAN", neuron_bottleneck_scan),
+    ("GRANT_TRACKER", neuron_grant_tracker),
+    # Communication
+    ("SOCIAL_AWARENESS", neuron_social_awareness),
+    ("EMAIL_AWARENESS", neuron_email_awareness),
+    ("CONTENT_PIPELINE", neuron_content_pipeline),
+    # Markets & growth
+    ("TRADING_AWARENESS", neuron_trading_awareness),
+    ("ANALYTICS", neuron_analytics),
+    # Self-awareness
+    ("META_AWARENESS", neuron_meta_awareness),
 ]
 
 
