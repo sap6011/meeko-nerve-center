@@ -814,6 +814,12 @@ def run():
                 intelligence["mycelium_health"] = xpol.get("mycelium_health_score", 50)
                 intelligence["signal_mesh_conviction"] = mesh.get("conviction_score", 0)
                 intelligence["signal_mesh_direction"] = mesh.get("dominant_direction", "neutral")
+                # NEURAL_CORTEX brain awareness
+                cortex = engines.get("NEURAL_CORTEX", {}).get("properties", {})
+                intelligence["brain_risk_posture"] = cortex.get("risk_posture", "moderate")
+                intelligence["brain_confidence"] = cortex.get("decision_confidence", 0)
+                intelligence["brain_alpaca_pct"] = cortex.get("capital_alpaca_pct", 40)
+                intelligence["brain_growth_priority"] = cortex.get("growth_priority", "trading")
         except Exception:
             bus_available = False
 

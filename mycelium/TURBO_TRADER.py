@@ -223,6 +223,11 @@ def gather_all_intelligence():
                 "mesh_urgency": mesh.get("urgency", 0),
                 "mesh_strength": mesh.get("composite_strength", 0),
             }
+            # Read NEURAL_CORTEX risk posture for trading aggressiveness
+            cortex = engines.get("NEURAL_CORTEX", {}).get("properties", {})
+            _bus_boost["brain_risk_posture"] = cortex.get("risk_posture", "moderate")
+            _bus_boost["brain_confidence"] = cortex.get("decision_confidence", 0)
+            _bus_boost["brain_kalshi_pct"] = cortex.get("capital_kalshi_pct", 60)
     except Exception:
         pass
 
