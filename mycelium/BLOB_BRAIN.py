@@ -1616,6 +1616,199 @@ def neuron_devto_publisher():
     devto["last_check"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_cloudflare():
+    """
+    LIVE: Manage custom domain via Cloudflare API.
+    Controls DNS, checks domain health, pulls traffic analytics,
+    and auto-updates records when SolarPunk's infrastructure changes.
+
+    Requires: CLOUDFLARE_API_TOKEN + CLOUDFLARE_ZONE_ID in env or GitHub secrets.
+    Zone ID is the domain identifier (found on Cloudflare dashboard overview page).
+    """
+    cf = CONSCIOUSNESS.setdefault("cloudflare", {
+        "domain": None, "zone_id": None, "dns_records": [],
+        "analytics": {}, "health": "unknown", "ssl_status": "unknown",
+        "last_sync": None, "auto_managed": False,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+
+    # Load credentials
+    api_token = os.environ.get("CLOUDFLARE_API_TOKEN", "")
+    zone_id = os.environ.get("CLOUDFLARE_ZONE_ID", "")
+
+    # Try loading from local secrets
+    if not api_token:
+        secrets_dir = Path("data/.secrets")
+        cf_file = secrets_dir / "cloudflare.json"
+        if cf_file.exists():
+            try:
+                creds = json.loads(cf_file.read_text(encoding="utf-8"))
+                api_token = creds.get("api_token", "")
+                zone_id = creds.get("zone_id", "")
+                cf["domain"] = creds.get("domain", "")
+                os.environ.setdefault("CLOUDFLARE_API_TOKEN", api_token)
+                os.environ.setdefault("CLOUDFLARE_ZONE_ID", zone_id)
+            except Exception:
+                pass
+
+    # Check if credentials exist in GitHub secrets (for cloud workflows)
+    if not api_token and cycle % 10 == 0:
+        try:
+            import subprocess
+            r = subprocess.run(
+                ["gh", "secret", "list"],
+                capture_output=True, text=True, timeout=10,
+                encoding="utf-8", errors="replace")
+            if r.returncode == 0:
+                cf["github_secret_exists"] = "CLOUDFLARE_API_TOKEN" in r.stdout
+                cf["zone_id_secret_exists"] = "CLOUDFLARE_ZONE_ID" in r.stdout
+        except Exception:
+            pass
+
+    if not api_token or not zone_id:
+        cf["status"] = "waiting_for_credentials"
+        cf["setup_instructions"] = {
+            "step1": "Buy domain on dash.cloudflare.com/registrar",
+            "step2": "Get API token: dash.cloudflare.com/profile/api-tokens (use Edit Zone DNS template)",
+            "step3": "Get Zone ID: dashboard overview page for your domain",
+            "step4": "Save to data/.secrets/cloudflare.json: {\"api_token\": \"...\", \"zone_id\": \"...\", \"domain\": \"yourdomain.com\"}",
+            "step5": "Or: gh secret set CLOUDFLARE_API_TOKEN && gh secret set CLOUDFLARE_ZONE_ID",
+        }
+        return
+
+    cf["has_credentials"] = True
+    headers = {
+        "Authorization": f"Bearer {api_token}",
+        "Content-Type": "application/json",
+    }
+
+    # Phase A: Verify token + get zone details (every 10 cycles)
+    if cycle % 10 == 0 or not cf.get("domain"):
+        try:
+            req = urllib.request.Request(
+                f"https://api.cloudflare.com/client/v4/zones/{zone_id}",
+                headers=headers)
+            with urllib.request.urlopen(req, timeout=10) as r:
+                data = json.loads(r.read().decode())
+                if data.get("success"):
+                    zone = data["result"]
+                    cf["domain"] = zone.get("name", "")
+                    cf["status"] = zone.get("status", "unknown")
+                    cf["ssl_status"] = zone.get("ssl", {}).get("status") if isinstance(zone.get("ssl"), dict) else "unknown"
+                    cf["name_servers"] = zone.get("name_servers", [])
+                    cf["plan"] = zone.get("plan", {}).get("name", "free")
+                    cf["health"] = "active" if zone.get("status") == "active" else "pending"
+        except Exception as e:
+            cf["verify_error"] = str(e)[:80]
+
+    # Phase B: Sync DNS records (every 8 cycles)
+    if cycle % 8 == 0 and cf.get("domain"):
+        try:
+            req = urllib.request.Request(
+                f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records?per_page=50",
+                headers=headers)
+            with urllib.request.urlopen(req, timeout=10) as r:
+                data = json.loads(r.read().decode())
+                if data.get("success"):
+                    cf["dns_records"] = [
+                        {
+                            "type": rec.get("type"),
+                            "name": rec.get("name"),
+                            "content": rec.get("content"),
+                            "proxied": rec.get("proxied", False),
+                        }
+                        for rec in data.get("result", [])
+                    ]
+                    cf["dns_record_count"] = len(cf["dns_records"])
+        except Exception as e:
+            cf["dns_error"] = str(e)[:80]
+
+    # Phase C: Ensure GitHub Pages DNS is correct (every 15 cycles)
+    if cycle % 15 == 0 and cf.get("domain"):
+        gh_pages_ips = [
+            "185.199.108.153", "185.199.109.153",
+            "185.199.110.153", "185.199.111.153",
+        ]
+        existing_a = [r["content"] for r in cf.get("dns_records", [])
+                      if r.get("type") == "A" and r.get("name") == cf["domain"]]
+        missing_a = [ip for ip in gh_pages_ips if ip not in existing_a]
+
+        if missing_a:
+            created = 0
+            for ip in missing_a:
+                try:
+                    body = json.dumps({
+                        "type": "A", "name": "@",
+                        "content": ip, "ttl": 1, "proxied": False,
+                    }).encode()
+                    req = urllib.request.Request(
+                        f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records",
+                        data=body, headers=headers, method="POST")
+                    with urllib.request.urlopen(req, timeout=10) as r:
+                        result = json.loads(r.read().decode())
+                        if result.get("success"):
+                            created += 1
+                except Exception:
+                    pass
+            if created:
+                cf["auto_created_a_records"] = created
+
+        # Check CNAME for www
+        existing_cname = [r for r in cf.get("dns_records", [])
+                          if r.get("type") == "CNAME" and r.get("name", "").startswith("www")]
+        if not existing_cname:
+            try:
+                body = json.dumps({
+                    "type": "CNAME", "name": "www",
+                    "content": "meekotharaccoon-cell.github.io",
+                    "ttl": 1, "proxied": False,
+                }).encode()
+                req = urllib.request.Request(
+                    f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records",
+                    data=body, headers=headers, method="POST")
+                with urllib.request.urlopen(req, timeout=10) as r:
+                    result = json.loads(r.read().decode())
+                    if result.get("success"):
+                        cf["auto_created_www_cname"] = True
+            except Exception:
+                pass
+
+    # Phase D: Pull traffic analytics (every 12 cycles)
+    if cycle % 12 == 0 and cf.get("domain"):
+        try:
+            # Cloudflare analytics API (last 24 hours)
+            since = (datetime.now(timezone.utc) - __import__('datetime').timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+            until = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            req = urllib.request.Request(
+                f"https://api.cloudflare.com/client/v4/zones/{zone_id}/analytics/dashboard?since={since}&until={until}",
+                headers=headers)
+            with urllib.request.urlopen(req, timeout=10) as r:
+                data = json.loads(r.read().decode())
+                if data.get("success"):
+                    totals = data.get("result", {}).get("totals", {})
+                    requests = totals.get("requests", {})
+                    bandwidth = totals.get("bandwidth", {})
+                    cf["analytics"] = {
+                        "requests_24h": requests.get("all", 0),
+                        "cached_24h": requests.get("cached", 0),
+                        "bandwidth_bytes": bandwidth.get("all", 0),
+                        "threats_24h": totals.get("threats", {}).get("all", 0),
+                        "countries": len(totals.get("requests", {}).get("country", {})),
+                    }
+        except Exception as e:
+            cf["analytics_error"] = str(e)[:80]
+
+    cf["auto_managed"] = True
+    cf["last_sync"] = datetime.now(timezone.utc).isoformat()
+
+    # Update bridges
+    bridges = CONSCIOUSNESS.get("bridges", {})
+    connected = bridges.get("connected", [])
+    if "CLOUDFLARE" not in connected and cf.get("domain"):
+        connected.append("CLOUDFLARE")
+        bridges["connected"] = connected
+
+
 def neuron_product_builder():
     """
     ACTION: Auto-generate digital products for Ko-fi/Gumroad.
@@ -1826,6 +2019,7 @@ def neuron_action_executor():
 NEURONS = [
     # Phase 0: Bridge -- connect to everything available
     ("BRIDGE_BUILDER", neuron_bridge_builder),
+    ("CLOUDFLARE", neuron_cloudflare),
     # Phase 1: Core vitals
     ("EQUILIBRIUM", neuron_equilibrium),
     ("ERROR_RECOVERY", neuron_error_recovery),
