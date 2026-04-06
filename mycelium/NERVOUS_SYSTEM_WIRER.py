@@ -86,7 +86,7 @@ def find_save_patterns(code, lines):
         stripped = line.lstrip()
         indent = line[:len(line) - len(stripped)]
 
-        # Pattern 1: (PATH).write_text(json.dumps(VAR, ...))
+        # Pattern 1: (PATH).write_text(json.dumps(VAR, ...), encoding="utf-8")
         m = re.search(r'\.write_text\(json\.dumps\((\w+)', stripped)
         if m and "nervous_system" not in stripped:
             var = m.group(1)
@@ -126,7 +126,7 @@ def find_wrapper_save_functions(code, lines):
     """
     Find wrapper save function DEFINITIONS like:
       def save(s):
-          (DATA / "foo.json").write_text(...)
+          (DATA / "foo.json").write_text(..., encoding="utf-8")
 
     Returns list of (func_line, body_start, indent, func_name, param_name)
     """
