@@ -213,23 +213,23 @@ jobs:
               p = s.get("platform","other")
               by_platform.setdefault(p,[]).append(s)
 
-          body = f"## 📡 Open Antenna — Weekly Signal Digest\n\n"
+          body = f"## Open Antenna -- Weekly Signal Digest\n\n"
           body += f"*{data.get('total_signals',0)} signals scanned across Reddit, HN, DEV.to, GitHub — zero API keys needed.*\n\n"
 
-          PLATFORM_EMOJI = {"reddit":"🔴","hackernews":"🟠","devto":"🟣","github":"⚫"}
+          PLATFORM_LABEL = {"reddit":"[Reddit]","hackernews":"[HN]","devto":"[DEV]","github":"[GitHub]"}
           for platform, items in by_platform.items():
-              emoji = PLATFORM_EMOJI.get(platform,"•")
-              body += f"### {emoji} {platform.title()}\n\n"
+              label = PLATFORM_LABEL.get(platform, platform.title())
+              body += f"### {label} {platform.title()}\n\n"
               for s in items[:3]:
                   body += f"**[{s['title'][:80]}]({s['url']})**  \n"
-                  body += f"↑{s.get('score',0)} · 💬{s.get('comments',0)} · `{s.get('topic','')}`\n\n"
+                  body += f"up:{s.get('score',0)} / comments:{s.get('comments',0)} / `{s.get('topic','')}`\n\n"
 
           body += "---\n*OPEN_ANTENNA.yml — public platform monitoring via free JSON endpoints. No API keys. No costs.*"
 
           mut = """mutation($ri:ID!,$ci:ID!,$t:String!,$b:String!){createDiscussion(input:{repositoryId:$ri,categoryId:$ci,title:$t,body:$b}){discussion{url}}}"""
           r = requests.post("https://api.github.com/graphql",
               json={"query":mut,"variables":{"ri":repo_id,"ci":cat_id,
-                  "t":f"📡 Weekly Signal Digest — {data.get('scanned_at','')[:10]}","b":body}},
+                  "t":f"Weekly Signal Digest -- {data.get('scanned_at','')[:10]}","b":body}},
               headers=headers, timeout=30)
           if r.status_code==200 and "errors" not in r.json():
               url = r.json().get("data",{}).get("createDiscussion",{}).get("discussion",{}).get("url","")
@@ -244,5 +244,5 @@ jobs:
           git add data/open_antenna.json 2>/dev/null || true
           git diff --staged --quiet && echo "No changes" && exit 0
           COUNT=$(python3 -c "import json; print(json.load(open('data/open_antenna.json'))['total_signals'])" 2>/dev/null || echo "?")
-          git commit -m "📡 OPEN_ANTENNA: $COUNT signals scanned [skip ci]"
+          git commit -m "OPEN_ANTENNA: $COUNT signals scanned [skip ci]"
           git push "$REMOTE" HEAD:main

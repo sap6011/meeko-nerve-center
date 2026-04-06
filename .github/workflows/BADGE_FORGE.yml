@@ -140,7 +140,7 @@ jobs:
           if Path("data/badges.json").exists():
               badges_data = json.loads(Path("data/badges.json").read_text())
 
-          lines = ["# 🌱 SolarPunk Status", ""]
+          lines = ["# SolarPunk Status", ""]
           for k, v in badges_data.get("badges", {}).items():
               lines.append(f"![{v['description']}]({v['url']})")
 
@@ -160,5 +160,5 @@ jobs:
           git fetch "$REMOTE" main && git rebase FETCH_HEAD || true
           git add README.md data/badges.json 2>/dev/null || true
           git diff --staged --quiet && echo "Badges unchanged" && exit 0
-          git commit -m "🏷️ BADGE_FORGE: live status badges updated [skip ci]"
+          git commit -m "BADGE_FORGE: live status badges updated [skip ci]"
           git push "$REMOTE" HEAD:main

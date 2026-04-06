@@ -4,17 +4,17 @@ name: WEBHOOK_RELAY
 #
 # WIRE ANY PLATFORM IN 5 MIN (no new GitHub Secrets needed):
 #
-#   1. pipedream.com → New Workflow → HTTP Trigger → copy URL
+#   1. pipedream.com -> New Workflow -> HTTP Trigger -> copy URL
 #   2. Paste that URL into your payment platform's webhook settings:
-#        Ko-fi:   Settings → API → Webhook URL
-#        Gumroad: Settings → Advanced → Webhooks
-#        Stripe:  Developers → Webhooks → Add endpoint
+#        Ko-fi:   Settings -> API -> Webhook URL
+#        Gumroad: Settings -> Advanced -> Webhooks
+#        Stripe:  Developers -> Webhooks -> Add endpoint
 #   3. In Pipedream, add "Send HTTP Request" step:
 #        POST https://api.github.com/repos/meekotharaccoon-cell/meeko-nerve-center/dispatches
-#        Auth: Bearer YOUR_GITHUB_PAT   ← PAT lives ONLY in Pipedream, never in GitHub
+#        Auth: Bearer YOUR_GITHUB_PAT   <- PAT lives ONLY in Pipedream, never in GitHub
 #        Body: {"event_type":"kofi_payment","client_payload":{"amount":"{{amount}}","email":"{{email}}"}}
 #
-# Result: payment received → Pipedream fires → this workflow runs in <30s
+# Result: payment received -> Pipedream fires -> this workflow runs in <30s
 # GITHUB_TOKEN handles everything on the GitHub side. Zero extra secrets here.
 
 on:
@@ -74,5 +74,5 @@ jobs:
           git config --global user.email "solarpunk@meeko"
           git config --global user.name "SolarPunk"
           git add -A
-          git diff --staged --quiet || git commit -m "💰 payment [${{ github.event.action || 'test' }}] ${{ github.event.client_payload.amount || inputs.amount }}  [skip ci]"
+          git diff --staged --quiet || git commit -m "payment [${{ github.event.action || 'test' }}] ${{ github.event.client_payload.amount || inputs.amount }}  [skip ci]"
           git push || true

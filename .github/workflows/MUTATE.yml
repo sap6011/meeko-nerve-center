@@ -269,6 +269,6 @@ Respond ONLY with valid JSON (no markdown, no code fences):
           import json; v=json.load(open('data/mutation_vault.json'));
           print(v[-1].get('synthesis_concept','')[:80] if v else '')
           " 2>/dev/null || echo "")
-          git commit -m "🧬 MUTATE: $FNAME — $CONCEPT [skip ci]"
+          git commit -m "MUTATE: $FNAME -- $CONCEPT [skip ci]"
           git push "$REMOTE" HEAD:main
         continue-on-error: true

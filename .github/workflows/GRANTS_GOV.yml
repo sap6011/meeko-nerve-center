@@ -217,7 +217,7 @@ jobs:
               print("Could not get repo ID")
               exit(0)
 
-          body = f"## 💰 Live Grant Opportunities — {data.get('fetched_at','')[:10]}\n\n"
+          body = f"## Live Grant Opportunities -- {data.get('fetched_at','')[:10]}\n\n"
           body += f"*{len(opps)} opportunities found across Grants.gov, NIH Reporter, and World Bank — all free public APIs, zero secrets.*\n\n"
           body += "---\n\n"
 
@@ -244,7 +244,7 @@ jobs:
           r = requests.post("https://api.github.com/graphql",
               json={"query": mut, "variables": {
                   "repoId": repo_id, "catId": cat_id,
-                  "title": f"💰 {len(opps)} Live Grant Opportunities ({data.get('fetched_at','')[:10]})",
+                  "title": f"{len(opps)} Live Grant Opportunities ({data.get('fetched_at','')[:10]})",
                   "body": body
               }},
               headers=headers, timeout=30)
@@ -263,5 +263,5 @@ jobs:
           git add data/grants_gov_live.json 2>/dev/null || true
           git diff --staged --quiet && echo "No new data" && exit 0
           COUNT=$(python3 -c "import json; d=json.load(open('data/grants_gov_live.json')); print(d['total_found'])" 2>/dev/null || echo "?")
-          git commit -m "💰 GRANTS_GOV: $COUNT live opportunities [skip ci]"
+          git commit -m "GRANTS_GOV: $COUNT live opportunities [skip ci]"
           git push "$REMOTE" HEAD:main

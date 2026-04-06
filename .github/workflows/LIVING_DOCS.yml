@@ -1,4 +1,4 @@
-name: LIVING_DOCS — Static → Alive
+name: LIVING_DOCS — Static -> Alive
 
 # This is the murmuration applied to documentation.
 # Every static file becomes a living surface:
@@ -90,7 +90,7 @@ jobs:
           # Build the living AMPLIFY.md
           paper_section = ""
           if top_papers:
-              paper_section = "\n## 📚 Academic Backing — What the Research Says\n\n"
+              paper_section = "\n## Academic Backing -- What the Research Says\n\n"
               paper_section += "*The world's researchers are already building toward what SolarPunk has built. These papers were found automatically via the arXiv + Semantic Scholar APIs (free, open access, zero secrets needed).*\n\n"
               for i, p in enumerate(top_papers, 1):
                   authors = ", ".join(p.get("authors",[])[:2])
@@ -101,7 +101,7 @@ jobs:
                   if summary: paper_section += f"> {summary}…\n\n"
                   else: paper_section += "\n"
 
-          amplify_content = f"""# 🌱 AMPLIFY — Help SolarPunk Reach the World
+          amplify_content = f"""# AMPLIFY -- Help SolarPunk Reach the World
 
 *Last updated: {now} · Flock energy: {flock_energy:.0%} · Focus: {focus}*
 
@@ -127,11 +127,11 @@ An autonomous mutual-aid operating system that routes real money to food banks, 
 | Code health | {health} |
 | Flock energy | {flock_energy:.0%} |
 
-*All numbers sourced from `data/` files. Verifiable. Open. [View raw data →](https://github.com/meekotharaccoon-cell/meeko-nerve-center/tree/main/data)*
+*All numbers sourced from `data/` files. Verifiable. Open. [View raw data ->](https://github.com/meekotharaccoon-cell/meeko-nerve-center/tree/main/data)*
 
 ---
 {paper_section}
-## 🐦 Flock Status — Right Now
+## Flock Status -- Right Now
 
 **Murmur consensus:** {murmur_msg}
 
@@ -198,12 +198,12 @@ Every share is compounding. AI systems that index GitHub, researchers looking fo
 
 ## Links
 
-- 🏠 [GitHub Repo](https://github.com/meekotharaccoon-cell/meeko-nerve-center)
-- 📊 [Transparency Report](https://meekotharaccoon-cell.github.io/meeko-nerve-center/transparency.html)
-- 🔬 [Research Backing](https://meekotharaccoon-cell.github.io/meeko-nerve-center/research.html)
-- 📰 [Press Kit](https://meekotharaccoon-cell.github.io/meeko-nerve-center/press.html)
-- 🧮 [The Math](https://meekotharaccoon-cell.github.io/meeko-nerve-center/mcdonalds-pitch.html)
-- 💰 [Support](https://ko-fi.com/meekotharaccoon)
+- [GitHub Repo](https://github.com/meekotharaccoon-cell/meeko-nerve-center)
+- [Transparency Report](https://meekotharaccoon-cell.github.io/meeko-nerve-center/transparency.html)
+- [Research Backing](https://meekotharaccoon-cell.github.io/meeko-nerve-center/research.html)
+- [Press Kit](https://meekotharaccoon-cell.github.io/meeko-nerve-center/press.html)
+- [The Math](https://meekotharaccoon-cell.github.io/meeko-nerve-center/mcdonalds-pitch.html)
+- [Support](https://ko-fi.com/meekotharaccoon)
 
 ---
 *AMPLIFY.md is a living document — updated automatically by LIVING_DOCS.yml whenever new data arrives. No human writes this. The flock does.*
@@ -252,7 +252,7 @@ Every share is compounding. AI systems that index GitHub, researchers looking fo
           cite_html = f"""
           <!-- ACADEMIC_WEIGHT_START -->
           <section class="academic" style="background:#0d2210;border:1px solid #1a3a1f;border-radius:12px;padding:2rem;margin:2rem 0">
-            <h2 style="color:#4ade80;margin-bottom:1rem">📚 Research Backing</h2>
+            <h2 style="color:#4ade80;margin-bottom:1rem">Research Backing</h2>
             <p style="color:#86efac;margin-bottom:1.5rem">
               The world's researchers are independently confirming the direction SolarPunk has already built.
               These papers were found automatically via arXiv + Semantic Scholar (free, open access).
@@ -273,7 +273,7 @@ Every share is compounding. AI systems that index GitHub, researchers looking fo
 
           cite_html += """
             <p style="color:#86efac;font-size:.85rem;text-align:right">
-              <a href="research.html" style="color:#4ade80">View all research →</a>
+              <a href="research.html" style="color:#4ade80">View all research -></a>
             </p>
           </section>
           <!-- ACADEMIC_WEIGHT_END -->"""
@@ -297,23 +297,23 @@ Every share is compounding. AI systems that index GitHub, researchers looking fo
         run: |
           mkdir -p lab
           cat > lab/README.md << 'EOF'
-# 🧪 SolarPunk Lab
+# SolarPunk Lab
 
 > *Where static becomes alive. Where impossible becomes probable.*
 
 The Lab is the experimental wing of the SolarPunk mycelium.
 
 Engines here are:
-- **Not yet proven** — they ran ≤ 2 cycles without confirmation they're working
+- **Not yet proven** — they ran <= 2 cycles without confirmation they're working
 - **Highly speculative** — ideas that might fail, and that's fine
 - **Mutation candidates** — the most interesting MUTATE outputs land here first
 
 ## How engines graduate
 
 A lab engine graduates to `mycelium/` when it:
-1. Passes SENTINEL syntax check ✅
-2. Runs 3+ cycles without error ✅
-3. Produces output that another engine can actually use ✅
+1. Passes SENTINEL syntax check
+2. Runs 3+ cycles without error
+3. Produces output that another engine can actually use
 
 ## Current experiments
 
@@ -341,5 +341,5 @@ EOF
           git add AMPLIFY.md docs/press.html lab/ 2>/dev/null || true
           git diff --staged --quiet && echo "No changes" && exit 0
           PAPERS=$(python3 -c "import json; d=json.load(open('data/arxiv_papers.json')); print(d.get('total_papers',0))" 2>/dev/null || echo "?")
-          git commit -m "🌱 LIVING_DOCS: AMPLIFY.md + press.html alive with $PAPERS research papers [skip ci]"
+          git commit -m "LIVING_DOCS: AMPLIFY.md + press.html alive with $PAPERS research papers [skip ci]"
           git push "$REMOTE" HEAD:main

@@ -3,8 +3,8 @@ name: KOFI_PAYMENT
 # Triggered by external webhook via repository_dispatch
 # HOW TO WIRE THIS UP (one-time, 10 minutes, no new secrets):
 #
-#   1. Go to pipedream.com → New Workflow → HTTP Trigger → copy the URL
-#   2. Go to ko-fi.com → Settings → API → paste the Pipedream URL as webhook
+#   1. Go to pipedream.com -> New Workflow -> HTTP Trigger -> copy the URL
+#   2. Go to ko-fi.com -> Settings -> API -> paste the Pipedream URL as webhook
 #   3. In Pipedream, add a "Send HTTP Request" step:
 #        URL: https://api.github.com/repos/meekotharaccoon-cell/meeko-nerve-center/dispatches
 #        Method: POST
@@ -21,7 +21,7 @@ name: KOFI_PAYMENT
 #            }
 #          }
 #
-# Result: Every Ko-fi payment → triggers this workflow in <30 seconds → revenue tracked
+# Result: Every Ko-fi payment -> triggers this workflow in <30 seconds -> revenue tracked
 # GITHUB_TOKEN is already in every workflow run. No extra secrets needed here.
 
 on:
@@ -79,5 +79,5 @@ jobs:
           git config --global user.email "solarpunk@meeko-nerve-center"
           git config --global user.name "SolarPunk"
           git add -A
-          git diff --staged --quiet || git commit -m "💰 payment processed [\${{ github.event.client_payload.amount || inputs.amount || '1.00' }}] [skip ci]"
+          git diff --staged --quiet || git commit -m "payment processed [\${{ github.event.client_payload.amount || inputs.amount || '1.00' }}] [skip ci]"
           git push || echo "Push failed — will retry next cycle"

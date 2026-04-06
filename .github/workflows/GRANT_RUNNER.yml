@@ -313,7 +313,7 @@ jobs:
           gh_token = os.environ["GH_TOKEN"]
           repo = os.environ.get("GITHUB_REPOSITORY", "meekotharaccoon-cell/meeko-nerve-center")
 
-          title = f"📝 Grant Draft: {meta['finder_name']} — {meta['grant_url']}"
+          title = f"Grant Draft: {meta['finder_name']} -- {meta['grant_url']}"
 
           body = f"""{meta['draft_preview']}
 

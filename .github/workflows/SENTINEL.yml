@@ -102,7 +102,7 @@ jobs:
                           "file": f.name,
                           "line": line_no,
                           "pattern": description,
-                          "snippet": content[m.start():m.start()+80].replace('\n', '↵')
+                          "snippet": content[m.start():m.start()+80].replace('\n', '(newline)')
                       })
 
           print(f"Pattern audit: {len(issues)} issues found across {len(set(i['file'] for i in issues))} files")
@@ -205,7 +205,7 @@ jobs:
           if total_issues > 0:
               print(f"\n::warning::SENTINEL found {total_issues} issues — run REPAIR workflow to auto-fix")
           else:
-              print("\n✅ All engines clean")
+              print("\n[OK] All engines clean")
           PYEOF
 
       - name: Commit SENTINEL results
@@ -220,5 +220,5 @@ jobs:
           git diff --staged --quiet && echo "No changes" && exit 0
           STATUS=$(python3 -c "import json; r=json.load(open('data/sentinel_report.json')); print(r['summary']['health'])" 2>/dev/null || echo "?")
           ISSUES=$(python3 -c "import json; r=json.load(open('data/sentinel_report.json')); s=r['summary']; print(s['syntax_fail']+s['pattern_violations'])" 2>/dev/null || echo "?")
-          git commit -m "🔍 SENTINEL: $STATUS | $ISSUES issues [skip ci]"
+          git commit -m "SENTINEL: $STATUS | $ISSUES issues [skip ci]"
           git push "$REMOTE" HEAD:main

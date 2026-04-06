@@ -217,7 +217,7 @@ jobs:
           </head>
           <body>
           <header>
-            <h1>🔬 Open Science Intelligence</h1>
+            <h1>Open Science Intelligence</h1>
             <p>Academic research on mutual aid technology, supply chain security, and autonomous systems — pulled from arXiv and Semantic Scholar. Completely free. No paywalls. Updated automatically.</p>
             <p style="margin-top:.5rem;font-size:.85rem;color:#86efac">Last updated: {fetched} · Sources: arXiv · Semantic Scholar · Wikidata</p>
           </header>
@@ -229,7 +229,7 @@ jobs:
           </div>
           <div class="grid">{cards}</div>
           <footer>
-            <p>🌱 <a href="index.html" style="color:#4ade80">SolarPunk Nerve Center</a> — Open science for open systems</p>
+            <p><a href="index.html" style="color:#4ade80">SolarPunk Nerve Center</a> — Open science for open systems</p>
             <p>All research sourced from open-access databases. Knowledge belongs to everyone.</p>
           </footer>
           </body>
@@ -248,5 +248,5 @@ jobs:
           git add data/arxiv_papers.json data/wikidata_peers.json docs/research.html 2>/dev/null || true
           git diff --staged --quiet && echo "No changes" && exit 0
           COUNT=$(python3 -c "import json; d=json.load(open('data/arxiv_papers.json')); print(d['total_papers'])" 2>/dev/null || echo "?")
-          git commit -m "🔬 ARXIV_BRIDGE: $COUNT research items [skip ci]"
+          git commit -m "ARXIV_BRIDGE: $COUNT research items [skip ci]"
           git push "$REMOTE" HEAD:main

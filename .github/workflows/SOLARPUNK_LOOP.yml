@@ -1,4 +1,4 @@
-name: "🌱 SOLARPUNK LOOP — Self-Feeding Intelligence Cycle"
+name: "SOLARPUNK LOOP -- Self-Feeding Intelligence Cycle"
 
 on:
   schedule:
@@ -128,7 +128,7 @@ jobs:
                       text = r.json()["content"][0]["text"]
                       s, e = text.find("{"), text.rfind("}") + 1
                       if s >= 0: decisions = json.loads(text[s:e])
-                      print(f"✅ Claude synthesized decisions (model: {model})")
+                      print(f"[OK] Claude synthesized decisions (model: {model})")
                       break
                   except Exception as ex:
                       print(f"  {model} error: {ex}")
@@ -156,7 +156,7 @@ jobs:
                       {"action": "Publish all pending Gumroad listings via GUMROAD_ENGINE", "why": "Unlisted products earn $0", "urgency": "now", "revenue_impact": "high"},
                       {"action": "Generate + queue social posts for all products", "why": "Distribution is the gap", "urgency": "now", "revenue_impact": "medium"},
                   ],
-                  "key_insight": "Build → deploy → promote → repeat. Every idle product is lost revenue.",
+                  "key_insight": "Build -> deploy -> promote -> repeat. Every idle product is lost revenue.",
                   "meeko_message": "SolarPunk™ loop running autonomously.",
                   "health_delta": 3,
               }
@@ -187,7 +187,7 @@ jobs:
           brain["total_loops_completed"] = brain.get("total_loops_completed", 0) + 1
           brain["last_loop"] = datetime.now().isoformat()
           brain_f.write_text(json.dumps(brain, indent=2))
-          print(f"Health: {old_h} → {brain['health_score']} (+{health_delta})")
+          print(f"Health: {old_h} -> {brain['health_score']} (+{health_delta})")
 
           seed = {
               "generated_at": datetime.now().isoformat(),
@@ -235,7 +235,7 @@ jobs:
           SYSTEM STATS:
           Engines:   {ctx.get('total_engines','?')}
           Revenue:   ${ctx.get('total_revenue', 0):.2f} total
-          → Gaza:    ${ctx.get('total_to_gaza', 0):.2f}
+          -> Gaza:    ${ctx.get('total_to_gaza', 0):.2f}
           Health:    {ctx.get('brain_health','?')}/100
           Loops:     {ctx.get('total_loops','?')}
 
@@ -264,6 +264,6 @@ jobs:
           git rebase FETCH_HEAD || true
           git add data/
           git diff --staged --quiet && echo 'Nothing to commit' && exit 0
-          git commit -m "🌱 loop $(date +%Y-%m-%dT%H:%M) [skip ci]"
+          git commit -m "SOLARPUNK loop $(date +%Y-%m-%dT%H:%M) [skip ci]"
           git push "$REMOTE" HEAD:main
         continue-on-error: true

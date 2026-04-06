@@ -139,22 +139,22 @@ jobs:
 
           rows = ""
           LABELS = {
-              "autonomous_cycles": ("🔄", "Autonomous Cycles Run", "Times OMNIBRAIN executed without human input"),
-              "emails_processed": ("📥", "Emails Processed", "Emails read and classified by EMAIL_BRAIN"),
-              "emails_sent": ("📤", "Emails Sent", "Autonomous outreach, grant follow-ups, notifications"),
-              "grants_discovered": ("🔍", "Grants Discovered", "Funding opportunities found by FUND_SCOUT"),
-              "grants_applied": ("📝", "Grant Applications", "Applications submitted or drafted autonomously"),
-              "live_grant_opportunities": ("💰", "Live Fed Opportunities", "Active grants from Grants.gov + NIH"),
-              "scams_blocked": ("🛡️", "Scams Blocked", "SCAM_SHIELD stopped before reaching Meeko"),
-              "mutations_run": ("🧬", "Mutations Run", "MUTATE lottery — hybrid engines bred"),
-              "engines_built_autonomously": ("🔨", "Engines Built", "New engines created by BUILD_YOURSELF"),
-              "total_engines": ("⚙️", "Total Engines", "Active Python engines in mycelium/"),
-              "total_workflows": ("🔧", "Total Workflows", "GitHub Actions workflows running"),
-              "pages_archived": ("🏛️", "Pages Archived", "Pages submitted to Internet Archive"),
-              "meals_estimated": ("🍽️", "Meals Estimated", "Food bank routing estimate"),
-              "code_health": ("✅", "Code Health", "SENTINEL integrity scan result"),
-              "syntax_pass": ("🟢", "Engines Passing Syntax", "Clean engines per last SENTINEL run"),
-              "syntax_fail": ("🔴", "Syntax Failures", "Engines with errors — SolarPunk auto-flags these"),
+              "autonomous_cycles": ("*", "Autonomous Cycles Run", "Times OMNIBRAIN executed without human input"),
+              "emails_processed": ("*", "Emails Processed", "Emails read and classified by EMAIL_BRAIN"),
+              "emails_sent": ("*", "Emails Sent", "Autonomous outreach, grant follow-ups, notifications"),
+              "grants_discovered": ("*", "Grants Discovered", "Funding opportunities found by FUND_SCOUT"),
+              "grants_applied": ("*", "Grant Applications", "Applications submitted or drafted autonomously"),
+              "live_grant_opportunities": ("*", "Live Fed Opportunities", "Active grants from Grants.gov + NIH"),
+              "scams_blocked": ("*", "Scams Blocked", "SCAM_SHIELD stopped before reaching Meeko"),
+              "mutations_run": ("*", "Mutations Run", "MUTATE lottery -- hybrid engines bred"),
+              "engines_built_autonomously": ("*", "Engines Built", "New engines created by BUILD_YOURSELF"),
+              "total_engines": ("*", "Total Engines", "Active Python engines in mycelium/"),
+              "total_workflows": ("*", "Total Workflows", "GitHub Actions workflows running"),
+              "pages_archived": ("*", "Pages Archived", "Pages submitted to Internet Archive"),
+              "meals_estimated": ("*", "Meals Estimated", "Food bank routing estimate"),
+              "code_health": ("*", "Code Health", "SENTINEL integrity scan result"),
+              "syntax_pass": ("*", "Engines Passing Syntax", "Clean engines per last SENTINEL run"),
+              "syntax_fail": ("*", "Syntax Failures", "Engines with errors -- SolarPunk auto-flags these"),
           }
 
           for key, val in m.items():
@@ -197,7 +197,7 @@ jobs:
           </head>
           <body>
           <header>
-            <h1>📊 Transparency Report</h1>
+            <h1>Transparency Report</h1>
             <p>{period} · Generated automatically by TRANSPARENCY_PULSE.yml</p>
           </header>
           <div class="container">
@@ -212,11 +212,11 @@ jobs:
             </table>
             <p class="source-note">
               Source files: <code>data/*.json</code> ·
-              <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/tree/main/data" style="color:#4ade80">View raw data →</a>
+              <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/tree/main/data" style="color:#4ade80">View raw data -></a>
             </p>
           </div>
           <footer>
-            <p>🌱 <a href="index.html" style="color:#4ade80">SolarPunk Nerve Center</a> — Autonomous. Transparent. Free forever.</p>
+            <p><a href="index.html" style="color:#4ade80">SolarPunk Nerve Center</a> -- Autonomous. Transparent. Free forever.</p>
           </footer>
           </body>
           </html>"""
@@ -234,5 +234,5 @@ jobs:
           git add data/transparency_report.json docs/transparency.html 2>/dev/null || true
           git diff --staged --quiet && echo "No changes" && exit 0
           PERIOD=$(python3 -c "import json; print(json.load(open('data/transparency_report.json'))['period'])" 2>/dev/null || echo "?")
-          git commit -m "📊 TRANSPARENCY: $PERIOD report published [skip ci]"
+          git commit -m "TRANSPARENCY: $PERIOD report published [skip ci]"
           git push "$REMOTE" HEAD:main

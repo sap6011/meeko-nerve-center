@@ -1,7 +1,7 @@
 name: MURMUR — Flock Intelligence Protocol
 
 # Murmuration: no engine is the authority.
-# Each engine writes a signal → MURMUR reads all signals → broadcasts consensus.
+# Each engine writes a signal -> MURMUR reads all signals -> broadcasts consensus.
 # The flock decides what matters. No central coordinator.
 # Runs after every OMNIBRAIN cycle and daily.
 #
@@ -308,5 +308,5 @@ jobs:
           git diff --staged --quiet && echo "Consensus unchanged" && exit 0
           ENERGY=$(python3 -c "import json; print(json.load(open('data/murmur_consensus.json'))['flock_energy'])" 2>/dev/null || echo "?")
           FOCUS=$(python3 -c "import json; print(json.load(open('data/murmur_consensus.json'))['consensus_focus'])" 2>/dev/null || echo "?")
-          git commit -m "🐦 MURMUR: energy=$ENERGY focus=$FOCUS [skip ci]"
+          git commit -m "MURMUR: energy=$ENERGY focus=$FOCUS [skip ci]"
           git push "$REMOTE" HEAD:main

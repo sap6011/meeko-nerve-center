@@ -1,4 +1,4 @@
-name: "🔨 BUILD — SolarPunk Self-Assembly"
+name: "BUILD — SolarPunk Self-Assembly"
 
 on:
   workflow_dispatch:
@@ -113,18 +113,18 @@ jobs:
           if api_key:
               try:
                   text = call_anthropic(prompt)
-                  print("✅ Claude responded")
+                  print("[OK] Claude responded")
               except Exception as e:
                   print(f"Anthropic error: {e}")
           if not text and hf_key:
               try:
                   text = call_hf(prompt)
-                  print("✅ HuggingFace responded")
+                  print("[OK] HuggingFace responded")
               except Exception as e:
                   print(f"HF error: {e}")
 
           if not text:
-              print("❌ No AI response — no API keys configured or all failed")
+              print("[FAIL] No AI response -- no API keys configured or all failed")
               exit(0)
 
           # Parse response
@@ -143,7 +143,7 @@ jobs:
                   code_lines.append(line)
 
           if not fname or not code_lines:
-              print("❌ Could not parse response — bad format")
+              print("[FAIL] Could not parse response -- bad format")
               print(text[:500])
               exit(0)
 
@@ -154,16 +154,16 @@ jobs:
           blocked = ["os.system(", "eval(", "exec(", ".github", "git push", "git merge"]
           for bad in blocked:
               if bad in code:
-                  print(f"⛔ Safety block: {bad} found in generated code")
+                  print(f"[BLOCKED] Safety block: {bad} found in generated code")
                   exit(0)
 
           if not fname.endswith(".py") or "/" in fname or "\\" in fname:
-              print(f"⛔ Bad filename: {fname}")
+              print(f"[BLOCKED] Bad filename: {fname}")
               exit(0)
 
           target = Path("mycelium") / fname
           target.write_text(code)
-          print(f"✅ Built: {fname} ({len(code_lines)} lines)")
+          print(f"[OK] Built: {fname} ({len(code_lines)} lines)")
 
           # Log
           log_f = Path("data/build_log.json")
@@ -176,9 +176,9 @@ jobs:
         run: |
           ok=0; fail=0
           for f in mycelium/*.py; do
-            python3 -m py_compile "$f" 2>/dev/null && ok=$((ok+1)) || { echo "⚠️ syntax error: $f"; fail=$((fail+1)); }
+            python3 -m py_compile "$f" 2>/dev/null && ok=$((ok+1)) || { echo "[WARN] syntax error: $f"; fail=$((fail+1)); }
           done
-          echo "✅ $ok engines OK | ⚠️ $fail syntax errors"
+          echo "[OK] $ok engines OK | [WARN] $fail syntax errors"
 
       - name: Commit
         run: |
@@ -187,5 +187,5 @@ jobs:
           git rebase FETCH_HEAD || true
           git add data/ mycelium/
           git diff --staged --quiet && echo "Nothing built" && exit 0
-          git commit -m "🔨 BUILD: $(date +%Y-%m-%dT%H:%M) — ${{ github.event.inputs.note || 'autonomous build' }}"
+          git commit -m "BUILD: $(date +%Y-%m-%dT%H:%M) -- ${{ github.event.inputs.note || 'autonomous build' }}"
           git push "$REMOTE" HEAD:main

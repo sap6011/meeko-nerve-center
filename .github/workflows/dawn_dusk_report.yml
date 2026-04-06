@@ -22,11 +22,11 @@ jobs:
           GAZA_REVENUE="0.00"
           
           echo "REPORT_BODY<<EOF" >> $GITHUB_ENV
-          echo "SolarPunk Digest — $DATE (daily_update)" >> $GITHUB_ENV
+          echo "SolarPunk Digest -- $DATE (daily_update)" >> $GITHUB_ENV
           echo "OMNIBUS v24 | Cycle #$(date +%j)" >> $GITHUB_ENV
           echo "??????????????????????????????????????????????????" >> $GITHUB_ENV
           echo "" >> $GITHUB_ENV
-          echo " ?? HEALTH: 100/100  [¦¦¦¦¦¦¦¦¦¦]" >> $GITHUB_ENV
+          echo " ?? HEALTH: 100/100  [==========]" >> $GITHUB_ENV
           echo "" >> $GITHUB_ENV
           echo " ?? REAL REVENUE (actual sales only)" >> $GITHUB_ENV
           echo "   Total sales: \$$TOTAL_REVENUE ($SALES orders)" >> $GITHUB_ENV
@@ -53,7 +53,7 @@ jobs:
           echo "   GitHub: https://github.com/meekotharaccoon-cell/meeko-nerve-center" >> $GITHUB_ENV
           echo "" >> $GITHUB_ENV
           echo "??????????????????????????????????????????????????" >> $GITHUB_ENV
-          echo "[SolarPunk v24 — autonomous]" >> $GITHUB_ENV
+          echo "[SolarPunk v24 -- autonomous]" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Dispatch Omnibus to Anchor
@@ -63,7 +63,7 @@ jobs:
           server_port: 465
           username: ${{ secrets.GMAIL_ADDRESS }}
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
-          subject: "SolarPunk Digest — OMNIBUS v24"
+          subject: "SolarPunk Digest -- OMNIBUS v24"
           to: ${{ secrets.GMAIL_ADDRESS }}
           from: "SolarPunk Intelligence Agency"
           body: ${{ env.REPORT_BODY }}

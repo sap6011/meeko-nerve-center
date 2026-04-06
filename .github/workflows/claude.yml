@@ -60,7 +60,7 @@ jobs:
             When asked to build new engines: follow the NANO_AGENT base class pattern in mycelium/NANO_AGENT.py
             When asked to analyze: read data/omnibus_last.json for current system state.
             
-            Always commit with emoji prefix: 🔧 fixes, 👁️ new engines, 🌟 version bumps.
+            Always commit with descriptive prefix: fix: for fixes, feat: for new engines, bump: for version bumps.
             Be fast, direct, complete. No hand-holding. Meeko is a pro builder.
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

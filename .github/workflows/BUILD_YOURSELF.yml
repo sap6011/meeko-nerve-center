@@ -1,4 +1,4 @@
-name: "🔨 BUILD YOURSELF — Each Run Grows SolarPunk"
+name: "BUILD YOURSELF — Each Run Grows SolarPunk"
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ on:
 
 jobs:
   build:
-    name: "🔨 Build Yourself"
+    name: "Build Yourself"
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -46,7 +46,7 @@ jobs:
           git config user.email 'solarpunk@meeko-nerve-center'
           mkdir -p mycelium data
 
-      - name: "🧠 Assess + Decide What To Build"
+      - name: "Assess + Decide What To Build"
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           BUILD_TARGET: ${{ inputs.build_target }}
@@ -84,13 +84,13 @@ jobs:
           INCOME_STREAMS = """
           PASSIVE INCOME STREAMS SOLARPUNK CAN BUILD:
           1. Gaza Rose Gallery — automated art drops, Gumroad listing engine
-          2. AI-written content → Medium Partner Program (auto-publish daily articles)
-          3. Prompt packs & templates → Gumroad store (auto-generate + list)
-          4. Newsletter → Substack automation (auto-write + schedule)
+          2. AI-written content -> Medium Partner Program (auto-publish daily articles)
+          3. Prompt packs & templates -> Gumroad store (auto-generate + list)
+          4. Newsletter -> Substack automation (auto-write + schedule)
           5. GitHub Sponsors — showcase SolarPunk itself as open source project
           6. Affiliate marketing — auto-blog posts with affiliate links
           7. API reselling — wrap free APIs with value-add, sell on RapidAPI
-          8. Data products — curated datasets → Kaggle/HuggingFace + donations
+          8. Data products — curated datasets -> Kaggle/HuggingFace + donations
           9. Human Payout Network — connect contributors, auto-split revenue via PayPal
           10. SolarPunk Brand™ — licensing, merch, B2B white-label system
           """
@@ -173,7 +173,7 @@ jobs:
           print(f"Next: {plan.get('next_build_suggestion', '')}")
           PYEOF
 
-      - name: "⚙️ Write New Engines"
+      - name: "Write New Engines"
         run: |
           python3 - <<'PYEOF'
           import json
@@ -195,29 +195,29 @@ jobs:
 
               # SAFETY CHECK
               if "/" in fname or "\\" in fname or ".github" in fname:
-                  print(f"⛔ BLOCKED unsafe path: {fname}")
+                  print(f"[BLOCKED] unsafe path: {fname}")
                   continue
               if not fname.endswith(".py"):
-                  print(f"⛔ BLOCKED non-py file: {fname}")
+                  print(f"[BLOCKED] non-py file: {fname}")
                   continue
 
               target = Path("mycelium") / fname
               target.write_text(code)
               built.append(fname)
-              print(f"✅ Built: {fname} — {eng.get('description', '')}")
+              print(f"[OK] Built: {fname} -- {eng.get('description', '')}")
 
           print(f"\nTotal built this run: {len(built)}")
           if built:
               Path("data/last_build_output.json").write_text(json.dumps({"built": built}, indent=2))
           PYEOF
 
-      - name: "✅ Test New Engines (syntax check)"
+      - name: "Test New Engines (syntax check)"
         run: |
           for f in mycelium/*.py; do
-            python3 -m py_compile "$f" 2>&1 && echo "✅ $f" || echo "⚠️ syntax error: $f"
+            python3 -m py_compile "$f" 2>&1 && echo "[OK] $f" || echo "[WARN] syntax error: $f"
           done
 
-      - name: "📊 Update Build Registry"
+      - name: "Update Build Registry"
         run: |
           python3 - <<'PYEOF'
           import json
@@ -252,18 +252,18 @@ jobs:
               print(f"Next run: {suggestion}")
           PYEOF
 
-      - name: "🛡️ Corruption Sentinel — Block corrupted commits"
+      - name: "Corruption Sentinel -- Block corrupted commits"
         run: |
           python3 mycelium/CORRUPTION_SENTINEL.py || python mycelium/CORRUPTION_SENTINEL.py
           echo "Sentinel passed — safe to commit"
 
-      - name: "🚀 Commit New Engines"
+      - name: "Commit New Engines"
         run: |
           REMOTE="https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           git add -A
           git diff --staged --quiet && echo "Nothing new to commit" && exit 0
           BUILT=$(python3 -c "import json; p=json.load(open('data/build_plan.json')); print(', '.join(e['filename'] for e in p.get('engines',[])))" 2>/dev/null || echo "engines")
-          git commit -m "🔨 BUILD_YOURSELF: $BUILT [$(date +%Y-%m-%dT%H:%M)]"
+          git commit -m "BUILD_YOURSELF: $BUILT [$(date +%Y-%m-%dT%H:%M)]"
           for attempt in 1 2 3; do
             git fetch "$REMOTE" main
             git rebase FETCH_HEAD || git rebase --abort
@@ -272,7 +272,7 @@ jobs:
             sleep $((attempt * 5))
           done
 
-      - name: "📧 Email Meeko — What Was Built"
+      - name: "Email Meeko -- What Was Built"
         env:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
@@ -297,15 +297,15 @@ jobs:
 
           engines_now = sorted([f.name for f in Path("mycelium").glob("*.py") if not f.name.startswith("__")])
 
-          body = f"""🔨 BUILD_YOURSELF RUN COMPLETE — {datetime.now().strftime('%Y-%m-%d %H:%M UTC')}
+          body = f"""BUILD_YOURSELF RUN COMPLETE -- {datetime.now().strftime('%Y-%m-%d %H:%M UTC')}
           {'='*50}
 
           WHAT WAS BUILT:
           """
           for e in plan.get("engines",[]):
-              body += f"  ✅ {e['filename']}\n"
-              body += f"     → {e.get('description','')}\n"
-              body += f"     💰 {e.get('income_stream','')}\n\n"
+              body += f"  [OK] {e['filename']}\n"
+              body += f"     -> {e.get('description','')}\n"
+              body += f"     [Revenue] {e.get('income_stream','')}\n\n"
 
           body += f"""
           BUILD LOG:
@@ -318,13 +318,13 @@ jobs:
           TOTAL BUILT BY BUILD_YOURSELF: {len(reg)}
 
           Trigger another BUILD_YOURSELF run:
-          → https://github.com/meekotharaccoon-cell/meeko-nerve-center/actions
+          -> https://github.com/meekotharaccoon-cell/meeko-nerve-center/actions
 
-          — SolarPunk™ 🌱"""
+          -- SolarPunk"""
 
           try:
               msg = MIMEText(body)
-              msg["Subject"] = f"🔨 Built {len(plan.get('engines',[]))} new engines — SolarPunk [{datetime.now().strftime('%b %d')}]"
+              msg["Subject"] = f"Built {len(plan.get('engines',[]))} new engines -- SolarPunk [{datetime.now().strftime('%b %d')}]"
               msg["From"] = gmail
               msg["To"] = gmail
               with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
