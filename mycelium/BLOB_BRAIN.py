@@ -2971,6 +2971,220 @@ def neuron_cross_pollinator_absorb():
     xpoll["last_absorb"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_mega_absorb():
+    """
+    ABSORPTION: Pull ALL remaining state files into consciousness.
+    Instead of individual absorber neurons for each engine, this
+    mega-absorber reads every *_state.json file that hasn't been
+    individually wired and stores a compact summary in consciousness.
+    """
+    mega = CONSCIOUSNESS.setdefault("mega_absorb", {
+        "files_absorbed": 0, "data_ingested": {}, "last_absorb": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Only run every 5 cycles to keep it efficient
+    if cycle % 5 != 0 and cycle > 5:
+        return
+
+    from pathlib import Path
+    data_dir = Path("data")
+    # List of files already absorbed by dedicated neurons
+    already_absorbed = {
+        "homeostasis_state", "neural_cortex_state", "signal_mesh_state",
+        "price_oracle_state", "reflex_arc_state", "proprioception_state",
+        "autonomic_state", "arbitrage_scanner_state", "cross_pollinator_state",
+    }
+
+    ingested = {}
+    count = 0
+
+    for f in sorted(data_dir.glob("*_state.json")):
+        name = f.stem
+        if name in already_absorbed:
+            continue
+        try:
+            state = json.loads(f.read_text(encoding="utf-8"))
+            if not isinstance(state, dict):
+                continue
+
+            # Extract the most valuable fields from each state file
+            compact = {}
+            for key in ["status", "protocol", "timestamp", "enabled",
+                        "active", "balance", "total", "count", "score",
+                        "last_run", "error", "last_error"]:
+                if key in state:
+                    compact[key] = state[key] if not isinstance(state[key], (dict, list)) else str(state[key])[:100]
+
+            # Extract any numeric values (balances, counts, scores)
+            for key, val in state.items():
+                if isinstance(val, (int, float)) and val != 0:
+                    compact[key] = val
+                elif isinstance(val, str) and key in ("status", "protocol", "engine"):
+                    compact[key] = val
+
+            if compact:
+                ingested[name] = compact
+                count += 1
+        except Exception:
+            pass
+
+    mega["files_absorbed"] = count
+    mega["data_ingested"] = ingested
+    mega["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+    # Also absorb non-state JSON files that contain useful data
+    special_files = {
+        "ai_council_report": "council",
+        "chimera_evolution_report": "evolution",
+        "live_wire_map": "topology",
+        "bridge_builder_report": "bridges",
+        "nervous_system_wirer_report": "wiring",
+    }
+    for fname, key in special_files.items():
+        f = data_dir / f"{fname}.json"
+        if f.exists():
+            try:
+                d = json.loads(f.read_text(encoding="utf-8"))
+                if isinstance(d, dict):
+                    # Take top-level scalar values
+                    compact = {}
+                    for k, v in d.items():
+                        if isinstance(v, (int, float, str, bool)) and len(str(v)) < 100:
+                            compact[k] = v
+                    if compact:
+                        mega["data_ingested"][key] = compact
+                        count += 1
+            except Exception:
+                pass
+
+    mega["total_sources"] = count
+
+
+def neuron_pulse_absorb():
+    """
+    ABSORB: Ingest the PULSE engine's system-wide heartbeat data.
+    Pulse is the main autonomic loop -- it knows Kalshi balance,
+    Alpaca status, engine count, ollama status -- everything.
+    """
+    pulse_data = CONSCIOUSNESS.setdefault("pulse_engine", {
+        "engine_count": 0, "kalshi": {}, "alpaca": {},
+        "autonomic": {}, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "pulse_state.json").read_text(encoding="utf-8"))
+        pulse_data["engine_count"] = state.get("engine_count", 0)
+
+        # Kalshi data from pulse
+        kalshi = state.get("kalshi", {})
+        if isinstance(kalshi, dict):
+            pulse_data["kalshi"] = {
+                "cash": kalshi.get("cash", 0),
+                "total": kalshi.get("total", 0),
+                "positions_open": kalshi.get("positions_open", 0),
+                "daily_trades": kalshi.get("daily_trades", 0),
+            }
+
+        # Alpaca data from pulse
+        alpaca = state.get("alpaca", {})
+        if isinstance(alpaca, dict):
+            pulse_data["alpaca"] = {
+                "portfolio_value": alpaca.get("portfolio_value", 0),
+                "cash": alpaca.get("cash", 0),
+                "market_open": alpaca.get("market_open", False),
+            }
+
+        # Autonomic status from pulse
+        auto = state.get("autonomic", {})
+        if isinstance(auto, dict):
+            pulse_data["autonomic"] = {
+                "ollama_online": auto.get("ollama_online", False),
+                "status": auto.get("status", "unknown"),
+                "ai_method": auto.get("ai_method", "unknown"),
+            }
+    except Exception:
+        pass
+    pulse_data["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_yield_loop_absorb():
+    """
+    ABSORB: Ingest YIELD_LOOP's DeFi yield intelligence.
+    Tracks: idle SOL, compound opportunities, market intelligence
+    modifier, SOL outlook.
+    """
+    yield_data = CONSCIOUSNESS.setdefault("yield_loop", {
+        "idle_sol": 0, "compound_opportunities": 0,
+        "market_modifier": "normal", "sol_outlook": 0,
+        "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "yield_loop_state.json").read_text(encoding="utf-8"))
+        yield_data["idle_sol"] = state.get("idle_sol_detected", 0)
+        yield_data["compound_opportunities"] = state.get("compound_opportunities", 0)
+        yield_data["revenue_routing"] = state.get("revenue_routing", 0)
+
+        mi = state.get("market_intelligence", {})
+        if isinstance(mi, dict):
+            yield_data["market_modifier"] = mi.get("modifier", "normal")
+            yield_data["sol_outlook"] = mi.get("sol_outlook", 0)
+            yield_data["market_action"] = mi.get("action", "unknown")
+    except Exception:
+        pass
+    yield_data["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_wallet_bridge_absorb():
+    """
+    ABSORB: Ingest WALLET_BRIDGE's crypto wallet connectivity data.
+    Tracks: wallet status, Brave rewards detection, chain connections.
+    """
+    wallet = CONSCIOUSNESS.setdefault("wallet_bridge", {
+        "status": "unknown", "brave_detected": False,
+        "total_wallets": 0, "chains": [], "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "wallet_bridge_state.json").read_text(encoding="utf-8"))
+        wallet["status"] = state.get("status", "unknown")
+
+        brave = state.get("brave_rewards", {})
+        if isinstance(brave, dict):
+            wallet["brave_detected"] = brave.get("brave_detected", False)
+            wallet["brave_running"] = brave.get("brave_running", False)
+
+        summary = state.get("summary", {})
+        if isinstance(summary, dict):
+            wallet["total_wallets"] = summary.get("total_wallets", 0)
+            wallet["chains"] = summary.get("chains", [])
+    except Exception:
+        pass
+    wallet["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_trading_wire_absorb():
+    """
+    ABSORB: Ingest TRADING_WIRE's cross-engine data routing status.
+    Trading wire connects: flywheel, economy chain, proof ledger,
+    revenue data across 41+ engines.
+    """
+    twire = CONSCIOUSNESS.setdefault("trading_wire", {
+        "buses_wired": 0, "engines_fed": 0,
+        "wiring_results": {}, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "trading_wire_state.json").read_text(encoding="utf-8"))
+        twire["buses_wired"] = state.get("buses_wired", 0)
+        twire["engines_fed"] = state.get("engines_fed", 0)
+        twire["wiring_results"] = state.get("results", {})
+        twire["wiring_map"] = state.get("wiring_map", {})
+    except Exception:
+        pass
+    twire["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_alpaca_live():
     """
     LIVE: Use Alpaca paper trading API for real stock/crypto data.
@@ -4703,6 +4917,12 @@ NEURONS = [
     ("AUTONOMIC_ABSORB", neuron_autonomic_absorb),
     ("ARBITRAGE_ABSORB", neuron_arbitrage_absorb),
     ("CROSS_POLLINATOR_ABSORB", neuron_cross_pollinator_absorb),
+    # Phase 16: Mega absorption + remaining state files
+    ("MEGA_ABSORB", neuron_mega_absorb),
+    ("PULSE_ABSORB", neuron_pulse_absorb),
+    ("YIELD_LOOP_ABSORB", neuron_yield_loop_absorb),
+    ("WALLET_BRIDGE_ABSORB", neuron_wallet_bridge_absorb),
+    ("TRADING_WIRE_ABSORB", neuron_trading_wire_absorb),
 ]
 
 
