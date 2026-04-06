@@ -583,6 +583,9 @@ def run():
         "NEURAL_CORTEX":    "neural_cortex_state.json",
         "EXECUTIVE_FUNCTION": "executive_function_state.json",
         "HOMEOSTASIS":      "homeostasis_state.json",
+        "LIVE_WIRE":        "live_wire_report.json",
+        "BRIDGE_BUILDER":   "bridge_report.json",
+        "CHIMERA_EVOLUTION": "chimera_evolution_report.json",
     }
 
     bootstrapped = 0
@@ -846,6 +849,30 @@ def _extract_key_props(eng_name, data):
         fl = data.get("fire_ledger_summary", {})
         props["fire_overlap_detected"] = fl.get("overlap_detected", False)
         props["recently_fired_count"] = len(fl.get("recently_fired_engines", []))
+
+    elif eng_name == "LIVE_WIRE":
+        stats = data.get("stats", {})
+        props["total_engines"] = stats.get("total_engines", 0)
+        props["total_wires"] = stats.get("total_wires_discovered", 0)
+        props["zero_secret_chains"] = stats.get("zero_secret_chains", 0)
+        props["hungry_inputs"] = stats.get("hungry_inputs", 0)
+        props["orphan_outputs"] = stats.get("orphan_outputs", 0)
+
+    elif eng_name == "BRIDGE_BUILDER":
+        props["bridges_built"] = data.get("bridges_built", 0)
+        props["bridges_failed"] = data.get("bridges_failed", 0)
+        props["unbridged"] = len(data.get("unbridged_inputs", []))
+        props["total_bridges"] = data.get("bridges_attempted", 0)
+
+    elif eng_name == "CHIMERA_EVOLUTION":
+        props["generation"] = data.get("generation", 0)
+        props["composite_score"] = data.get("composite_score", 0)
+        props["best_ever"] = data.get("best_ever_score", 0)
+        props["wire_delta"] = data.get("wire_delta", 0)
+        props["hunger_delta"] = data.get("hunger_delta", 0)
+        props["bridges_built"] = data.get("bridges_built", 0)
+        ns = data.get("nervous_system", {})
+        props["equilibrium"] = ns.get("equilibrium", 0)
 
     return props
 

@@ -47,6 +47,11 @@ def load_json(path):
         return None
 
 
+def save_json(path, data):
+    """Save a JSON file."""
+    Path(path).write_text(json.dumps(data, indent=2, default=str, ensure_ascii=False), encoding="utf-8")
+
+
 def bridge_grants_found():
     """
     Bridge: fund_scout_results.json -> grants_found.json
@@ -1365,6 +1370,124 @@ def bridge_solarpunk_legal_declaration():
         return "CONNECTED"
     return "EXISTS"
 
+# ---------------------------------------------------------------------------
+# Nervous System Bridges (v60: HOMEOSTASIS + NEURAL_CORTEX + EXECUTIVE_FUNCTION)
+# ---------------------------------------------------------------------------
+def bridge_homeostasis_state():
+    """Bridge: HOMEOSTASIS -> homeostasis_state.json.
+    Reads NEURAL_CORTEX + METABOLISM + REFLEX_ARC to seed health zones."""
+    target = DATA / "homeostasis_state.json"
+    if target.exists():
+        data = load_json(target)
+        if data and data.get("equilibrium") is not None:
+            return {"status": "BRIDGED", "detail": f"already has data (eq={data.get('equilibrium')})"}
+    # Seed from available nervous system data
+    cortex = load_json(DATA / "neural_cortex_state.json")
+    metab = load_json(DATA / "metabolism_state.json")
+    health_score = 0
+    if cortex:
+        health_score = cortex.get("system_health", {}).get("overall_score", 0)
+    eco_health = 0
+    if metab:
+        eco_health = metab.get("metabolism", {}).get("ecosystem_health", 0)
+    seed = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "engine": "HOMEOSTASIS",
+        "version": 2,
+        "status": "seeded",
+        "equilibrium": round((health_score + eco_health) / 2, 1),
+        "trend": "insufficient_data",
+        "health_zones": {},
+        "interventions": [],
+        "interventions_count": {"critical": 0, "warning": 0, "info": 0, "total": 0},
+        "fire_ledger_summary": {},
+        "history": [],
+        "seeded_by": "BRIDGE_BUILDER",
+    }
+    save_json(target, seed)
+    return {"status": "BRIDGED", "detail": f"seeded from cortex+metabolism (eq={seed['equilibrium']})"}
+
+
+def bridge_fire_ledger():
+    """Bridge: fire_ledger.json -- shared REFLEX/EXECUTIVE race prevention."""
+    target = DATA / "fire_ledger.json"
+    if target.exists():
+        data = load_json(target)
+        if data and data.get("entries") is not None:
+            return {"status": "BRIDGED", "detail": f"already has data ({len(data.get('entries', []))} entries)"}
+    seed = {
+        "entries": [],
+        "summary": {
+            "recently_fired_engines": [],
+            "reflex_fire_count": 0,
+            "executive_fire_count": 0,
+            "total_fires_in_window": 0,
+            "overlap_engines": [],
+            "overlap_detected": False,
+            "window_minutes": 15,
+        },
+        "last_updated": datetime.now(timezone.utc).isoformat(),
+        "seeded_by": "BRIDGE_BUILDER",
+    }
+    save_json(target, seed)
+    return {"status": "BRIDGED", "detail": "seeded empty fire ledger"}
+
+
+def bridge_neural_cortex_state():
+    """Bridge: NEURAL_CORTEX -> neural_cortex_state.json."""
+    target = DATA / "neural_cortex_state.json"
+    if target.exists():
+        data = load_json(target)
+        if data and data.get("strategy"):
+            return {"status": "BRIDGED", "detail": f"already has data (confidence={data.get('decision_confidence', 0)})"}
+    seed = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "engine": "NEURAL_CORTEX",
+        "strategy": {
+            "risk_posture": "moderate",
+            "capital_allocation": {"kalshi_pct": 50, "alpaca_pct": 35, "solana_pct": 15},
+            "growth_priority": "trading",
+            "top_action": {"description": "awaiting first cycle", "engine": "NEURAL_CORTEX", "urgency": 0},
+        },
+        "system_health": {"overall_score": 50, "recommendations": []},
+        "decision_confidence": 0,
+        "seeded_by": "BRIDGE_BUILDER",
+    }
+    save_json(target, seed)
+    return {"status": "BRIDGED", "detail": "seeded default neural cortex state"}
+
+
+def bridge_executive_function_state():
+    """Bridge: EXECUTIVE_FUNCTION -> executive_function_state.json."""
+    target = DATA / "executive_function_state.json"
+    if target.exists():
+        data = load_json(target)
+        if data and data.get("stats"):
+            return {"status": "BRIDGED", "detail": f"already has data ({data.get('stats', {}).get('total_executions', 0)} executions)"}
+    seed = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "engine": "EXECUTIVE_FUNCTION",
+        "status": "seeded",
+        "last_execution": {},
+        "execution_history": [],
+        "cooldowns": {},
+        "stats": {"total_executions": 0, "successful": 0, "failed": 0, "engines_executed": {}},
+        "seeded_by": "BRIDGE_BUILDER",
+    }
+    save_json(target, seed)
+    return {"status": "BRIDGED", "detail": "seeded default executive function state"}
+
+
+def bridge_signal_mesh_state():
+    """Bridge: SIGNAL_MESH -> signal_mesh_state.json."""
+    target = DATA / "signal_mesh_state.json"
+    if target.exists():
+        data = load_json(target)
+        if data and data.get("composite_signal"):
+            return {"status": "BRIDGED", "detail": f"already has data ({data.get('heartbeat', {}).get('alive', 0)} alive sources)"}
+    return {"status": "FAILED", "detail": "needs SIGNAL_MESH.run() to generate -- cannot seed composite signal"}
+
+
 BRIDGES = {
     "grants_found.json": bridge_grants_found,
     "sentinel_report.json": bridge_sentinel_report,
@@ -1505,6 +1628,12 @@ BRIDGES = {
     "usb_catalog.json": bridge_usb_catalog,
     "usb_ingest.json": bridge_usb_ingest,
     "disk_health.json": bridge_disk_health,
+    # --- v60: Nervous System Bridges ---
+    "homeostasis_state.json": bridge_homeostasis_state,
+    "fire_ledger.json": bridge_fire_ledger,
+    "neural_cortex_state.json": bridge_neural_cortex_state,
+    "executive_function_state.json": bridge_executive_function_state,
+    "signal_mesh_state.json": bridge_signal_mesh_state,
 }
 
 
@@ -1572,12 +1701,49 @@ def run():
     out.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"\n  Report saved: {out}")
 
+    # Read nervous system state for report enrichment
+    nervous_system = {}
+    try:
+        homeo = load_json(DATA / "homeostasis_state.json")
+        if homeo:
+            nervous_system["equilibrium"] = homeo.get("equilibrium", 0)
+            nervous_system["trend"] = homeo.get("trend", "unknown")
+    except Exception:
+        pass
+    try:
+        cortex = load_json(DATA / "neural_cortex_state.json")
+        if cortex:
+            nervous_system["brain_confidence"] = cortex.get("decision_confidence", 0)
+            nervous_system["risk_posture"] = cortex.get("strategy", {}).get("risk_posture", "moderate")
+    except Exception:
+        pass
+    report["nervous_system"] = nervous_system
+
     print(f"\n  === BRIDGE REPORT ===")
     print(f"  Bridges built:    {bridges_built}")
     print(f"  Bridges failed:   {bridges_failed}")
     print(f"  Still unbridged:  {len(unbridged)}")
     print(f"  New synapses:     {bridges_built} hungry inputs now have data")
+    if nervous_system:
+        print(f"  Equilibrium:      {nervous_system.get('equilibrium', '?')}/100")
+        print(f"  Brain confidence: {nervous_system.get('brain_confidence', '?')}%")
     print(f"\n  The nervous system just grew new dendrites.")
+
+    # Emit to SYNAPTIC_BUS
+    try:
+        sys.path.insert(0, str(MYCELIUM))
+        from SYNAPTIC_BUS import emit_batch
+        emit_batch("BRIDGE_BUILDER", {
+            "status": "active",
+            "bridges_built": bridges_built,
+            "bridges_failed": bridges_failed,
+            "unbridged": len(unbridged),
+            "total_bridges": len(results),
+        }, silent=True)
+    except Exception:
+        pass
+
+    return report
 
 
 if __name__ == "__main__":

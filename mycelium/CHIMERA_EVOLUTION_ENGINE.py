@@ -145,12 +145,51 @@ def phase_mutate():
     return {"count": 0}
 
 
+def _read_nervous_system():
+    """Read nervous system state for evolution scoring."""
+    ns = {}
+    try:
+        homeo = load_json(DATA / "homeostasis_state.json")
+        ns["equilibrium"] = homeo.get("equilibrium", 0)
+        ns["trend"] = homeo.get("trend", "unknown")
+        zones = homeo.get("health_zones", {})
+        ns["zone_scores"] = {z: zd.get("score", 0) for z, zd in zones.items()}
+        ns["interventions_critical"] = homeo.get("interventions_count", {}).get("critical", 0)
+    except Exception:
+        ns["equilibrium"] = 0
+    try:
+        cortex = load_json(DATA / "neural_cortex_state.json")
+        ns["brain_confidence"] = cortex.get("decision_confidence", 0)
+        ns["brain_health"] = cortex.get("system_health", {}).get("overall_score", 0)
+        ns["risk_posture"] = cortex.get("strategy", {}).get("risk_posture", "moderate")
+    except Exception:
+        ns["brain_confidence"] = 0
+    try:
+        execf = load_json(DATA / "executive_function_state.json")
+        stats = execf.get("stats", {})
+        total = stats.get("total_executions", 0)
+        good = stats.get("successful", 0)
+        ns["exec_success_rate"] = round((good / max(total, 1)) * 100, 1)
+        ns["exec_total"] = total
+    except Exception:
+        ns["exec_success_rate"] = 0
+    try:
+        fl = load_json(DATA / "fire_ledger.json")
+        ns["fire_overlap"] = fl.get("summary", {}).get("overlap_detected", False)
+    except Exception:
+        ns["fire_overlap"] = False
+    return ns
+
+
 def phase_score(pre_scan, post_scan, bridge_report, heal_report, mutation_info):
-    """Phase 5: Score this evolution cycle."""
+    """Phase 5: Score this evolution cycle with nervous system awareness."""
     print("\n  [5/7] SCORE -- Evaluating evolution cycle...")
 
     pre_stats = pre_scan.get("stats", {})
     post_stats = post_scan.get("stats", {})
+
+    # Read nervous system state for scoring
+    ns = _read_nervous_system()
 
     # Score components (0-100 each)
     scores = {}
@@ -184,18 +223,37 @@ def phase_score(pre_scan, post_scan, bridge_report, heal_report, mutation_info):
     # Mutation activity
     scores["mutation"] = min(100, mutation_info.get("count", 0) * 20)
 
+    # NEW: Nervous system health score (from HOMEOSTASIS + NEURAL_CORTEX)
+    equilibrium = ns.get("equilibrium", 0)
+    brain_health = ns.get("brain_health", 0)
+    scores["nervous_system"] = min(100, int(equilibrium * 0.5 + brain_health * 0.3 + ns.get("exec_success_rate", 50) * 0.2))
+
     # Composite score
     total = sum(scores.values())
     composite = int(total / max(1, len(scores)))
+
+    # Nervous system modifiers: trend improves/degrades composite
+    if ns.get("trend") == "improving":
+        composite = min(100, composite + 3)
+    elif ns.get("trend") == "degrading":
+        composite = max(0, composite - 3)
+    # Fire overlap penalty
+    if ns.get("fire_overlap"):
+        composite = max(0, composite - 5)
 
     print(f"    Wiring:          {scores['wiring']}/100 (delta: {wire_delta:+d})")
     print(f"    Hunger reduction: {scores['hunger_reduction']}/100 (delta: {hunger_delta:+d})")
     print(f"    Bridge rate:     {scores['bridge_rate']}/100")
     print(f"    Health:          {scores['health']}/100")
     print(f"    Mutation:        {scores['mutation']}/100")
+    print(f"    Nervous system:  {scores['nervous_system']}/100 (eq={equilibrium} brain={brain_health})")
     print(f"    COMPOSITE:       {composite}/100")
 
-    return {"scores": scores, "composite": composite, "wire_delta": wire_delta, "hunger_delta": hunger_delta}
+    return {
+        "scores": scores, "composite": composite,
+        "wire_delta": wire_delta, "hunger_delta": hunger_delta,
+        "nervous_system": ns,
+    }
 
 
 def phase_evolve(score_data, mutation_info):
@@ -206,6 +264,7 @@ def phase_evolve(score_data, mutation_info):
     if not vault:
         vault = {"generations": [], "best_score": 0, "total_cycles": 0}
 
+    ns = score_data.get("nervous_system", {})
     generation = {
         "cycle": vault.get("total_cycles", 0) + 1,
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -215,6 +274,13 @@ def phase_evolve(score_data, mutation_info):
         "hunger_delta": score_data["hunger_delta"],
         "mutation_count": mutation_info.get("count", 0),
         "ethics_lock": ETHICS_LOCK,
+        "nervous_system": {
+            "equilibrium": ns.get("equilibrium", 0),
+            "trend": ns.get("trend", "unknown"),
+            "brain_confidence": ns.get("brain_confidence", 0),
+            "exec_success_rate": ns.get("exec_success_rate", 0),
+            "fire_overlap": ns.get("fire_overlap", False),
+        },
     }
 
     vault["generations"].append(generation)
@@ -255,7 +321,8 @@ def phase_report(pre_scan, post_scan, bridge_report, heal_report, mutation_info,
         "wire_delta": score_data["wire_delta"],
         "hunger_delta": score_data["hunger_delta"],
         "best_ever_score": vault.get("best_score", 0),
-        "note": "Chimera fuses scanning + bridging + mutation + healing into one evolution cycle."
+        "nervous_system": score_data.get("nervous_system", {}),
+        "note": "Chimera fuses scanning + bridging + mutation + healing + nervous system into one evolution cycle."
     }
 
     save_json(DATA / "chimera_evolution_report.json", report)
@@ -306,6 +373,26 @@ def run():
     print(f"  Engines healed:   {heal_report.get('healed', 0)}")
     print(f"  Ethics:           {ETHICS_LOCK}")
     print(f"\n  The chimera evolves. Every cycle, the system gets smarter.")
+
+    # Emit to SYNAPTIC_BUS
+    try:
+        sys.path.insert(0, str(MYCELIUM))
+        from SYNAPTIC_BUS import emit_batch
+        emit_batch("CHIMERA_EVOLUTION", {
+            "status": "active",
+            "generation": vault.get("total_cycles", 0),
+            "composite_score": score_data["composite"],
+            "best_ever": vault.get("best_score", 0),
+            "wire_delta": score_data["wire_delta"],
+            "hunger_delta": score_data["hunger_delta"],
+            "bridges_built": bridge_report.get("bridges_built", 0),
+            "engines_healed": heal_report.get("healed", 0),
+            "equilibrium": score_data.get("nervous_system", {}).get("equilibrium", 0),
+        }, silent=True)
+    except Exception:
+        pass
+
+    return report
 
 
 if __name__ == "__main__":

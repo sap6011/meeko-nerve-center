@@ -390,10 +390,66 @@ def run():
     print("\n  Phase 5: DOCUMENTING everything...")
     stats = compute_topology_stats(engines, wires, orphans)
 
+    # Phase 5b: NERVOUS SYSTEM AWARENESS -- inject intelligence from brain + homeostasis
+    nervous_system = {}
+    try:
+        homeo = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
+        nervous_system["homeostasis"] = {
+            "equilibrium": homeo.get("equilibrium", 0),
+            "trend": homeo.get("trend", "unknown"),
+            "zones": {z: zd.get("score", 0) for z, zd in homeo.get("health_zones", {}).items()},
+            "interventions_critical": homeo.get("interventions_count", {}).get("critical", 0),
+            "fire_overlap": homeo.get("fire_ledger_summary", {}).get("overlap_detected", False),
+        }
+    except Exception:
+        nervous_system["homeostasis"] = {"status": "not_available"}
+    try:
+        cortex = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
+        strategy = cortex.get("strategy", {})
+        nervous_system["neural_cortex"] = {
+            "risk_posture": strategy.get("risk_posture", "unknown"),
+            "decision_confidence": cortex.get("decision_confidence", 0),
+            "top_action": strategy.get("top_action", {}).get("description", "none")[:80],
+            "system_health": cortex.get("system_health", {}).get("overall_score", 0),
+        }
+    except Exception:
+        nervous_system["neural_cortex"] = {"status": "not_available"}
+    try:
+        execf = json.loads((DATA / "executive_function_state.json").read_text(encoding="utf-8"))
+        exec_stats = execf.get("stats", {})
+        nervous_system["executive_function"] = {
+            "total_executions": exec_stats.get("total_executions", 0),
+            "success_rate": round(exec_stats.get("successful", 0) / max(exec_stats.get("total_executions", 1), 1) * 100, 1),
+            "last_target": execf.get("last_execution", {}).get("target_engine", "none"),
+        }
+    except Exception:
+        nervous_system["executive_function"] = {"status": "not_available"}
+    try:
+        bus = json.loads((DATA / "synaptic_bus.json").read_text(encoding="utf-8"))
+        bus_pulse = bus.get("last_pulse", {})
+        nervous_system["synaptic_bus"] = {
+            "connectivity": bus_pulse.get("connectivity", 0),
+            "alive": bus_pulse.get("alive", 0),
+            "total_emissions": bus_pulse.get("total_emissions", 0),
+        }
+    except Exception:
+        nervous_system["synaptic_bus"] = {"status": "not_available"}
+    try:
+        fire_ledger = json.loads((DATA / "fire_ledger.json").read_text(encoding="utf-8"))
+        fl_summary = fire_ledger.get("summary", {})
+        nervous_system["fire_ledger"] = {
+            "total_fires": fl_summary.get("total_fires_in_window", 0),
+            "overlap_detected": fl_summary.get("overlap_detected", False),
+            "recently_fired": fl_summary.get("recently_fired_engines", []),
+        }
+    except Exception:
+        nervous_system["fire_ledger"] = {"status": "not_available"}
+
     report = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "protocol": "live-wire-v1",
+        "protocol": "live-wire-v2",
         "stats": stats,
+        "nervous_system": nervous_system,
         "wires": wires,
         "test_results": test_results,
         "orphans": orphans,
@@ -428,6 +484,24 @@ def run():
     print(f"\n  Synapses that fire get strengthened.")
     print(f"  Synapses that don't get documented.")
     print(f"  Both are public. That's the point.")
+
+    # Emit to SYNAPTIC_BUS
+    try:
+        sys.path.insert(0, str(MYCELIUM))
+        from SYNAPTIC_BUS import emit_batch
+        emit_batch("LIVE_WIRE", {
+            "status": "active",
+            "total_engines": stats["total_engines"],
+            "total_wires": stats["total_wires_discovered"],
+            "live_wires": live_count,
+            "hungry_inputs": stats["hungry_inputs"],
+            "orphan_outputs": stats["orphan_outputs"],
+            "zero_secret_chains": stats["zero_secret_chains"],
+        }, silent=True)
+    except Exception:
+        pass
+
+    return report
 
 
 if __name__ == "__main__":
