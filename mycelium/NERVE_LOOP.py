@@ -829,6 +829,33 @@ def run():
             "lifetime_fires": lifetime_fires,
         }
 
+        # Phase 14: NEURAL_CORTEX -- strategic brain (reads everything, decides everything)
+        print("\n=== PHASE 14: NEURAL_CORTEX (Strategic Brain) ===")
+        cortex_result = _run_engine("NEURAL_CORTEX", "NEURAL_CORTEX")
+        cortex_state = _load(DATA / "neural_cortex_state.json")
+        strategy = cortex_state.get("strategy", {})
+        health = cortex_state.get("system_health", {})
+        intel = cortex_state.get("intelligence_summary", {})
+        confidence = cortex_state.get("decision_confidence", 0)
+        print(f"  [NEURAL_CORTEX] Risk: {strategy.get('risk_posture', '?')} | "
+              f"Priority: {strategy.get('growth_priority', '?')} | "
+              f"Confidence: {confidence}%")
+        top = strategy.get("top_action", {})
+        print(f"  [NEURAL_CORTEX] Top action: {top.get('description', 'none')[:60]} "
+              f"(urgency={top.get('urgency', 0)})")
+        print(f"  [NEURAL_CORTEX] Health: {health.get('overall_score', 0)}/100 | "
+              f"Capital: ${intel.get('total_capital_usd', 0):.2f} | "
+              f"Regime: {intel.get('regime', '?')}")
+        cycle_results["phases"]["neural_cortex"] = {
+            "phase": "neural_cortex",
+            "result": cortex_result,
+            "risk_posture": strategy.get("risk_posture", "unknown"),
+            "growth_priority": strategy.get("growth_priority", "unknown"),
+            "decision_confidence": confidence,
+            "system_health": health.get("overall_score", 0),
+            "top_action": top.get("description", "none"),
+        }
+
     except Exception as e:
         print(f"\n[NERVE] Loop error: {e}")
         cycle_results["error"] = str(e)

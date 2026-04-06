@@ -63,6 +63,7 @@ SIGNAL_SOURCES = [
     {"id": "global_markets",    "file": "global_markets_state.json",      "weight": 0.9,  "label": "Global Markets"},
     {"id": "reflex_arc",        "file": "reflex_arc_state.json",          "weight": 0.6,  "label": "Reflex Arc"},
     {"id": "proprioception",    "file": "proprioception_state.json",      "weight": 0.5,  "label": "Proprioception"},
+    {"id": "neural_cortex",     "file": "neural_cortex_state.json",       "weight": 0.85, "label": "Neural Cortex"},
 ]
 
 # Freshness decay thresholds
@@ -427,6 +428,37 @@ def _extract_signal(source_def, data, now):
                 "coordination": coordination,
                 "projected_engines_7d": engines_7d,
                 "projected_portfolio_7d": portfolio_7d,
+                "platform": "solarpunk",
+            })
+
+    elif sid == "neural_cortex":
+        # The brain's strategic output feeds back into signal aggregation
+        strategy = data.get("strategy", {})
+        intel = data.get("intelligence_summary", {})
+        confidence = data.get("decision_confidence", 0)
+        risk = strategy.get("risk_posture", "moderate")
+        growth_pri = strategy.get("growth_priority", "")
+        top_action = strategy.get("top_action", {})
+        health_score = data.get("system_health", {}).get("overall_score", 0)
+
+        # Strength from confidence + health
+        strength = min(85, int(confidence * 0.5 + health_score * 0.3))
+        signal["signal_strength"] = strength
+        signal["signal_direction"] = (
+            "bullish" if risk == "aggressive" else
+            "bearish" if risk == "conservative" else
+            "opportunity" if confidence > 60 else "neutral"
+        )
+
+        if top_action:
+            signal["opportunities"].append({
+                "type": "strategic_decision",
+                "action": top_action.get("description", ""),
+                "target_engine": top_action.get("engine", ""),
+                "urgency": top_action.get("urgency", 0),
+                "risk_posture": risk,
+                "growth_priority": growth_pri,
+                "confidence": confidence,
                 "platform": "solarpunk",
             })
 

@@ -462,6 +462,7 @@ def L6():
     eng("REFLEX_ARC",               timeout=60)   # v55: fast-path reflexes -- bypasses AI for millisecond response
     eng("PROPRIOCEPTION",           timeout=30)   # v55: body awareness -- structure, health, speed, growth rate
     eng("METABOLISM_LOOP",           timeout=30)   # v57: full circular metabolism -- nervous system -> ecosystem -> back
+    eng("NEURAL_CORTEX",            timeout=30)   # v58: strategic brain -- reads everything, decides everything
     eng("NERVE_LOOP",               timeout=300)  # v50: THE LIVING LOOP — all engines feed all engines, forever
     eng("DIRECT_WIRE",              timeout=120)  # v49: frictionless commit — compile, commit, push, sync USB
 

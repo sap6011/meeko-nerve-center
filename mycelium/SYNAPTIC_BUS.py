@@ -580,6 +580,7 @@ def run():
         "SETTLEMENT_WATCHER": "settlement_watcher_state.json",
         "AUTO_DEPOSIT":     "auto_deposit_state.json",
         "SIGNAL_MESH":      "signal_mesh_state.json",
+        "NEURAL_CORTEX":    "neural_cortex_state.json",
     }
 
     bootstrapped = 0
@@ -801,6 +802,23 @@ def _extract_key_props(eng_name, data):
         hb = data.get("heartbeat", {})
         props["sources_alive"] = hb.get("alive", 0)
         props["neural_connectivity"] = hb.get("neural_connectivity", 0)
+
+    elif eng_name == "NEURAL_CORTEX":
+        strategy = data.get("strategy", {})
+        props["risk_posture"] = strategy.get("risk_posture", "moderate")
+        props["risk_score"] = strategy.get("risk_score", 0)
+        alloc = strategy.get("capital_allocation", {})
+        props["kalshi_pct"] = alloc.get("kalshi_pct", 0)
+        props["alpaca_pct"] = alloc.get("alpaca_pct", 0)
+        props["solana_pct"] = alloc.get("solana_pct", 0)
+        props["growth_priority"] = strategy.get("growth_priority", "trading")
+        top_action = strategy.get("top_action", {})
+        props["top_action"] = top_action.get("description", "none")
+        props["top_action_urgency"] = top_action.get("urgency", 0)
+        health = data.get("system_health", {})
+        props["system_health"] = health.get("overall_score", 0)
+        props["weakest_engine"] = health.get("weakest_engine", "none")
+        props["decision_confidence"] = data.get("decision_confidence", 0)
 
     return props
 
