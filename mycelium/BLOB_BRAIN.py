@@ -3185,6 +3185,252 @@ def neuron_trading_wire_absorb():
     twire["last_absorb"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_knowledge_graph():
+    """
+    META: Absorb and analyze the knowledge graph topology.
+    The knowledge graph has 642 nodes and 36,154 edges. This neuron
+    reads the graph data and identifies: hub engines, orphan engines,
+    cluster patterns, and growth trajectory.
+    """
+    kg = CONSCIOUSNESS.setdefault("knowledge_graph", {
+        "nodes": 0, "edges": 0, "hubs": [],
+        "orphans": [], "clusters": 0, "last_analysis": None,
+    })
+    from pathlib import Path
+    try:
+        gf = Path("data") / "knowledge_graph.json"
+        if not gf.exists():
+            gf = Path("data") / "live_wire_map.json"
+        if gf.exists():
+            graph = json.loads(gf.read_text(encoding="utf-8"))
+            if isinstance(graph, dict):
+                nodes = graph.get("nodes", graph.get("engines", []))
+                edges = graph.get("edges", graph.get("wires", []))
+                kg["nodes"] = len(nodes) if isinstance(nodes, list) else nodes
+                kg["edges"] = len(edges) if isinstance(edges, list) else edges
+
+                # Find hub engines (most connections)
+                if isinstance(edges, list):
+                    conn_count = {}
+                    for edge in edges:
+                        src = edge.get("source", edge.get("from", ""))
+                        tgt = edge.get("target", edge.get("to", ""))
+                        if src:
+                            conn_count[src] = conn_count.get(src, 0) + 1
+                        if tgt:
+                            conn_count[tgt] = conn_count.get(tgt, 0) + 1
+                    sorted_hubs = sorted(conn_count.items(), key=lambda x: x[1], reverse=True)
+                    kg["hubs"] = [{"engine": h[0], "connections": h[1]} for h in sorted_hubs[:15]]
+
+                    # Find orphans (0-1 connections)
+                    all_engines = set()
+                    if isinstance(nodes, list):
+                        for n in nodes:
+                            name = n.get("name", n.get("id", "")) if isinstance(n, dict) else str(n)
+                            all_engines.add(name)
+                    connected = set(conn_count.keys())
+                    orphans = all_engines - connected
+                    kg["orphans"] = list(orphans)[:20]
+                    kg["orphan_count"] = len(orphans)
+    except Exception:
+        pass
+
+    # Also check the live wire map
+    try:
+        lwm = Path("data") / "live_wire_map.json"
+        if lwm.exists():
+            wires = json.loads(lwm.read_text(encoding="utf-8"))
+            if isinstance(wires, dict):
+                kg["live_wires"] = wires.get("total_wires", len(wires.get("wires", [])))
+                kg["live_engines"] = wires.get("total_engines", 0)
+                kg["data_flowing"] = wires.get("live_count", wires.get("data_flowing", 0))
+    except Exception:
+        pass
+
+    kg["last_analysis"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_airdrop_absorb():
+    """
+    ABSORB: Ingest AIRDROP_HUNTER's protocol tracking data.
+    Tracks 10 DeFi protocols for potential airdrop eligibility:
+    marginfi, Phoenix, Drift, Tensor, etc.
+    """
+    airdrop = CONSCIOUSNESS.setdefault("airdrop", {
+        "protocols_tracked": 0, "protocols_interacted": 0,
+        "high_priority": [], "tips": [], "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "airdrop_hunter_state.json").read_text(encoding="utf-8"))
+        airdrop["protocols_tracked"] = state.get("protocols_tracked", 0)
+        airdrop["protocols_interacted"] = state.get("protocols_interacted", 0)
+        airdrop["protocols_remaining"] = state.get("protocols_remaining", 0)
+        airdrop["high_priority"] = state.get("high_priority_targets", [])
+        airdrop["strategy"] = state.get("strategy", {})
+        tips = state.get("tips", [])
+        airdrop["tips"] = tips[:5]
+    except Exception:
+        pass
+    airdrop["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_sol_maximizer_absorb():
+    """
+    ABSORB: Ingest SOL_MAXIMIZER's yield and balance data.
+    Tracks: SOL balance, yield options (Brave BAT, staking, DeFi),
+    prediction intelligence overlay.
+    """
+    sol_max = CONSCIOUSNESS.setdefault("sol_maximizer", {
+        "sol_balance": 0, "usd_value": 0, "yield_options": [],
+        "strategy": {}, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "sol_maximizer_state.json").read_text(encoding="utf-8"))
+        balance = state.get("balance", {})
+        if isinstance(balance, dict):
+            sol_max["sol_balance"] = balance.get("sol", 0)
+            sol_max["usd_value"] = balance.get("usd", 0)
+            sol_max["sol_price"] = balance.get("price", 0)
+
+        yield_opts = state.get("yield_options", [])
+        sol_max["yield_options"] = yield_opts[:10]
+
+        strategy = state.get("strategy", {})
+        if isinstance(strategy, dict):
+            sol_max["strategy"] = {
+                "balance_sol": strategy.get("balance_sol", 0),
+                "sol_price": strategy.get("sol_price", 0),
+                "has_prediction_intel": "prediction_intelligence" in str(strategy),
+            }
+    except Exception:
+        pass
+    sol_max["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_ecosystem_health():
+    """
+    SYNTHESIS: Compute a comprehensive ecosystem health score
+    by aggregating data from ALL absorbed sources.
+    This is the blob's ultimate health metric.
+    """
+    eco = CONSCIOUSNESS.setdefault("ecosystem_health", {
+        "score": 0, "components": {}, "grade": "F",
+        "bottlenecks": [], "strengths": [], "last_check": None,
+    })
+
+    components = {}
+
+    # 1. Neuron coverage (how many neurons vs potential)
+    neuron_count = len(NEURONS)
+    components["neuron_coverage"] = min(neuron_count / 80 * 100, 100)
+
+    # 2. Data freshness (how many state files updated in last hour)
+    from pathlib import Path
+    data_dir = Path("data")
+    now_ts = datetime.now(timezone.utc)
+    fresh = 0
+    total_state = 0
+    for f in data_dir.glob("*_state.json"):
+        total_state += 1
+        try:
+            d = json.loads(f.read_text(encoding="utf-8"))
+            ts = d.get("timestamp", d.get("last_run", ""))
+            if ts:
+                file_ts = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+                age_hours = (now_ts - file_ts).total_seconds() / 3600
+                if age_hours < 1:
+                    fresh += 1
+        except Exception:
+            pass
+    components["data_freshness"] = (fresh / max(total_state, 1)) * 100
+
+    # 3. Signal diversity (how many signal sources feeding the blob)
+    signal_sources = 0
+    if CONSCIOUSNESS.get("cross_signals", {}).get("unified"):
+        signal_sources += 1
+    if CONSCIOUSNESS.get("signal_mesh", {}).get("composite_strength"):
+        signal_sources += 1
+    if CONSCIOUSNESS.get("price_oracle", {}).get("prices"):
+        signal_sources += 1
+    if CONSCIOUSNESS.get("news", {}).get("headlines"):
+        signal_sources += 1
+    if CONSCIOUSNESS.get("solana", {}).get("sol_price"):
+        signal_sources += 1
+    if CONSCIOUSNESS.get("reflex_arc", {}).get("total_fires"):
+        signal_sources += 1
+    if CONSCIOUSNESS.get("arbitrage_scanner", {}).get("actionable"):
+        signal_sources += 1
+    components["signal_diversity"] = min(signal_sources / 7 * 100, 100)
+
+    # 4. Revenue readiness
+    rev = CONSCIOUSNESS.get("revenue", {})
+    audit = rev.get("audit", {})
+    working_links = audit.get("working", 0)
+    components["revenue_readiness"] = min(working_links / 5 * 100, 100)
+
+    # 5. Trading intelligence
+    trading_score = 0
+    if CONSCIOUSNESS.get("trading", {}).get("kalshi_ready"):
+        trading_score += 25
+    if CONSCIOUSNESS.get("cross_signals", {}).get("signal_count", 0) > 5:
+        trading_score += 25
+    if CONSCIOUSNESS.get("pred_arb", {}).get("total_found", 0) > 0:
+        trading_score += 25
+    if CONSCIOUSNESS.get("risk", {}).get("risk_score", 100) < 50:
+        trading_score += 25
+    components["trading_intelligence"] = trading_score
+
+    # 6. Autonomy level
+    autonomy = 0
+    if CONSCIOUSNESS.get("autonomic", {}).get("ollama_available"):
+        autonomy += 20
+    if CONSCIOUSNESS.get("dispatch", {}).get("active_count", 0) > 10:
+        autonomy += 20
+    if CONSCIOUSNESS.get("capabilities", {}).get("total_capabilities", 0) > 50:
+        autonomy += 20
+    if CONSCIOUSNESS.get("signal_router", {}).get("signals_routed", 0) > 3:
+        autonomy += 20
+    if CONSCIOUSNESS.get("trading_wire", {}).get("buses_wired", 0) > 2:
+        autonomy += 20
+    components["autonomy"] = autonomy
+
+    # Compute overall score
+    weights = {
+        "neuron_coverage": 0.15,
+        "data_freshness": 0.15,
+        "signal_diversity": 0.20,
+        "revenue_readiness": 0.15,
+        "trading_intelligence": 0.20,
+        "autonomy": 0.15,
+    }
+    overall = sum(components.get(k, 0) * w for k, w in weights.items())
+    eco["score"] = round(overall, 1)
+    eco["components"] = {k: round(v, 1) for k, v in components.items()}
+
+    # Grade
+    if overall >= 90:
+        eco["grade"] = "A+"
+    elif overall >= 80:
+        eco["grade"] = "A"
+    elif overall >= 70:
+        eco["grade"] = "B"
+    elif overall >= 60:
+        eco["grade"] = "C"
+    elif overall >= 50:
+        eco["grade"] = "D"
+    else:
+        eco["grade"] = "F"
+
+    # Identify bottlenecks (lowest components)
+    sorted_components = sorted(components.items(), key=lambda x: x[1])
+    eco["bottlenecks"] = [{"area": k, "score": round(v, 1)} for k, v in sorted_components[:3]]
+    eco["strengths"] = [{"area": k, "score": round(v, 1)} for k, v in sorted_components[-3:]]
+
+    eco["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_alpaca_live():
     """
     LIVE: Use Alpaca paper trading API for real stock/crypto data.
@@ -4923,6 +5169,11 @@ NEURONS = [
     ("YIELD_LOOP_ABSORB", neuron_yield_loop_absorb),
     ("WALLET_BRIDGE_ABSORB", neuron_wallet_bridge_absorb),
     ("TRADING_WIRE_ABSORB", neuron_trading_wire_absorb),
+    # Phase 17: Knowledge graph + DeFi absorption + ecosystem health
+    ("KNOWLEDGE_GRAPH", neuron_knowledge_graph),
+    ("AIRDROP_ABSORB", neuron_airdrop_absorb),
+    ("SOL_MAXIMIZER_ABSORB", neuron_sol_maximizer_absorb),
+    ("ECOSYSTEM_HEALTH", neuron_ecosystem_health),
 ]
 
 
