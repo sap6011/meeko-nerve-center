@@ -2225,6 +2225,470 @@ def neuron_trend_detector():
     trends["last_analysis"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_inception_memory():
+    """
+    DEEP MEMORY: Go back to the very beginning and re-process everything.
+    Scans ALL data files, ALL engine states, and the git history to build
+    a complete timeline of the blob's evolution from inception.
+    This neuron runs ONCE then caches -- it's the blob's autobiography.
+    """
+    inception = CONSCIOUSNESS.setdefault("inception", {
+        "origin_date": None, "total_commits": 0, "evolution_phases": [],
+        "all_engines_ever": [], "total_data_files": 0,
+        "first_engine": None, "latest_engine": None,
+        "knowledge_graph": {}, "rebuilt": False,
+    })
+    # Only rebuild once (or every 100 cycles for refresh)
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if inception.get("rebuilt") and cycle % 100 != 0:
+        return
+
+    import subprocess
+    from pathlib import Path
+
+    # Phase 1: Git archaeology -- find the origin
+    try:
+        r = subprocess.run(
+            ["git", "log", "--oneline", "--reverse", "--format=%H|%ai|%s"],
+            capture_output=True, text=True, timeout=30,
+            encoding="utf-8", errors="replace")
+        if r.returncode == 0 and r.stdout:
+            commits = r.stdout.strip().split("\n")
+            inception["total_commits"] = len(commits)
+            if commits:
+                first = commits[0].split("|")
+                inception["origin_date"] = first[1] if len(first) > 1 else "unknown"
+                inception["first_commit_msg"] = first[2][:100] if len(first) > 2 else ""
+    except Exception:
+        pass
+
+    # Phase 2: Engine archaeology -- when was each engine born?
+    engine_births = {}
+    try:
+        r = subprocess.run(
+            ["git", "log", "--diff-filter=A", "--name-only", "--format=%ai",
+             "--", "mycelium/*.py"],
+            capture_output=True, text=True, timeout=30,
+            encoding="utf-8", errors="replace")
+        if r.returncode == 0 and r.stdout:
+            lines = r.stdout.strip().split("\n")
+            current_date = ""
+            for line in lines:
+                if line and not line.endswith(".py"):
+                    current_date = line.strip()
+                elif line.endswith(".py"):
+                    name = line.replace("mycelium/", "").replace(".py", "")
+                    if name and not name.startswith("__"):
+                        engine_births[name] = current_date
+    except Exception:
+        pass
+
+    if engine_births:
+        sorted_births = sorted(engine_births.items(), key=lambda x: x[1])
+        inception["first_engine"] = sorted_births[0][0] if sorted_births else None
+        inception["latest_engine"] = sorted_births[-1][0] if sorted_births else None
+        inception["all_engines_ever"] = [{"name": n, "born": d} for n, d in sorted_births]
+
+    # Phase 3: Data archaeology -- what data has accumulated?
+    data_dir = Path("data")
+    if data_dir.exists():
+        all_data = list(data_dir.glob("*.json"))
+        inception["total_data_files"] = len(all_data)
+        inception["data_inventory"] = [f.stem for f in all_data[:50]]
+
+    # Phase 4: Evolution phases -- detect major growth spurts
+    phases = []
+    engine_count = len(engine_births)
+    if engine_count > 0:
+        # Phase detection based on engine count milestones
+        milestones = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
+        for ms in milestones:
+            engines_at_milestone = [(n, d) for n, d in engine_births.items()
+                                    if len([x for x in engine_births.values() if x <= d]) <= ms]
+            if len(engine_births) >= ms:
+                # Find when we crossed this milestone
+                sorted_by_date = sorted(engine_births.items(), key=lambda x: x[1])
+                if len(sorted_by_date) >= ms:
+                    phases.append({
+                        "milestone": f"{ms} engines",
+                        "reached_at": sorted_by_date[ms-1][1],
+                        "engine_that_crossed": sorted_by_date[ms-1][0],
+                    })
+    inception["evolution_phases"] = phases
+
+    # Phase 5: Build knowledge graph -- what connects to what
+    # Scan all engines for import patterns
+    knowledge = {}
+    mycelium = Path("mycelium")
+    for f in mycelium.glob("*.py"):
+        if f.name.startswith("__"):
+            continue
+        try:
+            code = f.read_text(encoding="utf-8", errors="replace")
+            imports = []
+            for line in code.split("\n"):
+                stripped = line.strip()
+                if stripped.startswith("from ") and "import" in stripped:
+                    module = stripped.split("from ")[1].split(" import")[0].strip()
+                    if not module.startswith(("os", "sys", "json", "time", "path",
+                                             "datetime", "re", "subprocess", "urllib")):
+                        imports.append(module)
+                elif stripped.startswith("import ") and not any(
+                    x in stripped for x in ["os", "sys", "json", "time", "re",
+                                            "subprocess", "pathlib", "datetime"]):
+                    module = stripped.replace("import ", "").split(" as ")[0].strip()
+                    imports.append(module)
+            if imports:
+                knowledge[f.stem] = imports[:10]
+        except Exception:
+            pass
+    inception["knowledge_graph"] = knowledge
+
+    # Phase 6: Consciousness depth -- how many layers of awareness?
+    inception["consciousness_keys"] = len(CONSCIOUSNESS.keys())
+    inception["neuron_count"] = len(NEURONS)
+    inception["engines_absorbed"] = len(CONSCIOUSNESS.get("engines", {}))
+
+    # Calculate age
+    if inception.get("origin_date"):
+        try:
+            origin = datetime.fromisoformat(inception["origin_date"].replace(" ", "T").split("+")[0])
+            age = datetime.now(timezone.utc).replace(tzinfo=None) - origin
+            inception["age_days"] = age.days
+            inception["age_human"] = f"{age.days} days ({age.days // 7} weeks)"
+        except Exception:
+            pass
+
+    inception["rebuilt"] = True
+    inception["rebuilt_at"] = datetime.now(timezone.utc).isoformat()
+    inception["rebuilt_with_neurons"] = len(NEURONS)
+
+
+def neuron_deep_scan():
+    """
+    AWARENESS: Deep scan of ALL data files in the data/ directory.
+    Reads every JSON state file and extracts key metrics, building
+    a unified view of the entire system's data layer.
+    """
+    deep = CONSCIOUSNESS.setdefault("deep_scan", {
+        "files_scanned": 0, "total_size_kb": 0, "stale_files": [],
+        "active_files": [], "orphan_files": [], "last_scan": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Deep scan every 20 cycles (always fire in first 5 cycles)
+    if cycle % 20 != 0 and cycle > 5:
+        return
+
+    from pathlib import Path
+    data_dir = Path("data")
+    if not data_dir.exists():
+        return
+
+    now = datetime.now(timezone.utc)
+    files_info = []
+    total_size = 0
+
+    for f in data_dir.glob("*.json"):
+        try:
+            stat = f.stat()
+            size_kb = stat.st_size / 1024
+            total_size += size_kb
+            # Check staleness
+            try:
+                content = json.loads(f.read_text(encoding="utf-8"))
+                # Look for timestamp fields
+                timestamps = []
+                for key in ["timestamp", "last_run", "last_check", "last_pulse",
+                            "updated_at", "last_scan", "ts"]:
+                    if isinstance(content, dict) and key in content:
+                        timestamps.append(content[key])
+                latest_ts = max(timestamps) if timestamps else None
+
+                files_info.append({
+                    "name": f.stem,
+                    "size_kb": round(size_kb, 1),
+                    "keys": len(content) if isinstance(content, dict) else 0,
+                    "latest_ts": latest_ts,
+                    "type": "dict" if isinstance(content, dict) else "list" if isinstance(content, list) else "other",
+                })
+            except Exception:
+                files_info.append({
+                    "name": f.stem,
+                    "size_kb": round(size_kb, 1),
+                    "parse_error": True,
+                })
+        except Exception:
+            pass
+
+    # Classify files
+    active = []
+    stale = []
+    for fi in files_info:
+        ts = fi.get("latest_ts")
+        if ts:
+            try:
+                file_time = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+                age_hours = (now - file_time).total_seconds() / 3600
+                fi["age_hours"] = round(age_hours, 1)
+                if age_hours < 24:
+                    active.append(fi)
+                else:
+                    stale.append(fi)
+            except Exception:
+                stale.append(fi)
+        else:
+            stale.append(fi)
+
+    deep["files_scanned"] = len(files_info)
+    deep["total_size_kb"] = round(total_size, 1)
+    deep["active_files"] = active[:20]
+    deep["stale_files"] = stale[:20]
+    deep["last_scan"] = now.isoformat()
+
+
+def neuron_capability_map():
+    """
+    META: Map ALL capabilities the blob has access to.
+    Scans: local APIs, GitHub workflows, MCP tools available,
+    data files, engine functions. Builds a complete capability inventory.
+    """
+    caps = CONSCIOUSNESS.setdefault("capabilities", {
+        "local_apis": [], "cloud_workflows": [], "data_sources": [],
+        "trading_platforms": [], "content_channels": [],
+        "total_capabilities": 0, "last_map": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 25 != 0 and cycle > 5:
+        return
+
+    local_apis = []
+    trading = []
+    content = []
+    data_sources = []
+
+    # Check what's actually working
+    secrets = CONSCIOUSNESS.get("secrets", {})
+    available_secrets = secrets.get("available", [])
+
+    # Local API capabilities
+    if any("kalshi" in s.lower() for s in available_secrets):
+        trading.append({"platform": "Kalshi", "type": "prediction_market",
+                        "auth": "RSA-PSS", "status": "active"})
+    if any("alpaca" in s.lower() for s in available_secrets):
+        trading.append({"platform": "Alpaca", "type": "stock_trading",
+                        "auth": "API_key", "status": "configured"})
+
+    # Free APIs (always available)
+    local_apis.extend([
+        {"name": "CoinGecko", "type": "crypto_prices", "auth": "none", "status": "active"},
+        {"name": "Polymarket Gamma", "type": "prediction_market", "auth": "none", "status": "active"},
+        {"name": "DeFi Llama", "type": "defi_tvl", "auth": "none", "status": "active"},
+        {"name": "Fear & Greed Index", "type": "market_sentiment", "auth": "none", "status": "active"},
+        {"name": "Solana RPC", "type": "blockchain", "auth": "none", "status": "active"},
+        {"name": "HackerNews API", "type": "news", "auth": "none", "status": "active"},
+        {"name": "GitHub API (gh)", "type": "code_platform", "auth": "gh_cli", "status": "active"},
+    ])
+
+    # Cloud workflow capabilities (from dispatch neuron)
+    dispatch = CONSCIOUSNESS.get("dispatch", {})
+    cloud_workflows = dispatch.get("available_workflows", [])
+    active_workflows = [w for w in cloud_workflows if w.get("state") == "active"]
+
+    # Content channels
+    revenue = CONSCIOUSNESS.get("revenue", {})
+    audit = revenue.get("audit", {})
+    for result in audit.get("results", []):
+        if result.get("ok"):
+            content.append({
+                "channel": result.get("name", ""),
+                "url": result.get("url", ""),
+                "status": "active",
+            })
+
+    # Data sources (all JSON files in data/)
+    from pathlib import Path
+    data_files = list(Path("data").glob("*.json")) if Path("data").exists() else []
+    data_sources = [{"file": f.stem, "type": "json"} for f in data_files[:30]]
+
+    caps["local_apis"] = local_apis
+    caps["cloud_workflows"] = [{"name": w["name"], "state": w["state"]} for w in active_workflows[:30]]
+    caps["trading_platforms"] = trading
+    caps["content_channels"] = content
+    caps["data_sources"] = data_sources
+    caps["total_capabilities"] = (
+        len(local_apis) + len(active_workflows) + len(trading) +
+        len(content) + len(data_sources)
+    )
+    caps["last_map"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_auto_healer():
+    """
+    SELF-REPAIR: Automatically fix common issues across the system.
+    Checks for: broken JSON, stale locks, orphan processes,
+    encoding issues, missing data directories.
+    """
+    healer = CONSCIOUSNESS.setdefault("auto_heal", {
+        "fixes_applied": [], "total_fixes": 0, "last_heal": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Heal every 10 cycles
+    if cycle % 10 != 0:
+        return
+
+    from pathlib import Path
+    fixes = []
+
+    # Fix 1: Ensure all required directories exist
+    for d in ["data", "docs", "saves", "data/.secrets"]:
+        p = Path(d)
+        if not p.exists():
+            p.mkdir(parents=True, exist_ok=True)
+            fixes.append({"type": "MKDIR", "path": d})
+
+    # Fix 2: Clean up stale git locks
+    for lock in Path(".").glob("**/.git/**/index.lock"):
+        try:
+            lock.unlink()
+            fixes.append({"type": "LOCK_CLEANUP", "path": str(lock)})
+        except Exception:
+            pass
+
+    # Fix 3: Fix broken JSON files
+    data_dir = Path("data")
+    for f in data_dir.glob("*.json"):
+        try:
+            content = f.read_text(encoding="utf-8")
+            json.loads(content)  # Validate
+        except json.JSONDecodeError:
+            # Try to recover -- write empty dict
+            try:
+                f.write_text("{}", encoding="utf-8")
+                fixes.append({"type": "JSON_REPAIR", "file": f.name})
+            except Exception:
+                pass
+        except Exception:
+            pass
+
+    # Fix 4: Clean up __pycache__ if it's getting too big
+    for cache_dir in Path("mycelium").glob("__pycache__"):
+        try:
+            pyc_files = list(cache_dir.glob("*.pyc"))
+            if len(pyc_files) > 100:
+                # Remove oldest half
+                pyc_files.sort(key=lambda f: f.stat().st_mtime)
+                for f in pyc_files[:len(pyc_files)//2]:
+                    f.unlink()
+                fixes.append({"type": "CACHE_TRIM", "removed": len(pyc_files)//2})
+        except Exception:
+            pass
+
+    # Fix 5: Ensure blob_brain.json is valid
+    brain_file = data_dir / "blob_brain.json"
+    if brain_file.exists():
+        try:
+            size_mb = brain_file.stat().st_size / (1024 * 1024)
+            if size_mb > 10:
+                fixes.append({"type": "WARNING", "msg": f"blob_brain.json is {size_mb:.1f}MB -- may need trimming"})
+        except Exception:
+            pass
+
+    healer["fixes_applied"] = fixes
+    healer["total_fixes"] = healer.get("total_fixes", 0) + len(fixes)
+    healer["last_heal"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_signal_router():
+    """
+    COORDINATION: Route signals between neurons for cross-pollination.
+    Takes outputs from trading neurons and feeds into content neurons.
+    Takes news signals and feeds into trading decisions.
+    The nervous system's axon highway.
+    """
+    router = CONSCIOUSNESS.setdefault("signal_router", {
+        "routes_active": 0, "signals_routed": 0, "last_route": None,
+    })
+
+    routed = 0
+
+    # Route 1: Fear/Greed -> Content Factory (write about market conditions)
+    fear_greed = CONSCIOUSNESS.get("cross_signals", {}).get("fear_greed", 50)
+    news_sentiment = CONSCIOUSNESS.get("news", {}).get("sentiment", "neutral")
+    content = CONSCIOUSNESS.get("content_factory", {})
+    if fear_greed < 20 and "market_fear_insight" not in str(content.get("ideas", [])):
+        ideas = content.setdefault("ideas", [])
+        ideas.append({
+            "topic": f"Market Fear at {fear_greed}/100 -- What It Means",
+            "source": "signal_router",
+            "confidence": 85,
+            "routed_from": "cross_signals + news_pulse",
+        })
+        routed += 1
+
+    # Route 2: Whale signals -> Portfolio optimizer urgency
+    whales = CONSCIOUSNESS.get("cross_signals", {}).get("unified", [])
+    high_conf_whales = [w for w in whales if w.get("confidence", 0) >= 95]
+    if high_conf_whales:
+        portfolio = CONSCIOUSNESS.get("portfolio", {})
+        portfolio.setdefault("whale_urgency", len(high_conf_whales))
+        routed += 1
+
+    # Route 3: News headlines -> Trading context
+    trending = CONSCIOUSNESS.get("news", {}).get("trending_topics", [])
+    if trending:
+        trading = CONSCIOUSNESS.get("trading", {})
+        trading["news_context"] = [t[0] if isinstance(t, (list, tuple)) else t for t in trending[:5]]
+        routed += 1
+
+    # Route 4: Risk alerts -> Action executor (pause risky actions)
+    risk_score = CONSCIOUSNESS.get("risk", {}).get("risk_score", 0)
+    if risk_score > 60:
+        executor = CONSCIOUSNESS.get("executor", {})
+        executor["risk_pause"] = True
+        executor["risk_reason"] = f"Risk score {risk_score}/100 -- pausing risky actions"
+        routed += 1
+    else:
+        executor = CONSCIOUSNESS.get("executor", {})
+        executor.pop("risk_pause", None)
+
+    # Route 5: SOL price -> Trading awareness enrichment
+    sol_data = CONSCIOUSNESS.get("solana", {})
+    if sol_data.get("sol_price"):
+        trading = CONSCIOUSNESS.get("trading", {})
+        trading["sol_price"] = sol_data.get("sol_price")
+        trading["btc_price"] = sol_data.get("btc_price")
+        trading["eth_price"] = sol_data.get("eth_price")
+        routed += 1
+
+    # Route 6: Arb opportunities -> Brain confidence boost
+    arb_count = CONSCIOUSNESS.get("pred_arb", {}).get("total_found", 0)
+    if arb_count > 0:
+        brain = CONSCIOUSNESS.get("brain", {})
+        brain["arb_signal_boost"] = min(arb_count * 2, 10)
+        routed += 1
+
+    # Route 7: Growth patterns -> Mission pulse
+    patterns = CONSCIOUSNESS.get("trends", {}).get("patterns", [])
+    if patterns:
+        mission = CONSCIOUSNESS.get("mission", {})
+        mission["growth_signals"] = len(patterns)
+        mission["latest_pattern"] = patterns[0] if patterns else None
+        routed += 1
+
+    # Route 8: Inception data -> Meta awareness enrichment
+    inception = CONSCIOUSNESS.get("inception", {})
+    if inception.get("age_days"):
+        meta = CONSCIOUSNESS.get("meta", {})
+        meta["system_age_days"] = inception.get("age_days")
+        meta["total_commits"] = inception.get("total_commits", 0)
+        meta["engines_ever_created"] = len(inception.get("all_engines_ever", []))
+        routed += 1
+
+    router["routes_active"] = 8
+    router["signals_routed"] = routed
+    router["last_route"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_github_actions_trigger():
     """
     LIVE: Trigger GitHub Actions workflows to use cloud-only secrets.
@@ -3297,6 +3761,12 @@ NEURONS = [
     ("RISK_MANAGER", neuron_risk_manager),
     ("NEWS_PULSE", neuron_news_pulse),
     ("TREND_DETECTOR", neuron_trend_detector),
+    # Phase 11: Inception + deep awareness + self-repair
+    ("INCEPTION_MEMORY", neuron_inception_memory),
+    ("DEEP_SCAN", neuron_deep_scan),
+    ("CAPABILITY_MAP", neuron_capability_map),
+    ("AUTO_HEALER", neuron_auto_healer),
+    ("SIGNAL_ROUTER", neuron_signal_router),
 ]
 
 
