@@ -1162,6 +1162,11 @@ def run():
     state["content_pieces"] = content["total_pieces"]
     state["calendar_week_start"] = calendar.get("week_start", "")
     state["status"] = metrics["flywheel_status"]
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    state["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     _save("growth_flywheel_state.json", state)
     print("  [write] data/growth_flywheel_state.json")
 

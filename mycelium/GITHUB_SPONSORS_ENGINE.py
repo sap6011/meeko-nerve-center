@@ -30,6 +30,11 @@ def load():
     return {"cycles":0,"sponsors":[],"total_monthly":0.0,"thank_you_sent":[]}
 
 def save(s):
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    s["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     (DATA/"sponsors_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def generate_funding_yml():
