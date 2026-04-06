@@ -445,6 +445,7 @@ def L6():
     eng("PRICE_ORACLE",              timeout=30)   # v49: multi-source price feeds + spread detection
     eng("SOL_MAXIMIZER",             timeout=30)   # v49: yield optimization — staking, lending, liquid staking
     eng("YIELD_LOOP",                timeout=30)   # v49: autonomous compound loop — detect, decide, queue
+    eng("AIRDROP_HUNTER",            timeout=30)   # v49: scan + qualify for Solana airdrops
     eng("DIRECT_WIRE",              timeout=120)  # v49: frictionless commit — compile, commit, push, sync USB
 
     health   = rj("brain_state.json").get("health_score", 0)
