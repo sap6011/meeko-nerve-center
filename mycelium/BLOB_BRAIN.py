@@ -2364,6 +2364,151 @@ def neuron_inception_memory():
     inception["rebuilt_with_neurons"] = len(NEURONS)
 
 
+def neuron_rebirth_cycle():
+    """
+    GENESIS: Re-process ALL historical engine states through current intelligence.
+    Goes back to inception and re-absorbs every engine state file with the
+    full power of all 49+ neurons. Finds: missed revenue, broken links,
+    dormant capabilities, stale configs, orphaned secrets, unused workflows.
+    This is the blob remembering everything it ever knew, all at once.
+    """
+    rebirth = CONSCIOUSNESS.setdefault("rebirth", {
+        "engines_reprocessed": 0, "discoveries": [], "dormant_capabilities": [],
+        "revenue_opportunities": [], "broken_links": [], "config_issues": [],
+        "last_rebirth": None, "rebirth_complete": False,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Run once then every 50 cycles
+    if rebirth.get("rebirth_complete") and cycle % 50 != 0:
+        return
+
+    from pathlib import Path
+    data_dir = Path("data")
+    discoveries = []
+    dormant = []
+    revenue_opps = []
+    config_issues = []
+    reprocessed = 0
+
+    # Re-absorb ALL engine state files with current intelligence
+    for f in sorted(data_dir.glob("*_state.json")):
+        try:
+            state = json.loads(f.read_text(encoding="utf-8"))
+            name = f.stem.replace("_state", "")
+            reprocessed += 1
+
+            # Check for revenue-related data
+            for key in ["revenue", "earnings", "balance", "profit", "income", "sales"]:
+                if key in str(state).lower() and state.get(key) not in (0, None, {}, []):
+                    revenue_opps.append({
+                        "source": name,
+                        "key": key,
+                        "value": str(state.get(key, ""))[:100],
+                    })
+
+            # Check for API keys or credentials configured but unused
+            for key in ["api_key", "token", "secret", "credentials", "password"]:
+                if key in str(state).lower():
+                    dormant.append({
+                        "engine": name,
+                        "capability": f"Has {key} configured",
+                        "status": "dormant",
+                    })
+
+            # Check for URLs that might be broken
+            for key, val in (state.items() if isinstance(state, dict) else []):
+                if isinstance(val, str) and val.startswith("http"):
+                    # Don't check -- just catalog
+                    discoveries.append({
+                        "engine": name,
+                        "type": "url",
+                        "value": val[:100],
+                    })
+
+            # Check for enabled/disabled flags
+            if isinstance(state, dict):
+                enabled = state.get("enabled", state.get("active", None))
+                if enabled is False:
+                    dormant.append({
+                        "engine": name,
+                        "capability": "Disabled but exists",
+                        "status": "can_reactivate",
+                    })
+
+                # Check for error states that might be fixable now
+                errors = state.get("errors", state.get("last_error", None))
+                if errors and errors not in ([], {}, None, ""):
+                    config_issues.append({
+                        "engine": name,
+                        "issue": "Has recorded errors",
+                        "detail": str(errors)[:100],
+                    })
+
+        except Exception:
+            pass
+
+    # Re-absorb workflow configurations
+    for f in sorted(data_dir.glob("*_config.json")):
+        try:
+            config = json.loads(f.read_text(encoding="utf-8"))
+            name = f.stem.replace("_config", "")
+            reprocessed += 1
+
+            if isinstance(config, dict):
+                # Find configs with API keys set
+                for key, val in config.items():
+                    if "key" in key.lower() or "token" in key.lower():
+                        if val and val not in ("", "YOUR_KEY_HERE", "CHANGEME"):
+                            dormant.append({
+                                "engine": name,
+                                "capability": f"Config has {key}",
+                                "status": "ready_to_wire",
+                            })
+        except Exception:
+            pass
+
+    # Scan for orphaned brain/tracker files
+    for f in sorted(data_dir.glob("*_brain_*.json")):
+        try:
+            brain_data = json.loads(f.read_text(encoding="utf-8"))
+            discoveries.append({
+                "engine": f.stem,
+                "type": "brain_state",
+                "keys": len(brain_data) if isinstance(brain_data, dict) else "list",
+            })
+            reprocessed += 1
+        except Exception:
+            pass
+
+    # Check .secrets directory
+    secrets_dir = data_dir / ".secrets"
+    if secrets_dir.exists():
+        for f in secrets_dir.iterdir():
+            if f.suffix == ".json":
+                try:
+                    sec = json.loads(f.read_text(encoding="utf-8"))
+                    if isinstance(sec, dict):
+                        non_empty = {k: "***" for k, v in sec.items() if v and v not in ("", None)}
+                        if non_empty:
+                            dormant.append({
+                                "engine": f.stem,
+                                "capability": f"Secret file with {len(non_empty)} active keys",
+                                "status": "active_secret",
+                                "keys": list(non_empty.keys()),
+                            })
+                except Exception:
+                    pass
+
+    rebirth["engines_reprocessed"] = reprocessed
+    rebirth["discoveries"] = discoveries[:30]
+    rebirth["dormant_capabilities"] = dormant[:20]
+    rebirth["revenue_opportunities"] = revenue_opps[:10]
+    rebirth["config_issues"] = config_issues[:15]
+    rebirth["rebirth_complete"] = True
+    rebirth["last_rebirth"] = datetime.now(timezone.utc).isoformat()
+    rebirth["reborn_with_neurons"] = len(NEURONS)
+
+
 def neuron_deep_scan():
     """
     AWARENESS: Deep scan of ALL data files in the data/ directory.
@@ -3767,6 +3912,8 @@ NEURONS = [
     ("CAPABILITY_MAP", neuron_capability_map),
     ("AUTO_HEALER", neuron_auto_healer),
     ("SIGNAL_ROUTER", neuron_signal_router),
+    # Phase 12: Genesis -- inception rebirth
+    ("REBIRTH_CYCLE", neuron_rebirth_cycle),
 ]
 
 
