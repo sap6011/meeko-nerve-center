@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-04-06T07:21:13.485670+00:00",
-  "bridges_attempted": 125,
-  "bridges_built": 14,
+  "timestamp": "2026-04-06T12:43:49.207664+00:00",
+  "bridges_attempted": 130,
+  "bridges_built": 19,
   "bridges_failed": 111,
   "unbridged_inputs": [
     "*.json",
@@ -13,17 +13,19 @@
     "autonomic_state.json",
     "business_*.json",
     "filename.json",
+    "global_markets_state.json",
     "growth_tracker.json",
     "gumroad*.json",
+    "homeostasis.json",
     "internet_actions.json",
     "kalshi_scan.json",
+    "metabolism_state.json",
     "nerve_loop_state.json",
     "pattern*.json",
     "price_history.json",
     "price_oracle_state.json",
     "reflex_arc_log.json",
     "replication_queue.json",
-    "signal_mesh_state.json",
     "sol_maximizer_state.json",
     "synaptic_attention.json",
     "synaptic_events.json",
@@ -49,20 +51,20 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 414 pass, 0 fail out of 414 engines",
-      "pass": 414,
+      "detail": "Local sentinel: 418 pass, 0 fail out of 418 engines",
+      "pass": 418,
       "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 629 nodes, 5900 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 629,
-      "edges": 5900,
+      "detail": "Knowledge graph: 634 nodes, 6117 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 634,
+      "edges": 6117,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          374
+          409
         ],
         [
           "OMNIBUS",
@@ -101,7 +103,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 414 scripts, 0 need repair",
+      "detail": "Desktop blueprints: 418 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -116,12 +118,12 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 50, score 78/100",
+      "detail": "Chimera gen 52, score 73/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 414",
+      "detail": "Healed 0, scanned 418",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -131,7 +133,7 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Markets scanned: 100, edges: 32",
+      "detail": "Markets scanned: 100, edges: 35",
       "target": "polymarket_scan.json"
     },
     {
@@ -236,7 +238,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (414 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (418 pass)",
       "target": "sentinel_scan.json"
     },
     {
@@ -693,6 +695,31 @@
       "status": "ALREADY_EXISTS",
       "detail": "disk_health.json already has data",
       "target": "disk_health.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "already has data (eq=16.9)",
+      "target": "homeostasis_state.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "already has data (1 entries)",
+      "target": "fire_ledger.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "already has data (confidence=23.9)",
+      "target": "neural_cortex_state.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "already has data (1 executions)",
+      "target": "executive_function_state.json"
+    },
+    {
+      "status": "BRIDGED",
+      "detail": "already has data (8 alive sources)",
+      "target": "signal_mesh_state.json"
     }
   ],
   "note": "Successes AND failures documented. Both are useful."

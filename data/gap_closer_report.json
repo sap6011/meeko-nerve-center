@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-06T07:16:46.119653+00:00",
+  "timestamp": "2026-04-06T12:43:14.455840+00:00",
   "all_gaps": [
     {
       "type": "zero_writes",
@@ -10,7 +10,7 @@
     {
       "type": "zero_writes",
       "engine": "ALPACA_TRADER",
-      "reads": 8,
+      "reads": 11,
       "action": "add_state_output"
     },
     {
@@ -117,6 +117,12 @@
     },
     {
       "type": "zero_writes",
+      "engine": "GLOBAL_MARKETS",
+      "reads": 1,
+      "action": "add_state_output"
+    },
+    {
+      "type": "zero_writes",
       "engine": "GMAIL_INTAKE",
       "reads": 1,
       "action": "add_state_output"
@@ -130,7 +136,7 @@
     {
       "type": "zero_writes",
       "engine": "KALSHI_SCANNER",
-      "reads": 2,
+      "reads": 4,
       "action": "add_state_output"
     },
     {
@@ -143,6 +149,12 @@
       "type": "zero_writes",
       "engine": "LOCAL_NEEDS_RADAR",
       "reads": 1,
+      "action": "add_state_output"
+    },
+    {
+      "type": "zero_writes",
+      "engine": "METABOLISM_LOOP",
+      "reads": 20,
       "action": "add_state_output"
     },
     {
@@ -166,7 +178,7 @@
     {
       "type": "zero_writes",
       "engine": "NERVE_LOOP",
-      "reads": 24,
+      "reads": 28,
       "action": "add_state_output"
     },
     {
@@ -262,7 +274,7 @@
     {
       "type": "zero_writes",
       "engine": "SOL_MAXIMIZER",
-      "reads": 4,
+      "reads": 6,
       "action": "add_state_output"
     },
     {
@@ -280,7 +292,7 @@
     {
       "type": "zero_writes",
       "engine": "SYNERGY_FORGE",
-      "reads": 1,
+      "reads": 2,
       "action": "add_state_output"
     },
     {
@@ -304,7 +316,7 @@
     {
       "type": "zero_writes",
       "engine": "TRADE_EXECUTOR",
-      "reads": 3,
+      "reads": 6,
       "action": "add_state_output"
     },
     {
@@ -316,7 +328,7 @@
     {
       "type": "zero_writes",
       "engine": "TURBO_TRADER",
-      "reads": 10,
+      "reads": 13,
       "action": "add_state_output"
     },
     {
@@ -352,13 +364,13 @@
   ],
   "closed": [],
   "summary": {
-    "gaps_found": 58,
+    "gaps_found": 60,
     "gaps_closed": 0,
     "by_type": {
       "missing_data": 0,
       "compile_errors": 0,
       "stale_docs": 0,
-      "zero_writes": 58,
+      "zero_writes": 60,
       "zero_reads": 0
     }
   }

@@ -1,19 +1,19 @@
 {
-  "timestamp": "2026-04-06T07:16:44.628091+00:00",
+  "timestamp": "2026-04-06T12:43:12.730450+00:00",
   "protocol": "mycelium-network-v1",
   "nutrient_routing": {
-    "total_nodes": 414,
-    "producers": 280,
-    "consumers": 128,
+    "total_nodes": 418,
+    "producers": 281,
+    "consumers": 131,
     "top_producers": [
       {
         "name": "BRIDGE_BUILDER",
-        "level": 159.0,
+        "level": 179.5,
         "role": "producer",
-        "writes": 19,
-        "reads": 31,
-        "downstream_dependents": 226,
-        "upstream_feeders": 148
+        "writes": 20,
+        "reads": 37,
+        "downstream_dependents": 254,
+        "upstream_feeders": 155
       },
       {
         "name": "FIRST_SALE_NOTIFIER",
@@ -44,11 +44,11 @@
       },
       {
         "name": "SOVEREIGNTY_ENGINE",
-        "level": 55.0,
+        "level": 56.0,
         "role": "producer",
         "writes": 4,
         "reads": 4,
-        "downstream_dependents": 60,
+        "downstream_dependents": 61,
         "upstream_feeders": 18
       }
     ],
@@ -56,94 +56,94 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "live_wire_report.json",
-        "gradient": 312.5,
-        "src_level": 159.0,
-        "dst_level": -153.5
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "brain_state.json",
-        "gradient": 312.5,
-        "src_level": 159.0,
-        "dst_level": -153.5
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "chimera_evolution_report.json",
-        "gradient": 312.5,
-        "src_level": 159.0,
+        "via": "product_registry.json",
+        "gradient": 333.0,
+        "src_level": 179.5,
         "dst_level": -153.5
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "bridge_report.json",
-        "gradient": 312.5,
-        "src_level": 159.0,
+        "gradient": 333.0,
+        "src_level": 179.5,
         "dst_level": -153.5
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "mutation_vault.json",
-        "gradient": 312.5,
-        "src_level": 159.0,
+        "via": "brain_state.json",
+        "gradient": 333.0,
+        "src_level": 179.5,
         "dst_level": -153.5
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "product_registry.json",
-        "gradient": 312.5,
-        "src_level": 159.0,
+        "via": "live_wire_report.json",
+        "gradient": 333.0,
+        "src_level": 179.5,
+        "dst_level": -153.5
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "chimera_evolution_report.json",
+        "gradient": 333.0,
+        "src_level": 179.5,
         "dst_level": -153.5
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "desktop_daemon_state.json",
-        "gradient": 312.5,
-        "src_level": 159.0,
+        "gradient": 333.0,
+        "src_level": 179.5,
         "dst_level": -153.5
       },
       {
-        "from": "FIRST_SALE_NOTIFIER",
+        "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
+        "via": "mutation_vault.json",
+        "gradient": 333.0,
+        "src_level": 179.5,
+        "dst_level": -153.5
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "NIGHTLY_DIGEST",
+        "via": "product_registry.json",
+        "gradient": 231.5,
+        "src_level": 179.5,
+        "dst_level": -52.0
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "NIGHTLY_DIGEST",
         "via": "brain_state.json",
-        "gradient": 226.0,
-        "src_level": 72.5,
-        "dst_level": -153.5
+        "gradient": 231.5,
+        "src_level": 179.5,
+        "dst_level": -52.0
       },
       {
-        "from": "FIRST_SALE_NOTIFIER",
-        "to": "OMNIBUS",
-        "via": "revenue_inbox.json",
-        "gradient": 226.0,
-        "src_level": 72.5,
-        "dst_level": -153.5
-      },
-      {
-        "from": "FIRST_SALE_NOTIFIER",
-        "to": "OMNIBUS",
-        "via": "first_sale_state.json",
-        "gradient": 226.0,
-        "src_level": 72.5,
-        "dst_level": -153.5
+        "from": "BRIDGE_BUILDER",
+        "to": "VITAL_SIGN_API",
+        "via": "brain_state.json",
+        "gradient": 229.0,
+        "src_level": 179.5,
+        "dst_level": -49.5
       }
     ]
   },
   "adaptive_growth": {
-    "total_wires": 5900,
-    "strengthen": 5890,
-    "monitor": 9,
+    "total_wires": 6117,
+    "strengthen": 6105,
+    "monitor": 11,
     "prune": 1
   },
   "anastomosis": {
     "broken_wires": 1,
-    "hungry_inputs": 88,
+    "hungry_inputs": 92,
     "breaks": [
       {
         "type": "broken_wire",
@@ -269,7 +269,7 @@
     {
       "type": "NUTRIENT_DEFICIT",
       "severity": "medium",
-      "message": "83 engines severely nutrient-depleted",
+      "message": "89 engines severely nutrient-depleted",
       "source": "nutrient_routing",
       "affected": [
         "AGENT_TWEET_WRITER",
@@ -288,16 +288,16 @@
     {
       "type": "NETWORK_PULSE",
       "severity": "info",
-      "message": "Network health: 100% (5890/5900 wires healthy)",
+      "message": "Network health: 100% (6105/6117 wires healthy)",
       "source": "mycelium_network",
       "biology": "Seasonal growth assessment -- overall forest vitality check"
     }
   ],
   "reciprocal_rewards": {
-    "mutualists": 234,
-    "balanced": 90,
-    "consumers": 32,
-    "inert": 58,
+    "mutualists": 239,
+    "balanced": 88,
+    "consumers": 31,
+    "inert": 60,
     "top_mutualists": [
       {
         "name": "SOCIAL_DASHBOARD",
@@ -337,9 +337,9 @@
     ]
   },
   "network_memory": {
-    "cycles_tracked": 52,
+    "cycles_tracked": 54,
     "new_connections": 0,
-    "persisted": 5673,
+    "persisted": 5880,
     "lost": 0
   },
   "biology_notes": {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-06T07:16:53.254318+00:00",
+  "generated_at": "2026-04-06T12:43:26.167289+00:00",
   "total_failures": 5,
   "fixed": 0,
   "fixable": 1,
@@ -24,6 +24,15 @@
       "error": "File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/NARRATOR.py\", line 123, in generate_story\n    story = ask([{\"role\": \"user\", \"content\": prompt}], max_tokens=300)\n            ^^^^"
     },
     {
+      "engine": "POLYMARKET_SCANNER",
+      "original_status": "FAIL",
+      "diagnosis": "UNKNOWN",
+      "fixed": false,
+      "fixable": false,
+      "details": "Unrecognized error pattern",
+      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/POLYMARKET_SCANNER.py\", line 572, in <module>\n    run()\n  File \"/home/runner/work/meeko-nerv"
+    },
+    {
       "engine": "GENERATED_CRYPTO_WATCHER_CONSUMER",
       "original_status": "FAIL",
       "diagnosis": "CORRUPT_JSON",
@@ -40,15 +49,6 @@
       "fixable": false,
       "details": "Unrecognized error pattern",
       "error": ""
-    },
-    {
-      "engine": "SIGNAL_CHAIN",
-      "original_status": "FAIL",
-      "diagnosis": "UNKNOWN",
-      "fixed": false,
-      "fixable": false,
-      "details": "Unrecognized error pattern",
-      "error": "Traceback (most recent call last):\n  File \"/home/runner/work/meeko-nerve-center/meeko-nerve-center/mycelium/SIGNAL_CHAIN.py\", line 177, in <module>\n    if __name__ == \"__main__\": run()\n               "
     }
   ]
 }

@@ -4,27 +4,27 @@
 > -- a living, bio-inspired autonomous AI system built to fight
 > tyranny, protect the silenced, and generate sovereign revenue.
 
-Generated: 2026-04-06 07:16 UTC
+Generated: 2026-04-06 12:43 UTC
 
 ## System Statistics
 
 | Metric | Value |
 |--------|-------|
-| Total Engines | 414 |
-| Total Lines of Code | 98,208 |
-| Total Functions | 2,575 |
-| Engines with run() | 258 |
+| Total Engines | 418 |
+| Total Lines of Code | 103,231 |
+| Total Functions | 2,661 |
+| Engines with run() | 263 |
 | Categories | 11 |
 
 ## Table of Contents
 
-1. [Core Infrastructure](#core-infrastructure) (173 engines)
+1. [Core Infrastructure](#core-infrastructure) (176 engines)
 2. [Revenue Generation](#revenue-generation) (48 engines)
 3. [Content & Distribution](#content-distribution) (31 engines)
 4. [Self-Improvement & Ops](#self-improvement-ops) (31 engines)
 5. [Crisis Response & Defense](#crisis-response-defense) (27 engines)
 6. [Topology & Wiring](#topology-wiring) (27 engines)
-7. [Intelligence & Memory](#intelligence-memory) (23 engines)
+7. [Intelligence & Memory](#intelligence-memory) (24 engines)
 8. [Infrastructure & Scheduling](#infrastructure-scheduling) (22 engines)
 9. [Outreach & Partnerships](#outreach-partnerships) (15 engines)
 10. [Creative & Brand](#creative-brand) (9 engines)
@@ -34,7 +34,7 @@ Generated: 2026-04-06 07:16 UTC
 
 ## Core Infrastructure
 
-*173 engines in this category*
+*176 engines in this category*
 
 ### AGENT_LINK_VERIFIER
 
@@ -105,7 +105,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 968 |
+| Lines | 994 |
 | Functions | 15 |
 | Has run() | Yes |
 
@@ -318,7 +318,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 573 |
+| Lines | 635 |
 | Functions | 12 |
 | Has run() | Yes |
 
@@ -348,7 +348,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 374 |
+| Lines | 393 |
 | Functions | 9 |
 | Has run() | Yes |
 
@@ -543,6 +543,25 @@ Generated: 2026-04-06 07:16 UTC
 | Has run() | No |
 
 **Functions:** `load_json`, `generate_evolution_report`
+
+---
+
+### EXECUTIVE_FUNCTION
+
+**Purpose:** EXECUTIVE_FUNCTION.py -- Motor cortex of the SolarPunk nervous system
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 537 |
+| Functions | 16 |
+| Has run() | Yes |
+
+**Functions:** `_load`, `_save`, `_now_iso`, `_now_dt`, `_ms_since`, `_parse_iso`, `_is_cooled_down`, `_set_cooldown`, `_clean_expired_cooldowns`, `_execute_engine`, `_find_critical_recommendations`, `_map_recommendation_to_engine`, `_update_stats`, `_append_history`, `_print_summary`, `run`
+
+**Reads:** data/neural_cortex_state.json, data/synaptic_bus.json
+
+**Writes:** data/executive_function_state.json
 
 ---
 
@@ -1241,6 +1260,23 @@ Generated: 2026-04-06 07:16 UTC
 
 ---
 
+### GLOBAL_MARKETS
+
+**Purpose:** GLOBAL_MARKETS.py -- Cross-platform market intelligence engine
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 880 |
+| Functions | 12 |
+| Has run() | Yes |
+
+**Functions:** `_load`, `_save`, `_ts`, `_age_min`, `_freshness`, `_scan_solana`, `_scan_prediction_markets`, `_scan_alpaca`, `_cross_market_analysis`, `_rank_all_opportunities`, `_print_summary`, `run`
+
+**Writes:** data/global_markets_state.json | Scored opportunities across ALL platforms | Cross-market correlation signals | Regime detection (risk-on / risk-off / neutral) | Deployment recommendations per platform | Monday open queue (Alpaca trades to deploy at market open)
+
+---
+
 ### GMAIL_INTAKE
 
 **Purpose:** *(no docstring)*
@@ -1320,20 +1356,20 @@ Generated: 2026-04-06 07:16 UTC
 
 ### HOMEOSTASIS
 
-**Purpose:** HOMEOSTASIS.py — Self-Regulating Planetary Health (Thermostat Pattern)
+**Purpose:** HOMEOSTASIS.py -- Active equilibrium maintenance for the living system
 
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 383 |
-| Functions | 6 |
-| Has run() | No |
+| Lines | 691 |
+| Functions | 20 |
+| Has run() | Yes |
 
-**Functions:** `load_json`, `measure_vitals`, `diagnose`, `prescribe`, `calculate_planetary_health`, `main`
+**Functions:** `_load`, `_save`, `_now`, `_now_iso`, `_parse_ts`, `_age_minutes`, `_safe_float`, `_gather_all`, `_assess_nervous_system`, `_assess_ecosystem`, `_assess_trading`, `_assess_infrastructure`, `_load_fire_ledger`, `_update_fire_ledger`, `_compute_interventions`, `_compute_trend`, `_compute_equilibrium`, `_print_dashboard`, `run`, `main`
 
-**Reads:** data/*.json (all engine outputs)
+**Reads:** neural_cortex_state.json     (brain health recommendations) | metabolism_state.json         (ecosystem health, circuit status) | executive_function_state.json (execution history, cooldowns) | reflex_arc_state.json         (fire data, fire rate) | proprioception_state.json     (evolution, coordination, speed) | synaptic_bus.json             (engine liveness, connectivity) | signal_mesh_state.json        (signal health, source freshness)
 
-**Writes:** data/homeostasis.json, data/system_health.json
+**Writes:** data/homeostasis_state.json | data/fire_ledger.json          (shared REFLEX↔EXECUTIVE race prevention)
 
 ---
 
@@ -1393,7 +1429,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 692 |
+| Lines | 704 |
 | Functions | 16 |
 | Has run() | Yes |
 
@@ -1791,6 +1827,23 @@ Generated: 2026-04-06 07:16 UTC
 
 ---
 
+### METABOLISM_LOOP
+
+**Purpose:** METABOLISM_LOOP.py -- The full circular metabolism
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 616 |
+| Functions | 11 |
+| Has run() | Yes |
+
+**Functions:** `_load`, `_save`, `_safe_float`, `_parse_ts`, `_age_hours`, `_read_nervous_system`, `_read_ecosystem`, `_calculate_metabolism`, `_feed_back`, `_print_dashboard`, `run`
+
+**Writes:** data/metabolism_state.json | Revenue velocity ($/hr from all sources) | Nervous system contribution vs ecosystem contribution | Circular efficiency (amplification ratio) | Growth rate (trading + ecosystem combined) | Self-funding ratio (all income vs all costs)
+
+---
+
 ### METRICS_DASHBOARD
 
 **Purpose:** METRICS_DASHBOARD.py -- Live System Dashboard (HTML)
@@ -1896,7 +1949,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 870 |
+| Lines | 963 |
 | Functions | 17 |
 | Has run() | Yes |
 
@@ -2045,7 +2098,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 677 |
+| Lines | 682 |
 | Functions | 15 |
 | Has run() | Yes |
 
@@ -2107,7 +2160,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 561 |
+| Lines | 573 |
 | Functions | 14 |
 | Has run() | Yes |
 
@@ -2124,11 +2177,11 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 817 |
-| Functions | 19 |
+| Lines | 903 |
+| Functions | 20 |
 | Has run() | Yes |
 
-**Functions:** `_read_json`, `_write_json`, `_count_engines`, `_count_data_files`, `_system_age_hours`, `_bus_health`, `_emission_velocity`, `_reflex_stats`, `_nerve_loop_stats`, `_portfolio_momentum`, `_trend`, `_trend_arrow`, `_evolution_rate`, `_coordination_score`, `_engine_speed_rankings`, `_reflex_fire_stats`, `_growth_trajectory`, `_print_report`, `run`
+**Functions:** `_read_json`, `_write_json`, `_count_engines`, `_count_data_files`, `_system_age_hours`, `_bus_health`, `_emission_velocity`, `_reflex_stats`, `_nerve_loop_stats`, `_portfolio_momentum`, `_trend`, `_trend_arrow`, `_evolution_rate`, `_coordination_score`, `_engine_speed_rankings`, `_nervous_system_health`, `_reflex_fire_stats`, `_growth_trajectory`, `_print_report`, `run`
 
 ---
 
@@ -2154,7 +2207,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 542 |
+| Lines | 557 |
 | Functions | 14 |
 | Has run() | Yes |
 
@@ -2229,11 +2282,11 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 757 |
-| Functions | 23 |
+| Lines | 945 |
+| Functions | 25 |
 | Has run() | Yes |
 
-**Functions:** `_load`, `_save`, `_now_iso`, `_ms_since`, `_log_reflex`, `_check_cooldown`, `_mark_fired`, `_emit_to_bus`, `_read_bus`, `_read_mesh`, `_run_engine_safe`, `_reflex_thermal_danger`, `_reflex_engine_crash`, `_reflex_deposit_detected`, `_reflex_settlement_spike`, `_reflex_market_open`, `_reflex_arbitrage_window`, `_reflex_convergence_alert`, `_reflex_stale_bus`, `_reflex_cash_idle`, `_reflex_self_funding`, `_reflex_growth_stall`, `run`
+**Functions:** `_load`, `_save`, `_now_iso`, `_ms_since`, `_log_reflex`, `_check_cooldown`, `_mark_fired`, `_emit_to_bus`, `_read_bus`, `_read_mesh`, `_run_engine_safe`, `_reflex_thermal_danger`, `_reflex_engine_crash`, `_reflex_deposit_detected`, `_reflex_settlement_spike`, `_reflex_market_open`, `_reflex_arbitrage_window`, `_reflex_convergence_alert`, `_reflex_stale_bus`, `_reflex_cash_idle`, `_reflex_self_funding`, `_reflex_growth_stall`, `_reflex_regime_shift`, `_reflex_metabolism_alert`, `run`
 
 **Reads:** data/synaptic_bus.json, data/signal_mesh_state.json
 
@@ -2378,7 +2431,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 370 |
+| Lines | 381 |
 | Functions | 11 |
 | Has run() | Yes |
 
@@ -2442,7 +2495,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 391 |
+| Lines | 409 |
 | Functions | 10 |
 | Has run() | Yes |
 
@@ -2489,7 +2542,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 741 |
+| Lines | 882 |
 | Functions | 17 |
 | Has run() | Yes |
 
@@ -2549,7 +2602,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 618 |
+| Lines | 633 |
 | Functions | 12 |
 | Has run() | Yes |
 
@@ -2602,7 +2655,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 1375 |
+| Lines | 1400 |
 | Functions | 23 |
 | Has run() | Yes |
 
@@ -3510,7 +3563,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | L6 |
-| Lines | 199 |
+| Lines | 213 |
 | Functions | 7 |
 | Has run() | Yes |
 
@@ -3713,7 +3766,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 372 |
+| Lines | 381 |
 | Functions | 12 |
 | Has run() | Yes |
 
@@ -4144,7 +4197,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 949 |
+| Lines | 977 |
 | Functions | 23 |
 | Has run() | Yes |
 
@@ -4193,7 +4246,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | L7 |
-| Lines | 196 |
+| Lines | 212 |
 | Functions | 2 |
 | Has run() | Yes |
 
@@ -4238,7 +4291,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 527 |
+| Lines | 577 |
 | Functions | 10 |
 | Has run() | Yes |
 
@@ -4400,7 +4453,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | L0 |
-| Lines | 102 |
+| Lines | 116 |
 | Functions | 4 |
 | Has run() | Yes |
 
@@ -4528,7 +4581,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 257 |
+| Lines | 272 |
 | Functions | 8 |
 | Has run() | Yes |
 
@@ -5021,7 +5074,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 634 |
+| Lines | 835 |
 | Functions | 14 |
 | Has run() | Yes |
 
@@ -5106,11 +5159,11 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | L4 |
-| Lines | 1585 |
-| Functions | 129 |
+| Lines | 1751 |
+| Functions | 135 |
 | Has run() | Yes |
 
-**Functions:** `load_json`, `bridge_grants_found`, `bridge_sentinel_report`, `bridge_knowledge_graph`, `bridge_quick_revenue`, `seed_json`, `seed_text`, `bridge_social_queue`, `bridge_brave_browser_state`, `bridge_conversion_log`, `bridge_desktop_daemon_state`, `bridge_knowledge_bank`, `bridge_neuron_reports`, `bridge_newsletter_subscribers`, `bridge_pending_publication`, `bridge_resurrections`, `bridge_sponsors_inbox`, `bridge_storefront_builder_state`, `bridge_synergy_mutations`, `bridge_system_directive`, `bridge_newsletter_archive`, `bridge_river_watch`, `bridge_desktop_blueprints`, `bridge_orphan_tweets`, `bridge_orphan_daemon_task`, `bridge_chimera_evolution`, `bridge_nanobot_heal`, `bridge_mutation_leaderboard`, `bridge_polymarket_scan`, `bridge_hemisphere_state`, `bridge_relay_baton`, `bridge_amplification_posts`, `bridge_amplify_cooldown`, `bridge_murmuration_trap`, `bridge_revenue_state`, `bridge_sentinel_scan`, `bridge_sovereignty_state`, `bridge_stress_backup_river_watch`, `bridge_public_ledger`, `bridge_agent_link_verifier_state`, `bridge_ai_council_report`, `bridge_art_log`, `bridge_atomizer_state`, `bridge_claude_autonomous_report`, `bridge_compound_tracker`, `bridge_cycle_memory`, `bridge_desktop_agent_log`, `bridge_dual_brain_conversation`, `bridge_external_signals`, `bridge_finance_ledger`, `bridge_handshake_results`, `bridge_kimi_conductor_report`, `bridge_known_devices`, `bridge_local_needs_radar`, `bridge_master_config`, `bridge_mutual_aid_routing`, `bridge_neural_weights`, `bridge_open_loops`, `bridge_product_ideas`, `bridge_reminders`, `bridge_revenue_data`, `bridge_secrets`, `bridge_self_wiring_report`, `bridge_system_manifest`, `bridge_system_wants_next`, `bridge_workflow_health`, `bridge_fuel_core_state`, `bridge_fuel_plan`, `bridge_revenue_splitter_state`, `bridge_revenue_routing`, `bridge_storefront_deployer_state`, `bridge_storefront_deployer_listings`, `bridge_storefront_deployer_checklists`, `bridge_growth_flywheel_state`, `bridge_growth_flywheel_calendar`, `bridge_growth_flywheel_content`, `bridge_human_task_board`, `bridge_crosswire_state`, `bridge_revenue_flow`, `bridge_autopilot_executor_state`, `bridge_email_templates`, `bridge_kofi_ready_listings`, `bridge_image_descriptions`, `bridge_discussion_drafts`, `bridge_digital_saturation_state`, `bridge_saturation_gaps`, `bridge_storefront_listings`, `bridge_signal_chain_state`, `bridge_signal_chain_queue`, `bridge_telegram_relay`, `bridge_article_drafts`, `bridge_virality_posts`, `bridge_email_intelligence_state`, `bridge_verified_contacts`, `bridge_outreach_queue`, `bridge_bounce_registry`, `bridge_active_outreach_draft`, `bridge_aggregated_summary`, `bridge_bundle_forge_state`, `bridge_catalog_generator_state`, `bridge_chimera_score`, `bridge_content_harvest_state`, `bridge_dev_to_publisher_state`, `bridge_email_agent_exchange_state`, `bridge_event_relay_state`, `bridge_fractal_replicator_tracking`, `bridge_harvested_knowledge`, `bridge_monitor_alerts`, `bridge_monitored_resource`, `bridge_publish_log`, `bridge_raw_input`, `bridge_transformed_output`, `bridge_vanish_protocol_state`, `bridge_machine_revenue_state`, `bridge_bounty_queue`, `bridge_agent_service_catalog`, `bridge_gap_closer_state`, `bridge_gap_closer_report`, `bridge_tweets_queue`, `bridge_health_advisory`, `bridge_autopilot_state`, `bridge_internet_bridge_state`, `bridge_internet_signals`, `bridge_usb_bridge_state`, `bridge_usb_catalog`, `bridge_usb_ingest`, `bridge_disk_health`, `bridge_solarpunk_legal_declaration`, `run`
+**Functions:** `load_json`, `save_json`, `bridge_grants_found`, `bridge_sentinel_report`, `bridge_knowledge_graph`, `bridge_quick_revenue`, `seed_json`, `seed_text`, `bridge_social_queue`, `bridge_brave_browser_state`, `bridge_conversion_log`, `bridge_desktop_daemon_state`, `bridge_knowledge_bank`, `bridge_neuron_reports`, `bridge_newsletter_subscribers`, `bridge_pending_publication`, `bridge_resurrections`, `bridge_sponsors_inbox`, `bridge_storefront_builder_state`, `bridge_synergy_mutations`, `bridge_system_directive`, `bridge_newsletter_archive`, `bridge_river_watch`, `bridge_desktop_blueprints`, `bridge_orphan_tweets`, `bridge_orphan_daemon_task`, `bridge_chimera_evolution`, `bridge_nanobot_heal`, `bridge_mutation_leaderboard`, `bridge_polymarket_scan`, `bridge_hemisphere_state`, `bridge_relay_baton`, `bridge_amplification_posts`, `bridge_amplify_cooldown`, `bridge_murmuration_trap`, `bridge_revenue_state`, `bridge_sentinel_scan`, `bridge_sovereignty_state`, `bridge_stress_backup_river_watch`, `bridge_public_ledger`, `bridge_agent_link_verifier_state`, `bridge_ai_council_report`, `bridge_art_log`, `bridge_atomizer_state`, `bridge_claude_autonomous_report`, `bridge_compound_tracker`, `bridge_cycle_memory`, `bridge_desktop_agent_log`, `bridge_dual_brain_conversation`, `bridge_external_signals`, `bridge_finance_ledger`, `bridge_handshake_results`, `bridge_kimi_conductor_report`, `bridge_known_devices`, `bridge_local_needs_radar`, `bridge_master_config`, `bridge_mutual_aid_routing`, `bridge_neural_weights`, `bridge_open_loops`, `bridge_product_ideas`, `bridge_reminders`, `bridge_revenue_data`, `bridge_secrets`, `bridge_self_wiring_report`, `bridge_system_manifest`, `bridge_system_wants_next`, `bridge_workflow_health`, `bridge_fuel_core_state`, `bridge_fuel_plan`, `bridge_revenue_splitter_state`, `bridge_revenue_routing`, `bridge_storefront_deployer_state`, `bridge_storefront_deployer_listings`, `bridge_storefront_deployer_checklists`, `bridge_growth_flywheel_state`, `bridge_growth_flywheel_calendar`, `bridge_growth_flywheel_content`, `bridge_human_task_board`, `bridge_crosswire_state`, `bridge_revenue_flow`, `bridge_autopilot_executor_state`, `bridge_email_templates`, `bridge_kofi_ready_listings`, `bridge_image_descriptions`, `bridge_discussion_drafts`, `bridge_digital_saturation_state`, `bridge_saturation_gaps`, `bridge_storefront_listings`, `bridge_signal_chain_state`, `bridge_signal_chain_queue`, `bridge_telegram_relay`, `bridge_article_drafts`, `bridge_virality_posts`, `bridge_email_intelligence_state`, `bridge_verified_contacts`, `bridge_outreach_queue`, `bridge_bounce_registry`, `bridge_active_outreach_draft`, `bridge_aggregated_summary`, `bridge_bundle_forge_state`, `bridge_catalog_generator_state`, `bridge_chimera_score`, `bridge_content_harvest_state`, `bridge_dev_to_publisher_state`, `bridge_email_agent_exchange_state`, `bridge_event_relay_state`, `bridge_fractal_replicator_tracking`, `bridge_harvested_knowledge`, `bridge_monitor_alerts`, `bridge_monitored_resource`, `bridge_publish_log`, `bridge_raw_input`, `bridge_transformed_output`, `bridge_vanish_protocol_state`, `bridge_machine_revenue_state`, `bridge_bounty_queue`, `bridge_agent_service_catalog`, `bridge_gap_closer_state`, `bridge_gap_closer_report`, `bridge_tweets_queue`, `bridge_health_advisory`, `bridge_autopilot_state`, `bridge_internet_bridge_state`, `bridge_internet_signals`, `bridge_usb_bridge_state`, `bridge_usb_catalog`, `bridge_usb_ingest`, `bridge_disk_health`, `bridge_solarpunk_legal_declaration`, `bridge_homeostasis_state`, `bridge_fire_ledger`, `bridge_neural_cortex_state`, `bridge_executive_function_state`, `bridge_signal_mesh_state`, `run`
 
 ---
 
@@ -5136,11 +5189,11 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 313 |
-| Functions | 11 |
+| Lines | 400 |
+| Functions | 12 |
 | Has run() | Yes |
 
-**Functions:** `load_json`, `save_json`, `run_engine`, `phase_scan`, `phase_heal`, `phase_bridge`, `phase_mutate`, `phase_score`, `phase_evolve`, `phase_report`, `run`
+**Functions:** `load_json`, `save_json`, `run_engine`, `phase_scan`, `phase_heal`, `phase_bridge`, `phase_mutate`, `_read_nervous_system`, `phase_score`, `phase_evolve`, `phase_report`, `run`
 
 ---
 
@@ -5264,7 +5317,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 435 |
+| Lines | 509 |
 | Functions | 7 |
 | Has run() | Yes |
 
@@ -5490,7 +5543,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 391 |
+| Lines | 400 |
 | Functions | 13 |
 | Has run() | Yes |
 
@@ -5517,7 +5570,7 @@ Generated: 2026-04-06 07:16 UTC
 
 ## Intelligence & Memory
 
-*23 engines in this category*
+*24 engines in this category*
 
 ### BIG_BRAIN_ORACLE
 
@@ -5681,7 +5734,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 211 |
+| Lines | 226 |
 | Functions | 6 |
 | Has run() | Yes |
 
@@ -5763,6 +5816,25 @@ Generated: 2026-04-06 07:16 UTC
 
 ---
 
+### NEURAL_CORTEX
+
+**Purpose:** NEURAL_CORTEX.py -- Strategic brain of the SolarPunk nervous system
+
+| Property | Value |
+|----------|-------|
+| Layer | ? |
+| Lines | 1247 |
+| Functions | 23 |
+| Has run() | Yes |
+
+**Functions:** `_load`, `_save`, `_now_iso`, `_ms_since`, `_safe_float`, `_clamp`, `_ingest_bus`, `_ingest_mesh`, `_ingest_markets`, `_ingest_proprioception`, `_ingest_metabolism`, `_ingest_reflex`, `_ingest_executive`, `_ingest_homeostasis`, `_assess_risk_posture`, `_assess_capital_allocation`, `_assess_growth_priority`, `_assess_system_health`, `_decide_top_action`, `_compute_confidence`, `_build_reasoning`, `_print_summary`, `run`
+
+**Reads:** data/synaptic_bus.json, data/signal_mesh_state.json,
+
+**Writes:** data/neural_cortex_state.json
+
+---
+
 ### OFFLINE_BRAIN
 
 **Purpose:** *(no docstring)*
@@ -5832,7 +5904,7 @@ Generated: 2026-04-06 07:16 UTC
 | Property | Value |
 |----------|-------|
 | Layer | ? |
-| Lines | 33 |
+| Lines | 42 |
 | Functions | 1 |
 | Has run() | No |
 
@@ -6811,7 +6883,7 @@ Generated: 2026-04-06 07:16 UTC
 ## About This System
 
 The SolarPunk Nerve Center is an autonomous, bio-inspired AI system
-composed of 414 engines organized into 11 categories.
+composed of 418 engines organized into 11 categories.
 Each engine is a self-contained unit that reads data, processes it,
 and writes results -- forming a living neural network of code.
 
