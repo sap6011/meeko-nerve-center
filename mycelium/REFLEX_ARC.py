@@ -810,6 +810,28 @@ def run():
     if cooldown_multiplier != 1.0:
         print(f"  [BRAIN] Risk posture: {risk_posture} -> cooldown x{cooldown_multiplier}")
 
+    # 1c. Read HOMEOSTASIS equilibrium for adaptive behavior
+    homeo = bus.get("engines", {}).get("HOMEOSTASIS", {}).get("properties", {})
+    equilibrium = homeo.get("equilibrium", 50)
+    # Low equilibrium = system stressed = more conservative reflexes
+    if equilibrium < 25:
+        cooldown_multiplier = max(cooldown_multiplier, 1.5)
+        print(f"  [HOMEO] Equilibrium LOW ({equilibrium}/100) -> cooldown floor x1.5")
+
+    # 1d. Read fire_ledger for race prevention with EXECUTIVE_FUNCTION
+    exec_recently_fired = set()
+    try:
+        fl = _load(DATA / "fire_ledger.json", {})
+        for entry in fl.get("entries", []):
+            if entry.get("source") == "EXECUTIVE_FUNCTION":
+                eng = entry.get("engine_fired", "")
+                if eng:
+                    exec_recently_fired.add(eng)
+        if exec_recently_fired:
+            print(f"  [FIRE] Executive recently fired: {exec_recently_fired}")
+    except Exception:
+        pass
+
     # 2. Evaluate ALL reflexes in priority order
     checked = 0
     fired = 0

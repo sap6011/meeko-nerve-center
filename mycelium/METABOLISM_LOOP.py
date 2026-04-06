@@ -142,6 +142,8 @@ def _read_nervous_system():
     mesh = _load(DATA / "signal_mesh_state.json")
     xpoll = _load(DATA / "cross_pollinator_state.json")
     pulse = _load(DATA / "pulse_state.json")
+    homeo = _load(DATA / "homeostasis_state.json")
+    cortex = _load(DATA / "neural_cortex_state.json")
 
     # Extract key nervous system metrics
     composite = mesh.get("composite_signal", {})
@@ -178,6 +180,17 @@ def _read_nervous_system():
         "bus_total_emissions": bus.get("meta", {}).get("total_emissions", 0),
         "bus_engine_count": len(engines),
         "convergence_sync": _safe_float(bus.get("convergence", {}).get("sync_score", 0)),
+        # HOMEOSTASIS integration
+        "equilibrium": _safe_float(homeo.get("equilibrium", 0)),
+        "homeostasis_trend": homeo.get("trend", "unknown"),
+        "homeostasis_zones": {
+            z: zd.get("score", 0)
+            for z, zd in homeo.get("health_zones", {}).items()
+        },
+        # NEURAL_CORTEX integration
+        "brain_confidence": _safe_float(cortex.get("decision_confidence", 0)),
+        "brain_risk_posture": cortex.get("strategy", {}).get("risk_posture", "moderate"),
+        "brain_health_score": _safe_float(cortex.get("system_health", {}).get("overall_score", 0)),
     }
 
 
@@ -434,6 +447,9 @@ def _feed_back(metabolism, nervous, ecosystem):
             "products_live": ecosystem["products_live"],
             "bridges_active": ecosystem["bridges_active"],
             "signal_direction": nervous["dominant_direction"],
+            "equilibrium": nervous.get("equilibrium", 0),
+            "brain_confidence": nervous.get("brain_confidence", 0),
+            "brain_risk_posture": nervous.get("brain_risk_posture", "moderate"),
         }, silent=False)
     except Exception:
         pass  # Bus not available -- degrade gracefully
@@ -500,6 +516,8 @@ def _print_dashboard(metabolism, nervous, ecosystem):
     print(f"    Conviction:      {nervous['conviction']}%")
     print(f"    Connectivity:    {nervous['neural_connectivity']}%")
     print(f"    Total capital:   ${nervous['total_capital']:.2f}")
+    print(f"    Equilibrium:     {nervous.get('equilibrium', 0)}/100 [{nervous.get('homeostasis_trend', '?')}]")
+    print(f"    Brain confidence:{nervous.get('brain_confidence', 0)}% ({nervous.get('brain_risk_posture', '?')})")
 
     # Ecosystem inventory
     print(f"\n  ECOSYSTEM INVENTORY:")
