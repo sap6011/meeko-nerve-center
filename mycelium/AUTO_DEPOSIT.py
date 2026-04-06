@@ -97,7 +97,6 @@ def _emit(properties):
 def _sense(engine_name=None):
     """Read bus state via SYNAPTIC_BUS (lazy import, fallback to file)."""
     try:
-        import SYNAPTIC_BUS
         return SYNAPTIC_BUS.sense(engine_name)
     except Exception:
         # Fallback: read bus file directly
@@ -334,7 +333,6 @@ def _execute_deployment(split, intel):
         market_open = intel["alpaca"].get("market_open", False)
         if market_open:
             try:
-                import importlib, sys
                 myc = str(Path(__file__).parent)
                 if myc not in sys.path:
                     sys.path.insert(0, myc)

@@ -170,7 +170,6 @@ def get_positions(api_key, pem_data):
 
 def get_market_orderbook(ticker):
     """Get orderbook for a specific market (public, no auth needed)."""
-    import urllib.request
     url = f"{KALSHI_API}/orderbook/{ticker}"
     try:
         req = urllib.request.Request(url)
@@ -198,7 +197,6 @@ def find_opportunities(config):
       last_price_dollars                 (last traded)
       volume_fp                          (total volume)
     """
-    import urllib.request
 
     min_conf = config.get("min_confidence_pct", 90)
     min_vol = config.get("min_market_volume", 1000)

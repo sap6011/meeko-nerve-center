@@ -93,7 +93,6 @@ def _emit_to_bus(properties):
 def _emit_event(key, value):
     """Emit a single event to the bus."""
     try:
-        from SYNAPTIC_BUS import emit_batch
         emit_batch("SETTLEMENT_WATCHER", {key: value}, silent=False)
     except Exception:
         pass
@@ -311,7 +310,6 @@ def run():
             # Still trigger TURBO for the Kalshi portion if above minimum
             if kalshi_amount >= MIN_TRADE_BALANCE:
                 try:
-                    import TURBO_TRADER
                     TURBO_TRADER.run()
                     turbo_triggered = True
                     action_taken = "split_deploy"

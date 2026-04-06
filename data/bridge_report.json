@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-06T07:08:02.347553+00:00",
+  "timestamp": "2026-04-06T07:17:15.732409+00:00",
   "bridges_attempted": 125,
-  "bridges_built": 15,
-  "bridges_failed": 110,
+  "bridges_built": 14,
+  "bridges_failed": 111,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
@@ -110,13 +110,13 @@
       "detail": "'str' object does not support item assignment"
     },
     {
-      "status": "BRIDGED",
-      "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json",
-      "target": "daemon_task.xml"
+      "target": "daemon_task.xml",
+      "status": "ERROR",
+      "detail": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 48, score 78/100",
+      "detail": "Chimera gen 49, score 79/100",
       "target": "chimera_evolution_report.json"
     },
     {
@@ -131,7 +131,7 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Markets scanned: 100, edges: 35",
+      "detail": "Markets scanned: 100, edges: 32",
       "target": "polymarket_scan.json"
     },
     {

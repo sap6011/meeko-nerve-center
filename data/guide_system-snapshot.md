@@ -14,22 +14,25 @@ The data below is real. Not simulated. Not hypothetical. This system is running 
 
 ## System Topology
 
-- **Total engines**: 394
-- **Wire connections**: 5881
-- **Zero-secret chains**: 3976 (work without any API keys)
+- **Total engines**: 414
+- **Wire connections**: 5900
+- **Zero-secret chains**: 3983 (work without any API keys)
 - **Orphan outputs**: 7 (data written but never read)
-- **Hungry inputs**: 61 (data needed but not yet produced)
+- **Hungry inputs**: 88 (data needed but not yet produced)
 
 ## Engine Categories
 
-### Zero-Secret Engines (305 total)
+### Zero-Secret Engines (324 total)
 These engines run without any API keys or credentials:
 
 - **AFFILIATE_MAXIMIZER** -- reads: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json, writes: affiliate_state.json, affiliate_config.json, affiliate_links_master.json, new_affiliates_found.json
 - **AGENT_GUMROAD_BUILDER** -- reads: product_registry.json, agent_gumroad_builder_state.json, writes: product_registry.json, agent_gumroad_builder_state.json
 - **AGENT_LINK_VERIFIER** -- reads: live_wire_report.json, agent_link_verifier_state.json, writes: live_wire_report.json, agent_link_verifier_state.json
+- **AIRDROP_HUNTER** -- reads: wallet_balances.json, sol_maximizer_state.json, airdrop_hunter_state.json, writes: nothing
+- **ALPACA_TRADER** -- reads: alpaca_trader_state.json, trade_ledger.json, alpaca_trader_config.json, prediction_intelligence.json, polymarket_scan.json, kalshi_scan.json, arbitrage_scanner_state.json, cross_pollinator_state.json, writes: nothing
 - **AMPLIFY_ENGINE** -- reads: amplification_posts.json, amplify_cooldown.json, resource_kits.json, crisis_signals.json, survival_telegrams.json, amplification_queue.json, writes: nothing
 - **APOPTOSIS** -- reads: apoptosis_report.json, pheromone_map.json, pathway_strength.json, writes: apoptosis_report.json
+- **ARBITRAGE_SCANNER** -- reads: wallet_config.json, prediction_intelligence.json, arbitrage_scanner_state.json, writes: nothing
 - **ARCHITECT** -- reads: architect_state.json, architect_plan.json, omnibus_last.json, email_exchange_state.json, brain_state.json, flywheel_summary.json, self_builder_state.json, business_factory_state.json, kofi_tracker_state.json, writes: architect_state.json, architect_plan.json
 - **ART_CATALOG** -- reads: art_catalog.json, writes: art_catalog.json
 - **AUTONOMOUS_GAP_CLOSER** -- reads: gap_closer_state.json, bridge_report.json, live_wire_report.json, human_task_board.json, writes: gap_closer_state.json, gap_closer_report.json
@@ -37,6 +40,7 @@ These engines run without any API keys or credentials:
 - **AUTONOMY_PROOF** -- reads: proof_state.json, omnibus_last.json, brain_state.json, revenue_inbox.json, payout_ledger.json, capability_map.json, knowledge_weaver_state.json, outreach_state.json, atomizer_state.json, writes: proof_state.json
 - **AUTOPILOT_EXECUTOR** -- reads: product_registry.json, storefront_deployer_listings.json, growth_flywheel_content.json, discussion_drafts.json, email_templates.json, image_descriptions.json, kofi_ready_listings.json, human_task_board.json, autopilot_executor_state.json, writes: discussion_drafts.json, email_templates.json, image_descriptions.json, kofi_ready_listings.json, human_task_board.json, autopilot_executor_state.json
 - **AUTO_ARCHITECT** -- reads: synergy_mutations.txt, writes: nothing
+- **AUTO_DEPOSIT** -- reads: auto_deposit_state.json, cross_pollinator_state.json, signal_mesh_state.json, turbo_trader_state.json, alpaca_trader_state.json, synaptic_bus.json, writes: auto_deposit_state.json
 - **AUTO_DOCS** -- reads: synergy_mutations.txt, writes: nothing
 - **AUTO_EXECUTOR** -- reads: auto_executor_state.json, task_queue.json, auto_executor_log.json, writes: auto_executor_state.json, auto_executor_log.json
 - **AUTO_GENESIS** -- reads: live_wire_report.json, zero_secret_army_report.json, chimera_evolution_report.json, auto_genesis_state.json, auto_genesis_log.json, writes: auto_genesis_state.json, auto_genesis_log.json
@@ -51,13 +55,9 @@ These engines run without any API keys or credentials:
 - **BROADCAST_PROTOCOL** -- reads: social_queue.json, newsletter_archive.json, github_discussion_draft.json, rss_publisher_state.json, devto_draft.json, broadcast_state.json, research_brief.json, writes: social_queue.json, newsletter_archive.json, rss_publisher_state.json, github_discussion_draft.json, devto_draft.json, broadcast_state.json, research_brief.json
 - **BUNDLE_FORGE** -- reads: product_registry.json, writes: product_registry.json
 - **CAPACITY_BOOSTER** -- reads: live_wire_report.json, capacity_booster_state.json, writes: live_wire_report.json, capacity_booster_state.json
-- **CATALOG_GENERATOR** -- reads: product_registry.json, catalog_generator_state.json, writes: nothing
-- **CHAIN_ORCHESTRATOR** -- reads: chain_synthesis.json, chain_orchestrator_state.json, economy_chain_ledger.json, signal_chain_state.json, knowledge_chain_synthesis.json, growth_chain_state.json, writes: chain_synthesis.json, chain_orchestrator_state.json
-- **CHANNEL_ROUTER** -- reads: chrome_mcp_status.json, channel_router_state.json, channel_router_queue.json, writes: channel_router_queue.json, channel_router_state.json, chrome_mcp_status.json
-- **CHAOS_TEST** -- reads: master_config.json, writes: nothing
-- ... and 275 more
+- ... and 294 more
 
-### Engines Needing API Keys (89 total)
+### Engines Needing API Keys (90 total)
 These engines unlock when you add credentials:
 
 - **AGENT_TWEET_WRITER** -- needs: ANTHROPIC_API_KEY
@@ -65,6 +65,7 @@ These engines unlock when you add credentials:
 - **AI_WATCHER** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY, HF_TOKEN, GITHUB_TOKEN
 - **ANALYTICS_ENGINE** -- needs: GITHUB_TOKEN
 - **ART_GENERATOR** -- needs: HF_TOKEN, GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
+- **AUTONOMIC_NERVE** -- needs: GROQ_API_KEY
 - **AUTONOMOUS_PUBLISHER** -- needs: BLUESKY_APP_PASSWORD, DEVTO_API_KEY, MASTODON_ACCESS_TOKEN, X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET, GITHUB_TOKEN
 - **BIG_BRAIN_ORACLE** -- needs: ANTHROPIC_API_KEY
 - **BLUESKY_ENGINE** -- needs: BLUESKY_APP_PASSWORD
@@ -79,43 +80,42 @@ These engines unlock when you add credentials:
 - **CRYPTO_WATCHER** -- needs: GMAIL_APP_PASSWORD, ANTHROPIC_API_KEY
 - **DARK_WATCH** -- needs: GMAIL_APP_PASSWORD
 - **DESKTOP_AGENT** -- needs: GITHUB_TOKEN
-- **DESKTOP_DAEMON** -- needs: ANTHROPIC_API_KEY
-- ... and 69 more
+- ... and 70 more
 
 ## Live Wire Connections (Sample)
 
 These are real data flows between engines:
 
-- BIG_BRAIN_ORACLE -> AUTONOMY_PROOF via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> BOTTLENECK_SCANNER via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> BRIDGE_BUILDER via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> CLAUDE_ENGINE via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> CYCLE_MEMORY via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> DISPATCH_HANDLER via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> EMAIL_BRAIN via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> FIRST_CONTACT via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> FIRST_SALE_NOTIFIER via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> GENERATED_QUICK_REVENUE_CONSUMER via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> GRANT_APPLICANT via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> KOFI_PAYMENT_TRACKER via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> OMNIBUS via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> PROOF_LEDGER via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> QUICK_REVENUE via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> SELF_PORTRAIT via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> SOLARPUNK_LEGAL via `revenue_inbox.json`
-- BIG_BRAIN_ORACLE -> STORE_BUILDER via `revenue_inbox.json`
-- DISPATCH_HANDLER -> AUTONOMY_PROOF via `revenue_inbox.json`
-- DISPATCH_HANDLER -> BIG_BRAIN_ORACLE via `revenue_inbox.json`
-- DISPATCH_HANDLER -> BOTTLENECK_SCANNER via `revenue_inbox.json`
-- DISPATCH_HANDLER -> BRIDGE_BUILDER via `revenue_inbox.json`
-- DISPATCH_HANDLER -> CLAUDE_ENGINE via `revenue_inbox.json`
-- DISPATCH_HANDLER -> CYCLE_MEMORY via `revenue_inbox.json`
-- DISPATCH_HANDLER -> EMAIL_BRAIN via `revenue_inbox.json`
-- ... and 5856 more connections
+- SUBSTACK_ENGINE -> GROWTH_CHAIN via `substack_state.json`
+- REVENUE_LOOP -> OMNIBUS via `revenue_loop_last.json`
+- KNOWLEDGE_CHAIN -> CHAIN_ORCHESTRATOR via `knowledge_chain_synthesis.json` (zero-secrets)
+- KNOWLEDGE_CHAIN -> GROWTH_CHAIN via `knowledge_chain_synthesis.json` (zero-secrets)
+- RESOURCE_KIT -> AMPLIFY_ENGINE via `survival_telegrams.json` (zero-secrets)
+- RESOURCE_KIT -> BIOLUMINESCENCE via `survival_telegrams.json` (zero-secrets)
+- RESOURCE_KIT -> GENERATED_RESOURCE_KIT_CONSUMER via `survival_telegrams.json` (zero-secrets)
+- RESOURCE_KIT -> SPORE_DISPERSAL via `survival_telegrams.json` (zero-secrets)
+- RESOURCE_KIT -> TELEGRAM_RELAY via `survival_telegrams.json` (zero-secrets)
+- RESOURCE_KIT -> WEEKEND_PULSE via `survival_telegrams.json` (zero-secrets)
+- TELEGRAM_RELAY -> AMPLIFY_ENGINE via `survival_telegrams.json` (zero-secrets)
+- TELEGRAM_RELAY -> BIOLUMINESCENCE via `survival_telegrams.json` (zero-secrets)
+- TELEGRAM_RELAY -> GENERATED_RESOURCE_KIT_CONSUMER via `survival_telegrams.json` (zero-secrets)
+- TELEGRAM_RELAY -> RESOURCE_KIT via `survival_telegrams.json` (zero-secrets)
+- TELEGRAM_RELAY -> SPORE_DISPERSAL via `survival_telegrams.json` (zero-secrets)
+- TELEGRAM_RELAY -> WEEKEND_PULSE via `survival_telegrams.json` (zero-secrets)
+- CRYPTO_WATCHER -> GENERATED_CRYPTO_WATCHER_CONSUMER via `crypto_summary.txt`
+- GENERATED_POLYMARKET_SCANNER_CONSUMER -> ALPACA_TRADER via `polymarket_scan.json` (zero-secrets)
+- GENERATED_POLYMARKET_SCANNER_CONSUMER -> BRIDGE_BUILDER via `polymarket_scan.json` (zero-secrets)
+- GENERATED_POLYMARKET_SCANNER_CONSUMER -> GENERATED_POLYMARKET_SCAN_POPULATOR via `polymarket_scan.json` (zero-secrets)
+- GENERATED_POLYMARKET_SCANNER_CONSUMER -> MISSION_CONTROL via `polymarket_scan.json` (zero-secrets)
+- GENERATED_POLYMARKET_SCANNER_CONSUMER -> OMNIBUS via `polymarket_scan.json` (zero-secrets)
+- GENERATED_POLYMARKET_SCANNER_CONSUMER -> POLYMARKET_SCANNER via `polymarket_scan.json` (zero-secrets)
+- GENERATED_POLYMARKET_SCANNER_CONSUMER -> TRADING_WIRE via `polymarket_scan.json` (zero-secrets)
+- GENERATED_POLYMARKET_SCANNER_CONSUMER -> VITAL_SIGN_API via `polymarket_scan.json` (zero-secrets)
+- ... and 5875 more connections
 
 ## Knowledge Graph
 
-- **599 nodes** (engines, data files, concepts)
+- **629 nodes** (engines, data files, concepts)
 - **500 edges** (connections between them)
 
 ## What This Means
@@ -131,9 +131,9 @@ Every line of code is public: github.com/meekotharaccoon-cell/meeko-nerve-center
 
 ## Snapshot Metadata
 
-- **Generated**: 2026-04-05 22:16 UTC
+- **Generated**: 2026-04-06 07:16 UTC
 - **Data source**: data/live_wire_report.json
-- **Engines scanned**: 394
+- **Engines scanned**: 414
 
 ---
 *Built autonomously. Funded for Gaza. Running forever.*

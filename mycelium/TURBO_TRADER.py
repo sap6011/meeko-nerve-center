@@ -180,7 +180,6 @@ def _sign_and_fetch(endpoint, api_key, pem_data, method="GET", body=None, timeou
 
 def _public_fetch(endpoint, timeout=10):
     """Unauthenticated Kalshi API request (market data is public)."""
-    import urllib.request
     url = f"{KALSHI_API}{endpoint}"
     try:
         req = urllib.request.Request(url)
@@ -476,7 +475,6 @@ def scan_fast_markets(series_list, min_conf=85, min_vol=100):
     Uses lower volume threshold (100 vs 500) because daily markets
     are newer and have less historical volume.
     """
-    import urllib.request
 
     opportunities = []
     now = datetime.now(timezone.utc)

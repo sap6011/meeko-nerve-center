@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-04-05T22:09:27.549320+00:00",
+  "timestamp": "2026-04-06T07:16:44.628091+00:00",
   "protocol": "mycelium-network-v1",
   "nutrient_routing": {
-    "total_nodes": 394,
-    "producers": 277,
-    "consumers": 111,
+    "total_nodes": 414,
+    "producers": 280,
+    "consumers": 128,
     "top_producers": [
       {
         "name": "BRIDGE_BUILDER",
@@ -17,38 +17,38 @@
       },
       {
         "name": "FIRST_SALE_NOTIFIER",
-        "level": 73.5,
+        "level": 72.5,
         "role": "producer",
         "writes": 5,
         "reads": 8,
-        "downstream_dependents": 110,
+        "downstream_dependents": 109,
         "upstream_feeders": 77
       },
       {
         "name": "REVENUE_LOOP",
-        "level": 64.0,
+        "level": 63.0,
         "role": "producer",
         "writes": 5,
         "reads": 6,
-        "downstream_dependents": 93,
+        "downstream_dependents": 92,
         "upstream_feeders": 66
       },
       {
         "name": "DISPATCH_HANDLER",
-        "level": 62.5,
+        "level": 61.5,
         "role": "producer",
         "writes": 4,
         "reads": 4,
-        "downstream_dependents": 83,
+        "downstream_dependents": 82,
         "upstream_feeders": 49
       },
       {
         "name": "SOVEREIGNTY_ENGINE",
-        "level": 52.0,
+        "level": 55.0,
         "role": "producer",
         "writes": 4,
         "reads": 4,
-        "downstream_dependents": 57,
+        "downstream_dependents": 60,
         "upstream_feeders": 18
       }
     ],
@@ -56,118 +56,102 @@
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "mutation_vault.json",
-        "gradient": 309.5,
-        "src_level": 159.0,
-        "dst_level": -150.5
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
         "via": "live_wire_report.json",
-        "gradient": 309.5,
+        "gradient": 312.5,
         "src_level": 159.0,
-        "dst_level": -150.5
+        "dst_level": -153.5
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "desktop_daemon_state.json",
-        "gradient": 309.5,
+        "via": "brain_state.json",
+        "gradient": 312.5,
         "src_level": 159.0,
-        "dst_level": -150.5
-      },
-      {
-        "from": "BRIDGE_BUILDER",
-        "to": "OMNIBUS",
-        "via": "product_registry.json",
-        "gradient": 309.5,
-        "src_level": 159.0,
-        "dst_level": -150.5
+        "dst_level": -153.5
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "chimera_evolution_report.json",
-        "gradient": 309.5,
+        "gradient": 312.5,
         "src_level": 159.0,
-        "dst_level": -150.5
+        "dst_level": -153.5
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
         "via": "bridge_report.json",
-        "gradient": 309.5,
+        "gradient": 312.5,
         "src_level": 159.0,
-        "dst_level": -150.5
+        "dst_level": -153.5
       },
       {
         "from": "BRIDGE_BUILDER",
         "to": "OMNIBUS",
-        "via": "brain_state.json",
-        "gradient": 309.5,
+        "via": "mutation_vault.json",
+        "gradient": 312.5,
         "src_level": 159.0,
-        "dst_level": -150.5
+        "dst_level": -153.5
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "product_registry.json",
+        "gradient": 312.5,
+        "src_level": 159.0,
+        "dst_level": -153.5
+      },
+      {
+        "from": "BRIDGE_BUILDER",
+        "to": "OMNIBUS",
+        "via": "desktop_daemon_state.json",
+        "gradient": 312.5,
+        "src_level": 159.0,
+        "dst_level": -153.5
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
-        "via": "first_sale_state.json",
-        "gradient": 224.0,
-        "src_level": 73.5,
-        "dst_level": -150.5
+        "via": "brain_state.json",
+        "gradient": 226.0,
+        "src_level": 72.5,
+        "dst_level": -153.5
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
         "via": "revenue_inbox.json",
-        "gradient": 224.0,
-        "src_level": 73.5,
-        "dst_level": -150.5
+        "gradient": 226.0,
+        "src_level": 72.5,
+        "dst_level": -153.5
       },
       {
         "from": "FIRST_SALE_NOTIFIER",
         "to": "OMNIBUS",
-        "via": "brain_state.json",
-        "gradient": 224.0,
-        "src_level": 73.5,
-        "dst_level": -150.5
+        "via": "first_sale_state.json",
+        "gradient": 226.0,
+        "src_level": 72.5,
+        "dst_level": -153.5
       }
     ]
   },
   "adaptive_growth": {
-    "total_wires": 5881,
-    "strengthen": 5869,
+    "total_wires": 5900,
+    "strengthen": 5890,
     "monitor": 9,
-    "prune": 3
+    "prune": 1
   },
   "anastomosis": {
-    "broken_wires": 3,
-    "hungry_inputs": 61,
+    "broken_wires": 1,
+    "hungry_inputs": 88,
     "breaks": [
-      {
-        "type": "broken_wire",
-        "from": "CRYPTO_WATCHER",
-        "to": "GENERATED_CRYPTO_WATCHER_CONSUMER",
-        "via": "crypto_state.json",
-        "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate crypto_state.json"
-      },
       {
         "type": "broken_wire",
         "from": "DESKTOP_DAEMON",
         "to": "GENERATED_DAEMON_TASK_XML_POPULATOR",
         "via": "daemon_task.xml",
-        "status": "CORRUPT",
-        "healing": "BRIDGE_BUILDER should regenerate daemon_task.xml"
-      },
-      {
-        "type": "broken_wire",
-        "from": "CRYPTO_WATCHER",
-        "to": "GENERATED_CRYPTO_WATCHER_CONSUMER",
-        "via": "crypto_summary.txt",
         "status": "READ_ERROR",
-        "healing": "BRIDGE_BUILDER should regenerate crypto_summary.txt"
+        "healing": "BRIDGE_BUILDER should regenerate daemon_task.xml"
       },
       {
         "type": "hungry_input",
@@ -206,6 +190,21 @@
       },
       {
         "type": "hungry_input",
+        "file": "airdrop_hunter_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "alpaca_trader_config.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "alpaca_trader_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
         "file": "amplification_posts.json",
         "healing": "Create seed data or bridge from existing source"
       },
@@ -216,7 +215,17 @@
       },
       {
         "type": "hungry_input",
+        "file": "arbitrage_scanner_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
         "file": "atomizer_state.json",
+        "healing": "Create seed data or bridge from existing source"
+      },
+      {
+        "type": "hungry_input",
+        "file": "autonomic_state.json",
         "healing": "Create seed data or bridge from existing source"
       },
       {
@@ -238,21 +247,6 @@
         "type": "hungry_input",
         "file": "chimera_score.json",
         "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "claude_autonomous_report.json",
-        "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "compound_tracker.json",
-        "healing": "Create seed data or bridge from existing source"
-      },
-      {
-        "type": "hungry_input",
-        "file": "content_harvest_state.json",
-        "healing": "Create seed data or bridge from existing source"
       }
     ]
   },
@@ -263,22 +257,11 @@
   },
   "signals": [
     {
-      "type": "PEST_ALERT",
-      "severity": "medium",
-      "message": "1 engines failing syntax checks",
-      "source": "sentinel",
-      "affected": [
-        "GROWTH_FLYWHEEL.py"
-      ],
-      "biology": "Bark beetle attack detected -- VOC warning sent to neighbors"
-    },
-    {
       "type": "DROUGHT_WARNING",
       "severity": "high",
-      "message": "3 producer connections broken",
+      "message": "1 producer connections broken",
       "source": "nutrient_routing",
       "affected": [
-        "CRYPTO_WATCHER",
         "DESKTOP_DAEMON"
       ],
       "biology": "Major root system damaged -- nutrient flow disrupted downstream"
@@ -286,35 +269,35 @@
     {
       "type": "NUTRIENT_DEFICIT",
       "severity": "medium",
-      "message": "73 engines severely nutrient-depleted",
+      "message": "83 engines severely nutrient-depleted",
       "source": "nutrient_routing",
       "affected": [
         "AGENT_TWEET_WRITER",
-        "ai_council",
+        "ALPACA_TRADER",
         "AMPLIFY_ENGINE",
+        "ARBITRAGE_SCANNER",
         "ARCHITECT",
-        "AUTO_GENESIS",
-        "AUTO_HEALER",
+        "AUTONOMIC_NERVE",
         "AUTONOMOUS_GAP_CLOSER",
         "AUTONOMOUS_TESTER",
         "AUTONOMY_PROOF",
-        "BIG_BRAIN_ORACLE"
+        "AUTO_DEPOSIT"
       ],
       "biology": "Shaded understory trees need carbon transfer from canopy"
     },
     {
       "type": "NETWORK_PULSE",
       "severity": "info",
-      "message": "Network health: 100% (5869/5881 wires healthy)",
+      "message": "Network health: 100% (5890/5900 wires healthy)",
       "source": "mycelium_network",
       "biology": "Seasonal growth assessment -- overall forest vitality check"
     }
   ],
   "reciprocal_rewards": {
-    "mutualists": 232,
-    "balanced": 88,
-    "consumers": 28,
-    "inert": 46,
+    "mutualists": 234,
+    "balanced": 90,
+    "consumers": 32,
+    "inert": 58,
     "top_mutualists": [
       {
         "name": "SOCIAL_DASHBOARD",
@@ -325,13 +308,6 @@
       },
       {
         "name": "AI_CLIENT",
-        "reciprocity": 31.0,
-        "role": "mutualist",
-        "giving": 62,
-        "taking": 2
-      },
-      {
-        "name": "archivist",
         "reciprocity": 30.5,
         "role": "mutualist",
         "giving": 61,
@@ -339,24 +315,31 @@
       },
       {
         "name": "AUTO_RUNNER",
-        "reciprocity": 30.5,
+        "reciprocity": 30.0,
         "role": "mutualist",
-        "giving": 61,
+        "giving": 60,
         "taking": 2
       },
       {
         "name": "CORPORATE_MIRROR",
-        "reciprocity": 30.5,
+        "reciprocity": 30.0,
         "role": "mutualist",
-        "giving": 61,
+        "giving": 60,
+        "taking": 2
+      },
+      {
+        "name": "DESKTOP_HARVESTER",
+        "reciprocity": 30.0,
+        "role": "mutualist",
+        "giving": 60,
         "taking": 2
       }
     ]
   },
   "network_memory": {
-    "cycles_tracked": 50,
+    "cycles_tracked": 52,
     "new_connections": 0,
-    "persisted": 5656,
+    "persisted": 5673,
     "lost": 0
   },
   "biology_notes": {
