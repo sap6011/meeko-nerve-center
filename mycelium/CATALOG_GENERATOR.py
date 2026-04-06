@@ -299,6 +299,11 @@ def save_state(total_count, total_value, scanned_count):
     }
     DATA.mkdir(exist_ok=True)
     with open(STATE_PATH, "w", encoding="utf-8") as fh:
+        try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+        except: _h={}
+        try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+        except: _c={}
+        state["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
         json.dump(state, fh, indent=2)
     print("[CATALOG] State saved to %s" % STATE_PATH)
 

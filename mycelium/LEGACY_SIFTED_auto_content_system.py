@@ -213,6 +213,11 @@ class AutonomousContentGenerator:
             output_dir = os.path.dirname(os.path.abspath(__file__))
             filename = f"{output_dir}/output_{today}.json"
             with open(filename, 'w') as f:
+                try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+                except: _h={}
+                try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+                except: _c={}
+                output["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
                 json.dump(output, f, indent=2)
             
             print(f"Content saved to: {filename}")

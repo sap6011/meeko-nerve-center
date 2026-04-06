@@ -252,6 +252,11 @@ class SocialMediaAutomation:
         buffer_filepath = f"{output_dir}/buffer_{filename}"
         
         with open(buffer_filepath, 'w') as f:
+            try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+            except: _h={}
+            try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+            except: _c={}
+            buffer_format["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
             json.dump(buffer_format, f, indent=2)
         
         print(f"✅ Social calendar saved: {filepath}")

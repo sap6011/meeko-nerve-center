@@ -119,6 +119,20 @@ def find_save_patterns(code, lines):
             saves.append((i, indent, "save_state_call", m.group(1)))
             continue
 
+        # Pattern 6: json.dump(VAR, f...) inside with-open context
+        m = re.search(r'json\.dump\((\w+)\s*,\s*\w+', stripped)
+        if m and "nervous_system" not in stripped and "json.dumps" not in stripped:
+            var = m.group(1)
+            if var not in ("True", "False", "None"):
+                saves.append((i, indent, "json_dump", var))
+                continue
+
+        # Pattern 7: .write_text(json.dumps({...inline dict...}))
+        # Matches write_text(json.dumps({ with an inline dict literal
+        if re.search(r'\.write_text\(json\.dumps\(\{', stripped) and "nervous_system" not in stripped:
+            saves.append((i, indent, "inline_dict", None))
+            continue
+
     return saves
 
 
@@ -165,6 +179,46 @@ def build_injection(indent, dict_var):
     )
 
 
+def build_reads_only(indent):
+    """Build just the nervous system reads (for inline dict injection)."""
+    return (
+        f'{indent}try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))\n'
+        f'{indent}except: _h={{}}\n'
+        f'{indent}try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))\n'
+        f'{indent}except: _c={{}}\n'
+    )
+
+
+NS_INLINE = '"nervous_system":{"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}'
+
+
+def inject_inline_dict(line):
+    """
+    Inject nervous_system key into an inline dict literal on a write_text line.
+    Finds the last '}' before ', indent=' or '})' and inserts the NS key.
+    """
+    # Find the closing brace of the dict literal (before indent= or before ))
+    # Pattern: ...{"key": "val"}, indent=2)
+    m = re.search(r'(\},\s*indent\s*=)', line)
+    if m:
+        pos = m.start()
+        return line[:pos] + ',' + NS_INLINE + line[pos:]
+
+    # Pattern: ...{"key": "val"}))  or  ...{"key": "val"})
+    m = re.search(r'(\}\s*\)\s*,?\s*encoding)', line)
+    if m:
+        pos = m.start()
+        return line[:pos] + ',' + NS_INLINE + line[pos:]
+
+    # Pattern: ...{"key": "val"}), encoding=...)
+    m = re.search(r'(\}\s*\))', line)
+    if m:
+        pos = m.start()
+        return line[:pos] + ',' + NS_INLINE + line[pos:]
+
+    return None  # Can't find insertion point
+
+
 def wire_engine(filepath):
     """
     Attempt to wire a single engine into the nervous system.
@@ -209,20 +263,55 @@ def wire_engine(filepath):
     # Strategy 2: Find save calls in run() and inject before them
     saves = find_save_patterns(code, lines)
     if saves:
-        # Pick the LAST save pattern (most likely the main state save)
-        line_num, indent, pattern, dict_var = saves[-1]
-        injection = build_injection(indent, dict_var)
-        # Insert before the save line
-        lines.insert(line_num, injection.rstrip("\n"))
-        new_code = "\n".join(lines)
-        filepath.write_text(new_code, encoding="utf-8")
-        ok, err = check_syntax(filepath)
-        if ok:
-            return True, f"inline:{pattern}", f"injected before {pattern} call at line {line_num+1}"
-        else:
-            # Rollback
-            filepath.write_text(backup, encoding="utf-8")
-            return False, "rollback", f"syntax error after inline inject: {err[:80]}"
+        # Separate inline_dict patterns from variable-based patterns
+        var_saves = [(ln, ind, pat, dv) for ln, ind, pat, dv in saves if pat != "inline_dict"]
+        inline_saves = [(ln, ind, pat, dv) for ln, ind, pat, dv in saves if pat == "inline_dict"]
+
+        # Try variable-based save first (cleaner injection)
+        if var_saves:
+            line_num, indent, pattern, dict_var = var_saves[-1]
+            injection = build_injection(indent, dict_var)
+            lines.insert(line_num, injection.rstrip("\n"))
+            new_code = "\n".join(lines)
+            filepath.write_text(new_code, encoding="utf-8")
+            ok, err = check_syntax(filepath)
+            if ok:
+                return True, f"inline:{pattern}", f"injected before {pattern} call at line {line_num+1}"
+            else:
+                filepath.write_text(backup, encoding="utf-8")
+                lines = backup.split("\n")
+
+        # Strategy 3: Inline dict injection — modify the write_text line itself
+        if inline_saves:
+            line_num, indent, pattern, _ = inline_saves[-1]
+            reads = build_reads_only(indent)
+            modified_line = inject_inline_dict(lines[line_num])
+            if modified_line:
+                lines[line_num] = modified_line
+                lines.insert(line_num, reads.rstrip("\n"))
+                new_code = "\n".join(lines)
+                filepath.write_text(new_code, encoding="utf-8")
+                ok, err = check_syntax(filepath)
+                if ok:
+                    return True, "inline_dict", f"injected NS key into inline dict at line {line_num+1}"
+                else:
+                    filepath.write_text(backup, encoding="utf-8")
+                    lines = backup.split("\n")
+
+        # Strategy 3b: json.dump(var, f) — inject before it
+        json_dump_saves = [(ln, ind, pat, dv) for ln, ind, pat, dv in saves if pat == "json_dump"]
+        if json_dump_saves:
+            line_num, indent, pattern, dict_var = json_dump_saves[-1]
+            injection = build_injection(indent, dict_var)
+            lines.insert(line_num, injection.rstrip("\n"))
+            new_code = "\n".join(lines)
+            filepath.write_text(new_code, encoding="utf-8")
+            ok, err = check_syntax(filepath)
+            if ok:
+                return True, f"json_dump", f"injected before json.dump({dict_var}) at line {line_num+1}"
+            else:
+                filepath.write_text(backup, encoding="utf-8")
+                return False, "rollback", f"syntax error after json_dump inject: {err[:80]}"
 
     return False, "skip", "no save pattern detected"
 

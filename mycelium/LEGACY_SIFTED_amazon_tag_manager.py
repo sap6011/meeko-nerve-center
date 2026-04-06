@@ -426,6 +426,11 @@ def make_link(asin: str, tag: str = None) -> str:
         
         report_file = f"tag_report_{datetime.now().strftime('%Y%m%d')}.json"
         with open(report_file, 'w') as f:
+            try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+            except: _h={}
+            try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+            except: _c={}
+            report["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
             json.dump(report, f, indent=2)
         
         logger.info(f"Report saved: {report_file}")

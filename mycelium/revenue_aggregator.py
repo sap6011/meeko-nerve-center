@@ -26,6 +26,11 @@ def aggregate_fuel():
     }
     
     with open('C:/Solarpunk-Prime/vault/community_fund.json', 'w') as f:
+        try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+        except: _h={}
+        try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+        except: _c={}
+        report["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
         json.dump(report, f, indent=4)
     
     print(f"Revenue Pulse:  aggregated and allocated to the Youth Mycelium.")
