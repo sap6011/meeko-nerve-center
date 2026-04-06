@@ -167,6 +167,11 @@ def run():
     state["last_run"]      = now
     state["history"].append({"ts": now, "signals": len(signals), "actions": len(new_actions)})
     state["history"]       = state["history"][-50:]
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    state["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     (DATA / "signal_chain_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
 
     print(f"  📡 Signals: {len(signals)} | New actions: {len(new_actions)} | "
