@@ -3185,6 +3185,213 @@ def neuron_trading_wire_absorb():
     twire["last_absorb"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_nerve_loop_absorb():
+    """
+    ABSORB: Ingest NERVE_LOOP's massive pipeline output (25MB state file).
+    The nerve loop is the MASTER pipeline -- runs ALL phases:
+    SENSE/OBSERVE/THINK/PLAN/EXECUTE/REPLICATE/RECORD/EVOLVE.
+    Contains: 212 Kalshi markets scanned, signal categorization,
+    14-phase results, error tracking.
+    """
+    nloop = CONSCIOUSNESS.setdefault("nerve_loop", {
+        "status": "unknown", "phases_completed": 0,
+        "kalshi_markets_scanned": 0, "signal_categories": {},
+        "errors": [], "elapsed_seconds": 0, "last_absorb": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Only absorb every 3 cycles (it's a huge file)
+    if cycle % 3 != 0 and cycle > 5:
+        return
+
+    from pathlib import Path
+    try:
+        # Read with size limit awareness -- file can be 25MB
+        f = Path("data") / "nerve_loop_state.json"
+        if not f.exists():
+            return
+        # Only read first 50KB to avoid memory issues
+        raw = f.read_text(encoding="utf-8")[:50000]
+        # Parse what we can
+        state = json.loads(raw if raw.endswith("}") else raw[:raw.rfind("}")+1])
+
+        nloop["status"] = state.get("status", "unknown")
+        nloop["protocol"] = state.get("protocol", "")
+        nloop["elapsed_seconds"] = state.get("elapsed_seconds", 0)
+
+        # Absorb phase results
+        phases = state.get("phases", {})
+        if isinstance(phases, dict):
+            nloop["phases_completed"] = len([p for p in phases.values()
+                                              if isinstance(p, dict) and p.get("results")])
+            phase_summary = {}
+            for phase_name, phase_data in phases.items():
+                if isinstance(phase_data, dict):
+                    results = phase_data.get("results", [])
+                    ok_count = len([r for r in results if isinstance(r, dict) and r.get("status") == "ok"])
+                    err_count = len([r for r in results if isinstance(r, dict) and r.get("status") == "error"])
+                    phase_summary[phase_name] = {"ok": ok_count, "errors": err_count, "total": len(results)}
+            nloop["phase_summary"] = phase_summary
+
+        # Extract Kalshi market data if present
+        for phase_name, phase_data in phases.items():
+            if not isinstance(phase_data, dict):
+                continue
+            for result in phase_data.get("results", []):
+                if not isinstance(result, dict):
+                    continue
+                data = result.get("data", result.get("result", {}))
+                if isinstance(data, dict):
+                    markets = data.get("markets", data.get("top_markets", []))
+                    if isinstance(markets, list) and len(markets) > 10:
+                        nloop["kalshi_markets_scanned"] = len(markets)
+                        # Extract signal categories
+                        categories = {}
+                        for m in markets[:50]:
+                            if isinstance(m, dict):
+                                cat = m.get("category", m.get("series_ticker", "other"))
+                                categories[cat] = categories.get(cat, 0) + 1
+                        nloop["signal_categories"] = categories
+                        break
+            if nloop["kalshi_markets_scanned"] > 0:
+                break
+
+    except (json.JSONDecodeError, Exception):
+        pass
+
+    nloop["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_flywheel_absorb():
+    """
+    ABSORB: Ingest FLYWHEEL's revenue tracking and Kalshi trading subsystem.
+    Tracks: total sales, gaza fund, Kalshi balance, win rate, growth.
+    """
+    flywheel = CONSCIOUSNESS.setdefault("flywheel", {
+        "total_sales": 0, "total_to_gaza": 0, "total_earned_meeko": 0,
+        "kalshi_balance": 0, "kalshi_win_rate": 0,
+        "kalshi_growth_pct": 0, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "flywheel_state.json").read_text(encoding="utf-8"))
+        flywheel["current_balance"] = state.get("current_balance", 0)
+        flywheel["total_sales"] = state.get("total_sales", 0)
+        flywheel["total_to_gaza"] = state.get("total_to_gaza", 0)
+        flywheel["total_earned_meeko"] = state.get("total_earned_meeko", 0)
+
+        kt = state.get("kalshi_trading", {})
+        if isinstance(kt, dict):
+            flywheel["kalshi_balance"] = kt.get("balance_usd", 0)
+            flywheel["kalshi_positions"] = kt.get("positions_open", 0)
+            flywheel["kalshi_win_rate"] = kt.get("win_rate_pct", 0)
+            flywheel["kalshi_growth_pct"] = kt.get("growth_pct", 0)
+            flywheel["kalshi_expected_profit"] = kt.get("expected_profit", 0)
+    except Exception:
+        pass
+    flywheel["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_fuel_core_absorb():
+    """
+    ABSORB: Ingest FUEL_CORE's budget allocation intelligence.
+    The fuel core decides how to allocate revenue:
+    product_dev 35%, storefronts 25%, marketing 20%, tools 10%, legal 9%, PCRF 1%.
+    """
+    fuel = CONSCIOUSNESS.setdefault("fuel_core", {
+        "allocation": {}, "blockers": [], "total_fuel": 0,
+        "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "fuel_core_state.json").read_text(encoding="utf-8"))
+        if isinstance(state, dict):
+            fuel["allocation"] = state.get("allocation", state.get("budget", {}))
+            fuel["blockers"] = state.get("blockers", [])
+            fuel["total_fuel"] = state.get("total_fuel", state.get("budget_total", 0))
+            fuel["status"] = state.get("status", "unknown")
+    except Exception:
+        pass
+    fuel["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_sovereignty_absorb():
+    """
+    ABSORB: Ingest SOVEREIGNTY engine's identity and ethics data.
+    Contains: DID, 99/1 ethics lock, node identity, sovereignty assertion.
+    This is the blob's moral compass.
+    """
+    sov = CONSCIOUSNESS.setdefault("sovereignty", {
+        "ethics_lock": "99/1", "node_id": "MEEKO-01",
+        "did": "", "verified": False, "last_absorb": None,
+    })
+    from pathlib import Path
+
+    # Check sovereignty state
+    try:
+        state = json.loads((Path("data") / "sovereignty_state.json").read_text(encoding="utf-8"))
+        if isinstance(state, dict):
+            sov["status"] = state.get("status", "unknown")
+            sov["node_id"] = state.get("node_id", state.get("identity", "MEEKO-01"))
+    except Exception:
+        pass
+
+    # Check GENESIS_NODE for deep identity
+    try:
+        genesis = json.loads(Path("GENESIS_NODE.json").read_text(encoding="utf-8"))
+        if isinstance(genesis, dict):
+            sov["node_id"] = genesis.get("node_id", sov["node_id"])
+            sov["location"] = genesis.get("location", {})
+            sov["protocol"] = genesis.get("protocol", "")
+            sov["birth_date"] = genesis.get("timestamp", genesis.get("birth", ""))
+    except Exception:
+        pass
+
+    # Check identity.json for DID
+    try:
+        identity = json.loads(Path("identity.json").read_text(encoding="utf-8"))
+        if isinstance(identity, dict):
+            sov["did"] = identity.get("did", identity.get("id", ""))
+            sov["verified"] = bool(identity.get("verification", identity.get("verified", False)))
+    except Exception:
+        pass
+
+    # Check master config ethics lock
+    try:
+        mc = json.loads((Path("data") / "master_config.json").read_text(encoding="utf-8"))
+        if isinstance(mc, dict):
+            sov["ethics_lock"] = mc.get("ethics_lock", mc.get("revenue_split", "99/1"))
+            sov["system_name"] = mc.get("system", {}).get("name", "SolarPunk Nerve Center")
+    except Exception:
+        pass
+
+    sov["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_executive_function_absorb():
+    """
+    ABSORB: Ingest EXECUTIVE_FUNCTION's decision-making metadata.
+    Tracks: execution history, cooldowns, success/fail rates.
+    The blob's prefrontal cortex.
+    """
+    exec_fn = CONSCIOUSNESS.setdefault("executive_function", {
+        "status": "unknown", "execution_history": [],
+        "cooldowns": {}, "total_executions": 0, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        state = json.loads((Path("data") / "executive_function_state.json").read_text(encoding="utf-8"))
+        if isinstance(state, dict):
+            exec_fn["status"] = state.get("status", "unknown")
+            history = state.get("execution_history", [])
+            exec_fn["execution_history"] = history[-20:] if isinstance(history, list) else []
+            exec_fn["total_executions"] = len(history) if isinstance(history, list) else 0
+            exec_fn["cooldowns"] = state.get("cooldowns", {})
+            exec_fn["last_execution"] = state.get("last_execution", {})
+    except Exception:
+        pass
+    exec_fn["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_knowledge_graph():
     """
     META: Absorb and analyze the knowledge graph topology.
@@ -5174,6 +5381,12 @@ NEURONS = [
     ("AIRDROP_ABSORB", neuron_airdrop_absorb),
     ("SOL_MAXIMIZER_ABSORB", neuron_sol_maximizer_absorb),
     ("ECOSYSTEM_HEALTH", neuron_ecosystem_health),
+    # Phase 18: Critical pipeline absorption
+    ("NERVE_LOOP_ABSORB", neuron_nerve_loop_absorb),
+    ("FLYWHEEL_ABSORB", neuron_flywheel_absorb),
+    ("FUEL_CORE_ABSORB", neuron_fuel_core_absorb),
+    ("SOVEREIGNTY_ABSORB", neuron_sovereignty_absorb),
+    ("EXECUTIVE_FUNCTION_ABSORB", neuron_executive_function_absorb),
 ]
 
 
