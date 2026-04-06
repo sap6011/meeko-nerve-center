@@ -622,7 +622,7 @@ def _reflex_regime_shift(bus, mesh, state):
     if not current_regime:
         gm_file = DATA / "global_markets_state.json"
         gm_data = _load(gm_file)
-        current_regime = gm_data.get("cross_platform", {}).get("regime", "")
+        current_regime = gm_data.get("cross_market", {}).get("regime", "")
 
     if not current_regime:
         return False, "no regime data available yet", _ms_since(t0)

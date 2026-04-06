@@ -575,6 +575,11 @@ def run():
         "GROWTH_TRACKER":   "growth_tracker.json",
         "METABOLISM_LOOP":  "metabolism_state.json",
         "GLOBAL_MARKETS":   "global_markets_state.json",
+        "REFLEX_ARC":       "reflex_arc_state.json",
+        "PROPRIOCEPTION":   "proprioception_state.json",
+        "SETTLEMENT_WATCHER": "settlement_watcher_state.json",
+        "AUTO_DEPOSIT":     "auto_deposit_state.json",
+        "SIGNAL_MESH":      "signal_mesh_state.json",
     }
 
     bootstrapped = 0
@@ -758,6 +763,44 @@ def _extract_key_props(eng_name, data):
             props["top_opportunity"] = top.get("name", "?")
             props["top_opportunity_score"] = top.get("score", 0)
             props["top_opportunity_platform"] = top.get("platform", "?")
+
+    elif eng_name == "REFLEX_ARC":
+        last_cycle = data.get("last_cycle", {})
+        props["checked"] = last_cycle.get("checked", 0)
+        props["fired"] = last_cycle.get("fired", 0)
+        props["arc_response_ms"] = last_cycle.get("arc_response_ms", 0)
+        props["total_fires"] = data.get("total_fires", 0)
+        props["total_checks"] = data.get("total_checks", 0)
+        props["fire_counts"] = data.get("fire_counts", {})
+
+    elif eng_name == "PROPRIOCEPTION":
+        props["engine_count"] = data.get("engine_count", 0)
+        props["data_file_count"] = data.get("data_file_count", 0)
+        props["evolution_label"] = data.get("evolution_label", "")
+        props["coordination_score"] = data.get("coordination_score", 0)
+        props["metabolism_rate"] = data.get("metabolism_rate", 0)
+        props["growth_trajectory"] = data.get("growth_trajectory", {})
+
+    elif eng_name == "SETTLEMENT_WATCHER":
+        props["settlements_detected"] = data.get("settlements_detected", 0)
+        props["last_settlement_amount"] = data.get("last_settlement_amount", 0)
+        props["redeployment_count"] = data.get("redeployment_count", 0)
+
+    elif eng_name == "AUTO_DEPOSIT":
+        props["decision_tier"] = data.get("decision_tier", "")
+        props["kalshi_pct"] = data.get("kalshi_pct", 60)
+        props["alpaca_pct"] = data.get("alpaca_pct", 40)
+        props["total_deployed"] = data.get("total_deployed", 0)
+
+    elif eng_name == "SIGNAL_MESH":
+        composite = data.get("composite_signal", {})
+        props["composite_strength"] = composite.get("composite_strength", 0)
+        props["dominant_direction"] = composite.get("dominant_direction", "neutral")
+        props["conviction_score"] = composite.get("conviction_score", 0)
+        props["urgency"] = composite.get("urgency", 0)
+        hb = data.get("heartbeat", {})
+        props["sources_alive"] = hb.get("alive", 0)
+        props["neural_connectivity"] = hb.get("neural_connectivity", 0)
 
     return props
 

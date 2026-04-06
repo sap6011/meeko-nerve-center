@@ -61,6 +61,8 @@ SIGNAL_SOURCES = [
     {"id": "ai_cost",           "file": "ai_cost_tracker.json",          "weight": 0.4,  "label": "AI Cost Tracker"},
     {"id": "metabolism",        "file": "metabolism_state.json",          "weight": 0.7,  "label": "Metabolism Loop"},
     {"id": "global_markets",    "file": "global_markets_state.json",      "weight": 0.9,  "label": "Global Markets"},
+    {"id": "reflex_arc",        "file": "reflex_arc_state.json",          "weight": 0.6,  "label": "Reflex Arc"},
+    {"id": "proprioception",    "file": "proprioception_state.json",      "weight": 0.5,  "label": "Proprioception"},
 ]
 
 # Freshness decay thresholds
@@ -349,7 +351,7 @@ def _extract_signal(source_def, data, now):
             })
 
     elif sid == "global_markets":
-        cross = data.get("cross_market", {})
+        cross = data.get("cross_market", data.get("cross_platform", {}))
         regime = cross.get("regime", "NEUTRAL")
         regime_score = cross.get("regime_score", 0)
         total_opps = len(data.get("ranked_opportunities", []))
@@ -367,6 +369,65 @@ def _extract_signal(source_def, data, now):
                 "platform": r.get("platform", "multi"),
                 "capital": r.get("capital", ""),
                 "regime": regime,
+            })
+
+    elif sid == "reflex_arc":
+        # Reflex fire rate and response time as system health signals
+        last_cycle = data.get("last_cycle", {})
+        total_fires = data.get("total_fires", 0)
+        total_checks = data.get("total_checks", 0)
+        fired_this_cycle = last_cycle.get("fired", 0)
+        arc_ms = last_cycle.get("arc_response_ms", 0)
+        fire_counts = data.get("fire_counts", {})
+
+        # High fire rate = system is actively responding = "opportunity" signal
+        # Very high fire rate = too many triggers = potential stress
+        fire_rate = (total_fires / max(total_checks, 1)) * 100 if total_checks else 0
+        signal["signal_strength"] = min(60, int(fire_rate * 3 + (10 if fired_this_cycle > 0 else 0)))
+        signal["signal_direction"] = "opportunity" if 5 < fire_rate < 50 else (
+            "bearish" if fire_rate >= 50 else "neutral"
+        )
+
+        # Report the hottest reflex as an opportunity signal
+        if fire_counts:
+            hottest = max(fire_counts, key=fire_counts.get)
+            signal["opportunities"].append({
+                "type": "reflex_activity",
+                "hottest_reflex": hottest,
+                "fire_count": fire_counts[hottest],
+                "arc_response_ms": arc_ms,
+                "fire_rate_pct": round(fire_rate, 1),
+                "platform": "solarpunk",
+            })
+
+    elif sid == "proprioception":
+        # Growth trajectory and system self-awareness as meta-signal
+        engine_count = data.get("engine_count", 0)
+        data_file_count = data.get("data_file_count", 0)
+        evolution_label = data.get("evolution_label", "")
+        coordination = data.get("coordination_score", 0)
+        trajectory = data.get("growth_trajectory", {})
+        portfolio_7d = trajectory.get("portfolio_7d", 0)
+        engines_7d = trajectory.get("engines_7d", 0)
+
+        # Strength from coordination + evolution rate
+        evo_bonus = {"HIGH": 30, "MEDIUM": 15, "LOW": 0}.get(evolution_label, 5)
+        strength = min(50, int(coordination * 0.3 + evo_bonus + min(engine_count, 500) * 0.02))
+        signal["signal_strength"] = strength
+        signal["signal_direction"] = "bullish" if evolution_label in ("HIGH", "MEDIUM") else (
+            "bearish" if evolution_label == "LOW" else "neutral"
+        )
+
+        if engine_count > 0:
+            signal["opportunities"].append({
+                "type": "system_growth",
+                "engine_count": engine_count,
+                "data_files": data_file_count,
+                "evolution": evolution_label,
+                "coordination": coordination,
+                "projected_engines_7d": engines_7d,
+                "projected_portfolio_7d": portfolio_7d,
+                "platform": "solarpunk",
             })
 
     return signal

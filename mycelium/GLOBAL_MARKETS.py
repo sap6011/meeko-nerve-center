@@ -64,6 +64,9 @@ SOURCES = {
     "cross_pollinator": "cross_pollinator_state.json",
     "signal_mesh":      "signal_mesh_state.json",
     "synaptic_bus":     "synaptic_bus.json",
+    "proprioception":   "proprioception_state.json",
+    "reflex_arc":       "reflex_arc_state.json",
+    "metabolism":       "metabolism_state.json",
 }
 
 
@@ -411,6 +414,35 @@ def _cross_market_analysis(solana, prediction, alpaca_data, sources, now):
     regime_score += sol_24h * 2                 # SOL momentum
     regime_score += btc_24h * 1.5              # BTC momentum
     regime_score += eth_24h * 1                # ETH momentum
+
+    # D. Internal system health as regime modifier
+    # If our own system is growing fast (proprioception), we're confident -> slight risk-on bias
+    proprio = sources.get("proprioception", {})
+    evo_label = proprio.get("evolution_label", "")
+    coordination = proprio.get("coordination_score", 0)
+    if evo_label == "HIGH":
+        regime_score += 3  # System growing strongly -> slight risk-on confidence
+    elif evo_label == "LOW":
+        regime_score -= 2  # System stalling -> slight risk-off caution
+
+    # Metabolism health: ecosystem revenue feeding back -> system is robust
+    metab = sources.get("metabolism", {})
+    metab_data = metab.get("metabolism", {})
+    eco_health = metab_data.get("ecosystem_health", 0) or 0
+    circuit = metab.get("circuit_status", "")
+    if eco_health > 60 and circuit == "closed":
+        regime_score += 2  # Healthy ecosystem, closed circuit -> confidence boost
+    elif eco_health < 20:
+        regime_score -= 2  # Ecosystem degrading -> caution
+
+    # Reflex arc fire rate: high fire rate may indicate volatility
+    reflex = sources.get("reflex_arc", {})
+    total_fires = reflex.get("total_fires", 0)
+    total_checks = reflex.get("total_checks", 0)
+    if total_checks > 0:
+        fire_rate = total_fires / total_checks
+        if fire_rate > 0.5:
+            regime_score -= 3  # Too many reflexes firing -> volatility, go defensive
 
     if regime_score > 15:
         regime = "RISK_ON"
