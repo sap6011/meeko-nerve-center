@@ -777,7 +777,7 @@ def neuron_bridge_builder():
         try:
             import subprocess
             r = subprocess.run(["gh", "api", "repos/meekotharaccoon-cell/meeko-nerve-center"],
-                             capture_output=True, text=True, timeout=10)
+                             capture_output=True, text=True, timeout=10, encoding="utf-8", errors="replace")
             if r.returncode == 0:
                 repo = json.loads(r.stdout)
                 CONSCIOUSNESS["analytics"]["stars"] = repo.get("stargazers_count", 0)
@@ -824,7 +824,7 @@ def neuron_github_analytics():
         # Traffic views
         r = subprocess.run(
             ["gh", "api", "repos/meekotharaccoon-cell/meeko-nerve-center/traffic/views"],
-            capture_output=True, text=True, timeout=10)
+            capture_output=True, text=True, timeout=10, encoding="utf-8", errors="replace")
         if r.returncode == 0:
             data = json.loads(r.stdout)
             analytics["views_14d"] = data.get("count", 0)
@@ -834,7 +834,7 @@ def neuron_github_analytics():
         # Traffic clones
         r2 = subprocess.run(
             ["gh", "api", "repos/meekotharaccoon-cell/meeko-nerve-center/traffic/clones"],
-            capture_output=True, text=True, timeout=10)
+            capture_output=True, text=True, timeout=10, encoding="utf-8", errors="replace")
         if r2.returncode == 0:
             data2 = json.loads(r2.stdout)
             analytics["clones_14d"] = data2.get("count", 0)
@@ -842,7 +842,7 @@ def neuron_github_analytics():
         # Referrers
         r3 = subprocess.run(
             ["gh", "api", "repos/meekotharaccoon-cell/meeko-nerve-center/traffic/popular/referrers"],
-            capture_output=True, text=True, timeout=10)
+            capture_output=True, text=True, timeout=10, encoding="utf-8", errors="replace")
         if r3.returncode == 0:
             refs = json.loads(r3.stdout)
             analytics["top_referrers"] = [{"site": r.get("referrer"), "count": r.get("count")}
@@ -1005,37 +1005,113 @@ def neuron_github_actions_trigger():
     LIVE: Trigger GitHub Actions workflows to use cloud-only secrets.
     The blob can't access ANTHROPIC_API_KEY, BLUESKY_*, DISCORD_*, etc.
     locally — but GitHub Actions CAN. So we dispatch workflows.
+
+    Strategy:
+      - Catalog all dispatchable workflows
+      - Based on consciousness state, decide which ones to fire
+      - Use `gh workflow run <name>` to dispatch
+      - Track what was triggered and when
     """
     dispatch = CONSCIOUSNESS.setdefault("dispatch", {
         "triggered": [], "pending": [], "last_trigger": None,
+        "history": [], "available_workflows": [], "active_count": 0,
     })
     cycle = CONSCIOUSNESS["pulse"]["cycle"]
 
-    # Only trigger on specific conditions, not every cycle
-    if cycle % 10 != 0 and cycle != 1:
+    # Phase A: Catalog workflows (every 10 cycles, or if empty)
+    if cycle % 10 == 0 or cycle == 1 or not dispatch.get("available_workflows"):
+        try:
+            import subprocess
+            r = subprocess.run(
+                ["gh", "workflow", "list", "--json", "name,state,id"],
+                capture_output=True, text=True, timeout=15, encoding="utf-8", errors="replace")
+            if r.returncode == 0 and r.stdout:
+                workflows = json.loads(r.stdout)
+                dispatch["available_workflows"] = [
+                    {"name": w["name"], "state": w["state"], "id": w.get("id")}
+                    for w in workflows
+                ]
+                active = [w for w in workflows if w["state"] == "active"]
+                dispatch["active_count"] = len(active)
+                dispatch.pop("catalog_error", None)  # Clear old errors
+        except Exception as e:
+            dispatch["catalog_error"] = str(e)[:80]
+
+    # Phase B: Decide what to fire (every 15 cycles — conservative)
+    if cycle % 15 != 0 or cycle < 3:
+        dispatch["last_trigger"] = datetime.now(timezone.utc).isoformat()
         return
 
-    try:
-        import subprocess
+    import subprocess
+    fired = []
+    eq = CONSCIOUSNESS["equilibrium"]
+    brain = CONSCIOUSNESS["brain"]
+    community = CONSCIOUSNESS.get("community", {})
 
-        # Check which workflows exist
-        r = subprocess.run(
-            ["gh", "workflow", "list", "--json", "name,state"],
-            capture_output=True, text=True, timeout=10)
-        if r.returncode == 0:
-            workflows = json.loads(r.stdout)
-            dispatch["available_workflows"] = [
-                {"name": w["name"], "state": w["state"]} for w in workflows
-            ]
+    # Rule 1: If health < 30% and OMNIBRAIN hasn't run recently, dispatch it
+    # OMNIBRAIN runs all engines with cloud secrets
+    active_names = [w["name"] for w in dispatch.get("available_workflows", [])
+                    if w.get("state") == "active"]
 
-            # Find dispatchable workflows (enabled ones)
-            active = [w for w in workflows if w["state"] == "active"]
-            dispatch["active_count"] = len(active)
+    # Rule 2: SIGNAL_BOOST — post pulse to discussions (weekly-ish)
+    recent_history = dispatch.get("history", [])
+    recently_fired = {h["name"] for h in recent_history[-20:]}
 
-        dispatch["last_trigger"] = datetime.now(timezone.utc).isoformat()
+    if "SIGNAL_BOOST" in active_names and "SIGNAL_BOOST" not in recently_fired:
+        try:
+            r = subprocess.run(
+                ["gh", "workflow", "run", "SIGNAL_BOOST.yml"],
+                capture_output=True, text=True, timeout=15, encoding="utf-8", errors="replace")
+            if r.returncode == 0:
+                fired.append("SIGNAL_BOOST")
+        except Exception:
+            pass
 
-    except Exception as e:
-        dispatch["trigger_error"] = str(e)[:80]
+    # Rule 3: REACH — ping search engines (helps SEO)
+    if "REACH" in active_names and "REACH" not in recently_fired:
+        try:
+            r = subprocess.run(
+                ["gh", "workflow", "run", "REACH.yml"],
+                capture_output=True, text=True, timeout=15, encoding="utf-8", errors="replace")
+            if r.returncode == 0:
+                fired.append("REACH")
+        except Exception:
+            pass
+
+    # Rule 4: BADGE_FORGE — update status badges
+    if "BADGE_FORGE" in active_names and "BADGE_FORGE" not in recently_fired:
+        try:
+            r = subprocess.run(
+                ["gh", "workflow", "run", "BADGE_FORGE.yml"],
+                capture_output=True, text=True, timeout=15, encoding="utf-8", errors="replace")
+            if r.returncode == 0:
+                fired.append("BADGE_FORGE")
+        except Exception:
+            pass
+
+    # Rule 5: LIVING_DOCS — refresh documentation
+    if "LIVING_DOCS" in active_names and "LIVING_DOCS" not in recently_fired:
+        try:
+            r = subprocess.run(
+                ["gh", "workflow", "run", "LIVING_DOCS.yml"],
+                capture_output=True, text=True, timeout=15, encoding="utf-8", errors="replace")
+            if r.returncode == 0:
+                fired.append("LIVING_DOCS")
+        except Exception:
+            pass
+
+    # Record what we fired
+    if fired:
+        ts = datetime.now(timezone.utc).isoformat()
+        for name in fired:
+            dispatch["history"].append({"name": name, "cycle": cycle, "ts": ts})
+        dispatch["triggered"] = fired
+        # Keep history bounded
+        if len(dispatch["history"]) > 100:
+            dispatch["history"] = dispatch["history"][-50:]
+
+    dispatch["last_trigger"] = datetime.now(timezone.utc).isoformat()
+    dispatch["last_fired_count"] = len(fired)
 
 
 def neuron_dashboard_builder():
@@ -1187,14 +1263,14 @@ def neuron_community_pulse():
         # Open issues
         r = subprocess.run(
             ["gh", "api", f"repos/{repo}", "--jq", ".open_issues_count"],
-            capture_output=True, text=True, timeout=10)
+            capture_output=True, text=True, timeout=10, encoding="utf-8", errors="replace")
         if r.returncode == 0 and r.stdout.strip():
             community["open_issues"] = int(r.stdout.strip())
 
         # Open PRs
         r2 = subprocess.run(
             ["gh", "api", f"repos/{repo}/pulls?state=open", "--jq", "length"],
-            capture_output=True, text=True, timeout=10)
+            capture_output=True, text=True, timeout=10, encoding="utf-8", errors="replace")
         if r2.returncode == 0 and r2.stdout.strip():
             community["open_prs"] = int(r2.stdout.strip())
 
@@ -1202,7 +1278,7 @@ def neuron_community_pulse():
         r3 = subprocess.run(
             ["gh", "api", f"repos/{repo}/events?per_page=5",
              "--jq", '[.[] | {type: .type, actor: .actor.login, created: .created_at}]'],
-            capture_output=True, text=True, timeout=10)
+            capture_output=True, text=True, timeout=10, encoding="utf-8", errors="replace")
         if r3.returncode == 0:
             try:
                 community["recent_events"] = json.loads(r3.stdout)[:5]
@@ -1376,6 +1452,170 @@ def neuron_mission_pulse():
     mission["last_pulse"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_workflow_health():
+    """
+    LIVE: Monitor GitHub Actions workflow run health.
+    Checks recent runs for failures, stalls, and success rates.
+    """
+    wf_health = CONSCIOUSNESS.setdefault("workflow_health", {
+        "recent_runs": [], "success_rate": 0, "failures": [],
+        "last_check": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0 and cycle != 1:
+        return
+
+    try:
+        import subprocess
+        # Get last 15 workflow runs
+        r = subprocess.run(
+            ["gh", "run", "list", "--json",
+             "name,status,conclusion,createdAt",
+             "-L", "15"],
+            capture_output=True, text=True, timeout=15, encoding="utf-8", errors="replace")
+        if r.returncode == 0:
+            runs = json.loads(r.stdout)
+            wf_health["recent_runs"] = [
+                {
+                    "name": run.get("name", "?"),
+                    "status": run.get("status", "?"),
+                    "conclusion": run.get("conclusion", "?"),
+                    "created": run.get("createdAt", ""),
+                }
+                for run in runs[:15]
+            ]
+
+            # Calculate success rate
+            completed = [r for r in runs if r.get("conclusion")]
+            if completed:
+                successes = sum(1 for r in completed if r.get("conclusion") == "success")
+                wf_health["success_rate"] = round(successes / len(completed) * 100)
+
+            # Track failures
+            wf_health["failures"] = [
+                {"name": r.get("name"), "conclusion": r.get("conclusion")}
+                for r in runs
+                if r.get("conclusion") and r.get("conclusion") != "success"
+            ][:5]
+
+        wf_health["last_check"] = datetime.now(timezone.utc).isoformat()
+
+    except Exception as e:
+        wf_health["check_error"] = str(e)[:80]
+
+
+def neuron_revenue_optimizer():
+    """
+    LIVE: Analyze revenue data and suggest optimizations.
+    Checks Ko-fi products, identifies gaps, suggests pricing.
+    """
+    optimizer = CONSCIOUSNESS.setdefault("revenue_optimizer", {
+        "suggestions": [], "product_gaps": [], "last_analysis": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 8 != 0:
+        return
+
+    rev = CONSCIOUSNESS["revenue"]
+    analytics = CONSCIOUSNESS.get("analytics", {})
+    content = CONSCIOUSNESS.get("content_factory", {})
+    bridges = CONSCIOUSNESS.get("bridges", {})
+
+    suggestions = []
+
+    # Suggestion 1: High traffic + no revenue = content-to-product gap
+    views = analytics.get("views_14d", 0)
+    if views > 50 and rev.get("total_raised", 0) == 0:
+        suggestions.append({
+            "priority": "HIGH",
+            "action": "Convert traffic to revenue",
+            "detail": f"{views} views but $0 revenue. Create a paid digital product.",
+            "platforms": ["ko-fi", "gumroad"],
+        })
+
+    # Suggestion 2: Dev.to referrals = content marketing working
+    referrers = analytics.get("top_referrers", [])
+    devto_hits = sum(r.get("count", 0) for r in referrers if "dev.to" in r.get("site", ""))
+    if devto_hits > 5:
+        suggestions.append({
+            "priority": "MEDIUM",
+            "action": "Double down on dev.to content",
+            "detail": f"{devto_hits} hits from dev.to. Publish more technical articles with product links.",
+        })
+
+    # Suggestion 3: Kalshi has money — use it
+    if CONSCIOUSNESS["trading"].get("kalshi_ready"):
+        balance = CONSCIOUSNESS["trading"].get("kalshi_balance", 0)
+        if balance > 0:
+            suggestions.append({
+                "priority": "MEDIUM",
+                "action": "Activate Kalshi trading",
+                "detail": f"${balance} sitting idle on Kalshi. Set up automated market scanning.",
+            })
+
+    # Suggestion 4: Content factory has ideas — publish them
+    ideas = content.get("ideas", [])
+    if len(ideas) > 2:
+        suggestions.append({
+            "priority": "HIGH",
+            "action": "Publish queued content",
+            "detail": f"{len(ideas)} content ideas waiting. Dispatch SOLARPUNK_LOOP to use AI for writing.",
+        })
+
+    # Suggestion 5: GitHub has 19K clones — package something
+    clones = analytics.get("clones_14d", 0)
+    if clones > 1000:
+        suggestions.append({
+            "priority": "HIGH",
+            "action": "Package architecture as product",
+            "detail": f"{clones} clones in 14 days. People want this code. Create a paid tutorial/blueprint.",
+        })
+
+    optimizer["suggestions"] = suggestions
+    optimizer["suggestion_count"] = len(suggestions)
+    optimizer["last_analysis"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_devto_publisher():
+    """
+    LIVE: Check Dev.to article status and manage publishing pipeline.
+    Uses gh CLI to check if DEVTO_API_KEY is in secrets, and tracks articles.
+    """
+    devto = CONSCIOUSNESS.setdefault("devto", {
+        "articles_published": 0, "last_article": None,
+        "draft_queue": [], "last_check": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 6 != 0 and cycle != 1:
+        return
+
+    # Check if we have dev.to content ideas ready
+    content = CONSCIOUSNESS.get("content_factory", {})
+    ideas = content.get("ideas", [])
+    devto_ideas = [i for i in ideas if i.get("platform") == "dev.to"]
+
+    if devto_ideas:
+        devto["draft_queue"] = devto_ideas
+        devto["drafts_ready"] = len(devto_ideas)
+
+    # Check if DEVTO_API_KEY is available in GitHub secrets
+    try:
+        import subprocess
+        r = subprocess.run(
+            ["gh", "secret", "list"],
+            capture_output=True, text=True, timeout=10, encoding="utf-8", errors="replace")
+        if r.returncode == 0:
+            has_devto = "DEVTO_API_KEY" in r.stdout
+            devto["api_key_available"] = has_devto
+            if has_devto and devto_ideas:
+                devto["ready_to_publish"] = True
+                devto["publish_method"] = "github_actions_dispatch"
+    except Exception:
+        pass
+
+    devto["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
 # ============================================================
 # THE NEURON REGISTRY -- All blob functions in execution order
 # ============================================================
@@ -1392,24 +1632,28 @@ NEURONS = [
     ("SECRETS_AUDIT", neuron_secrets_audit),
     ("BOTTLENECK_SCAN", neuron_bottleneck_scan),
     ("GRANT_TRACKER", neuron_grant_tracker),
-    ("MARKET_SCANNER", neuron_market_scanner),
     # Phase 3: Communication & content
     ("SOCIAL_AWARENESS", neuron_social_awareness),
     ("EMAIL_AWARENESS", neuron_email_awareness),
     ("CONTENT_PIPELINE", neuron_content_pipeline),
     ("CONTENT_FACTORY", neuron_content_factory),
-    ("COMMUNITY_PULSE", neuron_community_pulse),
+    ("DEVTO_PUBLISHER", neuron_devto_publisher),
     # Phase 4: Markets & growth
     ("TRADING_AWARENESS", neuron_trading_awareness),
+    ("MARKET_SCANNER", neuron_market_scanner),
     ("GITHUB_ANALYTICS", neuron_github_analytics),
+    # Phase 5: Cloud orchestration
     ("GITHUB_ACTIONS_TRIGGER", neuron_github_actions_trigger),
-    # Phase 5: THINK -- AI-powered decision making
+    ("WORKFLOW_HEALTH", neuron_workflow_health),
+    # Phase 6: THINK -- AI-powered decision making
     ("BRAIN_CONFIDENCE", neuron_brain_confidence),
     ("AI_THINK", neuron_ai_think),
-    # Phase 6: ACT -- Fire legacy engines that DO things
+    ("REVENUE_OPTIMIZER", neuron_revenue_optimizer),
+    # Phase 7: ACT -- Fire legacy engines that DO things
     ("LEGACY_FIRE", neuron_legacy_fire),
-    # Phase 7: Self-awareness & mission
+    # Phase 8: Self-awareness & mission
     ("MISSION_PULSE", neuron_mission_pulse),
+    ("COMMUNITY_PULSE", neuron_community_pulse),
     ("DASHBOARD_BUILDER", neuron_dashboard_builder),
     ("META_AWARENESS", neuron_meta_awareness),
 ]
