@@ -193,6 +193,209 @@ def _public_fetch(endpoint, timeout=10):
 
 
 # ──────────────────────────────────────────────────────────────
+# PHASE 0: HIVE MIND -- AI-powered intelligence aggregation
+# ──────────────────────────────────────────────────────────────
+
+def gather_all_intelligence():
+    """
+    Read EVERY intelligence source in the ecosystem and build
+    a unified signal matrix for AI analysis.
+
+    Sources:
+      1. prediction_intelligence.json (Polymarket + Kalshi merged sentiment)
+      2. kalshi_scan.json (market-level signals)
+      3. price_oracle_state.json (live prices, spreads, trends)
+      4. crypto_state.json (Fear & Greed, AI analysis)
+      5. arbitrage_scanner_state.json (cross-market opportunities)
+      6. compound_tracker.json (our own performance data)
+      7. trade_ledger.json (what worked, what didn't)
+    """
+    intel = {
+        "prediction": _load(DATA / "prediction_intelligence.json"),
+        "kalshi_scan": _load(DATA / "kalshi_scan.json"),
+        "prices": _load(DATA / "price_oracle_state.json"),
+        "crypto": _load(DATA / "crypto_state.json"),
+        "arbitrage": _load(DATA / "arbitrage_scanner_state.json"),
+        "compound": _load(DATA / "compound_tracker.json"),
+        "ledger_stats": _load(DATA / "trade_ledger.json", {}).get("stats", {}),
+    }
+
+    # Extract key signals
+    pred = intel["prediction"]
+    sentiment = pred.get("sentiment", pred.get("kalshi_sentiment", {}))
+
+    signals = {
+        "crypto_bullish": sentiment.get("crypto_bullish", 0.5),
+        "macro_risk": sentiment.get("macro_risk", 0.5),
+        "crisis_level": sentiment.get("crisis_level", 0),
+        "sol_outlook": sentiment.get("sol_outlook", 0.5),
+        "fed_hawkish": sentiment.get("fed_hawkish", 0.5),
+        "recession_prob": sentiment.get("recession_prob", 0),
+        "recommended_action": sentiment.get("recommended_action", "follow_base_strategy"),
+        "reasoning": sentiment.get("reasoning", []),
+    }
+
+    # Price data
+    prices = intel["prices"]
+    if prices.get("prices"):
+        for token, pdata in prices.get("prices", {}).items():
+            if isinstance(pdata, dict):
+                signals[f"{token}_price"] = pdata.get("average", 0)
+                signals[f"{token}_24h_change"] = pdata.get("change_24h_avg", 0)
+
+    # Our track record
+    stats = intel["ledger_stats"]
+    signals["our_win_rate"] = (
+        stats.get("successful_orders", 0) / max(stats.get("total_trades", 1), 1)
+    )
+    signals["total_trades"] = stats.get("total_trades", 0)
+
+    # Compound performance
+    compound = intel["compound"]
+    snapshots = compound.get("snapshots", [])
+    if snapshots:
+        signals["compound_growth_pct"] = snapshots[-1].get("growth_pct", 0)
+        signals["compound_cycles"] = compound.get("compound_cycles", 0)
+
+    print(f"  [HIVE] Intelligence gathered: "
+          f"crypto={signals['crypto_bullish']:.1%} bullish | "
+          f"macro_risk={signals['macro_risk']:.1%} | "
+          f"action={signals['recommended_action']} | "
+          f"win_rate={signals['our_win_rate']:.0%}")
+
+    return signals, intel
+
+
+def ai_score_opportunities(opportunities, signals, max_to_score=15):
+    """
+    Use AI (Groq FREE tier) to analyze and score trading opportunities
+    based on ALL available intelligence.
+
+    AI analyzes:
+    - Market fundamentals (is this outcome really near-certain?)
+    - Cross-validation with sentiment data
+    - Risk assessment given macro conditions
+    - Optimal position sizing
+
+    Returns opportunities with AI scores (1-10) and reasoning.
+    """
+    if not opportunities:
+        return opportunities
+
+    try:
+        import AI_CLIENT
+        if not AI_CLIENT.ai_available():
+            print("  [HIVE] AI not available, using raw scores")
+            return opportunities
+    except ImportError:
+        print("  [HIVE] AI_CLIENT not importable, using raw scores")
+        return opportunities
+
+    # Build context for AI
+    top_opps = opportunities[:max_to_score]
+    opp_summaries = []
+    for i, o in enumerate(top_opps):
+        opp_summaries.append(
+            f"{i+1}. {o['title'][:80]} | {o['side'].upper()} @ ${o['price']:.2f} | "
+            f"ROI: {o['roi_pct']}% | Resolves: {o['resolution_class']} ({o['hours_to_resolve']:.0f}h) | "
+            f"Vol: {o['volume']}"
+        )
+
+    prompt = f"""You are a prediction market trading AI. Analyze these opportunities and score each 1-10.
+
+CURRENT MARKET INTELLIGENCE:
+- Crypto sentiment: {signals['crypto_bullish']:.0%} bullish
+- Macro risk: {signals['macro_risk']:.0%}
+- Crisis level: {signals['crisis_level']:.0%}
+- Recommended action: {signals['recommended_action']}
+- Our win rate so far: {signals['our_win_rate']:.0%} ({signals['total_trades']} trades)
+
+STRATEGY: We buy near-certain outcomes (>85% probability) on prediction markets.
+We prefer DAILY-resolving markets for faster compounding.
+Higher score = trade first. Consider:
+- Is the outcome genuinely near-certain given current conditions?
+- Does macro/crypto sentiment affect this market?
+- Is the volume sufficient for our order to fill?
+- How fast does it resolve (faster = better for compounding)?
+
+OPPORTUNITIES:
+{chr(10).join(opp_summaries)}
+
+Return JSON array of objects with "index" (1-based), "score" (1-10), "reason" (brief).
+Example: [{{"index": 1, "score": 9, "reason": "Gas prices stable, high volume, resolves today"}}]"""
+
+    try:
+        analysis = AI_CLIENT.ask_json(prompt, max_tokens=1500,
+                                       system="You are a quantitative trading analyst. Return ONLY valid JSON.")
+
+        if isinstance(analysis, list):
+            # Apply AI scores to opportunities
+            score_map = {}
+            for item in analysis:
+                idx = item.get("index", 0) - 1
+                if 0 <= idx < len(top_opps):
+                    score_map[idx] = item
+
+            for idx, opp in enumerate(top_opps):
+                if idx in score_map:
+                    opp["ai_score"] = score_map[idx].get("score", 5)
+                    opp["ai_reason"] = score_map[idx].get("reason", "")
+                else:
+                    opp["ai_score"] = 5  # neutral default
+
+            # Re-sort by AI score (highest first), then ROI as tiebreaker
+            top_opps.sort(key=lambda x: (x.get("ai_score", 5), x.get("roi_pct", 0)), reverse=True)
+
+            scored = sum(1 for o in top_opps if o.get("ai_score", 5) != 5)
+            print(f"  [HIVE] AI scored {scored}/{len(top_opps)} opportunities")
+            for o in top_opps[:5]:
+                print(f"    [{o.get('ai_score', '?')}/10] {o['title'][:50]}... "
+                      f"| {o.get('ai_reason', '')[:60]}")
+
+            # Rebuild full list with scored items first
+            remaining = opportunities[max_to_score:]
+            return top_opps + remaining
+
+        else:
+            print(f"  [HIVE] AI returned unexpected format, using raw scores")
+
+    except Exception as e:
+        print(f"  [HIVE] AI analysis error: {e}")
+
+    return opportunities
+
+
+def build_feedback_loop(trades_placed, signals):
+    """
+    Record what intelligence led to what trades.
+    Future cycles can learn from this: did the AI's reasoning pan out?
+    """
+    feedback_path = DATA / "trading_feedback.json"
+    feedback = _load(feedback_path, {"cycles": [], "ai_accuracy": []})
+
+    cycle_record = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "signals_at_trade_time": {
+            "crypto_bullish": signals.get("crypto_bullish", 0),
+            "macro_risk": signals.get("macro_risk", 0),
+            "recommended_action": signals.get("recommended_action", ""),
+        },
+        "trades_placed": len(trades_placed),
+        "successful": sum(1 for t in trades_placed if t.get("success")),
+        "ai_scores_used": [
+            {"ticker": t.get("ticker"), "ai_score": t.get("order_details", {}).get("ai_score")}
+            for t in trades_placed if t.get("success")
+        ],
+    }
+
+    if "cycles" not in feedback:
+        feedback["cycles"] = []
+    feedback["cycles"].append(cycle_record)
+    feedback["cycles"] = feedback["cycles"][-500:]  # Keep last 500 cycles
+    _save(feedback_path, feedback)
+
+
+# ──────────────────────────────────────────────────────────────
 # PHASE 1: DISCOVER -- Dynamic series + market scanning
 # ──────────────────────────────────────────────────────────────
 
@@ -864,13 +1067,15 @@ def run():
     TURBO TRADER: The compounding machine.
 
     Every cycle:
-    1. Check for deposits (balance change detection)
-    2. Check for settlements (resolved positions)
-    3. Discover all available markets
-    4. Scan for fast-resolving opportunities
-    5. Place micro-trades across maximum markets
-    6. Track compound growth
-    7. Wire data to ecosystem (via trade_ledger.json -> TRADING_WIRE)
+    0. HIVE MIND: Gather ALL intelligence (9 sources)
+    1. DETECT: Balance changes + settlements
+    1b. VELOCITY: Sell slow positions, free cash
+    2. DISCOVER: Dynamic series discovery (9000+)
+    3. SCAN: Fast-resolving market opportunities
+    3b. AI ANALYZE: Groq (FREE) scores opportunities using ALL intelligence
+    4. TRADE: Place micro-orders on AI's top picks
+    5. FEEDBACK: Record what intelligence led to what trades
+    6. COMPOUND: Track growth, wire to ecosystem
     """
     print("[TURBO_TRADER] >> High-frequency compounding engine starting...")
 
@@ -970,6 +1175,11 @@ def run():
     print(f"[TURBO_TRADER] Opportunities: {len(daily_opps)} daily, "
           f"{len(weekly_opps)} weekly, {len(monthly_opps)} monthly+")
 
+    # === PHASE 3b: HIVE MIND -- AI-powered intelligence analysis ===
+    print("[TURBO_TRADER] >> HIVE MIND: AI analyzing opportunities...")
+    signals, raw_intel = gather_all_intelligence()
+    opportunities = ai_score_opportunities(opportunities, signals)
+
     # === PHASE 4: TRADE -- place micro-orders ===
     max_trades = config.get("max_trades_per_cycle", 10)
     orders = construct_micro_orders(opportunities[:max_trades * 2], balance, config)
@@ -992,9 +1202,10 @@ def run():
     print(f"[TURBO_TRADER] Placing {len(orders)} micro-trades...")
     results = place_orders(orders, api_key, pem_data)
 
-    # Update shared trade ledger
+    # Update shared trade ledger + AI feedback loop
     if results:
         update_trade_ledger(results)
+        build_feedback_loop(results, signals)
 
     # === PHASE 5: COMPOUND -- track growth ===
     new_balance_data = _sign_and_fetch("/portfolio/balance", api_key, pem_data)
