@@ -647,6 +647,11 @@ def run():
         "log":                      results["log"],
     }
 
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    manifest["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     (DATA / "omnibus_last.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     hf   = DATA / "omnibus_history.json"
     hist = json.loads(hf.read_text()) if hf.exists() else []

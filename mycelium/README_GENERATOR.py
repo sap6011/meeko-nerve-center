@@ -149,9 +149,14 @@ Cost: **$0/month**. Time: **30 minutes**.
     Path("README.md").write_text(readme, encoding="utf-8")
     # LIVE_WIRE: explicit reads for topology detection
     _lw = json.loads((DATA / "live_wire_report.json").read_text()) if (DATA / "live_wire_report.json").exists() else {}
+    try: _hh=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _hh={}
+    try: _cc=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _cc={}
     (DATA / "readme_generator_state.json").write_text(json.dumps({
         "last_run": now.isoformat(), "engines": engines, "raised": raised,
         "cycles": cycles, "wires": _lw.get("stats", {}).get("total_wires_discovered", 0),
+        "nervous_system":{"equilibrium":_hh.get("equilibrium",0),"trend":_hh.get("trend","unknown"),"brain_confidence":_cc.get("decision_confidence",0)},
     }, indent=2), encoding="utf-8")
     print(f"README rebuilt: {engines} engines, ${raised:.2f} raised, {cycles} cycles")
     return {"readme_updated":True,"ts":now.isoformat()}

@@ -230,7 +230,11 @@ def run():
     registry["last_updated"] = ts
     registry_path.write_text(json.dumps(registry, indent=2), encoding="utf-8")
 
-    state = {"ts": ts, "results": results, "status": "complete"}
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    state = {"ts": ts, "results": results, "status": "complete", "nervous_system":{"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}}
     (DATA / "pdf_generator_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"\nDone: {len(results)} products processed")
     return state

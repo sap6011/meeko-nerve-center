@@ -286,11 +286,16 @@ def run():
     health = bridge.health_check()
     # Read hemisphere state for context
     _hemi = json.loads((DATA / "hemisphere_state.json").read_text()) if (DATA / "hemisphere_state.json").exists() else {}
+    try: _hh=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _hh={}
+    try: _cc=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _cc={}
     (DATA / "ollama_bridge_state.json").write_text(json.dumps({
         "last_run": __import__("datetime").datetime.now().isoformat(),
         "reachable": health.get("reachable", False),
         "models": health.get("models_loaded", []),
         "preferred": health.get("preferred_model", "none"),
+        "nervous_system":{"equilibrium":_hh.get("equilibrium",0),"trend":_hh.get("trend","unknown"),"brain_confidence":_cc.get("decision_confidence",0)},
     }, indent=2), encoding="utf-8")
     return health
 

@@ -359,6 +359,11 @@ def run():
         "total_bytes": sum(p["size"] for p in products_created),
         "products": products_created,
     }
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    report["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     save_json(DATA / "product_forge_report.json", report)
 
     print("\n  === PRODUCT FORGE SUMMARY ===")

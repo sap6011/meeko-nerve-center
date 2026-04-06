@@ -449,11 +449,16 @@ def run():
     (DATA_DIR / "outreach_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
     # Write engine state for LIVE_WIRE detection
+    try: _h=json.loads((DATA_DIR/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA_DIR/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
     (DATA_DIR / "outreach_engine_state.json").write_text(json.dumps({
         "last_run": datetime.datetime.now().isoformat(),
         "status": "completed",
         "drafts_created": len(new_drafts),
-        "total_contacted": len(already)
+        "total_contacted": len(already),
+        "nervous_system":{"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)},
     }, indent=2), encoding="utf-8")
     print(f"✅ OUTREACH_ENGINE complete — {len(new_drafts)} new drafts, {len(already)} total contacted")
 
