@@ -35,8 +35,36 @@
       "note": "64-byte address — likely Starknet or similar"
     }
   },
+  "phone_solana": {
+      "address": "2eSY3s96m9YC8D9UeMmVMAEq5rYcZz1DUbaSy9RedG2v",
+      "chain": "solana",
+      "label": "MeekoThaRaccoon Phone SOL",
+      "wallet_app": "Phantom",
+      "device": "iPhone"
+    },
+    "phone_ethereum": {
+      "address": "0xeA0C219BF26021adD39DD0cC1fCF8167116DB48D",
+      "chain": "ethereum",
+      "label": "MeekoThaRaccoon Phone ETH/EVM",
+      "also_on": ["polygon", "base", "arbitrum", "optimism"],
+      "wallet_app": "Phantom"
+    },
+    "phone_bitcoin_taproot": {
+      "address": "bc1pnkycqk86s8wu076zm0vpykhgnqeeeyxturc2fet6secrt7ny4p8s978jkx",
+      "chain": "bitcoin",
+      "type": "taproot",
+      "label": "MeekoThaRaccoon Phone BTC Taproot"
+    },
+    "phone_bitcoin_segwit": {
+      "address": "bc1qy05u8y2sekdmt7r4hgf2a5dvt9fc4vesqfwyaq",
+      "chain": "bitcoin",
+      "type": "segwit",
+      "label": "MeekoThaRaccoon Phone BTC SegWit"
+    }
+  },
   "primary": "Gg3MpT7osGaDvuN3CZzgGTTTSkgFP14kBgdN46pajGAJ",
-  "secondary": null,
-  "secondary_label": "MeekoThaRaccoon (phone — consolidate into primary)",
+  "secondary": "2eSY3s96m9YC8D9UeMmVMAEq5rYcZz1DUbaSy9RedG2v",
+  "secondary_label": "MeekoThaRaccoon (phone)",
+  "consolidation_target": "primary",
   "brave_rewards": "Connect at brave://rewards → Connect account → Phantom → uses SOL address"
 }
