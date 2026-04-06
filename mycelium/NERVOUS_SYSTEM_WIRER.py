@@ -259,10 +259,10 @@ def run():
 
         if success:
             results["wired"].append(entry)
-            print(f"  ✅ {name}: {detail}")
+            print(f"  [OK] {name}: {detail}")
         elif method == "rollback":
             results["rolled_back"].append(entry)
-            print(f"  ⚠️  {name}: ROLLED BACK - {detail}")
+            print(f"  [!!] {name}: ROLLED BACK - {detail}")
         elif method == "skip" and "already wired" in detail:
             results["skipped"].append(entry)
         else:

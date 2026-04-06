@@ -77,6 +77,11 @@ def load_log():
 
 def save_log(log):
     log["issues_created"] = log.get("issues_created", [])[-200:]
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    log["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     BOOST_LOG.write_text(json.dumps(log, indent=2), encoding="utf-8")
 
 

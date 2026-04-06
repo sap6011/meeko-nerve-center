@@ -313,6 +313,11 @@ def run_scout():
         "funding_gap":    gap,
         "ranked_funders": ranked,
     }
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    results["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     (DATA_PATH / "fund_scout_results.json").write_text(json.dumps(results, indent=2), encoding="utf-8")
 
     # Save human-readable database

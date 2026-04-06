@@ -12,3 +12,26 @@ __pycache__/
 data/.secrets/
 *.secret
 credentials.*
+
+# ============================================
+# RUNTIME STATE — NOT SOURCE CODE
+# ============================================
+# data/ contains engine state files that change every cycle.
+# Tracking them in git causes:
+#   - 14,000+ files of merge conflicts
+#   - Lock files from concurrent git operations
+#   - Push rejections from daemon vs Claude vs Actions
+#   - Constant rebase friction
+# Engines generate these locally. GitHub Actions generates its own.
+# They do NOT need to live in version control.
+data/*.json
+data/*.txt
+data/*.html
+data/*.csv
+data/*.log
+data/logs/
+data/swarm_fragments/
+data/fractal_nodes/
+data/plugin_manifests/
+# Keep the directory itself
+!data/.gitkeep

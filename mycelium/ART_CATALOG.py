@@ -181,6 +181,11 @@ def run():
             "Re-run ART_CATALOG engine to rebuild art.html with correct URLs",
         ],
     }
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    catalog["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     (DATA / "art_catalog.json").write_text(json.dumps(catalog, indent=2), encoding="utf-8")
     html = build_art_html()
     (DOCS / "art.html").write_text(html, encoding="utf-8")

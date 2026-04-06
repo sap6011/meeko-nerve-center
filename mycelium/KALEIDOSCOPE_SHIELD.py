@@ -154,6 +154,11 @@ def _log_event(event_type: str, path: str, details: str = ""):
         "alert":     event_type == "HONEYTOKEN_ACCESS",
     }
     events.append(entry)
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    events["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     LOG_PATH.write_text(json.dumps(events, indent=2), encoding="utf-8")
 
     if event_type == "HONEYTOKEN_ACCESS":

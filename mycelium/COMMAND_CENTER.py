@@ -26,7 +26,12 @@ def execute_remote_commands():
             
             elif cmd == "SYNC":
                 print("📡 Remote Command: Forcing Cloud Sync...")
-                os.system("git push origin main --force")
+                try:
+                    import sys as _sys; _sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+                    from GIT_GATEKEEPER import sync_now
+                    sync_now(message="COMMAND_CENTER: forced sync", source="COMMAND_CENTER")
+                except Exception:
+                    pass  # GIT_GATEKEEPER handles conflicts
 
 if __name__ == "__main__":
     execute_remote_commands()

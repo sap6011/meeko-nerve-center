@@ -911,6 +911,11 @@ def main():
     # Trim old hashes to prevent unbounded growth (keep last 500)
     if len(cooldown.get("posted_hashes", [])) > 500:
         cooldown["posted_hashes"] = cooldown["posted_hashes"][-500:]
+        try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+        except: _h={}
+        try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+        except: _c={}
+        cooldown["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
         save_json(COOLDOWN_FILE, cooldown)
 
     print(f"[AMPLIFY_ENGINE] Done. {total_generated} posts across {len(all_posts)} platforms.")

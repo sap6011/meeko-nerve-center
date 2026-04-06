@@ -218,17 +218,14 @@ def open_in_brave(url):
 
 
 def git_commit_and_push(message):
+    """Route through GIT_GATEKEEPER to prevent lock conflicts."""
     try:
-        subprocess.run(["git", "-C", str(ROOT), "add", "data/"], capture_output=True)
-        r = subprocess.run(
-            ["git", "-C", str(ROOT), "commit", "-m", message],
-            capture_output=True, text=True
-        )
-        if "nothing to commit" not in r.stdout:
-            subprocess.run(["git", "-C", str(ROOT), "push", "origin", "main"], capture_output=True)
+        sys.path.insert(0, str(ROOT / "mycelium"))
+        from GIT_GATEKEEPER import queue_commit
+        queue_commit(files=[], message=message, source="DESKTOP_DAEMON")
         return True
     except Exception as e:
-        log(f"Git push failed: {e}", "WARN")
+        log(f"Git queue failed: {e}", "WARN")
         return False
 
 

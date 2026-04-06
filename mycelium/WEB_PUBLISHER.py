@@ -15,9 +15,13 @@ def publish_value():
         f.write(f"\n<div class='node'><h3>Swarm Insight</h3><p>{content}</p></div>")
     
     # 🟢 PHASE B: Marketplace Push (Example: Gumroad/Kofi/GitHub)
-    # This uses a headless git command to push to your GitHub Pages site automatically
-    os.system("git add docs/public_insight.html")
-    os.system("git commit -m '📡 Swarm Broadcast: New Value Published'")
+    # Route through GIT_GATEKEEPER instead of direct git operations
+    try:
+        import sys as _sys; _sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from GIT_GATEKEEPER import queue_commit
+        queue_commit(files=["docs/public_insight.html"], message="Swarm Broadcast: New Value Published", source="WEB_PUBLISHER")
+    except Exception:
+        pass  # Non-critical — file is already saved locally
     
     print("🚀 Web Publisher: Knowledge broadcasted to the global network.")
     # Clean up once published

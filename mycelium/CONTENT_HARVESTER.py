@@ -176,6 +176,11 @@ def main():
         "reliefweb": reliefweb}, "gaza_weather": weather, "trending_themes": themes,
         "content_angles": angles, "total_items": len(all_content),
         "crisis_items": len(reliefweb), "status": "harvested"}
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    harvest["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     OUT.write_text(json.dumps(harvest, indent=2), encoding="utf-8")
     print(f"Harvested {len(all_content)} items -> {len(angles)} content angles")
     if angles:

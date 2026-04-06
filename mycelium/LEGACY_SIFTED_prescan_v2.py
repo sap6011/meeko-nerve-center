@@ -95,6 +95,11 @@ print(f'  Review first:  {len(results["secrets"]):,} files  ->  Desktop/SECRETS_
 print(f'  Skipped:       {len(results["skipped"]):,} binary/media files')
 
 out = Path.home() / 'Desktop' / 'ingestion_prescan.json'
+try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+except: _h={}
+try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+except: _c={}
+results["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
 out.write_text(json.dumps(results, indent=2), encoding="utf-8")
 print(f'\nFull list: Desktop/ingestion_prescan.json')
 print(f'\nNEXT: review SECRETS_REVIEW/ then delete it, then push MEEKO_CLEAN/ to repo')

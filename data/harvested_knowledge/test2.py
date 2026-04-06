@@ -1,1 +1,0 @@
-print("COMMAND PROMPT TEST") 

@@ -138,6 +138,11 @@ class GmailBridge:
             "mode": "mcp_draft",
         }
 
+        try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+        except: _h={}
+        try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+        except: _c={}
+        draft_data["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
         draft_file.write_text(json.dumps(draft_data, indent=2), encoding="utf-8")
         print(f"[GMAIL_BRIDGE] Draft saved: {draft_file.name}")
         return {"success": True, "message": f"Draft saved: {draft_file.name}", "path": str(draft_file)}

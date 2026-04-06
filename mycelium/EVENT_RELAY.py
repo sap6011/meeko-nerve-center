@@ -180,31 +180,21 @@ def action_stage_and_commit_products(git_changes, dry_run=True):
             "would_commit_message": "feat: add %d new product templates" % len(product_files),
         }
 
-    # Stage product files
-    for f in product_files:
-        code, _, err = git_run(["add", f])
-        if code != 0:
-            return {
-                "action": "commit_products",
-                "error": "Failed to stage %s: %s" % (f, err),
-            }
-
-    # Commit
+    # Route through GIT_GATEKEEPER — no more direct git operations
     msg = "feat: add %d new product templates" % len(product_files)
-    code, stdout, err = git_run(["commit", "-m", msg])
-    if code != 0:
-        return {"action": "commit_products", "error": "Commit failed: %s" % err}
-
-    # Push
-    code, stdout, err = git_run(["push", "origin", "HEAD"])
-    push_result = "success" if code == 0 else "failed: %s" % err
-
-    return {
-        "action": "commit_products",
-        "staged": product_files,
-        "commit_message": msg,
-        "push": push_result,
-    }
+    try:
+        import sys as _sys
+        _sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from GIT_GATEKEEPER import sync_now
+        ok, detail = sync_now(files=product_files, message=msg, source="EVENT_RELAY")
+        return {
+            "action": "commit_products",
+            "staged": product_files,
+            "commit_message": msg,
+            "push": "success" if ok else detail,
+        }
+    except Exception as e:
+        return {"action": "commit_products", "error": "GIT_GATEKEEPER: %s" % e}
 
 
 def action_mark_articles_for_publisher(article_info, dry_run=True):

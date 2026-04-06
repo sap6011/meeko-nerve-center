@@ -106,6 +106,11 @@ def register_connection(platform: str, links: list[str], source_email: str = "")
             registry[platform]["source_email"] = source_email
             log.info(f"Registered new connection: {platform} → {link[:60]}...")
 
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    registry["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     REGISTRY_PATH.write_text(json.dumps(registry, indent=2), encoding="utf-8")
 
     _log_to_actual(platform, links)

@@ -110,9 +110,13 @@ def main():
         if good:
             print(f"🔄 Restoring from {good}…")
             ok, fail = restore(good)
-            runcmd("git add -A")
-            runcmd(f'git commit -m "🛡️ GUARDIAN: restored {len(ok)} files from {good}"')
-            runcmd("git push origin main 2>/dev/null || git push origin main --force-with-lease 2>/dev/null")
+            try:
+                import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+                from GIT_GATEKEEPER import sync_now
+                sync_now(message=f"GUARDIAN: restored {len(ok)} files from {good}", source="GUARDIAN")
+            except Exception:
+                runcmd("git add -A")
+                runcmd(f'git commit -m "GUARDIAN: restored {len(ok)} files from {good}"')
             log("RESTORED", {"tag": good, "ok": ok, "fail": fail})
             alert(f"Auto-restored {len(ok)} files",
                   f"Breach detected. Restored from {good}.\nMissing: {missing}\nRestored: {ok}\nFailed: {fail}\n\nSystem healed itself. ✊\n— GUARDIAN")

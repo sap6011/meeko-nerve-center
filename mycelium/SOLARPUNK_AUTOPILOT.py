@@ -291,29 +291,24 @@ def phase_push(state, scan, heal):
     cycle = state.get("cycles", 0)
     engine_count = scan["engine_count"]
 
-    # Stage engine files, docs, data
-    _sh("git add mycelium/*.py docs/*.html data/*.json data/*.txt", timeout=30)
-
-    # Commit
+    # Route through GIT_GATEKEEPER — no more direct git operations
     msg = (
         f"feat: SOLARPUNK_AUTOPILOT cycle {cycle} — "
         f"{engine_count} engines, "
         f"{heal.get('encoding_fixed', 0)} encoding fixes, "
         f"{heal.get('docs_updated', 0)} docs updated"
     )
-    ok, _, _ = _sh(f'git commit -m "{msg}"', timeout=30)
-    if ok:
-        pushed["committed"] = True
-
-    # Push
-    ok, _, _ = _sh("git push origin HEAD", timeout=60)
-    if ok:
-        pushed["pushed"] = True
-    else:
-        # Pull and retry
-        _sh("git pull --no-rebase origin HEAD", timeout=60)
-        ok, _, _ = _sh("git push origin HEAD", timeout=60)
+    try:
+        import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from GIT_GATEKEEPER import sync_now
+        ok, detail = sync_now(
+            files=["mycelium/", "docs/"],
+            message=msg, source="SOLARPUNK_AUTOPILOT"
+        )
+        pushed["committed"] = ok
         pushed["pushed"] = ok
+    except Exception as e:
+        pushed["error"] = str(e)[:100]
 
     return pushed
 

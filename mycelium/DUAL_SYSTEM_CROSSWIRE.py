@@ -871,6 +871,11 @@ def run():
     crosswire_state["gaps"] = report["gaps"]
     crosswire_state["data_connections"] = report["data_connections"]
     crosswire_state["mantra"] = "Two systems. One mission. This engine makes them talk."
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    crosswire_state["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     _save("crosswire_state.json", crosswire_state)
 
     # Print the full cross-connection report

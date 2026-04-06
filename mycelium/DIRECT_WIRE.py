@@ -121,42 +121,30 @@ def commit_and_push(message=None):
             print(f"  FAIL: {name}: {err[:80]}")
         return False, False, f"{len(errors)} compile errors"
 
-    # Stage everything (except secrets)
-    _run("git add -A")
-
-    # Unstage sensitive files
-    for pattern in [".env", "credentials", "secrets.json", "*.pem", "*.key"]:
-        _run(f"git reset HEAD -- {pattern}")
-
-    # Build commit message
+    # Route through GIT_GATEKEEPER — no more direct git operations
     if not message:
         message = f"SolarPunk DIRECT_WIRE: {state['changes']} changes, {clean}/{total} engines clean"
 
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
     full_msg = f"{message}\n\n[DIRECT_WIRE {timestamp} | {clean}/{total} engines | auto-committed]"
 
-    # Commit
-    ok, out = _run(f'git commit -m "{full_msg}"')
-    if not ok:
-        print(f"[DIRECT_WIRE] Commit failed: {out[:200]}")
-        return False, False, out[:200]
-
-    print(f"[DIRECT_WIRE] Committed: {message[:60]}")
-
-    # Push
-    ok, out = _run("git push origin main", timeout=60)
-    if not ok:
-        # Try pull + push
-        print("[DIRECT_WIRE] Push rejected, pulling first...")
-        _run("git pull --no-rebase origin main")
-        ok, out = _run("git push origin main", timeout=60)
-
-    if ok:
-        print("[DIRECT_WIRE] Pushed to origin/main")
-    else:
-        print(f"[DIRECT_WIRE] Push failed: {out[:200]}")
-
-    return True, ok, message
+    try:
+        import sys as _sys
+        _sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from GIT_GATEKEEPER import sync_now
+        ok, detail = sync_now(
+            files=["mycelium/"],
+            message=full_msg,
+            source="DIRECT_WIRE"
+        )
+        if ok:
+            print(f"[DIRECT_WIRE] Synced via GIT_GATEKEEPER: {detail}")
+        else:
+            print(f"[DIRECT_WIRE] Gatekeeper sync: {detail}")
+        return True, ok, message
+    except Exception as e:
+        print(f"[DIRECT_WIRE] GIT_GATEKEEPER fallback: {e}")
+        return False, False, str(e)[:200]
 
 
 def sync_usb():
@@ -268,6 +256,11 @@ def pair_device(device_id, device_type="phone"):
         })
         print(f"[DIRECT_WIRE] Paired: {desktop_id} <-> {device_id}")
 
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    registry["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     registry_path.write_text(json.dumps(registry, indent=2), encoding="utf-8")
     print(f"[DIRECT_WIRE] Device registry updated — {len(registry['devices'])} devices, {len(registry['pairs'])} pairs")
     return registry

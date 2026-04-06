@@ -54,6 +54,11 @@ def check_access():
         "live_wire_engines": live_wire.get("total_engines", 0),
         "status": "active",
     }
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    state["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     (DATA / "external_handshake_state.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"State written: data/external_handshake_state.json")
 
