@@ -3392,6 +3392,378 @@ def neuron_executive_function_absorb():
     exec_fn["last_absorb"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_report_absorb():
+    """
+    ABSORB: Ingest ALL report files into consciousness.
+    Reports contain: chimera evolution scores, bridge connections,
+    nervous system wiring coverage, sentinel security scans,
+    nanobot healing results.
+    """
+    reports = CONSCIOUSNESS.setdefault("reports", {
+        "files_absorbed": 0, "data": {}, "last_absorb": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0 and cycle > 5:
+        return
+
+    from pathlib import Path
+    data_dir = Path("data")
+    absorbed = {}
+
+    # Chimera evolution -- tracks generational fitness
+    try:
+        d = json.loads((data_dir / "chimera_evolution_report.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            absorbed["chimera"] = {
+                "generation": d.get("generation", 0),
+                "composite_score": d.get("composite_score", d.get("score", 0)),
+                "population_size": d.get("population_size", 0),
+                "best_genome": d.get("best_genome", "")[:100] if isinstance(d.get("best_genome"), str) else "",
+                "timestamp": d.get("timestamp", ""),
+            }
+    except Exception:
+        pass
+
+    # Bridge report -- connection mapping
+    try:
+        d = json.loads((data_dir / "bridge_report.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            absorbed["bridges"] = {
+                "total_bridges": d.get("total_bridges", d.get("bridges_built", 0)),
+                "connections": d.get("connections", d.get("total_connections", 0)),
+                "timestamp": d.get("timestamp", ""),
+            }
+    except Exception:
+        pass
+
+    # Nervous system wirer -- coverage stats
+    try:
+        d = json.loads((data_dir / "nervous_system_wirer_report.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            absorbed["wirer"] = {
+                "total_scanned": d.get("total_scanned", 0),
+                "newly_wired": d.get("newly_wired", 0),
+                "already_wired": d.get("already_wired", 0),
+                "coverage_pct": d.get("coverage_pct", 0),
+                "failed": d.get("failed", 0),
+            }
+    except Exception:
+        pass
+
+    # Sentinel security report
+    try:
+        d = json.loads((data_dir / "sentinel_report.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            absorbed["sentinel"] = {
+                "threats_found": d.get("threats_found", d.get("issues", 0)),
+                "status": d.get("status", "unknown"),
+            }
+    except Exception:
+        pass
+
+    # Nanobot healing
+    try:
+        d = json.loads((data_dir / "nanobot_heal_report.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            absorbed["nanobot"] = {
+                "healed": d.get("healed", d.get("fixes", 0)),
+                "status": d.get("status", "unknown"),
+            }
+    except Exception:
+        pass
+
+    reports["data"] = absorbed
+    reports["files_absorbed"] = len(absorbed)
+    reports["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_economy_chain():
+    """
+    ABSORB: Ingest the ECONOMY_CHAIN ledger -- the 33KB transaction log.
+    This is the financial backbone: every revenue event, split,
+    and allocation is recorded here.
+    """
+    econ = CONSCIOUSNESS.setdefault("economy_chain", {
+        "total_transactions": 0, "total_volume": 0,
+        "revenue_split": {}, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "economy_chain_ledger.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            transactions = d.get("transactions", d.get("entries", d.get("ledger", [])))
+            if isinstance(transactions, list):
+                econ["total_transactions"] = len(transactions)
+                total_vol = sum(
+                    t.get("amount", t.get("value", 0))
+                    for t in transactions if isinstance(t, dict)
+                )
+                econ["total_volume"] = total_vol
+
+                # Revenue split analysis
+                splits = {}
+                for t in transactions:
+                    if isinstance(t, dict):
+                        dest = t.get("destination", t.get("to", t.get("category", "unknown")))
+                        amt = t.get("amount", t.get("value", 0))
+                        splits[dest] = splits.get(dest, 0) + amt
+                econ["revenue_split"] = splits
+
+                # Last 5 transactions
+                econ["recent"] = transactions[-5:]
+            elif isinstance(d, dict):
+                # Might be structured differently
+                for k, v in d.items():
+                    if isinstance(v, (int, float, str)):
+                        econ[k] = v
+    except Exception:
+        pass
+    econ["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_growth_tracker_deep():
+    """
+    ABSORB: Ingest the growth_tracker.json file (6KB).
+    Contains historical snapshots of the system's growth over time.
+    """
+    gt = CONSCIOUSNESS.setdefault("growth_deep", {
+        "snapshots": 0, "milestones": [], "velocity": 0,
+        "peak_engines": 0, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "growth_tracker.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            history = d.get("history", d.get("snapshots", []))
+            if isinstance(history, list):
+                gt["snapshots"] = len(history)
+                # Find peak engine count
+                peaks = [h.get("engine_count", h.get("engines", 0))
+                         for h in history if isinstance(h, dict)]
+                gt["peak_engines"] = max(peaks) if peaks else 0
+
+                # Calculate growth velocity (engines/day)
+                if len(history) >= 2:
+                    first = history[0]
+                    last = history[-1]
+                    e_first = first.get("engine_count", first.get("engines", 0))
+                    e_last = last.get("engine_count", last.get("engines", 0))
+                    gt["velocity"] = e_last - e_first
+
+                # Last 5 snapshots
+                gt["recent_snapshots"] = history[-5:]
+
+            milestones = d.get("milestones", [])
+            gt["milestones"] = milestones[-10:] if isinstance(milestones, list) else []
+    except Exception:
+        pass
+    gt["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_public_ledger():
+    """
+    ABSORB: Ingest the PUBLIC_LEDGER -- transparent financial records.
+    Every financial decision the organism makes is recorded here.
+    """
+    ledger = CONSCIOUSNESS.setdefault("public_ledger", {
+        "entries": 0, "total_in": 0, "total_out": 0,
+        "transparency_score": 0, "last_absorb": None,
+    })
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "PUBLIC_LEDGER.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            entries = d.get("entries", d.get("transactions", d.get("records", [])))
+            if isinstance(entries, list):
+                ledger["entries"] = len(entries)
+                ledger["total_in"] = sum(
+                    e.get("amount", 0) for e in entries
+                    if isinstance(e, dict) and e.get("type") in ("income", "deposit", "in")
+                )
+                ledger["total_out"] = sum(
+                    abs(e.get("amount", 0)) for e in entries
+                    if isinstance(e, dict) and e.get("type") in ("expense", "withdrawal", "out")
+                )
+            elif isinstance(d, dict):
+                for k, v in list(d.items())[:10]:
+                    if isinstance(v, (int, float, str, bool)):
+                        ledger[k] = v
+            # Transparency = having a public ledger at all
+            ledger["transparency_score"] = 100
+    except Exception:
+        pass
+    ledger["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_daily_briefing():
+    """
+    ACTION: Generate a comprehensive daily briefing from ALL consciousness.
+    This is the blob's executive summary -- what a CEO would read.
+    Saved to data/daily_briefing.json for other systems to consume.
+    """
+    briefing = CONSCIOUSNESS.setdefault("daily_briefing", {
+        "generated": False, "last_briefing": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Only generate every 50 cycles (roughly daily)
+    if cycle % 50 != 0 and cycle > 5:
+        return
+
+    from pathlib import Path
+    now = datetime.now(timezone.utc)
+
+    # Compile the briefing
+    eco = CONSCIOUSNESS.get("ecosystem_health", {})
+    conv = CONSCIOUSNESS.get("convergence", {})
+    trading = CONSCIOUSNESS.get("trading", {})
+    risk = CONSCIOUSNESS.get("risk", {})
+    sol = CONSCIOUSNESS.get("solana", {})
+    inception = CONSCIOUSNESS.get("inception", {})
+    sov = CONSCIOUSNESS.get("sovereignty", {})
+
+    report = {
+        "timestamp": now.isoformat(),
+        "system": "SolarPunk Nerve Center",
+        "node_id": sov.get("node_id", "MEEKO-01"),
+        "age_days": inception.get("age_days", 0),
+        "neurons": len(NEURONS),
+        "consciousness_keys": len(CONSCIOUSNESS.keys()),
+        "ecosystem": {
+            "score": eco.get("score", 0),
+            "grade": eco.get("grade", "?"),
+            "components": eco.get("components", {}),
+        },
+        "outlook": conv.get("unified_outlook", "unknown"),
+        "confidence": conv.get("confidence_composite", 0),
+        "narrative": conv.get("narrative", ""),
+        "market": {
+            "fear_greed": CONSCIOUSNESS.get("cross_signals", {}).get("fear_greed", 50),
+            "sol": sol.get("sol_price", 0),
+            "btc": sol.get("btc_price", 0),
+            "eth": sol.get("eth_price", 0),
+        },
+        "portfolio": {
+            "kalshi_total": trading.get("kalshi_total", 0),
+            "kalshi_balance": trading.get("kalshi_balance", 0),
+        },
+        "risk": {
+            "score": risk.get("risk_score", 0),
+            "alerts": len(risk.get("alerts", [])),
+        },
+        "top_opportunities": conv.get("top_opportunities", [])[:5],
+        "top_risks": conv.get("top_risks", [])[:5],
+        "bottlenecks": eco.get("bottlenecks", []),
+    }
+
+    # Save briefing to disk for other systems
+    try:
+        (Path("data") / "daily_briefing.json").write_text(
+            json.dumps(report, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+    briefing["generated"] = True
+    briefing["last_briefing"] = now.isoformat()
+    briefing["briefing_data"] = report
+
+
+def neuron_action_planner():
+    """
+    INTELLIGENCE: Plan concrete next actions based on ALL consciousness.
+    Takes convergence signals, risk assessment, and ecosystem health
+    to generate a prioritized TODO list for the organism.
+    """
+    planner = CONSCIOUSNESS.setdefault("action_plan", {
+        "actions": [], "priority_queue": [], "blocked": [],
+        "last_plan": None,
+    })
+
+    actions = []
+    blocked = []
+
+    # 1. Trading actions
+    portfolio = CONSCIOUSNESS.get("portfolio", {})
+    for sug in portfolio.get("suggestions", [])[:3]:
+        if sug.get("priority") == "HIGH":
+            actions.append({
+                "domain": "TRADING",
+                "action": f"{sug.get('type','?')}: {sug.get('ticker','')} size=${sug.get('kelly_size',0)}",
+                "priority": 1,
+                "requires": "kalshi_auth",
+                "auto_executable": False,
+            })
+
+    # 2. Revenue actions
+    rev_opt = CONSCIOUSNESS.get("revenue_optimizer", {})
+    for sug in rev_opt.get("suggestions", [])[:3]:
+        if sug.get("priority") == "HIGH":
+            actions.append({
+                "domain": "REVENUE",
+                "action": sug.get("action", sug.get("suggestion", "?")),
+                "priority": 2,
+                "requires": "human_approval",
+                "auto_executable": False,
+            })
+
+    # 3. Content actions
+    content = CONSCIOUSNESS.get("content_factory", {})
+    ideas = content.get("ideas", [])
+    if ideas:
+        actions.append({
+            "domain": "CONTENT",
+            "action": f"Publish: {ideas[0].get('topic', '?')[:60]}",
+            "priority": 3,
+            "requires": "devto_key",
+            "auto_executable": True,
+        })
+
+    # 4. Health actions
+    eco = CONSCIOUSNESS.get("ecosystem_health", {})
+    for bn in eco.get("bottlenecks", []):
+        if bn.get("score", 100) < 40:
+            actions.append({
+                "domain": "HEALTH",
+                "action": f"Fix bottleneck: {bn.get('area','?')} at {bn.get('score',0)}%",
+                "priority": 2,
+                "requires": "none",
+                "auto_executable": True,
+            })
+
+    # 5. Dormant capability activation
+    rebirth = CONSCIOUSNESS.get("rebirth", {})
+    dormant = rebirth.get("dormant_capabilities", [])
+    for d in dormant[:3]:
+        if d.get("status") == "ready_to_wire":
+            actions.append({
+                "domain": "CAPABILITY",
+                "action": f"Activate: {d.get('engine','?')} ({d.get('capability','')})",
+                "priority": 3,
+                "requires": "configuration",
+                "auto_executable": False,
+            })
+
+    # 6. Growth actions
+    trends = CONSCIOUSNESS.get("trends", {})
+    if trends.get("health_trend") == "declining":
+        actions.append({
+            "domain": "HEALTH",
+            "action": "Health declining -- run diagnostic sweep",
+            "priority": 1,
+            "requires": "none",
+            "auto_executable": True,
+        })
+
+    # Sort by priority
+    actions.sort(key=lambda x: x.get("priority", 99))
+    planner["actions"] = actions[:20]
+    planner["priority_queue"] = [a for a in actions if a.get("priority") <= 2][:10]
+    planner["blocked"] = [a for a in actions if a.get("requires") not in ("none", "")]
+
+    # Count auto-executable actions
+    planner["auto_executable_count"] = len([a for a in actions if a.get("auto_executable")])
+    planner["last_plan"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_knowledge_graph():
     """
     META: Absorb and analyze the knowledge graph topology.
@@ -5387,6 +5759,13 @@ NEURONS = [
     ("FUEL_CORE_ABSORB", neuron_fuel_core_absorb),
     ("SOVEREIGNTY_ABSORB", neuron_sovereignty_absorb),
     ("EXECUTIVE_FUNCTION_ABSORB", neuron_executive_function_absorb),
+    # Phase 19: Reports + financial ledgers + action planning
+    ("REPORT_ABSORB", neuron_report_absorb),
+    ("ECONOMY_CHAIN", neuron_economy_chain),
+    ("GROWTH_TRACKER_DEEP", neuron_growth_tracker_deep),
+    ("PUBLIC_LEDGER", neuron_public_ledger),
+    ("DAILY_BRIEFING", neuron_daily_briefing),
+    ("ACTION_PLANNER", neuron_action_planner),
 ]
 
 
