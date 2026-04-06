@@ -573,6 +573,7 @@ def run():
         "ARBITRAGE":        "arbitrage_scanner_state.json",
         "PULSE":            "pulse_state.json",
         "GROWTH_TRACKER":   "growth_tracker.json",
+        "METABOLISM_LOOP":  "metabolism_state.json",
     }
 
     bootstrapped = 0
@@ -732,6 +733,15 @@ def _extract_key_props(eng_name, data):
         opps = data.get("actionable_opportunities", [])
         props["opportunities_count"] = len(opps) if isinstance(opps, list) else 0
         props["signal_direction"] = "opportunity" if props["opportunities_count"] > 0 else "neutral"
+
+    elif eng_name == "METABOLISM_LOOP":
+        metabolism = data.get("metabolism", {})
+        props["circuit_status"] = data.get("circuit_status", "unknown")
+        props["revenue_velocity_hr"] = metabolism.get("revenue_velocity_per_hour", 0)
+        props["ecosystem_health"] = metabolism.get("ecosystem_health", 0)
+        props["self_funding_ratio"] = metabolism.get("self_funding_ratio", 0)
+        props["circular_amplification"] = metabolism.get("circular_amplification", 1.0)
+        props["combined_growth_rate"] = metabolism.get("combined_growth_rate", 0)
 
     return props
 

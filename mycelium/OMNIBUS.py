@@ -455,11 +455,13 @@ def L6():
     eng("TRADING_WIRE",             timeout=30)   # v50: bridges trading data -> revenue ecosystem (41 engines)
     eng("CROSS_POLLINATOR",         timeout=30)   # v52: mycelium capital routing -- flows money to best opportunities
     eng("PULSE",                    timeout=15)   # v52: system vital signs dashboard -- all metrics at a glance
+    eng("GLOBAL_MARKETS",            timeout=30)   # v57: cross-platform market intelligence -- SOL/Kalshi/Alpaca/Polymarket
     eng("SIGNAL_MESH",              timeout=30)   # v53: signal aggregation -- composite signals from ALL sources
     eng("SYNAPTIC_BUS",             timeout=15)   # v54: shared consciousness -- every engine aware of every engine
     eng("AUTO_DEPOSIT",             timeout=30)   # v56: smart capital splitter -- routes deposits to optimal platform
     eng("REFLEX_ARC",               timeout=60)   # v55: fast-path reflexes -- bypasses AI for millisecond response
     eng("PROPRIOCEPTION",           timeout=30)   # v55: body awareness -- structure, health, speed, growth rate
+    eng("METABOLISM_LOOP",           timeout=30)   # v57: full circular metabolism -- nervous system -> ecosystem -> back
     eng("NERVE_LOOP",               timeout=300)  # v50: THE LIVING LOOP — all engines feed all engines, forever
     eng("DIRECT_WIRE",              timeout=120)  # v49: frictionless commit — compile, commit, push, sync USB
 

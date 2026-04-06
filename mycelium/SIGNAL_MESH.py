@@ -11,7 +11,7 @@ individual scanners and traders and answers one question:
     "Right now, across EVERY platform and EVERY data source,
      what is the single best thing to do with the next dollar?"
 
-SIGNAL SOURCES (11 total):
+SIGNAL SOURCES (13 total):
   1. prediction_intelligence.json  -- Kalshi/prediction market merged intel
   2. polymarket_scan.json          -- Polymarket edges & opportunities
   3. kalshi_scan.json              -- Kalshi scanner results
@@ -23,6 +23,8 @@ SIGNAL SOURCES (11 total):
   9. compound_tracker.json         -- Compound growth tracking
   10. flywheel_state.json          -- Revenue flywheel state
   11. ai_cost_tracker.json         -- AI cost vs profit tracking
+  12. metabolism_state.json         -- METABOLISM_LOOP circular flow (revenue velocity, ecosystem health)
+  13. global_markets_state.json    -- GLOBAL_MARKETS cross-platform regime + ranked opportunities
 
 OUTPUT: data/signal_mesh_state.json
   - Composite signal (weighted average, dominant direction, conviction)
@@ -57,6 +59,8 @@ SIGNAL_SOURCES = [
     {"id": "compound_tracker",  "file": "compound_tracker.json",         "weight": 0.6,  "label": "Compound Tracker"},
     {"id": "flywheel",          "file": "flywheel_state.json",           "weight": 0.5,  "label": "Revenue Flywheel"},
     {"id": "ai_cost",           "file": "ai_cost_tracker.json",          "weight": 0.4,  "label": "AI Cost Tracker"},
+    {"id": "metabolism",        "file": "metabolism_state.json",          "weight": 0.7,  "label": "Metabolism Loop"},
+    {"id": "global_markets",    "file": "global_markets_state.json",      "weight": 0.9,  "label": "Global Markets"},
 ]
 
 # Freshness decay thresholds
@@ -320,6 +324,50 @@ def _extract_signal(source_def, data, now):
         ratio = (profit / cost * 100) if cost > 0 else 0
         signal["signal_strength"] = min(40, int(ratio))
         signal["signal_direction"] = "bullish" if profit > 0 else ("bearish" if cost > profit else "neutral")
+
+    elif sid == "metabolism":
+        rev_velocity = data.get("revenue_velocity", 0) or 0
+        eco_health = data.get("ecosystem_health", 0) or 0
+        circuit = data.get("circuit_status", "open")
+        metabolism = data.get("metabolism", {})
+        amplification = metabolism.get("circular_amplification", 1.0) or 1.0
+        self_funding = metabolism.get("self_funding_ratio", 0) or 0
+        # Strength from ecosystem health + self-funding progress
+        strength = min(80, int(eco_health * 0.5 + min(self_funding, 2.0) * 20))
+        signal["signal_strength"] = strength
+        signal["signal_direction"] = "bullish" if circuit == "closed" and eco_health > 40 else (
+            "opportunity" if eco_health > 20 else "neutral"
+        )
+        if rev_velocity > 0 or eco_health > 0:
+            signal["opportunities"].append({
+                "type": "metabolism_circular",
+                "revenue_velocity_hr": rev_velocity,
+                "ecosystem_health": eco_health,
+                "circuit_status": circuit,
+                "amplification": amplification,
+                "platform": "solarpunk",
+            })
+
+    elif sid == "global_markets":
+        cross = data.get("cross_market", {})
+        regime = cross.get("regime", "NEUTRAL")
+        regime_score = cross.get("regime_score", 0)
+        total_opps = len(data.get("ranked_opportunities", []))
+        total_cap = cross.get("total_visible_capital", 0)
+        strength = min(90, abs(regime_score) * 2 + total_opps * 2)
+        signal["signal_strength"] = int(strength)
+        signal["signal_direction"] = "bullish" if regime == "RISK_ON" else (
+            "bearish" if regime == "RISK_OFF" else "opportunity" if total_opps > 5 else "neutral"
+        )
+        recs = cross.get("recommendations", [])
+        for r in recs[:3]:
+            signal["opportunities"].append({
+                "type": "global_market_deploy",
+                "action": r.get("action", ""),
+                "platform": r.get("platform", "multi"),
+                "capital": r.get("capital", ""),
+                "regime": regime,
+            })
 
     return signal
 

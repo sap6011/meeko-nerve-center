@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-06T07:56:14.683790+00:00",
+  "timestamp": "2026-04-06T07:57:22.212672+00:00",
   "protocol": "arbitrage-scanner-v1",
   "scans": {
     "lst_arbitrage": [
@@ -55,25 +55,25 @@
     "stablecoin_arbitrage": [
       {
         "pair": "USDC->USDT",
-        "rate": 1.000257,
-        "deviation_pct": 0.0257
+        "rate": 1.000235,
+        "deviation_pct": 0.0235
       },
       {
         "pair": "USDT->USDC",
-        "rate": 0.999998,
-        "deviation_pct": -0.0002
+        "rate": 0.999945,
+        "deviation_pct": -0.0055
       },
       {
         "pair": "LOOP (USDC->USDT->USDC)",
-        "rate": 1.000255,
-        "profit_pct": 0.0255,
+        "rate": 1.00018,
+        "profit_pct": 0.018,
         "profitable": true
       }
     ],
     "sol_price_spreads": [
       {
-        "sol_usdc_price": 81.8369,
-        "sol_usdt_price": 81.848,
+        "sol_usdc_price": 81.8157,
+        "sol_usdt_price": 81.8268,
         "spread_usd": 0.0111,
         "spread_pct": 0.0136,
         "arbitrage": "No actionable spread"
@@ -115,7 +115,7 @@
     {
       "type": "stablecoin_loop",
       "pair": "LOOP (USDC->USDT->USDC)",
-      "profit_pct": 0.0255,
+      "profit_pct": 0.018,
       "action": "USDC->USDT->USDC loop across wallets",
       "urgency": "medium"
     }
