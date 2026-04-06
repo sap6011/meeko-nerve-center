@@ -6,5 +6,32 @@
     "source": "OMNIBUS_L6",
     "status": "pending",
     "queued_at": "2026-04-05T22:16:24.419963+00:00"
+  },
+  {
+    "id": "proprioception_1775513100",
+    "prompt": "Run PROPRIOCEPTION engine -- scan body awareness: engine count, data files, emission velocity, reflex timing, coordination %, portfolio momentum, evolution rate. Save snapshot to proprioception_state.json.",
+    "priority": 3,
+    "source": "PROPRIOCEPTION",
+    "status": "pending",
+    "interval_minutes": 30,
+    "queued_at": "2026-04-06T00:00:00+00:00"
+  },
+  {
+    "id": "auto_deposit_1775520000",
+    "prompt": "Run AUTO_DEPOSIT engine -- read SYNAPTIC_BUS + SIGNAL_MESH + CROSS_POLLINATOR, compute optimal capital split, deploy to best platform. Smart routing: urgency-based, opportunity-vacuum, rebalance, or default 60/40.",
+    "priority": 1,
+    "source": "AUTO_DEPOSIT",
+    "status": "pending",
+    "interval_minutes": 10,
+    "queued_at": "2026-04-06T00:00:00+00:00"
+  },
+  {
+    "id": "settlement_watcher_1775520300",
+    "prompt": "Run SETTLEMENT_WATCHER engine -- poll Kalshi balance, detect settled positions, redeploy capital via TURBO_TRADER or recommend Alpaca transfer. Emit DEPOSIT_DETECTED to SYNAPTIC_BUS.",
+    "priority": 1,
+    "source": "SETTLEMENT_WATCHER",
+    "status": "pending",
+    "interval_minutes": 5,
+    "queued_at": "2026-04-06T00:00:00+00:00"
   }
 ]

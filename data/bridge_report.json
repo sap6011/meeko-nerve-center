@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-06T02:17:45.660039+00:00",
+  "timestamp": "2026-04-06T07:08:02.347553+00:00",
   "bridges_attempted": 125,
   "bridges_built": 15,
   "bridges_failed": 110,
@@ -7,7 +7,10 @@
     "*.json",
     "*_report.json",
     "airdrop_hunter_state.json",
+    "alpaca_trader_config.json",
+    "alpaca_trader_state.json",
     "arbitrage_scanner_state.json",
+    "autonomic_state.json",
     "business_*.json",
     "filename.json",
     "growth_tracker.json",
@@ -18,11 +21,18 @@
     "pattern*.json",
     "price_history.json",
     "price_oracle_state.json",
+    "reflex_arc_log.json",
     "replication_queue.json",
+    "signal_mesh_state.json",
     "sol_maximizer_state.json",
+    "synaptic_attention.json",
+    "synaptic_events.json",
     "trade_executor_config.json",
     "trade_executor_state.json",
     "trade_ledger.json",
+    "trading_feedback.json",
+    "trading_wire_state.json",
+    "turbo_trader_state.json",
     "unified_action_queue.json",
     "wallet_balances.json",
     "wallet_config.json",
@@ -39,36 +49,36 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 402 pass, 1 fail out of 403 engines",
-      "pass": 402,
-      "fail": 1,
+      "detail": "Local sentinel: 414 pass, 0 fail out of 414 engines",
+      "pass": 414,
+      "fail": 0,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 611 nodes, 5917 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 611,
-      "edges": 5917,
+      "detail": "Knowledge graph: 629 nodes, 5900 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 629,
+      "edges": 5900,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
-          376
+          374
         ],
         [
           "OMNIBUS",
-          230
+          229
         ],
         [
           "FIRST_SALE_NOTIFIER",
-          187
+          186
         ],
         [
           "REVENUE_LOOP",
-          159
+          158
         ],
         [
           "METRICS_DASHBOARD",
-          138
+          137
         ]
       ],
       "target": "knowledge_graph.json"
@@ -86,12 +96,12 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "River watch: 1 alerts, 0 waterways",
+      "detail": "River watch: 0 alerts, 0 waterways",
       "target": "river_watch.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 403 scripts, 1 need repair",
+      "detail": "Desktop blueprints: 414 scripts, 0 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -106,12 +116,12 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 43, score 78/100",
+      "detail": "Chimera gen 48, score 78/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 403",
+      "detail": "Healed 0, scanned 414",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -121,7 +131,7 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Markets scanned: 100, edges: 29",
+      "detail": "Markets scanned: 100, edges: 35",
       "target": "polymarket_scan.json"
     },
     {
@@ -226,7 +236,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (402 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (414 pass)",
       "target": "sentinel_scan.json"
     },
     {

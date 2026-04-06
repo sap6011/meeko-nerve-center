@@ -592,6 +592,19 @@ def run():
     }
     _save(DATA / "trade_executor_state.json", state)
 
+    # Broadcast to synaptic bus
+    try:
+        from SYNAPTIC_BUS import emit_batch
+        emit_batch("TRADE_EXECUTOR", {
+            "balance_after": new_balance,
+            "trades_this_cycle": len(trades_placed),
+            "successful_trades": sum(1 for t in trades_placed if t["success"]),
+            "status": "active",
+            "platform": "kalshi",
+        }, silent=True)
+    except Exception:
+        pass
+
     # Summary
     successful = sum(1 for t in trades_placed if t["success"])
     print(f"[TRADE_EXECUTOR] Cycle complete:")

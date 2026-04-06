@@ -850,6 +850,18 @@ def run():
     print("=" * 70)
 
     _save(DATA / "nerve_loop_state.json", cycle_results)
+
+    # Broadcast to synaptic bus
+    try:
+        from SYNAPTIC_BUS import emit_batch
+        emit_batch("NERVE_LOOP", {
+            "status": "complete",
+            "elapsed_seconds": elapsed,
+            "phases": len(cycle_results.get("phases", {})),
+        }, silent=True)
+    except Exception:
+        pass
+
     return cycle_results
 
 

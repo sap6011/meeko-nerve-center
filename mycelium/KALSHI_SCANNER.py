@@ -658,6 +658,17 @@ def run():
 
     _save(DATA / "kalshi_scan.json", state)
 
+    # Broadcast to synaptic bus
+    try:
+        from SYNAPTIC_BUS import emit_batch
+        emit_batch("KALSHI_SCANNER", {
+            "markets_scanned": len(markets),
+            "opportunities": sum(len(v) for v in signals.values()),
+            "status": "active",
+        }, silent=True)
+    except Exception:
+        pass
+
     # Summary
     print(f"[KALSHI] Scanned {len(markets)} markets:")
     for cat, sigs in signals.items():

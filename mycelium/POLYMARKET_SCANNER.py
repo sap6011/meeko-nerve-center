@@ -507,6 +507,17 @@ def run():
         encoding="utf-8",
     )
 
+    # Broadcast to synaptic bus
+    try:
+        from SYNAPTIC_BUS import emit_batch
+        emit_batch("POLYMARKET_SCANNER", {
+            "edges_found": scan_data.get("edges_found", 0),
+            "total_markets_scanned": scan_data.get("total_markets_scanned", 0),
+            "status": "active",
+        }, silent=True)
+    except Exception:
+        pass
+
     edges = scan_data.get("edges_found", 0)
     sentiment = intel_feed.get("sentiment", {})
     print(f"[POLYMARKET] Scan complete: {scan_data.get('total_markets_scanned', 0)} markets, {edges} edges")

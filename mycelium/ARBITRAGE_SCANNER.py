@@ -400,6 +400,16 @@ def run():
 
     _save(DATA / "arbitrage_scanner_state.json", state)
 
+    # Broadcast to synaptic bus
+    try:
+        from SYNAPTIC_BUS import emit_batch
+        emit_batch("ARBITRAGE_SCANNER", {
+            "actionable_opportunities": len(actionable),
+            "status": "active",
+        }, silent=True)
+    except Exception:
+        pass
+
     # Summary
     print("[ARBITRAGE] RESULTS:")
     print(f"  LST pairs scanned: {len(lst_arbs)}")

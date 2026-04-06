@@ -552,8 +552,36 @@
       "timestamp": "2026-04-06T06:46:44.563277+00:00",
       "edges_found": 36,
       "markets_scanned": 100
+    },
+    {
+      "source": "prediction_markets",
+      "timestamp": "2026-04-06T07:06:28.143232+00:00",
+      "action": "reduce_exposure",
+      "crypto_bullish": 0.163,
+      "sol_outlook": 0.255,
+      "recession_prob": 0.0
+    },
+    {
+      "source": "polymarket",
+      "timestamp": "2026-04-06T07:06:28.145239+00:00",
+      "edges_found": 35,
+      "markets_scanned": 100
+    },
+    {
+      "source": "arbitrage_scanner",
+      "timestamp": "2026-04-06T07:06:28.145239+00:00",
+      "opportunities": 1,
+      "details": [
+        {
+          "type": "stablecoin_loop",
+          "pair": "LOOP (USDC->USDT->USDC)",
+          "profit_pct": 0.014,
+          "action": "USDC->USDT->USDC loop across wallets",
+          "urgency": "medium"
+        }
+      ]
     }
   ],
   "loop_closed": false,
-  "last_run": "2026-04-06T06:46:44.563277+00:00"
+  "last_run": "2026-04-06T07:06:28.145239+00:00"
 }

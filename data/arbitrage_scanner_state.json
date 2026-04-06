@@ -1,81 +1,81 @@
 {
-  "timestamp": "2026-04-06T02:16:03.230245+00:00",
+  "timestamp": "2026-04-06T06:59:53.749449+00:00",
   "protocol": "arbitrage-scanner-v1",
   "scans": {
     "lst_arbitrage": [
       {
         "token": "JitoSOL",
-        "buy_rate": 0.787116,
-        "sell_rate": 1.270449,
-        "roundtrip_sol": 0.99999,
-        "spread_pct": -0.001,
+        "buy_rate": 0.787119,
+        "sell_rate": 1.270446,
+        "roundtrip_sol": 0.999992,
+        "spread_pct": -0.0008,
         "gas_cost_sol": 1e-05,
-        "net_profit_pct": -0.002,
+        "net_profit_pct": -0.0018,
         "profitable": false,
-        "route_buy": "AlphaQ",
+        "route_buy": "Manifest",
         "route_sell": "AlphaQ"
       },
       {
         "token": "mSOL",
-        "buy_rate": 0.730389,
-        "sell_rate": 1.369099,
-        "roundtrip_sol": 0.999975,
-        "spread_pct": -0.0025,
+        "buy_rate": 0.730373,
+        "sell_rate": 1.369135,
+        "roundtrip_sol": 0.999979,
+        "spread_pct": -0.0021,
         "gas_cost_sol": 1e-05,
-        "net_profit_pct": -0.0035,
+        "net_profit_pct": -0.0031,
         "profitable": false,
-        "route_buy": "Manifest",
+        "route_buy": "AlphaQ",
         "route_sell": "Manifest"
       },
       {
         "token": "bSOL",
-        "buy_rate": 0.77774,
-        "sell_rate": 1.285745,
-        "roundtrip_sol": 0.999975,
-        "spread_pct": -0.0025,
+        "buy_rate": 0.777742,
+        "sell_rate": 1.28573,
+        "roundtrip_sol": 0.999966,
+        "spread_pct": -0.0034,
         "gas_cost_sol": 1e-05,
-        "net_profit_pct": -0.0035,
+        "net_profit_pct": -0.0044,
         "profitable": false,
         "route_buy": "Manifest",
-        "route_sell": "Whirlpool"
+        "route_sell": "Meteora"
       },
       {
         "token": "INF",
-        "buy_rate": 0.708703,
-        "sell_rate": 1.410926,
-        "roundtrip_sol": 0.999928,
-        "spread_pct": -0.0072,
+        "buy_rate": 0.70871,
+        "sell_rate": 1.410962,
+        "roundtrip_sol": 0.999963,
+        "spread_pct": -0.0037,
         "gas_cost_sol": 1e-05,
-        "net_profit_pct": -0.0082,
+        "net_profit_pct": -0.0047,
         "profitable": false,
         "route_buy": "Whirlpool",
-        "route_sell": "Meteora DLMM"
+        "route_sell": "Sanctum Infinity"
       }
     ],
     "stablecoin_arbitrage": [
       {
         "pair": "USDC->USDT",
-        "rate": 1.00029,
-        "deviation_pct": 0.029
+        "rate": 1.000174,
+        "deviation_pct": 0.0174
       },
       {
         "pair": "USDT->USDC",
-        "rate": 0.999828,
-        "deviation_pct": -0.0172
+        "rate": 0.999966,
+        "deviation_pct": -0.0034
       },
       {
         "pair": "LOOP (USDC->USDT->USDC)",
-        "rate": 1.000118,
-        "profit_pct": 0.0118,
+        "rate": 1.00014,
+        "profit_pct": 0.014,
         "profitable": true
       }
     ],
     "sol_price_spreads": [
       {
-        "sol_usdc_price": 82.396,
-        "sol_usdt_price": 82.4143,
-        "spread_usd": 0.0183,
-        "spread_pct": 0.0222,
+        "sol_usdc_price": 81.4876,
+        "sol_usdt_price": 81.5003,
+        "spread_usd": 0.0127,
+        "spread_pct": 0.0156,
         "arbitrage": "No actionable spread"
       }
     ],
@@ -115,7 +115,7 @@
     {
       "type": "stablecoin_loop",
       "pair": "LOOP (USDC->USDT->USDC)",
-      "profit_pct": 0.0118,
+      "profit_pct": 0.014,
       "action": "USDC->USDT->USDC loop across wallets",
       "urgency": "medium"
     }
