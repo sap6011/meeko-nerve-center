@@ -175,6 +175,26 @@ def _gather_intelligence():
         "platform": "alpaca",
     }
 
+    # -- GLOBAL_MARKETS (cross-platform regime awareness) --
+    gm = _load(DATA / "global_markets_state.json")
+    intel["global_markets"] = {
+        "regime": gm.get("regime", {}).get("label", "neutral"),
+        "regime_score": gm.get("regime", {}).get("score", 0),
+        "solana_opps": len(gm.get("ranked_opportunities", {}).get("solana_defi", [])),
+        "top_platform": gm.get("deployment_recommendations", [{}])[0].get("platform", "")
+            if gm.get("deployment_recommendations") else "",
+        "total_opportunities": gm.get("summary", {}).get("total_opportunities", 0),
+    }
+
+    # -- METABOLISM_LOOP (ecosystem health for circular awareness) --
+    metab = _load(DATA / "metabolism_state.json")
+    intel["metabolism"] = {
+        "revenue_velocity": metab.get("metabolism", {}).get("revenue_velocity_per_day", 0),
+        "ecosystem_health": metab.get("metabolism", {}).get("ecosystem_health", 0),
+        "circular_amplification": metab.get("metabolism", {}).get("circular_amplification", 1.0),
+        "self_funding_ratio": metab.get("metabolism", {}).get("self_funding_ratio", 0),
+    }
+
     return intel
 
 

@@ -574,6 +574,7 @@ def run():
         "PULSE":            "pulse_state.json",
         "GROWTH_TRACKER":   "growth_tracker.json",
         "METABOLISM_LOOP":  "metabolism_state.json",
+        "GLOBAL_MARKETS":   "global_markets_state.json",
     }
 
     bootstrapped = 0
@@ -742,6 +743,21 @@ def _extract_key_props(eng_name, data):
         props["self_funding_ratio"] = metabolism.get("self_funding_ratio", 0)
         props["circular_amplification"] = metabolism.get("circular_amplification", 1.0)
         props["combined_growth_rate"] = metabolism.get("combined_growth_rate", 0)
+
+    elif eng_name == "GLOBAL_MARKETS":
+        cross = data.get("cross_platform", {})
+        props["regime"] = cross.get("regime", "UNKNOWN")
+        props["regime_score"] = cross.get("regime_score", 0)
+        props["regime_label"] = cross.get("regime_label", "")
+        props["total_visible_capital"] = cross.get("total_visible_capital", 0)
+        props["opportunities_ranked"] = len(data.get("ranked_opportunities", []))
+        # Top opportunity for quick reads
+        ranked = data.get("ranked_opportunities", [])
+        if ranked:
+            top = ranked[0]
+            props["top_opportunity"] = top.get("name", "?")
+            props["top_opportunity_score"] = top.get("score", 0)
+            props["top_opportunity_platform"] = top.get("platform", "?")
 
     return props
 

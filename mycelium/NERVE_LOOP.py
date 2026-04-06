@@ -744,8 +744,28 @@ def run():
             "result": pulse_result,
         }
 
-        # Phase 10: SIGNAL_MESH -- aggregate all signals into composite
-        print("\n=== PHASE 10: SIGNAL_MESH (Signal Aggregation) ===")
+        # Phase 10: GLOBAL_MARKETS -- cross-platform regime detection before signal aggregation
+        print("\n=== PHASE 10: GLOBAL_MARKETS (Cross-Platform Regime Detection) ===")
+        gm_result = _run_engine("GLOBAL_MARKETS", "GLOBAL_MARKETS")
+        gm_state = _load(DATA / "global_markets_state.json")
+        gm_cross = gm_state.get("cross_platform", {})
+        gm_regime = gm_cross.get("regime", "?")
+        gm_score = gm_cross.get("regime_score", 0)
+        gm_opps = len(gm_state.get("ranked_opportunities", []))
+        gm_capital = gm_cross.get("total_visible_capital", 0)
+        print(f"  [GLOBAL_MARKETS] Regime: {gm_regime} (score={gm_score}) | "
+              f"Opportunities: {gm_opps} | Visible capital: ${gm_capital:.2f}")
+        cycle_results["phases"]["global_markets"] = {
+            "phase": "global_markets",
+            "result": gm_result,
+            "regime": gm_regime,
+            "regime_score": gm_score,
+            "opportunities": gm_opps,
+            "visible_capital": gm_capital,
+        }
+
+        # Phase 11: SIGNAL_MESH -- aggregate all signals into composite (reads GLOBAL_MARKETS)
+        print("\n=== PHASE 11: SIGNAL_MESH (Signal Aggregation) ===")
         mesh_result = _run_engine("SIGNAL_MESH", "SIGNAL_MESH")
         mesh_state = _load(DATA / "signal_mesh_state.json")
         composite = mesh_state.get("composite_signal", {})
@@ -767,8 +787,8 @@ def run():
             "neural_connectivity": hb.get("neural_connectivity", 0),
         }
 
-        # Phase 11: SYNAPTIC_BUS -- shared consciousness, every engine aware of every other
-        print("\n=== PHASE 11: SYNAPTIC_BUS (Shared Consciousness) ===")
+        # Phase 12: SYNAPTIC_BUS -- shared consciousness, every engine aware of every other
+        print("\n=== PHASE 12: SYNAPTIC_BUS (Shared Consciousness) ===")
         bus_result = _run_engine("SYNAPTIC_BUS", "SYNAPTIC_BUS")
         bus_state = _load(DATA / "synaptic_bus.json")
         bus_pulse = bus_state.get("last_pulse", {})
@@ -789,8 +809,8 @@ def run():
             "sync_score": convergence.get("sync_score", 0),
         }
 
-        # Phase 12: REFLEX_ARC -- fast-path decisions, millisecond response
-        print("\n=== PHASE 12: REFLEX_ARC (Fast-Path Reflexes) ===")
+        # Phase 13: REFLEX_ARC -- fast-path decisions, millisecond response (reads GLOBAL_MARKETS regime)
+        print("\n=== PHASE 13: REFLEX_ARC (Fast-Path Reflexes, 13 Reflexes) ===")
         reflex_result = _run_engine("REFLEX_ARC", "REFLEX_ARC")
         reflex_state = _load(DATA / "reflex_arc_state.json")
         last_cycle = reflex_state.get("last_cycle", {})

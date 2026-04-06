@@ -13,16 +13,18 @@ THE BIOLOGY:
   evaluates hardcoded if-then rules, and fires actions INSTANTLY -- no AI
   inference, no LLM calls, no waiting. Pure reactive speed.
 
-REFLEXES (ordered by priority):
+REFLEXES (ordered by priority, 13 total):
   0. THERMAL_DANGER     -- CPU > 90% or RAM > 95% -> PAUSE all engines
   1. ENGINE_CRASH       -- Any engine error on bus -> log + restart once
   2. DEPOSIT_DETECTED   -- New balance increase -> deploy capital immediately
   3. SETTLEMENT_SPIKE   -- Kalshi positions settle -> compound cycle
   4. MARKET_OPEN        -- Alpaca market opens -> trigger queued trades
   5. ARBITRAGE_WINDOW   -- Arb scanner finds opps -> trigger TURBO
+  5. REGIME_SHIFT       -- GLOBAL_MARKETS regime change -> rebalance strategy
   6. CONVERGENCE_ALERT  -- SIGNAL_MESH conviction > 80% + urgency > 60
   7. STALE_BUS          -- Bus not updated in 10+ min -> refresh
   8. CASH_IDLE          -- Cash idle > 30 min with opps available -> trade
+  8. METABOLISM_ALERT   -- Ecosystem health drops -> investigate + refresh
   9. SELF_FUNDING_ALERT -- AI costs > trading profits -> switch to local
  10. GROWTH_STALL       -- Evolution LOW or no new engines 24h -> alert
 
@@ -73,6 +75,8 @@ REFLEX_REGISTRY = [
     {"id": "CASH_IDLE",          "priority": 8, "desc": "Idle cash + opps -> deploy"},
     {"id": "SELF_FUNDING_ALERT", "priority": 9, "desc": "AI cost > profits -> go local"},
     {"id": "GROWTH_STALL",       "priority": 10, "desc": "Evolution low or no new engines 24h -> alert"},
+    {"id": "REGIME_SHIFT",       "priority": 5, "desc": "Global regime change -> adjust strategy"},
+    {"id": "METABOLISM_ALERT",   "priority": 8, "desc": "Ecosystem health drop -> investigate"},
 ]
 
 
@@ -596,6 +600,155 @@ def _reflex_growth_stall(bus, mesh, state):
     return False, f"growth OK (evo={evo_label}, engines={current_engines})", _ms_since(t0)
 
 
+def _reflex_regime_shift(bus, mesh, state):
+    """PRIORITY 5: GLOBAL_MARKETS regime changes -> adjust trading strategy.
+
+    Reads GLOBAL_MARKETS state from the bus. When regime transitions
+    (risk-on -> risk-off, or risk-off -> risk-on), immediately:
+    - Emit alert to bus so all engines see the shift
+    - Trigger AUTO_DEPOSIT to rebalance capital split
+    - Trigger appropriate trader (TURBO for risk-off hedging, ALPACA for risk-on)
+
+    This reflex gives SolarPunk a sub-second reaction to global mood changes.
+    """
+    t0 = time.time()
+    engines = bus.get("engines", {})
+
+    # Read GLOBAL_MARKETS from bus
+    gm = engines.get("GLOBAL_MARKETS", {}).get("properties", {})
+    current_regime = gm.get("regime", "")
+
+    # Also try direct file read if bus doesn't have it yet
+    if not current_regime:
+        gm_file = DATA / "global_markets_state.json"
+        gm_data = _load(gm_file)
+        current_regime = gm_data.get("cross_platform", {}).get("regime", "")
+
+    if not current_regime:
+        return False, "no regime data available yet", _ms_since(t0)
+
+    prev_regime = state.get("prev_regime", "")
+
+    # Detect transition
+    if prev_regime and current_regime != prev_regime:
+        detail = (f"REGIME SHIFT: {prev_regime} -> {current_regime} "
+                  f"-- rebalancing strategy")
+
+        # Determine action based on new regime
+        if current_regime == "RISK_OFF":
+            # Risk-off: prioritize prediction markets (hedging), reduce equities
+            target = "TURBO_TRADER"
+            action = "SHIFT_TO_HEDGING"
+        elif current_regime == "RISK_ON":
+            # Risk-on: prioritize equities and growth assets
+            target = "ALPACA_TRADER"
+            action = "SHIFT_TO_GROWTH"
+        else:
+            # Neutral: rebalance to default split
+            target = "AUTO_DEPOSIT"
+            action = "REBALANCE_NEUTRAL"
+
+        _emit_to_bus("REFLEX_ARC", {
+            "action": action,
+            "prev_regime": prev_regime,
+            "new_regime": current_regime,
+            "target_engine": target,
+            "reflex": "REGIME_SHIFT",
+        })
+
+        # Trigger rebalance
+        _run_engine_safe("AUTO_DEPOSIT")
+        # Also trigger the directional trader
+        if target != "AUTO_DEPOSIT":
+            _run_engine_safe(target)
+
+        # Save new regime for next comparison
+        state["prev_regime"] = current_regime
+        return True, detail, _ms_since(t0)
+
+    # No transition -- just track current regime
+    state["prev_regime"] = current_regime
+    return False, f"regime stable ({current_regime})", _ms_since(t0)
+
+
+def _reflex_metabolism_alert(bus, mesh, state):
+    """PRIORITY 8: Ecosystem health drops below threshold -> investigate.
+
+    Reads METABOLISM_LOOP from the bus. When ecosystem_health drops
+    below 30% (critical) or drops by >20% since last check (rapid decline),
+    triggers METABOLISM_LOOP refresh and alerts via bus.
+
+    This reflex prevents the SolarPunk ecosystem from degrading silently.
+    """
+    t0 = time.time()
+    engines = bus.get("engines", {})
+
+    # Read metabolism from bus
+    metab = engines.get("METABOLISM_LOOP", {}).get("properties", {})
+    health = metab.get("ecosystem_health", -1)
+
+    # Also try direct file read
+    if health < 0:
+        metab_file = DATA / "metabolism_state.json"
+        metab_data = _load(metab_file)
+        health = metab_data.get("ecosystem_health", -1)
+
+    if health < 0:
+        return False, "no ecosystem health data yet", _ms_since(t0)
+
+    prev_health = state.get("prev_ecosystem_health", health)
+    health_drop = prev_health - health
+
+    triggered = False
+    reasons = []
+
+    # Check 1: Absolute threshold -- health below 30% is critical
+    if health < 30:
+        reasons.append(f"health={health}% (CRITICAL, below 30%)")
+        triggered = True
+
+    # Check 2: Rapid decline -- >20% drop since last check
+    if health_drop > 20:
+        reasons.append(f"rapid decline: {prev_health}% -> {health}% (drop={health_drop}%)")
+        triggered = True
+
+    # Check 3: Self-funding ratio collapsed
+    self_funding = metab.get("self_funding_ratio", 1.0)
+    if self_funding < 0.5 and self_funding > 0:
+        reasons.append(f"self_funding_ratio={self_funding} (below 0.5)")
+        triggered = True
+
+    # Check 4: Circuit broken (metabolism loop disconnected)
+    circuit = metab.get("circuit_status", "")
+    if circuit == "BROKEN":
+        reasons.append("metabolism circuit BROKEN")
+        triggered = True
+
+    # Track health for next cycle
+    state["prev_ecosystem_health"] = health
+
+    if triggered:
+        reason_str = " + ".join(reasons)
+        detail = f"METABOLISM ALERT: {reason_str}"
+
+        _emit_to_bus("REFLEX_ARC", {
+            "action": "METABOLISM_ALERT",
+            "ecosystem_health": health,
+            "prev_health": prev_health,
+            "health_drop": round(health_drop, 1),
+            "self_funding_ratio": self_funding,
+            "circuit_status": circuit,
+            "reasons": reasons,
+            "reflex": "METABOLISM_ALERT",
+        })
+
+        # Re-run metabolism loop to refresh readings
+        _run_engine_safe("METABOLISM_LOOP")
+        return True, detail, _ms_since(t0)
+
+    return False, f"ecosystem healthy ({health}%, delta={health_drop:+.1f}%)", _ms_since(t0)
+
+
 # ===========================================================================
 # Reflex dispatch table (maps IDs to functions)
 # ===========================================================================
@@ -611,6 +764,8 @@ REFLEX_FNS = {
     "CASH_IDLE":          _reflex_cash_idle,
     "SELF_FUNDING_ALERT": _reflex_self_funding,
     "GROWTH_STALL":       _reflex_growth_stall,
+    "REGIME_SHIFT":       _reflex_regime_shift,
+    "METABOLISM_ALERT":   _reflex_metabolism_alert,
 }
 
 

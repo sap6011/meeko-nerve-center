@@ -87,6 +87,7 @@ DEFAULT_SCHEDULE = {
     "SETTLEMENT_WATCHER": 5,  # Every 5 min -- detect settled positions, redeploy cash
     "AUTO_DEPOSIT":     10,   # Every 10 min -- smart capital split when new money arrives
     "METABOLISM_LOOP":  15,   # Every 15 min -- circular metabolism (nervous -> ecosystem -> back)
+    "GLOBAL_MARKETS":   15,   # Every 15 min -- cross-platform regime detection + opportunity ranking
     "NERVE_LOOP":       60,   # Every 60 min -- full ecosystem cycle
 }
 
@@ -660,6 +661,9 @@ def run_engine(engine_name):
             result = run()
         elif engine_name == "METABOLISM_LOOP":
             from mycelium.METABOLISM_LOOP import run
+            result = run()
+        elif engine_name == "GLOBAL_MARKETS":
+            from mycelium.GLOBAL_MARKETS import run
             result = run()
         else:
             return False, f"Unknown engine: {engine_name}"
