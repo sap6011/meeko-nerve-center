@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-04-06T01:06:18.284375+00:00",
+  "total_actions": 4,
+  "queue": [
+    {
+      "priority": 0,
+      "type": "market_intelligence",
+      "signal": "conservative",
+      "sol_outlook": 0.337,
+      "notes": [
+        "Prediction markets signal caution -- favor safe yield"
+      ],
+      "status": "info",
+      "source": "yield_loop"
+    },
+    {
+      "priority": 1,
+      "type": "jupiter_lend",
+      "wallet": "solana",
+      "amount_sol": 0.019995,
+      "expected_apy": 4.46,
+      "url": "https://jup.ag/lend/earn",
+      "reason": "Jupiter Lend vault — lending yield, instant withdrawal",
+      "status": "pending",
+      "market_signal": "conservative",
+      "source": "yield_loop"
+    },
+    {
+      "source": "airdrop",
+      "priority": 4,
+      "type": "protocol_interaction",
+      "target": "marginfi",
+      "status": "pending"
+    },
+    {
+      "source": "airdrop",
+      "priority": 4,
+      "type": "protocol_interaction",
+      "target": "Phoenix",
+      "status": "pending"
+    }
+  ]
+}

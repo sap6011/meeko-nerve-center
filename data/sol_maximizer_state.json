@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-04-06T00:52:00.696797+00:00",
+  "timestamp": "2026-04-06T01:06:14.053186+00:00",
   "protocol": "sol-maximizer-v1",
   "balance": {
-    "sol": 0.118849036,
-    "usd": 9.7,
-    "price": 81.5882
+    "sol": 0.039994795,
+    "usd": 3.29,
+    "price": 82.3213
   },
   "yield_options": [
     {
@@ -24,7 +24,7 @@
       "apy": 15.0,
       "risk": "low",
       "risk_note": "Liquid staking \u2014 can unstake anytime via DEX swap",
-      "sol_per_token": 1.3691,
+      "sol_per_token": 1.369066,
       "action": "Swap SOL \u2192 mSOL on Jupiter"
     },
     {
@@ -33,7 +33,7 @@
       "apy": 15.0,
       "risk": "low",
       "risk_note": "Liquid staking \u2014 can unstake anytime via DEX swap",
-      "sol_per_token": 1.270453,
+      "sol_per_token": 1.270451,
       "action": "Swap SOL \u2192 JitoSOL on Jupiter"
     },
     {
@@ -42,7 +42,7 @@
       "apy": 15.0,
       "risk": "low",
       "risk_note": "Liquid staking \u2014 can unstake anytime via DEX swap",
-      "sol_per_token": 1.285748,
+      "sol_per_token": 1.285753,
       "action": "Swap SOL \u2192 bSOL on Jupiter"
     },
     {
@@ -67,20 +67,22 @@
     }
   ],
   "strategy": {
-    "balance_sol": 0.118849036,
-    "balance_usd": 9.7,
-    "sol_price": 81.5882,
+    "balance_sol": 0.039994795,
+    "balance_usd": 3.29,
+    "sol_price": 82.3213,
     "prediction_intelligence": {
       "available": true,
       "fresh": true,
       "action": "reduce_exposure",
-      "crypto_bullish": 0.237,
-      "sol_outlook": 0.133,
-      "macro_risk": 0.007,
-      "crisis_level": 0.23,
+      "crypto_bullish": 0.378,
+      "sol_outlook": 0.337,
+      "macro_risk": 0.255,
+      "crisis_level": 0.235,
       "reasoning": [
-        "Crypto markets leaning bearish (24% avg YES)",
-        "SOL-specific markets cautious (13%)"
+        "DIVERGENCE: Polymarket=26% vs Kalshi=50% on crypto -- investigate",
+        "[Poly] Crypto markets leaning bearish (26% avg YES)",
+        "[Poly] SOL-specific markets cautious (17%)",
+        "[Kalshi] Kalshi data processed -- no strong directional signals"
       ]
     },
     "recommendations": [
@@ -94,15 +96,15 @@
       {
         "priority": 2,
         "action": "PREDICTION: Conservative mode",
-        "reason": "Markets signal caution (crisis=23%, sol=13%)",
+        "reason": "Markets signal caution (crisis=24%, sol=34%)",
         "signal_strength": "strong"
       },
       {
         "priority": 3,
         "action": "Stake on Marinade Native Staking",
         "apy": 6.39,
-        "annual_yield_sol": 0.007594,
-        "annual_yield_usd": 0.62,
+        "annual_yield_sol": 0.002556,
+        "annual_yield_usd": 0.21,
         "reason": "Best yield at 6.39% APY -- No smart contract risk \u2014 native Solana staking",
         "risk_preference": "conservative",
         "url": "https://app.marinade.finance/earn/sol/"
@@ -114,20 +116,20 @@
     },
     "projections": {
       "1m": {
-        "sol": 0.109429,
-        "gain_sol": 0.00058
+        "sol": 0.030155,
+        "gain_sol": 0.00016
       },
       "3m": {
-        "sol": 0.110597,
-        "gain_sol": 0.001748
+        "sol": 0.030477,
+        "gain_sol": 0.000482
       },
       "6m": {
-        "sol": 0.112373,
-        "gain_sol": 0.003524
+        "sol": 0.030966,
+        "gain_sol": 0.000971
       },
       "12m": {
-        "sol": 0.116012,
-        "gain_sol": 0.007163
+        "sol": 0.031969,
+        "gain_sol": 0.001974
       }
     }
   },

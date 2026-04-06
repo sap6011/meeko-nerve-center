@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-06T00:59:31.691995+00:00",
+  "timestamp": "2026-04-06T01:05:45.490426+00:00",
   "sources": [
     "polymarket",
     "kalshi"
@@ -16,15 +16,15 @@
       "crypto_markets": 0,
       "macro_markets": 0,
       "economics_markets": 0,
-      "crisis_markets": 1,
+      "crisis_markets": 0,
       "sol_specific": 0,
-      "weather_markets": 1
+      "weather_markets": 0
     }
   },
   "sentiment": {
-    "crypto_bullish": 0.369,
+    "crypto_bullish": 0.378,
     "macro_risk": 0.255,
-    "crisis_level": 0.23,
+    "crisis_level": 0.235,
     "sol_outlook": 0.337,
     "fed_hawkish": 0.5,
     "recession_prob": 0.0,
@@ -34,8 +34,8 @@
     ],
     "cross_validated": true,
     "reasoning": [
-      "DIVERGENCE: Polymarket=24% vs Kalshi=50% on crypto -- investigate",
-      "[Poly] Crypto markets leaning bearish (24% avg YES)",
+      "DIVERGENCE: Polymarket=26% vs Kalshi=50% on crypto -- investigate",
+      "[Poly] Crypto markets leaning bearish (26% avg YES)",
       "[Poly] SOL-specific markets cautious (17%)",
       "[Kalshi] Kalshi data processed -- no strong directional signals"
     ],
@@ -75,27 +75,19 @@
       "confidence": "low"
     },
     {
+      "question": "Will \"Love on the Spectrum: Season 4\" be the #2 US Netflix show this week?",
+      "yes_pct": 5.5,
+      "no_pct": 94.5,
+      "volume": 999.730073,
+      "end_date": "2026-04-07",
+      "confidence": "low"
+    },
+    {
       "question": "Will Netflix (NFLX) finish week of April 6 above $160?",
       "yes_pct": 0.5,
       "no_pct": 99.5,
       "volume": 999.452556,
       "end_date": "2026-04-10",
-      "confidence": "low"
-    },
-    {
-      "question": "Will \"Love on the Spectrum: Season 4\" be the #2 US Netflix show this week?",
-      "yes_pct": 5.0,
-      "no_pct": 95.0,
-      "volume": 997.708807,
-      "end_date": "2026-04-07",
-      "confidence": "low"
-    },
-    {
-      "question": "Will the price of Ethereum be between $2,000 and $2,100 on April 9?",
-      "yes_pct": 27.5,
-      "no_pct": 72.5,
-      "volume": 992.8792959999997,
-      "end_date": "2026-04-09",
       "confidence": "low"
     },
     {
@@ -107,9 +99,17 @@
       "confidence": "low"
     },
     {
+      "question": "Ethereum Up or Down - April 5, 9:00PM-9:15PM ET",
+      "yes_pct": 45.5,
+      "no_pct": 54.5,
+      "volume": 982.5669690000001,
+      "end_date": "2026-04-06",
+      "confidence": "low"
+    },
+    {
       "question": "Will the price of Solana be above $90 on April 7?",
-      "yes_pct": 1.4,
-      "no_pct": 98.7,
+      "yes_pct": 1.1,
+      "no_pct": 98.9,
       "volume": 980.8245999999999,
       "end_date": "2026-04-07",
       "confidence": "low"
@@ -136,8 +136,8 @@
   "sol_signals": [
     {
       "question": "Will the price of Solana be above $90 on April 7?",
-      "yes_pct": 1.4,
-      "no_pct": 98.7,
+      "yes_pct": 1.1,
+      "no_pct": 98.9,
       "volume": 980.8245999999999,
       "end_date": "2026-04-07",
       "confidence": "low"
@@ -162,9 +162,9 @@
   "crisis_signals": [
     {
       "question": "US-Iran nuclear deal by June 30?",
-      "yes_pct": 23.0,
-      "no_pct": 77.0,
-      "volume": 973895.0379179972,
+      "yes_pct": 23.5,
+      "no_pct": 76.5,
+      "volume": 974184.0089269972,
       "end_date": "2026-06-30",
       "confidence": "high"
     },
@@ -180,17 +180,5 @@
   "kalshi_crypto": [],
   "kalshi_macro": [],
   "kalshi_economics": [],
-  "kalshi_weather": [
-    {
-      "ticker": "KXMVESPORTSMULTIGAMEEXTENDED-S2026FB41D9C8B20-6FF2B886E09",
-      "question": "yes Charlotte,yes Oklahoma City,yes NJ Devils,yes COL Avalanche,yes NYR Rangers,yes CAR Hurricanes,yes Arsenal",
-      "yes_pct": 0.0,
-      "no_pct": 0.0,
-      "volume": 0,
-      "open_interest": 0,
-      "close_time": "2026-04-19",
-      "confidence": "low",
-      "source": "kalshi"
-    }
-  ]
+  "kalshi_weather": []
 }

@@ -6,6 +6,7 @@
       "address": "Gg3MpT7osGaDvuN3CZzgGTTTSkgFP14kBgdN46pajGAJ",
       "chain": "solana",
       "label": "Phantom SOL",
+      "role": "primary",
       "brave_rewards_target": true,
       "rpc": "https://api.mainnet-beta.solana.com"
     },
@@ -13,6 +14,7 @@
       "address": "0x2bDe119A46d69A1C3CDc00D994687578DeE21654",
       "chain": "ethereum",
       "label": "Phantom ETH/Polygon/Base (same address all EVM)",
+      "role": "primary",
       "also_on": ["polygon", "base", "arbitrum", "optimism"],
       "rpc": "https://eth.llamarpc.com"
     },
@@ -20,25 +22,27 @@
       "address": "bc1ppmp8e7n8zlxzuafllpdjpdaxmfrrvr46r4jylg6pf38433m4f0ssjeqpah",
       "chain": "bitcoin",
       "type": "taproot",
-      "label": "Phantom BTC Taproot"
+      "label": "Phantom BTC Taproot",
+      "role": "primary"
     },
     "bitcoin_segwit": {
       "address": "bc1qka74n62h3zk9mcv8v8xjtjtwehmnm24w3pfzzr",
       "chain": "bitcoin",
       "type": "segwit",
-      "label": "Phantom BTC SegWit"
+      "label": "Phantom BTC SegWit",
+      "role": "primary"
     },
     "multichain_0x": {
       "address": "0x809a5b852ac54f064606057a6e6736be63c305540f4d5aa3e1faf64fd3aaf0a1",
       "chain": "unknown",
       "label": "Extended address (Starknet or L2)",
       "note": "64-byte address — likely Starknet or similar"
-    }
-  },
-  "phone_solana": {
+    },
+    "phone_solana": {
       "address": "2eSY3s96m9YC8D9UeMmVMAEq5rYcZz1DUbaSy9RedG2v",
       "chain": "solana",
       "label": "MeekoThaRaccoon Phone SOL",
+      "role": "secondary",
       "wallet_app": "Phantom",
       "device": "iPhone"
     },
@@ -46,6 +50,7 @@
       "address": "0xeA0C219BF26021adD39DD0cC1fCF8167116DB48D",
       "chain": "ethereum",
       "label": "MeekoThaRaccoon Phone ETH/EVM",
+      "role": "secondary",
       "also_on": ["polygon", "base", "arbitrum", "optimism"],
       "wallet_app": "Phantom"
     },
@@ -53,18 +58,20 @@
       "address": "bc1pnkycqk86s8wu076zm0vpykhgnqeeeyxturc2fet6secrt7ny4p8s978jkx",
       "chain": "bitcoin",
       "type": "taproot",
-      "label": "MeekoThaRaccoon Phone BTC Taproot"
+      "label": "MeekoThaRaccoon Phone BTC Taproot",
+      "role": "secondary"
     },
     "phone_bitcoin_segwit": {
       "address": "bc1qy05u8y2sekdmt7r4hgf2a5dvt9fc4vesqfwyaq",
       "chain": "bitcoin",
       "type": "segwit",
-      "label": "MeekoThaRaccoon Phone BTC SegWit"
+      "label": "MeekoThaRaccoon Phone BTC SegWit",
+      "role": "secondary"
     }
   },
   "primary": "Gg3MpT7osGaDvuN3CZzgGTTTSkgFP14kBgdN46pajGAJ",
   "secondary": "2eSY3s96m9YC8D9UeMmVMAEq5rYcZz1DUbaSy9RedG2v",
   "secondary_label": "MeekoThaRaccoon (phone)",
   "consolidation_target": "primary",
-  "brave_rewards": "Connect at brave://rewards → Connect account → Phantom → uses SOL address"
+  "brave_rewards": "Connect at brave://rewards -> Connect account -> Phantom -> uses SOL address"
 }
