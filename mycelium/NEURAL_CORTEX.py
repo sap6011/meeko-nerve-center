@@ -186,13 +186,27 @@ def _ingest_bus(bus):
     sol_value = _safe_float(sol_props.get("balance_usd", sol_props.get("balance", 0)))
     total_capital = kalshi_balance + alpaca_value + sol_value
 
+    # Also check last_pulse for more accurate counts (updated by SYNAPTIC_BUS.pulse())
+    pulse = bus.get("last_pulse", {})
+    pulse_alive = pulse.get("alive", 0)
+    pulse_stale = pulse.get("stale", 0)
+    pulse_dead = pulse.get("dead", 0)
+    pulse_connectivity = pulse.get("connectivity", 0)
+
+    # Use whichever source shows more engines alive (bus pulse is more accurate)
+    if pulse_alive > alive:
+        alive = pulse_alive
+        stale = pulse_stale
+        dead = pulse_dead
+
     return {
         "engines_alive": alive,
         "engines_stale": stale,
         "engines_dead": dead,
         "engines_total": alive + stale + dead,
         "engine_statuses": engine_statuses,
-        "total_emissions": meta.get("total_emissions", 0),
+        "total_emissions": meta.get("total_emissions", pulse.get("total_emissions", 0)),
+        "connectivity": pulse_connectivity,
         "convergence": convergence,
         "sync_score": convergence.get("sync_score", 0),
         "total_capital_usd": round(total_capital, 2),
