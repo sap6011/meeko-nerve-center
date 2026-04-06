@@ -162,6 +162,11 @@ def run():
 
     # Build leaderboard
     leaderboard = build_leaderboard(vault, mutations)
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    leaderboard["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     save_json(DATA / "mutation_leaderboard.json", leaderboard)
     print(f"  Leaderboard saved: data/mutation_leaderboard.json")
 
