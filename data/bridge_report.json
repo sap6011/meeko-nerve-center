@@ -1,16 +1,33 @@
 {
-  "timestamp": "2026-04-05T22:12:36.724499+00:00",
+  "timestamp": "2026-04-06T01:51:30.479562+00:00",
   "bridges_attempted": 125,
-  "bridges_built": 15,
-  "bridges_failed": 110,
+  "bridges_built": 14,
+  "bridges_failed": 111,
   "unbridged_inputs": [
     "*.json",
     "*_report.json",
+    "airdrop_hunter_state.json",
+    "arbitrage_scanner_state.json",
     "business_*.json",
     "filename.json",
+    "growth_tracker.json",
     "gumroad*.json",
     "internet_actions.json",
+    "kalshi_scan.json",
+    "nerve_loop_state.json",
     "pattern*.json",
+    "price_history.json",
+    "price_oracle_state.json",
+    "replication_queue.json",
+    "sol_maximizer_state.json",
+    "trade_executor_config.json",
+    "trade_executor_state.json",
+    "trade_ledger.json",
+    "unified_action_queue.json",
+    "wallet_balances.json",
+    "wallet_config.json",
+    "yield_loop_history.json",
+    "yield_loop_state.json",
     "{r}"
   ],
   "results": [
@@ -22,16 +39,16 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Local sentinel: 393 pass, 1 fail out of 394 engines",
-      "pass": 393,
+      "detail": "Local sentinel: 402 pass, 1 fail out of 403 engines",
+      "pass": 402,
       "fail": 1,
       "target": "sentinel_report.json"
     },
     {
       "status": "BRIDGED",
-      "detail": "Knowledge graph: 599 nodes, 5881 edges, top hub: BRIDGE_BUILDER",
-      "nodes": 599,
-      "edges": 5881,
+      "detail": "Knowledge graph: 611 nodes, 5896 edges, top hub: BRIDGE_BUILDER",
+      "nodes": 611,
+      "edges": 5896,
       "top_hubs": [
         [
           "BRIDGE_BUILDER",
@@ -39,7 +56,7 @@
         ],
         [
           "OMNIBUS",
-          229
+          230
         ],
         [
           "FIRST_SALE_NOTIFIER",
@@ -74,7 +91,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Desktop blueprints: 394 scripts, 1 need repair",
+      "detail": "Desktop blueprints: 403 scripts, 1 need repair",
       "target": "desktop_blueprints.json"
     },
     {
@@ -83,18 +100,18 @@
       "detail": "'str' object does not support item assignment"
     },
     {
-      "status": "BRIDGED",
-      "detail": "Routed daemon_task.xml content -> desktop_daemon_state.json",
-      "target": "daemon_task.xml"
+      "target": "daemon_task.xml",
+      "status": "ERROR",
+      "detail": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Chimera gen 41, score 78/100",
+      "detail": "Chimera gen 42, score 78/100",
       "target": "chimera_evolution_report.json"
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Healed 0, scanned 394",
+      "detail": "Healed 0, scanned 403",
       "target": "nanobot_heal_report.json"
     },
     {
@@ -104,7 +121,7 @@
     },
     {
       "status": "ALREADY_EXISTS",
-      "detail": "Markets scanned: 100, edges: 27",
+      "detail": "Markets scanned: 100, edges: 29",
       "target": "polymarket_scan.json"
     },
     {
@@ -209,7 +226,7 @@
     },
     {
       "status": "BRIDGED",
-      "detail": "Aliased sentinel_report -> sentinel_scan (393 pass)",
+      "detail": "Aliased sentinel_report -> sentinel_scan (402 pass)",
       "target": "sentinel_scan.json"
     },
     {
