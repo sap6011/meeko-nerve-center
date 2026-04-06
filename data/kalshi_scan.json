@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-06T06:58:54.273849+00:00",
+  "timestamp": "2026-04-06T07:12:05.440234+00:00",
   "protocol": "kalshi-scanner-v2",
   "authenticated": true,
   "exchange_status": {
@@ -16,7 +16,7 @@
     "weather": 0
   },
   "kalshi_sentiment": {
-    "crypto_bullish": 0.071,
+    "crypto_bullish": 0.054,
     "macro_risk": 0.5,
     "crisis_level": 0.0,
     "sol_outlook": 0.5,
@@ -27,10 +27,10 @@
     ]
   },
   "merged_sentiment": {
-    "crypto_bullish": 0.163,
-    "macro_risk": 0.255,
+    "crypto_bullish": 0.108,
+    "macro_risk": 0.378,
     "crisis_level": 0.445,
-    "sol_outlook": 0.255,
+    "sol_outlook": 0.378,
     "fed_hawkish": 0.5,
     "recession_prob": 0.0,
     "sources": [
@@ -39,87 +39,89 @@
     ],
     "cross_validated": true,
     "reasoning": [
-      "DIVERGENCE: Polymarket=26% vs Kalshi=7% on crypto -- investigate",
+      "CONFIRMED: Both sources agree on crypto sentiment (Poly=16%, Kalshi=5%)",
+      "[Poly] DIVERGENCE: Polymarket=26% vs Kalshi=7% on crypto -- investigate",
       "[Poly] Crypto markets leaning bearish (26% avg YES)",
       "[Poly] SOL-specific markets cautious (1%)",
+      "[Poly] data processed -- no strong directional signals",
       "[Kalshi] Kalshi data processed -- no strong directional signals"
     ],
-    "recommended_action": "reduce_exposure"
+    "recommended_action": "follow_base_strategy"
   },
   "top_signals": {
     "crypto": [
       {
-        "ticker": "KXETH-26APR0603-B2070",
-        "question": "Ethereum price at Apr 6, 2026 at 3am EDT?",
-        "yes_pct": 1.0,
+        "ticker": "KXETH-26APR0604-B2130",
+        "question": "Ethereum price at Apr 6, 2026 at 4am EDT?",
+        "yes_pct": 54.0,
+        "no_pct": 7.0,
+        "yes_ask": 0.93,
+        "no_ask": 0.46,
+        "volume": 3,
+        "volume_24h": 0,
+        "open_interest": 3,
+        "close_time": "2026-04-06",
+        "event_ticker": "KXETH-26APR0604",
+        "confidence": "low",
+        "source": "kalshi"
+      },
+      {
+        "ticker": "KXBTC-26APR0604-T75799.99",
+        "question": "Bitcoin price range  on Apr 6, 2026?",
+        "yes_pct": 0.0,
         "no_pct": 99.0,
         "yes_ask": 0.01,
         "no_ask": 1.0,
-        "volume": 2484,
-        "volume_24h": 2484,
-        "open_interest": 2484,
-        "close_time": "2026-04-06",
-        "event_ticker": "KXETH-26APR0603",
-        "confidence": "medium",
-        "source": "kalshi"
-      },
-      {
-        "ticker": "KXETH-26APR0603-B2150",
-        "question": "Ethereum price at Apr 6, 2026 at 3am EDT?",
-        "yes_pct": 45.0,
-        "no_pct": 2.0,
-        "yes_ask": 0.98,
-        "no_ask": 1.0,
-        "volume": 471,
-        "volume_24h": 430,
-        "open_interest": 254,
-        "close_time": "2026-04-06",
-        "event_ticker": "KXETH-26APR0603",
-        "confidence": "low",
-        "source": "kalshi"
-      },
-      {
-        "ticker": "KXETH-26APR0603-B2130",
-        "question": "Ethereum price at Apr 6, 2026 at 3am EDT?",
-        "yes_pct": 22.0,
-        "no_pct": 0.0,
-        "yes_ask": 1.0,
-        "no_ask": 0.79,
-        "volume": 268,
-        "volume_24h": 148,
-        "open_interest": 250,
-        "close_time": "2026-04-06",
-        "event_ticker": "KXETH-26APR0603",
-        "confidence": "low",
-        "source": "kalshi"
-      },
-      {
-        "ticker": "KXETH-26APR0603-B2110",
-        "question": "Ethereum price at Apr 6, 2026 at 3am EDT?",
-        "yes_pct": 2.0,
-        "no_pct": 9.0,
-        "yes_ask": 0.91,
-        "no_ask": 1.0,
-        "volume": 118,
-        "volume_24h": 80,
-        "open_interest": 118,
-        "close_time": "2026-04-06",
-        "event_ticker": "KXETH-26APR0603",
-        "confidence": "low",
-        "source": "kalshi"
-      },
-      {
-        "ticker": "KXETH-26APR0603-B2170",
-        "question": "Ethereum price at Apr 6, 2026 at 3am EDT?",
-        "yes_pct": 1.0,
-        "no_pct": 8.0,
-        "yes_ask": 0.92,
-        "no_ask": 1.0,
-        "volume": 30,
+        "volume": 0,
         "volume_24h": 0,
-        "open_interest": 15,
+        "open_interest": 0,
         "close_time": "2026-04-06",
-        "event_ticker": "KXETH-26APR0603",
+        "event_ticker": "KXBTC-26APR0604",
+        "confidence": "low",
+        "source": "kalshi"
+      },
+      {
+        "ticker": "KXBTC-26APR0604-T57200",
+        "question": "Bitcoin price range  on Apr 6, 2026?",
+        "yes_pct": 0.0,
+        "no_pct": 99.0,
+        "yes_ask": 0.01,
+        "no_ask": 1.0,
+        "volume": 0,
+        "volume_24h": 0,
+        "open_interest": 0,
+        "close_time": "2026-04-06",
+        "event_ticker": "KXBTC-26APR0604",
+        "confidence": "low",
+        "source": "kalshi"
+      },
+      {
+        "ticker": "KXBTC-26APR0604-B75750",
+        "question": "Bitcoin price range  on Apr 6, 2026?",
+        "yes_pct": 0.0,
+        "no_pct": 99.0,
+        "yes_ask": 0.01,
+        "no_ask": 1.0,
+        "volume": 0,
+        "volume_24h": 0,
+        "open_interest": 0,
+        "close_time": "2026-04-06",
+        "event_ticker": "KXBTC-26APR0604",
+        "confidence": "low",
+        "source": "kalshi"
+      },
+      {
+        "ticker": "KXBTC-26APR0604-B75650",
+        "question": "Bitcoin price range  on Apr 6, 2026?",
+        "yes_pct": 0.0,
+        "no_pct": 99.0,
+        "yes_ask": 0.01,
+        "no_ask": 1.0,
+        "volume": 0,
+        "volume_24h": 0,
+        "open_interest": 0,
+        "close_time": "2026-04-06",
+        "event_ticker": "KXBTC-26APR0604",
         "confidence": "low",
         "source": "kalshi"
       }
@@ -148,7 +150,7 @@
         "yes_ask": 0.81,
         "no_ask": 0.2,
         "volume": 158798,
-        "volume_24h": 10075,
+        "volume_24h": 10048,
         "open_interest": 64459,
         "close_time": "2026-04-10",
         "event_ticker": "KXCPI-26MAR",
@@ -281,18 +283,8 @@
   },
   "portfolio": {
     "authenticated": true,
-    "balance_usd": 0.07,
+    "balance_usd": 1.07,
     "positions": [
-      {
-        "fees_paid_dollars": "0.020000",
-        "last_updated_ts": "2026-04-06T06:22:38.860665Z",
-        "market_exposure_dollars": "0.750000",
-        "position_fp": "-1.00",
-        "realized_pnl_dollars": "0.000000",
-        "resting_orders_count": 0,
-        "ticker": "KXBTC-26APR0603-B69150",
-        "total_traded_dollars": "0.750000"
-      },
       {
         "fees_paid_dollars": "0.010000",
         "last_updated_ts": "2026-04-06T03:59:00.969351Z",
@@ -444,6 +436,6 @@
         "total_traded_dollars": "0.930000"
       }
     ],
-    "position_count": 16
+    "position_count": 15
   }
 }
