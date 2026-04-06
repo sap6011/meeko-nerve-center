@@ -198,6 +198,21 @@ Respond as JSON: {{"priority": str, "engine": {{"name": str, "purpose": str}}, "
     if not synthesis["priority_action"] and bot:
         synthesis["priority_action"] = bot[0]
 
+    # Read nervous system health
+    try:
+        _h = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _h = {}
+    try:
+        _c = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _c = {}
+    synthesis["nervous_system"] = {
+        "equilibrium": _h.get("equilibrium", 0),
+        "homeostasis_trend": _h.get("trend", "unknown"),
+        "brain_confidence": _c.get("decision_confidence", 0),
+    }
+
     (DATA / "knowledge_chain_synthesis.json").write_text(json.dumps(synthesis, indent=2), encoding="utf-8")
 
     print(f"  [DNA] Insights: {len(ins)} | Next engines: {len(synthesis['next_engines_to_build'])} | "

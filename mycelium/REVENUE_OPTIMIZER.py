@@ -188,6 +188,20 @@ def run():
             print(f"  📧 Revenue digest sent")
 
     build_page(state, actions, product_opt)
+    # Read nervous system health
+    try:
+        _h = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _h = {}
+    try:
+        _c = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _c = {}
+    state["nervous_system"] = {
+        "equilibrium": _h.get("equilibrium", 0),
+        "brain_confidence": _c.get("decision_confidence", 0),
+    }
+
     state["last_run"] = datetime.now(timezone.utc).isoformat()
     STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(f"  Actions: {len(actions) if actions else 0} | Product opt: {'yes' if product_opt else 'no'}")

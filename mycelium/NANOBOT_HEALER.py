@@ -239,6 +239,21 @@ def run():
             if d.get("error_before") and not d["healed"]:
                 print(f"      Error: {d['error_before'][:100]}")
 
+    # Read nervous system health for report enrichment
+    try:
+        _homeo = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _homeo = {}
+    try:
+        _cortex = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _cortex = {}
+    results["nervous_system"] = {
+        "equilibrium": _homeo.get("equilibrium", 0),
+        "homeostasis_trend": _homeo.get("trend", "unknown"),
+        "brain_confidence": _cortex.get("decision_confidence", 0),
+    }
+
     # Save report
     report_path = DATA / "nanobot_heal_report.json"
     report_path.write_text(json.dumps(results, indent=2, ensure_ascii=False), encoding="utf-8")

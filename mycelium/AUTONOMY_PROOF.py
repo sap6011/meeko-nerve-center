@@ -89,6 +89,22 @@ def run():
         "verify_data": f"{RAW}/omnibus_last.json",
         "verify_engines": MYCELIUM,
     }
+    # Read nervous system health for proof enrichment
+    try:
+        _h = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _h = {}
+    try:
+        _c = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _c = {}
+    proof["nervous_system"] = {
+        "equilibrium": _h.get("equilibrium", 0),
+        "homeostasis_trend": _h.get("trend", "unknown"),
+        "brain_confidence": _c.get("decision_confidence", 0),
+        "brain_health": _c.get("system_health", {}).get("overall_score", 0),
+    }
+
     (DATA / "proof_state.json").write_text(json.dumps(proof, indent=2), encoding="utf-8")
 
     zero = lambda n: "zero" if n == 0 else ""

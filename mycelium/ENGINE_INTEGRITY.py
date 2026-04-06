@@ -84,10 +84,24 @@ def run():
     if alerts:
         registry["alerts"] = (registry.get("alerts", []) + alerts)[-100:]
 
+    # Read nervous system health
+    try:
+        _h = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _h = {}
+    try:
+        _c = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
+    except Exception:
+        _c = {}
+
     registry.update({
         "last_scan": now,
         "total_engines": len(current),
         "total_changes": len(registry.get("change_log", [])),
+        "nervous_system": {
+            "equilibrium": _h.get("equilibrium", 0),
+            "brain_confidence": _c.get("decision_confidence", 0),
+        },
     })
     save_registry(registry)
 

@@ -341,6 +341,15 @@ def run():
         "elapsed": elapsed,
     }
 
+    # Add nervous system awareness
+    _homeo = _load(DATA / "homeostasis_state.json", {})
+    _cortex = _load(DATA / "neural_cortex_state.json", {})
+    state["nervous_system"] = {
+        "equilibrium": _homeo.get("equilibrium", 0) if _homeo else 0,
+        "brain_confidence": _cortex.get("decision_confidence", 0) if _cortex else 0,
+        "brain_risk": _cortex.get("strategy", {}).get("risk_posture", "moderate") if _cortex else "moderate",
+    }
+
     _save(STATE_FILE, state)
 
     # --- Emit final state to bus ---
@@ -353,6 +362,8 @@ def run():
         "turbo_triggered": turbo_triggered,
         "platform": "kalshi",
         "elapsed": elapsed,
+        "equilibrium": state["nervous_system"]["equilibrium"],
+        "brain_confidence": state["nervous_system"]["brain_confidence"],
     })
 
     # --- Summary ---

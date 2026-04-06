@@ -460,6 +460,19 @@ def run():
 
     config = _load(config_path, DEFAULT_CONFIG)
 
+    # Read nervous system for trade modulation
+    _homeo = _load(DATA / "homeostasis_state.json", {})
+    _cortex = _load(DATA / "neural_cortex_state.json", {})
+    _fire = _load(DATA / "fire_ledger.json", {})
+    _equilibrium = _homeo.get("equilibrium", 50)
+    _brain_risk = _cortex.get("strategy", {}).get("risk_posture", "moderate")
+
+    # Modulate: low equilibrium = tighter risk limits
+    if _equilibrium < 25 or _brain_risk == "conservative":
+        config["max_position_pct"] = min(config.get("max_position_pct", 0.10), 0.05)
+        config["max_trades_per_cycle"] = max(1, config.get("max_trades_per_cycle", 5) // 2)
+        print(f"[TRADE_EXECUTOR] Nervous system override: conservative (eq={_equilibrium})")
+
     if not config.get("enabled", False):
         print("[TRADE_EXECUTOR] DISABLED -- set 'enabled': true in config to activate")
         # Still scan for opportunities even when disabled
@@ -599,6 +612,8 @@ def run():
             "successful_trades": sum(1 for t in trades_placed if t["success"]),
             "status": "active",
             "platform": "kalshi",
+            "equilibrium": _equilibrium,
+            "brain_risk": _brain_risk,
         }, silent=True)
     except Exception:
         pass
