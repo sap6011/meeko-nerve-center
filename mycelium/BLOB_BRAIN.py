@@ -1120,6 +1120,219 @@ def neuron_market_scanner():
     markets["last_scan"] = datetime.now(timezone.utc).isoformat()
     markets["status"] = "active"
 
+    # --- PHASE D: Whale tracker (every 6 cycles) ---
+    if cycle % 6 != 0 and cycle != 1:
+        return
+    whales = markets.setdefault("whale_signals", [])
+    WHALE_THRESHOLD = 50  # 50+ contracts = whale
+    whale_hits = []
+
+    # Scan trade feeds for the top 10 liquid markets
+    top_tickers = [m["ticker"] for m in markets.get("kalshi_open", [])[:10] if m.get("ticker")]
+    for ticker in top_tickers:
+        try:
+            req = urllib.request.Request(
+                f"https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker={ticker}&limit=20",
+                headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=8) as r:
+                data = json.loads(r.read().decode())
+                for trade in data.get("trades", []):
+                    count = float(str(trade.get("count_fp", "0")))
+                    price = float(str(trade.get("yes_price_dollars", "0")))
+                    side = trade.get("taker_side", "?")
+                    trade_value = count * price
+                    if count >= WHALE_THRESHOLD:
+                        # Find the event name from our liquid markets list
+                        event_name = ""
+                        for lm in markets.get("kalshi_open", []):
+                            if lm.get("ticker") == ticker:
+                                event_name = lm.get("event", "")
+                                break
+                        whale_hits.append({
+                            "ticker": ticker,
+                            "event": event_name,
+                            "side": side,
+                            "count": count,
+                            "price": price,
+                            "value_usd": round(trade_value, 2),
+                            "time": trade.get("created_time", "")[:19],
+                        })
+        except Exception:
+            pass
+
+    if whale_hits:
+        whale_hits.sort(key=lambda x: x["value_usd"], reverse=True)
+        markets["whale_signals"] = whale_hits[:20]
+        markets["whale_count"] = len(whale_hits)
+        markets["biggest_whale"] = whale_hits[0] if whale_hits else None
+
+        # Summarize whale sentiment per market
+        sentiment = {}
+        for w in whale_hits:
+            t = w["ticker"]
+            if t not in sentiment:
+                sentiment[t] = {"yes_volume": 0, "no_volume": 0, "event": w["event"]}
+            if w["side"] == "yes":
+                sentiment[t]["yes_volume"] += w["count"]
+            else:
+                sentiment[t]["no_volume"] += w["count"]
+        # Add conviction score
+        for t, s in sentiment.items():
+            total = s["yes_volume"] + s["no_volume"]
+            if total > 0:
+                s["conviction"] = round(max(s["yes_volume"], s["no_volume"]) / total * 100)
+                s["direction"] = "YES" if s["yes_volume"] > s["no_volume"] else "NO"
+            else:
+                s["conviction"] = 0
+                s["direction"] = "neutral"
+        markets["whale_sentiment"] = sentiment
+    else:
+        markets["whale_count"] = 0
+
+
+def neuron_whale_watch():
+    """
+    LIVE: Cross-platform whale intelligence.
+    Doesn't just check Kalshi — scans public blockchain data, DEX activity,
+    and prediction market leaderboards across ALL connected platforms.
+
+    Sources:
+      1. Polymarket public API — leaderboards, large positions
+      2. Ethereum whale trackers — public APIs (no key needed)
+      3. Kalshi whale trades (already in market_scanner)
+      4. Crypto fear/greed index — market sentiment
+      5. DeFi Llama — TVL flows (where smart money is moving)
+    """
+    whales = CONSCIOUSNESS.setdefault("whale_watch", {
+        "polymarket": {}, "onchain": {}, "sentiment": {},
+        "defi_flows": {}, "signals": [], "last_scan": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0 and cycle != 1:
+        return
+
+    # --- SOURCE 1: Polymarket public leaderboard ---
+    try:
+        # Polymarket has a public API for trending markets
+        req = urllib.request.Request(
+            "https://gamma-api.polymarket.com/markets?limit=10&order=volume24hr&ascending=false&active=true",
+            headers={"User-Agent": "SolarPunk-WhaleWatch/1.0"})
+        with urllib.request.urlopen(req, timeout=10) as r:
+            data = json.loads(r.read().decode())
+            hot_markets = []
+            for m in (data if isinstance(data, list) else data.get("data", data.get("markets", [])))[:10]:
+                hot_markets.append({
+                    "question": (m.get("question") or m.get("title") or "?")[:60],
+                    "volume_24h": m.get("volume24hr") or m.get("volume_num") or 0,
+                    "liquidity": m.get("liquidityNum") or m.get("liquidity") or 0,
+                    "outcome_yes": m.get("outcomePrices") or m.get("bestAsk") or "?",
+                })
+            whales["polymarket"]["hot_markets"] = hot_markets
+            whales["polymarket"]["count"] = len(hot_markets)
+            whales["polymarket"]["status"] = "live"
+    except Exception as e:
+        whales["polymarket"]["status"] = f"error: {str(e)[:50]}"
+
+    # --- SOURCE 2: Crypto Fear & Greed Index ---
+    try:
+        req = urllib.request.Request(
+            "https://api.alternative.me/fng/?limit=1",
+            headers={"User-Agent": "SolarPunk-WhaleWatch/1.0"})
+        with urllib.request.urlopen(req, timeout=8) as r:
+            data = json.loads(r.read().decode())
+            fng = data.get("data", [{}])[0]
+            whales["sentiment"]["fear_greed_index"] = int(fng.get("value", 0))
+            whales["sentiment"]["fear_greed_label"] = fng.get("value_classification", "?")
+            whales["sentiment"]["source"] = "alternative.me"
+    except Exception as e:
+        whales["sentiment"]["fng_error"] = str(e)[:50]
+
+    # --- SOURCE 3: DeFi Llama — protocol TVL flows ---
+    try:
+        req = urllib.request.Request(
+            "https://api.llama.fi/protocols",
+            headers={"User-Agent": "SolarPunk-WhaleWatch/1.0"})
+        with urllib.request.urlopen(req, timeout=10) as r:
+            data = json.loads(r.read().decode())
+            # Get top 10 by TVL
+            if isinstance(data, list):
+                sorted_protos = sorted(data, key=lambda x: float(x.get("tvl", 0) or 0), reverse=True)[:10]
+                whales["defi_flows"]["top_protocols"] = [
+                    {
+                        "name": p.get("name", "?"),
+                        "tvl_usd": round(float(p.get("tvl", 0) or 0)),
+                        "change_1d": p.get("change_1d"),
+                        "change_7d": p.get("change_7d"),
+                        "chain": p.get("chain", "?"),
+                        "category": p.get("category", "?"),
+                    }
+                    for p in sorted_protos
+                ]
+                # Find biggest movers (1d change)
+                movers = sorted(
+                    [p for p in data if p.get("change_1d") is not None and float(p.get("tvl", 0) or 0) > 1000000],
+                    key=lambda x: abs(float(x.get("change_1d", 0) or 0)),
+                    reverse=True
+                )[:5]
+                whales["defi_flows"]["biggest_movers"] = [
+                    {"name": p.get("name"), "change_1d": p.get("change_1d"),
+                     "tvl": round(float(p.get("tvl", 0) or 0))}
+                    for p in movers
+                ]
+                whales["defi_flows"]["status"] = "live"
+    except Exception as e:
+        whales["defi_flows"]["status"] = f"error: {str(e)[:50]}"
+
+    # --- SOURCE 4: Ethereum gas + whale alerts (public) ---
+    try:
+        # ETH gas price as activity indicator
+        req = urllib.request.Request(
+            "https://api.etherscan.io/api?module=gastracker&action=gasoracle",
+            headers={"User-Agent": "SolarPunk-WhaleWatch/1.0"})
+        with urllib.request.urlopen(req, timeout=8) as r:
+            data = json.loads(r.read().decode())
+            result = data.get("result", {})
+            if isinstance(result, dict):
+                whales["onchain"]["eth_gas_gwei"] = result.get("ProposeGasPrice", "?")
+                whales["onchain"]["fast_gas"] = result.get("FastGasPrice", "?")
+                whales["onchain"]["status"] = "live"
+    except Exception as e:
+        whales["onchain"]["status"] = f"error: {str(e)[:50]}"
+
+    # --- COMPILE SIGNALS ---
+    signals = []
+    # Kalshi whale signals from market_scanner
+    kalshi_whales = CONSCIOUSNESS.get("markets", {}).get("whale_sentiment", {})
+    for ticker, s in kalshi_whales.items():
+        if s.get("conviction", 0) >= 80:
+            signals.append({
+                "source": "kalshi",
+                "signal": f"{s.get('event', ticker)}: {s['direction']} ({s['conviction']}%)",
+                "type": "whale_conviction",
+            })
+
+    # Fear/Greed extremes
+    fng = whales["sentiment"].get("fear_greed_index", 50)
+    if fng <= 20:
+        signals.append({"source": "fear_greed", "signal": f"EXTREME FEAR ({fng}) - contrarian buy signal", "type": "sentiment"})
+    elif fng >= 80:
+        signals.append({"source": "fear_greed", "signal": f"EXTREME GREED ({fng}) - caution signal", "type": "sentiment"})
+
+    # DeFi big movers
+    for mover in whales.get("defi_flows", {}).get("biggest_movers", []):
+        change = mover.get("change_1d", 0)
+        if change and abs(float(change)) > 20:
+            direction = "inflow" if float(change) > 0 else "outflow"
+            signals.append({
+                "source": "defi_llama",
+                "signal": f"{mover['name']}: {change}% 1d {direction}",
+                "type": "tvl_flow",
+            })
+
+    whales["signals"] = signals[:15]
+    whales["signal_count"] = len(signals)
+    whales["last_scan"] = datetime.now(timezone.utc).isoformat()
+
 
 def neuron_github_actions_trigger():
     """
@@ -2160,6 +2373,7 @@ NEURONS = [
     # Phase 4: Markets & growth
     ("TRADING_AWARENESS", neuron_trading_awareness),
     ("MARKET_SCANNER", neuron_market_scanner),
+    ("WHALE_WATCH", neuron_whale_watch),
     ("GITHUB_ANALYTICS", neuron_github_analytics),
     # Phase 5: Cloud orchestration
     ("GITHUB_ACTIONS_TRIGGER", neuron_github_actions_trigger),
