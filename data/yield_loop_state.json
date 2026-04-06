@@ -1,28 +1,40 @@
 {
-  "timestamp": "2026-04-06T01:21:02.874320+00:00",
+  "timestamp": "2026-04-06T02:16:01.006014+00:00",
   "protocol": "yield-loop-v2",
   "idle_sol_detected": 1,
   "compound_opportunities": 0,
   "revenue_routing": 0,
   "market_intelligence": {
     "available": true,
-    "modifier": "normal",
-    "action": "follow_base_strategy",
-    "sol_outlook": 0.376,
+    "modifier": "conservative",
+    "action": "reduce_exposure",
+    "sol_outlook": 0.336,
     "crisis_level": 0.235,
-    "notes": []
+    "notes": [
+      "Prediction markets signal caution -- favor safe yield"
+    ]
   },
   "action_queue": [
     {
+      "priority": 0,
+      "type": "market_intelligence",
+      "signal": "conservative",
+      "sol_outlook": 0.336,
+      "notes": [
+        "Prediction markets signal caution -- favor safe yield"
+      ],
+      "status": "info"
+    },
+    {
       "priority": 1,
-      "type": "jitosol_swap",
+      "type": "jupiter_lend",
       "wallet": "solana",
-      "amount_sol": 0.014995,
-      "expected_apy": 7.7,
-      "url": "https://jup.ag/swap/SOL-JitoSOL",
-      "reason": "JitoSOL via Jupiter \u2014 no minimum, higher APY with MEV tips",
+      "amount_sol": 0.019995,
+      "expected_apy": 4.46,
+      "url": "https://jup.ag/lend/earn",
+      "reason": "Jupiter Lend vault \u2014 lending yield, instant withdrawal",
       "status": "pending",
-      "market_signal": "normal"
+      "market_signal": "conservative"
     }
   ],
   "execution_path": {

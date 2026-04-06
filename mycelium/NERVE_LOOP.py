@@ -63,6 +63,11 @@ def _save(path, data):
 
 def _import_engine(name):
     """Dynamically import an engine module from mycelium/."""
+    # Ensure mycelium/ is on sys.path (handles running from repo root or mycelium/)
+    mycelium_dir = str(Path(__file__).parent)
+    if mycelium_dir not in sys.path:
+        sys.path.insert(0, mycelium_dir)
+
     try:
         if name in sys.modules:
             return importlib.reload(sys.modules[name])
