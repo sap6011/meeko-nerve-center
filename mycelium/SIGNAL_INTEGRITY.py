@@ -297,6 +297,11 @@ def run():
             "at_0pct": len(bottom),
         },
     }
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    report["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     save_json(DATA / "signal_integrity_report.json", report)
 
     print(f"\n  === SIGNAL INTEGRITY VERDICT ===")

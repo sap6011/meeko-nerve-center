@@ -516,6 +516,11 @@ def run():
     state["signals_snapshot"] = signals
     state["mantra"] = "Phase 1: Grow. Phase 2: Balance. Phase 3: Give. The mission never changes -- only the method."
 
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    state["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     _save("revenue_splitter_state.json", state)
     print()
     print("[write] data/revenue_splitter_state.json")

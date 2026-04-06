@@ -121,10 +121,15 @@ def run():
             idx.write_text(html, encoding="utf-8")
             print("  ✅ RSS autodiscovery injected into index.html")
 
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
     STATE.write_text(json.dumps({
         "ts": datetime.now(timezone.utc).isoformat(),
         "items": len(items),
-        "feed_url": f"{BASE}/feed.xml"
+        "feed_url": f"{BASE}/feed.xml",
+        "nervous_system":{"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)},
     }, indent=2), encoding="utf-8")
 
 
