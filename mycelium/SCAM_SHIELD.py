@@ -46,6 +46,9 @@ def load():
 def save(s):
     s["log"]=s.get("log",[])[-200:]
     s["quarantine"]=s.get("quarantine",[])[-100:]
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8")); eq=_h.get("equilibrium",0)
+    except: eq=0
+    s["nervous_system"]={"equilibrium":eq}
     (DATA/"scam_shield_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def quick_score(em):

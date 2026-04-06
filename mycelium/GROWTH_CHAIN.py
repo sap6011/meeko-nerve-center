@@ -206,6 +206,9 @@ def run():
     prev["last_run"]     = now
     prev["last_output"]  = output
 
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    prev["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown")}
     (DATA / "growth_chain_state.json").write_text(json.dumps(prev, indent=2), encoding="utf-8")
 
     print(f"  🌱 Actions: {len(actions)} | Critical: {len(critical)} | High: {len(high)}")

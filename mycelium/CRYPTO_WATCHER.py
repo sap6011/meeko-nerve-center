@@ -43,6 +43,11 @@ def load():
 def save(s):
     s["prices_history"]=s.get("prices_history",[])[-50:]
     s["alerts_sent"]=s.get("alerts_sent",[])[-100:]
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8")); eq=_h.get("equilibrium",0)
+    except: eq=0
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8")); bc=_c.get("decision_confidence",0)
+    except: bc=0
+    s["nervous_system"]={"equilibrium":eq,"brain_confidence":bc}
     (DATA/"crypto_state.json").write_text(json.dumps(s,indent=2), encoding="utf-8")
 
 def fetch_prices():
