@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-04-06T06:59:50.525460+00:00",
+  "timestamp": "2026-04-06T07:56:11.525945+00:00",
   "protocol": "sol-maximizer-v1",
   "balance": {
     "sol": 0.039994795,
-    "usd": 3.26,
-    "price": 81.5033
+    "usd": 3.27,
+    "price": 81.7579
   },
   "yield_options": [
     {
@@ -24,7 +24,7 @@
       "apy": 15.0,
       "risk": "low",
       "risk_note": "Liquid staking \u2014 can unstake anytime via DEX swap",
-      "sol_per_token": 1.369135,
+      "sol_per_token": 1.369139,
       "action": "Swap SOL \u2192 mSOL on Jupiter"
     },
     {
@@ -33,7 +33,7 @@
       "apy": 15.0,
       "risk": "low",
       "risk_note": "Liquid staking \u2014 can unstake anytime via DEX swap",
-      "sol_per_token": 1.270446,
+      "sol_per_token": 1.270457,
       "action": "Swap SOL \u2192 JitoSOL on Jupiter"
     },
     {
@@ -42,7 +42,7 @@
       "apy": 15.0,
       "risk": "low",
       "risk_note": "Liquid staking \u2014 can unstake anytime via DEX swap",
-      "sol_per_token": 1.285729,
+      "sol_per_token": 1.285721,
       "action": "Swap SOL \u2192 bSOL on Jupiter"
     },
     {
@@ -68,18 +68,18 @@
   ],
   "strategy": {
     "balance_sol": 0.039994795,
-    "balance_usd": 3.26,
-    "sol_price": 81.5033,
+    "balance_usd": 3.27,
+    "sol_price": 81.7579,
     "prediction_intelligence": {
       "available": true,
       "fresh": true,
       "action": "reduce_exposure",
-      "crypto_bullish": 0.163,
-      "sol_outlook": 0.255,
+      "crypto_bullish": 0.177,
+      "sol_outlook": 0.253,
       "macro_risk": 0.255,
-      "crisis_level": 0.445,
+      "crisis_level": 0.255,
       "reasoning": [
-        "DIVERGENCE: Polymarket=26% vs Kalshi=7% on crypto -- investigate",
+        "DIVERGENCE: Polymarket=26% vs Kalshi=10% on crypto -- investigate",
         "[Poly] Crypto markets leaning bearish (26% avg YES)",
         "[Poly] SOL-specific markets cautious (1%)",
         "[Kalshi] Kalshi data processed -- no strong directional signals"
@@ -96,7 +96,7 @@
       {
         "priority": 2,
         "action": "PREDICTION: Conservative mode",
-        "reason": "Markets signal caution (crisis=44%, sol=26%)",
+        "reason": "Markets signal caution (crisis=26%, sol=25%)",
         "signal_strength": "strong"
       },
       {

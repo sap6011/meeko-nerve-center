@@ -80,10 +80,12 @@ DEFAULT_SCHEDULE = {
     "ALPACA_TRADER":    30,   # Every 30 min -- stock market (slower)
     "CROSS_POLLINATOR": 30,   # Every 30 min -- capital routing between platforms
     "PULSE":            30,   # Every 30 min -- system vital signs snapshot
-    "SIGNAL_MESH":      30,   # Every 30 min -- aggregate multi-source signals
-    "SYNAPTIC_BUS":     15,   # Every 15 min -- refresh shared consciousness
-    "REFLEX_ARC":       10,   # Every 10 min -- fast reflexive responses
-    "PROPRIOCEPTION":   30,   # Every 30 min -- self-awareness body scan
+    "SIGNAL_MESH":      15,   # Every 15 min -- aggregate multi-source signals
+    "SYNAPTIC_BUS":      5,   # Every 5 min -- refresh shared consciousness
+    "REFLEX_ARC":        5,   # Every 5 min -- fast reflexive responses
+    "PROPRIOCEPTION":   15,   # Every 15 min -- self-awareness body scan
+    "SETTLEMENT_WATCHER": 5,  # Every 5 min -- detect settled positions, redeploy cash
+    "AUTO_DEPOSIT":     10,   # Every 10 min -- smart capital split when new money arrives
     "NERVE_LOOP":       60,   # Every 60 min -- full ecosystem cycle
 }
 
@@ -648,6 +650,12 @@ def run_engine(engine_name):
             result = run()
         elif engine_name == "PROPRIOCEPTION":
             from mycelium.PROPRIOCEPTION import run
+            result = run()
+        elif engine_name == "SETTLEMENT_WATCHER":
+            from mycelium.SETTLEMENT_WATCHER import run
+            result = run()
+        elif engine_name == "AUTO_DEPOSIT":
+            from mycelium.AUTO_DEPOSIT import run
             result = run()
         else:
             return False, f"Unknown engine: {engine_name}"

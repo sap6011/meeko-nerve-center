@@ -1,22 +1,22 @@
 {
-  "timestamp": "2026-04-06T06:50:42.793745+00:00",
+  "timestamp": "2026-04-06T07:54:21.133235+00:00",
   "engine": "SIGNAL_MESH",
   "version": 1,
   "ethics": "99% mutual aid / 1% node fuel",
   "composite_signal": {
-    "composite_strength": 70.5,
+    "composite_strength": 40.5,
     "dominant_direction": "bullish",
     "direction_votes": {
       "bullish": 1.0,
       "bearish": 0.05,
       "neutral": 0.8,
-      "opportunity": 0
+      "opportunity": 1.0
     },
-    "conviction_score": 54.1,
+    "conviction_score": 35.1,
     "agreeing_signals": 1,
-    "active_signals": 3,
+    "active_signals": 4,
     "total_signals": 11,
-    "urgency": 10
+    "urgency": 40
   },
   "heartbeat": {
     "alive": 8,
@@ -39,8 +39,8 @@
       "compound_tracker",
       "ai_cost"
     ],
-    "neural_connectivity": 27.3,
-    "connected_sources": 3
+    "neural_connectivity": 36.4,
+    "connected_sources": 4
   },
   "ranked_opportunities": [
     {
@@ -59,13 +59,25 @@
     {
       "type": "prediction_market",
       "action": "reduce_exposure",
-      "sol_outlook": 0.254,
+      "sol_outlook": 0.01,
       "platform": "multi",
       "source": "prediction_intel",
       "source_label": "Prediction Intelligence",
-      "signal_strength": 70,
+      "signal_strength": 30,
       "freshness": "alive",
-      "composite_score": 70.0
+      "composite_score": 30.0
+    },
+    {
+      "type": "arbitrage",
+      "pair": "LOOP (USDC->USDT->USDC)",
+      "spread": 0.014,
+      "urgency": "medium",
+      "platform": "cross-platform",
+      "source": "arbitrage",
+      "source_label": "Arbitrage Scanner",
+      "signal_strength": 25,
+      "freshness": "alive",
+      "composite_score": 25.1
     },
     {
       "type": "capital_routing",
@@ -84,19 +96,19 @@
       "source_id": "prediction_intel",
       "label": "Prediction Intelligence",
       "file": "prediction_intelligence.json",
-      "timestamp": "2026-04-06T06:45:26.815923+00:00",
-      "age_minutes": 5.3,
+      "timestamp": "2026-04-06T07:16:45.171042+00:00",
+      "age_minutes": 37.6,
       "freshness": "alive",
       "freshness_weight": 1.0,
       "base_weight": 1.0,
       "effective_weight": 1.0,
-      "signal_strength": 70,
+      "signal_strength": 30,
       "signal_direction": "bullish",
       "opportunities": [
         {
           "type": "prediction_market",
           "action": "reduce_exposure",
-          "sol_outlook": 0.254,
+          "sol_outlook": 0.01,
           "platform": "multi"
         }
       ],
@@ -106,8 +118,8 @@
       "source_id": "polymarket",
       "label": "Polymarket Scanner",
       "file": "polymarket_scan.json",
-      "timestamp": "2026-04-06T06:45:21.804890+00:00",
-      "age_minutes": 5.3,
+      "timestamp": "2026-04-06T07:16:45.074947+00:00",
+      "age_minutes": 37.6,
       "freshness": "alive",
       "freshness_weight": 1.0,
       "base_weight": 0.9,
@@ -121,8 +133,8 @@
       "source_id": "kalshi",
       "label": "Kalshi Scanner",
       "file": "kalshi_scan.json",
-      "timestamp": "2026-04-06T06:45:26.817923+00:00",
-      "age_minutes": 5.3,
+      "timestamp": "2026-04-06T07:12:05.440234+00:00",
+      "age_minutes": 42.3,
       "freshness": "alive",
       "freshness_weight": 1.0,
       "base_weight": 0.9,
@@ -136,23 +148,31 @@
       "source_id": "arbitrage",
       "label": "Arbitrage Scanner",
       "file": "arbitrage_scanner_state.json",
-      "timestamp": "2026-04-06T06:46:07.874686+00:00",
-      "age_minutes": 4.6,
+      "timestamp": "2026-04-06T06:59:53.749449+00:00",
+      "age_minutes": 54.5,
       "freshness": "alive",
       "freshness_weight": 1.0,
       "base_weight": 1.0,
       "effective_weight": 1.0,
-      "signal_strength": 0,
-      "signal_direction": "neutral",
-      "opportunities": [],
+      "signal_strength": 25,
+      "signal_direction": "opportunity",
+      "opportunities": [
+        {
+          "type": "arbitrage",
+          "pair": "LOOP (USDC->USDT->USDC)",
+          "spread": 0.014,
+          "urgency": "medium",
+          "platform": "cross-platform"
+        }
+      ],
       "has_data": true
     },
     {
       "source_id": "cross_pollinator",
       "label": "Cross-Pollinator",
       "file": "cross_pollinator_state.json",
-      "timestamp": "2026-04-06T06:50:42.709289+00:00",
-      "age_minutes": 0.0,
+      "timestamp": "2026-04-06T07:54:17.048714+00:00",
+      "age_minutes": 0.1,
       "freshness": "alive",
       "freshness_weight": 1.0,
       "base_weight": 0.7,
@@ -172,8 +192,8 @@
       "source_id": "turbo",
       "label": "TURBO Trader",
       "file": "turbo_trader_state.json",
-      "timestamp": "2026-04-06T06:46:40.758608+00:00",
-      "age_minutes": 4.0,
+      "timestamp": "2026-04-06T07:06:02.606160+00:00",
+      "age_minutes": 48.3,
       "freshness": "alive",
       "freshness_weight": 1.0,
       "base_weight": 0.85,
@@ -187,8 +207,8 @@
       "source_id": "alpaca",
       "label": "Alpaca Trader",
       "file": "alpaca_trader_state.json",
-      "timestamp": "2026-04-06T06:46:42.500814+00:00",
-      "age_minutes": 4.0,
+      "timestamp": "2026-04-06T07:54:14.452661+00:00",
+      "age_minutes": 0.1,
       "freshness": "alive",
       "freshness_weight": 1.0,
       "base_weight": 0.8,
@@ -241,8 +261,8 @@
       "source_id": "flywheel",
       "label": "Revenue Flywheel",
       "file": "flywheel_state.json",
-      "timestamp": "2026-04-06T06:46:44.563277+00:00",
-      "age_minutes": 4.0,
+      "timestamp": "2026-04-06T07:06:28.137470+00:00",
+      "age_minutes": 47.9,
       "freshness": "alive",
       "freshness_weight": 1.0,
       "base_weight": 0.5,
@@ -282,11 +302,11 @@
       "freshness": "alive",
       "composite_score": 75.0
     },
-    "total_opportunities": 3,
-    "neural_connectivity": 27.3,
-    "composite_strength": 70.5,
+    "total_opportunities": 4,
+    "neural_connectivity": 36.4,
+    "composite_strength": 40.5,
     "dominant_direction": "bullish",
-    "conviction": 54.1,
-    "urgency": 10
+    "conviction": 35.1,
+    "urgency": 40
   }
 }

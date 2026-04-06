@@ -1,34 +1,140 @@
 {
-  "generated_at": "2026-04-06T07:17:38.703941+00:00",
-  "total_tasks": 6,
-  "autonomous_tasks": 5,
-  "manual_tasks": 1,
-  "tasks": [
+  "description": "SolarPunk's OWN task scheduler. AUTONOMIC_NERVE reads this every heartbeat and executes due tasks. Add/remove tasks here -- no Claude session needed. This IS the schedule.",
+  "version": 2,
+  "scheduled_tasks": [
+    {
+      "id": "turbo-rapid",
+      "engine": "TURBO_TRADER",
+      "interval_minutes": 15,
+      "enabled": true,
+      "priority": 1,
+      "description": "High-frequency compounding -- daily markets, micro-trades"
+    },
+    {
+      "id": "trading-wire",
+      "engine": "TRADING_WIRE",
+      "interval_minutes": 15,
+      "enabled": true,
+      "priority": 1,
+      "description": "Bridge trading data into revenue ecosystem (41 engines)"
+    },
+    {
+      "id": "alpaca-cycle",
+      "engine": "ALPACA_TRADER",
+      "interval_minutes": 30,
+      "enabled": true,
+      "priority": 2,
+      "description": "Commission-free stocks/ETFs/crypto via Alpaca"
+    },
+    {
+      "id": "cross-pollinate",
+      "engine": "CROSS_POLLINATOR",
+      "interval_minutes": 30,
+      "enabled": true,
+      "priority": 3,
+      "description": "Route capital between platforms (mycelium network)"
+    },
+    {
+      "id": "pulse-snapshot",
+      "engine": "PULSE",
+      "interval_minutes": 30,
+      "enabled": true,
+      "priority": 4,
+      "description": "System vital signs dashboard"
+    },
+    {
+      "id": "signal-mesh",
+      "engine": "SIGNAL_MESH",
+      "interval_minutes": 15,
+      "enabled": true,
+      "priority": 2,
+      "description": "Signal aggregation -- composite signals from ALL 13 intelligence sources"
+    },
+    {
+      "id": "synaptic-bus",
+      "engine": "SYNAPTIC_BUS",
+      "interval_minutes": 5,
+      "enabled": true,
+      "priority": 0,
+      "description": "Shared consciousness bus -- every engine aware of every other engine in real-time"
+    },
+    {
+      "id": "reflex-arc",
+      "engine": "REFLEX_ARC",
+      "interval_minutes": 5,
+      "enabled": true,
+      "priority": 0,
+      "description": "Fast-path reflex engine -- 13 hardcoded reflexes bypass AI for millisecond response"
+    },
+    {
+      "id": "settlement-watcher",
+      "engine": "SETTLEMENT_WATCHER",
+      "interval_minutes": 5,
+      "enabled": true,
+      "priority": 1,
+      "description": "Detect settled Kalshi positions and trigger instant capital redeployment"
+    },
+    {
+      "id": "auto-deposit",
+      "engine": "AUTO_DEPOSIT",
+      "interval_minutes": 10,
+      "enabled": true,
+      "priority": 1,
+      "description": "Smart capital splitter -- reads SIGNAL_MESH, CROSS_POLLINATOR, and GLOBAL_MARKETS for optimal split"
+    },
+    {
+      "id": "proprioception",
+      "engine": "PROPRIOCEPTION",
+      "interval_minutes": 15,
+      "enabled": true,
+      "priority": 3,
+      "description": "Self-awareness -- engine count, metabolism, growth trajectory, coordination score"
+    },
+    {
+      "id": "metabolism-loop",
+      "engine": "METABOLISM_LOOP",
+      "interval_minutes": 15,
+      "enabled": true,
+      "priority": 2,
+      "description": "Full circular metabolism -- nervous system -> ecosystem -> back to nervous system"
+    },
+    {
+      "id": "global-markets",
+      "engine": "GLOBAL_MARKETS",
+      "interval_minutes": 15,
+      "enabled": true,
+      "priority": 2,
+      "description": "Cross-platform regime detection + opportunity ranking (Solana, Kalshi, Alpaca, Polymarket)"
+    },
+    {
+      "id": "nerve-loop-full",
+      "engine": "NERVE_LOOP",
+      "interval_minutes": 60,
+      "enabled": true,
+      "priority": 5,
+      "description": "THE LIVING LOOP -- all 414 engines feed all engines"
+    }
+  ],
+  "legacy_tasks": [
     {
       "type": "CONTENT",
       "priority": 2,
       "title": "Publish 50 draft articles",
       "engine": "CONTENT_AUTOPILOT",
-      "command": "python mycelium/CONTENT_AUTOPILOT.py",
-      "expected_output": "data/article_drafts.json updated, new draft generated",
       "autonomous": true
     },
     {
       "type": "PRODUCT",
       "priority": 3,
-      "title": "Expand Ethical AI Revenue Playbook (only 180 words)",
+      "title": "Expand Ethical AI Revenue Playbook",
       "engine": "PRODUCT_FORGE",
-      "command": "python mycelium/PRODUCT_FORGE.py",
-      "expected_output": "products/products/ethical-ai-revenue-playbook.md expanded",
       "autonomous": true
     },
     {
       "type": "CONTENT",
       "priority": 3,
-      "title": "Generate more social posts (queue at 10)",
+      "title": "Generate more social posts",
       "engine": "CONTENT_AUTOPILOT",
-      "command": "python mycelium/CONTENT_AUTOPILOT.py",
-      "expected_output": "data/social_queue.json appended",
       "autonomous": true
     },
     {
@@ -36,8 +142,6 @@
       "priority": 3,
       "title": "Refresh system dashboard and product catalog",
       "engine": "METRICS_DASHBOARD + CATALOG_GENERATOR",
-      "command": "python mycelium/METRICS_DASHBOARD.py && python mycelium/CATALOG_GENERATOR.py",
-      "expected_output": "docs/dashboard.html + docs/catalog.html updated",
       "autonomous": true
     },
     {
@@ -45,20 +149,14 @@
       "priority": 4,
       "title": "Generate template pack for docker-automation domain",
       "engine": "MICRO_PRODUCT_FACTORY",
-      "command": "python mycelium/MICRO_PRODUCT_FACTORY.py",
-      "expected_output": "products/templates/docker-automation/ created",
-      "autonomous": true,
-      "note": "Needs MICRO_PRODUCT_FACTORY domain list expanded"
+      "autonomous": true
     },
     {
       "type": "GROW",
       "priority": 4,
-      "title": "Build engines to produce 79 missing data files",
+      "title": "Build engines to produce 52 missing data files",
       "engine": "BUILD",
-      "command": "# Needs new engine creation",
-      "expected_output": "New engines that write: *.json, *_report.json, PUBLIC_LEDGER.json, active_outreach_draft.json, aggregated_summary.json",
-      "autonomous": false,
-      "note": "These data files are read but never written by any engine"
+      "autonomous": false
     }
   ]
 }

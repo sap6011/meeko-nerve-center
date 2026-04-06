@@ -12,20 +12,20 @@
   "fire_counts": {
     "THERMAL_DANGER": 2
   },
-  "total_checks": 85,
+  "total_checks": 96,
   "total_fires": 2,
-  "last_run": "2026-04-06T06:57:07.259348+00:00",
+  "last_run": "2026-04-06T07:54:25.209349+00:00",
   "last_cycle": {
-    "timestamp": "2026-04-06T06:57:07.259348+00:00",
+    "timestamp": "2026-04-06T07:54:25.209349+00:00",
     "checked": 11,
-    "fired": 1,
-    "arc_response_ms": 28.0,
+    "fired": 0,
+    "arc_response_ms": 3.0,
     "results": [
       {
         "reflex": "THERMAL_DANGER",
-        "triggered": true,
-        "detail": "DANGER: CPU=96.2% RAM=71.7% -- emitting PAUSE to all engines",
-        "response_ms": 23.7
+        "triggered": false,
+        "detail": "OK: CPU=85.7% RAM=65.3%",
+        "response_ms": 0.0
       },
       {
         "reflex": "ENGINE_CRASH",
@@ -60,7 +60,7 @@
       {
         "reflex": "CONVERGENCE_ALERT",
         "triggered": false,
-        "detail": "conviction=54.1% urgency=10 (below threshold)",
+        "detail": "conviction=35.1% urgency=40 (below threshold)",
         "response_ms": 0.0
       },
       {
