@@ -1761,6 +1761,470 @@ def neuron_content_publisher():
             publisher["dispatched"] = publisher["dispatched"][-25:]
 
 
+def neuron_prediction_arbitrage():
+    """
+    INTELLIGENCE: Compare Kalshi vs Polymarket prices on overlapping events.
+    A 5+ cent divergence on the same binary outcome is a statistical edge.
+    Merges data from market_scanner (Kalshi) and whale_watch (Polymarket).
+    """
+    arb = CONSCIOUSNESS.setdefault("pred_arb", {
+        "opportunities": [], "last_scan": None, "total_found": 0,
+        "best_edge_ever": 0,
+    })
+    kalshi_markets = CONSCIOUSNESS.get("markets", {}).get("top_markets", [])
+    poly_markets = CONSCIOUSNESS.get("whale_watch", {}).get("polymarket_whales", [])
+
+    if not kalshi_markets or not poly_markets:
+        return
+
+    # Build lookup of Polymarket prices by keyword matching
+    poly_lookup = {}
+    for pm in poly_markets:
+        q = pm.get("question", "").lower()
+        # Extract key terms for fuzzy matching
+        for keyword in ["trump", "bitcoin", "elon", "openai", "anthropic",
+                        "mars", "trillionaire", "ipo", "ai", "robot",
+                        "china", "moon", "nuclear", "pandemic", "recession"]:
+            if keyword in q:
+                poly_lookup.setdefault(keyword, []).append(pm)
+
+    opportunities = []
+    for km in kalshi_markets:
+        title = km.get("title", km.get("event_title", "")).lower()
+        ticker = km.get("ticker", "")
+        kalshi_yes = km.get("yes_bid_dollars", km.get("yes_bid", 0))
+        if isinstance(kalshi_yes, str):
+            try:
+                kalshi_yes = float(kalshi_yes)
+            except (ValueError, TypeError):
+                continue
+        if not kalshi_yes or kalshi_yes <= 0:
+            continue
+
+        # Find matching Polymarket events
+        for keyword, poly_list in poly_lookup.items():
+            if keyword in title:
+                for pm in poly_list:
+                    poly_yes = pm.get("yes_price", 0)
+                    if not poly_yes:
+                        continue
+                    # Normalize to 0-1 scale
+                    k_price = kalshi_yes if kalshi_yes <= 1 else kalshi_yes / 100
+                    p_price = poly_yes if poly_yes <= 1 else poly_yes / 100
+                    divergence = abs(k_price - p_price)
+                    if divergence >= 0.05:
+                        direction = "BUY_KALSHI_YES" if k_price < p_price else "BUY_KALSHI_NO"
+                        opportunities.append({
+                            "kalshi_ticker": ticker,
+                            "kalshi_title": km.get("title", km.get("event_title", ""))[:60],
+                            "poly_question": pm.get("question", "")[:60],
+                            "kalshi_yes": round(k_price, 3),
+                            "poly_yes": round(p_price, 3),
+                            "divergence": round(divergence, 3),
+                            "edge_pct": round(divergence * 100, 1),
+                            "direction": direction,
+                            "keyword": keyword,
+                        })
+
+    # Sort by edge size
+    opportunities.sort(key=lambda x: x["divergence"], reverse=True)
+    arb["opportunities"] = opportunities[:20]
+    arb["total_found"] = len(opportunities)
+    arb["last_scan"] = datetime.now(timezone.utc).isoformat()
+    if opportunities:
+        best = opportunities[0]["divergence"]
+        if best > arb.get("best_edge_ever", 0):
+            arb["best_edge_ever"] = best
+
+
+def neuron_solana_heartbeat():
+    """
+    LIVE: Monitor Solana chain state via public RPC.
+    Tracks SOL price, network health, and wallet balance if configured.
+    """
+    sol = CONSCIOUSNESS.setdefault("solana", {
+        "sol_price": 0, "network_ok": False, "slot": 0,
+        "tps": 0, "last_beat": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Only check every 3 cycles (rate limit friendly)
+    if cycle % 3 != 0:
+        return
+
+    import urllib.request
+
+    # Get SOL price from CoinGecko (free, no key)
+    try:
+        req = urllib.request.Request(
+            "https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd&include_24hr_change=true",
+            headers={"Accept": "application/json", "User-Agent": "SolarPunk/1.0"})
+        with urllib.request.urlopen(req, timeout=8) as r:
+            data = json.loads(r.read().decode())
+            sol["sol_price"] = data.get("solana", {}).get("usd", 0)
+            sol["sol_24h_change"] = data.get("solana", {}).get("usd_24h_change", 0)
+    except Exception:
+        pass
+
+    # Get network slot height from public RPC
+    try:
+        rpc_payload = json.dumps({"jsonrpc": "2.0", "id": 1, "method": "getSlot"}).encode()
+        req = urllib.request.Request(
+            "https://api.mainnet-beta.solana.com",
+            data=rpc_payload,
+            headers={"Content-Type": "application/json"})
+        with urllib.request.urlopen(req, timeout=8) as r:
+            data = json.loads(r.read().decode())
+            sol["slot"] = data.get("result", 0)
+            sol["network_ok"] = True
+    except Exception:
+        sol["network_ok"] = False
+
+    # Get BTC and ETH prices too for cross-reference
+    try:
+        req = urllib.request.Request(
+            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true",
+            headers={"Accept": "application/json", "User-Agent": "SolarPunk/1.0"})
+        with urllib.request.urlopen(req, timeout=8) as r:
+            data = json.loads(r.read().decode())
+            sol["btc_price"] = data.get("bitcoin", {}).get("usd", 0)
+            sol["btc_24h"] = data.get("bitcoin", {}).get("usd_24h_change", 0)
+            sol["eth_price"] = data.get("ethereum", {}).get("usd", 0)
+            sol["eth_24h"] = data.get("ethereum", {}).get("usd_24h_change", 0)
+    except Exception:
+        pass
+
+    sol["last_beat"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_portfolio_optimizer():
+    """
+    INTELLIGENCE: Analyze portfolio and suggest optimal position sizing.
+    Uses Kelly criterion and cross-signal confidence for sizing.
+    """
+    optimizer = CONSCIOUSNESS.setdefault("portfolio", {
+        "suggestions": [], "risk_budget": 0, "last_analysis": None,
+        "concentration_warning": False,
+    })
+    trading = CONSCIOUSNESS.get("trading", {})
+    positions = CONSCIOUSNESS.get("position_monitor", {})
+    signals = CONSCIOUSNESS.get("cross_signals", {})
+    arb = CONSCIOUSNESS.get("pred_arb", {})
+
+    total_balance = trading.get("kalshi_total", 0)
+    cash = trading.get("kalshi_balance", 0)
+    if total_balance <= 0:
+        return
+
+    # Risk budget: never risk more than 20% of total on any single position
+    max_single = total_balance * 0.20
+    # Cash allocation: keep at least 30% in cash for opportunities
+    min_cash_pct = 0.30
+    ideal_cash = total_balance * min_cash_pct
+    optimizer["risk_budget"] = round(max_single, 2)
+
+    suggestions = []
+
+    # Check concentration -- are we too heavy in one position?
+    pos_alerts = positions.get("alerts", [])
+    if pos_alerts:
+        for alert in pos_alerts:
+            if alert.get("pct_of_portfolio", 0) > 25:
+                optimizer["concentration_warning"] = True
+                suggestions.append({
+                    "type": "REDUCE",
+                    "reason": f"Position {alert.get('ticker','')} is >25% of portfolio",
+                    "priority": "HIGH",
+                })
+
+    # Arbitrage opportunities are highest conviction
+    arb_opps = arb.get("opportunities", [])
+    for opp in arb_opps[:3]:
+        edge = opp.get("divergence", 0)
+        # Kelly: f* = edge / odds (simplified for binary)
+        kelly_frac = min(edge * 2, 0.15)  # Cap at 15%
+        suggested_size = round(total_balance * kelly_frac, 2)
+        if suggested_size >= 1:
+            suggestions.append({
+                "type": "ARB_TRADE",
+                "ticker": opp.get("kalshi_ticker", ""),
+                "direction": opp.get("direction", ""),
+                "edge_pct": opp.get("edge_pct", 0),
+                "kelly_size": suggested_size,
+                "priority": "HIGH" if edge > 0.10 else "MEDIUM",
+            })
+
+    # High-confidence cross-signals
+    unified = signals.get("unified", [])
+    for sig in unified[:5]:
+        conf = sig.get("confidence", 0)
+        if conf >= 90:
+            kelly_frac = min((conf / 100) * 0.10, 0.10)
+            suggested_size = round(total_balance * kelly_frac, 2)
+            if suggested_size >= 1:
+                suggestions.append({
+                    "type": "SIGNAL_TRADE",
+                    "signal": sig.get("signal", ""),
+                    "ticker": sig.get("ticker", ""),
+                    "confidence": conf,
+                    "kelly_size": suggested_size,
+                    "priority": "MEDIUM",
+                })
+
+    # Cash check
+    if cash < ideal_cash:
+        suggestions.append({
+            "type": "HOLD_CASH",
+            "reason": f"Cash ${cash:.2f} < ideal ${ideal_cash:.2f} ({min_cash_pct*100:.0f}%)",
+            "priority": "HIGH",
+        })
+
+    optimizer["suggestions"] = suggestions[:15]
+    optimizer["cash_pct"] = round(cash / max(total_balance, 1) * 100, 1)
+    optimizer["last_analysis"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_risk_manager():
+    """
+    SAFETY: Enforce risk limits and detect dangerous patterns.
+    Never let the blob blow up the account.
+    """
+    risk = CONSCIOUSNESS.setdefault("risk", {
+        "alerts": [], "max_drawdown": 0, "daily_loss_limit": 0,
+        "positions_at_risk": 0, "risk_score": 0, "last_check": None,
+    })
+    trading = CONSCIOUSNESS.get("trading", {})
+    positions = CONSCIOUSNESS.get("position_monitor", {})
+    equilibrium = CONSCIOUSNESS.get("equilibrium", {})
+
+    total = trading.get("kalshi_total", 0)
+    cash = trading.get("kalshi_balance", 0)
+    portfolio_value = trading.get("kalshi_portfolio", 0)
+
+    if total <= 0:
+        return
+
+    alerts = []
+    risk_score = 0  # 0-100, higher = more dangerous
+
+    # Rule 1: Never let cash drop below $5 (emergency reserve)
+    if cash < 5:
+        alerts.append({"rule": "EMERGENCY_RESERVE", "msg": f"Cash ${cash:.2f} < $5 reserve", "severity": "CRITICAL"})
+        risk_score += 40
+
+    # Rule 2: Max 50% in any single position
+    pos_alerts = positions.get("alerts", [])
+    for pa in pos_alerts:
+        pct = pa.get("pct_of_portfolio", 0)
+        if pct > 50:
+            alerts.append({"rule": "CONCENTRATION", "msg": f"{pa.get('ticker','?')} is {pct:.0f}% of portfolio", "severity": "HIGH"})
+            risk_score += 20
+
+    # Rule 3: If equilibrium is in red zone, reduce risk appetite
+    eq_score = equilibrium.get("score", 50)
+    if eq_score < 25:
+        alerts.append({"rule": "SYSTEM_HEALTH", "msg": f"Equilibrium at {eq_score}% -- reduce trading", "severity": "MEDIUM"})
+        risk_score += 15
+
+    # Rule 4: Max daily loss = 10% of portfolio
+    daily_loss_limit = total * 0.10
+    risk["daily_loss_limit"] = round(daily_loss_limit, 2)
+
+    # Rule 5: Track max drawdown
+    # Compare current total to historical peak
+    growth = CONSCIOUSNESS.get("growth", {})
+    history = growth.get("history", [])
+    if history:
+        peak_totals = [h.get("kalshi_total", 0) for h in history if h.get("kalshi_total", 0) > 0]
+        if peak_totals:
+            peak = max(peak_totals)
+            if peak > 0:
+                drawdown = (peak - total) / peak * 100
+                risk["max_drawdown"] = round(drawdown, 1)
+                if drawdown > 20:
+                    alerts.append({"rule": "DRAWDOWN", "msg": f"Drawdown {drawdown:.1f}% from peak ${peak:.2f}", "severity": "HIGH"})
+                    risk_score += 25
+
+    # Rule 6: Fear/Greed extreme = caution
+    fear_greed = CONSCIOUSNESS.get("cross_signals", {}).get("fear_greed", 50)
+    if fear_greed < 15:
+        alerts.append({"rule": "EXTREME_FEAR", "msg": f"Fear/Greed={fear_greed} -- market panic, be cautious", "severity": "MEDIUM"})
+        risk_score += 10
+    elif fear_greed > 85:
+        alerts.append({"rule": "EXTREME_GREED", "msg": f"Fear/Greed={fear_greed} -- market euphoria, be cautious", "severity": "MEDIUM"})
+        risk_score += 10
+
+    risk["alerts"] = alerts
+    risk["risk_score"] = min(risk_score, 100)
+    risk["positions_at_risk"] = len([a for a in alerts if a["severity"] in ("CRITICAL", "HIGH")])
+    risk["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_news_pulse():
+    """
+    INTELLIGENCE: Scan free news APIs for market-moving events.
+    Feeds into trading decisions and content ideas.
+    """
+    news = CONSCIOUSNESS.setdefault("news", {
+        "headlines": [], "sentiment": "neutral", "last_scan": None,
+        "trending_topics": [],
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Only scan every 5 cycles
+    if cycle % 5 != 0:
+        return
+
+    import urllib.request
+    headlines = []
+
+    # Source 1: GNews API (free tier, no key for basic)
+    try:
+        req = urllib.request.Request(
+            "https://gnews.io/api/v4/top-headlines?category=technology&lang=en&max=5&apikey=free",
+            headers={"User-Agent": "SolarPunk/1.0"})
+        with urllib.request.urlopen(req, timeout=8) as r:
+            data = json.loads(r.read().decode())
+            for article in data.get("articles", [])[:5]:
+                headlines.append({
+                    "title": article.get("title", "")[:100],
+                    "source": article.get("source", {}).get("name", ""),
+                    "url": article.get("url", ""),
+                    "ts": article.get("publishedAt", ""),
+                })
+    except Exception:
+        pass
+
+    # Source 2: Reddit/Hacker News via public JSON endpoints
+    try:
+        req = urllib.request.Request(
+            "https://hacker-news.firebaseio.com/v0/topstories.json",
+            headers={"User-Agent": "SolarPunk/1.0"})
+        with urllib.request.urlopen(req, timeout=8) as r:
+            story_ids = json.loads(r.read().decode())[:5]
+        for sid in story_ids:
+            try:
+                req2 = urllib.request.Request(
+                    f"https://hacker-news.firebaseio.com/v0/item/{sid}.json",
+                    headers={"User-Agent": "SolarPunk/1.0"})
+                with urllib.request.urlopen(req2, timeout=5) as r2:
+                    story = json.loads(r2.read().decode())
+                    headlines.append({
+                        "title": story.get("title", "")[:100],
+                        "source": "HackerNews",
+                        "url": story.get("url", ""),
+                        "score": story.get("score", 0),
+                    })
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+    # Simple sentiment analysis on headlines
+    positive_words = {"up", "surge", "gain", "rally", "bull", "growth", "win", "record", "breakthrough"}
+    negative_words = {"down", "crash", "fall", "bear", "loss", "fear", "collapse", "fail", "crisis", "war"}
+
+    pos_count = 0
+    neg_count = 0
+    topics = {}
+    for h in headlines:
+        title_lower = h.get("title", "").lower()
+        for w in positive_words:
+            if w in title_lower:
+                pos_count += 1
+        for w in negative_words:
+            if w in title_lower:
+                neg_count += 1
+        # Extract trending topics
+        for keyword in ["ai", "crypto", "bitcoin", "trump", "tariff", "openai",
+                        "anthropic", "solana", "elon", "market", "recession"]:
+            if keyword in title_lower:
+                topics[keyword] = topics.get(keyword, 0) + 1
+
+    if pos_count > neg_count + 2:
+        news["sentiment"] = "bullish"
+    elif neg_count > pos_count + 2:
+        news["sentiment"] = "bearish"
+    else:
+        news["sentiment"] = "neutral"
+
+    news["headlines"] = headlines[:15]
+    news["trending_topics"] = sorted(topics.items(), key=lambda x: x[1], reverse=True)[:10]
+    news["last_scan"] = datetime.now(timezone.utc).isoformat()
+    news["pos_signals"] = pos_count
+    news["neg_signals"] = neg_count
+
+
+def neuron_trend_detector():
+    """
+    INTELLIGENCE: Detect patterns and trends across blob lifecycle.
+    Uses growth history to identify: improving/declining health,
+    revenue momentum, trading performance, audience growth.
+    """
+    trends = CONSCIOUSNESS.setdefault("trends", {
+        "health_trend": "unknown", "revenue_trend": "unknown",
+        "trading_trend": "unknown", "patterns": [], "last_analysis": None,
+    })
+    growth = CONSCIOUSNESS.get("growth", {})
+    history = growth.get("history", [])
+
+    if len(history) < 2:
+        return
+
+    patterns = []
+
+    # Analyze health trend over last N snapshots
+    recent = history[-10:] if len(history) >= 10 else history
+    health_values = [h.get("health", 0) for h in recent]
+    if len(health_values) >= 2:
+        avg_first_half = sum(health_values[:len(health_values)//2]) / max(len(health_values)//2, 1)
+        avg_second_half = sum(health_values[len(health_values)//2:]) / max(len(health_values) - len(health_values)//2, 1)
+        if avg_second_half > avg_first_half + 5:
+            trends["health_trend"] = "improving"
+            patterns.append({"type": "HEALTH_IMPROVING", "delta": round(avg_second_half - avg_first_half, 1)})
+        elif avg_second_half < avg_first_half - 5:
+            trends["health_trend"] = "declining"
+            patterns.append({"type": "HEALTH_DECLINING", "delta": round(avg_second_half - avg_first_half, 1)})
+        else:
+            trends["health_trend"] = "stable"
+
+    # Analyze neuron count growth
+    neuron_counts = [h.get("neurons", 0) for h in recent]
+    if len(neuron_counts) >= 2:
+        growth_rate = neuron_counts[-1] - neuron_counts[0]
+        if growth_rate > 0:
+            patterns.append({"type": "NEURON_GROWTH", "added": growth_rate,
+                             "from": neuron_counts[0], "to": neuron_counts[-1]})
+
+    # Analyze trading performance
+    kalshi_values = [h.get("kalshi_total", 0) for h in recent if h.get("kalshi_total", 0) > 0]
+    if len(kalshi_values) >= 2:
+        pnl = kalshi_values[-1] - kalshi_values[0]
+        if pnl > 1:
+            trends["trading_trend"] = "winning"
+            patterns.append({"type": "TRADING_UP", "pnl": round(pnl, 2)})
+        elif pnl < -1:
+            trends["trading_trend"] = "losing"
+            patterns.append({"type": "TRADING_DOWN", "pnl": round(pnl, 2)})
+        else:
+            trends["trading_trend"] = "flat"
+
+    # Analyze confidence trajectory
+    conf_values = [h.get("confidence", 0) for h in recent]
+    if len(conf_values) >= 2:
+        conf_delta = conf_values[-1] - conf_values[0]
+        if abs(conf_delta) > 5:
+            patterns.append({"type": "CONFIDENCE_SHIFT", "delta": conf_delta,
+                             "direction": "up" if conf_delta > 0 else "down"})
+
+    # Detect signal count trends
+    signal_counts = [h.get("signals", 0) for h in recent]
+    if len(signal_counts) >= 2 and signal_counts[-1] > signal_counts[0] * 1.5:
+        patterns.append({"type": "SIGNAL_SURGE", "from": signal_counts[0], "to": signal_counts[-1]})
+
+    trends["patterns"] = patterns
+    trends["snapshots_analyzed"] = len(recent)
+    trends["last_analysis"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_github_actions_trigger():
     """
     LIVE: Trigger GitHub Actions workflows to use cloud-only secrets.
@@ -2826,6 +3290,13 @@ NEURONS = [
     ("GROWTH_TRACKER", neuron_growth_tracker),
     ("POSITION_MONITOR", neuron_position_monitor),
     ("CONTENT_PUBLISHER", neuron_content_publisher),
+    # Phase 10: Trading intelligence & risk management
+    ("PREDICTION_ARBITRAGE", neuron_prediction_arbitrage),
+    ("SOLANA_HEARTBEAT", neuron_solana_heartbeat),
+    ("PORTFOLIO_OPTIMIZER", neuron_portfolio_optimizer),
+    ("RISK_MANAGER", neuron_risk_manager),
+    ("NEWS_PULSE", neuron_news_pulse),
+    ("TREND_DETECTOR", neuron_trend_detector),
 ]
 
 
