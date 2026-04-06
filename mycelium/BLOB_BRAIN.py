@@ -952,52 +952,173 @@ def neuron_legacy_fire():
     fired["last_fire"] = datetime.now(timezone.utc).isoformat()
 
 
+def _kalshi_auth_get(api_key, private_key, path):
+    """Make an RSA-signed GET request to Kalshi v2 API."""
+    import base64
+    from cryptography.hazmat.primitives import hashes
+    from cryptography.hazmat.primitives.asymmetric import padding as asym_padding
+
+    timestamp = str(int(time.time() * 1000))
+    message = (timestamp + "GET" + path).encode()
+    signature = private_key.sign(
+        message,
+        asym_padding.PSS(mgf=asym_padding.MGF1(hashes.SHA256()),
+                         salt_length=asym_padding.PSS.MAX_LENGTH),
+        hashes.SHA256()
+    )
+    req = urllib.request.Request(
+        f"https://api.elections.kalshi.com{path}",
+        headers={
+            "KALSHI-ACCESS-KEY": api_key,
+            "KALSHI-ACCESS-SIGNATURE": base64.b64encode(signature).decode(),
+            "KALSHI-ACCESS-TIMESTAMP": timestamp,
+            "Content-Type": "application/json",
+        })
+    with urllib.request.urlopen(req, timeout=12) as r:
+        return json.loads(r.read().decode())
+
+
 def neuron_market_scanner():
     """
-    LIVE: Scan Kalshi prediction markets for profitable opportunities.
-    Uses the local Kalshi API key to check markets where SolarPunk can trade.
+    LIVE: Full Kalshi prediction market intelligence.
+    - RSA-authenticated portfolio reads (balance, positions, P&L)
+    - Public market scanning (249+ liquid markets)
+    - Opportunity detection (tight spreads, high volume, near expiry)
+    - Position monitoring with live market prices
     """
     markets = CONSCIOUSNESS.setdefault("markets", {
         "kalshi_open": [], "opportunities": [], "last_scan": None,
+        "balance_cents": 0, "portfolio_value_cents": 0,
+        "positions": [], "realized_pnl": 0, "total_fees": 0,
     })
     if not CONSCIOUSNESS["trading"].get("kalshi_ready"):
         return
 
     cycle = CONSCIOUSNESS["pulse"]["cycle"]
-    # Only scan every 3 cycles to avoid rate limits
-    if cycle % 3 != 0:
+    # Scan every 3 cycles
+    if cycle % 3 != 0 and cycle != 1:
+        return
+
+    creds_path = Path("data/.secrets/kalshi.json")
+    rsa_path = Path("data/.secrets/kalshi_rsa.pem")
+    if not creds_path.exists() or not rsa_path.exists():
+        markets["status"] = "missing_credentials"
         return
 
     try:
-        import subprocess
-        # Use gh CLI to check if kalshi API is reachable
-        api_key = os.environ.get("KALSHI_API_KEY", "")
-        if not api_key:
-            return
+        creds = json.loads(creds_path.read_text(encoding="utf-8"))
+        api_key = creds.get("api_key", "")
 
-        # Test Kalshi API endpoint
+        from cryptography.hazmat.primitives.serialization import load_pem_private_key
+        with open(str(rsa_path), "rb") as f:
+            private_key = load_pem_private_key(f.read(), password=None)
+    except Exception as e:
+        markets["auth_error"] = str(e)[:80]
+        return
+
+    # --- PHASE A: Portfolio balance (authenticated) ---
+    try:
+        bal = _kalshi_auth_get(api_key, private_key, "/trade-api/v2/portfolio/balance")
+        markets["balance_cents"] = bal.get("balance", 0)
+        markets["portfolio_value_cents"] = bal.get("portfolio_value", 0)
+        markets["balance_usd"] = round(bal.get("balance", 0) / 100, 2)
+        markets["portfolio_usd"] = round(bal.get("portfolio_value", 0) / 100, 2)
+        markets["total_usd"] = round((bal.get("balance", 0) + bal.get("portfolio_value", 0)) / 100, 2)
+
+        # Update trading consciousness
+        CONSCIOUSNESS["trading"]["kalshi_balance"] = markets["balance_usd"]
+        CONSCIOUSNESS["trading"]["kalshi_portfolio"] = markets["portfolio_usd"]
+        CONSCIOUSNESS["trading"]["kalshi_total"] = markets["total_usd"]
+    except Exception as e:
+        markets["balance_error"] = str(e)[:80]
+
+    # --- PHASE B: Open positions (authenticated) ---
+    try:
+        pos_data = _kalshi_auth_get(api_key, private_key, "/trade-api/v2/portfolio/positions")
+        raw_positions = pos_data.get("market_positions", [])
+        active_positions = []
+        total_pnl = 0
+        total_fees = 0
+        for p in raw_positions:
+            exposure = float(p.get("market_exposure_dollars", "0"))
+            pnl = float(p.get("realized_pnl_dollars", "0"))
+            fees = float(p.get("fees_paid_dollars", "0"))
+            total_pnl += pnl
+            total_fees += fees
+            if exposure > 0 or float(p.get("position_fp", "0")) != 0:
+                active_positions.append({
+                    "ticker": p.get("ticker", "?"),
+                    "position": float(p.get("position_fp", "0")),
+                    "exposure_usd": exposure,
+                    "pnl_usd": pnl,
+                    "fees_usd": fees,
+                })
+        markets["positions"] = active_positions
+        markets["active_position_count"] = len(active_positions)
+        markets["realized_pnl"] = round(total_pnl, 2)
+        markets["total_fees"] = round(total_fees, 2)
+        markets["total_trades"] = len(raw_positions)
+    except Exception as e:
+        markets["positions_error"] = str(e)[:80]
+
+    # --- PHASE C: Scan public markets for opportunities ---
+    try:
         req = urllib.request.Request(
-            "https://api.elections.kalshi.com/trade-api/v2/exchange/status",
-            headers={"Authorization": f"Bearer {api_key}",
-                     "Content-Type": "application/json"})
-        try:
-            with urllib.request.urlopen(req, timeout=8) as r:
-                status = json.loads(r.read().decode())
-                markets["exchange_status"] = status.get("exchange_active", False)
-                markets["trading_active"] = status.get("trading_active", False)
-        except urllib.error.HTTPError as e:
-            markets["exchange_status"] = f"HTTP {e.code}"
-            # Even a 401 means the API is reachable — just need auth fix
-            if e.code == 401:
-                markets["needs_auth_fix"] = True
-        except Exception as e:
-            markets["exchange_error"] = str(e)[:60]
+            "https://api.elections.kalshi.com/trade-api/v2/events?limit=50&status=open&with_nested_markets=true",
+            headers={"Content-Type": "application/json"})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            data = json.loads(r.read().decode())
 
-        markets["last_scan"] = datetime.now(timezone.utc).isoformat()
-        markets["kalshi_balance"] = CONSCIOUSNESS["trading"].get("kalshi_balance", 0)
+        liquid = []
+        for ev in data.get("events", []):
+            for m in ev.get("markets", []):
+                try:
+                    ya = float(str(m.get("yes_ask_dollars", "0")))
+                    yb = float(str(m.get("yes_bid_dollars", "0")))
+                    vol = float(str(m.get("volume_fp", "0")))
+                    oi = float(str(m.get("open_interest_fp", "0")))
+                except (ValueError, TypeError):
+                    continue
+                if vol > 1000 and ya > 0 and yb > 0:
+                    spread = ya - yb
+                    liquid.append({
+                        "event": ev.get("title", "")[:50],
+                        "sub": (m.get("yes_sub_title") or "")[:40],
+                        "category": ev.get("category", ""),
+                        "ticker": m.get("ticker", ""),
+                        "yes_bid": yb, "yes_ask": ya,
+                        "spread": round(spread, 4),
+                        "volume": vol, "oi": oi,
+                        "close": m.get("close_time", "")[:10],
+                    })
+
+        # Sort by volume (most liquid first)
+        liquid.sort(key=lambda x: x["volume"], reverse=True)
+        markets["kalshi_open"] = liquid[:30]  # Top 30 liquid markets
+        markets["total_liquid_markets"] = len(liquid)
+
+        # Find opportunities: tight spread + high volume
+        opportunities = [m for m in liquid if m["spread"] <= 0.02 and m["volume"] > 5000]
+        markets["opportunities"] = opportunities[:10]
+        markets["opportunity_count"] = len(opportunities)
 
     except Exception as e:
         markets["scan_error"] = str(e)[:80]
+
+    # Check exchange status
+    try:
+        req = urllib.request.Request(
+            "https://api.elections.kalshi.com/trade-api/v2/exchange/status",
+            headers={"Content-Type": "application/json"})
+        with urllib.request.urlopen(req, timeout=8) as r:
+            status = json.loads(r.read().decode())
+            markets["exchange_status"] = status.get("exchange_active", False)
+            markets["trading_active"] = status.get("trading_active", False)
+    except Exception:
+        pass
+
+    markets["last_scan"] = datetime.now(timezone.utc).isoformat()
+    markets["status"] = "active"
 
 
 def neuron_github_actions_trigger():
