@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-04-06T00:56:35.712023+00:00",
+  "protocol": "arbitrage-scanner-v1",
+  "scans": {
+    "lst_arbitrage": [
+      {
+        "token": "JitoSOL",
+        "buy_rate": 0.787115,
+        "sell_rate": 1.270453,
+        "roundtrip_sol": 0.999992,
+        "spread_pct": -0.0008,
+        "gas_cost_sol": 1e-05,
+        "net_profit_pct": -0.0018,
+        "profitable": false,
+        "route_buy": "Manifest",
+        "route_sell": "AlphaQ"
+      },
+      {
+        "token": "mSOL",
+        "buy_rate": 0.730415,
+        "sell_rate": 1.369054,
+        "roundtrip_sol": 0.999978,
+        "spread_pct": -0.0022,
+        "gas_cost_sol": 1e-05,
+        "net_profit_pct": -0.0032,
+        "profitable": false,
+        "route_buy": "Manifest",
+        "route_sell": "Manifest"
+      },
+      {
+        "token": "bSOL",
+        "buy_rate": 0.777721,
+        "sell_rate": 1.285755,
+        "roundtrip_sol": 0.999958,
+        "spread_pct": -0.0042,
+        "gas_cost_sol": 1e-05,
+        "net_profit_pct": -0.0052,
+        "profitable": false,
+        "route_buy": "Whirlpool",
+        "route_sell": "Whirlpool"
+      },
+      {
+        "token": "INF",
+        "buy_rate": 0.708727,
+        "sell_rate": 1.410906,
+        "roundtrip_sol": 0.999947,
+        "spread_pct": -0.0053,
+        "gas_cost_sol": 1e-05,
+        "net_profit_pct": -0.0063,
+        "profitable": false,
+        "route_buy": "Whirlpool",
+        "route_sell": "Meteora DLMM"
+      }
+    ],
+    "stablecoin_arbitrage": [
+      {
+        "pair": "USDC->USDT",
+        "rate": 1.000222,
+        "deviation_pct": 0.0222
+      },
+      {
+        "pair": "USDT->USDC",
+        "rate": 0.999913,
+        "deviation_pct": -0.0087
+      },
+      {
+        "pair": "LOOP (USDC->USDT->USDC)",
+        "rate": 1.000135,
+        "profit_pct": 0.0135,
+        "profitable": true
+      }
+    ],
+    "sol_price_spreads": [
+      {
+        "sol_usdc_price": 82.3952,
+        "sol_usdt_price": 82.4135,
+        "spread_usd": 0.0183,
+        "spread_pct": 0.0222,
+        "arbitrage": "No actionable spread"
+      }
+    ],
+    "cross_wallet_strategies": []
+  },
+  "actionable_opportunities": [
+    {
+      "type": "stablecoin_loop",
+      "pair": "LOOP (USDC->USDT->USDC)",
+      "profit_pct": 0.0135,
+      "action": "USDC->USDT->USDC loop across wallets",
+      "urgency": "medium"
+    }
+  ],
+  "market_context": "bearish -- arb profits should stay in stables",
+  "execution": {
+    "wallet_a": "Desktop Phantom (buyer)",
+    "wallet_b": "Phone MeekoThaRaccoon (seller)",
+    "gas_per_tx": 5e-06,
+    "min_spread_for_profit": "0.05% on >1 SOL, 0.1% on <1 SOL"
+  },
+  "stats": {
+    "lst_pairs_scanned": 4,
+    "profitable_arbs": 1,
+    "best_spread": 0
+  }
+}
