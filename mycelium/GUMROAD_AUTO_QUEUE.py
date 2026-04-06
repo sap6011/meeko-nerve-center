@@ -183,9 +183,14 @@ def run():
     print(f"  📊 Queue: {listings['total_products']} total | {listings['gumroad_live']} live | {added} added | {updated} updated")
     print("  ✅ GUMROAD_ENGINE will publish these next cycle — run RUN_NOW to trigger immediately")
 
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
     (DATA / "gumroad_queue_state.json").write_text(json.dumps({
         "last_run": now, "total": listings["total_products"],
-        "live": listings["gumroad_live"], "added_this_cycle": added
+        "live": listings["gumroad_live"], "added_this_cycle": added,
+        "nervous_system":{"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)},
     }, indent=2), encoding="utf-8")
 
 

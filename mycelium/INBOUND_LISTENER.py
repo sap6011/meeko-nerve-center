@@ -175,6 +175,11 @@ def load_signals():
 
 
 def save_signals(sig):
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    sig["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     SIGNALS_FILE.write_text(
         json.dumps(sig, indent=2, default=str, ensure_ascii=False),
         encoding="utf-8",
