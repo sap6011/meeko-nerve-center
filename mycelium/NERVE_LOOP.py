@@ -2,6 +2,7 @@
 """
 NERVE_LOOP.py -- The living loop. Everything feeds everything else, forever.
 =============================================================================
+v2 (2026-04-05): Added Phase 7 EVOLVE + Kalshi profit tracking in growth.
 v1 (2026-04-05): Not snapshots. Not individuals. One unified organism.
 
 This is the master pipeline that wires ALL crypto engines into a single
@@ -12,9 +13,10 @@ THE LOOP (every cycle):
   Phase 2: OBSERVE   -- Read all wallet states + prices
   Phase 3: THINK     -- Compute strategy from intelligence + portfolio
   Phase 4: PLAN      -- Build unified action queue across ALL wallets
+  Phase 4b: EXECUTE  -- Kalshi trading (autonomous, if enabled)
   Phase 5: REPLICATE -- Apply proven strategies to every eligible wallet
-  Phase 6: EXECUTE   -- Route actions to Phantom Auto Confirm pipeline
-  Phase 7: RECORD    -- Log results, track growth, feed back into Phase 1
+  Phase 6: RECORD    -- Log results, track growth (crypto + Kalshi)
+  Phase 7: EVOLVE    -- LIVE_WIRE + CHIMERA + PUBLIC_LEDGER. Profits → evolution.
 
 Each engine's OUTPUT is the next engine's INPUT. Nothing runs alone.
 
@@ -386,7 +388,20 @@ def phase_6_record():
             if sym in ("JitoSOL", "mSOL", "bSOL", "INF"):
                 total_staked += bal
 
-    total_usd = (total_sol + total_staked) * sol_price if sol_price else 0
+    crypto_usd = (total_sol + total_staked) * sol_price if sol_price else 0
+
+    # Include Kalshi balance + positions in portfolio
+    executor_state = _load(DATA / "trade_executor_state.json")
+    kalshi_balance = executor_state.get("balance_after") or executor_state.get("balance_before", 0) or 0
+    kalshi_positions = executor_state.get("positions", 0)
+    kalshi_trades = executor_state.get("trades_this_cycle", 0)
+
+    # Total USD = crypto + Kalshi cash + Kalshi position value (count × expected $1 payout)
+    kalshi_position_value = 0
+    for t in executor_state.get("trades", []):
+        if t.get("success"):
+            kalshi_position_value += t.get("order_details", {}).get("expected_payout", 0)
+    total_usd = crypto_usd + kalshi_balance + kalshi_position_value
 
     # Load growth history
     tracker_path = DATA / "growth_tracker.json"
@@ -398,6 +413,10 @@ def phase_6_record():
         "total_staked_lst": round(total_staked, 9),
         "total_portfolio_sol": round(total_sol + total_staked, 9),
         "sol_price": sol_price,
+        "crypto_usd": round(crypto_usd, 2),
+        "kalshi_balance": round(kalshi_balance, 2),
+        "kalshi_positions": kalshi_positions,
+        "kalshi_position_value": round(kalshi_position_value, 2),
         "total_usd": round(total_usd, 2),
     }
 
@@ -423,12 +442,88 @@ def phase_6_record():
     return {"phase": "record", "portfolio": entry}
 
 
+def phase_7_evolve():
+    """
+    PHASE 7: EVOLVE -- Trading profits feed the living system.
+
+    Every dollar earned compounds through the evolution engines:
+      LIVE_WIRE  → discovers new neural connections between engines
+      CHIMERA    → sovereign evolution loop (mutate, score, evolve)
+
+    Also logs all Kalshi trades to PUBLIC_LEDGER for transparency.
+    Revenue split: 99% mutual aid / 1% node fuel (CHIMERA_CORE ethics lock).
+    """
+    print("\n=== PHASE 7: EVOLVE (Self-Evolution) ===")
+    results = []
+
+    # 1. Log Kalshi trades to PUBLIC_LEDGER
+    executor_state = _load(DATA / "trade_executor_state.json")
+    ledger_path = DATA / "PUBLIC_LEDGER.json"
+    ledger = _load(ledger_path, {"entries": [], "total_in": 0, "total_out": 0})
+
+    trades = executor_state.get("trades", [])
+    new_entries = 0
+    total_profit_pending = 0
+    for t in trades:
+        if t.get("success"):
+            details = t.get("order_details", {})
+            ledger["entries"].append({
+                "type": "kalshi_trade",
+                "timestamp": t.get("recorded_at", datetime.now(timezone.utc).isoformat()),
+                "ticker": t.get("ticker"),
+                "side": t.get("side"),
+                "cost": details.get("expected_cost", 0),
+                "expected_payout": details.get("expected_payout", 0),
+                "expected_profit": details.get("expected_profit", 0),
+                "roi_pct": details.get("roi_pct", 0),
+                "status": "position_open",
+                "owner": "SolarPunk",
+            })
+            total_profit_pending += details.get("expected_profit", 0)
+            new_entries += 1
+
+    ledger["entries"] = ledger["entries"][-5000:]  # Keep last 5000
+    _save(ledger_path, ledger)
+
+    if new_entries:
+        print(f"  [EVOLVE] Logged {new_entries} trades to PUBLIC_LEDGER "
+              f"(${total_profit_pending:.2f} profit pending)")
+
+    # 2. Run LIVE_WIRE -- discover new neural connections
+    results.append(_run_engine("LIVE_WIRE", "EVOLVE"))
+    time.sleep(1)
+
+    # 3. Run CHIMERA_EVOLUTION_ENGINE -- sovereign evolution loop
+    results.append(_run_engine("CHIMERA_EVOLUTION_ENGINE", "EVOLVE"))
+
+    # Check evolution results
+    chimera = _load(DATA / "chimera_evolution_report.json")
+    live_wire = _load(DATA / "live_wire_report.json")
+
+    mutations = chimera.get("mutations_generated", 0)
+    connections = live_wire.get("connections_found", live_wire.get("total_connections", 0))
+
+    print(f"  [EVOLVE] LIVE_WIRE: {connections} connections | "
+          f"CHIMERA: {mutations} mutations | "
+          f"Profit pending: ${total_profit_pending:.2f}")
+
+    return {
+        "phase": "evolve",
+        "results": results,
+        "trades_logged": new_entries,
+        "profit_pending": round(total_profit_pending, 4),
+        "connections": connections,
+        "mutations": mutations,
+    }
+
+
 def run():
     """
     The living loop. One cycle of the full pipeline.
 
     Each phase feeds the next. Nothing runs alone.
     The output of this cycle becomes the input of the next.
+    Profits → trades → evolution → more profits. Infinite compound.
     """
     print("=" * 70)
     print("  NERVE LOOP -- The Living Loop")
@@ -475,6 +570,10 @@ def run():
 
         # Phase 6: RECORD -- log growth, close the loop
         cycle_results["phases"]["record"] = phase_6_record()
+        time.sleep(1)
+
+        # Phase 7: EVOLVE -- profits feed self-evolution
+        cycle_results["phases"]["evolve"] = phase_7_evolve()
 
     except Exception as e:
         print(f"\n[NERVE] Loop error: {e}")
@@ -493,6 +592,9 @@ def run():
     record = cycle_results["phases"].get("record", {})
     portfolio = record.get("portfolio", {})
 
+    evolve = cycle_results["phases"].get("evolve", {})
+    execute = cycle_results["phases"].get("execute", {})
+
     print("\n" + "=" * 70)
     print("  NERVE LOOP CYCLE COMPLETE")
     print(f"  Time: {elapsed}s | Wallets: {observe.get('wallet_count', '?')} | "
@@ -500,9 +602,16 @@ def run():
           f"Replications: {replicate.get('replications', 0)}")
     print(f"  Portfolio: {portfolio.get('total_portfolio_sol', '?')} SOL "
           f"(${portfolio.get('total_usd', '?')})")
+    if portfolio.get("kalshi_balance") is not None:
+        print(f"  Kalshi: ${portfolio.get('kalshi_balance', 0):.2f} cash + "
+              f"${portfolio.get('kalshi_position_value', 0):.2f} in positions")
     growth = portfolio.get("growth_pct")
     if growth is not None:
         print(f"  Growth: {growth:+.2f}% since tracking started")
+    if evolve.get("mutations"):
+        print(f"  Evolution: {evolve.get('connections', 0)} connections | "
+              f"{evolve.get('mutations', 0)} mutations | "
+              f"${evolve.get('profit_pending', 0):.2f} profit pending")
     print(f"  Next cycle in {MIN_CYCLE_INTERVAL}s (rate limit protection)")
     print("=" * 70)
 

@@ -1,16 +1,75 @@
 {
-  "timestamp": "2026-04-06T02:05:53.127110+00:00",
-  "protocol": "trade-executor-v1",
-  "status": "active",
-  "balance_before": 23.14,
-  "balance_after": 2.12,
-  "positions": 8,
-  "trades_this_cycle": 6,
-  "successful_trades": 6,
-  "failed_trades": 0,
-  "opportunities_found": 25,
-  "remaining_capacity": 1.18,
   "trades": [
+    {
+      "success": false,
+      "ticker": "KXCPI-26MAY-T1.0",
+      "error": "API returned no order data",
+      "order_details": {
+        "title": "Will CPI rise more than 1.0% in May 2026?",
+        "strategy": "near_certain_no",
+        "expected_cost": 1.001,
+        "expected_payout": 1.1,
+        "expected_profit": 0.099,
+        "roi_pct": 9.89
+      },
+      "recorded_at": "2026-04-06T01:57:03.513387+00:00"
+    },
+    {
+      "success": false,
+      "ticker": "KXGDP-26APR30-T3.5",
+      "error": "API returned no order data",
+      "order_details": {
+        "title": "Will **real GDP** increase by more than 3.5% in Q1 2026?",
+        "strategy": "near_certain_no",
+        "expected_cost": 0.9995,
+        "expected_payout": 1.09,
+        "expected_profit": 0.0905,
+        "roi_pct": 9.05
+      },
+      "recorded_at": "2026-04-06T01:57:03.513387+00:00"
+    },
+    {
+      "success": false,
+      "ticker": "KXCPI-26MAR-T1.1",
+      "error": "API returned no order data",
+      "order_details": {
+        "title": "Will CPI rise more than 1.1% in March 2026?",
+        "strategy": "near_certain_no",
+        "expected_cost": 1.0044,
+        "expected_payout": 1.08,
+        "expected_profit": 0.0756,
+        "roi_pct": 7.53
+      },
+      "recorded_at": "2026-04-06T01:57:03.513387+00:00"
+    },
+    {
+      "success": false,
+      "ticker": "KXCPI-26APR-T1.0",
+      "error": "API returned no order data",
+      "order_details": {
+        "title": "Will CPI rise more than 1.0% in April 2026?",
+        "strategy": "near_certain_no",
+        "expected_cost": 0.9964,
+        "expected_payout": 1.06,
+        "expected_profit": 0.0636,
+        "roi_pct": 6.38
+      },
+      "recorded_at": "2026-04-06T01:57:03.513387+00:00"
+    },
+    {
+      "success": false,
+      "ticker": "KXGDP-26APR30-T4.0",
+      "error": "API returned no order data",
+      "order_details": {
+        "title": "Will **real GDP** increase by more than 4.0% in Q1 2026?",
+        "strategy": "near_certain_no",
+        "expected_cost": 0.9963,
+        "expected_payout": 1.04,
+        "expected_profit": 0.0437,
+        "roi_pct": 4.38
+      },
+      "recorded_at": "2026-04-06T01:57:03.513387+00:00"
+    },
     {
       "success": true,
       "order_id": "838a9396-31b4-48f8-ac6d-7daef21a3944",
@@ -246,86 +305,10 @@
       "recorded_at": "2026-04-06T02:05:52.991911+00:00"
     }
   ],
-  "top_opportunities": [
-    {
-      "ticker": "KXCPI-26SEP-T-0.1",
-      "title": "Will CPI rise more than -0.1% in September 2026?",
-      "side": "yes",
-      "action": "buy",
-      "price": 0.85,
-      "yes_pct": 85.0,
-      "profit_per_contract": 0.15,
-      "roi_pct": 17.65,
-      "volume": 672,
-      "open_interest": 490,
-      "strategy": "near_certain_yes",
-      "series": "KXCPI",
-      "close_time": "2026-10-14T12:25:00Z"
-    },
-    {
-      "ticker": "KXFED-27MAR-T4.25",
-      "title": "Will the upper bound of the federal funds rate be above 4.25% following the Fed's Mar 17, 2027 meeti",
-      "side": "no",
-      "action": "buy",
-      "price": 0.86,
-      "yes_pct": 15.0,
-      "profit_per_contract": 0.14,
-      "roi_pct": 16.28,
-      "volume": 1077,
-      "open_interest": 770,
-      "strategy": "near_certain_no",
-      "series": "KXFED",
-      "close_time": "2027-03-17T17:55:00Z"
-    },
-    {
-      "ticker": "KXFED-27JAN-T1.25",
-      "title": "Will the upper bound of the federal funds rate be above 1.25% following the Fed's Jan 27, 2027 meeti",
-      "side": "yes",
-      "action": "buy",
-      "price": 0.86,
-      "yes_pct": 87.0,
-      "profit_per_contract": 0.14,
-      "roi_pct": 16.28,
-      "volume": 1473,
-      "open_interest": 456,
-      "strategy": "near_certain_yes",
-      "series": "KXFED",
-      "close_time": "2027-01-27T18:55:00Z"
-    },
-    {
-      "ticker": "KXCPI-26SEP-T0.0",
-      "title": "Will CPI rise more than 0.0% in September 2026?",
-      "side": "yes",
-      "action": "buy",
-      "price": 0.87,
-      "yes_pct": 85.0,
-      "profit_per_contract": 0.13,
-      "roi_pct": 14.94,
-      "volume": 577,
-      "open_interest": 210,
-      "strategy": "near_certain_yes",
-      "series": "KXCPI",
-      "close_time": "2026-10-14T12:25:00Z"
-    },
-    {
-      "ticker": "KXCPI-26MAY-T0.7",
-      "title": "Will CPI rise more than 0.7% in May 2026?",
-      "side": "no",
-      "action": "buy",
-      "price": 0.88,
-      "yes_pct": 12.0,
-      "profit_per_contract": 0.12,
-      "roi_pct": 13.64,
-      "volume": 767,
-      "open_interest": 302,
-      "strategy": "near_certain_no",
-      "series": "KXCPI",
-      "close_time": "2026-06-10T12:25:00Z"
-    }
-  ],
-  "risk_limits": {
-    "max_per_market": 5.79,
-    "max_exposure": 21.98,
-    "balance_floor": 1.0
+  "stats": {
+    "total_trades": 11,
+    "successful_orders": 6,
+    "failed_orders": 5,
+    "last_trade": "2026-04-06T02:05:52.991911+00:00"
   }
 }

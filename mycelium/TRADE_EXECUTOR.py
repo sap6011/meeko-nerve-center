@@ -328,28 +328,33 @@ def construct_order(opp, balance, config):
     if order_size < 0.01:
         return None
 
-    # Calculate contract count
+    # Calculate contract count (WHOLE contracts only -- fractional disabled on most markets)
     price = opp["price"]
     if price <= 0 or price >= 1.0:
         return None
 
-    count = order_size / price
-    count = max(1.0, round(count, 2))
+    count = int(order_size / price)  # Floor to whole contracts
+    count = max(1, count)            # At least 1 contract
 
-    # Build the price field based on side
+    # Kalshi API v2 order format (confirmed working 2026-04-06):
+    #   count: integer (whole contracts)
+    #   type: "limit"
+    #   yes_price / no_price: integer in CENTS (91 = $0.91)
+    price_cents = int(round(price * 100))
+
     order = {
         "ticker": opp["ticker"],
         "action": "buy",
         "side": opp["side"],
-        "count_fp": f"{count:.2f}",
+        "count": count,
+        "type": "limit",
         "client_order_id": str(uuid.uuid4()),
-        "time_in_force": config.get("time_in_force", "good_till_canceled"),
     }
 
     if opp["side"] == "yes":
-        order["yes_price_dollars"] = f"{price:.4f}"
+        order["yes_price"] = price_cents
     else:
-        order["no_price_dollars"] = f"{price:.4f}"
+        order["no_price"] = price_cents
 
     order["_meta"] = {
         "title": opp["title"],
@@ -368,7 +373,7 @@ def place_order(order, api_key, pem_data):
     # Strip internal metadata before sending
     send_order = {k: v for k, v in order.items() if not k.startswith("_")}
 
-    print(f"  [EXECUTOR] Placing order: {order['side'].upper()} {order['count_fp']} "
+    print(f"  [EXECUTOR] Placing order: {order['side'].upper()} {order['count']} "
           f"contracts on {order['ticker']}")
 
     result = _sign_and_fetch("/portfolio/orders", api_key, pem_data,
@@ -385,7 +390,7 @@ def place_order(order, api_key, pem_data):
             "status": status,
             "ticker": order["ticker"],
             "side": order["side"],
-            "count": order["count_fp"],
+            "count": order["count"],
             "response": order_data,
         }
     else:
