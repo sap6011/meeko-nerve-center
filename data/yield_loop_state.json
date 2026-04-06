@@ -1,19 +1,40 @@
 {
-  "timestamp": "2026-04-06T00:13:31.695633+00:00",
-  "protocol": "yield-loop-v1",
+  "timestamp": "2026-04-06T00:52:01.799666+00:00",
+  "protocol": "yield-loop-v2",
   "idle_sol_detected": 1,
   "compound_opportunities": 0,
   "revenue_routing": 0,
+  "market_intelligence": {
+    "available": true,
+    "modifier": "conservative",
+    "action": "reduce_exposure",
+    "sol_outlook": 0.133,
+    "crisis_level": 0.23,
+    "notes": [
+      "Prediction markets signal caution -- favor safe yield"
+    ]
+  },
   "action_queue": [
     {
+      "priority": 0,
+      "type": "market_intelligence",
+      "signal": "conservative",
+      "sol_outlook": 0.133,
+      "notes": [
+        "Prediction markets signal caution -- favor safe yield"
+      ],
+      "status": "info"
+    },
+    {
       "priority": 1,
-      "type": "jitosol_swap",
+      "type": "jupiter_lend",
       "wallet": "solana",
-      "amount_sol": 0.093849,
-      "expected_apy": 7.7,
-      "url": "https://jup.ag/swap/SOL-JitoSOL",
-      "reason": "JitoSOL via Jupiter \u2014 no minimum, higher APY with MEV tips",
-      "status": "pending"
+      "amount_sol": 0.098849,
+      "expected_apy": 4.46,
+      "url": "https://jup.ag/lend/earn",
+      "reason": "Jupiter Lend vault \u2014 lending yield, instant withdrawal",
+      "status": "pending",
+      "market_signal": "conservative"
     }
   ],
   "execution_path": {
@@ -25,6 +46,7 @@
     "primary_yield": "Marinade Native (6.39% APY, zero smart contract risk)",
     "secondary_yield": "JitoSOL (7.7% APY, liquid staking + MEV tips)",
     "free_income": "Brave BAT rewards (browse -> earn -> swap to SOL -> stake)",
-    "revenue_routing": "SolarPunk revenue -> SOL -> stake -> compound"
+    "revenue_routing": "SolarPunk revenue -> SOL -> stake -> compound",
+    "intelligence": "Polymarket prediction feed informs yield strategy adjustments"
   }
 }

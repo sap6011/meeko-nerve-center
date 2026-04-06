@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-05T23:32:07.694102+00:00",
+  "timestamp": "2026-04-06T00:52:00.696797+00:00",
   "protocol": "sol-maximizer-v1",
   "balance": {
     "sol": 0.118849036,
@@ -24,7 +24,7 @@
       "apy": 15.0,
       "risk": "low",
       "risk_note": "Liquid staking \u2014 can unstake anytime via DEX swap",
-      "sol_per_token": 1.368964,
+      "sol_per_token": 1.3691,
       "action": "Swap SOL \u2192 mSOL on Jupiter"
     },
     {
@@ -33,7 +33,7 @@
       "apy": 15.0,
       "risk": "low",
       "risk_note": "Liquid staking \u2014 can unstake anytime via DEX swap",
-      "sol_per_token": 1.270369,
+      "sol_per_token": 1.270453,
       "action": "Swap SOL \u2192 JitoSOL on Jupiter"
     },
     {
@@ -42,7 +42,7 @@
       "apy": 15.0,
       "risk": "low",
       "risk_note": "Liquid staking \u2014 can unstake anytime via DEX swap",
-      "sol_per_token": 1.285741,
+      "sol_per_token": 1.285748,
       "action": "Swap SOL \u2192 bSOL on Jupiter"
     },
     {
@@ -70,44 +70,64 @@
     "balance_sol": 0.118849036,
     "balance_usd": 9.7,
     "sol_price": 81.5882,
+    "prediction_intelligence": {
+      "available": true,
+      "fresh": true,
+      "action": "reduce_exposure",
+      "crypto_bullish": 0.237,
+      "sol_outlook": 0.133,
+      "macro_risk": 0.007,
+      "crisis_level": 0.23,
+      "reasoning": [
+        "Crypto markets leaning bearish (24% avg YES)",
+        "SOL-specific markets cautious (13%)"
+      ]
+    },
     "recommendations": [
       {
         "priority": 1,
         "action": "Enable Brave Rewards",
-        "reason": "Free income \u2014 no SOL needed, just browse",
+        "reason": "Free income -- no SOL needed, just browse",
         "url": "brave://rewards",
         "expected_return": "$1-5/month in BAT"
       },
       {
         "priority": 2,
-        "action": "Stake on Marinade mSOL",
-        "apy": 15.0,
-        "annual_yield_sol": 0.017827,
-        "annual_yield_usd": 1.45,
-        "reason": "Highest yield at 15.0% APY \u2014 Liquid staking \u2014 can unstake anytime via DEX swap",
-        "url": null
+        "action": "PREDICTION: Conservative mode",
+        "reason": "Markets signal caution (crisis=23%, sol=13%)",
+        "signal_strength": "strong"
+      },
+      {
+        "priority": 3,
+        "action": "Stake on Marinade Native Staking",
+        "apy": 6.39,
+        "annual_yield_sol": 0.007594,
+        "annual_yield_usd": 0.62,
+        "reason": "Best yield at 6.39% APY -- No smart contract risk \u2014 native Solana staking",
+        "risk_preference": "conservative",
+        "url": "https://app.marinade.finance/earn/sol/"
       }
     ],
     "gas_reserve": {
       "recommended_sol": 0.01,
-      "note": "Keep 0.01 SOL for transaction fees \u2014 never stake everything"
+      "note": "Keep 0.01 SOL for transaction fees -- never stake everything"
     },
     "projections": {
       "1m": {
-        "sol": 0.11021,
-        "gain_sol": 0.001361
+        "sol": 0.109429,
+        "gain_sol": 0.00058
       },
       "3m": {
-        "sol": 0.112982,
-        "gain_sol": 0.004133
+        "sol": 0.110597,
+        "gain_sol": 0.001748
       },
       "6m": {
-        "sol": 0.117272,
-        "gain_sol": 0.008423
+        "sol": 0.112373,
+        "gain_sol": 0.003524
       },
       "12m": {
-        "sol": 0.126347,
-        "gain_sol": 0.017498
+        "sol": 0.116012,
+        "gain_sol": 0.007163
       }
     }
   },

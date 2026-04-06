@@ -1,23 +1,37 @@
 #!/usr/bin/env python3
 """
-POLYMARKET_SCANNER.py -- LIVE market intelligence + portfolio tracking
-=====================================================================
-v2 (2026-04-05): UPGRADED with Polymarket CLOB API authentication.
+POLYMARKET_SCANNER.py -- Prediction Market Intelligence Layer
+=============================================================
+v3 (2026-04-05): INTELLIGENCE LAYER -- crowd-sourced probability engine.
 
-Two modes:
+The PIVOT: Polymarket deposits are geo-blocked, so we pivoted from
+trading tool to INTELLIGENCE FEED. Crowd-sourced prediction probabilities
+on world events = free, real-time signal layer for crypto decisions.
+
+Architecture:
+  POLYMARKET_SCANNER (this file)
+    -> extract_crypto_intelligence()   # classify markets by crypto/macro/crisis
+    -> derive_market_sentiment()       # aggregate into actionable scores
+    -> build_intelligence_feed()       # save to data/prediction_intelligence.json
+      -> SOL_MAXIMIZER reads feed     # adjusts aggressive/conservative/balanced
+      -> YIELD_LOOP reads feed        # accelerate/slow compound actions
+
+How it informs decisions:
+  - "Will SOL hit $150?" at 60%  -> SOL_MAXIMIZER: accumulate mode
+  - "Will recession hit?"  at 80% -> YIELD_LOOP: conservative compounding
+  - "Will BTC ETF pass?"   at 90% -> crypto_bullish signal = risk on
+  - Active war/crisis      at 70% -> crisis_level triggers safe harbor
+
+Two API modes:
   - Gamma API (public): Market data, prices, volumes, edge detection
-  - CLOB API (authenticated): Portfolio, positions, balance tracking
+  - CLOB API (authenticated): Market depth, order book data
 
-API credentials loaded from data/.secrets/polymarket.json (gitignored).
-SolarPunk intelligence feeds inform market analysis.
-
-Usage:
-  python POLYMARKET_SCANNER.py              # Full scan + portfolio check
-  python POLYMARKET_SCANNER.py --edge       # Show potential mispricings
-  python POLYMARKET_SCANNER.py --portfolio  # Check positions + balance
+Writes:
+  - data/polymarket_scan.json          # full scan + edges
+  - data/prediction_intelligence.json  # intelligence feed for other engines
 
 Called by: OMNIBUS
-Writes: data/polymarket_scan.json
+Consumed by: SOL_MAXIMIZER, YIELD_LOOP
 """
 import json, sys, time, urllib.request, urllib.error
 from pathlib import Path
@@ -204,6 +218,184 @@ def find_edges(markets, min_volume=10000):
     return edges
 
 
+def extract_crypto_intelligence(markets):
+    """
+    Extract crypto-relevant prediction probabilities from market data.
+
+    This is the PIVOT: Polymarket as free intelligence feed.
+    Market probabilities = crowd-sourced predictions on future events.
+    Feed these into SOL_MAXIMIZER and YIELD_LOOP for smarter decisions.
+    """
+    # Use longer/specific keywords to avoid false positives from sports markets
+    # e.g. "sol" matches "Mirassol FC", "coin" matches random words
+    crypto_keywords = [
+        "bitcoin", " btc ", "ethereum", " eth ", "solana", "crypto",
+        " sec ", "etf", "defi", "blockchain", "token launch",
+        "binance", "coinbase", "stablecoin", "usdc", "usdt",
+        "market cap", "altcoin", "memecoin", " nft ",
+    ]
+    macro_keywords = [
+        "federal reserve", "interest rate", "inflation", "recession", "gdp",
+        "tariff", "trade war", "sanctions", "treasury", "dollar",
+        "unemployment", "stock market", "s&p", "nasdaq",
+    ]
+    crisis_keywords = [
+        "war ", "conflict", "invasion", "missile", "nuclear",
+        "earthquake", "hurricane", "pandemic", "outbreak",
+    ]
+
+    signals = {
+        "crypto": [],
+        "macro": [],
+        "crisis": [],
+        "sol_specific": [],
+    }
+
+    for m in markets:
+        p = parse_market(m)
+        q = p["question"].lower()
+
+        # Classify the market
+        is_crypto = any(kw in q for kw in crypto_keywords)
+        is_macro = any(kw in q for kw in macro_keywords)
+        is_crisis = any(kw in q for kw in crisis_keywords)
+        is_sol = any(kw in q for kw in ["solana", " sol ", "sol price", "sol hit"])
+
+        signal = {
+            "question": p["question"],
+            "yes_pct": p["yes_pct"],
+            "no_pct": p["no_pct"],
+            "volume": p["volume"],
+            "end_date": p["end_date"],
+            "confidence": "high" if p["volume"] > 100000 else "medium" if p["volume"] > 10000 else "low",
+        }
+
+        if is_sol:
+            signals["sol_specific"].append(signal)
+        if is_crypto:
+            signals["crypto"].append(signal)
+        if is_macro:
+            signals["macro"].append(signal)
+        if is_crisis:
+            signals["crisis"].append(signal)
+
+    # Sort each category by volume (higher volume = more reliable signal)
+    for cat in signals:
+        signals[cat].sort(key=lambda x: x["volume"], reverse=True)
+
+    return signals
+
+
+def derive_market_sentiment(signals):
+    """
+    Derive actionable sentiment scores from prediction markets.
+
+    Returns scores that SOL_MAXIMIZER and YIELD_LOOP can consume directly.
+    """
+    sentiment = {
+        "crypto_bullish": 0.5,      # 0-1 scale, 0.5 = neutral
+        "macro_risk": 0.5,          # 0-1, higher = more risk
+        "crisis_level": 0.0,        # 0-1, higher = more crisis
+        "sol_outlook": 0.5,         # 0-1, higher = more bullish on SOL
+        "recommended_action": "hold",
+        "reasoning": [],
+    }
+
+    # Crypto sentiment: average YES probability of bullish crypto markets
+    crypto_sigs = signals.get("crypto", [])
+    if crypto_sigs:
+        # Markets about crypto going UP -> high yes_pct = bullish
+        avg_crypto = sum(s["yes_pct"] for s in crypto_sigs[:10]) / min(len(crypto_sigs), 10)
+        sentiment["crypto_bullish"] = round(avg_crypto / 100, 3)
+        if avg_crypto > 65:
+            sentiment["reasoning"].append(f"Crypto markets leaning bullish ({avg_crypto:.0f}% avg YES)")
+        elif avg_crypto < 35:
+            sentiment["reasoning"].append(f"Crypto markets leaning bearish ({avg_crypto:.0f}% avg YES)")
+
+    # SOL-specific outlook
+    sol_sigs = signals.get("sol_specific", [])
+    if sol_sigs:
+        avg_sol = sum(s["yes_pct"] for s in sol_sigs[:5]) / min(len(sol_sigs), 5)
+        sentiment["sol_outlook"] = round(avg_sol / 100, 3)
+        if avg_sol > 70:
+            sentiment["reasoning"].append(f"SOL-specific markets bullish ({avg_sol:.0f}%)")
+            sentiment["recommended_action"] = "accumulate"
+        elif avg_sol < 30:
+            sentiment["reasoning"].append(f"SOL-specific markets cautious ({avg_sol:.0f}%)")
+            sentiment["recommended_action"] = "reduce_exposure"
+
+    # Macro risk: high YES on rate hikes, recession = risky for crypto
+    macro_sigs = signals.get("macro", [])
+    if macro_sigs:
+        avg_macro = sum(s["yes_pct"] for s in macro_sigs[:5]) / min(len(macro_sigs), 5)
+        sentiment["macro_risk"] = round(avg_macro / 100, 3)
+        if avg_macro > 70:
+            sentiment["reasoning"].append(f"Macro headwinds detected ({avg_macro:.0f}% risk)")
+
+    # Crisis level: any high-confidence crisis market = caution
+    crisis_sigs = signals.get("crisis", [])
+    if crisis_sigs:
+        max_crisis = max(s["yes_pct"] for s in crisis_sigs[:5])
+        sentiment["crisis_level"] = round(max_crisis / 100, 3)
+        if max_crisis > 80:
+            sentiment["reasoning"].append(f"Active crisis signal ({max_crisis:.0f}% probability)")
+            if sentiment["recommended_action"] != "reduce_exposure":
+                sentiment["recommended_action"] = "hold"
+
+    # Final action logic
+    if not sentiment["reasoning"]:
+        sentiment["reasoning"].append("Insufficient prediction market data -- defaulting to base strategy")
+        sentiment["recommended_action"] = "follow_base_strategy"
+
+    return sentiment
+
+
+def build_intelligence_feed():
+    """
+    Build the full intelligence feed from Polymarket data.
+
+    This is what SOL_MAXIMIZER and YIELD_LOOP consume.
+    Saved to data/prediction_intelligence.json
+    """
+    print("[POLYMARKET] Building intelligence feed...")
+
+    markets = get_active_markets(limit=200)
+    if not markets:
+        print("[POLYMARKET] No market data available -- feed empty")
+        return {"status": "no_data", "timestamp": datetime.now(timezone.utc).isoformat()}
+
+    signals = extract_crypto_intelligence(markets)
+    sentiment = derive_market_sentiment(signals)
+
+    feed = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "source": "polymarket_gamma_api",
+        "markets_analyzed": len(markets),
+        "signals": {
+            "crypto_markets": len(signals["crypto"]),
+            "macro_markets": len(signals["macro"]),
+            "crisis_markets": len(signals["crisis"]),
+            "sol_specific": len(signals["sol_specific"]),
+        },
+        "sentiment": sentiment,
+        "top_crypto_signals": signals["crypto"][:10],
+        "top_macro_signals": signals["macro"][:5],
+        "sol_signals": signals["sol_specific"][:5],
+        "crisis_signals": signals["crisis"][:5],
+    }
+
+    (DATA / "prediction_intelligence.json").write_text(
+        json.dumps(feed, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    print(f"[POLYMARKET] Intelligence feed: {len(signals['crypto'])} crypto, "
+          f"{len(signals['macro'])} macro, {len(signals['sol_specific'])} SOL-specific")
+    print(f"[POLYMARKET] Sentiment: {sentiment['recommended_action']} "
+          f"(crypto={sentiment['crypto_bullish']}, sol={sentiment['sol_outlook']})")
+
+    return feed
+
+
 def scan_categories():
     """Scan markets by category."""
     categories = ["politics", "crypto", "sports", "science", "culture", "business"]
@@ -274,6 +466,16 @@ def run():
     # Run the full market scan (public Gamma API)
     scan_data = full_scan()
 
+    # BUILD INTELLIGENCE FEED -- the core pivot
+    # This is what SOL_MAXIMIZER and YIELD_LOOP consume for decisions
+    intel_feed = build_intelligence_feed()
+    scan_data["intelligence_feed"] = {
+        "status": "active",
+        "sentiment": intel_feed.get("sentiment", {}),
+        "signals_found": intel_feed.get("signals", {}),
+        "file": "data/prediction_intelligence.json",
+    }
+
     # Check portfolio if authenticated
     portfolio = None
     if authenticated:
@@ -296,7 +498,7 @@ def run():
         scan_data["intelligence_sources"] = {
             "crisis_monitor": True,
             "active_crises": len(crisis_data.get("crises", [])),
-            "note": "SolarPunk crisis data can inform geopolitical prediction markets",
+            "note": "SolarPunk crisis data informs geopolitical prediction markets",
         }
 
     # Save enriched scan
@@ -306,7 +508,10 @@ def run():
     )
 
     edges = scan_data.get("edges_found", 0)
+    sentiment = intel_feed.get("sentiment", {})
     print(f"[POLYMARKET] Scan complete: {scan_data.get('total_markets_scanned', 0)} markets, {edges} edges")
+    print(f"[POLYMARKET] Intelligence: {sentiment.get('recommended_action', 'N/A')} "
+          f"(crypto={sentiment.get('crypto_bullish', '?')}, sol={sentiment.get('sol_outlook', '?')})")
     if authenticated:
         print(f"[POLYMARKET] Portfolio: {'online' if portfolio and portfolio.get('server') == 'online' else 'checking'}")
 

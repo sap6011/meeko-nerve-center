@@ -199,15 +199,81 @@ def detect_revenue_to_compound():
     return opportunities
 
 
-def build_action_queue(idle, compounds, revenue):
-    """Prioritized queue of yield actions."""
-    queue = []
+def check_market_signals():
+    """
+    Read prediction intelligence to adjust compound urgency.
 
-    # Priority 1: Idle SOL -> best yield
+    Polymarket intelligence -> YIELD_LOOP decision modifiers:
+      - Bullish signals -> compound faster, route more to liquid staking
+      - Bearish/crisis  -> slow down, favor native staking (safer)
+      - SOL bullish     -> accumulate more SOL before price rises
+    """
+    intel = _load(DATA / "prediction_intelligence.json")
+    if not intel or "sentiment" not in intel:
+        return {"available": False, "modifier": "normal"}
+
+    sentiment = intel["sentiment"]
+
+    # Check freshness
+    try:
+        ts = datetime.fromisoformat(intel["timestamp"].replace("Z", "+00:00"))
+        age_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
+        if age_hours > 24:
+            return {"available": True, "modifier": "normal", "note": "stale data (>24h)"}
+    except Exception:
+        pass
+
+    action = sentiment.get("recommended_action", "hold")
+    sol_outlook = sentiment.get("sol_outlook", 0.5)
+    crisis = sentiment.get("crisis_level", 0.0)
+
+    modifier = "normal"
+    notes = []
+
+    if action == "accumulate" or sol_outlook > 0.65:
+        modifier = "accelerate"
+        notes.append("Prediction markets bullish on SOL -- compound faster")
+    elif action == "reduce_exposure" or crisis > 0.7:
+        modifier = "conservative"
+        notes.append("Prediction markets signal caution -- favor safe yield")
+    elif sol_outlook > 0.55:
+        modifier = "slightly_bullish"
+        notes.append("Mild bullish signal -- standard compounding")
+
+    return {
+        "available": True,
+        "modifier": modifier,
+        "action": action,
+        "sol_outlook": sol_outlook,
+        "crisis_level": crisis,
+        "notes": notes,
+    }
+
+
+def build_action_queue(idle, compounds, revenue):
+    """Prioritized queue of yield actions, informed by prediction markets."""
+    queue = []
+    signals = check_market_signals()
+
+    # Adjust action selection based on market signals
+    prefer_safe = signals.get("modifier") == "conservative"
+    prefer_aggressive = signals.get("modifier") in ("accelerate", "slightly_bullish")
+
+    # Priority 1: Idle SOL -> best yield (adjusted by market signals)
     for opp in idle:
         if opp["actions"]:
-            best = max(opp["actions"], key=lambda a: a.get("apy", 0))
-            queue.append({
+            if prefer_safe:
+                # Conservative: prefer native staking or lending
+                safe_actions = [a for a in opp["actions"]
+                                if a["type"] in ("marinade_native_stake", "jupiter_lend")]
+                best = max(safe_actions or opp["actions"], key=lambda a: a.get("apy", 0))
+            elif prefer_aggressive:
+                # Aggressive: prefer highest APY (liquid staking)
+                best = max(opp["actions"], key=lambda a: a.get("apy", 0))
+            else:
+                best = max(opp["actions"], key=lambda a: a.get("apy", 0))
+
+            entry = {
                 "priority": 1,
                 "type": best["type"],
                 "wallet": opp["wallet"],
@@ -216,7 +282,10 @@ def build_action_queue(idle, compounds, revenue):
                 "url": best["url"],
                 "reason": best["reason"],
                 "status": "pending",
-            })
+            }
+            if signals.get("available"):
+                entry["market_signal"] = signals["modifier"]
+            queue.append(entry)
 
     # Priority 2: Compound opportunities
     for comp in compounds:
@@ -236,6 +305,17 @@ def build_action_queue(idle, compounds, revenue):
             "type": rev["type"],
             "action": rev["action"],
             "status": "pending",
+        })
+
+    # Priority 0: Market signal alert (if strong signal)
+    if signals.get("available") and signals.get("modifier") != "normal":
+        queue.insert(0, {
+            "priority": 0,
+            "type": "market_intelligence",
+            "signal": signals["modifier"],
+            "sol_outlook": signals.get("sol_outlook"),
+            "notes": signals.get("notes", []),
+            "status": "info",
         })
 
     return sorted(queue, key=lambda x: x["priority"])
@@ -277,12 +357,16 @@ def run():
     revenue = detect_revenue_to_compound()
     queue = build_action_queue(idle, compounds, revenue)
 
+    # Get market intelligence for state reporting
+    market_signals = check_market_signals()
+
     state = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "protocol": "yield-loop-v1",
+        "protocol": "yield-loop-v2",
         "idle_sol_detected": len(idle),
         "compound_opportunities": len(compounds),
         "revenue_routing": len(revenue),
+        "market_intelligence": market_signals,
         "action_queue": queue,
         "execution_path": {
             "automated": "Claude -> Browser -> Jupiter/Marinade -> Phantom -> Solana",
@@ -294,6 +378,7 @@ def run():
             "secondary_yield": "JitoSOL (7.7% APY, liquid staking + MEV tips)",
             "free_income": "Brave BAT rewards (browse -> earn -> swap to SOL -> stake)",
             "revenue_routing": "SolarPunk revenue -> SOL -> stake -> compound",
+            "intelligence": "Polymarket prediction feed informs yield strategy adjustments",
         },
     }
 
@@ -307,15 +392,18 @@ def run():
     total_actions = len(queue)
     pending = sum(1 for q in queue if q.get("status") == "pending")
 
+    if market_signals.get("available") and market_signals.get("modifier") != "normal":
+        print(f"[YIELD_LOOP] Market signal: {market_signals['modifier']} "
+              f"(SOL outlook={market_signals.get('sol_outlook', '?')})")
     if idle:
         for opp in idle:
             print(f"[YIELD_LOOP] {opp['wallet']}: {opp['available_sol']} SOL idle -> {len(opp['actions'])} yield options")
     if compounds:
         for comp in compounds:
-            print(f"[YIELD_LOOP] {comp['token']} grew by {comp['growth']} — compounding detected!")
+            print(f"[YIELD_LOOP] {comp['token']} grew by {comp['growth']} -- compounding detected!")
 
     print(f"[YIELD_LOOP] Actions queued: {total_actions} ({pending} pending)")
-    print(f"[YIELD_LOOP] Compound loop: detect -> decide -> execute -> compound -> repeat")
+    print(f"[YIELD_LOOP] Loop: detect -> predict -> decide -> execute -> compound -> repeat")
 
     return state
 
