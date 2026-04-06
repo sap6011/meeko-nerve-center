@@ -114,6 +114,11 @@ def scan():
         "summary": f"{len(active)} active / {len(blocked)} blocked / {len(degraded)} degraded",
     }
 
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    result["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     (DATA / "capability_map.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     _build_html(result)
     return result

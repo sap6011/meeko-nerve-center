@@ -173,6 +173,11 @@ def run():
             brain["health_score"] = min(100, old_h + 20)
             brain["last_payment"] = now
             brain["total_revenue"] = revenue["total_received"]
+            try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+            except: _h={}
+            try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+            except: _c={}
+            brain["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
             brain_f.write_text(json.dumps(brain, indent=2), encoding="utf-8")
             print(f"  🧠 Health: {old_h} → {brain['health_score']}")
         except: pass

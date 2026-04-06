@@ -1,14 +1,203 @@
 {
-  "timestamp": "2026-04-06T07:06:15.945032+00:00",
-  "status": "thermal_throttle",
-  "reason": "CPU at 100.0% (threshold: 85%)",
-  "vitals": {
-    "cpu_pct": 100.0,
-    "ram_pct": 79.3,
-    "ram_used_gb": 25.2,
+  "timestamp": "2026-04-06T16:06:12.198892+00:00",
+  "protocol": "autonomic-nerve-v1",
+  "status": "alive",
+  "heartbeat_interval": 60,
+  "decision_method": "rules",
+  "engines_run": [
+    "SIGNAL_MESH",
+    "SYNAPTIC_BUS",
+    "REFLEX_ARC",
+    "SETTLEMENT_WATCHER",
+    "AUTO_DEPOSIT",
+    "PROPRIOCEPTION",
+    "METABOLISM_LOOP",
+    "GLOBAL_MARKETS",
+    "NEURAL_CORTEX",
+    "HOMEOSTASIS",
+    "EXECUTIVE_FUNCTION"
+  ],
+  "results": {
+    "SIGNAL_MESH": {
+      "success": true,
+      "status": "?"
+    },
+    "SYNAPTIC_BUS": {
+      "success": true,
+      "status": "?"
+    },
+    "REFLEX_ARC": {
+      "success": true,
+      "status": "active"
+    },
+    "SETTLEMENT_WATCHER": {
+      "success": false,
+      "status": "Unknown engine: SETTLEMENT_WATCHER"
+    },
+    "AUTO_DEPOSIT": {
+      "success": false,
+      "status": "Unknown engine: AUTO_DEPOSIT"
+    },
+    "PROPRIOCEPTION": {
+      "success": true,
+      "status": "?"
+    },
+    "METABOLISM_LOOP": {
+      "success": false,
+      "status": "Unknown engine: METABOLISM_LOOP"
+    },
+    "GLOBAL_MARKETS": {
+      "success": false,
+      "status": "Unknown engine: GLOBAL_MARKETS"
+    },
+    "NEURAL_CORTEX": {
+      "success": false,
+      "status": "Unknown engine: NEURAL_CORTEX"
+    },
+    "HOMEOSTASIS": {
+      "success": false,
+      "status": "Unknown engine: HOMEOSTASIS"
+    },
+    "EXECUTIVE_FUNCTION": {
+      "success": false,
+      "status": "Unknown engine: EXECUTIVE_FUNCTION"
+    }
+  },
+  "system_summary": {
+    "TURBO_TRADER": {
+      "status": "active",
+      "minutes_since_run": 5.6,
+      "schedule_minutes": 15,
+      "stalled": false,
+      "due": false,
+      "balance": 12.52,
+      "positions": 15,
+      "pending_payout": 82.0
+    },
+    "TRADING_WIRE": {
+      "status": "unknown",
+      "minutes_since_run": 5.2,
+      "schedule_minutes": 15,
+      "stalled": false,
+      "due": false
+    },
+    "ALPACA_TRADER": {
+      "status": "active_no_trades",
+      "minutes_since_run": 11.6,
+      "schedule_minutes": 30,
+      "stalled": false,
+      "due": false,
+      "portfolio": 1.45,
+      "market_open": true,
+      "opportunities": 5
+    },
+    "CROSS_POLLINATOR": {
+      "status": "active",
+      "minutes_since_run": 11.5,
+      "schedule_minutes": 30,
+      "stalled": false,
+      "due": false
+    },
+    "PULSE": {
+      "status": "unknown",
+      "minutes_since_run": 11.5,
+      "schedule_minutes": 30,
+      "stalled": false,
+      "due": false
+    },
+    "SIGNAL_MESH": {
+      "status": "unknown",
+      "minutes_since_run": 25.0,
+      "schedule_minutes": 15,
+      "stalled": false,
+      "due": true
+    },
+    "SYNAPTIC_BUS": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 5,
+      "stalled": true,
+      "due": true
+    },
+    "REFLEX_ARC": {
+      "status": "active",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 5,
+      "stalled": true,
+      "due": true
+    },
+    "SETTLEMENT_WATCHER": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 5,
+      "stalled": true,
+      "due": true
+    },
+    "AUTO_DEPOSIT": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 10,
+      "stalled": true,
+      "due": true
+    },
+    "PROPRIOCEPTION": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 15,
+      "stalled": true,
+      "due": true
+    },
+    "METABOLISM_LOOP": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 15,
+      "stalled": true,
+      "due": true
+    },
+    "GLOBAL_MARKETS": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 15,
+      "stalled": true,
+      "due": true
+    },
+    "NEURAL_CORTEX": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 10,
+      "stalled": true,
+      "due": true
+    },
+    "HOMEOSTASIS": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 10,
+      "stalled": true,
+      "due": true
+    },
+    "EXECUTIVE_FUNCTION": {
+      "status": "unknown",
+      "minutes_since_run": 9999,
+      "schedule_minutes": 10,
+      "stalled": true,
+      "due": true
+    },
+    "NERVE_LOOP": {
+      "status": "complete",
+      "minutes_since_run": 28.2,
+      "schedule_minutes": 60,
+      "stalled": false,
+      "due": false,
+      "phases_complete": 14
+    }
+  },
+  "ollama_available": true,
+  "system_vitals": {
+    "cpu_pct": 30.2,
+    "ram_pct": 71.6,
+    "ram_used_gb": 22.8,
     "ram_total_gb": 31.8,
     "cpu_count": 6,
     "temp_c": null
-  },
-  "cooldown_seconds": 120
+  }
 }

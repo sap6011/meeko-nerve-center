@@ -402,6 +402,11 @@ def run():
             f"Persistent blockers: {len(persistent)} | Revenue: ${current['total_revenue']:.2f}"
         )
     }
+    try: _h=json.loads((DATA/"homeostasis_state.json").read_text(encoding="utf-8"))
+    except: _h={}
+    try: _c=json.loads((DATA/"neural_cortex_state.json").read_text(encoding="utf-8"))
+    except: _c={}
+    cycle_delta["nervous_system"]={"equilibrium":_h.get("equilibrium",0),"trend":_h.get("trend","unknown"),"brain_confidence":_c.get("decision_confidence",0)}
     DELTA_FILE.write_text(json.dumps(cycle_delta, indent=2), encoding="utf-8")
 
     # Build HTML
