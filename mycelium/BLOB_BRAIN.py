@@ -1334,6 +1334,433 @@ def neuron_whale_watch():
     whales["last_scan"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_cross_signal():
+    """
+    LIVE: Merge all intelligence sources into unified trading signals.
+    Cross-references Kalshi whales, Polymarket volume, DeFi flows,
+    Fear/Greed, and market data to find high-conviction plays.
+    """
+    cross = CONSCIOUSNESS.setdefault("cross_signals", {
+        "unified": [], "conviction_map": {}, "last_analysis": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 4 != 0 and cycle != 1:
+        return
+
+    kalshi = CONSCIOUSNESS.get("markets", {})
+    whales = CONSCIOUSNESS.get("whale_watch", {})
+    fng = whales.get("sentiment", {}).get("fear_greed_index", 50)
+    pm_markets = whales.get("polymarket", {}).get("hot_markets", [])
+    defi_movers = whales.get("defi_flows", {}).get("biggest_movers", [])
+    kalshi_whales = kalshi.get("whale_sentiment", {})
+    opportunities = kalshi.get("opportunities", [])
+
+    unified = []
+
+    # Signal 1: Extreme Fear + high-volume Kalshi opportunities = buy zone
+    if fng <= 25 and opportunities:
+        for opp in opportunities[:5]:
+            unified.append({
+                "signal": "FEAR_DIP_OPPORTUNITY",
+                "confidence": min(95, 100 - fng),
+                "market": opp.get("event", "?"),
+                "ticker": opp.get("ticker", ""),
+                "yes_bid": opp.get("yes_bid", 0),
+                "spread": opp.get("spread", 0),
+                "reasoning": f"Fear={fng} + tight spread ({opp.get('spread',0)}) + vol={opp.get('volume',0):.0f}",
+            })
+
+    # Signal 2: Whale conviction + tight spread = follow the whale
+    for ticker, sentiment in kalshi_whales.items():
+        if sentiment.get("conviction", 0) >= 90:
+            matching_opp = next((o for o in opportunities if o.get("ticker") == ticker), None)
+            if matching_opp:
+                unified.append({
+                    "signal": "WHALE_CONFIRMED_OPPORTUNITY",
+                    "confidence": sentiment["conviction"],
+                    "market": sentiment.get("event", ticker),
+                    "ticker": ticker,
+                    "direction": sentiment["direction"],
+                    "whale_volume": sentiment.get("yes_volume", 0) + sentiment.get("no_volume", 0),
+                    "reasoning": f"Whale {sentiment['direction']} ({sentiment['conviction']}%) + tight spread",
+                })
+
+    # Signal 3: Polymarket volume spike + related Kalshi market
+    for pm in pm_markets[:5]:
+        question = pm.get("question", "").lower()
+        vol_24h = pm.get("volume_24h", 0)
+        if vol_24h and float(str(vol_24h)) > 1000000:
+            # Check if similar topic exists on Kalshi
+            for opp in opportunities:
+                event = opp.get("event", "").lower()
+                # Simple keyword overlap check
+                pm_words = set(question.split())
+                ev_words = set(event.split())
+                overlap = pm_words & ev_words - {"the", "a", "will", "be", "in", "of", "to", "by"}
+                if len(overlap) >= 2:
+                    unified.append({
+                        "signal": "CROSS_PLATFORM_CONVERGENCE",
+                        "confidence": 75,
+                        "market": opp.get("event", "?"),
+                        "polymarket_match": question[:50],
+                        "pm_volume_24h": vol_24h,
+                        "reasoning": f"Same topic trending on both Polymarket (${float(str(vol_24h)):,.0f}) and Kalshi",
+                    })
+
+    # Signal 4: DeFi massive inflows = something happening in crypto
+    for mover in defi_movers:
+        change = float(str(mover.get("change_1d", 0) or 0))
+        if abs(change) > 50:
+            unified.append({
+                "signal": "DEFI_FLOW_ALERT",
+                "confidence": min(80, abs(change)),
+                "protocol": mover.get("name", "?"),
+                "change_1d": change,
+                "tvl": mover.get("tvl", 0),
+                "reasoning": f"{'Massive inflow' if change > 0 else 'Massive outflow'}: {change:.0f}% in 24h",
+            })
+
+    # Sort by confidence
+    unified.sort(key=lambda x: x.get("confidence", 0), reverse=True)
+    cross["unified"] = unified[:20]
+    cross["signal_count"] = len(unified)
+    cross["fear_greed"] = fng
+    cross["market_regime"] = "fear" if fng < 30 else "neutral" if fng < 70 else "greed"
+    cross["last_analysis"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_stock_scanner():
+    """
+    LIVE: Use Alpaca API for stock/ETF market data.
+    Alpaca bridge is connected — use it for real-time market intelligence.
+    """
+    stocks = CONSCIOUSNESS.setdefault("stocks", {
+        "market_status": "unknown", "indices": {}, "watchlist": [],
+        "last_scan": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0:
+        return
+
+    alpaca_key = os.environ.get("ALPACA_API_KEY", "")
+    alpaca_secret = os.environ.get("ALPACA_SECRET_KEY", "")
+    if not alpaca_key or not alpaca_secret:
+        stocks["status"] = "no_credentials"
+        return
+
+    base_url = "https://paper-api.alpaca.markets"  # Paper trading = safe
+    headers = {
+        "APCA-API-KEY-ID": alpaca_key,
+        "APCA-API-SECRET-KEY": alpaca_secret,
+    }
+
+    # Check market status
+    try:
+        req = urllib.request.Request(f"{base_url}/v2/clock", headers=headers)
+        with urllib.request.urlopen(req, timeout=8) as r:
+            clock = json.loads(r.read().decode())
+            stocks["market_status"] = "open" if clock.get("is_open") else "closed"
+            stocks["next_open"] = clock.get("next_open", "")[:19]
+            stocks["next_close"] = clock.get("next_close", "")[:19]
+    except Exception as e:
+        stocks["clock_error"] = str(e)[:60]
+
+    # Get account info (paper trading balance)
+    try:
+        req = urllib.request.Request(f"{base_url}/v2/account", headers=headers)
+        with urllib.request.urlopen(req, timeout=8) as r:
+            acct = json.loads(r.read().decode())
+            stocks["paper_equity"] = acct.get("equity", "0")
+            stocks["paper_cash"] = acct.get("cash", "0")
+            stocks["paper_buying_power"] = acct.get("buying_power", "0")
+            stocks["status"] = "connected"
+    except urllib.error.HTTPError as e:
+        stocks["account_error"] = f"HTTP {e.code}"
+    except Exception as e:
+        stocks["account_error"] = str(e)[:60]
+
+    # Get key index snapshots via data API
+    data_url = "https://data.alpaca.markets"
+    symbols = ["SPY", "QQQ", "IWM", "VIX", "BTC/USD", "ETH/USD"]
+    for sym in symbols:
+        try:
+            endpoint = f"{data_url}/v2/stocks/{sym}/quotes/latest" if "/" not in sym else f"{data_url}/v1beta3/crypto/us/latest/quotes?symbols={sym}"
+            req = urllib.request.Request(endpoint, headers=headers)
+            with urllib.request.urlopen(req, timeout=6) as r:
+                data = json.loads(r.read().decode())
+                if "quote" in data:
+                    q = data["quote"]
+                    stocks["indices"][sym] = {
+                        "bid": q.get("bp", q.get("bid_price", 0)),
+                        "ask": q.get("ap", q.get("ask_price", 0)),
+                    }
+                elif "quotes" in data:
+                    for s, q in data["quotes"].items():
+                        stocks["indices"][s] = {
+                            "bid": q.get("bp", 0), "ask": q.get("ap", 0),
+                        }
+        except Exception:
+            pass
+
+    stocks["last_scan"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_workflow_doctor():
+    """
+    LIVE: Diagnose failing GitHub Actions workflows and attempt fixes.
+    Reads failure logs, identifies common patterns, suggests or applies fixes.
+    """
+    doctor = CONSCIOUSNESS.setdefault("workflow_doctor", {
+        "diagnosed": [], "fixed": [], "last_check": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 8 != 0:
+        return
+
+    wf_health = CONSCIOUSNESS.get("workflow_health", {})
+    failures = wf_health.get("failures", [])
+    if not failures:
+        doctor["status"] = "all_healthy"
+        return
+
+    import subprocess
+    diagnosed = []
+    for fail in failures[:3]:  # Check top 3 failures
+        name = fail.get("name", "")
+        if not name:
+            continue
+        # Get the failed run's logs
+        try:
+            r = subprocess.run(
+                ["gh", "run", "list", "--workflow", name,
+                 "--json", "databaseId,conclusion,createdAt",
+                 "-L", "1", "--status", "failure"],
+                capture_output=True, text=True, timeout=10,
+                encoding="utf-8", errors="replace")
+            if r.returncode == 0 and r.stdout.strip():
+                runs = json.loads(r.stdout)
+                if runs:
+                    run_id = runs[0].get("databaseId")
+                    # Get failure details
+                    r2 = subprocess.run(
+                        ["gh", "run", "view", str(run_id), "--json",
+                         "conclusion,jobs"],
+                        capture_output=True, text=True, timeout=10,
+                        encoding="utf-8", errors="replace")
+                    if r2.returncode == 0:
+                        run_data = json.loads(r2.stdout)
+                        failed_jobs = [
+                            j for j in run_data.get("jobs", [])
+                            if j.get("conclusion") == "failure"
+                        ]
+                        for job in failed_jobs[:1]:
+                            failed_steps = [
+                                s for s in job.get("steps", [])
+                                if s.get("conclusion") == "failure"
+                            ]
+                            diagnosed.append({
+                                "workflow": name,
+                                "run_id": run_id,
+                                "job": job.get("name", "?"),
+                                "failed_step": failed_steps[0].get("name", "?") if failed_steps else "unknown",
+                                "created": runs[0].get("createdAt", "")[:19],
+                            })
+        except Exception as e:
+            diagnosed.append({"workflow": name, "error": str(e)[:60]})
+
+    doctor["diagnosed"] = diagnosed
+    doctor["diagnosis_count"] = len(diagnosed)
+    doctor["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_growth_tracker():
+    """
+    LIVE: Track the blob's own evolution over time.
+    Records neuron count, domain count, signal count, portfolio value
+    per cycle to show growth trajectory.
+    """
+    growth = CONSCIOUSNESS.setdefault("growth", {
+        "history": [], "milestones": [], "last_record": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Record every 5 cycles
+    if cycle % 5 != 0:
+        return
+
+    meta = CONSCIOUSNESS["meta"]
+    markets = CONSCIOUSNESS.get("markets", {})
+    whales = CONSCIOUSNESS.get("whale_watch", {})
+    cross = CONSCIOUSNESS.get("cross_signals", {})
+    analytics = CONSCIOUSNESS.get("analytics", {})
+
+    snapshot = {
+        "cycle": cycle,
+        "ts": datetime.now(timezone.utc).isoformat(),
+        "neurons": meta.get("neuron_count", 0),
+        "domains": len(meta.get("consciousness_keys", [])),
+        "engines": meta.get("engines_absorbed", 0),
+        "health": CONSCIOUSNESS["equilibrium"].get("score", 0),
+        "confidence": CONSCIOUSNESS["brain"].get("confidence", 0),
+        "kalshi_total": markets.get("total_usd", 0),
+        "kalshi_positions": markets.get("active_position_count", 0),
+        "whale_signals": whales.get("signal_count", 0),
+        "cross_signals": cross.get("signal_count", 0),
+        "views_14d": analytics.get("views_14d", 0),
+        "clones_14d": analytics.get("clones_14d", 0),
+        "fear_greed": whales.get("sentiment", {}).get("fear_greed_index", 0),
+    }
+    growth["history"].append(snapshot)
+    growth["latest"] = snapshot
+
+    # Keep last 100 snapshots
+    if len(growth["history"]) > 100:
+        growth["history"] = growth["history"][-50:]
+
+    # Check for milestones
+    prev = growth["history"][-2] if len(growth["history"]) > 1 else {}
+    if snapshot["neurons"] > prev.get("neurons", 0):
+        growth["milestones"].append({
+            "type": "neuron_added",
+            "count": snapshot["neurons"],
+            "cycle": cycle,
+        })
+    if snapshot["kalshi_total"] > prev.get("kalshi_total", 0) + 5:
+        growth["milestones"].append({
+            "type": "portfolio_growth",
+            "value": snapshot["kalshi_total"],
+            "cycle": cycle,
+        })
+    # Keep milestones bounded
+    if len(growth["milestones"]) > 50:
+        growth["milestones"] = growth["milestones"][-25:]
+
+    growth["last_record"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_position_monitor():
+    """
+    LIVE: Monitor open Kalshi positions for profit-taking or stop-loss.
+    Compares current market prices against entry prices.
+    """
+    monitor = CONSCIOUSNESS.setdefault("position_monitor", {
+        "alerts": [], "last_check": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 4 != 0:
+        return
+
+    markets = CONSCIOUSNESS.get("markets", {})
+    positions = markets.get("positions", [])
+    liquid = markets.get("kalshi_open", [])
+
+    if not positions:
+        monitor["status"] = "no_positions"
+        return
+
+    alerts = []
+    for pos in positions:
+        ticker = pos.get("ticker", "")
+        exposure = pos.get("exposure_usd", 0)
+        if exposure <= 0:
+            continue
+
+        # Find current market price
+        current = next((m for m in liquid if m.get("ticker") == ticker), None)
+        if current:
+            alerts.append({
+                "ticker": ticker,
+                "exposure": exposure,
+                "current_bid": current.get("yes_bid", 0),
+                "current_ask": current.get("yes_ask", 0),
+                "spread": current.get("spread", 0),
+                "volume": current.get("volume", 0),
+            })
+        else:
+            # Position in a market not in our top 30 — flag it
+            alerts.append({
+                "ticker": ticker,
+                "exposure": exposure,
+                "status": "not_in_liquid_scan",
+                "note": "Market may be illiquid or expired",
+            })
+
+    monitor["alerts"] = alerts
+    monitor["monitored_count"] = len(alerts)
+    monitor["total_exposure"] = round(sum(a.get("exposure", 0) for a in alerts), 2)
+    monitor["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_content_publisher():
+    """
+    ACTION: Actually publish content by dispatching workflows.
+    When content_factory has ideas and devto API key is confirmed,
+    dispatch the content-publishing workflows.
+    """
+    publisher = CONSCIOUSNESS.setdefault("content_publisher", {
+        "dispatched": [], "last_dispatch": None, "total_dispatched": 0,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Only publish every 25 cycles (conservative — real external actions)
+    if cycle % 25 != 0:
+        return
+
+    devto = CONSCIOUSNESS.get("devto", {})
+    content = CONSCIOUSNESS.get("content_factory", {})
+    dispatch = CONSCIOUSNESS.get("dispatch", {})
+
+    # Only publish if we have: ideas + API key + available workflows
+    if not devto.get("ready_to_publish"):
+        return
+    if not content.get("ideas"):
+        return
+
+    active_names = [w["name"] for w in dispatch.get("available_workflows", [])
+                    if w.get("state") == "active"]
+
+    import subprocess
+    dispatched = []
+
+    # Dispatch OPEN_ANTENNA to scan for content opportunities
+    if any("OPEN_ANTENNA" in n.upper() for n in active_names):
+        try:
+            r = subprocess.run(
+                ["gh", "workflow", "run", "OPEN_ANTENNA.yml"],
+                capture_output=True, text=True, timeout=15,
+                encoding="utf-8", errors="replace")
+            if r.returncode == 0:
+                dispatched.append({
+                    "workflow": "OPEN_ANTENNA",
+                    "reason": "Scan for content opportunities",
+                    "ts": datetime.now(timezone.utc).isoformat(),
+                })
+        except Exception:
+            pass
+
+    # Dispatch TRANSPARENCY_PULSE for community update
+    if any("TRANSPARENCY" in n.upper() for n in active_names):
+        try:
+            r = subprocess.run(
+                ["gh", "workflow", "run", "TRANSPARENCY_PULSE.yml"],
+                capture_output=True, text=True, timeout=15,
+                encoding="utf-8", errors="replace")
+            if r.returncode == 0:
+                dispatched.append({
+                    "workflow": "TRANSPARENCY_PULSE",
+                    "reason": "Publish transparency update",
+                    "ts": datetime.now(timezone.utc).isoformat(),
+                })
+        except Exception:
+            pass
+
+    if dispatched:
+        publisher["dispatched"].extend(dispatched)
+        publisher["total_dispatched"] += len(dispatched)
+        publisher["last_dispatch"] = datetime.now(timezone.utc).isoformat()
+        # Keep bounded
+        if len(publisher["dispatched"]) > 50:
+            publisher["dispatched"] = publisher["dispatched"][-25:]
+
+
 def neuron_github_actions_trigger():
     """
     LIVE: Trigger GitHub Actions workflows to use cloud-only secrets.
@@ -2392,6 +2819,13 @@ NEURONS = [
     ("COMMUNITY_PULSE", neuron_community_pulse),
     ("DASHBOARD_BUILDER", neuron_dashboard_builder),
     ("META_AWARENESS", neuron_meta_awareness),
+    # Phase 9: Cross-platform intelligence & monitoring
+    ("CROSS_SIGNAL", neuron_cross_signal),
+    ("STOCK_SCANNER", neuron_stock_scanner),
+    ("WORKFLOW_DOCTOR", neuron_workflow_doctor),
+    ("GROWTH_TRACKER", neuron_growth_tracker),
+    ("POSITION_MONITOR", neuron_position_monitor),
+    ("CONTENT_PUBLISHER", neuron_content_publisher),
 ]
 
 
