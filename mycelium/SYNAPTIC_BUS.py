@@ -582,6 +582,7 @@ def run():
         "SIGNAL_MESH":      "signal_mesh_state.json",
         "NEURAL_CORTEX":    "neural_cortex_state.json",
         "EXECUTIVE_FUNCTION": "executive_function_state.json",
+        "HOMEOSTASIS":      "homeostasis_state.json",
     }
 
     bootstrapped = 0
@@ -830,6 +831,21 @@ def _extract_key_props(eng_name, data):
         props["total_executions"] = stats.get("total_executions", 0)
         props["success_rate"] = stats.get("success_rate_pct", 0)
         props["active_cooldowns"] = len(data.get("cooldowns", {}))
+
+    elif eng_name == "HOMEOSTASIS":
+        props["equilibrium"] = data.get("equilibrium", 0)
+        props["trend"] = data.get("trend", "unknown")
+        zones = data.get("health_zones", {})
+        props["nervous_system_score"] = zones.get("nervous_system", {}).get("score", 0)
+        props["ecosystem_score"] = zones.get("ecosystem", {}).get("score", 0)
+        props["trading_score"] = zones.get("trading", {}).get("score", 0)
+        props["infrastructure_score"] = zones.get("infrastructure", {}).get("score", 0)
+        ic = data.get("interventions_count", {})
+        props["interventions_critical"] = ic.get("critical", 0)
+        props["interventions_total"] = ic.get("total", 0)
+        fl = data.get("fire_ledger_summary", {})
+        props["fire_overlap_detected"] = fl.get("overlap_detected", False)
+        props["recently_fired_count"] = len(fl.get("recently_fired_engines", []))
 
     return props
 

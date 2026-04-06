@@ -57,6 +57,8 @@ MARKETS_FILE = DATA / "global_markets_state.json"
 PROPRIO_FILE = DATA / "proprioception_state.json"
 METAB_FILE   = DATA / "metabolism_state.json"
 REFLEX_FILE  = DATA / "reflex_arc_state.json"
+EXEC_FILE    = DATA / "executive_function_state.json"
+HOMEO_FILE   = DATA / "homeostasis_state.json"
 
 # ---------------------------------------------------------------------------
 # Tuning constants
@@ -335,6 +337,82 @@ def _ingest_reflex(reflex):
         "hottest_reflex": hottest_reflex,
         "hottest_count": hottest_count,
         "fire_counts": fire_counts,
+    }
+
+
+def _ingest_executive(execf):
+    """
+    LEARNING LOOP: Extract execution history from EXECUTIVE_FUNCTION.
+    The brain learns from what worked and what failed.
+    """
+    stats = execf.get("stats", {})
+    history = execf.get("execution_history", [])
+    cooldowns = execf.get("cooldowns", {})
+
+    total_execs = stats.get("total_executions", 0)
+    successful = stats.get("successful", 0)
+    failed = stats.get("failed", 0)
+    success_rate = round((successful / max(total_execs, 1)) * 100, 1)
+
+    # Track which engines succeed vs fail (learning signal)
+    engines_executed = stats.get("engines_executed", {})
+    # Recent history: last 10 executions
+    recent = history[-10:] if history else []
+    recent_success = sum(1 for r in recent if r.get("result") == "success")
+    recent_fail = sum(1 for r in recent if r.get("result") == "failed")
+    recent_rate = round((recent_success / max(len(recent), 1)) * 100, 1)
+
+    # What engines are currently on cooldown (can't be recommended)
+    active_cooldowns = list(cooldowns.keys())
+
+    # Detect if execution quality is declining
+    trend = "stable"
+    if len(recent) >= 5:
+        first_half = recent[:len(recent)//2]
+        second_half = recent[len(recent)//2:]
+        first_success = sum(1 for r in first_half if r.get("result") == "success")
+        second_success = sum(1 for r in second_half if r.get("result") == "success")
+        if second_success > first_success:
+            trend = "improving"
+        elif second_success < first_success:
+            trend = "declining"
+
+    return {
+        "total_executions": total_execs,
+        "success_rate": success_rate,
+        "recent_success_rate": recent_rate,
+        "execution_trend": trend,
+        "engines_executed": engines_executed,
+        "active_cooldowns": active_cooldowns,
+        "recent_failures": [r.get("engine", "?") for r in recent if r.get("result") == "failed"],
+        "recent_successes": [r.get("engine", "?") for r in recent if r.get("result") == "success"],
+    }
+
+
+def _ingest_homeostasis(homeo):
+    """
+    Extract equilibrium and health zone data from HOMEOSTASIS.
+    Provides the brain with a unified view of system balance.
+    """
+    zones = homeo.get("health_zones", {})
+    interventions = homeo.get("interventions_count", {})
+    fire_summary = homeo.get("fire_ledger_summary", {})
+
+    # Find the weakest zone
+    zone_scores = {z: zd.get("score", 0) for z, zd in zones.items()}
+    weakest = min(zone_scores, key=zone_scores.get) if zone_scores else "unknown"
+
+    return {
+        "equilibrium": _safe_float(homeo.get("equilibrium", 0)),
+        "trend": homeo.get("trend", "unknown"),
+        "zone_scores": zone_scores,
+        "weakest_zone": weakest,
+        "weakest_score": zone_scores.get(weakest, 0),
+        "critical_interventions": interventions.get("critical", 0),
+        "warning_interventions": interventions.get("warning", 0),
+        "total_interventions": interventions.get("total", 0),
+        "fire_overlap_detected": fire_summary.get("overlap_detected", False),
+        "recently_fired_count": len(fire_summary.get("recently_fired_engines", [])),
     }
 
 
@@ -652,13 +730,18 @@ def _assess_system_health(bus_intel, mesh_intel, metab_intel, proprio_intel, ref
 # ---------------------------------------------------------------------------
 def _decide_top_action(
     posture, alloc, priority, priority_scores,
-    mesh_intel, markets_intel, reflex_intel, metab_intel, bus_intel, health
+    mesh_intel, markets_intel, reflex_intel, metab_intel, bus_intel, health,
+    exec_intel=None, homeo_intel=None
 ):
     """
     Synthesize all assessments into the SINGLE best action to take right now.
 
     Candidates are generated from each dimension, scored, and the top one wins.
+    LEARNING LOOP: Engines that recently failed are penalized.
+    HOMEOSTASIS: Weakest health zones generate intervention candidates.
     """
+    exec_intel = exec_intel or {}
+    homeo_intel = homeo_intel or {}
     candidates = []
 
     # Candidate 1: Best trading opportunity from SIGNAL_MESH
@@ -772,6 +855,38 @@ def _decide_top_action(
             "score": round(fire_rate * 0.5, 1),
             "category": "infrastructure",
         })
+
+    # Candidate 8: HOMEOSTASIS weakest zone intervention
+    weakest_zone = homeo_intel.get("weakest_zone", "")
+    weakest_score = homeo_intel.get("weakest_score", 100)
+    if weakest_score < 30:
+        zone_to_engine = {
+            "nervous_system": "SYNAPTIC_BUS",
+            "ecosystem": "METABOLISM_LOOP",
+            "trading": "CROSS_POLLINATOR",
+            "infrastructure": "PROPRIOCEPTION",
+        }
+        target = zone_to_engine.get(weakest_zone, "HOMEOSTASIS")
+        candidates.append({
+            "description": f"Fix weakest zone: {weakest_zone} at {weakest_score}/100",
+            "engine": target,
+            "urgency": round(_clamp(100 - weakest_score, 0, 100)),
+            "score": round((100 - weakest_score) * 0.75, 1),
+            "category": "infrastructure",
+        })
+
+    # LEARNING LOOP: Penalize candidates whose engine recently failed
+    recent_failures = set(exec_intel.get("recent_failures", []))
+    cooldown_engines = set(exec_intel.get("active_cooldowns", []))
+    for c in candidates:
+        eng = c.get("engine", "")
+        if eng in recent_failures:
+            c["score"] *= 0.5  # 50% penalty for recently failed engines
+            c["urgency"] = max(0, c["urgency"] - 15)
+            c["description"] += " [PENALIZED: recently failed]"
+        if eng in cooldown_engines:
+            c["score"] *= 0.3  # Heavy penalty for engines on cooldown
+            c["description"] += " [ON COOLDOWN]"
 
     # Pick the winner
     if not candidates:
@@ -965,6 +1080,8 @@ def run():
     proprio_raw = _load(PROPRIO_FILE)
     metab_raw   = _load(METAB_FILE)
     reflex_raw  = _load(REFLEX_FILE)
+    exec_raw    = _load(EXEC_FILE)
+    homeo_raw   = _load(HOMEO_FILE)
 
     bus_intel     = _ingest_bus(bus_raw)
     mesh_intel    = _ingest_mesh(mesh_raw)
@@ -972,6 +1089,8 @@ def run():
     proprio_intel = _ingest_proprioception(proprio_raw)
     metab_intel   = _ingest_metabolism(metab_raw)
     reflex_intel  = _ingest_reflex(reflex_raw)
+    exec_intel    = _ingest_executive(exec_raw)
+    homeo_intel   = _ingest_homeostasis(homeo_raw)
 
     ingest_ms = _ms_since(t0)
 
@@ -991,6 +1110,36 @@ def run():
         bus_intel, mesh_intel, metab_intel, proprio_intel, reflex_intel
     )
 
+    # LEARNING LOOP: Adjust health based on EXECUTIVE_FUNCTION success history
+    if exec_intel.get("total_executions", 0) > 0:
+        exec_rate = exec_intel.get("success_rate", 100)
+        if exec_rate < 50:
+            health["recommendations"].insert(0,
+                f"WARNING: Execution success rate low ({exec_rate}%) -- brain decisions may need recalibration"
+            )
+        # Penalize health if execution quality is declining
+        if exec_intel.get("execution_trend") == "declining":
+            health["overall_score"] = max(0, health["overall_score"] - 5)
+            health["recommendations"].append(
+                "WARNING: Execution quality declining -- review top_action recommendations"
+            )
+        # Boost confidence if execution trend is improving
+        elif exec_intel.get("execution_trend") == "improving":
+            health["overall_score"] = min(100, health["overall_score"] + 3)
+
+    # HOMEOSTASIS integration: Use equilibrium data to inform health
+    if homeo_intel.get("equilibrium", 0) > 0:
+        # If HOMEOSTASIS reports critical interventions, escalate
+        if homeo_intel.get("critical_interventions", 0) > 0:
+            health["recommendations"].insert(0,
+                f"CRITICAL: HOMEOSTASIS reports {homeo_intel['critical_interventions']} critical interventions -- weakest zone: {homeo_intel.get('weakest_zone', '?')} ({homeo_intel.get('weakest_score', 0)}/100)"
+            )
+        # Blend HOMEOSTASIS equilibrium into overall health
+        homeo_eq = homeo_intel["equilibrium"]
+        health["overall_score"] = round(
+            health["overall_score"] * 0.6 + homeo_eq * 0.4, 1
+        )
+
     assess_ms = _ms_since(t_assess)
 
     # ----- PHASE 3: DECIDE (target: <50ms) -----
@@ -998,7 +1147,8 @@ def run():
 
     top_action = _decide_top_action(
         posture, alloc, priority, priority_scores,
-        mesh_intel, markets_intel, reflex_intel, metab_intel, bus_intel, health
+        mesh_intel, markets_intel, reflex_intel, metab_intel, bus_intel, health,
+        exec_intel, homeo_intel
     )
     confidence = _compute_confidence(
         bus_intel, mesh_intel, markets_intel, metab_intel, proprio_intel, health

@@ -65,6 +65,7 @@ SIGNAL_SOURCES = [
     {"id": "proprioception",    "file": "proprioception_state.json",      "weight": 0.5,  "label": "Proprioception"},
     {"id": "neural_cortex",     "file": "neural_cortex_state.json",       "weight": 0.85, "label": "Neural Cortex"},
     {"id": "executive_fn",      "file": "executive_function_state.json",  "weight": 0.5,  "label": "Executive Function"},
+    {"id": "homeostasis",       "file": "homeostasis_state.json",         "weight": 0.75, "label": "Homeostasis"},
 ]
 
 # Freshness decay thresholds
@@ -486,6 +487,40 @@ def _extract_signal(source_def, data, now):
                 "total_executions": total_execs,
                 "platform": "solarpunk",
             })
+
+    elif sid == "homeostasis":
+        # System equilibrium and health zone data as stability signal
+        equilibrium = data.get("equilibrium", 0)
+        trend_val = data.get("trend", "stable")
+        zones = data.get("health_zones", {})
+        interventions_count = data.get("interventions_count", {})
+        fire_summary = data.get("fire_ledger_summary", {})
+
+        critical_count = interventions_count.get("critical", 0)
+        warning_count = interventions_count.get("warning", 0)
+
+        # Strength from equilibrium score
+        signal["signal_strength"] = min(75, int(equilibrium * 0.6 + (10 if trend_val == "improving" else 0)))
+        signal["signal_direction"] = (
+            "bullish" if equilibrium > 70 and trend_val == "improving" else
+            "bearish" if equilibrium < 30 or critical_count > 2 else
+            "opportunity" if trend_val == "improving" else "neutral"
+        )
+
+        # Report zone scores + race detection as opportunities
+        zone_summary = {z: zd.get("score", 0) for z, zd in zones.items()}
+        weakest = min(zone_summary, key=zone_summary.get) if zone_summary else "unknown"
+        signal["opportunities"].append({
+            "type": "system_health",
+            "equilibrium": equilibrium,
+            "trend": trend_val,
+            "weakest_zone": weakest,
+            "weakest_score": zone_summary.get(weakest, 0),
+            "critical_interventions": critical_count,
+            "warning_interventions": warning_count,
+            "fire_overlap": fire_summary.get("overlap_detected", False),
+            "platform": "solarpunk",
+        })
 
     return signal
 

@@ -336,6 +336,21 @@ def run():
     urgency = top_action.get("urgency", 0)
     description = top_action.get("description", "no action specified")
 
+    # ----- PHASE 1b: READ FIRE LEDGER (race prevention with REFLEX_ARC) -----
+    fire_ledger = _load(DATA / "fire_ledger.json")
+    recently_fired = fire_ledger.get("summary", {}).get("recently_fired_engines", [])
+
+    # ----- PHASE 1c: READ REFLEX_ARC recent fires -----
+    reflex_state = _load(DATA / "reflex_arc_state.json")
+    reflex_fire_log = reflex_state.get("fire_log", [])
+    reflex_recent_engines = set()
+    for fire in reflex_fire_log:
+        fire_ts = _parse_iso(fire.get("timestamp"))
+        if fire_ts and (_now_dt() - fire_ts).total_seconds() < COOLDOWN_MINUTES * 60:
+            engine_fired = fire.get("engine_fired", fire.get("action", ""))
+            if engine_fired:
+                reflex_recent_engines.add(engine_fired)
+
     # ----- PHASE 2: CHECK execution eligibility -----
     last_execution = {}
     executed_this_cycle = False
@@ -350,6 +365,10 @@ def run():
         skip_reason = f"urgency {urgency} below threshold {URGENCY_THRESHOLD}"
     elif not _is_cooled_down(cooldowns, target_engine):
         skip_reason = f"{target_engine} is on cooldown"
+    elif target_engine in reflex_recent_engines:
+        skip_reason = f"{target_engine} already fired by REFLEX_ARC recently (race prevention)"
+    elif target_engine in recently_fired:
+        skip_reason = f"{target_engine} in fire ledger (HOMEOSTASIS race prevention)"
 
     # ----- PHASE 3: EXECUTE top_action -----
     if skip_reason is None:

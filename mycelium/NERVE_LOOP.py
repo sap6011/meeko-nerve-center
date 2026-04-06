@@ -856,8 +856,32 @@ def run():
             "top_action": top.get("description", "none"),
         }
 
-        # Phase 15: EXECUTIVE_FUNCTION -- motor cortex (executes brain's decisions)
-        print("\n=== PHASE 15: EXECUTIVE_FUNCTION (Motor Cortex) ===")
+        # Phase 15: HOMEOSTASIS -- active equilibrium maintenance (reads everything, maintains balance)
+        print("\n=== PHASE 15: HOMEOSTASIS (Equilibrium Maintenance) ===")
+        homeo_result = _run_engine("HOMEOSTASIS", "HOMEOSTASIS")
+        homeo_state = _load(DATA / "homeostasis_state.json")
+        eq = homeo_state.get("equilibrium", 0)
+        trend = homeo_state.get("trend", "?")
+        zones = homeo_state.get("health_zones", {})
+        ic = homeo_state.get("interventions_count", {})
+        fl = homeo_state.get("fire_ledger_summary", {})
+        print(f"  [HOMEOSTASIS] Equilibrium: {eq}/100 | Trend: {trend}")
+        zone_str = " | ".join(f"{z}={zd.get('score',0)}" for z, zd in zones.items())
+        print(f"  [HOMEOSTASIS] Zones: {zone_str}")
+        print(f"  [HOMEOSTASIS] Interventions: {ic.get('critical',0)} CRITICAL, {ic.get('warning',0)} WARNING | "
+              f"Race overlap: {fl.get('overlap_detected', False)}")
+        cycle_results["phases"]["homeostasis"] = {
+            "phase": "homeostasis",
+            "result": homeo_result,
+            "equilibrium": eq,
+            "trend": trend,
+            "critical": ic.get("critical", 0),
+            "warning": ic.get("warning", 0),
+            "overlap": fl.get("overlap_detected", False),
+        }
+
+        # Phase 16: EXECUTIVE_FUNCTION -- motor cortex (executes brain's decisions)
+        print("\n=== PHASE 16: EXECUTIVE_FUNCTION (Motor Cortex) ===")
         exec_result = _run_engine("EXECUTIVE_FUNCTION", "EXECUTIVE_FUNCTION")
         exec_state = _load(DATA / "executive_function_state.json")
         last_exec = exec_state.get("last_execution", {})
