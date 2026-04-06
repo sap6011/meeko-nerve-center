@@ -446,6 +446,7 @@ def L6():
     eng("SOL_MAXIMIZER",             timeout=30)   # v49: yield optimization — staking, lending, liquid staking
     eng("YIELD_LOOP",                timeout=30)   # v49: autonomous compound loop — detect, decide, queue
     eng("AIRDROP_HUNTER",            timeout=30)   # v49: scan + qualify for Solana airdrops
+    eng("KALSHI_SCANNER",            timeout=60)   # v50: CFTC-regulated prediction market intelligence
     eng("ARBITRAGE_SCANNER",        timeout=60)   # v50: cross-wallet cross-market arb detection
     eng("DIRECT_WIRE",              timeout=120)  # v49: frictionless commit — compile, commit, push, sync USB
 

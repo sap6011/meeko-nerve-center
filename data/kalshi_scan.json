@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-04-06T00:59:31.692471+00:00",
+  "protocol": "kalshi-scanner-v1",
+  "exchange_status": {
+    "exchange_active": true,
+    "trading_active": true
+  },
+  "markets_scanned": 200,
+  "signals_found": {
+    "crypto": 0,
+    "macro": 0,
+    "crisis": 1,
+    "sol_specific": 0,
+    "economics": 0,
+    "weather": 1
+  },
+  "kalshi_sentiment": {
+    "crypto_bullish": 0.5,
+    "macro_risk": 0.5,
+    "crisis_level": 0.0,
+    "sol_outlook": 0.5,
+    "fed_hawkish": 0.5,
+    "recession_prob": 0.0,
+    "reasoning": [
+      "Kalshi data processed -- no strong directional signals"
+    ]
+  },
+  "merged_sentiment": {
+    "crypto_bullish": 0.369,
+    "macro_risk": 0.255,
+    "crisis_level": 0.23,
+    "sol_outlook": 0.337,
+    "fed_hawkish": 0.5,
+    "recession_prob": 0.0,
+    "sources": [
+      "polymarket",
+      "kalshi"
+    ],
+    "cross_validated": true,
+    "reasoning": [
+      "DIVERGENCE: Polymarket=24% vs Kalshi=50% on crypto -- investigate",
+      "[Poly] Crypto markets leaning bearish (24% avg YES)",
+      "[Poly] SOL-specific markets cautious (17%)",
+      "[Kalshi] Kalshi data processed -- no strong directional signals"
+    ],
+    "recommended_action": "reduce_exposure"
+  },
+  "top_signals": {
+    "crypto": [],
+    "economics": [],
+    "macro": []
+  }
+}

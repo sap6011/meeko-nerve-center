@@ -1,23 +1,45 @@
 {
-  "timestamp": "2026-04-06T00:52:58.104622+00:00",
-  "source": "polymarket_gamma_api",
-  "markets_analyzed": 200,
+  "timestamp": "2026-04-06T00:59:31.691995+00:00",
+  "sources": [
+    "polymarket",
+    "kalshi"
+  ],
+  "markets_analyzed": 400,
   "signals": {
-    "crypto_markets": 19,
-    "macro_markets": 1,
-    "crisis_markets": 2,
-    "sol_specific": 3
+    "polymarket": {
+      "crypto_markets": 19,
+      "macro_markets": 1,
+      "crisis_markets": 2,
+      "sol_specific": 3
+    },
+    "kalshi": {
+      "crypto_markets": 0,
+      "macro_markets": 0,
+      "economics_markets": 0,
+      "crisis_markets": 1,
+      "sol_specific": 0,
+      "weather_markets": 1
+    }
   },
   "sentiment": {
-    "crypto_bullish": 0.238,
-    "macro_risk": 0.009,
+    "crypto_bullish": 0.369,
+    "macro_risk": 0.255,
     "crisis_level": 0.23,
-    "sol_outlook": 0.174,
-    "recommended_action": "reduce_exposure",
+    "sol_outlook": 0.337,
+    "fed_hawkish": 0.5,
+    "recession_prob": 0.0,
+    "sources": [
+      "polymarket",
+      "kalshi"
+    ],
+    "cross_validated": true,
     "reasoning": [
-      "Crypto markets leaning bearish (24% avg YES)",
-      "SOL-specific markets cautious (17%)"
-    ]
+      "DIVERGENCE: Polymarket=24% vs Kalshi=50% on crypto -- investigate",
+      "[Poly] Crypto markets leaning bearish (24% avg YES)",
+      "[Poly] SOL-specific markets cautious (17%)",
+      "[Kalshi] Kalshi data processed -- no strong directional signals"
+    ],
+    "recommended_action": "reduce_exposure"
   },
   "top_crypto_signals": [
     {
@@ -153,6 +175,22 @@
       "volume": 981.143347,
       "end_date": "2026-06-30",
       "confidence": "low"
+    }
+  ],
+  "kalshi_crypto": [],
+  "kalshi_macro": [],
+  "kalshi_economics": [],
+  "kalshi_weather": [
+    {
+      "ticker": "KXMVESPORTSMULTIGAMEEXTENDED-S2026FB41D9C8B20-6FF2B886E09",
+      "question": "yes Charlotte,yes Oklahoma City,yes NJ Devils,yes COL Avalanche,yes NYR Rangers,yes CAR Hurricanes,yes Arsenal",
+      "yes_pct": 0.0,
+      "no_pct": 0.0,
+      "volume": 0,
+      "open_interest": 0,
+      "close_time": "2026-04-19",
+      "confidence": "low",
+      "source": "kalshi"
     }
   ]
 }
