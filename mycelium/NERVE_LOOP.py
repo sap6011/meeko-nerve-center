@@ -264,6 +264,43 @@ def phase_4_plan():
     return {"phase": "plan", "results": results, "queue_size": len(unified_queue), "pending": pending}
 
 
+def phase_0_5_settlement():
+    """
+    PHASE 0.5: SETTLEMENT -- Detect settled positions, redeploy capital.
+
+    Runs BEFORE any trading phase. If Kalshi positions have settled,
+    cash is sitting idle. This detects the balance increase and either:
+      - Triggers TURBO_TRADER to redeploy on Kalshi
+      - Logs a recommendation to transfer to Alpaca
+    Must run first so TURBO_TRADER sees the full available balance.
+    """
+    print("\n=== PHASE 0.5: SETTLEMENT (Cash Redeployment) ===")
+    result = _run_engine("SETTLEMENT_WATCHER", "SETTLE")
+
+    settle_state = _load(DATA / "settlement_watcher_state.json")
+    status = settle_state.get("status", "unknown")
+    balance = settle_state.get("balance", "?")
+    delta = settle_state.get("delta", 0)
+    detected = settle_state.get("settlement_detected", False)
+    action = settle_state.get("action_taken", "none")
+
+    if detected:
+        print(f"  [SETTLE] SETTLEMENT DETECTED! +${delta:.2f} -> ${balance}")
+        print(f"  [SETTLE] Action: {action}")
+    else:
+        print(f"  [SETTLE] No settlement. Balance: ${balance}")
+
+    return {
+        "phase": "settlement",
+        "result": result,
+        "status": status,
+        "balance": balance,
+        "delta": delta,
+        "settlement_detected": detected,
+        "action_taken": action,
+    }
+
+
 def phase_4b_execute():
     """
     PHASE 4b: EXECUTE -- Run TRADE_EXECUTOR on Kalshi.
@@ -647,6 +684,10 @@ def run():
 
         # Phase 4: PLAN -- build unified action queue
         cycle_results["phases"]["plan"] = phase_4_plan()
+        time.sleep(1)
+
+        # Phase 0.5: SETTLEMENT -- detect settled positions, redeploy capital
+        cycle_results["phases"]["settlement"] = phase_0_5_settlement()
         time.sleep(1)
 
         # Phase 4b: EXECUTE -- Kalshi trading (if enabled)

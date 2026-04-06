@@ -132,14 +132,11 @@ def load_schedule():
 SCHEDULE = load_schedule()
 
 # Ollama models in priority order
-# NOTE: Models >4GB are corrupted (truncated downloads). Re-pull to fix:
-#   ollama pull mycelium:latest && ollama pull deepseek-r1:8b
-# Until then, llama3.2 (2GB) is the only working model.
+# NOTE: Models >4GB hit a corruption boundary (tensor offset exceeds file size).
+# Corrupted 7B+ models were removed 2026-04-06. Only sub-4GB models are safe.
 OLLAMA_MODELS = [
-    "llama3.2:latest",     # 3.2B -- the only working model (others corrupted)
-    "mycelium:latest",     # Custom SolarPunk (CORRUPTED -- needs re-pull)
-    "deepseek-r1:8b",      # Reasoning (CORRUPTED -- needs re-pull)
-    "qwen2.5-coder:7b",    # Code-aware (CORRUPTED -- needs re-pull)
+    "llama3.2:latest",     # 3.2B (2.0GB) -- primary, proven stable
+    "phi3:mini",           # 3.8B (2.2GB) -- secondary, under 4GB boundary
 ]
 
 OLLAMA_URL = "http://localhost:11434"

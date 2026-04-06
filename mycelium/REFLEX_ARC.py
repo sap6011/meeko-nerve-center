@@ -271,39 +271,43 @@ def _reflex_engine_crash(bus, mesh, state):
 
 
 def _reflex_deposit_detected(bus, mesh, state):
-    """PRIORITY 2: New deposit/balance increase -> deploy capital immediately."""
+    """PRIORITY 2: New deposit/balance increase -> route through AUTO_DEPOSIT smart splitter."""
     t0 = time.time()
     engines = bus.get("engines", {})
+
+    deposit_amount = 0
+    deposit_source = None
 
     # Check TURBO_TRADER for deposit flag
     turbo = engines.get("TURBO_TRADER", {}).get("properties", {})
     if turbo.get("deposit_detected"):
-        detail = "TURBO_TRADER reports deposit -- triggering immediate deployment"
-        result = _run_engine_safe("TURBO_TRADER")
-        _emit_to_bus("REFLEX_ARC", {
-            "action": "DEPOSIT_DEPLOY",
-            "platform": "kalshi",
-            "trigger": "deposit_detected",
-            "result": result.get("status", "unknown"),
-        })
-        return True, detail, _ms_since(t0)
+        deposit_source = "kalshi_deposit_flag"
+        deposit_amount = turbo.get("balance", 0) or 0
 
     # Check Alpaca for balance increases
-    alpaca = engines.get("ALPACA_TRADER", {}).get("properties", {})
-    prev_balance = state.get("prev_balances", {}).get("alpaca", 0)
-    curr_balance = alpaca.get("portfolio_value", 0) or 0
-    if curr_balance > 0 and prev_balance > 0 and (curr_balance - prev_balance) > 1.0:
-        detail = f"ALPACA balance increased ${prev_balance:.2f} -> ${curr_balance:.2f}"
-        result = _run_engine_safe("ALPACA_TRADER")
-        _emit_to_bus("REFLEX_ARC", {
-            "action": "DEPOSIT_DEPLOY",
-            "platform": "alpaca",
-            "delta": round(curr_balance - prev_balance, 2),
-            "result": result.get("status", "unknown"),
-        })
-        return True, detail, _ms_since(t0)
+    if not deposit_source:
+        alpaca = engines.get("ALPACA_TRADER", {}).get("properties", {})
+        prev_balance = state.get("prev_balances", {}).get("alpaca", 0)
+        curr_balance = alpaca.get("portfolio_value", 0) or 0
+        if curr_balance > 0 and prev_balance > 0 and (curr_balance - prev_balance) > 1.0:
+            deposit_source = "alpaca_balance_increase"
+            deposit_amount = round(curr_balance - prev_balance, 2)
 
-    return False, "no deposits detected", _ms_since(t0)
+    if not deposit_source:
+        return False, "no deposits detected", _ms_since(t0)
+
+    # Route through AUTO_DEPOSIT smart splitter instead of directly calling traders
+    detail = (f"Deposit detected ({deposit_source}, ~${deposit_amount:.2f}) "
+              f"-- routing through AUTO_DEPOSIT smart splitter")
+    result = _run_engine_safe("AUTO_DEPOSIT")
+    _emit_to_bus("REFLEX_ARC", {
+        "action": "DEPOSIT_SMART_SPLIT",
+        "deposit_source": deposit_source,
+        "deposit_amount": deposit_amount,
+        "router": "AUTO_DEPOSIT",
+        "result": result.get("status", "unknown") if isinstance(result, dict) else "completed",
+    })
+    return True, detail, _ms_since(t0)
 
 
 def _reflex_settlement_spike(bus, mesh, state):

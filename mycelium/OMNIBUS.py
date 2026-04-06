@@ -449,6 +449,7 @@ def L6():
     eng("KALSHI_SCANNER",            timeout=60)   # v50: CFTC-regulated prediction market intelligence
     eng("ARBITRAGE_SCANNER",        timeout=60)   # v50: cross-wallet cross-market arb detection
     eng("TRADE_EXECUTOR",           timeout=60)   # v50: Kalshi prediction market trading (user-enabled)
+    eng("SETTLEMENT_WATCHER",       timeout=15)   # v56: detect Kalshi settlements, redeploy capital instantly
     eng("TURBO_TRADER",             timeout=120)  # v51: high-frequency compounding -- daily markets, micro-trades, auto-reinvest
     eng("ALPACA_TRADER",            timeout=60)   # v52: commission-free stocks/ETFs/crypto via Alpaca (paper or live)
     eng("TRADING_WIRE",             timeout=30)   # v50: bridges trading data -> revenue ecosystem (41 engines)
@@ -456,6 +457,7 @@ def L6():
     eng("PULSE",                    timeout=15)   # v52: system vital signs dashboard -- all metrics at a glance
     eng("SIGNAL_MESH",              timeout=30)   # v53: signal aggregation -- composite signals from ALL sources
     eng("SYNAPTIC_BUS",             timeout=15)   # v54: shared consciousness -- every engine aware of every engine
+    eng("AUTO_DEPOSIT",             timeout=30)   # v56: smart capital splitter -- routes deposits to optimal platform
     eng("REFLEX_ARC",               timeout=60)   # v55: fast-path reflexes -- bypasses AI for millisecond response
     eng("PROPRIOCEPTION",           timeout=30)   # v55: body awareness -- structure, health, speed, growth rate
     eng("NERVE_LOOP",               timeout=300)  # v50: THE LIVING LOOP — all engines feed all engines, forever

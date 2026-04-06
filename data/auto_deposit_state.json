@@ -1,0 +1,79 @@
+{
+  "total_deployments": 1,
+  "total_deployed_usd": 1.57,
+  "history": [
+    {
+      "timestamp": "2026-04-06T07:07:34.431244+00:00",
+      "amount": 1.57,
+      "split": {
+        "kalshi_pct": 10.0,
+        "kalshi_amount": 0.16,
+        "alpaca_pct": 90.0,
+        "alpaca_amount": 1.41,
+        "rule_applied": "OPP_VACUUM_ALPACA",
+        "reasoning": "Kalshi has 0 opportunities, Alpaca has 6 -> 90% to Alpaca"
+      },
+      "executions": [
+        {
+          "platform": "kalshi",
+          "engine": "TURBO_TRADER",
+          "amount_targeted": 0.16,
+          "auto_executed": false,
+          "status": "below_minimum",
+          "timestamp": "2026-04-06T07:07:34.431244+00:00"
+        },
+        {
+          "platform": "alpaca",
+          "engine": "ALPACA_TRADER",
+          "amount_targeted": 1.41,
+          "auto_executed": false,
+          "market_open": false,
+          "status": "queued_for_market_open",
+          "timestamp": "2026-04-06T07:07:34.431244+00:00"
+        }
+      ],
+      "intel_snapshot": {
+        "urgency": 10,
+        "strength": 70.5,
+        "diversification": 6.2,
+        "kalshi_opps": 0,
+        "alpaca_opps": 6,
+        "market_open": false
+      },
+      "elapsed_ms": 4.0
+    }
+  ],
+  "last_run": "2026-04-06T07:07:34.431244+00:00",
+  "last_result": "OPP_VACUUM_ALPACA",
+  "last_amount": 1.57,
+  "last_split": {
+    "kalshi_pct": 10.0,
+    "kalshi_amount": 0.16,
+    "alpaca_pct": 90.0,
+    "alpaca_amount": 1.41,
+    "rule_applied": "OPP_VACUUM_ALPACA",
+    "reasoning": "Kalshi has 0 opportunities, Alpaca has 6 -> 90% to Alpaca"
+  },
+  "last_executions": [
+    {
+      "platform": "kalshi",
+      "engine": "TURBO_TRADER",
+      "amount_targeted": 0.16,
+      "auto_executed": false,
+      "status": "below_minimum",
+      "timestamp": "2026-04-06T07:07:34.431244+00:00"
+    },
+    {
+      "platform": "alpaca",
+      "engine": "ALPACA_TRADER",
+      "amount_targeted": 1.41,
+      "auto_executed": false,
+      "market_open": false,
+      "status": "queued_for_market_open",
+      "timestamp": "2026-04-06T07:07:34.431244+00:00"
+    }
+  ],
+  "status": "active",
+  "protocol": "auto-deposit-v1",
+  "ethics": "99% mutual aid / 1% node fuel"
+}
