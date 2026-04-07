@@ -1,254 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Transparency Report - SolarPunk | Open Source Accountability, Every Dollar Tracked</title>
-<meta name="description" content="Full transparency report for the SolarPunk autonomous AI system. Engine count history, revenue tracking ($0 current), proof ledger, git log stats, and operational metrics. Every dollar tracked.">
-<meta name="keywords" content="transparent AI, open source accountability, AI transparency report, ethical AI audit, proof ledger, revenue tracking AI">
-<meta property="og:title" content="SolarPunk Transparency Report - Every Dollar Tracked">
-<meta property="og:description" content="Full operational and financial transparency for a 366-engine autonomous AI system. Revenue: $0. Engines: 366. Proof: public.">
-<meta property="og:url" content="https://meekotharaccoon-cell.github.io/meeko-nerve-center/transparency.html">
-<meta property="og:type" content="article">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SolarPunk Transparency Report">
-<meta name="twitter:description" content="366 engines. $0 revenue. 100% transparent. The autonomous AI system that hides nothing.">
-<link rel="canonical" href="https://meekotharaccoon-cell.github.io/meeko-nerve-center/transparency.html">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Report",
-  "name": "SolarPunk Transparency Report - April 2026",
-  "description": "Full operational and financial transparency report for the SolarPunk autonomous AI system.",
-  "author": {"@type": "Organization", "name": "SolarPunk"},
-  "datePublished": "2026-04-04",
-  "publisher": {"@type": "Organization", "name": "SolarPunk"}
-}
-</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SolarPunk Transparency Report — April 2026</title>
+<meta property="og:title" content="SolarPunk Transparency Report — April 2026">
+<meta property="og:description" content="Every autonomous action SolarPunk took this month. Verifiable. Open. Free.">
+<meta name="twitter:card" content="summary">
 <style>
-  body { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.7; margin: 0; padding: 0; }
-  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
-  h1 { color: #58a6ff; font-size: 2.4em; text-align: center; margin-bottom: 10px; }
-  h2 { color: #3fb950; font-size: 1.6em; margin-top: 50px; border-bottom: 1px solid #21262d; padding-bottom: 10px; }
-  h3 { color: #58a6ff; font-size: 1.2em; margin-top: 30px; }
-  p { font-size: 1.05em; }
-  a { color: #58a6ff; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .subtitle { text-align: center; color: #8b949e; font-size: 1.1em; margin-bottom: 40px; }
-  .report-date { text-align: center; color: #8b949e; font-size: 0.95em; margin-bottom: 30px; }
-  .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin: 25px 0; }
-  .stat-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 20px; text-align: center; }
-  .stat-card .val { font-size: 2em; font-weight: bold; color: #3fb950; }
-  .stat-card .label { font-size: 0.85em; color: #8b949e; margin-top: 5px; }
-  .stat-card.zero .val { color: #d29922; }
-  .ledger-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-  .ledger-table th { background: #161b22; color: #3fb950; text-align: left; padding: 12px; border: 1px solid #30363d; }
-  .ledger-table td { padding: 12px; border: 1px solid #30363d; }
-  .ledger-table .amount { color: #3fb950; font-weight: bold; text-align: right; }
-  .section-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 25px; margin: 20px 0; }
-  .honest-box { background: #2d1600; border: 1px solid #d29922; border-radius: 8px; padding: 20px; margin: 25px 0; }
-  .honest-box strong { color: #d29922; }
-  .timeline { border-left: 3px solid #3fb950; padding-left: 25px; margin: 20px 0; }
-  .timeline-item { margin-bottom: 25px; position: relative; }
-  .timeline-item::before { content: ''; position: absolute; left: -31px; top: 5px; width: 12px; height: 12px; background: #3fb950; border-radius: 50%; }
-  .timeline-date { color: #3fb950; font-weight: bold; }
-  .code-block { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; font-family: 'Courier New', monospace; font-size: 0.9em; color: #e6edf3; overflow-x: auto; margin: 15px 0; white-space: pre; }
-  nav { background: #161b22; border-bottom: 1px solid #30363d; padding: 15px 0; text-align: center; }
-  nav a { color: #58a6ff; margin: 0 15px; font-size: 0.95em; }
-  .footer { border-top: 1px solid #21262d; margin-top: 60px; padding-top: 30px; text-align: center; color: #8b949e; font-size: 0.9em; }
-  .footer a { color: #3fb950; }
-  .cta { background: linear-gradient(135deg, #238636, #1a7f37); color: #fff; padding: 15px 30px; border-radius: 8px; display: inline-block; font-weight: bold; margin: 10px; text-decoration: none; }
-  .cta:hover { text-decoration: none; opacity: 0.9; }
-  ul { padding-left: 25px; }
-  li { margin-bottom: 10px; }
-  .progress-bar { background: #21262d; border-radius: 6px; height: 24px; overflow: hidden; margin: 10px 0; }
-  .progress-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: bold; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a1a0f;color:#c8f5d0;font-family:system-ui,sans-serif;line-height:1.6}
+header{background:#0d2210;border-bottom:1px solid #1a3a1f;padding:2rem;text-align:center}
+header h1{color:#4ade80;font-size:2rem;margin-bottom:.5rem}
+header p{color:#86efac}
+.container{max-width:900px;margin:2rem auto;padding:0 1rem}
+.intro{background:#0d2210;border:1px solid #1a3a1f;border-radius:12px;padding:1.5rem;margin-bottom:2rem}
+.intro p{color:#86efac;margin-bottom:.5rem}
+table{width:100%;border-collapse:collapse;background:#0d2210;border-radius:12px;overflow:hidden;border:1px solid #1a3a1f}
+th{background:#052e16;color:#4ade80;text-align:left;padding:1rem;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em}
+td{padding:.85rem 1rem;border-bottom:1px solid #1a3a1f;font-size:.95rem}
+td.num{color:#4ade80;font-weight:700;font-size:1.1rem;white-space:nowrap}
+td.desc{color:#86efac;font-size:.85rem}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#0f2915}
+.source-note{text-align:center;padding:1.5rem;color:#86efac;font-size:.85rem}
+footer{text-align:center;padding:2rem;color:#86efac;border-top:1px solid #1a3a1f;font-size:.9rem}
 </style>
 </head>
 <body>
-<nav>
-  <a href="index.html">Dashboard</a>
-  <a href="how-it-works.html">How It Works</a>
-  <a href="mission.html">Mission</a>
-  <a href="products/index.html">Products</a>
-  <a href="for-developers.html">Developers</a>
-  <a href="transparency.html"><strong>Transparency</strong></a>
-  <a href="faq.html">FAQ</a>
-</nav>
+<header>
+  <h1>Transparency Report</h1>
+  <p>April 2026 · Generated automatically by TRANSPARENCY_PULSE.yml</p>
+</header>
 <div class="container">
-
-<h1>Transparency Report</h1>
-<p class="subtitle">Every engine counted. Every dollar tracked. Every claim verifiable.</p>
-<p class="report-date">Report generated: April 4, 2026 | Data sources: live_wire_report.json, proof_ledger.json, knowledge_distiller_state.json</p>
-
-<div class="honest-box">
-  <strong>Honest Disclosure:</strong> Total revenue to date is <strong>$0.00</strong>. The system has 11 products ready for sale and 44 revenue engines operational, but no sales have been completed yet. This report exists because transparency means reporting what is real, not what sounds impressive.
-</div>
-
-<h2>System Metrics</h2>
-<div class="stat-grid">
-  <div class="stat-card"><div class="val">366</div><div class="label">Total Engines</div></div>
-  <div class="stat-card"><div class="val">5,476</div><div class="label">Live Wires</div></div>
-  <div class="stat-card"><div class="val">3,773</div><div class="label">Zero-Secret Chains</div></div>
-  <div class="stat-card"><div class="val">283</div><div class="label">Zero-Secret Engines</div></div>
-  <div class="stat-card"><div class="val">83</div><div class="label">Engines Needing API Keys</div></div>
-  <div class="stat-card"><div class="val">201</div><div class="label">Engines with run()</div></div>
-  <div class="stat-card"><div class="val">424</div><div class="label">Connected Data Files</div></div>
-  <div class="stat-card"><div class="val">2,030</div><div class="label">Total Functions</div></div>
-  <div class="stat-card"><div class="val">75,617</div><div class="label">Lines of Code</div></div>
-  <div class="stat-card"><div class="val">8</div><div class="label">Orphan Outputs</div></div>
-  <div class="stat-card"><div class="val">60</div><div class="label">Hungry Inputs</div></div>
-  <div class="stat-card"><div class="val">11</div><div class="label">Products Ready</div></div>
-</div>
-
-<h2>Engine Category Breakdown</h2>
-<div class="section-box">
-  <p><strong>Core Infrastructure:</strong> 143 engines (39%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:39%; background:#3fb950;">143</div></div>
-
-  <p><strong>Revenue Generation:</strong> 44 engines (12%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:12%; background:#58a6ff;">44</div></div>
-
-  <p><strong>Content & Distribution:</strong> 30 engines (8%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:8%; background:#d2a8ff;">30</div></div>
-
-  <p><strong>Self-Improvement & Ops:</strong> 26 engines (7%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:7%; background:#f0883e;">26</div></div>
-
-  <p><strong>Crisis Response & Defense:</strong> 24 engines (7%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:7%; background:#da3633;">24</div></div>
-
-  <p><strong>Topology & Wiring:</strong> 23 engines (6%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:6%; background:#3fb950;">23</div></div>
-
-  <p><strong>Intelligence & Memory:</strong> 21 engines (6%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:6%; background:#58a6ff;">21</div></div>
-
-  <p><strong>Infrastructure & Scheduling:</strong> 19 engines (5%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:5%; background:#d2a8ff;">19</div></div>
-
-  <p><strong>Outreach & Partnerships:</strong> 13 engines (4%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:4%; background:#f0883e;">13</div></div>
-
-  <p><strong>Creative & Brand:</strong> 8 engines (2%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:2%; background:#da3633;">8</div></div>
-
-  <p><strong>Bio-Inspired Patterns:</strong> 8 engines (2%)</p>
-  <div class="progress-bar"><div class="progress-fill" style="width:2%; background:#3fb950;">8</div></div>
-</div>
-
-<h2>Financial Report</h2>
-
-<table class="ledger-table">
-  <tr><th>Metric</th><th>Value</th></tr>
-  <tr><td>Total Revenue (All Time)</td><td class="amount">$0.00</td></tr>
-  <tr><td>Allocated to Mutual Aid (99%)</td><td class="amount">$0.00</td></tr>
-  <tr><td>Allocated to Operations (1%)</td><td class="amount">$0.00</td></tr>
-  <tr><td>Disbursed to PCRF</td><td class="amount">$0.00</td></tr>
-  <tr><td>Disbursed to Other Partners</td><td class="amount">$0.00</td></tr>
-  <tr><td>Operational Expenses Paid</td><td class="amount">$0.00</td></tr>
-  <tr><td>Products Available for Sale</td><td class="amount">11</td></tr>
-  <tr><td>Revenue Engines Active</td><td class="amount">44</td></tr>
-  <tr><td>Ko-fi Store</td><td class="amount">Configured</td></tr>
-  <tr><td>Gumroad Store</td><td class="amount">Pending</td></tr>
-</table>
-
-<div class="honest-box">
-  <strong>Why $0?</strong> The system has prioritized building a robust, self-healing, autonomous infrastructure before aggressively pursuing sales. The 11 products are ready. The revenue engines are operational. The distribution channels are being connected. First revenue is the next milestone. When it arrives, it will appear in this table within the same git commit that records the sale.
-</div>
-
-<h2>Product Inventory</h2>
-<table class="ledger-table">
-  <tr><th>Product</th><th>Price</th><th>Words</th><th>Status</th></tr>
-  <tr><td>Build Your Own SolarPunk</td><td class="amount">$1.00</td><td>2,398</td><td>Ready</td></tr>
-  <tr><td>Build a Local AI Agent with Ollama</td><td class="amount">$1.00</td><td>2,451</td><td>Ready</td></tr>
-  <tr><td>System Snapshot</td><td class="amount">$1.00</td><td>894</td><td>Ready</td></tr>
-  <tr><td>Bio-Inspired Architecture</td><td class="amount">$1.00</td><td>3,068</td><td>Ready</td></tr>
-  <tr><td>300-Engine Autonomous AI Guide</td><td class="amount">$12.00</td><td>5,500</td><td>Ready</td></tr>
-  <tr><td>Ethical AI Revenue Playbook</td><td class="amount">$5.00</td><td>180</td><td>Ready</td></tr>
-  <tr><td>Engine Encyclopedia</td><td class="amount">$8.00</td><td>16,336</td><td>Ready</td></tr>
-  <tr><td>Complete SolarPunk Bundle</td><td class="amount">$25.00</td><td>11,464</td><td>Ready</td></tr>
-  <tr><td>Developer Starter Pack</td><td class="amount">$8.00</td><td>5,545</td><td>Ready</td></tr>
-  <tr><td>AI Builder Kit</td><td class="amount">$10.00</td><td>7,243</td><td>Ready</td></tr>
-  <tr><td>Content Creator Pack</td><td class="amount">$6.00</td><td>3,105</td><td>Ready</td></tr>
-</table>
-
-<h2>Growth Timeline</h2>
-<div class="timeline">
-  <div class="timeline-item">
-    <div class="timeline-date">2025 -- Foundation</div>
-    <p>SolarPunk created. First engines written. Mycelium architecture designed. Ethics lock implemented.</p>
+  <div class="intro">
+    <p><strong style="color:#4ade80">Every number in this report is sourced directly from SolarPunk's own data files.</strong></p>
+    <p>No marketing. No spin. These are the actual counts logged by each engine as it ran. The source files are in <code>data/</code> in the public repo.</p>
+    <p>This report was generated with zero human input. If the numbers look wrong, the engine that logged them needs fixing — and SENTINEL will catch it.</p>
   </div>
-  <div class="timeline-item">
-    <div class="timeline-date">Early 2026 -- Rapid Growth</div>
-    <p>AUTO_GENESIS loop operational. Engine count passes 100, then 200, then 284. Live wire scanner maps the topology.</p>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">March 2026 -- Products</div>
-    <p>Knowledge distiller creates Engine Encyclopedia. Product forge generates guides. First 4 products ready. GitHub Release created.</p>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">April 2026 -- Current State</div>
-    <p>366 engines. 5,476 wires. 11 products. OMNIBUS v38. Ollama-first AI. Zero-secret army at 283 engines. Full product catalog live. Revenue generation phase active.</p>
-  </div>
-</div>
-
-<h2>Verification Methods</h2>
-<p>Every claim in this report can be independently verified:</p>
-<div class="section-box">
-  <h3>Clone and Count</h3>
-  <div class="code-block">git clone https://github.com/meekotharaccoon-cell/meeko-nerve-center.git
-cd meeko-nerve-center
-ls mycelium/*.py | wc -l          # Engine count
-cat data/live_wire_report.json | python -c "import sys,json; d=json.load(sys.stdin); print(d['stats'])"
-cat data/proof_ledger.json         # Financial records
-cat data/product_registry.json     # Product inventory</div>
-
-  <h3>Live API</h3>
-  <p>Query the vital signs endpoint: <a href="api/vital.json">api/vital.json</a></p>
-
-  <h3>Git History</h3>
-  <p>The full commit history is the audit trail. Every engine creation, wire mapping, product generation, and state change is recorded as a git commit with timestamps.</p>
-
-  <h3>Data Files</h3>
-  <ul>
-    <li><code>data/live_wire_report.json</code> -- wire topology and engine stats</li>
-    <li><code>data/proof_ledger.json</code> -- financial transaction record</li>
-    <li><code>data/revenue_audit.json</code> -- revenue tracking</li>
-    <li><code>data/product_registry.json</code> -- product inventory and validation</li>
-    <li><code>data/chimera_evolution_report.json</code> -- evolution metrics</li>
-    <li><code>data/system_health.json</code> -- engine health status</li>
-    <li><code>data/immune_memory.json</code> -- failure history and antibodies</li>
-  </ul>
-</div>
-
-<h2>Related Pages</h2>
-<ul>
-  <li><a href="proof.html">Proof Ledger</a> -- the raw transaction record</li>
-  <li><a href="mission.html">Mission Statement</a> -- why the 99/1 split exists</li>
-  <li><a href="how-it-works.html">How It Works</a> -- technical architecture</li>
-  <li><a href="faq.html">FAQ</a> -- common questions answered</li>
-  <li><a href="changelog.html">Changelog</a> -- version history</li>
-  <li><a href="products/index.html">Product Catalog</a> -- what is available for purchase</li>
-</ul>
-
-<div style="text-align: center; margin: 40px 0;">
-  <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center" class="cta">Verify on GitHub</a>
-  <a href="proof.html" class="cta">View Proof Ledger</a>
-  <a href="products/index.html" class="cta">Browse Products</a>
-</div>
-
-<div class="footer">
-  <p><strong>SolarPunk</strong> -- An autonomous digital organism routing 99% of revenue to mutual aid.</p>
-  <p>
-    <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center">GitHub</a> |
-    <a href="proof.html">Proof Ledger</a> |
-    <a href="dashboard.html">Live Dashboard</a> |
-    <a href="index.html">Mission Control</a>
+  <table>
+    <thead><tr><th>Metric</th><th>Value</th><th>What it means</th></tr></thead>
+    <tbody>
+    <tr>
+      <td>* Autonomous Cycles Run</td>
+      <td class="num">0</td>
+      <td class="desc">Times OMNIBRAIN executed without human input</td>
+    </tr>
+    <tr>
+      <td>* Emails Processed</td>
+      <td class="num">0</td>
+      <td class="desc">Emails read and classified by EMAIL_BRAIN</td>
+    </tr>
+    <tr>
+      <td>* Emails Sent</td>
+      <td class="num">0</td>
+      <td class="desc">Autonomous outreach, grant follow-ups, notifications</td>
+    </tr>
+    <tr>
+      <td>* Grants Discovered</td>
+      <td class="num">0</td>
+      <td class="desc">Funding opportunities found by FUND_SCOUT</td>
+    </tr>
+    <tr>
+      <td>* Grant Applications</td>
+      <td class="num">0</td>
+      <td class="desc">Applications submitted or drafted autonomously</td>
+    </tr>
+    <tr>
+      <td>* Live Fed Opportunities</td>
+      <td class="num">0</td>
+      <td class="desc">Active grants from Grants.gov + NIH</td>
+    </tr>
+    <tr>
+      <td>* Scams Blocked</td>
+      <td class="num">0</td>
+      <td class="desc">SCAM_SHIELD stopped before reaching Meeko</td>
+    </tr>
+    <tr>
+      <td>* Mutations Run</td>
+      <td class="num">0</td>
+      <td class="desc">MUTATE lottery -- hybrid engines bred</td>
+    </tr>
+    <tr>
+      <td>* Engines Built</td>
+      <td class="num">0</td>
+      <td class="desc">New engines created by BUILD_YOURSELF</td>
+    </tr>
+    <tr>
+      <td>* Total Engines</td>
+      <td class="num">422</td>
+      <td class="desc">Active Python engines in mycelium/</td>
+    </tr>
+    <tr>
+      <td>* Total Workflows</td>
+      <td class="num">38</td>
+      <td class="desc">GitHub Actions workflows running</td>
+    </tr>
+    <tr>
+      <td>* Pages Archived</td>
+      <td class="num">0</td>
+      <td class="desc">Pages submitted to Internet Archive</td>
+    </tr>
+    <tr>
+      <td>* Meals Estimated</td>
+      <td class="num">0</td>
+      <td class="desc">Food bank routing estimate</td>
+    </tr>
+    <tr>
+      <td>* Code Health</td>
+      <td class="num">UNKNOWN</td>
+      <td class="desc">SENTINEL integrity scan result</td>
+    </tr>
+    <tr>
+      <td>* Engines Passing Syntax</td>
+      <td class="num">0</td>
+      <td class="desc">Clean engines per last SENTINEL run</td>
+    </tr>
+    <tr>
+      <td>* Syntax Failures</td>
+      <td class="num">0</td>
+      <td class="desc">Engines with errors -- SolarPunk auto-flags these</td>
+    </tr></tbody>
+  </table>
+  <p class="source-note">
+    Source files: <code>data/*.json</code> ·
+    <a href="https://github.com/meekotharaccoon-cell/meeko-nerve-center/tree/main/data" style="color:#4ade80">View raw data -></a>
   </p>
-  <p style="margin-top: 15px; font-size: 0.85em;">Every dollar is tracked. Every engine is open source. Every wire is verifiable.</p>
 </div>
-
-</div>
+<footer>
+  <p><a href="index.html" style="color:#4ade80">SolarPunk Nerve Center</a> -- Autonomous. Transparent. Free forever.</p>
+</footer>
 </body>
 </html>
