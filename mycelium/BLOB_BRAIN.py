@@ -297,7 +297,28 @@ def absorb_revenue():
     except Exception:
         pass
 
-    # Source 3: Compound tracker (tracks reinvestment growth)
+    # Source 3: Alpaca trading profits (stocks + crypto)
+    try:
+        alpaca_state = json.loads((DATA / "alpaca_trader_state.json").read_text(encoding="utf-8"))
+        alpaca_equity = alpaca_state.get("equity", 0)
+        alpaca_cash = alpaca_state.get("cash", 0)
+        # Any equity above initial deposit is profit
+        alpaca_initial = 1.45  # Initial balance
+        alpaca_profit = max(0, alpaca_equity - alpaca_initial)
+        total_raised += alpaca_profit
+
+        CONSCIOUSNESS["revenue"]["sources"]["alpaca_trading"] = {
+            "alive": alpaca_state.get("status") not in ("disabled", "error"),
+            "equity": alpaca_equity,
+            "cash": alpaca_cash,
+            "profit": alpaca_profit,
+            "positions": alpaca_state.get("positions_count", 0),
+            "mode": alpaca_state.get("mode", "unknown"),
+        }
+    except Exception:
+        pass
+
+    # Source 4: Compound tracker (tracks reinvestment growth)
     try:
         ct = json.loads((DATA / "compound_tracker.json").read_text(encoding="utf-8"))
         CONSCIOUSNESS["revenue"]["compound"] = {
@@ -1009,12 +1030,14 @@ def neuron_legacy_fire():
     if CONSCIOUSNESS["brain"].get("ai_available"):
         priority.append("GROWTH_FLYWHEEL")
 
-    # If we have trading creds, fire trading awareness
+    # If we have trading creds, fire trading engines
     if CONSCIOUSNESS["trading"].get("kalshi_ready"):
         priority.append("TURBO_TRADER")
+    if CONSCIOUSNESS["trading"].get("alpaca_ready"):
+        priority.append("ALPACA_TRADER")
 
     results = []
-    for name in priority[:2]:  # Max 2 per cycle
+    for name in priority[:3]:  # Max 3 per cycle (AI + Kalshi + Alpaca)
         try:
             success = run_legacy_engine(name)
             results.append({"engine": name, "ok": success, "ts": datetime.now(timezone.utc).isoformat()})

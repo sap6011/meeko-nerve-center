@@ -76,9 +76,27 @@ WATCHLIST = {
     "AMZN": {"type": "stock", "sector": "tech", "strategy": "blue_chip"},
     "META": {"type": "stock", "sector": "tech", "strategy": "blue_chip"},
     "TSLA": {"type": "stock", "sector": "auto", "strategy": "momentum"},
-    # === Crypto (no PDT restriction!) ===
-    "BTC/USD": {"type": "crypto", "sector": "crypto", "strategy": "momentum"},
-    "ETH/USD": {"type": "crypto", "sector": "crypto", "strategy": "momentum"},
+    # === Crypto (no PDT restriction! 24/7! Commission-free!) ===
+    # UNLIMITED day trades on crypto -- this is where speed wins
+    # Major coins
+    "BTC/USD":  {"type": "crypto", "sector": "crypto", "strategy": "momentum"},
+    "ETH/USD":  {"type": "crypto", "sector": "crypto", "strategy": "momentum"},
+    "SOL/USD":  {"type": "crypto", "sector": "crypto", "strategy": "momentum"},
+    "AVAX/USD": {"type": "crypto", "sector": "crypto", "strategy": "momentum"},
+    "LINK/USD": {"type": "crypto", "sector": "crypto", "strategy": "momentum"},
+    "DOT/USD":  {"type": "crypto", "sector": "crypto", "strategy": "mean_reversion"},
+    "UNI/USD":  {"type": "crypto", "sector": "crypto", "strategy": "momentum"},
+    "AAVE/USD": {"type": "crypto", "sector": "crypto", "strategy": "momentum"},
+    "XRP/USD":  {"type": "crypto", "sector": "crypto", "strategy": "momentum"},
+    "LTC/USD":  {"type": "crypto", "sector": "crypto", "strategy": "mean_reversion"},
+    "BCH/USD":  {"type": "crypto", "sector": "crypto", "strategy": "mean_reversion"},
+    # NOTE: ALGO/USD, MATIC/USD, ADA/USD, ATOM/USD delisted by Alpaca as of 2026-04
+    # Meme coins -- volatile = fast gains (and fast losses, but speed + automation wins)
+    "DOGE/USD": {"type": "crypto", "sector": "meme_coin", "strategy": "momentum"},
+    "SHIB/USD": {"type": "crypto", "sector": "meme_coin", "strategy": "momentum"},
+    # Stablecoins -- for parking cash and arb opportunities
+    "USDT/USD": {"type": "crypto", "sector": "stablecoin", "strategy": "safe_haven"},
+    "USDC/USD": {"type": "crypto", "sector": "stablecoin", "strategy": "safe_haven"},
 }
 
 # Strategy parameters
@@ -410,14 +428,36 @@ def _evaluate_crypto_snapshot(symbol, snap, intelligence=None):
     volume = int(daily_bar.get("v", 0)) if daily_bar else 0
 
     score = 50
+    sector = meta.get("sector", "crypto")
+    strategy = "momentum"
 
-    # Crypto momentum
-    if daily_change_pct > 1.0:
+    # Crypto momentum scoring
+    if daily_change_pct > 5.0:
+        score += 25  # Massive pump — ride the wave
+        strategy = "momentum"
+    elif daily_change_pct > 1.0:
         score += 15
-    elif daily_change_pct < -2.0:
-        score += 20  # Mean reversion on big drop
+        strategy = "momentum"
     elif daily_change_pct < -5.0:
         score += 30  # Major dip buy
+        strategy = "mean_reversion"
+    elif daily_change_pct < -2.0:
+        score += 20  # Mean reversion on decent drop
+        strategy = "mean_reversion"
+
+    # Meme coin bonus — volatile = opportunity (speed + automation wins)
+    if sector == "meme_coin":
+        score += 10  # Always interesting
+        if abs(daily_change_pct) > 3.0:
+            score += 10  # Volatile meme = high opportunity
+
+    # Stablecoin — look for de-peg arb (should be ~$1.00)
+    if sector == "stablecoin":
+        if abs(current_price - 1.0) > 0.005:  # >0.5% off peg
+            score += 25  # Arb opportunity
+            strategy = "safe_haven"
+        else:
+            return None  # Stable at peg = no trade
 
     # Intelligence overlay
     if intelligence:
@@ -425,25 +465,31 @@ def _evaluate_crypto_snapshot(symbol, snap, intelligence=None):
         if crypto_bull > 0.6:
             score += 15
         elif crypto_bull < 0.3:
-            score -= 20
+            score -= 10  # Less penalty — we still trade in bear markets
 
-    if score < 55:
+    # Lower threshold for crypto — speed + automation compensates for lower conviction
+    if score < 50:
         return None
+
+    # Tighter TP/SL for meme coins (get in fast, get out fast)
+    tp = 5.0 if sector == "meme_coin" else 3.0
+    sl = -8.0 if sector == "meme_coin" else -5.0
+    hold_max = 3 if sector == "meme_coin" else 14
 
     return {
         "symbol": symbol,
         "type": "crypto",
-        "sector": "crypto",
-        "strategy": "momentum",
+        "sector": sector,
+        "strategy": strategy,
         "current_price": round(current_price, 2),
         "prev_close": round(prev_close, 2),
         "daily_change_pct": round(daily_change_pct, 2),
         "intraday_range_pct": 0,
         "volume": volume,
         "score": round(score, 1),
-        "take_profit_pct": 3.0,
-        "stop_loss_pct": -5.0,
-        "hold_days_max": 14,
+        "take_profit_pct": tp,
+        "stop_loss_pct": sl,
+        "hold_days_max": hold_max,
         "no_pdt": True,  # Crypto exempt from PDT
     }
 
@@ -465,8 +511,8 @@ def construct_orders(opportunities, account, positions):
     daytrade_count = account.get("daytrade_count", 0)
     is_pdt = account.get("pattern_day_trader", False)
 
-    # Reserve 10% as floor (same philosophy as TURBO_TRADER)
-    floor = max(0.50, buying_power * 0.10)
+    # Aggressive floor: keep just $0.10 in reserve
+    floor = max(0.10, buying_power * 0.05)
     available = buying_power - floor
 
     if available <= 0:
@@ -493,23 +539,32 @@ def construct_orders(opportunities, account, positions):
             if not is_pdt:  # Non-PDT accounts get 3 per week
                 continue
 
-        # Allocate: spread across opportunities
-        # Max 20% of available per position, min $1
-        allocation = min(available * 0.20, available - total_allocated)
-        allocation = max(1.00, allocation)  # Minimum $1 order
+        # Allocate: concentrate into fewer, bigger positions
+        # Alpaca crypto minimum is $1 per order
+        min_order = 1.00  # Alpaca enforces $1 minimum on crypto
+        remaining = available - total_allocated
+        # With micro balance: go all-in on best opportunity
+        # With bigger balance: spread 25% per position
+        if remaining < 5.00:
+            allocation = remaining  # All-in on top pick
+        else:
+            allocation = min(remaining * 0.25, remaining)
+        allocation = max(min_order, allocation)
 
         if total_allocated + allocation > available:
             allocation = available - total_allocated
-            if allocation < 1.00:
+            if allocation < min_order:
                 break
 
         # Use notional (dollar-based) for fractional share support
+        # Crypto requires "gtc" time_in_force; stocks use "day"
+        tif = "gtc" if opp.get("type") == "crypto" else "day"
         order = {
             "symbol": symbol,
             "notional": str(round(allocation, 2)),
             "side": "buy",
             "type": "market",
-            "time_in_force": "day",
+            "time_in_force": tif,
         }
 
         order["_meta"] = {
@@ -886,18 +941,30 @@ def run():
               f"{opp['daily_change_pct']:+.1f}% | score={opp['score']}")
 
     # === PHASE 5: TRADE ===
+    # Crypto trades 24/7 regardless of stock market hours
+    # Stocks only during market open
+    crypto_opps = [o for o in opportunities if o.get("type") == "crypto"]
+    stock_opps = [o for o in opportunities if o.get("type") != "crypto"]
+
+    tradeable_opps = crypto_opps[:]  # Crypto always tradeable
+    if is_open:
+        tradeable_opps.extend(stock_opps)  # Add stocks only when market open
+    elif stock_opps:
+        print(f"[ALPACA_TRADER] Market closed -- {len(stock_opps)} stock trades queued for next open")
+
     new_trades = []
-    if is_open and opportunities and account.get("buying_power", 0) > 1.00:
-        max_pos = config.get("max_positions", 10)
+    if tradeable_opps and account.get("buying_power", 0) > 0.50:
+        max_pos = config.get("max_positions", 20)
         if len(positions) < max_pos:
-            orders = construct_orders(opportunities, account, positions)
+            orders = construct_orders(tradeable_opps, account, positions)
             if orders:
-                print(f"[ALPACA_TRADER] Placing {len(orders)} trades...")
+                trade_type = "crypto" if not is_open else "mixed"
+                print(f"[ALPACA_TRADER] Placing {len(orders)} {trade_type} trades...")
                 new_trades = place_orders(orders, api_key, secret_key, paper)
                 if new_trades:
                     update_trade_ledger(new_trades)
-    elif not is_open:
-        print("[ALPACA_TRADER] Market closed -- trades queued for next open")
+    elif not tradeable_opps and not is_open:
+        print("[ALPACA_TRADER] No crypto opportunities and stock market closed")
 
     # === PHASE 6: SAVE STATE ===
     successful = sum(1 for t in new_trades if t.get("success"))
