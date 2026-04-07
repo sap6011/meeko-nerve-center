@@ -127,7 +127,7 @@ def find_save_patterns(code, lines):
                 saves.append((i, indent, "json_dump", var))
                 continue
 
-        # Pattern 7: .write_text(json.dumps({...inline dict...}))
+        # Pattern 7: .write_text(json.dumps({...inline dict...}), encoding="utf-8")
         # Matches write_text(json.dumps({ with an inline dict literal
         if re.search(r'\.write_text\(json\.dumps\(\{', stripped) and "nervous_system" not in stripped:
             saves.append((i, indent, "inline_dict", None))
