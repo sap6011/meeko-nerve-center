@@ -109,6 +109,19 @@ FAST_SERIES = [
     "KXMLB",        # MLB
     "KXMMA",        # MMA/UFC
     "KXELECTIONS",  # Elections (various)
+    # === MULTI-EVENT / CROSS-CATEGORY (parlays, combos — often close FAST) ===
+    "KXMVESPORTSMULTIGAME",    # Multi-game sports parlays
+    "KXMVECROSSCATEGORY-S",    # Cross-category combos
+    "KXMVECROSSCATEGORY-L",    # Cross-category long
+    "KXSOCCER",     # Soccer/football
+    "KXNHL",        # NHL hockey
+    "KXTENNIS",     # Tennis
+    "KXGOLF",       # Golf
+    "KXBOXING",     # Boxing
+    "KXEPL",        # English Premier League
+    "KXCHAMPIONSLEAGUE",  # Champions League
+    "KXWEATHER",    # General weather
+    "KXREALTIME",   # Real-time events
 ]
 
 # Resolution speed classification (hours until typical settlement)
@@ -532,7 +545,7 @@ def scan_fast_markets(series_list, min_conf=85, min_vol=100):
 
     # Scan prioritized series (fast-resolving first)
     # Rate limit: 20 reads/sec, we use 3/sec to be safe
-    for series in series_list[:40]:  # Cap at 20 series per cycle
+    for series in series_list[:80]:  # Scan WIDE — every series we can find
         try:
             url = f"{KALSHI_API}/markets?limit=100&status=open&series_ticker={series}"
             req = urllib.request.Request(url)
@@ -556,7 +569,7 @@ def scan_fast_markets(series_list, min_conf=85, min_vol=100):
         except Exception as e:
             print(f"  [TURBO] {series} scan error: {e}")
 
-        time.sleep(0.15)  # 6.6 req/s (rate limit is 20/s, safe margin)
+        time.sleep(0.25)  # 4 req/s (rate limit is 20/s, but 80 series = many calls)
 
     print(f"  [TURBO] Scanned {series_scanned} series, {markets_scanned} markets, "
           f"{len(opportunities)} opportunities")
@@ -670,7 +683,9 @@ def _evaluate_market(m, series, min_conf, min_vol, now):
 
 def _classify_speed(hours):
     """Classify market by resolution speed."""
-    if hours <= 24:
+    if hours <= 6:
+        return "CLOSING_SOON"
+    elif hours <= 24:
         return "DAILY"
     elif hours <= 168:
         return "WEEKLY"
@@ -678,6 +693,211 @@ def _classify_speed(hours):
         return "MONTHLY"
     else:
         return "LONG"
+
+
+# ──────────────────────────────────────────────────────────────
+# PHASE 2.5: SNIPER MODE -- Buy seconds before close for instant payout
+# ──────────────────────────────────────────────────────────────
+
+def sniper_scan(config):
+    """
+    SNIPER MODE: Find markets closing within 1-6 hours and BUY.
+
+    When a market is about to close, the outcome is usually visible.
+    The S&P 500 daily close bracket? At 3:55pm, you KNOW where it'll be.
+    Weather today? At 11pm, it already happened.
+
+    Strategy:
+      - Query ALL open markets (no series filter -- cast the widest net)
+      - Filter: close_time within next 1-6 hours
+      - Lower confidence threshold (75%) -- outcome is nearly certain
+      - Lower volume requirement (25) -- closing markets have less volume
+      - Buy at whatever price is available -- speed > price optimization
+      - Tag as "sniper" strategy for tracking
+
+    Result: Buy at $0.95-0.99, collect $1.00 in hours (not days).
+    Instant compounding.
+    """
+    now = datetime.now(timezone.utc)
+    sniper_window_min = timedelta(minutes=5)   # At least 5 min to fill
+    sniper_window_max = timedelta(hours=config.get("sniper_max_hours", 6))
+    # Also scan 6-24h as "warm-up" targets (slightly higher confidence needed)
+    warmup_window_max = timedelta(hours=24)
+    min_conf = config.get("sniper_min_confidence", 75)
+    warmup_min_conf = min(min_conf + 8, 85)  # 83% for warm-up tier
+    min_vol = config.get("sniper_min_volume", 25)
+
+    opportunities = []
+    markets_checked = 0
+    cursor = None
+    pages = 0
+    max_pages = 10  # 200 per page × 10 = 2000 markets scanned
+
+    print(f"  [SNIPER] Scanning ALL open markets for close within 6h...")
+
+    while pages < max_pages:
+        # Build URL -- no series filter = ALL markets
+        params = "status=open&limit=200"
+        if cursor:
+            params += f"&cursor={cursor}"
+        data = _public_fetch(f"/markets?{params}", timeout=20)
+
+        if not data:
+            break
+
+        markets = data.get("markets", [])
+        if not markets:
+            break
+
+        for m in markets:
+            markets_checked += 1
+            close_time_str = m.get("close_time", "")
+            if not close_time_str:
+                continue
+
+            # Parse close time
+            try:
+                close_time = datetime.fromisoformat(close_time_str.replace("Z", "+00:00"))
+            except Exception:
+                continue
+
+            time_to_close = close_time - now
+
+            # Filter: must be closing within our windows
+            # Tier 1: SNIPER (5min - 6h) — lowest confidence needed
+            # Tier 2: WARMUP (6h - 24h) — slightly higher confidence
+            is_sniper = sniper_window_min <= time_to_close <= sniper_window_max
+            is_warmup = sniper_window_max < time_to_close <= warmup_window_max
+
+            if not is_sniper and not is_warmup:
+                continue
+
+            hours_to_close = time_to_close.total_seconds() / 3600
+            effective_min_conf = min_conf if is_sniper else warmup_min_conf
+            tier = "sniper" if is_sniper else "warmup"
+
+            # Get price data
+            ticker = m.get("ticker", "")
+            title = m.get("title", m.get("subtitle", ""))
+            last_price = float(m.get("last_price_dollars") or 0)
+            yes_bid = float(m.get("yes_bid_dollars") or 0)
+            yes_ask = float(m.get("yes_ask_dollars") or 0)
+            no_bid = float(m.get("no_bid_dollars") or 0)
+            no_ask = float(m.get("no_ask_dollars") or 0)
+            volume = float(m.get("volume_fp") or m.get("volume") or 0)
+            open_interest = float(m.get("open_interest_fp") or m.get("open_interest") or 0)
+
+            yes_price = last_price or yes_bid
+            if not yes_price:
+                continue
+
+            yes_pct = yes_price * 100
+
+            # Volume check (relaxed for closing markets)
+            if volume < min_vol:
+                continue
+
+            # SNIPER: Lower confidence threshold -- outcome is visible
+            # Near-certain YES
+            if yes_pct >= effective_min_conf:
+                buy_price = yes_ask if yes_ask > 0 else yes_price
+                if buy_price <= 0 or buy_price >= 1.0:
+                    continue
+                profit = 1.00 - buy_price
+                roi = (profit / buy_price) * 100
+                # Annualized ROI for snipers is astronomical (hours, not days)
+                annual_factor = 8760 / max(hours_to_close, 0.1)
+                annualized_roi = roi * annual_factor
+
+                # Urgency bonus: closer to close = more certain = higher priority
+                urgency = max(1, 10 - int(hours_to_close))
+
+                series = m.get("series_ticker", "UNKNOWN")
+
+                opportunities.append({
+                    "ticker": ticker,
+                    "title": title[:100],
+                    "side": "yes",
+                    "action": "buy",
+                    "price": buy_price,
+                    "yes_pct": round(yes_pct, 1),
+                    "profit_per_contract": round(profit, 4),
+                    "roi_pct": round(roi, 2),
+                    "annualized_roi": round(min(annualized_roi, 999999), 1),
+                    "volume": int(volume),
+                    "open_interest": int(open_interest),
+                    "hours_to_resolve": round(hours_to_close, 2),
+                    "strategy": f"{tier}_yes",
+                    "series": series,
+                    "close_time": close_time_str,
+                    "resolution_class": "CLOSING_SOON" if is_sniper else "DAILY",
+                    "urgency": urgency,
+                    "sniper": is_sniper,
+                    "tier": tier,
+                })
+
+            # Near-certain NO
+            elif yes_pct <= (100 - effective_min_conf):
+                buy_price = no_ask if no_ask > 0 else (1.00 - yes_price)
+                if buy_price <= 0 or buy_price >= 1.0:
+                    continue
+                profit = 1.00 - buy_price
+                roi = (profit / buy_price) * 100
+                annual_factor = 8760 / max(hours_to_close, 0.1)
+                annualized_roi = roi * annual_factor
+                urgency = max(1, 10 - int(hours_to_close))
+                series = m.get("series_ticker", "UNKNOWN")
+
+                opportunities.append({
+                    "ticker": ticker,
+                    "title": title[:100],
+                    "side": "no",
+                    "action": "buy",
+                    "price": buy_price,
+                    "yes_pct": round(yes_pct, 1),
+                    "profit_per_contract": round(profit, 4),
+                    "roi_pct": round(roi, 2),
+                    "annualized_roi": round(min(annualized_roi, 999999), 1),
+                    "volume": int(volume),
+                    "open_interest": int(open_interest),
+                    "hours_to_resolve": round(hours_to_close, 2),
+                    "strategy": f"{tier}_no",
+                    "series": series,
+                    "close_time": close_time_str,
+                    "resolution_class": "CLOSING_SOON" if is_sniper else "DAILY",
+                    "urgency": urgency,
+                    "sniper": is_sniper,
+                    "tier": tier,
+                })
+
+        # Pagination
+        cursor = data.get("cursor")
+        if not cursor:
+            break
+        pages += 1
+        time.sleep(0.15)  # Rate limit safety
+
+    # Sort: highest urgency first (closest to close), then by ROI
+    opportunities.sort(key=lambda x: (-x.get("urgency", 0), -x.get("roi_pct", 0)))
+
+    sniper_count = sum(1 for o in opportunities if o.get("tier") == "sniper")
+    warmup_count = sum(1 for o in opportunities if o.get("tier") == "warmup")
+    print(f"  [SNIPER] Checked {markets_checked} markets | "
+          f"{sniper_count} SNIPER (<6h) + {warmup_count} WARMUP (6-24h)")
+
+    if opportunities:
+        for opp in opportunities[:8]:
+            hrs = opp["hours_to_resolve"]
+            tag = "🎯" if opp.get("tier") == "sniper" else "⏳"
+            if hrs < 1:
+                time_str = f"{hrs * 60:.0f}min"
+            else:
+                time_str = f"{hrs:.1f}h"
+            print(f"    {tag} {opp['title'][:55]}... | {opp['side'].upper()} @ "
+                  f"${opp['price']:.2f} | closes in {time_str} | "
+                  f"ROI: {opp['roi_pct']:.1f}%")
+
+    return opportunities
 
 
 # ──────────────────────────────────────────────────────────────
@@ -981,7 +1201,10 @@ def construct_micro_orders(opportunities, balance, config):
             # Penny mode: 1 contract each, spread across many markets
             base_size = min(price + 0.01, available - total_cost)
 
-        if opp["resolution_class"] == "DAILY":
+        if opp["resolution_class"] == "CLOSING_SOON":
+            # SNIPER: max allocation — it resolves in HOURS
+            order_size = min(base_size * 1.5, max_per_market)
+        elif opp["resolution_class"] == "DAILY":
             order_size = min(base_size, max_per_market)
         elif opp["resolution_class"] == "WEEKLY":
             order_size = min(base_size * 0.75, max_per_market)
@@ -1269,10 +1492,24 @@ def run():
     print("[TURBO_TRADER] Discovering markets...")
     series_list = discover_all_series()
 
+    # === PHASE 2.5: SNIPER MODE — find markets closing SOON ===
+    # Markets closing in <6 hours have near-certain outcomes.
+    # The event is almost over — we can SEE the result.
+    # Buy at $0.95-0.99, collect $1.00 in hours, not days.
+    sniper_opps = sniper_scan(config)
+    if sniper_opps:
+        print(f"  [SNIPER] {len(sniper_opps)} markets closing within 6 hours!")
+
     # === PHASE 3: SCAN for fast-resolving opportunities ===
     min_conf = config.get("min_confidence_pct", 85)
     min_vol = config.get("min_market_volume", 100)
     opportunities = scan_fast_markets(series_list, min_conf, min_vol)
+
+    # Merge sniper opportunities (highest priority — they close FIRST)
+    existing_tickers = {o["ticker"] for o in opportunities}
+    for so in sniper_opps:
+        if so["ticker"] not in existing_tickers:
+            opportunities.insert(0, so)  # Front of the queue
 
     # PENNY MODE: If cash is tight and normal scan found only expensive contracts,
     # do a TARGETED second pass with lower confidence on series that had results
@@ -1299,7 +1536,7 @@ def run():
                 # Re-sort: daily first, then by annualized ROI
                 opportunities.sort(
                     key=lambda x: (
-                        {"DAILY": 0, "WEEKLY": 1, "MONTHLY": 2, "LONG": 3}
+                        {"CLOSING_SOON": -1, "DAILY": 0, "WEEKLY": 1, "MONTHLY": 2, "LONG": 3}
                         .get(x["resolution_class"], 4),
                         -x.get("annualized_roi", 0),
                     )
@@ -1313,19 +1550,21 @@ def run():
             "status": "active_no_trades",
             "balance": balance,
             "last_known_balance": balance,
-            "series_scanned": len(series_list[:40]),
+            "series_scanned": len(series_list[:80]),
             "settlements_24h": len(settlements),
         }
         _save(DATA / "turbo_trader_state.json", state)
         return state
 
     # Classify opportunities by speed
+    sniper_opps_count = [o for o in opportunities if o["resolution_class"] == "CLOSING_SOON"]
     daily_opps = [o for o in opportunities if o["resolution_class"] == "DAILY"]
     weekly_opps = [o for o in opportunities if o["resolution_class"] == "WEEKLY"]
     monthly_opps = [o for o in opportunities if o["resolution_class"] in ("MONTHLY", "LONG")]
 
-    print(f"[TURBO_TRADER] Opportunities: {len(daily_opps)} daily, "
-          f"{len(weekly_opps)} weekly, {len(monthly_opps)} monthly+")
+    print(f"[TURBO_TRADER] Opportunities: {len(sniper_opps_count)} SNIPER, "
+          f"{len(daily_opps)} daily, {len(weekly_opps)} weekly, "
+          f"{len(monthly_opps)} monthly+")
 
     # === PHASE 3b: HIVE MIND -- AI-powered intelligence analysis ===
     print("[TURBO_TRADER] >> HIVE MIND: AI analyzing opportunities...")
@@ -1389,6 +1628,7 @@ def run():
         "trades_placed": len(results),
         "successful": successful,
         "failed": failed,
+        "sniper_opps": len(sniper_opps_count),
         "daily_opps": len(daily_opps),
         "weekly_opps": len(weekly_opps),
         "monthly_opps": len(monthly_opps),
@@ -1397,7 +1637,7 @@ def run():
         "settlements_24h": len(settlements),
         "velocity_freed": velocity_freed,
         "velocity_sells": len(velocity_sells),
-        "series_scanned": len(series_list[:40]),
+        "series_scanned": len(series_list[:80]),
         "top_opportunities": opportunities[:10],
         "trades": results,
     }
@@ -1415,6 +1655,7 @@ def run():
             "balance": new_balance,
             "trades_placed": len(results),
             "successful": successful,
+            "sniper_opps": len(sniper_opps_count),
             "daily_opps": len(daily_opps),
             "total_opportunities": len(opportunities),
             "pending_payout": round(total_pending, 2),
@@ -1438,6 +1679,7 @@ def run():
     print(f"  Balance: ${balance:.2f} -> ${new_balance:.2f}")
     print(f"  Positions: {positions_count} open")
     print(f"  Pending payout: ${total_pending:.2f}")
+    print(f"  SNIPER: {len(sniper_opps_count)} closing-soon opps found")
     print(f"  Compound cycles: {tracker.get('compound_cycles', 0)}")
     print(f"  Growth: {tracker['snapshots'][-1]['growth_pct']:.1f}%" if tracker.get("snapshots") else "")
 

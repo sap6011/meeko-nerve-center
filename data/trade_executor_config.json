@@ -2,14 +2,18 @@
   "enabled": true,
   "max_position_pct": 0.40,
   "max_exposure_pct": 0.98,
-  "balance_floor_usd": 1.00,
-  "max_trades_per_cycle": 15,
-  "min_market_volume": 50,
-  "min_confidence_pct": 80,
+  "balance_floor_usd": 0.50,
+  "max_trades_per_cycle": 25,
+  "min_market_volume": 25,
+  "min_confidence_pct": 78,
   "default_order_size_usd": 4.00,
   "time_in_force": "good_till_canceled",
   "velocity_mode": true,
   "aggressive_mode": true,
   "penny_mode_threshold": 5.00,
-  "notes": "AGGRESSIVE MODE 2026-04-07. Floor $1 only. 98% deployed. Scan meme coins, crypto brackets, everything fast-resolving. Get in fast, get out fast, repeat."
+  "sniper_enabled": true,
+  "sniper_min_confidence": 75,
+  "sniper_min_volume": 25,
+  "sniper_max_hours": 6,
+  "notes": "SNIPER MODE ACTIVE 2026-04-06. Floor $0.50. 98% deployed. 25 trades/cycle. Scan ALL markets for closing-soon contracts. Buy seconds before close, collect $1.00 in hours. Meme coins, crypto, everything."
 }

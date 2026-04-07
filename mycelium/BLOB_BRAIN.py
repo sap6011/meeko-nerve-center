@@ -1019,9 +1019,9 @@ def neuron_legacy_fire():
     fired = CONSCIOUSNESS.setdefault("legacy_fired", {"engines": [], "last_fire": None})
     cycle = CONSCIOUSNESS["pulse"]["cycle"]
 
-    # Only fire legacy engines every 3 cycles to avoid hammering
-    if cycle % 3 != 0:
-        return
+    # Fire trading EVERY cycle — speed is the edge
+    # Non-trading engines still gate themselves internally
+    pass  # No cycle gate — TURBO mode
 
     # Priority engines to fire (only ones that have real effect)
     priority = []
@@ -1091,9 +1091,8 @@ def neuron_market_scanner():
         return
 
     cycle = CONSCIOUSNESS["pulse"]["cycle"]
-    # Scan every 3 cycles
-    if cycle % 3 != 0 and cycle != 1:
-        return
+    # TURBO MODE: scan EVERY cycle — speed is the edge
+    # Markets close every minute, snipers need fresh data
 
     creds_path = Path("data/.secrets/kalshi.json")
     rsa_path = Path("data/.secrets/kalshi_rsa.pem")
@@ -4646,8 +4645,7 @@ def neuron_alpaca_live():
         "buying_power": 0, "indices": {}, "last_check": None,
     })
     cycle = CONSCIOUSNESS["pulse"]["cycle"]
-    if cycle % 3 != 0:
-        return
+    # TURBO MODE: check every cycle — crypto trades 24/7, speed matters
 
     from pathlib import Path
     import urllib.request
@@ -7937,12 +7935,12 @@ def neuron_trading_mesh():
     The mesh decides WHERE to deploy capital for maximum compound rate.
     """
     cycle = CONSCIOUSNESS["pulse"]["cycle"]
-    if cycle % 3 != 0: return
+    # TURBO MODE: mesh checks every cycle to catch sniper opportunities
 
     mesh = CONSCIOUSNESS.setdefault("trading_mesh", {
         "total_value": 0, "platforms": {}, "compound_rate": 0,
         "strategy": "BALANCED", "rebalance_needed": False,
-        "best_platform": None, "last_check": None
+        "best_platform": None, "sniper_active": False, "last_check": None
     })
 
     # === GATHER: Value across all platforms ===
@@ -8069,6 +8067,15 @@ def neuron_trading_mesh():
     )
     compound_rate = weighted_roi / max(total_value, 1)
 
+    # === SNIPER STATUS: check turbo trader for closing-soon opportunities ===
+    try:
+        tt_state = json.loads((DATA / "turbo_trader_state.json").read_text(encoding="utf-8"))
+        sniper_active = tt_state.get("sniper_opps", 0) > 0
+        sniper_count = tt_state.get("sniper_opps", 0)
+    except Exception:
+        sniper_active = False
+        sniper_count = 0
+
     mesh["total_value"] = round(total_value, 2)
     mesh["platforms"] = platforms
     mesh["compound_rate"] = round(compound_rate, 3)
@@ -8076,6 +8083,8 @@ def neuron_trading_mesh():
     mesh["best_platform"] = best_platform
     mesh["rebalance_needed"] = rebalance_needed
     mesh["rebalance_actions"] = rebalance_actions[:5]
+    mesh["sniper_active"] = sniper_active
+    mesh["sniper_count"] = sniper_count
     mesh["revenue_routed"] = round(revenue.get("total_raised", 0), 2)
     mesh["to_gaza"] = round(revenue.get("total_to_gaza", 0), 2)
     mesh["last_check"] = datetime.now(timezone.utc).isoformat()
