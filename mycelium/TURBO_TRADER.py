@@ -49,6 +49,8 @@ Writes: data/turbo_trader_state.json, feeds into trade_ledger.json
 import json
 import time
 import uuid
+import urllib.request
+import urllib.parse
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
