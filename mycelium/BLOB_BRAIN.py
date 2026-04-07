@@ -114,7 +114,7 @@ CONSCIOUSNESS = {
     "engines": {},
     "human_actions": [],
     "brain": {
-        "confidence": 0,
+        "confidence": 50,
         "decisions_made": 0,
         "memory": [],
     },
@@ -220,23 +220,31 @@ def absorb_engine_states():
 
 
 def absorb_homeostasis():
-    """Pull homeostasis state into consciousness."""
+    """Pull homeostasis state into consciousness.
+    NOTE: Does NOT overwrite eq score/trend/zone/components -- those are
+    computed fresh each cycle by neuron_equilibrium (authoritative source).
+    Legacy homeostasis_state.json values are stale and would stomp the
+    blob brain's own calculations.
+    """
     try:
         h = json.loads((DATA / "homeostasis_state.json").read_text(encoding="utf-8"))
-        CONSCIOUSNESS["equilibrium"]["score"] = h.get("equilibrium", 50)
-        CONSCIOUSNESS["equilibrium"]["trend"] = h.get("trend", "unknown")
-        CONSCIOUSNESS["equilibrium"]["zone"] = h.get("zone", "green")
-        CONSCIOUSNESS["equilibrium"]["components"] = h.get("components", {})
+        # Only absorb metadata the neuron doesn't compute
+        CONSCIOUSNESS["equilibrium"].setdefault("legacy_source", h.get("source", "homeostasis_state.json"))
     except Exception:
         pass
 
 
 def absorb_neural_cortex():
-    """Pull neural cortex into consciousness."""
+    """Pull neural cortex into consciousness.
+    NOTE: Does NOT overwrite brain.confidence or decisions_made -- those are
+    computed fresh each cycle by neuron_brain_confidence (authoritative source).
+    Legacy neural_cortex_state.json values are stale and would stomp the
+    blob brain's own calculations.
+    """
     try:
         c = json.loads((DATA / "neural_cortex_state.json").read_text(encoding="utf-8"))
-        CONSCIOUSNESS["brain"]["confidence"] = c.get("decision_confidence", 0)
-        CONSCIOUSNESS["brain"]["decisions_made"] = c.get("decisions_made", 0)
+        # Only absorb metadata the neuron doesn't compute
+        CONSCIOUSNESS["brain"].setdefault("legacy_source", c.get("source", "neural_cortex_state.json"))
     except Exception:
         pass
 
@@ -295,9 +303,12 @@ def neuron_equilibrium():
         eq["trend"] = "initializing"
         return
 
-    # Zone 1: Engine health (% of engines reporting OK)
-    healthy = sum(1 for e in engines.values()
-                  if e.get("status") in ("ok", "completed", "running", "wired"))
+    # Zone 1: Engine health (% of engines NOT broken)
+    # "unknown" means absorbed but never run — neutral, not sick
+    # Only "error" counts as unhealthy
+    broken = sum(1 for e in engines.values()
+                 if isinstance(e, dict) and e.get("status") == "error")
+    healthy = total - broken
     engine_health = round(healthy / max(total, 1) * 100)
 
     # Zone 2: Error rate (inverse of error frequency)
@@ -346,8 +357,8 @@ def neuron_equilibrium():
 
     # Generate interventions for weak zones
     interventions = []
-    if engine_health < 50:
-        interventions.append({"severity": "high", "zone": "engines", "action": f"Only {healthy}/{total} engines healthy"})
+    if engine_health < 80:
+        interventions.append({"severity": "high" if engine_health < 50 else "info", "zone": "engines", "action": f"{broken} of {total} engines in error state"})
     if error_health < 50:
         interventions.append({"severity": "high", "zone": "errors", "action": f"{recent_errors} errors in last hour"})
     if rev_health < 50:
@@ -515,16 +526,22 @@ def neuron_brain_confidence():
     immune = CONSCIOUSNESS.get("immune", {})
 
     # Multi-factor confidence
+    # Reweighted: secrets barely matter (331 zero-secret engines exist)
+    # What matters: health, errors, code integrity, neuron vitality
     health_factor = eq.get("score", 50) / 100
     error_factor = max(0, 1 - len(CONSCIOUSNESS["errors"]) / 30)
     secret_factor = secrets.get("coverage_pct", 0) / 100
     code_factor = 1 - (immune.get("infections", 0) / max(immune.get("total_scanned", 1), 1))
+    # Neuron vitality: how many consciousness keys are actively updated
+    active_keys = sum(1 for v in CONSCIOUSNESS.values() if isinstance(v, dict) and any(v.get(k) for k in ("last_absorb","last_check","last_scan")))
+    vitality_factor = min(active_keys / max(len(CONSCIOUSNESS), 1), 1.0)
 
     confidence = round(
-        (health_factor * 0.35 +
-         error_factor * 0.25 +
-         secret_factor * 0.20 +
-         code_factor * 0.20) * 100
+        (health_factor * 0.30 +
+         error_factor * 0.20 +
+         secret_factor * 0.05 +
+         code_factor * 0.15 +
+         vitality_factor * 0.30) * 100
     )
 
     brain["confidence"] = min(confidence, 100)
@@ -533,6 +550,7 @@ def neuron_brain_confidence():
         "errors": round(error_factor * 100),
         "secrets": round(secret_factor * 100),
         "code_integrity": round(code_factor * 100),
+        "vitality": round(vitality_factor * 100),
     }
     brain["decisions_made"] = brain.get("decisions_made", 0) + 1
 
@@ -808,9 +826,10 @@ def neuron_bridge_builder():
     bridges["last_bridge"] = datetime.now(timezone.utc).isoformat()
 
     # Update secrets with real count
-    CONSCIOUSNESS["secrets"]["configured"] = available
-    CONSCIOUSNESS["secrets"]["total"] = len(known_keys)
-    CONSCIOUSNESS["secrets"]["coverage_pct"] = round(available / len(known_keys) * 100)
+    secrets = CONSCIOUSNESS.setdefault("secrets", {})
+    secrets["configured"] = available
+    secrets["total"] = len(known_keys)
+    secrets["coverage_pct"] = round(available / len(known_keys) * 100)
 
 
 def neuron_github_analytics():
@@ -6988,8 +7007,9 @@ def neuron_energy_budget():
     import time as _time
     cycle = CONSCIOUSNESS["pulse"]["cycle"]
     eb = CONSCIOUSNESS.setdefault("energy_budget", {"neurons_fired": 0, "cycle_ms": 0, "avg_ms": 0, "history": [], "last_check": None})
-    # Count active neurons
-    eb["neurons_fired"] = len([k for k in CONSCIOUSNESS.keys() if isinstance(CONSCIOUSNESS[k], dict) and (CONSCIOUSNESS[k].get("last_absorb") or CONSCIOUSNESS[k].get("last_check"))])
+    # Count active neurons (snapshot keys to avoid dict-changed-during-iteration)
+    eb["neurons_fired"] = sum(1 for k, v in list(CONSCIOUSNESS.items())
+                              if isinstance(v, dict) and (v.get("last_absorb") or v.get("last_check")))
     # Estimate cycle time from pulse timestamps
     pulse = CONSCIOUSNESS.get("pulse", {})
     if pulse.get("started"):
@@ -8124,21 +8144,22 @@ def neuron_bloom_filter():
     bf = CONSCIOUSNESS.setdefault("bloom_filter", {
         "known_domains": [], "blind_spots": [], "coverage_map": {}, "last_check": None
     })
-    # Map what domains we DO have coverage in
+    # Map what domains we DO have coverage in — check ACTUAL data locations
+    trading = CONSCIOUSNESS.get("trading", {})
     domains = {
-        "crypto": bool(CONSCIOUSNESS.get("crypto", {}).get("btc_price")),
-        "stocks": bool(CONSCIOUSNESS.get("alpaca", {}).get("portfolio_value")),
-        "predictions": bool(CONSCIOUSNESS.get("polymarket", {}).get("total_markets")),
-        "news": bool(CONSCIOUSNESS.get("news", {}).get("stories")),
-        "social": bool(CONSCIOUSNESS.get("social", {}).get("posts")),
+        "crypto": bool(trading.get("btc_price") or trading.get("sol_price")),
+        "stocks": bool(trading.get("alpaca_ready")),
+        "predictions": bool(trading.get("kalshi_ready") or trading.get("polymarket_ready")),
+        "news": bool(CONSCIOUSNESS.get("news") and isinstance(CONSCIOUSNESS["news"], dict) and len(CONSCIOUSNESS["news"]) > 1),
+        "social": bool(CONSCIOUSNESS.get("social") and isinstance(CONSCIOUSNESS["social"], dict) and len(CONSCIOUSNESS["social"]) > 1),
         "email": bool(CONSCIOUSNESS.get("comms_hub", {}).get("files", {}).get("email_intelligence_state")),
-        "github": bool(CONSCIOUSNESS.get("github_stats")),
-        "content": bool(CONSCIOUSNESS.get("media_desk", {}).get("total_drafts")),
-        "revenue": bool(CONSCIOUSNESS.get("revenue", {}).get("total_raised")),
+        "github": bool(CONSCIOUSNESS.get("analytics", {}).get("stars") is not None or CONSCIOUSNESS.get("github_stats")),
+        "content": bool(CONSCIOUSNESS.get("media_desk", {}).get("total_sources", 0) > 0),
+        "revenue": bool(CONSCIOUSNESS.get("revenue", {}).get("total_raised", 0) > 0),
         "security": bool(CONSCIOUSNESS.get("sentinel", {}).get("last_absorb")),
         "infrastructure": bool(CONSCIOUSNESS.get("infrastructure", {}).get("last_absorb")),
-        "community": bool(CONSCIOUSNESS.get("comms_hub", {}).get("total_channels")),
-        "ai_models": bool(CONSCIOUSNESS.get("ai_costs", {}).get("total")),
+        "community": bool(CONSCIOUSNESS.get("comms_hub", {}).get("total_channels", 0) > 0),
+        "ai_models": bool(CONSCIOUSNESS.get("brain", {}).get("ai_available")),
         "mesh_network": bool(CONSCIOUSNESS.get("mesh_network", {}).get("last_absorb")),
         "evolution": bool(CONSCIOUSNESS.get("evolution_state", {}).get("generation")),
     }
@@ -8201,6 +8222,8 @@ NEURONS = [
     # Phase 0: Bridge -- connect to everything available
     ("BRIDGE_BUILDER", neuron_bridge_builder),
     ("CLOUDFLARE", neuron_cloudflare),
+    # Phase 0.5: Brain confidence MUST fire before equilibrium (circular dep fix)
+    ("BRAIN_CONFIDENCE", neuron_brain_confidence),
     # Phase 1: Core vitals
     ("EQUILIBRIUM", neuron_equilibrium),
     ("ERROR_RECOVERY", neuron_error_recovery),
@@ -8226,7 +8249,7 @@ NEURONS = [
     ("GITHUB_ACTIONS_TRIGGER", neuron_github_actions_trigger),
     ("WORKFLOW_HEALTH", neuron_workflow_health),
     # Phase 6: THINK -- AI-powered decision making
-    ("BRAIN_CONFIDENCE", neuron_brain_confidence),
+    # NOTE: BRAIN_CONFIDENCE moved to Phase 0.5 (before EQUILIBRIUM)
     ("AI_THINK", neuron_ai_think),
     ("REVENUE_OPTIMIZER", neuron_revenue_optimizer),
     # Phase 7: ACT -- Do things that generate value
