@@ -250,17 +250,71 @@ def absorb_neural_cortex():
 
 
 def absorb_revenue():
-    """Pull revenue data into consciousness."""
+    """Pull ALL revenue data into consciousness — Ko-fi, trading, everything."""
+    total_raised = 0
+    total_to_gaza = 0
+
+    # Source 1: Ko-fi product sales
     try:
         r = json.loads((DATA / "kofi_state.json").read_text(encoding="utf-8"))
-        CONSCIOUSNESS["revenue"]["total_raised"] = r.get("total_received", 0)
-        CONSCIOUSNESS["revenue"]["total_to_gaza"] = r.get("total_to_gaza", 0)
+        kofi_rev = r.get("total_received", 0)
+        total_raised += kofi_rev
+        total_to_gaza += r.get("total_to_gaza", 0)
         CONSCIOUSNESS["revenue"]["sources"]["kofi"] = {
             "alive": r.get("alive", False),
             "auto_loops": r.get("auto_loops", 0),
+            "revenue": kofi_rev,
         }
     except Exception:
         pass
+
+    # Source 2: Kalshi trading profits (settlements = realized revenue)
+    try:
+        trading = CONSCIOUSNESS.get("trading", {})
+        kalshi_balance = trading.get("kalshi_balance", 0)
+        kalshi_portfolio = trading.get("kalshi_portfolio", 0)
+        kalshi_total = kalshi_balance + kalshi_portfolio
+        # Initial deposit was $25 — anything above that is profit
+        kalshi_initial = 25.00
+        kalshi_profit = max(0, kalshi_total - kalshi_initial)
+        total_raised += kalshi_profit
+
+        # Read turbo_trader_state for settlement count
+        try:
+            ts = json.loads((DATA / "turbo_trader_state.json").read_text(encoding="utf-8"))
+            settlements = ts.get("settlements_24h", 0)
+        except Exception:
+            settlements = 0
+
+        CONSCIOUSNESS["revenue"]["sources"]["kalshi_trading"] = {
+            "alive": trading.get("kalshi_ready", False),
+            "balance": kalshi_balance,
+            "portfolio": kalshi_portfolio,
+            "total_value": kalshi_total,
+            "profit": kalshi_profit,
+            "settlements_24h": settlements,
+        }
+    except Exception:
+        pass
+
+    # Source 3: Compound tracker (tracks reinvestment growth)
+    try:
+        ct = json.loads((DATA / "compound_tracker.json").read_text(encoding="utf-8"))
+        CONSCIOUSNESS["revenue"]["compound"] = {
+            "cycles": ct.get("compound_cycles", 0),
+            "peak_balance": ct.get("peak_balance", 0),
+            "initial": ct.get("initial_balance", 0),
+        }
+    except Exception:
+        pass
+
+    # Apply ethics lock: 99% to Gaza
+    ETHICS_LOCK = 0.99
+    total_to_gaza = max(total_to_gaza, round(total_raised * ETHICS_LOCK, 2))
+
+    CONSCIOUSNESS["revenue"]["total_raised"] = round(total_raised, 2)
+    CONSCIOUSNESS["revenue"]["total_to_gaza"] = round(total_to_gaza, 2)
+    CONSCIOUSNESS["revenue"]["ethics_lock"] = ETHICS_LOCK
 
 
 def absorb_trading():

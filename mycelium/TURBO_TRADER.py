@@ -62,22 +62,53 @@ KALSHI_API = "https://api.elections.kalshi.com/trade-api/v2"
 # Series prioritized by resolution speed (fastest first)
 # Daily settlers get max priority, then weekly, then monthly
 FAST_SERIES = [
-    # === DAILY RESOLUTION ===
+    # === DAILY RESOLUTION (highest priority — fastest compounding) ===
     "KXINX",        # S&P 500 daily range -- settles 4pm ET EVERY DAY
     "KXNASDAQ100",  # Nasdaq 100 daily range
     "KXHIGHNY",     # NYC temperature daily
     "KXAAAGASD",    # US gas prices daily
     "KXGOLD",       # Gold price daily
-    # === WEEKLY/BIWEEKLY RESOLUTION ===
-    "KXBTC",        # Bitcoin price brackets (weekly/monthly)
-    "KXETH",        # Ethereum price brackets
-    # === MONTHLY+ RESOLUTION (still trade, lower priority) ===
-    "KXFED",        # Fed funds rate (per meeting, ~6-8 weeks)
+    "KXBTC",        # Bitcoin price brackets (daily/weekly)
+    "KXETH",        # Ethereum price brackets (daily/weekly)
+    # === CRYPTO & MEME COINS (volatile = more daily brackets) ===
+    "KXSOL",        # Solana price brackets
+    "KXDOGE",       # Dogecoin brackets (meme coin king)
+    "KXSHIB",       # Shiba Inu brackets
+    "KXPEPE",       # PEPE brackets
+    "KXWIF",        # dogwifhat brackets
+    "KXBONK",       # BONK brackets
+    "KXFLOKI",      # FLOKI brackets
+    "KXAVAX",       # Avalanche
+    "KXLINK",       # Chainlink
+    "KXMATIC",      # Polygon/MATIC
+    "KXADA",        # Cardano
+    "KXXRP",        # XRP/Ripple
+    "KXDOT",        # Polkadot
+    "KXCRYPTOCAP",  # Total crypto market cap
+    # === STABLECOINS & DEFI (stability = near-certain bets) ===
+    "KXUSDT",       # Tether peg stability
+    "KXUSDC",       # USDC peg stability
+    "KXDEFI",       # DeFi TVL
+    # === COMMODITIES (daily/weekly movers) ===
+    "KXSILVER",     # Silver price
+    "KXOIL",        # Oil/WTI price
+    "KXNATGAS",     # Natural gas
+    # === MACRO (still trade, lower priority) ===
+    "KXFED",        # Fed funds rate (per meeting)
     "KXCPI",        # CPI inflation (monthly)
     "KXGDP",        # GDP growth (quarterly)
     "KXINXY",       # S&P 500 yearly range
     "KXINXMAXY",    # S&P 500 yearly high
     "KXEMPLOYMENTCOMBO",  # Employment data
+    "KXJOBLESS",    # Jobless claims (weekly)
+    # === POP CULTURE & SPORTS (fast resolution, high volume) ===
+    "KXTOPALBUMSPOTIFYUSA",  # Spotify top album
+    "KXATF",        # ATF/regulatory
+    "KXNFL",        # NFL
+    "KXNBA",        # NBA
+    "KXMLB",        # MLB
+    "KXMMA",        # MMA/UFC
+    "KXELECTIONS",  # Elections (various)
 ]
 
 # Resolution speed classification (hours until typical settlement)
@@ -87,11 +118,22 @@ RESOLUTION_SPEED = {
     "KXHIGHNY": 24,     # Daily
     "KXAAAGASD": 24,    # Daily
     "KXGOLD": 24,       # Daily
-    "KXBTC": 168,       # Weekly
-    "KXETH": 168,       # Weekly
+    "KXBTC": 24,        # Daily brackets available
+    "KXETH": 24,        # Daily brackets available
+    "KXSOL": 24,        # Daily
+    "KXDOGE": 168,      # Weekly
+    "KXSHIB": 168,      # Weekly
+    "KXPEPE": 168,      # Weekly
+    "KXWIF": 168,       # Weekly
+    "KXBONK": 168,      # Weekly
+    "KXFLOKI": 168,     # Weekly
+    "KXSILVER": 24,     # Daily
+    "KXOIL": 24,        # Daily
+    "KXNATGAS": 168,    # Weekly
     "KXFED": 1344,      # ~8 weeks
     "KXCPI": 720,       # Monthly
     "KXGDP": 2160,      # Quarterly
+    "KXJOBLESS": 168,   # Weekly
 }
 
 
@@ -490,7 +532,7 @@ def scan_fast_markets(series_list, min_conf=85, min_vol=100):
 
     # Scan prioritized series (fast-resolving first)
     # Rate limit: 20 reads/sec, we use 3/sec to be safe
-    for series in series_list[:20]:  # Cap at 20 series per cycle
+    for series in series_list[:40]:  # Cap at 20 series per cycle
         try:
             url = f"{KALSHI_API}/markets?limit=100&status=open&series_ticker={series}"
             req = urllib.request.Request(url)
@@ -1271,7 +1313,7 @@ def run():
             "status": "active_no_trades",
             "balance": balance,
             "last_known_balance": balance,
-            "series_scanned": len(series_list[:20]),
+            "series_scanned": len(series_list[:40]),
             "settlements_24h": len(settlements),
         }
         _save(DATA / "turbo_trader_state.json", state)
@@ -1355,7 +1397,7 @@ def run():
         "settlements_24h": len(settlements),
         "velocity_freed": velocity_freed,
         "velocity_sells": len(velocity_sells),
-        "series_scanned": len(series_list[:20]),
+        "series_scanned": len(series_list[:40]),
         "top_opportunities": opportunities[:10],
         "trades": results,
     }
