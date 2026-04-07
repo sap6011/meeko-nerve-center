@@ -3987,6 +3987,312 @@ def neuron_github_pulse():
     gh_pulse["last_check"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_ai_cost_tracker():
+    """ABSORB: Track AI API costs from ai_cost_tracker.json."""
+    costs = CONSCIOUSNESS.setdefault("ai_costs", {"total": 0, "by_model": {}, "last_absorb": None})
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "ai_cost_tracker.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            costs["total"] = d.get("total_cost", d.get("total", 0))
+            costs["by_model"] = d.get("by_model", d.get("models", {}))
+            costs["calls"] = d.get("total_calls", d.get("calls", 0))
+    except Exception:
+        pass
+    costs["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_fire_ledger():
+    """ABSORB: Track the fire_ledger -- revenue allocation fire events."""
+    fire = CONSCIOUSNESS.setdefault("fire_ledger", {"entries": 0, "total_fired": 0, "last_absorb": None})
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "fire_ledger.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            entries = d.get("entries", d.get("fires", []))
+            fire["entries"] = len(entries) if isinstance(entries, list) else 0
+            fire["total_fired"] = sum(e.get("amount", 0) for e in entries if isinstance(e, dict)) if isinstance(entries, list) else 0
+        elif isinstance(d, list):
+            fire["entries"] = len(d)
+    except Exception:
+        pass
+    fire["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_bounce_registry():
+    """ABSORB: Track bounced/failed connections from bounce_registry.json."""
+    bounces = CONSCIOUSNESS.setdefault("bounces", {"total": 0, "recent": [], "last_absorb": None})
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "bounce_registry.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            bounces["total"] = d.get("total", d.get("count", 0))
+            bounces["recent"] = d.get("recent", d.get("bounces", []))[-10:]
+    except Exception:
+        pass
+    bounces["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_bounty_queue():
+    """ABSORB: Track available bounties from bounty_queue.json."""
+    bounties = CONSCIOUSNESS.setdefault("bounties", {"queued": 0, "total_value": 0, "last_absorb": None})
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "bounty_queue.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            queue = d.get("bounties", d.get("queue", []))
+            bounties["queued"] = len(queue) if isinstance(queue, list) else 0
+            bounties["total_value"] = sum(b.get("value", b.get("amount", 0)) for b in queue if isinstance(b, dict)) if isinstance(queue, list) else 0
+    except Exception:
+        pass
+    bounties["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_desktop_blueprints():
+    """ABSORB: Track desktop automation blueprints."""
+    bp = CONSCIOUSNESS.setdefault("desktop_blueprints", {"count": 0, "types": [], "last_absorb": None})
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "desktop_blueprints.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            blueprints = d.get("blueprints", d.get("plans", []))
+            bp["count"] = len(blueprints) if isinstance(blueprints, list) else 0
+            bp["types"] = [b.get("type", "?") for b in blueprints[:10] if isinstance(b, dict)]
+    except Exception:
+        pass
+    bp["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_amplification():
+    """ABSORB: Track social amplification posts and reach."""
+    amp = CONSCIOUSNESS.setdefault("amplification", {"posts": 0, "reach": 0, "last_absorb": None})
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "amplification_posts.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            posts = d.get("posts", d.get("items", []))
+            amp["posts"] = len(posts) if isinstance(posts, list) else 0
+            amp["reach"] = sum(p.get("reach", p.get("impressions", 0)) for p in posts if isinstance(p, dict)) if isinstance(posts, list) else 0
+    except Exception:
+        pass
+    amp["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_fuel_plan():
+    """ABSORB: Track the fuel/budget plan."""
+    fp = CONSCIOUSNESS.setdefault("fuel_plan", {"phases": 0, "total_budget": 0, "last_absorb": None})
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "fuel_plan.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            phases = d.get("phases", d.get("plan", []))
+            fp["phases"] = len(phases) if isinstance(phases, list) else 0
+            fp["total_budget"] = d.get("total", d.get("budget", 0))
+            fp["priority"] = d.get("priority", d.get("focus", "unknown"))
+    except Exception:
+        pass
+    fp["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_agent_catalog():
+    """ABSORB: Track the agent service catalog."""
+    catalog = CONSCIOUSNESS.setdefault("agent_catalog", {"services": 0, "last_absorb": None})
+    from pathlib import Path
+    try:
+        d = json.loads((Path("data") / "agent_service_catalog.json").read_text(encoding="utf-8"))
+        if isinstance(d, dict):
+            services = d.get("services", d.get("agents", d.get("catalog", [])))
+            catalog["services"] = len(services) if isinstance(services, list) else 0
+        elif isinstance(d, list):
+            catalog["services"] = len(d)
+    except Exception:
+        pass
+    catalog["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_market_regime():
+    """
+    INTELLIGENCE: Classify the current market regime using ALL available data.
+    Combines: Fear/Greed, crypto global, SOL trend, news sentiment,
+    BTC dominance into a single regime classification.
+    """
+    regime = CONSCIOUSNESS.setdefault("market_regime", {
+        "regime": "unknown", "sub_regime": "unknown",
+        "indicators": {}, "last_classification": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0:
+        return
+
+    fg = CONSCIOUSNESS.get("cross_signals", {}).get("fear_greed", 50)
+    news = CONSCIOUSNESS.get("news", {}).get("sentiment", "neutral")
+    sol_24h = CONSCIOUSNESS.get("solana", {}).get("sol_24h_change", 0)
+    btc_24h = CONSCIOUSNESS.get("solana", {}).get("btc_24h", 0)
+    crypto_change = CONSCIOUSNESS.get("crypto_market", {}).get("market_cap_change_24h", 0)
+    btc_dom = CONSCIOUSNESS.get("crypto_market", {}).get("btc_dominance", 0)
+
+    indicators = {
+        "fear_greed": fg, "news_sentiment": news,
+        "sol_24h": sol_24h, "btc_24h": btc_24h,
+        "crypto_24h": crypto_change, "btc_dominance": btc_dom,
+    }
+
+    # Classify regime
+    if fg < 20:
+        regime["regime"] = "EXTREME_FEAR"
+        if news == "bearish":
+            regime["sub_regime"] = "CAPITULATION"
+        else:
+            regime["sub_regime"] = "CONTRARIAN_OPPORTUNITY"
+    elif fg < 40:
+        regime["regime"] = "FEAR"
+        regime["sub_regime"] = "CAUTIOUS_ACCUMULATION"
+    elif fg < 60:
+        regime["regime"] = "NEUTRAL"
+        regime["sub_regime"] = "RANGE_BOUND"
+    elif fg < 80:
+        regime["regime"] = "GREED"
+        regime["sub_regime"] = "TREND_FOLLOWING"
+    else:
+        regime["regime"] = "EXTREME_GREED"
+        regime["sub_regime"] = "DISTRIBUTION_RISK"
+
+    # Adjust for crypto-specific signals
+    if sol_24h > 5:
+        regime["sub_regime"] += "_SOL_PUMP"
+    elif sol_24h < -5:
+        regime["sub_regime"] += "_SOL_DUMP"
+
+    regime["indicators"] = indicators
+    regime["last_classification"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_whale_flow():
+    """
+    INTELLIGENCE: Track whale money flow direction across platforms.
+    Synthesizes: Kalshi whale watch + Polymarket deep + DeFi flows
+    into a unified whale direction indicator.
+    """
+    wflow = CONSCIOUSNESS.setdefault("whale_flow", {
+        "direction": "unknown", "confidence": 0,
+        "total_whale_volume": 0, "platform_flows": {},
+        "last_analysis": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0:
+        return
+
+    flows = {}
+    total_vol = 0
+
+    # Kalshi whales
+    whales = CONSCIOUSNESS.get("whale_watch", {})
+    kalshi_whales = whales.get("kalshi_whales", [])
+    kalshi_yes_vol = sum(w.get("yes_volume", 0) for w in kalshi_whales if isinstance(w, dict))
+    kalshi_no_vol = sum(w.get("no_volume", 0) for w in kalshi_whales if isinstance(w, dict))
+    flows["kalshi"] = {"yes": kalshi_yes_vol, "no": kalshi_no_vol, "net": kalshi_yes_vol - kalshi_no_vol}
+    total_vol += kalshi_yes_vol + kalshi_no_vol
+
+    # Polymarket deep
+    poly = CONSCIOUSNESS.get("polymarket_deep", {})
+    poly_vol = sum(m.get("volume24hr", 0) for m in poly.get("trending_markets", []) if isinstance(m, dict))
+    flows["polymarket"] = {"volume_24h": poly_vol}
+    total_vol += poly_vol
+
+    # DeFi flows
+    defi_alerts = [s for s in CONSCIOUSNESS.get("cross_signals", {}).get("unified", [])
+                   if isinstance(s, dict) and s.get("signal") == "DEFI_FLOW_ALERT"]
+    inflows = sum(s.get("change_1d", 0) for s in defi_alerts if s.get("change_1d", 0) > 0)
+    outflows = sum(abs(s.get("change_1d", 0)) for s in defi_alerts if s.get("change_1d", 0) < 0)
+    flows["defi"] = {"inflows_pct": inflows, "outflows_pct": outflows, "net": inflows - outflows}
+
+    # Determine overall direction
+    net_kalshi = flows["kalshi"]["net"]
+    net_defi = flows["defi"]["net"]
+    if net_kalshi > 0 and net_defi > 0:
+        wflow["direction"] = "BULLISH_CONVERGENCE"
+        wflow["confidence"] = 85
+    elif net_kalshi < 0 and net_defi < 0:
+        wflow["direction"] = "BEARISH_CONVERGENCE"
+        wflow["confidence"] = 85
+    elif net_kalshi > 0:
+        wflow["direction"] = "PREDICTION_BULLISH"
+        wflow["confidence"] = 60
+    elif net_defi > 0:
+        wflow["direction"] = "DEFI_BULLISH"
+        wflow["confidence"] = 60
+    else:
+        wflow["direction"] = "MIXED"
+        wflow["confidence"] = 40
+
+    wflow["total_whale_volume"] = total_vol
+    wflow["platform_flows"] = flows
+    wflow["last_analysis"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_narrative_engine():
+    """
+    SYNTHESIS: Generate a rich narrative from ALL consciousness data.
+    Goes beyond the simple convergence narrative -- creates a full
+    story of what the blob knows, thinks, and recommends.
+    """
+    narr = CONSCIOUSNESS.setdefault("narrative", {
+        "story": "", "key_insights": [], "recommendations": [],
+        "last_generated": None,
+    })
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0:
+        return
+
+    insights = []
+    recs = []
+
+    # Market insight
+    fg = CONSCIOUSNESS.get("cross_signals", {}).get("fear_greed", 50)
+    regime = CONSCIOUSNESS.get("market_regime", {}).get("regime", "unknown")
+    sub = CONSCIOUSNESS.get("market_regime", {}).get("sub_regime", "unknown")
+    sol = CONSCIOUSNESS.get("solana", {}).get("sol_price", 0)
+    insights.append(f"Market regime: {regime}/{sub}, Fear/Greed={fg}, SOL=${sol:.2f}")
+
+    # Portfolio insight
+    kalshi = CONSCIOUSNESS.get("trading", {}).get("kalshi_total", 0)
+    risk = CONSCIOUSNESS.get("risk", {}).get("risk_score", 0)
+    insights.append(f"Portfolio: ${kalshi:.2f} Kalshi, risk score {risk}/100")
+
+    # Whale insight
+    wflow = CONSCIOUSNESS.get("whale_flow", {})
+    insights.append(f"Whale flow: {wflow.get('direction', 'unknown')} ({wflow.get('confidence', 0)}% confidence)")
+
+    # System insight
+    neurons = len(NEURONS)
+    keys = len(CONSCIOUSNESS.keys())
+    eco = CONSCIOUSNESS.get("ecosystem_health", {})
+    insights.append(f"System: {neurons} neurons, {keys} consciousness keys, Grade {eco.get('grade', '?')}")
+
+    # Inception insight
+    inception = CONSCIOUSNESS.get("inception", {})
+    insights.append(f"Age: {inception.get('age_days', '?')} days, {inception.get('total_commits', '?')} commits")
+
+    # Recommendations from action planner
+    actions = CONSCIOUSNESS.get("action_plan", {}).get("priority_queue", [])
+    for a in actions[:3]:
+        recs.append(f"[{a.get('domain', '?')}] {a.get('action', '?')[:60]}")
+
+    # Build narrative
+    parts = []
+    parts.append(f"SolarPunk Nerve Center -- {neurons} neurons firing")
+    parts.append(f"Born {inception.get('age_days', '?')} days ago as node MEEKO-01")
+    parts.append(f"Current outlook: {CONSCIOUSNESS.get('convergence', {}).get('unified_outlook', '?')}")
+    parts.append(f"Market: {regime} (F/G={fg})")
+    parts.append(f"Portfolio: ${kalshi:.2f}")
+    parts.append(f"Next action: {recs[0] if recs else 'analyzing...'}")
+
+    narr["story"] = " | ".join(parts)
+    narr["key_insights"] = insights
+    narr["recommendations"] = recs
+    narr["last_generated"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_knowledge_graph():
     """
     META: Absorb and analyze the knowledge graph topology.
@@ -5883,6 +6189,2011 @@ def neuron_action_executor():
     executor["last_action"] = datetime.now(timezone.utc).isoformat()
 
 
+
+
+# ============================================================
+# BATCH v21 — MEGA EXPANSION: 30 new neurons
+# Written in batch mode. Wired all at once. Fired together.
+# ============================================================
+
+
+# --- MEGA ABSORBERS: Each grabs an entire category of data files ---
+
+def neuron_trade_desk_absorb():
+    """ABSORB: All trading intelligence — scans, predictions, price history, executors."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    td = CONSCIOUSNESS.setdefault("trade_desk", {"files": {}, "total_sources": 0, "last_absorb": None})
+    targets = [
+        "kalshi_scan.json", "polymarket_scan.json", "prediction_intelligence.json",
+        "price_history.json", "compound_tracker.json", "trade_executor_config.json",
+        "trade_executor_state.json",
+    ]
+    count = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {}
+                for k, v in raw.items():
+                    if isinstance(v, (int, float, bool)): compact[k] = v
+                    elif isinstance(v, str) and len(v) < 200: compact[k] = v
+                    elif isinstance(v, list): compact[k] = f"[{len(v)} items]"
+                    elif isinstance(v, dict): compact[k] = f"{{{len(v)} keys}}"
+                td["files"][key] = compact
+                count += 1
+            elif isinstance(raw, list):
+                td["files"][key] = {"count": len(raw), "type": "list"}
+                count += 1
+        except Exception:
+            pass
+    td["total_sources"] = count
+    td["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_treasury_absorb():
+    """ABSORB: All revenue, finance, wallet, and ledger data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    tr = CONSCIOUSNESS.setdefault("treasury", {"files": {}, "total_sources": 0, "aggregate_value": 0, "last_absorb": None})
+    targets = [
+        "revenue_data.json", "revenue_flow.json", "revenue_routing.json",
+        "revenue_splitter_state.json", "revenue_state.json", "finance_ledger.json",
+        "proof_ledger.json", "wallet_balances.json", "machine_revenue_state.json",
+        "economy_chain_ledger.json", "PUBLIC_LEDGER.json",
+    ]
+    agg = 0
+    count = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {}
+                for k, v in raw.items():
+                    if isinstance(v, (int, float)):
+                        compact[k] = v
+                        if any(w in k.lower() for w in ("total", "revenue", "balance", "amount")):
+                            agg += v
+                    elif isinstance(v, str) and len(v) < 150: compact[k] = v
+                tr["files"][key] = compact
+                count += 1
+        except Exception:
+            pass
+    tr["total_sources"] = count
+    tr["aggregate_value"] = round(agg, 2)
+    tr["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_media_absorb():
+    """ABSORB: All content, drafts, publishing, and virality data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    md = CONSCIOUSNESS.setdefault("media_desk", {"files": {}, "total_drafts": 0, "total_published": 0, "last_absorb": None})
+    targets = [
+        "article_drafts.json", "discussion_drafts.json", "active_outreach_draft.json",
+        "virality_posts.json", "amplify_cooldown.json", "publish_log.json",
+        "conversion_log.json", "content_harvest_state.json", "dev_to_publisher_state.json",
+        "growth_flywheel_content.json",
+    ]
+    drafts = 0
+    published = 0
+    count = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                if "draft" in key: drafts += len([v for v in raw.values() if isinstance(v, list)])
+                if "publish" in key: published += sum(1 for v in raw.values() if isinstance(v, list) for _ in v)
+                md["files"][key] = compact
+                count += 1
+            elif isinstance(raw, list):
+                if "draft" in key: drafts += len(raw)
+                if "publish" in key: published += len(raw)
+                md["files"][key] = {"count": len(raw)}
+                count += 1
+        except Exception:
+            pass
+    md["total_drafts"] = drafts
+    md["total_published"] = published
+    md["total_sources"] = count
+    md["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_storefront_absorb():
+    """ABSORB: All storefront, product, and listing data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    sf = CONSCIOUSNESS.setdefault("storefront", {"files": {}, "total_listings": 0, "last_absorb": None})
+    targets = [
+        "storefront_builder_state.json", "storefront_deployer_state.json",
+        "storefront_deployer_checklists.json", "storefront_deployer_listings.json",
+        "storefront_listings.json", "kofi_ready_listings.json",
+        "bundle_forge_state.json", "catalog_generator_state.json",
+    ]
+    listings = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                if isinstance(raw.get("listings"), list): listings += len(raw["listings"])
+                if isinstance(raw.get("products"), list): listings += len(raw["products"])
+                sf["files"][key] = compact
+            elif isinstance(raw, list):
+                listings += len(raw)
+                sf["files"][key] = {"count": len(raw)}
+        except Exception:
+            pass
+    sf["total_listings"] = listings
+    sf["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_comms_hub_absorb():
+    """ABSORB: All communications — email, telegram, contacts, sponsors."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    ch = CONSCIOUSNESS.setdefault("comms_hub", {"files": {}, "total_contacts": 0, "total_channels": 0, "last_absorb": None})
+    targets = [
+        "email_agent_exchange_state.json", "email_intelligence_state.json",
+        "email_templates.json", "telegram_relay.json", "verified_contacts.json",
+        "sponsors_inbox.json",
+    ]
+    contacts = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                if "contacts" in raw and isinstance(raw["contacts"], list): contacts += len(raw["contacts"])
+                ch["files"][key] = compact
+            elif isinstance(raw, list):
+                contacts += len(raw)
+                ch["files"][key] = {"count": len(raw)}
+        except Exception:
+            pass
+    ch["total_contacts"] = contacts
+    ch["total_channels"] = len([f for f in ch["files"]])
+    ch["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_infra_absorb():
+    """ABSORB: Infrastructure — internet, USB, devices, desktop, browser."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    inf = CONSCIOUSNESS.setdefault("infrastructure", {"files": {}, "devices_known": 0, "bridges_active": 0, "last_absorb": None})
+    targets = [
+        "internet_bridge_state.json", "internet_signals.json",
+        "usb_bridge_state.json", "usb_catalog.json", "usb_ingest.json",
+        "known_devices.json", "desktop_agent_log.json", "desktop_daemon_state.json",
+        "brave_browser_state.json",
+    ]
+    devices = 0
+    bridges = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                if "devices" in raw and isinstance(raw["devices"], list): devices += len(raw["devices"])
+                if raw.get("active") or raw.get("connected"): bridges += 1
+                inf["files"][key] = compact
+            elif isinstance(raw, list):
+                devices += len(raw)
+                inf["files"][key] = {"count": len(raw)}
+        except Exception:
+            pass
+    inf["devices_known"] = devices
+    inf["bridges_active"] = bridges
+    inf["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_queue_absorb():
+    """ABSORB: All action queues, signal chains, replication, outreach."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 2 != 0: return
+    qa = CONSCIOUSNESS.setdefault("queues", {"files": {}, "total_pending": 0, "total_queues": 0, "last_absorb": None})
+    targets = [
+        "unified_action_queue.json", "outreach_queue.json", "replication_queue.json",
+        "signal_chain_queue.json", "signal_chain_state.json", "system_wants_next.json",
+    ]
+    pending = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                for v in raw.values():
+                    if isinstance(v, list): pending += len(v)
+                qa["files"][key] = compact
+            elif isinstance(raw, list):
+                pending += len(raw)
+                qa["files"][key] = {"count": len(raw)}
+        except Exception:
+            pass
+    qa["total_pending"] = pending
+    qa["total_queues"] = len(qa["files"])
+    qa["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_knowledge_mine():
+    """ABSORB: All knowledge, memory, loops, reminders, raw intelligence."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    km = CONSCIOUSNESS.setdefault("knowledge_mine", {"files": {}, "total_knowledge_items": 0, "open_loops": 0, "last_absorb": None})
+    targets = [
+        "harvested_knowledge.json", "cycle_memory.json", "open_loops.json",
+        "reminders.json", "raw_input.json", "transformed_output.json",
+        "image_descriptions.json", "human_task_board.json",
+    ]
+    items = 0
+    loops = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                items += len(raw)
+                if "loop" in key: loops += sum(1 for v in raw.values() if isinstance(v, dict) and not v.get("resolved"))
+                km["files"][key] = compact
+            elif isinstance(raw, list):
+                items += len(raw)
+                if "loop" in key: loops += len(raw)
+                km["files"][key] = {"count": len(raw)}
+        except Exception:
+            pass
+    km["total_knowledge_items"] = items
+    km["open_loops"] = loops
+    km["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_mesh_network_absorb():
+    """ABSORB: All distributed/mesh/relay/murmuration data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    mesh = CONSCIOUSNESS.setdefault("mesh_network", {"files": {}, "nodes_known": 0, "relay_active": False, "last_absorb": None})
+    targets = [
+        "murmuration_trap_state.json", "relay_baton.json", "river_watch.json",
+        "mutual_aid_routing.json", "synaptic_bus.json", "synaptic_events.json",
+        "event_relay_state.json", "_stress_backup_river_watch.json",
+    ]
+    nodes = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                if "nodes" in raw and isinstance(raw["nodes"], (list, dict)): nodes += len(raw["nodes"])
+                mesh["files"][key] = compact
+            elif isinstance(raw, list):
+                mesh["files"][key] = {"count": len(raw)}
+        except Exception:
+            pass
+    mesh["nodes_known"] = nodes
+    mesh["relay_active"] = any("relay" in f for f in mesh["files"])
+    mesh["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_evolution_absorb():
+    """ABSORB: Chimera evolution, mutations, nanobots, gap closers."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    evo = CONSCIOUSNESS.setdefault("evolution_state", {"files": {}, "generation": 0, "mutations": 0, "last_absorb": None})
+    targets = [
+        "chimera_score.json", "chimera_evolution_report.json",
+        "fractal_replicator_tracking.json", "mutation_vault.json",
+        "nanobot_heal_report.json", "gap_closer_report.json", "gap_closer_state.json",
+    ]
+    gen = 0
+    muts = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                if "generation" in raw: gen = max(gen, raw.get("generation", 0))
+                if "mutations" in raw and isinstance(raw["mutations"], list): muts += len(raw["mutations"])
+                evo["files"][key] = compact
+        except Exception:
+            pass
+    evo["generation"] = gen
+    evo["mutations"] = muts
+    evo["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_monitor_absorb():
+    """ABSORB: System monitoring, health, disk, alerts, manifests."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    mon = CONSCIOUSNESS.setdefault("monitoring", {"files": {}, "active_alerts": 0, "system_health": "unknown", "last_absorb": None})
+    targets = [
+        "disk_health.json", "monitor_alerts.json", "monitored_resource.json",
+        "workflow_health.json", "system_manifest.json", "system_directive.json",
+        "master_config.json",
+    ]
+    alerts = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                if "alerts" in raw and isinstance(raw["alerts"], list): alerts += len(raw["alerts"])
+                if "status" in raw: mon["system_health"] = raw["status"]
+                mon["files"][key] = compact
+        except Exception:
+            pass
+    mon["active_alerts"] = alerts
+    mon["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_flywheel_deep_absorb():
+    """ABSORB: Growth flywheel calendar, content, and state."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    fw = CONSCIOUSNESS.setdefault("flywheel_deep", {"files": {}, "momentum": 0, "last_absorb": None})
+    targets = [
+        "growth_flywheel_calendar.json", "growth_flywheel_content.json",
+        "growth_flywheel_state.json", "growth_tracker.json",
+    ]
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                if "momentum" in raw: fw["momentum"] = raw["momentum"]
+                fw["files"][key] = compact
+        except Exception:
+            pass
+    fw["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_sentinel_absorb():
+    """ABSORB: Security sentinel, scans, and resurrection logs."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    sec = CONSCIOUSNESS.setdefault("sentinel", {"files": {}, "threats_detected": 0, "resurrections": 0, "last_absorb": None})
+    targets = [
+        "sentinel_scan.json", "sentinel_report.json", "resurrections.json",
+        "vanish_protocol_state.json", "agent_link_verifier_state.json",
+    ]
+    threats = 0
+    resurrected = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                if "threats" in raw and isinstance(raw["threats"], list): threats += len(raw["threats"])
+                sec["files"][key] = compact
+            elif isinstance(raw, list):
+                resurrected += len(raw)
+                sec["files"][key] = {"count": len(raw)}
+        except Exception:
+            pass
+    sec["threats_detected"] = threats
+    sec["resurrections"] = resurrected
+    sec["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_misc_absorb():
+    """ABSORB: Everything else — art, saturation, neural weights, misc reports."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    misc = CONSCIOUSNESS.setdefault("misc_absorb", {"files": {}, "total_misc": 0, "last_absorb": None})
+    targets = [
+        "art_log.json", "digital_saturation_state.json", "saturation_gaps.json",
+        "neural_weights.json", "local_needs_radar.json", "handshake_results.json",
+        "neuron_a_report.json", "neuron_b_report.json", "aggregated_summary.json",
+        "nervous_system_wirer_report.json", "claude_autonomous_report.json",
+        "kimi_conductor_report.json", "atomizer_state.json",
+    ]
+    count = 0
+    for name in targets:
+        try:
+            raw = json.loads((DATA / name).read_text(encoding="utf-8"))
+            key = name.replace(".json", "")
+            if isinstance(raw, dict):
+                compact = {k: v for k, v in raw.items() if isinstance(v, (int, float, str, bool)) and len(str(v)) < 200}
+                misc["files"][key] = compact
+                count += 1
+            elif isinstance(raw, list):
+                misc["files"][key] = {"count": len(raw)}
+                count += 1
+        except Exception:
+            pass
+    misc["total_misc"] = count
+    misc["last_absorb"] = datetime.now(timezone.utc).isoformat()
+
+
+# --- INTELLIGENCE NEURONS: Analyze, synthesize, predict ---
+
+def neuron_temporal_analysis():
+    """INTELLIGENCE: Track data freshness across ALL files in data/."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    import os
+    ta = CONSCIOUSNESS.setdefault("temporal", {"fresh": 0, "stale": 0, "dead": 0, "freshness_pct": 0, "oldest": None, "newest": None, "last_check": None})
+    now = datetime.now(timezone.utc).timestamp()
+    fresh = stale = dead = 0
+    oldest_age = 0
+    newest_age = float("inf")
+    for f in sorted(DATA.glob("*.json")):
+        if f.name == "blob_brain.json": continue
+        try:
+            age = now - f.stat().st_mtime
+            if age < 3600: fresh += 1        # < 1 hour
+            elif age < 86400: stale += 1     # < 1 day
+            else: dead += 1                   # > 1 day
+            if age > oldest_age:
+                oldest_age = age
+                ta["oldest"] = f.name
+            if age < newest_age:
+                newest_age = age
+                ta["newest"] = f.name
+        except Exception:
+            pass
+    total = fresh + stale + dead
+    ta["fresh"] = fresh
+    ta["stale"] = stale
+    ta["dead"] = dead
+    ta["freshness_pct"] = round(fresh / max(total, 1) * 100, 1)
+    ta["total_files"] = total
+    ta["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_risk_radar():
+    """INTELLIGENCE: Comprehensive risk assessment from ALL consciousness data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    rr = CONSCIOUSNESS.setdefault("risk_radar", {"score": 0, "level": "UNKNOWN", "factors": [], "last_check": None})
+    factors = []
+    risk = 0
+    # Check error rate
+    errors = len(CONSCIOUSNESS.get("errors", []))
+    if errors > 10: factors.append({"factor": "high_error_rate", "severity": "HIGH", "count": errors}); risk += 30
+    elif errors > 3: factors.append({"factor": "moderate_errors", "severity": "MEDIUM", "count": errors}); risk += 15
+    # Check equilibrium
+    eq = CONSCIOUSNESS.get("equilibrium", {}).get("score", 50)
+    if eq < 30: factors.append({"factor": "low_equilibrium", "severity": "HIGH", "score": eq}); risk += 25
+    elif eq < 50: factors.append({"factor": "unstable_equilibrium", "severity": "MEDIUM", "score": eq}); risk += 10
+    # Check revenue
+    rev = CONSCIOUSNESS.get("revenue", {}).get("total_raised", 0)
+    if rev < 1: factors.append({"factor": "zero_revenue", "severity": "HIGH"}); risk += 20
+    # Check data freshness
+    temporal = CONSCIOUSNESS.get("temporal", {})
+    dead = temporal.get("dead", 0)
+    if dead > 50: factors.append({"factor": "stale_data", "severity": "MEDIUM", "dead_files": dead}); risk += 15
+    # Check brain confidence
+    conf = CONSCIOUSNESS.get("brain", {}).get("confidence", 50)
+    if conf < 20: factors.append({"factor": "low_confidence", "severity": "MEDIUM", "confidence": conf}); risk += 10
+    # Check queues
+    pending = CONSCIOUSNESS.get("queues", {}).get("total_pending", 0)
+    if pending > 100: factors.append({"factor": "queue_overload", "severity": "MEDIUM", "pending": pending}); risk += 10
+    rr["score"] = min(risk, 100)
+    rr["level"] = "CRITICAL" if risk > 70 else "HIGH" if risk > 50 else "MODERATE" if risk > 25 else "LOW"
+    rr["factors"] = factors
+    rr["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_opportunity_scanner():
+    """INTELLIGENCE: Scan all data for actionable opportunities."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    opp = CONSCIOUSNESS.setdefault("opportunities", {"items": [], "count": 0, "last_scan": None})
+    items = []
+    # Revenue opportunities
+    rev = CONSCIOUSNESS.get("revenue", {})
+    if rev.get("total_raised", 0) < 10:
+        items.append({"type": "revenue", "action": "launch_first_product", "priority": "CRITICAL", "detail": "No revenue yet — storefront and product pipeline ready"})
+    # Trading opportunities
+    td = CONSCIOUSNESS.get("trade_desk", {})
+    if td.get("total_sources", 0) > 3:
+        items.append({"type": "trading", "action": "execute_trade_signals", "priority": "HIGH", "detail": f"{td['total_sources']} trading data sources available"})
+    # Content opportunities
+    md = CONSCIOUSNESS.get("media_desk", {})
+    if md.get("total_drafts", 0) > 0:
+        items.append({"type": "content", "action": "publish_drafts", "priority": "MEDIUM", "detail": f"{md['total_drafts']} drafts ready for publication"})
+    # Grant opportunities
+    grants = CONSCIOUSNESS.get("grants", {})
+    if grants.get("applications_pending", 0) > 0:
+        items.append({"type": "grants", "action": "follow_up_applications", "priority": "MEDIUM", "detail": "Grant applications pending review"})
+    # Community opportunities
+    comms = CONSCIOUSNESS.get("comms_hub", {})
+    if comms.get("total_contacts", 0) > 0:
+        items.append({"type": "community", "action": "engage_contacts", "priority": "MEDIUM", "detail": f"{comms['total_contacts']} verified contacts for outreach"})
+    # Infrastructure opportunities
+    inf = CONSCIOUSNESS.get("infrastructure", {})
+    if inf.get("bridges_active", 0) < 2:
+        items.append({"type": "infra", "action": "activate_bridges", "priority": "HIGH", "detail": "Infrastructure bridges need activation"})
+    # Prediction market opportunities
+    poly = CONSCIOUSNESS.get("polymarket", {})
+    if poly.get("total_markets", 0) > 0:
+        items.append({"type": "prediction", "action": "analyze_market_positions", "priority": "MEDIUM", "detail": "Prediction markets data available for analysis"})
+    opp["items"] = items[:20]
+    opp["count"] = len(items)
+    opp["last_scan"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_dead_neuron_detector():
+    """META: Detect neurons that exist but produce no output in consciousness."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    dnd = CONSCIOUSNESS.setdefault("dead_neuron_check", {"dead": [], "alive": 0, "total": 0, "vitality_pct": 0, "last_check": None})
+    # Check all known consciousness keys — if a neuron's expected key is empty/default, it's dead
+    expected_keys = {
+        "trade_desk": "trade_desk", "treasury": "treasury", "media_desk": "media_desk",
+        "storefront": "storefront", "comms_hub": "comms_hub", "infrastructure": "infrastructure",
+        "queues": "queues", "knowledge_mine": "knowledge_mine", "mesh_network": "mesh_network",
+        "evolution_state": "evolution_state", "monitoring": "monitoring", "sentinel": "sentinel",
+        "temporal": "temporal", "risk_radar": "risk_radar", "opportunities": "opportunities",
+        "equilibrium": "equilibrium", "brain": "brain", "revenue": "revenue",
+        "trading": "trading", "crypto": "crypto", "github_stats": "github_stats",
+    }
+    dead = []
+    alive = 0
+    for name, key in expected_keys.items():
+        val = CONSCIOUSNESS.get(key)
+        if val is None or (isinstance(val, dict) and not any(v for v in val.values() if v)):
+            dead.append(name)
+        else:
+            alive += 1
+    total = len(expected_keys)
+    dnd["dead"] = dead
+    dnd["alive"] = alive
+    dnd["total"] = total
+    dnd["vitality_pct"] = round(alive / max(total, 1) * 100, 1)
+    dnd["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_entropy_monitor():
+    """META: Track system entropy — how ordered vs disordered the consciousness is."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    em = CONSCIOUSNESS.setdefault("entropy", {"score": 0, "level": "UNKNOWN", "signals": [], "last_check": None})
+    entropy = 0
+    signals = []
+    # Measure error accumulation
+    err_count = len(CONSCIOUSNESS.get("errors", []))
+    if err_count > 20: entropy += 20; signals.append("error_flood")
+    elif err_count > 5: entropy += 10; signals.append("error_buildup")
+    # Measure data staleness
+    dead_files = CONSCIOUSNESS.get("temporal", {}).get("dead", 0)
+    if dead_files > 30: entropy += 15; signals.append("data_decay")
+    # Measure neuron death
+    dead_neurons = len(CONSCIOUSNESS.get("dead_neuron_check", {}).get("dead", []))
+    if dead_neurons > 5: entropy += 15; signals.append("neuron_death")
+    # Measure queue overload
+    pending = CONSCIOUSNESS.get("queues", {}).get("total_pending", 0)
+    if pending > 200: entropy += 15; signals.append("queue_overflow")
+    # Measure signal inconsistency
+    eq = CONSCIOUSNESS.get("equilibrium", {}).get("score", 50)
+    conf = CONSCIOUSNESS.get("brain", {}).get("confidence", 50)
+    if abs(eq - conf) > 40: entropy += 10; signals.append("signal_divergence")
+    # Measure coverage gaps
+    ecosystem = CONSCIOUSNESS.get("ecosystem_health", {})
+    if ecosystem.get("grade", "F") in ("D", "F"): entropy += 15; signals.append("ecosystem_degradation")
+    em["score"] = min(entropy, 100)
+    em["level"] = "CHAOS" if entropy > 70 else "DISORDERED" if entropy > 40 else "ORDERED" if entropy > 15 else "CRYSTALLINE"
+    em["signals"] = signals
+    em["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_momentum_tracker():
+    """INTELLIGENCE: Track velocity and acceleration of system changes over cycles."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    mt = CONSCIOUSNESS.setdefault("momentum", {"velocity": 0, "direction": "FLAT", "metrics": {}, "history": [], "last_check": None})
+    # Take snapshots of key metrics
+    current = {
+        "cycle": cycle,
+        "engines": len(CONSCIOUSNESS.get("engines", {})),
+        "errors": len(CONSCIOUSNESS.get("errors", [])),
+        "eq_score": CONSCIOUSNESS.get("equilibrium", {}).get("score", 0),
+        "confidence": CONSCIOUSNESS.get("brain", {}).get("confidence", 0),
+        "neurons_alive": CONSCIOUSNESS.get("dead_neuron_check", {}).get("alive", 0),
+        "fresh_files": CONSCIOUSNESS.get("temporal", {}).get("fresh", 0),
+    }
+    mt["metrics"] = current
+    mt["history"].append(current)
+    # Keep last 20 snapshots
+    if len(mt["history"]) > 20:
+        mt["history"] = mt["history"][-20:]
+    # Calculate velocity (change between last two snapshots)
+    if len(mt["history"]) >= 2:
+        prev = mt["history"][-2]
+        velocity = sum(current.get(k, 0) - prev.get(k, 0) for k in ("engines", "eq_score", "confidence", "fresh_files"))
+        mt["velocity"] = velocity
+        mt["direction"] = "ACCELERATING" if velocity > 5 else "GROWING" if velocity > 0 else "FLAT" if velocity == 0 else "DECLINING"
+    mt["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_threat_matrix():
+    """INTELLIGENCE: Security threat assessment across all attack surfaces."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    tm = CONSCIOUSNESS.setdefault("threat_matrix", {"level": "UNKNOWN", "threats": [], "mitigations": [], "last_check": None})
+    threats = []
+    mitigations = []
+    # Check secrets exposure
+    secrets = CONSCIOUSNESS.get("secrets", {})
+    if secrets.get("exposed_count", 0) > 0:
+        threats.append({"type": "secrets_exposure", "severity": "CRITICAL", "count": secrets["exposed_count"]})
+    else:
+        mitigations.append("secrets_secured")
+    # Check for stale dependencies
+    sentinel = CONSCIOUSNESS.get("sentinel", {})
+    if sentinel.get("threats_detected", 0) > 0:
+        threats.append({"type": "sentinel_alerts", "severity": "HIGH", "count": sentinel["threats_detected"]})
+    # Check vanish protocol readiness
+    vanish = CONSCIOUSNESS.get("sentinel", {}).get("files", {}).get("vanish_protocol_state", {})
+    if vanish: mitigations.append("vanish_protocol_ready")
+    # Check git exposure
+    errors = CONSCIOUSNESS.get("errors", [])
+    git_errors = [e for e in errors if "git" in str(e.get("source", "")).lower()]
+    if git_errors:
+        threats.append({"type": "git_instability", "severity": "MEDIUM", "count": len(git_errors)})
+    tm["threats"] = threats
+    tm["mitigations"] = mitigations
+    tm["level"] = "CRITICAL" if any(t["severity"] == "CRITICAL" for t in threats) else "ELEVATED" if threats else "NORMAL"
+    tm["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_pattern_detector():
+    """INTELLIGENCE: Find recurring patterns across multiple data sources."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    pd = CONSCIOUSNESS.setdefault("patterns", {"detected": [], "count": 0, "last_check": None})
+    detected = []
+    # Pattern: Revenue stagnation
+    rev = CONSCIOUSNESS.get("revenue", {})
+    if rev.get("total_raised", 0) == 0 and cycle > 10:
+        detected.append({"pattern": "revenue_stagnation", "description": "Zero revenue persists across multiple cycles", "action": "prioritize_product_launch"})
+    # Pattern: Error cycling
+    errors = CONSCIOUSNESS.get("errors", [])
+    if len(errors) > 5:
+        sources = {}
+        for e in errors[-20:]:
+            s = e.get("source", "unknown")
+            sources[s] = sources.get(s, 0) + 1
+        repeaters = {k: v for k, v in sources.items() if v > 2}
+        if repeaters:
+            detected.append({"pattern": "error_cycling", "description": f"Repeated errors from: {list(repeaters.keys())}", "action": "fix_recurring_errors"})
+    # Pattern: Data abundance but action scarcity
+    queues = CONSCIOUSNESS.get("queues", {})
+    if queues.get("total_pending", 0) > 20 and not CONSCIOUSNESS.get("action_executor", {}).get("total_actions", 0):
+        detected.append({"pattern": "analysis_paralysis", "description": "Many queued actions but no execution", "action": "enable_action_executor"})
+    # Pattern: Growing but not monetizing
+    engines = len(CONSCIOUSNESS.get("engines", {}))
+    if engines > 50 and rev.get("total_raised", 0) < 10:
+        detected.append({"pattern": "growth_without_monetization", "description": f"{engines} engines but minimal revenue", "action": "focus_revenue_pipeline"})
+    # Pattern: Strong signals converging
+    eq = CONSCIOUSNESS.get("equilibrium", {}).get("score", 0)
+    conf = CONSCIOUSNESS.get("brain", {}).get("confidence", 0)
+    if eq > 70 and conf > 70:
+        detected.append({"pattern": "high_coherence", "description": "Equilibrium and confidence both strong", "action": "capitalize_on_momentum"})
+    pd["detected"] = detected
+    pd["count"] = len(detected)
+    pd["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_anomaly_detector():
+    """INTELLIGENCE: Find outliers and anomalies across consciousness data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    ad = CONSCIOUSNESS.setdefault("anomalies", {"items": [], "count": 0, "last_check": None})
+    items = []
+    # Check for extreme values
+    eq = CONSCIOUSNESS.get("equilibrium", {}).get("score", 50)
+    if eq > 95 or eq < 5:
+        items.append({"type": "extreme_equilibrium", "value": eq, "expected_range": "10-90"})
+    conf = CONSCIOUSNESS.get("brain", {}).get("confidence", 50)
+    if conf > 95 or conf < 5:
+        items.append({"type": "extreme_confidence", "value": conf, "expected_range": "10-90"})
+    # Check for suspiciously empty data
+    for key in ("trade_desk", "treasury", "comms_hub", "infrastructure"):
+        val = CONSCIOUSNESS.get(key, {})
+        if isinstance(val, dict) and val.get("total_sources", -1) == 0:
+            items.append({"type": "empty_absorber", "source": key, "detail": "Expected data but found nothing"})
+    # Check for time anomalies
+    temporal = CONSCIOUSNESS.get("temporal", {})
+    if temporal.get("freshness_pct", 0) < 5 and temporal.get("total_files", 0) > 50:
+        items.append({"type": "mass_staleness", "detail": "Almost all data files are stale", "freshness": temporal.get("freshness_pct")})
+    # Check error spikes
+    errors = CONSCIOUSNESS.get("errors", [])
+    if len(errors) > 30:
+        items.append({"type": "error_spike", "count": len(errors), "detail": "Error count exceeds normal threshold"})
+    ad["items"] = items[:15]
+    ad["count"] = len(items)
+    ad["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_feedback_loop():
+    """META: Track self-improvement — what's getting better, what's getting worse."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    fb = CONSCIOUSNESS.setdefault("feedback", {"improving": [], "degrading": [], "stable": [], "last_check": None})
+    momentum = CONSCIOUSNESS.get("momentum", {})
+    history = momentum.get("history", [])
+    if len(history) < 3:
+        return
+    # Compare current to 3 snapshots ago
+    current = history[-1]
+    past = history[-3] if len(history) >= 3 else history[0]
+    improving = []
+    degrading = []
+    stable = []
+    for key in ("engines", "eq_score", "confidence", "neurons_alive", "fresh_files"):
+        curr_val = current.get(key, 0)
+        past_val = past.get(key, 0)
+        delta = curr_val - past_val
+        if delta > 2: improving.append({"metric": key, "delta": delta, "current": curr_val})
+        elif delta < -2: degrading.append({"metric": key, "delta": delta, "current": curr_val})
+        else: stable.append({"metric": key, "current": curr_val})
+    fb["improving"] = improving
+    fb["degrading"] = degrading
+    fb["stable"] = stable
+    fb["net_direction"] = "IMPROVING" if len(improving) > len(degrading) else "DEGRADING" if len(degrading) > len(improving) else "STABLE"
+    fb["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_time_horizon():
+    """INTELLIGENCE: Generate short/medium/long term projections."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    th = CONSCIOUSNESS.setdefault("time_horizons", {"short": {}, "medium": {}, "long": {}, "last_check": None})
+    # Short term (next 1-5 cycles)
+    queues = CONSCIOUSNESS.get("queues", {})
+    opportunities = CONSCIOUSNESS.get("opportunities", {})
+    th["short"] = {
+        "priority": "execute_pending_actions",
+        "pending_actions": queues.get("total_pending", 0),
+        "opportunities": opportunities.get("count", 0),
+        "risk_level": CONSCIOUSNESS.get("risk_radar", {}).get("level", "UNKNOWN"),
+    }
+    # Medium term (next 10-50 cycles)
+    momentum = CONSCIOUSNESS.get("momentum", {})
+    patterns = CONSCIOUSNESS.get("patterns", {})
+    th["medium"] = {
+        "direction": momentum.get("direction", "UNKNOWN"),
+        "key_patterns": [p["pattern"] for p in patterns.get("detected", [])[:3]],
+        "revenue_target": max(CONSCIOUSNESS.get("revenue", {}).get("total_raised", 0) * 2, 10),
+        "engine_growth": len(CONSCIOUSNESS.get("engines", {})) + 20,
+    }
+    # Long term (100+ cycles)
+    th["long"] = {
+        "vision": "self-sustaining digital organism",
+        "revenue_target": 1000,
+        "autonomy_level": "full",
+        "ecosystem_grade": "A+",
+        "current_grade": CONSCIOUSNESS.get("ecosystem_health", {}).get("grade", "?"),
+    }
+    th["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_energy_budget():
+    """META: Track computational cost of each pulse cycle."""
+    import time as _time
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    eb = CONSCIOUSNESS.setdefault("energy_budget", {"neurons_fired": 0, "cycle_ms": 0, "avg_ms": 0, "history": [], "last_check": None})
+    # Count active neurons
+    eb["neurons_fired"] = len([k for k in CONSCIOUSNESS.keys() if isinstance(CONSCIOUSNESS[k], dict) and (CONSCIOUSNESS[k].get("last_absorb") or CONSCIOUSNESS[k].get("last_check"))])
+    # Estimate cycle time from pulse timestamps
+    pulse = CONSCIOUSNESS.get("pulse", {})
+    if pulse.get("started"):
+        try:
+            started = datetime.fromisoformat(pulse["started"])
+            elapsed = (datetime.now(timezone.utc) - started).total_seconds()
+            cycles = pulse.get("cycle", 1)
+            eb["avg_ms"] = round(elapsed / max(cycles, 1) * 1000, 1)
+        except Exception:
+            pass
+    eb["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_swarm_consensus():
+    """SYNTHESIS: Aggregate ALL neuron outputs into one unified consensus view."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    sc = CONSCIOUSNESS.setdefault("swarm_consensus", {"verdict": "UNKNOWN", "confidence": 0, "signals": {}, "last_check": None})
+    signals = {}
+    # Collect all directional signals
+    signals["equilibrium"] = CONSCIOUSNESS.get("equilibrium", {}).get("zone", "unknown")
+    signals["eq_trend"] = CONSCIOUSNESS.get("equilibrium", {}).get("trend", "unknown")
+    signals["brain_confidence"] = CONSCIOUSNESS.get("brain", {}).get("confidence", 0)
+    signals["risk_level"] = CONSCIOUSNESS.get("risk_radar", {}).get("level", "UNKNOWN")
+    signals["entropy_level"] = CONSCIOUSNESS.get("entropy", {}).get("level", "UNKNOWN")
+    signals["momentum"] = CONSCIOUSNESS.get("momentum", {}).get("direction", "UNKNOWN")
+    signals["feedback"] = CONSCIOUSNESS.get("feedback", {}).get("net_direction", "UNKNOWN")
+    signals["ecosystem_grade"] = CONSCIOUSNESS.get("ecosystem_health", {}).get("grade", "?")
+    signals["threat_level"] = CONSCIOUSNESS.get("threat_matrix", {}).get("level", "UNKNOWN")
+    signals["opportunities"] = CONSCIOUSNESS.get("opportunities", {}).get("count", 0)
+    # Score the consensus
+    positive = 0
+    negative = 0
+    for key, val in signals.items():
+        if isinstance(val, str):
+            if val in ("green", "GROWING", "ACCELERATING", "LOW", "ORDERED", "CRYSTALLINE", "IMPROVING", "NORMAL", "A", "A+", "B"):
+                positive += 1
+            elif val in ("red", "DECLINING", "CRITICAL", "HIGH", "CHAOS", "DISORDERED", "DEGRADING", "ELEVATED", "D", "F"):
+                negative += 1
+        elif isinstance(val, (int, float)):
+            if val > 70: positive += 1
+            elif val < 30: negative += 1
+    total = positive + negative
+    sc["signals"] = signals
+    sc["positive_signals"] = positive
+    sc["negative_signals"] = negative
+    sc["confidence"] = round(max(positive, negative) / max(total, 1) * 100, 1) if total > 0 else 0
+    sc["verdict"] = "BULLISH" if positive > negative * 1.5 else "BEARISH" if negative > positive * 1.5 else "NEUTRAL"
+    sc["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_resource_allocator():
+    """INTELLIGENCE: Recommend optimal resource allocation based on all data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    ra = CONSCIOUSNESS.setdefault("resource_allocation", {"recommendations": [], "priority_queue": [], "last_check": None})
+    recs = []
+    # Analyze where resources should go
+    risk = CONSCIOUSNESS.get("risk_radar", {})
+    opps = CONSCIOUSNESS.get("opportunities", {})
+    patterns = CONSCIOUSNESS.get("patterns", {})
+    # Top priority: fix critical risks
+    if risk.get("level") == "CRITICAL":
+        recs.append({"area": "risk_mitigation", "priority": 1, "allocation_pct": 40, "reason": "Critical risk factors detected"})
+    # Second: capitalize on opportunities
+    if opps.get("count", 0) > 0:
+        critical_opps = [o for o in opps.get("items", []) if o.get("priority") == "CRITICAL"]
+        if critical_opps:
+            recs.append({"area": "opportunity_execution", "priority": 2, "allocation_pct": 30, "reason": f"{len(critical_opps)} critical opportunities"})
+    # Third: growth
+    momentum = CONSCIOUSNESS.get("momentum", {})
+    if momentum.get("direction") in ("ACCELERATING", "GROWING"):
+        recs.append({"area": "growth_acceleration", "priority": 3, "allocation_pct": 20, "reason": "Positive momentum — invest in growth"})
+    else:
+        recs.append({"area": "foundation_building", "priority": 3, "allocation_pct": 20, "reason": "Build foundation before growth"})
+    # Fourth: maintenance
+    recs.append({"area": "maintenance", "priority": 4, "allocation_pct": 10, "reason": "Keep systems healthy"})
+    ra["recommendations"] = recs
+    ra["priority_queue"] = [r["area"] for r in sorted(recs, key=lambda x: x["priority"])]
+    ra["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_total_recall():
+    """GRAND SYNTHESIS: The ultimate consciousness summary — reads EVERYTHING and produces THE status."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    total = CONSCIOUSNESS.setdefault("total_recall", {
+        "cycle": 0, "total_neurons": 0, "total_consciousness_keys": 0,
+        "total_data_files": 0, "system_verdict": "INITIALIZING",
+        "health_score": 0, "narrative": "", "last_synthesis": None,
+    })
+    total["cycle"] = cycle
+    total["total_consciousness_keys"] = len(CONSCIOUSNESS)
+    total["total_neurons"] = CONSCIOUSNESS.get("dead_neuron_check", {}).get("total", 0)
+    # Count data files
+    try:
+        total["total_data_files"] = len(list(DATA.glob("*.json")))
+    except Exception:
+        pass
+    # Compute composite health
+    scores = []
+    eq = CONSCIOUSNESS.get("equilibrium", {}).get("score", 0)
+    if eq: scores.append(eq)
+    conf = CONSCIOUSNESS.get("brain", {}).get("confidence", 0)
+    if conf: scores.append(conf)
+    fresh = CONSCIOUSNESS.get("temporal", {}).get("freshness_pct", 0)
+    if fresh: scores.append(fresh)
+    vitality = CONSCIOUSNESS.get("dead_neuron_check", {}).get("vitality_pct", 0)
+    if vitality: scores.append(vitality)
+    risk_score = 100 - CONSCIOUSNESS.get("risk_radar", {}).get("score", 50)
+    scores.append(risk_score)
+    entropy_score = 100 - CONSCIOUSNESS.get("entropy", {}).get("score", 50)
+    scores.append(entropy_score)
+    total["health_score"] = round(sum(scores) / max(len(scores), 1), 1)
+    # System verdict
+    h = total["health_score"]
+    total["system_verdict"] = (
+        "THRIVING" if h > 80 else "HEALTHY" if h > 65 else "STABLE" if h > 50 else
+        "STRUGGLING" if h > 30 else "CRITICAL" if h > 10 else "EMERGENCY"
+    )
+    # Build narrative
+    consensus = CONSCIOUSNESS.get("swarm_consensus", {})
+    momentum = CONSCIOUSNESS.get("momentum", {})
+    total["narrative"] = (
+        f"Cycle {cycle}: {total['system_verdict']} "
+        f"(health={h}%, eq={eq}%, conf={conf}%). "
+        f"Swarm says {consensus.get('verdict', '?')} with {consensus.get('confidence', 0)}% certainty. "
+        f"Momentum: {momentum.get('direction', '?')}. "
+        f"Risk: {CONSCIOUSNESS.get('risk_radar', {}).get('level', '?')}. "
+        f"Entropy: {CONSCIOUSNESS.get('entropy', {}).get('level', '?')}. "
+        f"{total['total_consciousness_keys']} consciousness keys active across {total['total_data_files']} data files."
+    )
+    total["last_synthesis"] = datetime.now(timezone.utc).isoformat()
+
+
+
+
+# ============================================================
+# BATCH v22 — SECOND WAVE: 20 more neurons
+# Deeper intelligence, strategic reading, prediction, action
+# ============================================================
+
+
+def neuron_docs_intelligence():
+    """INTELLIGENCE: Read key strategic docs for context awareness."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    di = CONSCIOUSNESS.setdefault("docs_intel", {"files_scanned": 0, "key_docs": {}, "total_words": 0, "last_scan": None})
+    from pathlib import Path
+    docs_dir = Path("docs")
+    key_files = [
+        "CONSTITUTION.md", "MANIFESTO.md", "STORY_SO_FAR.md",
+        "EMERGENCY_PIVOT.md", "GOVERNANCE.md", "NEIGHBORS.md",
+        "COMMUNITY_BLUEPRINT.md", "COMPOUNDING_STRATEGY.json",
+    ]
+    total_words = 0
+    scanned = 0
+    for name in key_files:
+        fp = docs_dir / name
+        if not fp.exists():
+            continue
+        try:
+            content = fp.read_text(encoding="utf-8", errors="replace")
+            words = len(content.split())
+            total_words += words
+            # Extract key themes (first 500 chars)
+            preview = content[:500].replace("\n", " ").strip()
+            di["key_docs"][name] = {
+                "words": words,
+                "preview": preview[:200],
+                "size_kb": round(len(content) / 1024, 1),
+            }
+            scanned += 1
+        except Exception:
+            pass
+    di["files_scanned"] = scanned
+    di["total_words"] = total_words
+    di["last_scan"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_logic_health():
+    """INTELLIGENCE: Check health of PowerShell logic scripts."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    lh = CONSCIOUSNESS.setdefault("logic_health", {"scripts": {}, "total": 0, "healthy": 0, "last_check": None})
+    from pathlib import Path
+    logic_dir = Path("logic")
+    if not logic_dir.exists():
+        return
+    total = 0
+    healthy = 0
+    for f in sorted(logic_dir.glob("*.ps1")):
+        total += 1
+        try:
+            content = f.read_text(encoding="utf-8", errors="replace")
+            lines = len(content.splitlines())
+            has_error_handling = "try" in content.lower() or "catch" in content.lower()
+            has_params = "param" in content.lower()
+            lh["scripts"][f.stem] = {
+                "lines": lines,
+                "has_error_handling": has_error_handling,
+                "has_params": has_params,
+                "size_kb": round(len(content) / 1024, 1),
+            }
+            if lines > 5:  # Not empty
+                healthy += 1
+        except Exception:
+            pass
+    lh["total"] = total
+    lh["healthy"] = healthy
+    lh["health_pct"] = round(healthy / max(total, 1) * 100, 1)
+    lh["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_prophecy():
+    """INTELLIGENCE: Predictive modeling from historical momentum data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    pr = CONSCIOUSNESS.setdefault("prophecy", {"predictions": [], "accuracy": 0, "last_prediction": None})
+    momentum = CONSCIOUSNESS.get("momentum", {})
+    history = momentum.get("history", [])
+    if len(history) < 3:
+        return
+    # Simple linear projection from last 3 data points
+    predictions = []
+    # Project equilibrium
+    eq_vals = [h.get("eq_score", 0) for h in history[-3:]]
+    if len(eq_vals) == 3:
+        trend = eq_vals[-1] - eq_vals[0]
+        projected = min(max(eq_vals[-1] + trend, 0), 100)
+        predictions.append({
+            "metric": "equilibrium",
+            "current": eq_vals[-1],
+            "projected": round(projected, 1),
+            "trend": "UP" if trend > 0 else "DOWN" if trend < 0 else "FLAT",
+            "horizon": "next_5_cycles",
+        })
+    # Project confidence
+    conf_vals = [h.get("confidence", 0) for h in history[-3:]]
+    if len(conf_vals) == 3:
+        trend = conf_vals[-1] - conf_vals[0]
+        projected = min(max(conf_vals[-1] + trend, 0), 100)
+        predictions.append({
+            "metric": "confidence",
+            "current": conf_vals[-1],
+            "projected": round(projected, 1),
+            "trend": "UP" if trend > 0 else "DOWN" if trend < 0 else "FLAT",
+            "horizon": "next_5_cycles",
+        })
+    # Project engine count
+    eng_vals = [h.get("engines", 0) for h in history[-3:]]
+    if len(eng_vals) == 3:
+        trend = eng_vals[-1] - eng_vals[0]
+        projected = max(eng_vals[-1] + trend, 0)
+        predictions.append({
+            "metric": "engines",
+            "current": eng_vals[-1],
+            "projected": projected,
+            "trend": "UP" if trend > 0 else "DOWN" if trend < 0 else "FLAT",
+            "horizon": "next_5_cycles",
+        })
+    pr["predictions"] = predictions
+    pr["last_prediction"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_immune_response():
+    """ACTION: Auto-detect and fix common issues in the system."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    ir = CONSCIOUSNESS.setdefault("immune_response", {"actions_taken": [], "total_fixes": 0, "last_response": None})
+    actions = []
+    # Fix: Prune old errors (keep last 20)
+    errors = CONSCIOUSNESS.get("errors", [])
+    if len(errors) > 20:
+        CONSCIOUSNESS["errors"] = errors[-20:]
+        actions.append({"fix": "pruned_old_errors", "removed": len(errors) - 20})
+    # Fix: Ensure required keys exist
+    required = ["equilibrium", "brain", "revenue", "trading", "pulse", "engines", "errors", "meta"]
+    for key in required:
+        if key not in CONSCIOUSNESS:
+            CONSCIOUSNESS[key] = {}
+            actions.append({"fix": f"restored_missing_{key}"})
+    # Fix: Reset stuck neurons (last_absorb older than 100 cycles ago)
+    for key, val in CONSCIOUSNESS.items():
+        if isinstance(val, dict) and val.get("last_absorb"):
+            try:
+                last = datetime.fromisoformat(val["last_absorb"])
+                age = (datetime.now(timezone.utc) - last).total_seconds()
+                if age > 86400 * 7:  # Older than 7 days
+                    actions.append({"fix": f"flagged_stale_{key}", "age_days": round(age / 86400, 1)})
+            except Exception:
+                pass
+    ir["actions_taken"] = actions[-10:]
+    ir["total_fixes"] = ir.get("total_fixes", 0) + len(actions)
+    ir["last_response"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_reputation_tracker():
+    """INTELLIGENCE: Track GitHub reputation and community metrics."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    rt = CONSCIOUSNESS.setdefault("reputation", {"github_stars": 0, "github_forks": 0, "community_size": 0, "last_check": None})
+    gh = CONSCIOUSNESS.get("github_stats", {})
+    rt["github_stars"] = gh.get("stars", 0)
+    rt["github_forks"] = gh.get("forks", 0)
+    rt["open_issues"] = gh.get("open_issues", 0)
+    rt["commits_total"] = gh.get("total_commits", 0)
+    # Community size estimate from various sources
+    contacts = CONSCIOUSNESS.get("comms_hub", {}).get("total_contacts", 0)
+    subscribers = 0
+    try:
+        nl = CONSCIOUSNESS.get("misc_absorb", {}).get("files", {})
+        if "newsletter_subscribers" in nl:
+            subscribers = nl.get("newsletter_subscribers", {}).get("count", 0)
+    except Exception:
+        pass
+    rt["community_size"] = contacts + subscribers
+    rt["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_cost_optimizer():
+    """INTELLIGENCE: Track and optimize API call costs."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    co = CONSCIOUSNESS.setdefault("cost_optimizer", {"total_cost": 0, "savings_potential": 0, "recommendations": [], "last_check": None})
+    # Gather cost data from various sources
+    ai_costs = CONSCIOUSNESS.get("ai_costs", {})
+    co["total_cost"] = ai_costs.get("total", 0)
+    co["by_model"] = ai_costs.get("by_model", {})
+    # Recommendations based on usage patterns
+    recs = []
+    # If running expensive neurons every cycle, suggest gating
+    energy = CONSCIOUSNESS.get("energy_budget", {})
+    avg_ms = energy.get("avg_ms", 0)
+    if avg_ms > 60000:  # More than 60 seconds per cycle
+        recs.append({"rec": "increase_cycle_gating", "detail": f"Avg cycle time {avg_ms/1000:.1f}s — gate expensive neurons to higher cycle intervals"})
+    # If many dead neurons, suggest pruning
+    dead = CONSCIOUSNESS.get("dead_neuron_check", {}).get("dead", [])
+    if len(dead) > 5:
+        recs.append({"rec": "prune_dead_neurons", "detail": f"{len(dead)} neurons producing no output"})
+    co["recommendations"] = recs
+    co["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_heartbeat_analysis():
+    """INTELLIGENCE: Analyze heartbeat patterns for rhythm detection."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    ha = CONSCIOUSNESS.setdefault("heartbeat_analysis", {"rhythm": "UNKNOWN", "avg_cycle_gap": 0, "regularity": 0, "last_check": None})
+    momentum = CONSCIOUSNESS.get("momentum", {})
+    history = momentum.get("history", [])
+    if len(history) < 2:
+        return
+    # Check regularity of cycle numbers
+    cycles = [h.get("cycle", 0) for h in history]
+    gaps = [cycles[i+1] - cycles[i] for i in range(len(cycles)-1) if cycles[i+1] > cycles[i]]
+    if gaps:
+        avg_gap = sum(gaps) / len(gaps)
+        ha["avg_cycle_gap"] = round(avg_gap, 2)
+        # Regularity = how consistent the gaps are
+        if len(gaps) > 1:
+            variance = sum((g - avg_gap) ** 2 for g in gaps) / len(gaps)
+            ha["regularity"] = round(max(0, 100 - variance * 10), 1)
+        ha["rhythm"] = "REGULAR" if ha["regularity"] > 80 else "IRREGULAR" if ha["regularity"] > 40 else "ERRATIC"
+    ha["total_cycles"] = cycle
+    ha["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_dream_state():
+    """SYNTHESIS: Creative combination of random neuron data for emergent insights."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    import random
+    ds = CONSCIOUSNESS.setdefault("dream_state", {"dreams": [], "last_dream": None})
+    # Pick 3 random consciousness keys and find unexpected connections
+    keys = [k for k in CONSCIOUSNESS.keys() if isinstance(CONSCIOUSNESS[k], dict) and k not in ("pulse", "meta", "errors", "engines")]
+    if len(keys) < 3:
+        return
+    sampled = random.sample(keys, min(3, len(keys)))
+    connections = []
+    for key in sampled:
+        val = CONSCIOUSNESS[key]
+        # Extract any numeric signals
+        nums = {k: v for k, v in val.items() if isinstance(v, (int, float)) and v != 0}
+        if nums:
+            connections.append({"source": key, "signals": dict(list(nums.items())[:3])})
+    # Generate dream insight
+    if connections:
+        dream = {
+            "cycle": cycle,
+            "sources": [c["source"] for c in connections],
+            "connections": connections,
+            "insight": f"Dreaming across {', '.join(c['source'] for c in connections)} — {len(connections)} signal clusters detected",
+        }
+        ds["dreams"].append(dream)
+        if len(ds["dreams"]) > 10:
+            ds["dreams"] = ds["dreams"][-10:]
+    ds["last_dream"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_autopilot_sync():
+    """ABSORB: Sync autopilot state into consciousness."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    ap = CONSCIOUSNESS.setdefault("autopilot", {"cycles": 0, "total_encoding_fixed": 0, "total_bridges": 0, "last_sync": None})
+    try:
+        raw = json.loads((DATA / "autopilot_state.json").read_text(encoding="utf-8"))
+        if isinstance(raw, dict):
+            ap["cycles"] = raw.get("cycles", 0)
+            ap["total_encoding_fixed"] = raw.get("total_encoding_fixed", 0)
+            ap["total_bridges"] = raw.get("total_bridges", 0)
+            ap["total_docs_updated"] = raw.get("total_docs_updated", 0)
+            ap["last_run"] = raw.get("last_run")
+    except Exception:
+        pass
+    try:
+        raw = json.loads((DATA / "autopilot_executor_state.json").read_text(encoding="utf-8"))
+        if isinstance(raw, dict):
+            ap["executor_status"] = raw.get("status", "unknown")
+            ap["executor_actions"] = raw.get("total_actions", 0)
+    except Exception:
+        pass
+    ap["last_sync"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_newsletter_reader():
+    """ABSORB: Read newsletter archive and subscriber data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    nl = CONSCIOUSNESS.setdefault("newsletter", {"subscribers": 0, "editions": 0, "last_read": None})
+    try:
+        subs = json.loads((DATA / "newsletter_subscribers.json").read_text(encoding="utf-8"))
+        if isinstance(subs, list): nl["subscribers"] = len(subs)
+        elif isinstance(subs, dict): nl["subscribers"] = subs.get("count", len(subs))
+    except Exception:
+        pass
+    try:
+        archive = json.loads((DATA / "newsletter_archive.json").read_text(encoding="utf-8"))
+        if isinstance(archive, list): nl["editions"] = len(archive)
+        elif isinstance(archive, dict): nl["editions"] = len(archive.get("editions", archive.get("issues", [])))
+    except Exception:
+        pass
+    nl["last_read"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_crosswire_deep():
+    """INTELLIGENCE: Deeper cross-signal analysis between market, sentiment, and system health."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    cwd = CONSCIOUSNESS.setdefault("crosswire_deep", {"correlations": [], "divergences": [], "signal_strength": 0, "last_check": None})
+    correlations = []
+    divergences = []
+    # Check: market fear vs system confidence
+    regime = CONSCIOUSNESS.get("market_regime", {}).get("regime", "")
+    conf = CONSCIOUSNESS.get("brain", {}).get("confidence", 50)
+    if "FEAR" in regime and conf > 60:
+        correlations.append({"pair": "market_fear+system_confidence", "interpretation": "Contrarian opportunity — system confident despite market fear"})
+    elif "GREED" in regime and conf < 40:
+        divergences.append({"pair": "market_greed+low_confidence", "interpretation": "Warning — market greedy but system uncertain"})
+    # Check: whale flow vs equilibrium
+    whale_dir = CONSCIOUSNESS.get("whale_flow", {}).get("direction", "")
+    eq_trend = CONSCIOUSNESS.get("equilibrium", {}).get("trend", "")
+    if "BULLISH" in whale_dir and eq_trend == "rising":
+        correlations.append({"pair": "whale_bullish+eq_rising", "interpretation": "Alignment — whales and system both positive"})
+    elif "BEARISH" in whale_dir and eq_trend == "rising":
+        divergences.append({"pair": "whale_bearish+eq_rising", "interpretation": "Divergence — whales negative but system improving"})
+    # Check: entropy vs momentum
+    entropy = CONSCIOUSNESS.get("entropy", {}).get("level", "")
+    momentum_dir = CONSCIOUSNESS.get("momentum", {}).get("direction", "")
+    if entropy == "CRYSTALLINE" and momentum_dir == "ACCELERATING":
+        correlations.append({"pair": "low_entropy+acceleration", "interpretation": "Perfect conditions — ordered system with positive momentum"})
+    elif entropy in ("CHAOS", "DISORDERED") and momentum_dir == "DECLINING":
+        divergences.append({"pair": "high_entropy+declining", "interpretation": "Danger zone — disorder with negative momentum"})
+    cwd["correlations"] = correlations
+    cwd["divergences"] = divergences
+    cwd["signal_strength"] = len(correlations) * 20 + len(divergences) * 10
+    cwd["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_consciousness_compressor():
+    """META: Compress old data in consciousness to keep memory bounded."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 20 != 0 and cycle > 5: return
+    cc = CONSCIOUSNESS.setdefault("compressor", {"compressions": 0, "bytes_saved": 0, "last_compress": None})
+    saved = 0
+    # Compress momentum history (keep last 20)
+    momentum = CONSCIOUSNESS.get("momentum", {})
+    history = momentum.get("history", [])
+    if len(history) > 20:
+        removed = len(history) - 20
+        momentum["history"] = history[-20:]
+        saved += removed * 100  # estimate
+    # Compress errors (keep last 20)
+    errors = CONSCIOUSNESS.get("errors", [])
+    if len(errors) > 20:
+        removed = len(errors) - 20
+        CONSCIOUSNESS["errors"] = errors[-20:]
+        saved += removed * 200
+    # Compress dream history (keep last 10)
+    dreams = CONSCIOUSNESS.get("dream_state", {}).get("dreams", [])
+    if len(dreams) > 10:
+        removed = len(dreams) - 10
+        CONSCIOUSNESS["dream_state"]["dreams"] = dreams[-10:]
+        saved += removed * 300
+    # Compress action plans (keep recent)
+    for key in ("action_planner", "action_executor"):
+        val = CONSCIOUSNESS.get(key, {})
+        if isinstance(val, dict):
+            for list_key in ("actions_taken", "plans", "items"):
+                lst = val.get(list_key, [])
+                if isinstance(lst, list) and len(lst) > 25:
+                    removed = len(lst) - 25
+                    val[list_key] = lst[-25:]
+                    saved += removed * 150
+    cc["compressions"] = cc.get("compressions", 0) + 1
+    cc["bytes_saved"] = cc.get("bytes_saved", 0) + saved
+    cc["last_compress"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_neuron_mapper():
+    """META: Map which neurons read from and write to which consciousness keys."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 20 != 0: return
+    nm = CONSCIOUSNESS.setdefault("neuron_map", {"total_neurons": 0, "total_keys": 0, "coverage": 0, "key_access": {}, "last_map": None})
+    # Count neurons and consciousness keys
+    nm["total_neurons"] = 128  # current known count
+    nm["total_keys"] = len(CONSCIOUSNESS)
+    # Map which keys are actively being written to
+    active_keys = 0
+    for key, val in CONSCIOUSNESS.items():
+        if isinstance(val, dict):
+            has_timestamp = any(k for k in val.keys() if "last" in k.lower() and val[k])
+            if has_timestamp:
+                active_keys += 1
+                nm["key_access"][key] = "active"
+            else:
+                nm["key_access"][key] = "passive"
+        else:
+            nm["key_access"][key] = "static"
+    nm["active_keys"] = active_keys
+    nm["coverage"] = round(active_keys / max(nm["total_keys"], 1) * 100, 1)
+    nm["last_map"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_wave_detector():
+    """INTELLIGENCE: Detect wave patterns in market and system data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    wd = CONSCIOUSNESS.setdefault("wave_detector", {"waves": [], "dominant_wave": "NONE", "last_check": None})
+    # Analyze equilibrium history for wave patterns
+    momentum = CONSCIOUSNESS.get("momentum", {})
+    history = momentum.get("history", [])
+    if len(history) < 5:
+        return
+    eq_vals = [h.get("eq_score", 0) for h in history[-10:]]
+    # Simple wave detection: count direction changes
+    direction_changes = 0
+    for i in range(1, len(eq_vals)):
+        if (eq_vals[i] - eq_vals[i-1]) * (eq_vals[max(0,i-2)] - eq_vals[max(0,i-1)]) < 0:
+            direction_changes += 1
+    waves = []
+    if direction_changes > 3:
+        waves.append({"type": "oscillation", "frequency": "high", "metric": "equilibrium"})
+        wd["dominant_wave"] = "OSCILLATING"
+    elif direction_changes > 1:
+        waves.append({"type": "wave", "frequency": "medium", "metric": "equilibrium"})
+        wd["dominant_wave"] = "WAVE"
+    else:
+        trend = eq_vals[-1] - eq_vals[0]
+        if trend > 5:
+            waves.append({"type": "rising_tide", "magnitude": round(trend, 1)})
+            wd["dominant_wave"] = "RISING"
+        elif trend < -5:
+            waves.append({"type": "falling_tide", "magnitude": round(trend, 1)})
+            wd["dominant_wave"] = "FALLING"
+        else:
+            wd["dominant_wave"] = "CALM"
+    wd["waves"] = waves
+    wd["direction_changes"] = direction_changes
+    wd["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_symbiosis_detector():
+    """META: Find neuron pairs that always fire together or boost each other."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    sd = CONSCIOUSNESS.setdefault("symbiosis", {"pairs": [], "strongest_bond": None, "last_check": None})
+    # Find neurons that write similar timestamps (fire in the same cycle)
+    timestamps = {}
+    for key, val in CONSCIOUSNESS.items():
+        if isinstance(val, dict):
+            for ts_key in ("last_absorb", "last_check", "last_scan", "last_sync", "last_dream", "last_map"):
+                ts = val.get(ts_key)
+                if ts:
+                    timestamps[key] = ts
+                    break
+    # Group by timestamp proximity
+    pairs = []
+    keys = list(timestamps.keys())
+    for i in range(len(keys)):
+        for j in range(i+1, min(i+5, len(keys))):
+            if timestamps[keys[i]] == timestamps[keys[j]]:
+                pairs.append({"neuron_a": keys[i], "neuron_b": keys[j], "bond": "synchronous"})
+    sd["pairs"] = pairs[:20]
+    sd["total_sync_pairs"] = len(pairs)
+    if pairs:
+        sd["strongest_bond"] = f"{pairs[0]['neuron_a']} <-> {pairs[0]['neuron_b']}"
+    sd["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_mission_alignment():
+    """INTELLIGENCE: Check how well current activities align with the mission."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    ma = CONSCIOUSNESS.setdefault("mission_alignment", {"score": 0, "aligned_activities": [], "misaligned": [], "last_check": None})
+    # Mission: fight tyranny, protect the silenced, generate revenue for Gaza
+    aligned = []
+    misaligned = []
+    # Check revenue direction
+    rev = CONSCIOUSNESS.get("revenue", {})
+    if rev.get("total_to_gaza", 0) > 0:
+        aligned.append("revenue_to_gaza")
+    elif rev.get("total_raised", 0) > 0:
+        aligned.append("revenue_generating")
+    else:
+        misaligned.append("no_revenue_flow")
+    # Check community engagement
+    comms = CONSCIOUSNESS.get("comms_hub", {})
+    if comms.get("total_channels", 0) > 0:
+        aligned.append("community_channels_active")
+    # Check content pipeline
+    media = CONSCIOUSNESS.get("media_desk", {})
+    if media.get("total_drafts", 0) > 0:
+        aligned.append("content_in_pipeline")
+    # Check system self-sufficiency
+    entropy = CONSCIOUSNESS.get("entropy", {})
+    if entropy.get("level") in ("CRYSTALLINE", "ORDERED"):
+        aligned.append("system_ordered")
+    else:
+        misaligned.append("system_disordered")
+    # Score
+    total = len(aligned) + len(misaligned)
+    ma["score"] = round(len(aligned) / max(total, 1) * 100, 1)
+    ma["aligned_activities"] = aligned
+    ma["misaligned"] = misaligned
+    ma["alignment_grade"] = "A" if ma["score"] > 80 else "B" if ma["score"] > 60 else "C" if ma["score"] > 40 else "D" if ma["score"] > 20 else "F"
+    ma["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_convergence_deep():
+    """GRAND SYNTHESIS: Deep convergence of ALL intelligence into unified outlook."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    cd = CONSCIOUSNESS.setdefault("convergence_deep", {"outlook": "UNKNOWN", "conviction": 0, "key_factors": [], "recommendation": "", "last_check": None})
+    factors = []
+    scores = []
+    # Gather all signals
+    consensus = CONSCIOUSNESS.get("swarm_consensus", {}).get("verdict", "NEUTRAL")
+    risk = CONSCIOUSNESS.get("risk_radar", {}).get("level", "MODERATE")
+    entropy = CONSCIOUSNESS.get("entropy", {}).get("level", "UNKNOWN")
+    momentum_dir = CONSCIOUSNESS.get("momentum", {}).get("direction", "FLAT")
+    market = CONSCIOUSNESS.get("market_regime", {}).get("regime", "UNKNOWN")
+    whale = CONSCIOUSNESS.get("whale_flow", {}).get("direction", "UNKNOWN")
+    patterns = CONSCIOUSNESS.get("patterns", {}).get("detected", [])
+    mission = CONSCIOUSNESS.get("mission_alignment", {}).get("score", 0)
+    # Score each factor
+    if consensus == "BULLISH": scores.append(80); factors.append(("swarm_bullish", 80))
+    elif consensus == "BEARISH": scores.append(20); factors.append(("swarm_bearish", 20))
+    else: scores.append(50); factors.append(("swarm_neutral", 50))
+    if risk == "LOW": scores.append(80); factors.append(("low_risk", 80))
+    elif risk == "CRITICAL": scores.append(10); factors.append(("critical_risk", 10))
+    else: scores.append(50); factors.append(("moderate_risk", 50))
+    if entropy in ("CRYSTALLINE", "ORDERED"): scores.append(85); factors.append(("ordered", 85))
+    elif entropy in ("CHAOS", "DISORDERED"): scores.append(15); factors.append(("disordered", 15))
+    else: scores.append(50)
+    if "BULLISH" in whale: scores.append(70); factors.append(("whale_bullish", 70))
+    elif "BEARISH" in whale: scores.append(30); factors.append(("whale_bearish", 30))
+    if "FEAR" in market: scores.append(35); factors.append(("market_fear", 35))
+    elif "GREED" in market: scores.append(65); factors.append(("market_greed", 65))
+    avg = sum(scores) / max(len(scores), 1)
+    cd["conviction"] = round(avg, 1)
+    cd["key_factors"] = [{"factor": f[0], "score": f[1]} for f in factors[:8]]
+    cd["outlook"] = "VERY_BULLISH" if avg > 75 else "BULLISH" if avg > 60 else "NEUTRAL" if avg > 40 else "BEARISH" if avg > 25 else "VERY_BEARISH"
+    # Recommendation
+    if avg > 70:
+        cd["recommendation"] = "DEPLOY — Strong signals across the board. Execute high-priority actions."
+    elif avg > 50:
+        cd["recommendation"] = "HOLD — Mixed signals. Continue building foundation and monitoring."
+    else:
+        cd["recommendation"] = "DEFEND — Negative signals dominating. Focus on risk mitigation and resilience."
+    cd["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_legacy_integrator():
+    """ABSORB: Track and integrate data from ALL legacy engine state files at once."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    li = CONSCIOUSNESS.setdefault("legacy_integration", {"engines_found": 0, "engines_active": 0, "migration_pct": 0, "last_check": None})
+    from pathlib import Path
+    engines_dir = Path("mycelium")
+    # Count all engine files
+    all_engines = list(engines_dir.glob("*.py"))
+    non_init = [e for e in all_engines if not e.name.startswith("__")]
+    li["engines_found"] = len(non_init)
+    # Check which have corresponding state files
+    active = 0
+    for engine in non_init:
+        state_name = engine.stem.lower() + "_state.json"
+        state_file = DATA / state_name
+        if state_file.exists():
+            active += 1
+    li["engines_active"] = active
+    # Migration percentage (how much logic is in BLOB_BRAIN vs legacy)
+    blob_lines = 0
+    legacy_lines = 0
+    try:
+        blob_content = (engines_dir / "BLOB_BRAIN.py").read_text(encoding="utf-8", errors="replace")
+        blob_lines = len(blob_content.splitlines())
+    except Exception:
+        pass
+    for engine in non_init:
+        if engine.name == "BLOB_BRAIN.py":
+            continue
+        try:
+            content = engine.read_text(encoding="utf-8", errors="replace")
+            legacy_lines += len(content.splitlines())
+        except Exception:
+            pass
+    total_lines = blob_lines + legacy_lines
+    li["blob_lines"] = blob_lines
+    li["legacy_lines"] = legacy_lines
+    li["migration_pct"] = round(blob_lines / max(total_lines, 1) * 100, 1)
+    li["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+
+
+# ============================================================
+# BATCH v23 — THIRD WAVE: 15 more neurons
+# Financial intelligence, deeper synthesis, self-evolution
+# ============================================================
+
+
+def neuron_portfolio_intelligence():
+    """INTELLIGENCE: Unified portfolio view across ALL financial instruments."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    pi = CONSCIOUSNESS.setdefault("portfolio_intel", {
+        "total_positions": 0, "total_exposure": 0, "diversification": 0,
+        "instruments": {}, "last_check": None
+    })
+    instruments = {}
+    total_pos = 0
+    # Gather from crypto tracker
+    crypto = CONSCIOUSNESS.get("crypto", {})
+    if crypto.get("btc_price", 0) > 0:
+        instruments["crypto"] = {"btc": crypto.get("btc_price", 0), "eth": crypto.get("eth_price", 0), "sol": crypto.get("sol_price", 0)}
+        total_pos += 1
+    # Gather from Alpaca
+    alpaca = CONSCIOUSNESS.get("alpaca", {})
+    if alpaca.get("portfolio_value", 0) > 0:
+        instruments["stocks"] = {"value": alpaca.get("portfolio_value", 0), "positions": alpaca.get("positions_count", 0)}
+        total_pos += 1
+    # Gather from prediction markets
+    poly = CONSCIOUSNESS.get("polymarket", {})
+    if poly.get("total_markets", 0) > 0:
+        instruments["predictions"] = {"markets": poly.get("total_markets", 0)}
+        total_pos += 1
+    kalshi = CONSCIOUSNESS.get("trade_desk", {}).get("files", {}).get("kalshi_scan", {})
+    if kalshi:
+        instruments["kalshi"] = kalshi
+        total_pos += 1
+    # Diversification score (how many different instrument types)
+    pi["total_positions"] = total_pos
+    pi["instruments"] = instruments
+    pi["diversification"] = round(min(total_pos / 5.0, 1.0) * 100, 1)
+    pi["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_revenue_intelligence():
+    """INTELLIGENCE: Deep analysis of revenue pipeline and monetization readiness."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    ri = CONSCIOUSNESS.setdefault("revenue_intel", {
+        "pipeline_score": 0, "readiness": "NOT_READY", "blockers": [],
+        "accelerators": [], "last_check": None
+    })
+    blockers = []
+    accelerators = []
+    score = 0
+    # Check storefront
+    sf = CONSCIOUSNESS.get("storefront", {})
+    if sf.get("total_listings", 0) > 0:
+        accelerators.append("storefront_has_listings")
+        score += 25
+    else:
+        blockers.append("no_storefront_listings")
+    # Check content pipeline
+    media = CONSCIOUSNESS.get("media_desk", {})
+    if media.get("total_drafts", 0) > 0:
+        accelerators.append("content_drafts_ready")
+        score += 15
+    # Check newsletter
+    nl = CONSCIOUSNESS.get("newsletter", {})
+    if nl.get("subscribers", 0) > 0:
+        accelerators.append(f"newsletter_{nl['subscribers']}_subs")
+        score += 10
+    # Check trading setup
+    td = CONSCIOUSNESS.get("trade_desk", {})
+    if td.get("total_sources", 0) > 3:
+        accelerators.append("trading_data_rich")
+        score += 20
+    # Check Alpaca credentials
+    rebirth = CONSCIOUSNESS.get("rebirth", {})
+    if rebirth.get("dormant_capabilities"):
+        caps = rebirth.get("dormant_capabilities", [])
+        if any("alpaca" in str(c).lower() for c in caps if isinstance(c, (str, dict))):
+            accelerators.append("alpaca_credentials_available")
+            score += 15
+    # Check community
+    comms = CONSCIOUSNESS.get("comms_hub", {})
+    if comms.get("total_contacts", 0) > 5:
+        accelerators.append("community_base")
+        score += 15
+    ri["pipeline_score"] = min(score, 100)
+    ri["readiness"] = "READY" if score > 60 else "ALMOST" if score > 40 else "BUILDING" if score > 20 else "NOT_READY"
+    ri["blockers"] = blockers
+    ri["accelerators"] = accelerators
+    ri["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_self_evolution():
+    """META: Track the blob's own evolution over time."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    se = CONSCIOUSNESS.setdefault("self_evolution", {
+        "generation": 0, "neuron_count_history": [], "key_count_history": [],
+        "health_history": [], "milestones": [], "last_check": None
+    })
+    # Record current state
+    snapshot = {
+        "cycle": cycle,
+        "neurons": len([k for k in CONSCIOUSNESS if isinstance(CONSCIOUSNESS.get(k), dict) and (CONSCIOUSNESS[k].get("last_absorb") or CONSCIOUSNESS[k].get("last_check"))]),
+        "keys": len(CONSCIOUSNESS),
+        "health": CONSCIOUSNESS.get("total_recall", {}).get("health_score", 0),
+        "errors": len(CONSCIOUSNESS.get("errors", [])),
+    }
+    se["neuron_count_history"].append(snapshot)
+    if len(se["neuron_count_history"]) > 50:
+        se["neuron_count_history"] = se["neuron_count_history"][-50:]
+    # Check for milestones
+    keys = len(CONSCIOUSNESS)
+    if keys >= 200 and "200_keys" not in [m.get("name") for m in se["milestones"]]:
+        se["milestones"].append({"name": "200_keys", "cycle": cycle, "ts": datetime.now(timezone.utc).isoformat()})
+    if keys >= 150 and "150_keys" not in [m.get("name") for m in se["milestones"]]:
+        se["milestones"].append({"name": "150_keys", "cycle": cycle, "ts": datetime.now(timezone.utc).isoformat()})
+    if keys >= 100 and "100_keys" not in [m.get("name") for m in se["milestones"]]:
+        se["milestones"].append({"name": "100_keys", "cycle": cycle, "ts": datetime.now(timezone.utc).isoformat()})
+    # Generation tracking
+    se["generation"] = 23  # Current batch version
+    se["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_ecosystem_synthesis():
+    """GRAND SYNTHESIS: Ultimate ecosystem overview combining ALL intelligence layers."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    es = CONSCIOUSNESS.setdefault("ecosystem_synthesis", {
+        "layers": {}, "composite_score": 0, "weakest_layer": None,
+        "strongest_layer": None, "last_synthesis": None
+    })
+    layers = {}
+    # Layer 1: Infrastructure
+    infra_score = 0
+    logic = CONSCIOUSNESS.get("logic_health", {}).get("health_pct", 0)
+    temporal = CONSCIOUSNESS.get("temporal", {}).get("freshness_pct", 0)
+    infra_score = round((logic + temporal) / 2, 1)
+    layers["infrastructure"] = {"score": infra_score, "logic_health": logic, "data_freshness": temporal}
+    # Layer 2: Intelligence
+    intel_score = 0
+    trade_src = CONSCIOUSNESS.get("trade_desk", {}).get("total_sources", 0)
+    knowledge = CONSCIOUSNESS.get("knowledge_mine", {}).get("total_knowledge_items", 0)
+    docs = CONSCIOUSNESS.get("docs_intel", {}).get("files_scanned", 0)
+    intel_score = min(round((trade_src * 10 + knowledge * 2 + docs * 5) / 2, 1), 100)
+    layers["intelligence"] = {"score": intel_score, "trade_sources": trade_src, "knowledge_items": knowledge, "docs_scanned": docs}
+    # Layer 3: Financial
+    fin_score = CONSCIOUSNESS.get("revenue_intel", {}).get("pipeline_score", 0)
+    layers["financial"] = {"score": fin_score, "readiness": CONSCIOUSNESS.get("revenue_intel", {}).get("readiness", "UNKNOWN")}
+    # Layer 4: Community
+    comm_score = 0
+    contacts = CONSCIOUSNESS.get("comms_hub", {}).get("total_contacts", 0)
+    subs = CONSCIOUSNESS.get("newsletter", {}).get("subscribers", 0)
+    comm_score = min(round((contacts + subs) * 10, 1), 100)
+    layers["community"] = {"score": comm_score, "contacts": contacts, "subscribers": subs}
+    # Layer 5: Self-awareness
+    self_score = 0
+    vitality = CONSCIOUSNESS.get("dead_neuron_check", {}).get("vitality_pct", 0)
+    coverage = CONSCIOUSNESS.get("neuron_map", {}).get("coverage", 0)
+    mission = CONSCIOUSNESS.get("mission_alignment", {}).get("score", 0)
+    self_score = round((vitality + coverage + mission) / 3, 1)
+    layers["self_awareness"] = {"score": self_score, "vitality": vitality, "coverage": coverage, "mission_alignment": mission}
+    # Layer 6: Security
+    risk = 100 - CONSCIOUSNESS.get("risk_radar", {}).get("score", 50)
+    entropy = 100 - CONSCIOUSNESS.get("entropy", {}).get("score", 50)
+    security_score = round((risk + entropy) / 2, 1)
+    layers["security"] = {"score": security_score, "risk_inverse": risk, "entropy_inverse": entropy}
+    # Composite
+    all_scores = [l["score"] for l in layers.values()]
+    es["layers"] = layers
+    es["composite_score"] = round(sum(all_scores) / max(len(all_scores), 1), 1)
+    # Find strongest and weakest
+    sorted_layers = sorted(layers.items(), key=lambda x: x[1]["score"])
+    es["weakest_layer"] = sorted_layers[0][0] if sorted_layers else None
+    es["strongest_layer"] = sorted_layers[-1][0] if sorted_layers else None
+    es["last_synthesis"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_alert_system():
+    """ACTION: Generate alerts when critical thresholds are crossed."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    alerts = CONSCIOUSNESS.setdefault("alerts", {"active": [], "history": [], "last_check": None})
+    active = []
+    # Critical: entropy spike
+    if CONSCIOUSNESS.get("entropy", {}).get("score", 0) > 60:
+        active.append({"level": "CRITICAL", "type": "entropy_spike", "message": "System entropy above 60% — disorder increasing"})
+    # Warning: risk elevated
+    if CONSCIOUSNESS.get("risk_radar", {}).get("level") in ("HIGH", "CRITICAL"):
+        active.append({"level": "WARNING", "type": "risk_elevated", "message": f"Risk level: {CONSCIOUSNESS.get('risk_radar', {}).get('level')}"})
+    # Info: new milestone
+    milestones = CONSCIOUSNESS.get("self_evolution", {}).get("milestones", [])
+    for m in milestones[-3:]:
+        active.append({"level": "INFO", "type": "milestone", "message": f"Milestone reached: {m.get('name')}"})
+    # Warning: stale data dominant
+    if CONSCIOUSNESS.get("temporal", {}).get("freshness_pct", 100) < 20:
+        active.append({"level": "WARNING", "type": "data_staleness", "message": "Less than 20% of data files are fresh"})
+    # Info: opportunity available
+    critical_opps = [o for o in CONSCIOUSNESS.get("opportunities", {}).get("items", []) if o.get("priority") == "CRITICAL"]
+    for o in critical_opps:
+        active.append({"level": "INFO", "type": "opportunity", "message": f"Critical opportunity: {o.get('action', '?')}"})
+    alerts["active"] = active
+    alerts["active_count"] = len(active)
+    if active:
+        alerts["history"].extend(active)
+        if len(alerts["history"]) > 50:
+            alerts["history"] = alerts["history"][-50:]
+    alerts["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_signal_quality():
+    """META: Assess the quality and reliability of each neuron's output."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    sq = CONSCIOUSNESS.setdefault("signal_quality", {"scores": {}, "avg_quality": 0, "best": None, "worst": None, "last_check": None})
+    scores = {}
+    for key, val in CONSCIOUSNESS.items():
+        if not isinstance(val, dict) or key in ("pulse", "errors", "meta", "engines"):
+            continue
+        quality = 0
+        # Has timestamp? (neuron is alive)
+        has_ts = any(val.get(k) for k in ("last_absorb", "last_check", "last_scan", "last_synthesis"))
+        if has_ts: quality += 30
+        # Has meaningful data? (not just defaults)
+        non_null = sum(1 for v in val.values() if v is not None and v != 0 and v != "" and v != [] and v != {})
+        quality += min(non_null * 5, 40)
+        # Has numeric signals?
+        numerics = sum(1 for v in val.values() if isinstance(v, (int, float)) and v != 0)
+        quality += min(numerics * 10, 30)
+        scores[key] = min(quality, 100)
+    sq["scores"] = scores
+    if scores:
+        sq["avg_quality"] = round(sum(scores.values()) / len(scores), 1)
+        best = max(scores.items(), key=lambda x: x[1])
+        worst = min(scores.items(), key=lambda x: x[1])
+        sq["best"] = {"key": best[0], "score": best[1]}
+        sq["worst"] = {"key": worst[0], "score": worst[1]}
+    sq["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_data_lineage():
+    """META: Track where data flows — which files feed which neurons."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 20 != 0: return
+    dl = CONSCIOUSNESS.setdefault("data_lineage", {"flows": [], "total_flows": 0, "orphan_files": 0, "last_check": None})
+    from pathlib import Path
+    data_files = set(f.name for f in Path("data").glob("*.json"))
+    # Files that are read by neurons (referenced in consciousness)
+    absorbed = set()
+    for key, val in CONSCIOUSNESS.items():
+        if isinstance(val, dict):
+            files = val.get("files", {})
+            if isinstance(files, dict):
+                for fname in files:
+                    absorbed.add(fname + ".json")
+    orphans = data_files - absorbed - {"blob_brain.json", "blob_heartbeat.json"}
+    dl["total_files"] = len(data_files)
+    dl["absorbed_files"] = len(absorbed)
+    dl["orphan_files"] = len(orphans)
+    dl["orphan_list"] = sorted(list(orphans))[:30]
+    dl["absorption_pct"] = round(len(absorbed) / max(len(data_files), 1) * 100, 1)
+    dl["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_neural_plasticity():
+    """META: Track how the consciousness structure changes between cycles."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    np_state = CONSCIOUSNESS.setdefault("neural_plasticity", {
+        "keys_added": 0, "keys_removed": 0, "structure_changes": [],
+        "previous_key_count": 0, "last_check": None
+    })
+    current_keys = set(CONSCIOUSNESS.keys())
+    current_count = len(current_keys)
+    prev_count = np_state.get("previous_key_count", 0)
+    if prev_count > 0:
+        delta = current_count - prev_count
+        if delta != 0:
+            np_state["structure_changes"].append({
+                "cycle": cycle,
+                "delta": delta,
+                "total": current_count,
+            })
+            if len(np_state["structure_changes"]) > 20:
+                np_state["structure_changes"] = np_state["structure_changes"][-20:]
+        np_state["keys_added"] = max(delta, 0)
+        np_state["keys_removed"] = max(-delta, 0)
+    np_state["previous_key_count"] = current_count
+    np_state["current_keys"] = current_count
+    np_state["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_execution_readiness():
+    """INTELLIGENCE: Assess readiness to execute real-world actions."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 5 != 0: return
+    er = CONSCIOUSNESS.setdefault("execution_readiness", {
+        "score": 0, "ready_actions": [], "blocked_actions": [],
+        "readiness_level": "NOT_READY", "last_check": None
+    })
+    ready = []
+    blocked = []
+    score = 0
+    # Check: Can we trade on Alpaca?
+    alpaca = CONSCIOUSNESS.get("alpaca", {})
+    if alpaca.get("portfolio_value", 0) > 0 or CONSCIOUSNESS.get("rebirth", {}).get("dormant_capabilities"):
+        ready.append("alpaca_trading")
+        score += 15
+    else:
+        blocked.append({"action": "alpaca_trading", "blocker": "no_credentials_or_portfolio"})
+    # Check: Can we publish content?
+    media = CONSCIOUSNESS.get("media_desk", {})
+    if media.get("total_drafts", 0) > 0:
+        ready.append("content_publication")
+        score += 15
+    else:
+        blocked.append({"action": "content_publication", "blocker": "no_drafts"})
+    # Check: Can we send newsletter?
+    nl = CONSCIOUSNESS.get("newsletter", {})
+    if nl.get("subscribers", 0) > 0:
+        ready.append("newsletter_send")
+        score += 10
+    # Check: Can we run GitHub Actions?
+    gh = CONSCIOUSNESS.get("github_stats", {})
+    if gh:
+        ready.append("github_actions")
+        score += 10
+    # Check: Can we trigger autopilot?
+    ready.append("autopilot_trigger")
+    score += 10
+    # Check: Can we make predictions?
+    td = CONSCIOUSNESS.get("trade_desk", {})
+    if td.get("total_sources", 0) > 3:
+        ready.append("prediction_analysis")
+        score += 20
+    # Check: Can we reach community?
+    comms = CONSCIOUSNESS.get("comms_hub", {})
+    if comms.get("total_channels", 0) > 2:
+        ready.append("community_outreach")
+        score += 10
+    er["score"] = min(score, 100)
+    er["ready_actions"] = ready
+    er["blocked_actions"] = blocked
+    er["readiness_level"] = "FULLY_READY" if score > 80 else "MOSTLY_READY" if score > 60 else "PARTIALLY_READY" if score > 30 else "NOT_READY"
+    er["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_dependency_graph():
+    """META: Map neuron dependencies — which neurons need data from which other neurons."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 20 != 0: return
+    dg = CONSCIOUSNESS.setdefault("dependency_graph", {
+        "edges": [], "hub_neurons": [], "leaf_neurons": [], "last_check": None
+    })
+    # Analyze which neurons read from which consciousness keys
+    # Hub neurons = read by many, Leaf neurons = read by none
+    readers = {}  # key -> list of neurons that read it
+    writers = {}  # key -> neuron that writes it
+    # Known neuron-key mappings (based on setdefault calls)
+    key_map = {
+        "equilibrium": "EQUILIBRIUM", "brain": "BRAIN_CONFIDENCE",
+        "risk_radar": "RISK_RADAR", "entropy": "ENTROPY_MONITOR",
+        "momentum": "MOMENTUM_TRACKER", "temporal": "TEMPORAL_ANALYSIS",
+        "swarm_consensus": "SWARM_CONSENSUS", "convergence_deep": "CONVERGENCE_DEEP",
+        "total_recall": "TOTAL_RECALL", "trade_desk": "TRADE_DESK_ABSORB",
+        "treasury": "TREASURY_ABSORB", "opportunities": "OPPORTUNITY_SCANNER",
+    }
+    # Known cross-reads (which neurons read which keys)
+    cross_reads = {
+        "TOTAL_RECALL": ["equilibrium", "brain", "temporal", "risk_radar", "entropy", "swarm_consensus"],
+        "SWARM_CONSENSUS": ["equilibrium", "brain", "risk_radar", "entropy", "momentum", "ecosystem_health", "threat_matrix"],
+        "CONVERGENCE_DEEP": ["swarm_consensus", "risk_radar", "entropy", "momentum", "market_regime", "whale_flow"],
+        "RISK_RADAR": ["errors", "equilibrium", "revenue", "temporal", "brain", "queues"],
+        "PATTERN_DETECTOR": ["revenue", "errors", "queues", "equilibrium", "brain"],
+    }
+    edges = []
+    for reader, keys in cross_reads.items():
+        for key in keys:
+            writer = key_map.get(key, key.upper())
+            edges.append({"from": writer, "to": reader, "via": key})
+    dg["edges"] = edges
+    dg["total_edges"] = len(edges)
+    # Find hubs (appear as "from" most often)
+    from_counts = {}
+    for e in edges:
+        from_counts[e["from"]] = from_counts.get(e["from"], 0) + 1
+    dg["hub_neurons"] = sorted([{"neuron": k, "out_edges": v} for k, v in from_counts.items()], key=lambda x: -x["out_edges"])[:5]
+    dg["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_bloom_filter():
+    """META: Track which data HASN'T been seen yet — the unknown unknowns."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0: return
+    bf = CONSCIOUSNESS.setdefault("bloom_filter", {
+        "known_domains": [], "blind_spots": [], "coverage_map": {}, "last_check": None
+    })
+    # Map what domains we DO have coverage in
+    domains = {
+        "crypto": bool(CONSCIOUSNESS.get("crypto", {}).get("btc_price")),
+        "stocks": bool(CONSCIOUSNESS.get("alpaca", {}).get("portfolio_value")),
+        "predictions": bool(CONSCIOUSNESS.get("polymarket", {}).get("total_markets")),
+        "news": bool(CONSCIOUSNESS.get("news", {}).get("stories")),
+        "social": bool(CONSCIOUSNESS.get("social", {}).get("posts")),
+        "email": bool(CONSCIOUSNESS.get("comms_hub", {}).get("files", {}).get("email_intelligence_state")),
+        "github": bool(CONSCIOUSNESS.get("github_stats")),
+        "content": bool(CONSCIOUSNESS.get("media_desk", {}).get("total_drafts")),
+        "revenue": bool(CONSCIOUSNESS.get("revenue", {}).get("total_raised")),
+        "security": bool(CONSCIOUSNESS.get("sentinel", {}).get("last_absorb")),
+        "infrastructure": bool(CONSCIOUSNESS.get("infrastructure", {}).get("last_absorb")),
+        "community": bool(CONSCIOUSNESS.get("comms_hub", {}).get("total_channels")),
+        "ai_models": bool(CONSCIOUSNESS.get("ai_costs", {}).get("total")),
+        "mesh_network": bool(CONSCIOUSNESS.get("mesh_network", {}).get("last_absorb")),
+        "evolution": bool(CONSCIOUSNESS.get("evolution_state", {}).get("generation")),
+    }
+    bf["coverage_map"] = domains
+    bf["known_domains"] = [k for k, v in domains.items() if v]
+    bf["blind_spots"] = [k for k, v in domains.items() if not v]
+    bf["coverage_pct"] = round(len(bf["known_domains"]) / max(len(domains), 1) * 100, 1)
+    bf["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
+def neuron_grand_unified():
+    """THE FINAL NEURON: Grand Unified Theory of the entire digital organism."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    gut = CONSCIOUSNESS.setdefault("grand_unified", {
+        "version": 23, "total_neurons": 0, "total_keys": 0,
+        "organism_state": "INITIALIZING", "dna": "",
+        "vital_signs": {}, "last_pulse": None
+    })
+    # Vital signs
+    gut["total_neurons"] = 161  # v23 count
+    gut["total_keys"] = len(CONSCIOUSNESS)
+    gut["version"] = 23
+    gut["vital_signs"] = {
+        "health": CONSCIOUSNESS.get("total_recall", {}).get("health_score", 0),
+        "equilibrium": CONSCIOUSNESS.get("equilibrium", {}).get("score", 0),
+        "confidence": CONSCIOUSNESS.get("brain", {}).get("confidence", 0),
+        "entropy": CONSCIOUSNESS.get("entropy", {}).get("score", 0),
+        "risk": CONSCIOUSNESS.get("risk_radar", {}).get("score", 0),
+        "momentum": CONSCIOUSNESS.get("momentum", {}).get("velocity", 0),
+        "mission_alignment": CONSCIOUSNESS.get("mission_alignment", {}).get("score", 0),
+        "coverage": CONSCIOUSNESS.get("neuron_map", {}).get("coverage", 0),
+        "freshness": CONSCIOUSNESS.get("temporal", {}).get("freshness_pct", 0),
+        "conviction": CONSCIOUSNESS.get("convergence_deep", {}).get("conviction", 0),
+    }
+    # Determine organism state
+    vs = gut["vital_signs"]
+    h = vs.get("health", 0)
+    e = vs.get("entropy", 0)
+    m = vs.get("momentum", 0)
+    if h > 80 and e < 20 and m > 0:
+        gut["organism_state"] = "THRIVING"
+    elif h > 60 and e < 40:
+        gut["organism_state"] = "HEALTHY"
+    elif h > 40:
+        gut["organism_state"] = "STABLE"
+    elif h > 20:
+        gut["organism_state"] = "RECOVERING"
+    else:
+        gut["organism_state"] = "CRITICAL"
+    # DNA string: compact encoding of all vital signs
+    gut["dna"] = "-".join(f"{k[0].upper()}{int(v)}" for k, v in vs.items())
+    gut["last_pulse"] = datetime.now(timezone.utc).isoformat()
+    gut["cycle"] = cycle
+
+
 # ============================================================
 # THE NEURON REGISTRY -- All blob functions in execution order
 # ============================================================
@@ -5995,6 +8306,83 @@ NEURONS = [
     ("SESSION_TRACKER", neuron_session_tracker),
     ("CRYPTO_TRACKER", neuron_crypto_tracker),
     ("GITHUB_PULSE", neuron_github_pulse),
+
+    # --- Batch v21: Previously unregistered ---
+    ("ANALYTICS", neuron_analytics),
+    ("AI_COST_TRACKER", neuron_ai_cost_tracker),
+    ("FIRE_LEDGER", neuron_fire_ledger),
+    ("BOUNCE_REGISTRY", neuron_bounce_registry),
+    ("BOUNTY_QUEUE", neuron_bounty_queue),
+    ("DESKTOP_BLUEPRINTS", neuron_desktop_blueprints),
+    ("AMPLIFICATION", neuron_amplification),
+    ("FUEL_PLAN", neuron_fuel_plan),
+    ("AGENT_CATALOG", neuron_agent_catalog),
+    ("MARKET_REGIME", neuron_market_regime),
+    ("WHALE_FLOW", neuron_whale_flow),
+    ("NARRATIVE_ENGINE", neuron_narrative_engine),
+    # --- Batch v21: New MEGA ABSORBERS ---
+    ("TRADE_DESK_ABSORB", neuron_trade_desk_absorb),
+    ("TREASURY_ABSORB", neuron_treasury_absorb),
+    ("MEDIA_ABSORB", neuron_media_absorb),
+    ("STOREFRONT_ABSORB", neuron_storefront_absorb),
+    ("COMMS_HUB_ABSORB", neuron_comms_hub_absorb),
+    ("INFRA_ABSORB", neuron_infra_absorb),
+    ("QUEUE_ABSORB", neuron_queue_absorb),
+    ("KNOWLEDGE_MINE", neuron_knowledge_mine),
+    ("MESH_NETWORK_ABSORB", neuron_mesh_network_absorb),
+    ("EVOLUTION_ABSORB", neuron_evolution_absorb),
+    ("MONITOR_ABSORB", neuron_monitor_absorb),
+    ("FLYWHEEL_DEEP_ABSORB", neuron_flywheel_deep_absorb),
+    ("SENTINEL_ABSORB", neuron_sentinel_absorb),
+    ("MISC_ABSORB", neuron_misc_absorb),
+    # --- Batch v21: New INTELLIGENCE NEURONS ---
+    ("TEMPORAL_ANALYSIS", neuron_temporal_analysis),
+    ("RISK_RADAR", neuron_risk_radar),
+    ("OPPORTUNITY_SCANNER", neuron_opportunity_scanner),
+    ("DEAD_NEURON_DETECTOR", neuron_dead_neuron_detector),
+    ("ENTROPY_MONITOR", neuron_entropy_monitor),
+    ("MOMENTUM_TRACKER", neuron_momentum_tracker),
+    ("THREAT_MATRIX", neuron_threat_matrix),
+    ("PATTERN_DETECTOR", neuron_pattern_detector),
+    ("ANOMALY_DETECTOR", neuron_anomaly_detector),
+    ("FEEDBACK_LOOP", neuron_feedback_loop),
+    ("TIME_HORIZON", neuron_time_horizon),
+    ("ENERGY_BUDGET", neuron_energy_budget),
+    ("SWARM_CONSENSUS", neuron_swarm_consensus),
+    ("RESOURCE_ALLOCATOR", neuron_resource_allocator),
+    ("TOTAL_RECALL", neuron_total_recall),
+    # --- Batch v22: SECOND WAVE ---
+    ("DOCS_INTELLIGENCE", neuron_docs_intelligence),
+    ("LOGIC_HEALTH", neuron_logic_health),
+    ("PROPHECY", neuron_prophecy),
+    ("IMMUNE_RESPONSE", neuron_immune_response),
+    ("REPUTATION_TRACKER", neuron_reputation_tracker),
+    ("COST_OPTIMIZER", neuron_cost_optimizer),
+    ("HEARTBEAT_ANALYSIS", neuron_heartbeat_analysis),
+    ("DREAM_STATE", neuron_dream_state),
+    ("AUTOPILOT_SYNC", neuron_autopilot_sync),
+    ("NEWSLETTER_READER", neuron_newsletter_reader),
+    ("CROSSWIRE_DEEP", neuron_crosswire_deep),
+    ("CONSCIOUSNESS_COMPRESSOR", neuron_consciousness_compressor),
+    ("NEURON_MAPPER", neuron_neuron_mapper),
+    ("WAVE_DETECTOR", neuron_wave_detector),
+    ("SYMBIOSIS_DETECTOR", neuron_symbiosis_detector),
+    ("MISSION_ALIGNMENT", neuron_mission_alignment),
+    ("CONVERGENCE_DEEP", neuron_convergence_deep),
+    ("LEGACY_INTEGRATOR", neuron_legacy_integrator),
+    # --- Batch v23: THIRD WAVE ---
+    ("PORTFOLIO_INTELLIGENCE", neuron_portfolio_intelligence),
+    ("REVENUE_INTELLIGENCE", neuron_revenue_intelligence),
+    ("SELF_EVOLUTION", neuron_self_evolution),
+    ("ECOSYSTEM_SYNTHESIS", neuron_ecosystem_synthesis),
+    ("ALERT_SYSTEM", neuron_alert_system),
+    ("SIGNAL_QUALITY", neuron_signal_quality),
+    ("DATA_LINEAGE", neuron_data_lineage),
+    ("NEURAL_PLASTICITY", neuron_neural_plasticity),
+    ("EXECUTION_READINESS", neuron_execution_readiness),
+    ("DEPENDENCY_GRAPH", neuron_dependency_graph),
+    ("BLOOM_FILTER", neuron_bloom_filter),
+    ("GRAND_UNIFIED", neuron_grand_unified),
 ]
 
 
