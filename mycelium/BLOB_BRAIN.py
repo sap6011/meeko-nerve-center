@@ -7917,6 +7917,170 @@ def neuron_revenue_intelligence():
     ri["last_check"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_trading_mesh():
+    """
+    SYNTHESIS: Multi-wallet trading orchestrator.
+    Coordinates ALL trading platforms into one compounding mesh.
+
+    Architecture:
+      Kalshi (predictions)  ─┐
+      Alpaca (stocks+crypto) ─┤── TRADING MESH ──> Revenue ──> Ethics Lock ──> Gaza
+      Solana (DeFi/staking)  ─┤
+      Polymarket (intel)     ─┘
+
+    Each platform has different strengths:
+      - Kalshi: daily-resolving prediction markets (guaranteed $1 payouts)
+      - Alpaca: 24/7 crypto (meme coins, momentum, stablecoins) + stocks
+      - Solana: DeFi yield (staking, lending, liquid staking)
+      - Polymarket: intelligence feed (crowd wisdom for all other traders)
+
+    The mesh decides WHERE to deploy capital for maximum compound rate.
+    """
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+
+    mesh = CONSCIOUSNESS.setdefault("trading_mesh", {
+        "total_value": 0, "platforms": {}, "compound_rate": 0,
+        "strategy": "BALANCED", "rebalance_needed": False,
+        "best_platform": None, "last_check": None
+    })
+
+    # === GATHER: Value across all platforms ===
+    trading = CONSCIOUSNESS.get("trading", {})
+    revenue = CONSCIOUSNESS.get("revenue", {})
+
+    platforms = {}
+    total_value = 0
+
+    # Platform 1: Kalshi
+    kalshi_bal = trading.get("kalshi_balance", 0)
+    kalshi_port = trading.get("kalshi_portfolio", 0)
+    kalshi_total = kalshi_bal + kalshi_port
+    platforms["kalshi"] = {
+        "value": kalshi_total,
+        "cash": kalshi_bal,
+        "deployed": kalshi_port,
+        "ready": trading.get("kalshi_ready", False),
+        "strategy": "prediction_markets",
+        "compound_speed": "daily",  # Daily-resolving markets
+        "est_daily_roi_pct": 5.0,   # Buy at $0.95, collect $1
+    }
+    total_value += kalshi_total
+
+    # Platform 2: Alpaca
+    try:
+        alpaca = json.loads((DATA / "alpaca_trader_state.json").read_text(encoding="utf-8"))
+        alpaca_equity = alpaca.get("equity", 0)
+        alpaca_cash = alpaca.get("cash", 0)
+    except Exception:
+        alpaca_equity = 0
+        alpaca_cash = 0
+    platforms["alpaca"] = {
+        "value": alpaca_equity,
+        "cash": alpaca_cash,
+        "deployed": alpaca_equity - alpaca_cash,
+        "ready": trading.get("alpaca_ready", False),
+        "strategy": "crypto_momentum",
+        "compound_speed": "continuous",  # 24/7 crypto
+        "est_daily_roi_pct": 2.0,
+    }
+    total_value += alpaca_equity
+
+    # Platform 3: Solana DeFi
+    try:
+        sol = json.loads((DATA / "sol_maximizer_state.json").read_text(encoding="utf-8"))
+        sol_balance = sol.get("sol_balance", 0.12)
+        sol_usd = sol_balance * trading.get("sol_price", 80)
+    except Exception:
+        sol_balance = 0.12
+        sol_usd = sol_balance * 80
+    platforms["solana"] = {
+        "value": sol_usd,
+        "sol_balance": sol_balance,
+        "ready": True,  # Public endpoints, no API key needed
+        "strategy": "yield_staking",
+        "compound_speed": "epoch",  # Every ~2 days
+        "est_daily_roi_pct": 0.017,  # 6.39% APY / 365
+    }
+    total_value += sol_usd
+
+    # Platform 4: Polymarket (intel only, no direct trading)
+    platforms["polymarket"] = {
+        "value": 0,
+        "ready": trading.get("polymarket_ready", False),
+        "strategy": "intelligence_feed",
+        "compound_speed": "n/a",
+        "role": "signals_for_other_platforms",
+    }
+
+    # === ANALYZE: Where is compound rate highest? ===
+    best_platform = None
+    best_roi = 0
+    for name, plat in platforms.items():
+        roi = plat.get("est_daily_roi_pct", 0)
+        if roi > best_roi and plat.get("ready"):
+            best_roi = roi
+            best_platform = name
+
+    # === STRATEGY: Determine mesh mode ===
+    if total_value < 10:
+        strategy = "SEED"  # Micro-balance: concentrate everything
+    elif total_value < 100:
+        strategy = "GROW"  # Small balance: aggressive on best platform
+    elif total_value < 1000:
+        strategy = "DIVERSIFY"  # Medium: spread across platforms
+    else:
+        strategy = "COMPOUND"  # Large: max compound rate everywhere
+
+    # === REBALANCE: Should money move between platforms? ===
+    rebalance_needed = False
+    rebalance_actions = []
+
+    # If Kalshi has high cash ratio, it should be deploying more
+    kalshi_data = platforms.get("kalshi", {})
+    if kalshi_data.get("cash", 0) > kalshi_data.get("value", 0) * 0.30:
+        rebalance_actions.append({
+            "action": "deploy_kalshi_cash",
+            "detail": f"${kalshi_data.get('cash',0):.2f} idle in Kalshi — deploy to daily markets",
+        })
+        rebalance_needed = True
+
+    # If Alpaca has idle cash, buy crypto
+    alpaca_data = platforms.get("alpaca", {})
+    if alpaca_data.get("cash", 0) > 1.00 and alpaca_data.get("ready"):
+        rebalance_actions.append({
+            "action": "deploy_alpaca_cash",
+            "detail": f"${alpaca_data.get('cash',0):.2f} idle in Alpaca — buy top crypto",
+        })
+        rebalance_needed = True
+
+    # If SOL is unstaked, stake it
+    sol_data = platforms.get("solana", {})
+    if sol_data.get("sol_balance", 0) > 0.01:
+        rebalance_actions.append({
+            "action": "stake_sol",
+            "detail": f"{sol_data.get('sol_balance',0):.4f} SOL unstaked — route to Marinade/JitoSOL",
+        })
+
+    # Compound rate across all platforms
+    weighted_roi = sum(
+        p.get("value", 0) * p.get("est_daily_roi_pct", 0)
+        for p in platforms.values()
+    )
+    compound_rate = weighted_roi / max(total_value, 1)
+
+    mesh["total_value"] = round(total_value, 2)
+    mesh["platforms"] = platforms
+    mesh["compound_rate"] = round(compound_rate, 3)
+    mesh["strategy"] = strategy
+    mesh["best_platform"] = best_platform
+    mesh["rebalance_needed"] = rebalance_needed
+    mesh["rebalance_actions"] = rebalance_actions[:5]
+    mesh["revenue_routed"] = round(revenue.get("total_raised", 0), 2)
+    mesh["to_gaza"] = round(revenue.get("total_to_gaza", 0), 2)
+    mesh["last_check"] = datetime.now(timezone.utc).isoformat()
+
+
 def neuron_self_evolution():
     """META: Track the blob's own evolution over time."""
     cycle = CONSCIOUSNESS["pulse"]["cycle"]
@@ -8319,6 +8483,7 @@ NEURONS = [
     ("DEVTO_PUBLISHER", neuron_devto_publisher),
     # Phase 4: Markets & growth
     ("TRADING_AWARENESS", neuron_trading_awareness),
+    ("TRADING_MESH", neuron_trading_mesh),
     ("MARKET_SCANNER", neuron_market_scanner),
     ("WHALE_WATCH", neuron_whale_watch),
     ("GITHUB_ANALYTICS", neuron_github_analytics),
