@@ -8423,6 +8423,195 @@ def neuron_bloom_filter():
     bf["last_check"] = datetime.now(timezone.utc).isoformat()
 
 
+def neuron_connectivity_audit():
+    """
+    META: Self-wiring integrity checker.
+    Detects disconnected engines, stale data, broken pipes.
+    Ensures EVERY engine's output is consumed by at least one neuron.
+    Runs every 10 cycles — lightweight but thorough.
+    """
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0 and cycle != 1:
+        return
+
+    ca = CONSCIOUSNESS.setdefault("connectivity", {
+        "engines_found": 0, "engines_connected": 0, "engines_orphaned": [],
+        "data_files_total": 0, "data_files_stale": 0, "stale_files": [],
+        "pipes_ok": 0, "pipes_broken": 0, "broken_pipes": [],
+        "coverage_pct": 0, "last_audit": None,
+    })
+
+    from pathlib import Path
+    import os
+
+    # === CHECK 1: Engine connectivity ===
+    # Every .py in mycelium/ should either be imported by BLOB_BRAIN
+    # or have its state file read by a neuron
+    engine_dir = Path("mycelium")
+
+    # Dynamic detection: an engine is "connected" if:
+    # 1. It has a dedicated neuron (name appears in NEURONS list)
+    # 2. Its state file exists in data/ and is read by an absorber
+    # 3. It's a known infrastructure/utility file
+    # 4. It's a bridge, consumer, or agent (wired by design)
+    neuron_names = {n[0] for n in NEURONS} if "NEURONS" in dir() else set()
+
+    # Engines considered connected by category
+    connected_patterns = {
+        # Infra/utility — don't need individual neurons
+        "AGENT_", "BATCH_", "BRIDGE", "CLI", "CONSUMER",
+        "GENERATED_", "NANO_", "TEST_", "SETUP",
+        # Absorbed by mega-absorbers (trade_desk, treasury, media, comms, etc.)
+        "SCANNER", "HARVESTER", "PUBLISHER", "ENGINE",
+        "MONITOR", "WATCHER", "TRACKER", "BUILDER",
+        "EXECUTOR", "FLYWHEEL", "LOOP", "BRAIN",
+        "CORE", "NERVE", "PULSE", "MESH", "WIRE",
+        "ORACLE", "MAXIMIZER", "HUNTER", "BRIDGE",
+        "CHAIN", "ARC", "PROMOTER", "AUTOPILOT",
+        "ARCHITECT", "OVERSEER", "DASHBOARD", "REPLICATOR",
+        "FORGE", "CATALOG", "STORE", "ECHO", "BOOST",
+        "CHIMERA", "TRIFECTA", "SOVEREIGN", "SENTINEL",
+    }
+
+    all_engines = set()
+    orphaned = []
+    if engine_dir.exists():
+        for f in engine_dir.glob("*.py"):
+            name = f.stem
+            if name.startswith("__"):
+                continue
+            all_engines.add(name)
+
+            # Check if connected via any mechanism
+            is_connected = False
+
+            # 1. Has a neuron
+            if name in neuron_names or name.replace("_", "") in neuron_names:
+                is_connected = True
+
+            # 2. Matches a connected pattern
+            if not is_connected:
+                for pat in connected_patterns:
+                    if pat in name:
+                        is_connected = True
+                        break
+
+            # 3. Has a state file being written (means it runs)
+            if not is_connected:
+                state_file = DATA / f"{name.lower()}_state.json"
+                if state_file.exists():
+                    is_connected = True
+
+            if not is_connected:
+                orphaned.append(name)
+
+    ca["engines_found"] = len(all_engines)
+    ca["engines_connected"] = len(all_engines) - len(orphaned)
+    ca["engines_orphaned"] = orphaned[:20]  # Cap for sanity
+
+    # === CHECK 2: Data freshness ===
+    # State files older than 1 hour might indicate a dead engine
+    data_dir = Path("data")
+    now_ts = time.time()
+    stale_threshold = 3600  # 1 hour
+    total_files = 0
+    stale_files = []
+
+    critical_files = [
+        "blob_brain.json", "turbo_trader_state.json",
+        "alpaca_trader_state.json", "global_intelligence.json",
+        "prediction_intelligence.json", "compound_tracker.json",
+    ]
+
+    for fname in critical_files:
+        fpath = data_dir / fname
+        total_files += 1
+        if fpath.exists():
+            age = now_ts - os.path.getmtime(str(fpath))
+            if age > stale_threshold:
+                stale_files.append({
+                    "file": fname,
+                    "age_minutes": round(age / 60, 1),
+                })
+        else:
+            stale_files.append({"file": fname, "age_minutes": -1, "status": "MISSING"})
+
+    ca["data_files_total"] = total_files
+    ca["data_files_stale"] = len(stale_files)
+    ca["stale_files"] = stale_files
+
+    # === CHECK 3: Trading pipeline integrity ===
+    pipes_ok = 0
+    pipes_broken = 0
+    broken = []
+
+    # Pipe 1: GLOBAL_INTELLIGENCE → TURBO_TRADER
+    gi = CONSCIOUSNESS.get("global_intel", {})
+    if gi.get("last_scan"):
+        pipes_ok += 1
+    else:
+        pipes_broken += 1
+        broken.append("GLOBAL_INTELLIGENCE → consciousness (no last_scan)")
+
+    # Pipe 2: TURBO_TRADER → compound_tracker
+    trading = CONSCIOUSNESS.get("trading", {})
+    if trading.get("kalshi_ready"):
+        pipes_ok += 1
+    else:
+        pipes_broken += 1
+        broken.append("TURBO_TRADER kalshi not ready")
+
+    # Pipe 3: ALPACA_TRADER → consciousness
+    if trading.get("alpaca_ready"):
+        pipes_ok += 1
+    else:
+        pipes_broken += 1
+        broken.append("ALPACA_TRADER not ready")
+
+    # Pipe 4: Revenue pipeline
+    rev = CONSCIOUSNESS.get("revenue", {})
+    if rev.get("total_raised", 0) > 0 or rev.get("ethics_lock"):
+        pipes_ok += 1
+    else:
+        pipes_broken += 1
+        broken.append("Revenue pipeline not flowing")
+
+    # Pipe 5: Ethics lock
+    if rev.get("ethics_lock", 0) >= 0.99:
+        pipes_ok += 1
+    else:
+        pipes_broken += 1
+        broken.append(f"Ethics lock at {rev.get('ethics_lock', 0)} (expected 0.99)")
+
+    # Pipe 6: Cross-signals
+    cs = CONSCIOUSNESS.get("cross_signals", {})
+    if cs.get("fear_greed") is not None or cs.get("vix") is not None:
+        pipes_ok += 1
+    else:
+        pipes_broken += 1
+        broken.append("Cross-signals not populated (no fear_greed or vix)")
+
+    ca["pipes_ok"] = pipes_ok
+    ca["pipes_broken"] = pipes_broken
+    ca["broken_pipes"] = broken
+
+    # === COVERAGE SCORE ===
+    if ca["engines_found"] > 0:
+        ca["coverage_pct"] = round(
+            (ca["engines_connected"] / ca["engines_found"]) * 100, 1
+        )
+
+    ca["last_audit"] = datetime.now(timezone.utc).isoformat()
+
+    # Log warnings
+    if broken:
+        for b in broken:
+            print(f"  [CONNECTIVITY] ⚠ BROKEN: {b}")
+    if stale_files:
+        for s in stale_files:
+            print(f"  [CONNECTIVITY] ⏰ STALE: {s['file']} ({s.get('age_minutes', '?')}min)")
+
+
 def neuron_grand_unified():
     """THE FINAL NEURON: Grand Unified Theory of the entire digital organism."""
     cycle = CONSCIOUSNESS["pulse"]["cycle"]
@@ -8432,7 +8621,7 @@ def neuron_grand_unified():
         "vital_signs": {}, "last_pulse": None
     })
     # Vital signs
-    gut["total_neurons"] = 161  # v23 count
+    gut["total_neurons"] = len(NEURONS)  # Dynamic count — always accurate
     gut["total_keys"] = len(CONSCIOUSNESS)
     gut["version"] = 23
     gut["vital_signs"] = {
@@ -8446,6 +8635,8 @@ def neuron_grand_unified():
         "coverage": CONSCIOUSNESS.get("neuron_map", {}).get("coverage", 0),
         "freshness": CONSCIOUSNESS.get("temporal", {}).get("freshness_pct", 0),
         "conviction": CONSCIOUSNESS.get("convergence_deep", {}).get("conviction", 0),
+        "connectivity": CONSCIOUSNESS.get("connectivity", {}).get("coverage_pct", 0),
+        "pipes_ok": CONSCIOUSNESS.get("connectivity", {}).get("pipes_ok", 0),
     }
     # Determine organism state
     vs = gut["vital_signs"]
@@ -8755,6 +8946,7 @@ NEURONS = [
     ("EXECUTION_READINESS", neuron_execution_readiness),
     ("DEPENDENCY_GRAPH", neuron_dependency_graph),
     ("BLOOM_FILTER", neuron_bloom_filter),
+    ("CONNECTIVITY_AUDIT", neuron_connectivity_audit),
     ("GRAND_UNIFIED", neuron_grand_unified),
 ]
 

@@ -467,6 +467,26 @@ def _evaluate_crypto_snapshot(symbol, snap, intelligence=None):
         elif crypto_bull < 0.3:
             score -= 10  # Less penalty — we still trade in bear markets
 
+        # Fear & Greed Index: extreme fear = contrarian buy, extreme greed = caution
+        fg = intelligence.get("fear_greed", 50)
+        if fg <= 20:
+            score += 20  # EXTREME FEAR = strongest buy signal
+        elif fg <= 35:
+            score += 10  # Fear = good entry
+        elif fg >= 80:
+            score -= 15  # Extreme greed = likely reversal
+
+        # Trending coin bonus (CoinGecko trending = momentum)
+        trending = intelligence.get("trending_crypto", [])
+        base_sym = symbol.replace("/USD", "").replace("USD", "")
+        if base_sym in trending:
+            score += 10  # Trending = momentum confirmation
+
+        # VIX-based caution for risk assets
+        vix = intelligence.get("vix", 20)
+        if vix > 30:
+            score -= 10  # High vol environment = reduce crypto risk
+
     # Lower threshold for crypto — speed + automation compensates for lower conviction
     if score < 50:
         return None
@@ -922,9 +942,48 @@ def run():
             health = xpol.get("mycelium_health", {})
             intelligence["mycelium_health"] = health.get("score", 50)
 
+        # === GLOBAL INTELLIGENCE: world market context ===
+        # VIX, market regime, Fear & Greed, commodities, trending crypto
+        global_intel = _load(DATA / "global_intelligence.json")
+        if global_intel:
+            gsig = global_intel.get("signals", {})
+            gprices = gsig.get("live_prices", {})
+            gcrypto = global_intel.get("crypto", {})
+
+            intelligence["market_regime"] = gsig.get("market_regime", "UNKNOWN")
+            intelligence["risk_level"] = gsig.get("risk_level", "MODERATE")
+            intelligence["vix"] = gprices.get("vix", 20)
+
+            # Crypto Fear & Greed overrides generic bullish signal
+            fg = gcrypto.get("fear_greed", 50)
+            intelligence["fear_greed"] = fg
+            if fg <= 25:
+                # EXTREME FEAR = contrarian buy signal for crypto
+                intelligence["crypto_bullish"] = max(intelligence.get("crypto_bullish", 0.5), 0.75)
+                intelligence["fear_greed_signal"] = "EXTREME_FEAR_BUY"
+            elif fg >= 75:
+                # EXTREME GREED = take profits
+                intelligence["crypto_bullish"] = min(intelligence.get("crypto_bullish", 0.5), 0.3)
+                intelligence["fear_greed_signal"] = "EXTREME_GREED_SELL"
+
+            # Trending coins — boost score for trending assets
+            intelligence["trending_crypto"] = gsig.get("trending_crypto", [])
+
+            # Gold/Oil for commodity-correlated trades
+            intelligence["gold_price"] = gprices.get("gold", 0)
+            intelligence["oil_price"] = gprices.get("oil_wti", 0)
+
+            # VIX-based risk adjustment
+            vix = intelligence["vix"]
+            if vix > 30:
+                intelligence["macro_risk"] = max(intelligence.get("macro_risk", 0.25), 0.8)
+            elif vix > 25:
+                intelligence["macro_risk"] = max(intelligence.get("macro_risk", 0.25), 0.6)
+
         src_count = sum(1 for k in ["crypto_bullish", "polymarket_edges",
                                      "kalshi_markets", "arbitrage_opps",
-                                     "mycelium_health", "signal_mesh_conviction"]
+                                     "mycelium_health", "signal_mesh_conviction",
+                                     "market_regime", "fear_greed", "vix"]
                         if k in intelligence)
         src_label = "BUS" if bus_available else "FILES"
         print(f"[ALPACA_TRADER] Intelligence: {src_count} sources ({src_label})")
