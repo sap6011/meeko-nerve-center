@@ -297,6 +297,7 @@ def gather_all_intelligence():
         "compound": _load(DATA / "compound_tracker.json"),
         "ledger_stats": _load(DATA / "trade_ledger.json", {}).get("stats", {}),
         "bus_boost": _bus_boost,
+        "global": _load(DATA / "global_intelligence.json"),
     }
 
     # Extract key signals
@@ -336,11 +337,30 @@ def gather_all_intelligence():
         signals["compound_growth_pct"] = snapshots[-1].get("growth_pct", 0)
         signals["compound_cycles"] = compound.get("compound_cycles", 0)
 
+    # Global intelligence
+    global_intel = intel.get("global", {})
+    global_signals = global_intel.get("signals", {})
+    live_prices = global_signals.get("live_prices", {})
+
+    signals["market_regime"] = global_signals.get("market_regime", "UNKNOWN")
+    signals["risk_level"] = global_signals.get("risk_level", "MODERATE")
+    signals["vix"] = live_prices.get("vix", 20)
+    signals["sp500_price"] = live_prices.get("sp500", 0)
+    signals["btc_live_price"] = live_prices.get("btc", 0)
+    signals["eth_live_price"] = live_prices.get("eth", 0)
+    signals["gold_price"] = live_prices.get("gold", 0)
+    signals["oil_price"] = live_prices.get("oil_wti", 0)
+    signals["global_data_sources"] = global_signals.get("data_sources_active", 0)
+    signals["trending_crypto"] = global_signals.get("trending_crypto", [])
+    signals["sports_arb_count"] = global_intel.get("sports_odds", {}).get("arb_count", 0)
+
     print(f"  [HIVE] Intelligence gathered: "
           f"crypto={signals['crypto_bullish']:.1%} bullish | "
           f"macro_risk={signals['macro_risk']:.1%} | "
           f"action={signals['recommended_action']} | "
-          f"win_rate={signals['our_win_rate']:.0%}")
+          f"win_rate={signals['our_win_rate']:.0%} | "
+          f"regime={signals['market_regime']} | "
+          f"VIX={signals['vix']}")
 
     return signals, intel
 
@@ -388,6 +408,10 @@ CURRENT MARKET INTELLIGENCE:
 - Crisis level: {signals['crisis_level']:.0%}
 - Recommended action: {signals['recommended_action']}
 - Our win rate so far: {signals['our_win_rate']:.0%} ({signals['total_trades']} trades)
+- Market regime: {signals.get('market_regime', 'UNKNOWN')}
+- VIX (fear index): {signals.get('vix', 20)}
+- Gold: ${signals.get('gold_price', 0):,.0f}
+- Oil: ${signals.get('oil_price', 0):,.0f}
 
 STRATEGY: We buy near-certain outcomes (>85% probability) on prediction markets.
 We prefer DAILY-resolving markets for faster compounding.
@@ -1228,12 +1252,14 @@ def construct_micro_orders(opportunities, balance, config):
 
         price_cents = int(round(price * 100))
 
+        # Use limit orders (maker) for zero fees -- structural edge
+        # Kalshi charges 0% maker fees vs taker fees
         order = {
             "ticker": opp["ticker"],
             "action": "buy",
             "side": opp["side"],
             "count": count,
-            "type": "limit",
+            "type": "limit",  # Always limit, never market
             "client_order_id": str(uuid.uuid4()),
         }
 

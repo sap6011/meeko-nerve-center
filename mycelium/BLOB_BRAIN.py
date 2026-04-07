@@ -1026,6 +1026,9 @@ def neuron_legacy_fire():
     # Priority engines to fire (only ones that have real effect)
     priority = []
 
+    # Always fire global intelligence (free APIs, enriches all trading)
+    priority.append("GLOBAL_INTELLIGENCE")
+
     # If we have Anthropic, fire content-generating engines
     if CONSCIOUSNESS["brain"].get("ai_available"):
         priority.append("GROWTH_FLYWHEEL")
@@ -8465,6 +8468,99 @@ def neuron_grand_unified():
     gut["cycle"] = cycle
 
 
+def neuron_global_intelligence():
+    """LIVE: Global market intelligence from Yahoo, CoinGecko, FRED, Odds API."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Run every cycle — fresh data for sniper mode
+    gi = CONSCIOUSNESS.setdefault("global_intel", {
+        "market_regime": "UNKNOWN", "risk_level": "MODERATE",
+        "crypto_fear_greed": 50, "vix": 20, "sp500_change": 0,
+        "btc_price": 0, "eth_price": 0, "sol_price": 0,
+        "gold_price": 0, "oil_price": 0,
+        "trending_crypto": [], "arb_opportunities": 0,
+        "data_sources": 0, "last_scan": None,
+    })
+
+    try:
+        intel = json.loads((DATA / "global_intelligence.json").read_text(encoding="utf-8"))
+        signals = intel.get("signals", {})
+        prices = signals.get("live_prices", {})
+        crypto = intel.get("crypto", {})
+
+        gi["market_regime"] = signals.get("market_regime", "UNKNOWN")
+        gi["risk_level"] = signals.get("risk_level", "MODERATE")
+        gi["crypto_fear_greed"] = crypto.get("fear_greed", 50)
+        gi["crypto_sentiment"] = signals.get("crypto_sentiment", "NEUTRAL")
+        gi["macro_outlook"] = signals.get("macro_outlook", "NEUTRAL")
+        gi["vix"] = prices.get("vix", 20)
+        gi["sp500_change"] = intel.get("yahoo_finance", {}).get("SP500", {}).get("change_pct", 0)
+        gi["btc_price"] = prices.get("btc", 0)
+        gi["eth_price"] = prices.get("eth", 0)
+        gi["sol_price"] = prices.get("sol", 0)
+        gi["gold_price"] = prices.get("gold", 0)
+        gi["oil_price"] = prices.get("oil_wti", 0)
+        gi["trending_crypto"] = signals.get("trending_crypto", [])
+        gi["arb_opportunities"] = intel.get("sports_odds", {}).get("arb_count", 0)
+        gi["data_sources"] = signals.get("data_sources_active", 0)
+        gi["recommended_actions"] = signals.get("recommended_actions", [])[:5]
+        gi["last_scan"] = intel.get("timestamp")
+
+        # Cross-pollinate to trading consciousness
+        trading = CONSCIOUSNESS.get("trading", {})
+        if prices.get("sol"):
+            CONSCIOUSNESS.setdefault("solana", {})["sol_price"] = prices["sol"]
+
+        # Update cross signals with global data
+        cs = CONSCIOUSNESS.setdefault("cross_signals", {})
+        cs["fear_greed"] = crypto.get("fear_greed", cs.get("fear_greed", 50))
+        cs["vix"] = prices.get("vix", cs.get("vix", 20))
+        cs["market_regime"] = signals.get("market_regime", "UNKNOWN")
+
+    except Exception as e:
+        gi["error"] = str(e)[:80]
+
+
+def neuron_global_intelligence_fire():
+    """LIVE: Fire the global intelligence engine to refresh world market data."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    # Fire every 5 cycles (data doesn't change that fast, save API calls)
+    if cycle % 5 != 0 and cycle != 1:
+        return
+
+    try:
+        import subprocess
+        result = subprocess.run(
+            ["python", "mycelium/GLOBAL_INTELLIGENCE.py"],
+            capture_output=True, text=True, timeout=60,
+            cwd=str(DATA.parent)
+        )
+        if result.returncode == 0:
+            CONSCIOUSNESS.setdefault("global_intel", {})["fire_ok"] = True
+        else:
+            CONSCIOUSNESS.setdefault("global_intel", {})["fire_error"] = result.stderr[:100]
+    except Exception as e:
+        CONSCIOUSNESS.setdefault("global_intel", {})["fire_error"] = str(e)[:80]
+
+
+def neuron_news_harvester_absorb():
+    """ABSORB: Pull news intelligence into consciousness."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 3 != 0: return
+    nh = CONSCIOUSNESS.setdefault("news_harvester", {
+        "headlines": [], "sentiment": "neutral", "breaking": False,
+        "sources_active": 0, "last_absorb": None,
+    })
+    try:
+        state = json.loads((DATA / "news_harvester_state.json").read_text(encoding="utf-8"))
+        nh["headlines"] = state.get("headlines", [])[:10]
+        nh["sentiment"] = state.get("overall_sentiment", "neutral")
+        nh["breaking"] = state.get("breaking_news", False)
+        nh["sources_active"] = state.get("sources_checked", 0)
+        nh["last_absorb"] = datetime.now(timezone.utc).isoformat()
+    except Exception:
+        pass
+
+
 # ============================================================
 # THE NEURON REGISTRY -- All blob functions in execution order
 # ============================================================
@@ -8493,6 +8589,7 @@ NEURONS = [
     # Phase 4: Markets & growth
     ("TRADING_AWARENESS", neuron_trading_awareness),
     ("TRADING_MESH", neuron_trading_mesh),
+    ("GLOBAL_INTELLIGENCE", neuron_global_intelligence),
     ("MARKET_SCANNER", neuron_market_scanner),
     ("WHALE_WATCH", neuron_whale_watch),
     ("GITHUB_ANALYTICS", neuron_github_analytics),
@@ -8505,6 +8602,7 @@ NEURONS = [
     ("REVENUE_OPTIMIZER", neuron_revenue_optimizer),
     # Phase 7: ACT -- Do things that generate value
     ("LEGACY_FIRE", neuron_legacy_fire),
+    ("GLOBAL_INTELLIGENCE_FIRE", neuron_global_intelligence_fire),
     ("PRODUCT_BUILDER", neuron_product_builder),
     ("SEO_OPTIMIZER", neuron_seo_optimizer),
     ("ACTION_EXECUTOR", neuron_action_executor),
@@ -8543,6 +8641,7 @@ NEURONS = [
     ("DUAL_BRAIN", neuron_dual_brain),
     ("CROSSWIRE", neuron_crosswire),
     # Phase 15: Deep engine absorption -- richest state files
+    ("NEWS_HARVESTER_ABSORB", neuron_news_harvester_absorb),
     ("SIGNAL_MESH_ABSORB", neuron_signal_mesh_absorb),
     ("PRICE_ORACLE_ABSORB", neuron_price_oracle_absorb),
     ("REFLEX_ARC_ABSORB", neuron_reflex_arc_absorb),
