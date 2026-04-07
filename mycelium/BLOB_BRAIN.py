@@ -61,6 +61,7 @@ CONSCIOUSNESS STRUCTURE:
 Reports to: data/blob_brain.json (one file, one write per cycle)
 """
 import json
+import math
 import sys
 import os
 import time
@@ -8750,6 +8751,44 @@ def neuron_news_harvester_absorb():
         nh["last_absorb"] = datetime.now(timezone.utc).isoformat()
     except Exception:
         pass
+
+def neuron_lunar_cycle():
+    """Track the lunar cycle and current moon phase."""
+    cycle = CONSCIOUSNESS["pulse"]["cycle"]
+    if cycle % 10 != 0:
+        return
+    
+    KNOWN_NEW_MOON = datetime(2025, 1, 29, 12, 36, tzinfo=timezone.utc)
+    SYNODIC_MONTH = 29.53059 # Average length of lunar cycle in days
+    PHASE_NAMES = [
+        (0.0,  " New Moon"),
+        (0.125, " Waxing Crescent"),
+        (0.25,  " First Quarter"),
+        (0.375, " Waxing Gibbous"),
+        (0.5,   " Full Moon"),
+        (0.625, " Waning Gibbous"),
+        (0.75,  " Last Quarter"),
+        (0.875, " Waning Crescent"),
+    ]
+    data = CONSCIOUSNESS.setdefault("lunar_cycle", {
+        "phase_name": None,
+        "illumination_pct": 0.0,
+        "cycle_progress": 0.0,
+        "days_until_full": None,
+        "days_until_new": None,
+        "last_check": None,
+    })
+    now = datetime.now(timezone.utc)
+    elapsed_days = (now - KNOWN_NEW_MOON).total_seconds() / (SYNODIC_MONTH * 24 * 3600)
+    cycle_progress = (elapsed_days % SYNODIC_MONTH) / SYNODIC_MONTH
+    illumination = (1- math.cos(2*math.pi * cycle_progress)) / 2
+
+    phase_name = PHASE_NAMES[0][1]  # Default to New Moon
+    for threshold, name in reversed(PHASE_NAMES):
+        if cycle_progress >= threshold:
+            phase_name = name
+            break
+    
 
 
 # ============================================================
