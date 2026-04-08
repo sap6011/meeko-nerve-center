@@ -8788,7 +8788,16 @@ def neuron_lunar_cycle():
         if cycle_progress >= threshold:
             phase_name = name
             break
-    
+    days_into_cycle = cycle_progress * SYNODIC_MONTH
+    days_until_full = (0.5 - cycle_progress) % 1.0 * SYNODIC_MONTH
+    days_until_new  = (1.0 - cycle_progress) % 1.0 * SYNODIC_MONTH
+
+    data["phase_name"]       = phase_name
+    data["illumination_pct"] = round(illumination * 100, 1)
+    data["cycle_progress"]   = round(cycle_progress, 4)
+    data["days_until_full"]  = round(days_until_full, 1)
+    data["days_until_new"]   = round(days_until_new, 1)
+    data["last_check"]       = now.isoformat()
 
 
 # ============================================================
