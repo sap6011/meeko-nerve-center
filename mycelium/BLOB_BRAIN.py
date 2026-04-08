@@ -8996,6 +8996,7 @@ NEURONS = [
     ("BLOOM_FILTER", neuron_bloom_filter),
     ("CONNECTIVITY_AUDIT", neuron_connectivity_audit),
     ("GRAND_UNIFIED", neuron_grand_unified),
+    ("LUNAR_CYCLE", neuron_lunar_cycle),
 ]
 
 
